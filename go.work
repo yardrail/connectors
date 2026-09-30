@@ -1,8 +1,7 @@
 go 1.27.1
 
 use (
-	./canva/canva/v1
 	./officernd/officernd/v2
-	./stripe/stripe/v1
+	./slack/slack/v1
 	./tools
 )
