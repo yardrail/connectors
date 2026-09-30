@@ -1,7 +1,7 @@
 go 1.27.1
 
 use (
-	./egnyte/egnyte/v1
+	./notion/notion/v1
 	./officernd/officernd/v2
 	./tools
 )
