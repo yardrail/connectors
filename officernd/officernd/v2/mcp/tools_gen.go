@@ -7,6 +7,7 @@ import (
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 	target "github.com/yardrail/connectors/officernd/officernd/v2/client"
+	"time"
 )
 
 type ServiceResolver func(ctx context.Context) (*target.ClientWithResponses, error)
@@ -265,6 +266,8 @@ func (h *Handler) RegisterBookings(s *server.MCPServer) {
 			mcp.WithString("resource", mcp.Description("Resource")),
 			mcp.WithBoolean("isCancelled", mcp.Description("IsCancelled")),
 			mcp.WithBoolean("isTentative", mcp.Description("IsTentative")),
+			mcp.WithString("seriesStart", mcp.Description("SeriesStart")),
+			mcp.WithString("seriesEnd", mcp.Description("SeriesEnd")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
@@ -408,6 +411,7 @@ func (h *Handler) RegisterCheckins(s *server.MCPServer) {
 			mcp.WithString("source", mcp.Description("Source")),
 			mcp.WithString("start", mcp.Description("Start")),
 			mcp.WithString("end", mcp.Description("End")),
+			mcp.WithString("createdAt", mcp.Description("CreatedAt")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
@@ -427,6 +431,7 @@ func (h *Handler) RegisterCheckins(s *server.MCPServer) {
 			mcp.WithString("source", mcp.Description("Source")),
 			mcp.WithString("start", mcp.Description("Start")),
 			mcp.WithString("end", mcp.Description("End")),
+			mcp.WithString("createdAt", mcp.Description("CreatedAt")),
 			mcp.WithString("visitor", mcp.Description("Visitor")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
@@ -1450,6 +1455,7 @@ func (h *Handler) RegisterPayments(s *server.MCPServer) {
 		mcp.NewTool("payments-controller-get-payment-methods-apiv2",
 			mcp.WithDescription("request returning *PaymentsControllerGetPaymentMethodsApiv2Response"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithArray("locations", mcp.Description("Locations"), mcp.WithStringItems()),
 		),
 		h.handlePaymentsControllerGetPaymentMethodsApiv2WithResponse,
 	)
@@ -1551,6 +1557,8 @@ func (h *Handler) RegisterPosts(s *server.MCPServer) {
 		mcp.NewTool("posts-controller-get-items-apiv2",
 			mcp.WithDescription("request returning *PostsControllerGetItemsApiv2Response"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithArray("_id", mcp.Description("UnderscoreId"), mcp.WithStringItems()),
+			mcp.WithArray("locations", mcp.Description("Locations"), mcp.WithStringItems()),
 			mcp.WithString("modifiedAt", mcp.Description("ModifiedAt")),
 			mcp.WithString("createdAt", mcp.Description("CreatedAt")),
 			mcp.WithString("$select", mcp.Description("Select")),
@@ -1637,6 +1645,8 @@ func (h *Handler) RegisterResourceTypes(s *server.MCPServer) {
 		mcp.NewTool("resource-types-controller-get-items-apiv2",
 			mcp.WithDescription("request returning *ResourceTypesControllerGetItemsApiv2Response"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithArray("_id", mcp.Description("UnderscoreId"), mcp.WithStringItems()),
+			mcp.WithArray("type", mcp.Description("Type"), mcp.WithStringItems()),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
@@ -2329,6 +2339,33 @@ func ptrVal[T any](v T) *T {
 	return &v
 }
 
+func parseTime(s string) time.Time {
+	t, _ := time.Parse(time.RFC3339, s)
+	return t
+}
+
+func getStringSlice(request mcp.CallToolRequest, key string) []string {
+	args := request.GetArguments()
+	if args == nil {
+		return nil
+	}
+	v, ok := args[key]
+	if !ok {
+		return nil
+	}
+	slice, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]string, 0, len(slice))
+	for _, item := range slice {
+		if s, ok := item.(string); ok {
+			out = append(out, s)
+		}
+	}
+	return out
+}
+
 func (h *Handler) handleAmenitiesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
@@ -2954,6 +2991,16 @@ func (h *Handler) handleBookingsControllerGetOccurrencesApiv2WithResponse(ctx co
 		}
 	}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["seriesStart"]; ok {
+			params.SeriesStart = parseTime(request.GetString("seriesStart", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["seriesEnd"]; ok {
+			params.SeriesEnd = parseTime(request.GetString("seriesEnd", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
 		}
@@ -3321,6 +3368,11 @@ func (h *Handler) handleCheckinsControllerGetItemsApiv2WithResponse(ctx context.
 		}
 	}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["createdAt"]; ok {
+			params.CreatedAt = ptrVal(parseTime(request.GetString("createdAt", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
 		}
@@ -3391,6 +3443,11 @@ func (h *Handler) handleCheckinsControllerGetVisitorCheckinsApiv2WithResponse(ct
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["end"]; ok {
 			params.End = ptrVal(request.GetString("end", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["createdAt"]; ok {
+			params.CreatedAt = ptrVal(parseTime(request.GetString("createdAt", "")))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -5943,6 +6000,11 @@ func (h *Handler) handlePaymentsControllerGetPaymentMethodsApiv2WithResponse(ctx
 
 	orgSlug := request.GetString("orgSlug", "")
 	params := &target.PaymentsControllerGetPaymentMethodsApiv2Params{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["locations"]; ok {
+			params.Locations = ptrVal(getStringSlice(request, "locations"))
+		}
+	}
 
 	resp, err := client.PaymentsControllerGetPaymentMethodsApiv2WithResponse(ctx, orgSlug, params)
 	if err != nil {
@@ -6170,6 +6232,16 @@ func (h *Handler) handlePostsControllerGetItemsApiv2WithResponse(ctx context.Con
 	orgSlug := request.GetString("orgSlug", "")
 	params := &target.PostsControllerGetItemsApiv2Params{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["_id"]; ok {
+			params.UnderscoreId = ptrVal(getStringSlice(request, "_id"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["locations"]; ok {
+			params.Locations = ptrVal(getStringSlice(request, "locations"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["modifiedAt"]; ok {
 			params.ModifiedAt = ptrVal(request.GetString("modifiedAt", ""))
 		}
@@ -6381,6 +6453,16 @@ func (h *Handler) handleResourceTypesControllerGetItemsApiv2WithResponse(ctx con
 
 	orgSlug := request.GetString("orgSlug", "")
 	params := &target.ResourceTypesControllerGetItemsApiv2Params{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["_id"]; ok {
+			params.UnderscoreId = ptrVal(getStringSlice(request, "_id"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["type"]; ok {
+			params.Type = ptrVal(getStringSlice(request, "type"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))

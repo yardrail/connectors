@@ -35,7 +35,10 @@ func (h *Handler) RegisterBasic(s *server.MCPServer) {
 			mcp.WithDescription("request returning *Getcrmv3objectscontactsContactIdGetByIdResponse"),
 			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
 			mcp.WithBoolean("archived", mcp.Description("Archived")),
+			mcp.WithArray("associations", mcp.Description("Associations"), mcp.WithStringItems()),
 			mcp.WithString("idProperty", mcp.Description("IdProperty")),
+			mcp.WithArray("properties", mcp.Description("Properties"), mcp.WithStringItems()),
+			mcp.WithArray("propertiesWithHistory", mcp.Description("PropertiesWithHistory"), mcp.WithStringItems()),
 		),
 		h.handleGetcrmv3objectscontactsContactIdGetByIdWithResponse,
 	)
@@ -45,7 +48,10 @@ func (h *Handler) RegisterBasic(s *server.MCPServer) {
 			mcp.WithDescription("request returning *Getcrmv3objectscontactsGetPageResponse"),
 			mcp.WithString("after", mcp.Description("After")),
 			mcp.WithBoolean("archived", mcp.Description("Archived")),
+			mcp.WithArray("associations", mcp.Description("Associations"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
+			mcp.WithArray("properties", mcp.Description("Properties"), mcp.WithStringItems()),
+			mcp.WithArray("propertiesWithHistory", mcp.Description("PropertiesWithHistory"), mcp.WithStringItems()),
 		),
 		h.handleGetcrmv3objectscontactsGetPageWithResponse,
 	)
@@ -192,6 +198,28 @@ func ptrVal[T any](v T) *T {
 	return &v
 }
 
+func getStringSlice(request mcp.CallToolRequest, key string) []string {
+	args := request.GetArguments()
+	if args == nil {
+		return nil
+	}
+	v, ok := args[key]
+	if !ok {
+		return nil
+	}
+	slice, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]string, 0, len(slice))
+	for _, item := range slice {
+		if s, ok := item.(string); ok {
+			out = append(out, s)
+		}
+	}
+	return out
+}
+
 func (h *Handler) handleDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
@@ -223,8 +251,23 @@ func (h *Handler) handleGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx 
 		}
 	}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["associations"]; ok {
+			params.Associations = ptrVal(getStringSlice(request, "associations"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["idProperty"]; ok {
 			params.IdProperty = ptrVal(request.GetString("idProperty", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["properties"]; ok {
+			params.Properties = ptrVal(getStringSlice(request, "properties"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["propertiesWithHistory"]; ok {
+			params.PropertiesWithHistory = ptrVal(getStringSlice(request, "propertiesWithHistory"))
 		}
 	}
 
@@ -255,8 +298,23 @@ func (h *Handler) handleGetcrmv3objectscontactsGetPageWithResponse(ctx context.C
 		}
 	}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["associations"]; ok {
+			params.Associations = ptrVal(getStringSlice(request, "associations"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["limit"]; ok {
 			params.Limit = ptrVal(int32(request.GetInt("limit", 0)))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["properties"]; ok {
+			params.Properties = ptrVal(getStringSlice(request, "properties"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["propertiesWithHistory"]; ok {
+			params.PropertiesWithHistory = ptrVal(getStringSlice(request, "propertiesWithHistory"))
 		}
 	}
 

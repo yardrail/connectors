@@ -18,14 +18,15 @@ import (
 )
 
 type ToolParam struct {
-	Name       string
-	JSONName   string
-	GoType     string
-	FullType   string
-	IsStruct   bool
-	IsPtr      bool // true if the Params struct field is a pointer
-	Required   bool
-	Desc       string
+	Name     string
+	JSONName string
+	GoType   string
+	FullType string
+	TypeConv string // conversion func: "parseUUID", "parseTime", or ""
+	IsStruct bool
+	IsPtr    bool // true if the Params struct field is a pointer
+	Required bool
+	Desc     string
 }
 
 // CallArg represents one argument in the method call, in order.
@@ -314,16 +315,19 @@ func extractTool(methodName string, sig *types.Signature, scope *types.Scope, do
 							if jsonName == "" {
 								jsonName = toLowerCamel(f.Name())
 							}
-							// Detect pointer fields and named types (enums)
+							// Detect pointer fields, named types, and special conversions
 							fullType := ""
+							conv := typeConversion(f.Type())
 							_, isPtr := f.Type().(*types.Pointer)
-							ft := f.Type()
-							if pt, ok := ft.(*types.Pointer); ok {
-								ft = pt.Elem()
-							}
-							if n, ok := typeObjName(ft); ok {
-								if _, isBasic := ft.Underlying().(*types.Basic); isBasic && goType == "string" {
-									fullType = "target." + n
+							if conv == "" {
+								ft := f.Type()
+								if pt, ok := ft.(*types.Pointer); ok {
+									ft = pt.Elem()
+								}
+								if n, ok := typeObjName(ft); ok {
+									if _, isBasic := ft.Underlying().(*types.Basic); isBasic && goType == "string" {
+										fullType = "target." + n
+									}
 								}
 							}
 							params = append(params, ToolParam{
@@ -331,6 +335,7 @@ func extractTool(methodName string, sig *types.Signature, scope *types.Scope, do
 								JSONName: jsonName,
 								GoType:   goType,
 								FullType: fullType,
+								TypeConv: conv,
 								IsPtr:    isPtr,
 								Required: false,
 								Desc:     f.Name(),
@@ -363,14 +368,32 @@ func extractTool(methodName string, sig *types.Signature, scope *types.Scope, do
 		if jsonType == "" {
 			continue
 		}
+		conv := typeConversion(paramType)
+		fullType = ""
+		if conv == "" {
+			if name, ok := typeObjName(paramType); ok {
+				if _, isBasic := paramType.Underlying().(*types.Basic); isBasic && goType == "string" {
+					fullType = "target." + name
+				}
+			}
+		}
 		params = append(params, ToolParam{
 			Name:     paramName,
 			JSONName: toLowerCamel(paramName),
 			GoType:   goType,
+			FullType: fullType,
+			TypeConv: conv,
 			Required: true,
 			Desc:     paramName,
 		})
-		callArgs = append(callArgs, CallArg{Expr: paramName})
+		expr := paramName
+		switch {
+		case conv != "":
+			expr = fmt.Sprintf("%s(%s)", conv, paramName)
+		case fullType != "":
+			expr = fmt.Sprintf("%s(%s)", fullType, paramName)
+		}
+		callArgs = append(callArgs, CallArg{Expr: expr})
 	}
 
 	return &ToolDef{
@@ -449,17 +472,56 @@ func typeObjName(t types.Type) (string, bool) {
 	return "", false
 }
 
-func isStructParam(t types.Type) (bool, string) {
-	// Direct struct (non-pointer, like JSONRequestBody types or aliases)
+func typeConversion(t types.Type) string {
+	if pt, ok := t.(*types.Pointer); ok {
+		return typeConversion(pt.Elem())
+	}
+	if isUUIDLike(t) {
+		return "parseUUID"
+	}
+	if isDateLike(t) {
+		return "parseDate"
+	}
 	if name, ok := typeObjName(t); ok {
-		if _, ok := t.Underlying().(*types.Struct); ok {
+		if name == "Time" && strings.HasSuffix(t.String(), "time.Time") {
+			return "parseTime"
+		}
+	}
+	return ""
+}
+
+func isUUIDLike(t types.Type) bool {
+	if arr, ok := t.Underlying().(*types.Array); ok {
+		if arr.Len() == 16 {
+			if basic, ok := arr.Elem().(*types.Basic); ok && basic.Kind() == types.Byte {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func isDateLike(t types.Type) bool {
+	s := t.String()
+	return strings.HasSuffix(s, "types.Date") || strings.HasSuffix(s, "openapi_types.Date")
+}
+
+func isStructParam(t types.Type) (bool, string) {
+	isComplexUnderlying := func(u types.Type) bool {
+		switch u.(type) {
+		case *types.Struct, *types.Map:
+			return true
+		}
+		return false
+	}
+	if isComplexUnderlying(t.Underlying()) {
+		if name, ok := typeObjName(t); ok {
 			return true, "target." + name
 		}
 	}
-	// Pointer to struct
 	if pt, ok := t.(*types.Pointer); ok {
-		if name, ok := typeObjName(pt.Elem()); ok {
-			if _, ok := pt.Elem().Underlying().(*types.Struct); ok {
+		if isComplexUnderlying(pt.Elem().Underlying()) {
+			if name, ok := typeObjName(pt.Elem()); ok {
 				return true, "target." + name
 			}
 		}
@@ -468,6 +530,14 @@ func isStructParam(t types.Type) (bool, string) {
 }
 
 func goTypeToJSON(t types.Type) (jsonType string, goType string) {
+	if name, ok := typeObjName(t); ok {
+		switch name {
+		case "UUID":
+			return "string", "string"
+		case "Date", "Time":
+			return "string", "string"
+		}
+	}
 	switch u := t.Underlying().(type) {
 	case *types.Basic:
 		switch {
@@ -482,8 +552,18 @@ func goTypeToJSON(t types.Type) (jsonType string, goType string) {
 		}
 	case *types.Pointer:
 		return goTypeToJSON(u.Elem())
+	case *types.Slice:
+		if elem, ok := u.Elem().(*types.Basic); ok && elem.Info()&types.IsString != 0 {
+			return "array", "[]string"
+		}
+		return "object", "object"
+	case *types.Map:
+		return "object", "object"
+	case *types.Struct:
+		return "object", "object"
 	}
-	return "", t.String()
+	fmt.Fprintf(os.Stderr, "warning: treating unrecognized type %s as string\n", t.String())
+	return "string", "string"
 }
 
 func toKebab(s string) string {
@@ -521,6 +601,8 @@ func paramExtractExpr(p ToolParam) string {
 		return fmt.Sprintf(`request.GetBool("%s", false)`, p.JSONName)
 	case "float64", "float32":
 		return fmt.Sprintf(`request.GetFloat("%s", 0)`, p.JSONName)
+	case "[]string":
+		return fmt.Sprintf(`getStringSlice(request, "%s")`, p.JSONName)
 	default:
 		if isIntegerType(p.GoType) {
 			return fmt.Sprintf(`%s(request.GetInt("%s", 0))`, p.GoType, p.JSONName)
@@ -558,6 +640,13 @@ var tmplFuncs = template.FuncMap{
 	},
 	"optionalPtrExpr": func(p ToolParam) string {
 		base := paramExtractExpr(p)
+		if p.TypeConv != "" {
+			inner := fmt.Sprintf("%s(request.GetString(\"%s\", \"\"))", p.TypeConv, p.JSONName)
+			if p.IsPtr {
+				return fmt.Sprintf("ptrVal(%s)", inner)
+			}
+			return inner
+		}
 		if !p.IsPtr {
 			if p.FullType != "" {
 				return fmt.Sprintf("%s(request.GetString(\"%s\", \"\"))", p.FullType, p.JSONName)
@@ -585,12 +674,20 @@ var tmplFuncs = template.FuncMap{
 			return "mcp.WithBoolean"
 		case "float64", "float32":
 			return "mcp.WithNumber"
+		case "[]string":
+			return "mcp.WithArray"
 		default:
 			if isIntegerType(p.GoType) {
 				return "mcp.WithInteger"
 			}
 			return "mcp.WithString"
 		}
+	},
+	"extraPropOpts": func(p ToolParam) string {
+		if p.GoType == "[]string" {
+			return ", mcp.WithStringItems()"
+		}
+		return ""
 	},
 }
 
@@ -599,6 +696,10 @@ func render(groups []ControllerGroup, pkgName, serverName, pkgPath, tmplStr stri
 
 	needsJSON := false
 	hasOptional := false
+	needsUUID := false
+	needsTime := false
+	needsDate := false
+	hasSliceParams := false
 	for _, g := range groups {
 		for _, t := range g.Tools {
 			if t.HasReturn {
@@ -610,6 +711,28 @@ func render(groups []ControllerGroup, pkgName, serverName, pkgPath, tmplStr stri
 				}
 				if !p.Required {
 					hasOptional = true
+				}
+				switch p.TypeConv {
+				case "parseUUID":
+					needsUUID = true
+				case "parseTime":
+					needsTime = true
+				case "parseDate":
+					needsDate = true
+				}
+				if p.GoType == "[]string" {
+					hasSliceParams = true
+				}
+			}
+			for _, a := range t.CallArgs {
+				if strings.Contains(a.Expr, "parseUUID") {
+					needsUUID = true
+				}
+				if strings.Contains(a.Expr, "parseTime") {
+					needsTime = true
+				}
+				if strings.Contains(a.Expr, "parseDate") {
+					needsDate = true
 				}
 			}
 		}
@@ -623,13 +746,21 @@ func render(groups []ControllerGroup, pkgName, serverName, pkgPath, tmplStr stri
 		Controllers []ControllerGroup
 		NeedsJSON   bool
 		HasOptional bool
+		NeedsUUID   bool
+		NeedsTime   bool
+		NeedsDate      bool
+		HasSliceParams bool
 	}{
-		PkgPath:     pkgPath,
-		PkgName:     pkgName,
-		ServerName:  serverName,
-		Controllers: groups,
-		NeedsJSON:   needsJSON,
-		HasOptional: hasOptional,
+		PkgPath:        pkgPath,
+		PkgName:        pkgName,
+		ServerName:     serverName,
+		Controllers:    groups,
+		NeedsJSON:      needsJSON,
+		HasOptional:    hasOptional,
+		NeedsUUID:      needsUUID,
+		NeedsTime:      needsTime,
+		NeedsDate:      needsDate,
+		HasSliceParams: hasSliceParams,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("template: %w", err)
@@ -643,10 +774,55 @@ func render(groups []ControllerGroup, pkgName, serverName, pkgPath, tmplStr stri
 	return formatted, nil
 }
 
-const ptrHelper = `
+const convHelpers = `
 {{- if .HasOptional}}
 func ptrVal[T any](v T) *T {
 	return &v
+}
+{{- end}}
+{{- if .NeedsUUID}}
+
+func parseUUID(s string) uuid.UUID {
+	id, _ := uuid.Parse(s)
+	return id
+}
+{{- end}}
+{{- if .NeedsTime}}
+
+func parseTime(s string) time.Time {
+	t, _ := time.Parse(time.RFC3339, s)
+	return t
+}
+{{- end}}
+{{- if .NeedsDate}}
+
+func parseDate(s string) openapi_types.Date {
+	t, _ := time.Parse("2006-01-02", s)
+	return openapi_types.Date{Time: t}
+}
+{{- end}}
+{{- if .HasSliceParams}}
+
+func getStringSlice(request mcp.CallToolRequest, key string) []string {
+	args := request.GetArguments()
+	if args == nil {
+		return nil
+	}
+	v, ok := args[key]
+	if !ok {
+		return nil
+	}
+	slice, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]string, 0, len(slice))
+	for _, item := range slice {
+		if s, ok := item.(string); ok {
+			out = append(out, s)
+		}
+	}
+	return out
 }
 {{- end}}
 `
@@ -696,7 +872,7 @@ const toolRegistration = `{{range .Tools}}
 		mcp.NewTool("{{.Name}}",
 			mcp.WithDescription("{{escDesc .Desc}}"),
 {{- range .Params}}
-			{{mcpPropFunc .}}("{{.JSONName}}"{{if .Required}}, mcp.Required(){{end}}, mcp.Description("{{escDesc .Desc}}")),
+			{{mcpPropFunc .}}("{{.JSONName}}"{{if .Required}}, mcp.Required(){{end}}, mcp.Description("{{escDesc .Desc}}"){{extraPropOpts .}}),
 {{- end}}
 		),
 		h.handle{{.MethodName}},
@@ -757,14 +933,23 @@ import (
 {{- end}}
 	"log"
 	"os"
+{{- if .NeedsTime}}
+	"time"
+{{- end}}
 
+{{- if .NeedsUUID}}
+	"github.com/google/uuid"
+{{- end}}
 {{- if .Controllers}}
 	"github.com/mark3labs/mcp-go/mcp"
+{{- end}}
+{{- if .NeedsDate}}
+	openapi_types "github.com/oapi-codegen/runtime/types"
 {{- end}}
 	"github.com/mark3labs/mcp-go/server"
 	target "{{.PkgPath}}"
 )
-` + handlerType + ptrHelper + `
+` + handlerType + convHelpers + `
 func main() {
 	client, err := target.NewClientWithResponses(os.Getenv("API_BASE_URL"))
 	if err != nil {
@@ -791,11 +976,20 @@ import (
 {{- if .NeedsJSON}}
 	"encoding/json"
 {{- end}}
+{{- if .NeedsTime}}
+	"time"
+{{- end}}
 
+{{- if .NeedsUUID}}
+	"github.com/google/uuid"
+{{- end}}
 {{- if .Controllers}}
 	"github.com/mark3labs/mcp-go/mcp"
+{{- end}}
+{{- if .NeedsDate}}
+	openapi_types "github.com/oapi-codegen/runtime/types"
 {{- end}}
 	"github.com/mark3labs/mcp-go/server"
 	target "{{.PkgPath}}"
 )
-` + handlerType + mountAllFunc + ptrHelper + handlerFragment
+` + handlerType + mountAllFunc + convHelpers + handlerFragment

@@ -7,7 +7,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	types "github.com/oapi-codegen/runtime/types"
 	target "github.com/yardrail/connectors/notion/notion/v1/client"
 )
 
@@ -48,6 +47,7 @@ func (h *Handler) RegisterDataSources(s *server.MCPServer) {
 		mcp.NewTool("query-data-source",
 			mcp.WithDescription("QueryDataSource"),
 			mcp.WithString("dataSourceId", mcp.Required(), mcp.Description("dataSourceId")),
+			mcp.WithArray("filter_properties", mcp.Description("FilterProperties"), mcp.WithStringItems()),
 			mcp.WithString("Notion-Version", mcp.Description("NotionVersion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/v1/client.QueryDataSourceJSONRequestBody)")),
 		),
@@ -160,6 +160,33 @@ func ptrVal[T any](v T) *T {
 	return &v
 }
 
+func parseUUID(s string) uuid.UUID {
+	id, _ := uuid.Parse(s)
+	return id
+}
+
+func getStringSlice(request mcp.CallToolRequest, key string) []string {
+	args := request.GetArguments()
+	if args == nil {
+		return nil
+	}
+	v, ok := args[key]
+	if !ok {
+		return nil
+	}
+	slice, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]string, 0, len(slice))
+	for _, item := range slice {
+		if s, ok := item.(string); ok {
+			out = append(out, s)
+		}
+	}
+	return out
+}
+
 func (h *Handler) handleCreateADataSourceWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
@@ -234,6 +261,11 @@ func (h *Handler) handleQueryDataSourceWithResponse(ctx context.Context, request
 	}
 	params := &target.QueryDataSourceParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["filter_properties"]; ok {
+			params.FilterProperties = ptrVal(getStringSlice(request, "filter_properties"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["Notion-Version"]; ok {
 			params.NotionVersion = ptrVal(target.NotionVersion(request.GetString("Notion-Version", "")))
 		}
@@ -305,15 +337,7 @@ func (h *Handler) handleMovePageWithResponse(ctx context.Context, request mcp.Ca
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	var pageId types.UUID
-	if v := request.GetString("pageId", ""); v != "" {
-		parsed, err := uuid.Parse(v)
-		if err != nil {
-			return mcp.NewToolResultError("invalid pageId: "+err.Error()), nil
-		}
-		pageId = parsed
-	}
-
+	pageId := request.GetString("pageId", "")
 	var body target.MovePageJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
@@ -326,7 +350,7 @@ func (h *Handler) handleMovePageWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.MovePageWithResponse(ctx, pageId, params, body)
+	resp, err := client.MovePageWithResponse(ctx, parseUUID(pageId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -341,15 +365,7 @@ func (h *Handler) handleRetrievePageMarkdownWithResponse(ctx context.Context, re
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	var pageId types.UUID
-	if v := request.GetString("pageId", ""); v != "" {
-		parsed, err := uuid.Parse(v)
-		if err != nil {
-			return mcp.NewToolResultError("invalid pageId: "+err.Error()), nil
-		}
-		pageId = parsed
-	}
-
+	pageId := request.GetString("pageId", "")
 	params := &target.RetrievePageMarkdownParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["include_transcript"]; ok {
@@ -362,7 +378,7 @@ func (h *Handler) handleRetrievePageMarkdownWithResponse(ctx context.Context, re
 		}
 	}
 
-	resp, err := client.RetrievePageMarkdownWithResponse(ctx, pageId, params)
+	resp, err := client.RetrievePageMarkdownWithResponse(ctx, parseUUID(pageId), params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -377,15 +393,7 @@ func (h *Handler) handleUpdatePageMarkdownWithResponse(ctx context.Context, requ
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	var pageId types.UUID
-	if v := request.GetString("pageId", ""); v != "" {
-		parsed, err := uuid.Parse(v)
-		if err != nil {
-			return mcp.NewToolResultError("invalid pageId: "+err.Error()), nil
-		}
-		pageId = parsed
-	}
-
+	pageId := request.GetString("pageId", "")
 	var body target.UpdatePageMarkdownJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
@@ -398,7 +406,7 @@ func (h *Handler) handleUpdatePageMarkdownWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.UpdatePageMarkdownWithResponse(ctx, pageId, params, body)
+	resp, err := client.UpdatePageMarkdownWithResponse(ctx, parseUUID(pageId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}

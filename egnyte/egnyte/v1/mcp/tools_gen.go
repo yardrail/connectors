@@ -4,9 +4,12 @@ package mcp
 import (
 	"context"
 	"encoding/json"
+	"github.com/google/uuid"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
+	openapi_types "github.com/oapi-codegen/runtime/types"
 	target "github.com/yardrail/connectors/egnyte/egnyte/v1/client"
+	"time"
 )
 
 type ServiceResolver func(ctx context.Context) (*target.ClientWithResponses, error)
@@ -157,6 +160,10 @@ func (h *Handler) RegisterSearch(s *server.MCPServer) {
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithString("folder", mcp.Description("Folder")),
+			mcp.WithString("modified_before", mcp.Description("ModifiedBefore")),
+			mcp.WithString("modified_after", mcp.Description("ModifiedAfter")),
+			mcp.WithString("uploaded_before", mcp.Description("UploadedBefore")),
+			mcp.WithString("uploaded_after", mcp.Description("UploadedAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
 			mcp.WithBoolean("snippet_requested", mcp.Description("SnippetRequested")),
 			mcp.WithString("sort_by", mcp.Description("SortBy")),
@@ -628,6 +635,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("delete-msp-webhook",
 			mcp.WithDescription("request returning *DeleteMspWebhookResp"),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 		),
 		h.handleDeleteMspWebhookWithResponse,
 	)
@@ -635,6 +643,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("delete-webhook",
 			mcp.WithDescription("request returning *DeleteWebhookResp"),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 		),
 		h.handleDeleteWebhookWithResponse,
 	)
@@ -642,6 +651,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-msp-webhook",
 			mcp.WithDescription("request returning *GetMspWebhookResp"),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 		),
 		h.handleGetMspWebhookWithResponse,
 	)
@@ -649,6 +659,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-webhook-details",
 			mcp.WithDescription("request returning *GetWebhookDetailsResp"),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 		),
 		h.handleGetWebhookDetailsWithResponse,
 	)
@@ -656,6 +667,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-webhook-status",
 			mcp.WithDescription("request returning *GetWebhookStatusResp"),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 		),
 		h.handleGetWebhookStatusWithResponse,
 	)
@@ -685,6 +697,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("set-webhook-status",
 			mcp.WithDescription("SetWebhookStatus"),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.SetWebhookStatusJSONRequestBody)")),
 		),
 		h.handleSetWebhookStatusWithResponse,
@@ -693,6 +706,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("update-msp-webhook",
 			mcp.WithDescription("UpdateMspWebhook"),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.UpdateMspWebhookJSONRequestBody)")),
 		),
 		h.handleUpdateMspWebhookWithResponse,
@@ -701,6 +715,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("update-webhook",
 			mcp.WithDescription("UpdateWebhook"),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.UpdateWebhookJSONRequestBody)")),
 		),
 		h.handleUpdateWebhookWithResponse,
@@ -912,6 +927,7 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-user-details",
 			mcp.WithDescription("request returning *GetUserDetailsResp"),
+			mcp.WithString("userId", mcp.Required(), mcp.Description("userId")),
 		),
 		h.handleGetUserDetailsWithResponse,
 	)
@@ -919,6 +935,9 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-user-logs",
 			mcp.WithDescription("request returning *GetUserLogsResp"),
+			mcp.WithString("userId", mcp.Required(), mcp.Description("userId")),
+			mcp.WithString("from", mcp.Description("From")),
+			mcp.WithString("to", mcp.Description("To")),
 		),
 		h.handleGetUserLogsWithResponse,
 	)
@@ -1112,6 +1131,8 @@ func (h *Handler) RegisterTrash(s *server.MCPServer) {
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("deletedBy", mcp.Description("DeletedBy")),
+			mcp.WithString("startDate", mcp.Description("StartDate")),
+			mcp.WithString("endDate", mcp.Description("EndDate")),
 		),
 		h.handleListTrashV2WithResponse,
 	)
@@ -1575,6 +1596,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
 			mcp.WithString("keyName", mcp.Required(), mcp.Description("keyName")),
 			mcp.WithString("X-Egnyte-Force-Delete", mcp.Description("XEgnyteForceDelete")),
+			mcp.WithArray("body", mcp.Required(), mcp.Description("body"), mcp.WithStringItems()),
 		),
 		h.handlePortalProdPatchMetadataKeyDataV1WithResponse,
 	)
@@ -1638,6 +1660,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 			mcp.WithDescription("PortalProdPutFileMetadataV1"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPutFileMetadataV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPutFileMetadataV1WithResponse,
 	)
@@ -1647,6 +1670,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 			mcp.WithDescription("PortalProdPutFolderMetadataV1"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPutFolderMetadataV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPutFolderMetadataV1WithResponse,
 	)
@@ -1677,6 +1701,7 @@ func (h *Handler) RegisterProjectCustomFields(s *server.MCPServer) {
 			mcp.WithDescription("PortalProdPatchProjectCustomFieldDataV1"),
 			mcp.WithString("fieldName", mcp.Required(), mcp.Description("fieldName")),
 			mcp.WithString("X-Egnyte-Force-Delete", mcp.Description("XEgnyteForceDelete")),
+			mcp.WithArray("body", mcp.Required(), mcp.Description("body"), mcp.WithStringItems()),
 		),
 		h.handlePortalProdPatchProjectCustomFieldDataV1WithResponse,
 	)
@@ -2050,6 +2075,43 @@ func ptrVal[T any](v T) *T {
 	return &v
 }
 
+func parseUUID(s string) uuid.UUID {
+	id, _ := uuid.Parse(s)
+	return id
+}
+
+func parseTime(s string) time.Time {
+	t, _ := time.Parse(time.RFC3339, s)
+	return t
+}
+
+func parseDate(s string) openapi_types.Date {
+	t, _ := time.Parse("2006-01-02", s)
+	return openapi_types.Date{Time: t}
+}
+
+func getStringSlice(request mcp.CallToolRequest, key string) []string {
+	args := request.GetArguments()
+	if args == nil {
+		return nil
+	}
+	v, ok := args[key]
+	if !ok {
+		return nil
+	}
+	slice, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]string, 0, len(slice))
+	for _, item := range slice {
+		if s, ok := item.(string); ok {
+			out = append(out, s)
+		}
+	}
+	return out
+}
+
 func (h *Handler) handleActivateMspTrialWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
@@ -2390,6 +2452,26 @@ func (h *Handler) handleSearchV1GetWithResponse(ctx context.Context, request mcp
 		}
 	}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["modified_before"]; ok {
+			params.ModifiedBefore = ptrVal(parseTime(request.GetString("modified_before", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["modified_after"]; ok {
+			params.ModifiedAfter = ptrVal(parseTime(request.GetString("modified_after", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["uploaded_before"]; ok {
+			params.UploadedBefore = ptrVal(parseTime(request.GetString("uploaded_before", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["uploaded_after"]; ok {
+			params.UploadedAfter = ptrVal(parseTime(request.GetString("uploaded_after", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["type"]; ok {
 			params.Type = ptrVal(target.SearchV1GetParamsType(request.GetString("type", "")))
 		}
@@ -2468,7 +2550,7 @@ func (h *Handler) handleAllocateMspDomainPowerUsersWithResponse(ctx context.Cont
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AllocateMspDomainPowerUsersWithResponse(ctx, domain, body)
+	resp, err := client.AllocateMspDomainPowerUsersWithResponse(ctx, target.Domain(domain), body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2490,7 +2572,7 @@ func (h *Handler) handleGetMspPowerUsersQuoteWithResponse(ctx context.Context, r
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.GetMspPowerUsersQuoteWithResponse(ctx, planId, body)
+	resp, err := client.GetMspPowerUsersQuoteWithResponse(ctx, target.PlanId(planId), body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2527,7 +2609,7 @@ func (h *Handler) handlePurchaseMspPowerUsersWithResponse(ctx context.Context, r
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PurchaseMspPowerUsersWithResponse(ctx, planId, body)
+	resp, err := client.PurchaseMspPowerUsersWithResponse(ctx, target.PlanId(planId), body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3418,7 +3500,7 @@ func (h *Handler) handleRetrieveAuditReportWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.RetrieveAuditReportWithResponse(ctx, pType, id, params)
+	resp, err := client.RetrieveAuditReportWithResponse(ctx, target.RetrieveAuditReportParamsType(pType), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3536,7 +3618,9 @@ func (h *Handler) handleDeleteMspWebhookWithResponse(ctx context.Context, reques
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	resp, err := client.DeleteMspWebhookWithResponse(ctx)
+	webhookId := request.GetString("webhookId", "")
+
+	resp, err := client.DeleteMspWebhookWithResponse(ctx, parseUUID(webhookId))
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3551,7 +3635,9 @@ func (h *Handler) handleDeleteWebhookWithResponse(ctx context.Context, request m
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	resp, err := client.DeleteWebhookWithResponse(ctx)
+	webhookId := request.GetString("webhookId", "")
+
+	resp, err := client.DeleteWebhookWithResponse(ctx, parseUUID(webhookId))
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3566,7 +3652,9 @@ func (h *Handler) handleGetMspWebhookWithResponse(ctx context.Context, request m
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	resp, err := client.GetMspWebhookWithResponse(ctx)
+	webhookId := request.GetString("webhookId", "")
+
+	resp, err := client.GetMspWebhookWithResponse(ctx, parseUUID(webhookId))
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3581,7 +3669,9 @@ func (h *Handler) handleGetWebhookDetailsWithResponse(ctx context.Context, reque
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	resp, err := client.GetWebhookDetailsWithResponse(ctx)
+	webhookId := request.GetString("webhookId", "")
+
+	resp, err := client.GetWebhookDetailsWithResponse(ctx, parseUUID(webhookId))
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3596,7 +3686,9 @@ func (h *Handler) handleGetWebhookStatusWithResponse(ctx context.Context, reques
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	resp, err := client.GetWebhookStatusWithResponse(ctx)
+	webhookId := request.GetString("webhookId", "")
+
+	resp, err := client.GetWebhookStatusWithResponse(ctx, parseUUID(webhookId))
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3662,13 +3754,14 @@ func (h *Handler) handleSetWebhookStatusWithResponse(ctx context.Context, reques
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
+	webhookId := request.GetString("webhookId", "")
 	var body target.SetWebhookStatusJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.SetWebhookStatusWithResponse(ctx, body)
+	resp, err := client.SetWebhookStatusWithResponse(ctx, parseUUID(webhookId), body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3683,13 +3776,14 @@ func (h *Handler) handleUpdateMspWebhookWithResponse(ctx context.Context, reques
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
+	webhookId := request.GetString("webhookId", "")
 	var body target.UpdateMspWebhookJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.UpdateMspWebhookWithResponse(ctx, body)
+	resp, err := client.UpdateMspWebhookWithResponse(ctx, parseUUID(webhookId), body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3704,13 +3798,14 @@ func (h *Handler) handleUpdateWebhookWithResponse(ctx context.Context, request m
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
+	webhookId := request.GetString("webhookId", "")
 	var body target.UpdateWebhookJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.UpdateWebhookWithResponse(ctx, body)
+	resp, err := client.UpdateWebhookWithResponse(ctx, parseUUID(webhookId), body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4170,7 +4265,9 @@ func (h *Handler) handleGetUserDetailsWithResponse(ctx context.Context, request 
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	resp, err := client.GetUserDetailsWithResponse(ctx)
+	userId := request.GetString("userId", "")
+
+	resp, err := client.GetUserDetailsWithResponse(ctx, parseUUID(userId))
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4185,9 +4282,20 @@ func (h *Handler) handleGetUserLogsWithResponse(ctx context.Context, request mcp
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
+	userId := request.GetString("userId", "")
 	params := &target.GetUserLogsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["from"]; ok {
+			params.From = ptrVal(parseDate(request.GetString("from", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["to"]; ok {
+			params.To = ptrVal(parseDate(request.GetString("to", "")))
+		}
+	}
 
-	resp, err := client.GetUserLogsWithResponse(ctx, params)
+	resp, err := client.GetUserLogsWithResponse(ctx, parseUUID(userId), params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4592,6 +4700,16 @@ func (h *Handler) handleListTrashV2WithResponse(ctx context.Context, request mcp
 			params.DeletedBy = ptrVal(request.GetString("deletedBy", ""))
 		}
 	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["startDate"]; ok {
+			params.StartDate = ptrVal(parseTime(request.GetString("startDate", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["endDate"]; ok {
+			params.EndDate = ptrVal(parseTime(request.GetString("endDate", "")))
+		}
+	}
 
 	resp, err := client.ListTrashV2WithResponse(ctx, params)
 	if err != nil {
@@ -4845,7 +4963,7 @@ func (h *Handler) handlePortalProdDeleteFsByIdV1WithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.PortalProdDeleteFsByIdV1WithResponse(ctx, pType, id, params)
+	resp, err := client.PortalProdDeleteFsByIdV1WithResponse(ctx, target.PortalProdDeleteFsByIdV1ParamsType(pType), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4970,7 +5088,7 @@ func (h *Handler) handlePortalProdGetFsByIdV1WithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.PortalProdGetFsByIdV1WithResponse(ctx, pType, id, params)
+	resp, err := client.PortalProdGetFsByIdV1WithResponse(ctx, target.PortalProdGetFsByIdV1ParamsType(pType), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5166,7 +5284,7 @@ func (h *Handler) handlePortalProdPostFsByIdV1WithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PortalProdPostFsByIdV1WithResponse(ctx, pType, id, body)
+	resp, err := client.PortalProdPostFsByIdV1WithResponse(ctx, target.PortalProdPostFsByIdV1ParamsType(pType), id, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5704,6 +5822,7 @@ func (h *Handler) handlePortalProdPatchMetadataKeyDataV1WithResponse(ctx context
 
 	namespaceName := request.GetString("namespaceName", "")
 	keyName := request.GetString("keyName", "")
+	body := getStringSlice(request, "body")
 	params := &target.PortalProdPatchMetadataKeyDataV1Params{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["X-Egnyte-Force-Delete"]; ok {
@@ -5711,7 +5830,7 @@ func (h *Handler) handlePortalProdPatchMetadataKeyDataV1WithResponse(ctx context
 		}
 	}
 
-	resp, err := client.PortalProdPatchMetadataKeyDataV1WithResponse(ctx, namespaceName, keyName, params)
+	resp, err := client.PortalProdPatchMetadataKeyDataV1WithResponse(ctx, namespaceName, keyName, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5865,8 +5984,13 @@ func (h *Handler) handlePortalProdPutFileMetadataV1WithResponse(ctx context.Cont
 
 	id := request.GetString("id", "")
 	namespaceName := request.GetString("namespaceName", "")
+	var body target.PortalProdPutFileMetadataV1JSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
 
-	resp, err := client.PortalProdPutFileMetadataV1WithResponse(ctx, id, namespaceName)
+	resp, err := client.PortalProdPutFileMetadataV1WithResponse(ctx, id, namespaceName, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5883,8 +6007,13 @@ func (h *Handler) handlePortalProdPutFolderMetadataV1WithResponse(ctx context.Co
 
 	id := request.GetString("id", "")
 	namespaceName := request.GetString("namespaceName", "")
+	var body target.PortalProdPutFolderMetadataV1JSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
 
-	resp, err := client.PortalProdPutFolderMetadataV1WithResponse(ctx, id, namespaceName)
+	resp, err := client.PortalProdPutFolderMetadataV1WithResponse(ctx, id, namespaceName, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5907,7 +6036,7 @@ func (h *Handler) handlePortalProdDeleteProjectCustomFieldV1WithResponse(ctx con
 		}
 	}
 
-	resp, err := client.PortalProdDeleteProjectCustomFieldV1WithResponse(ctx, fieldName, params)
+	resp, err := client.PortalProdDeleteProjectCustomFieldV1WithResponse(ctx, target.FieldName(fieldName), params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5938,6 +6067,7 @@ func (h *Handler) handlePortalProdPatchProjectCustomFieldDataV1WithResponse(ctx 
 	}
 
 	fieldName := request.GetString("fieldName", "")
+	body := getStringSlice(request, "body")
 	params := &target.PortalProdPatchProjectCustomFieldDataV1Params{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["X-Egnyte-Force-Delete"]; ok {
@@ -5945,7 +6075,7 @@ func (h *Handler) handlePortalProdPatchProjectCustomFieldDataV1WithResponse(ctx 
 		}
 	}
 
-	resp, err := client.PortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, fieldName, params)
+	resp, err := client.PortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, target.FieldName(fieldName), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5967,7 +6097,7 @@ func (h *Handler) handlePortalProdPatchProjectCustomFieldV1WithResponse(ctx cont
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PortalProdPatchProjectCustomFieldV1WithResponse(ctx, fieldName, body)
+	resp, err := client.PortalProdPatchProjectCustomFieldV1WithResponse(ctx, target.FieldName(fieldName), body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
