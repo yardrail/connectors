@@ -1,0 +1,78 @@
+version: "3"
+
+vars:
+  TOOLS_PKG: github.com/yardrail/connectors/tools
+
+tasks:
+  build:tools:
+    desc: Build all codegen tools
+    dir: tools
+    cmds:
+      - go build ./cmd/...
+
+  generate:
+    desc: Run go generate across all service modules
+    cmds:
+      - |
+        for mod in $(find . -name 'go.mod' -not -path './tools/*' -not -path './go.work' | sort); do
+          dir=$(dirname "$mod")
+          echo "==> generate $dir"
+          (cd "$dir" && go generate ./...)
+        done
+
+  tidy:
+    desc: Run go mod tidy across all modules
+    cmds:
+      - |
+        for mod in $(find . -name 'go.mod' | sort); do
+          dir=$(dirname "$mod")
+          echo "==> tidy $dir"
+          (cd "$dir" && go mod tidy)
+        done
+
+  build:
+    desc: Build all service modules
+    cmds:
+      - |
+        for mod in $(find . -name 'go.mod' | sort); do
+          dir=$(dirname "$mod")
+          echo "==> build $dir"
+          (cd "$dir" && go build ./...)
+        done
+
+  test:
+    desc: Run tests across all modules
+    cmds:
+      - |
+        for mod in $(find . -name 'go.mod' | sort); do
+          dir=$(dirname "$mod")
+          echo "==> test $dir"
+          (cd "$dir" && go test ./...)
+        done
+
+  vet:
+    desc: Run go vet across all modules
+    cmds:
+      - |
+        for mod in $(find . -name 'go.mod' | sort); do
+          dir=$(dirname "$mod")
+          echo "==> vet $dir"
+          (cd "$dir" && go vet ./...)
+        done
+
+  lint:
+    desc: Run all checks (vet + build + test)
+    cmds:
+      - task: vet
+      - task: build
+      - task: test
+
+  list:modules:
+    desc: List all Go modules in the repo
+    cmds:
+      - find . -name 'go.mod' -exec dirname {} \; | sort
+
+  sync:workspace:
+    desc: Regenerate go.work from all go.mod files
+    cmds:
+      - go work init $(find . -name 'go.mod' -exec dirname {} \; | sort)

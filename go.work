@@ -1,0 +1,6 @@
+go 1.27.1
+
+use (
+	./officernd/officernd/v2
+	./tools
+)
