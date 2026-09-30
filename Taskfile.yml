@@ -14,7 +14,7 @@ tasks:
     desc: Run go generate across all service modules
     cmds:
       - |
-        for mod in $(find . -name 'go.mod' -not -path './tools/*' -not -path './go.work' | sort); do
+        for mod in $(find . -name 'go.mod' -not -path './.claude/*' -not -path './tools/*' -not -path './go.work' | sort); do
           dir=$(dirname "$mod")
           echo "==> generate $dir"
           (cd "$dir" && go generate ./...)
@@ -24,7 +24,7 @@ tasks:
     desc: Run go mod tidy across all modules
     cmds:
       - |
-        for mod in $(find . -name 'go.mod' | sort); do
+        for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
           dir=$(dirname "$mod")
           echo "==> tidy $dir"
           (cd "$dir" && go mod tidy)
@@ -34,7 +34,7 @@ tasks:
     desc: Build all service modules
     cmds:
       - |
-        for mod in $(find . -name 'go.mod' | sort); do
+        for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
           dir=$(dirname "$mod")
           echo "==> build $dir"
           (cd "$dir" && go build ./...)
@@ -44,7 +44,7 @@ tasks:
     desc: Run tests across all modules
     cmds:
       - |
-        for mod in $(find . -name 'go.mod' | sort); do
+        for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
           dir=$(dirname "$mod")
           echo "==> test $dir"
           (cd "$dir" && go test ./...)
@@ -54,7 +54,7 @@ tasks:
     desc: Run go vet across all modules
     cmds:
       - |
-        for mod in $(find . -name 'go.mod' | sort); do
+        for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
           dir=$(dirname "$mod")
           echo "==> vet $dir"
           (cd "$dir" && go vet ./...)
@@ -70,9 +70,9 @@ tasks:
   list:modules:
     desc: List all Go modules in the repo
     cmds:
-      - find . -name 'go.mod' -exec dirname {} \; | sort
+      - find . -name 'go.mod' -not -path './.claude/*' -exec dirname {} \; | sort
 
   sync:workspace:
     desc: Regenerate go.work from all go.mod files
     cmds:
-      - go work init $(find . -name 'go.mod' -exec dirname {} \; | sort)
+      - go work init $(find . -name 'go.mod' -not -path './.claude/*' -exec dirname {} \; | sort)

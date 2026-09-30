@@ -1,8 +1,14 @@
 go 1.27.1
 
 use (
+	./canva/canva/v1
+	./egnyte/egnyte/v1
+	./hubspot/crm-contacts/v3
 	./mailchimp/marketing/v3
+	./monday/monday/v2
+	./notion/notion/v1
 	./officernd/officernd/v2
 	./slack/slack/v1
+	./stripe/stripe/v1
 	./tools
 )
