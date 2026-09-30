@@ -1,7 +1,7 @@
 go 1.27.1
 
 use (
-	./hubspot/crm-contacts/v3
+	./egnyte/egnyte/v1
 	./officernd/officernd/v2
 	./tools
 )
