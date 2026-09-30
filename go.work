@@ -1,6 +1,7 @@
 go 1.27.1
 
 use (
+	./mailchimp/marketing/v3
 	./officernd/officernd/v2
 	./tools
 )
