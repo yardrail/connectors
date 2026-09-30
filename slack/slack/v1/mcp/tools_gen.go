@@ -19,7 +19,7 @@ func NewHandler(resolve ServiceResolver) *Handler {
 	return &Handler{resolve: resolve}
 }
 
-// RegisterAdminApps adds Admin.apps tools to the given MCP server.
+// RegisterAdminApps adds AdminApps tools to the given MCP server.
 func (h *Handler) RegisterAdminApps(s *server.MCPServer) {
 
 	s.AddTool(
@@ -42,544 +42,7 @@ func (h *Handler) RegisterAdminApps(s *server.MCPServer) {
 
 }
 
-// RegisterAdmin adds Admin tools to the given MCP server.
-func (h *Handler) RegisterAdmin(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("admin-apps-approve-with-formdata-body",
-			mcp.WithDescription("AdminAppsApproveWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminAppsApproveFormdataRequestBody)")),
-		),
-		h.handleAdminAppsApproveWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-apps-approved-list",
-			mcp.WithDescription("request returning *AdminAppsApprovedListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithString("enterprise_id", mcp.Description("EnterpriseId")),
-		),
-		h.handleAdminAppsApprovedListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-apps-requests-list",
-			mcp.WithDescription("request returning *AdminAppsRequestsListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-		),
-		h.handleAdminAppsRequestsListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-apps-restrict-with-formdata-body",
-			mcp.WithDescription("AdminAppsRestrictWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminAppsRestrictFormdataRequestBody)")),
-		),
-		h.handleAdminAppsRestrictWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-apps-restricted-list",
-			mcp.WithDescription("request returning *AdminAppsRestrictedListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithString("enterprise_id", mcp.Description("EnterpriseId")),
-		),
-		h.handleAdminAppsRestrictedListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-archive-with-formdata-body",
-			mcp.WithDescription("AdminConversationsArchiveWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsArchiveFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsArchiveWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-convert-to-private-with-formdata-body",
-			mcp.WithDescription("AdminConversationsConvertToPrivateWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsConvertToPrivateFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsConvertToPrivateWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-create-with-formdata-body",
-			mcp.WithDescription("AdminConversationsCreateWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsCreateFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsCreateWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-delete-with-formdata-body",
-			mcp.WithDescription("AdminConversationsDeleteWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsDeleteFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsDeleteWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-disconnect-shared-with-formdata-body",
-			mcp.WithDescription("AdminConversationsDisconnectSharedWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsDisconnectSharedFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsDisconnectSharedWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-ekm-list-original-connected-channel-info",
-			mcp.WithDescription("request returning *AdminConversationsEkmListOriginalConnectedChannelInfoResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("channel_ids", mcp.Description("ChannelIds")),
-			mcp.WithString("team_ids", mcp.Description("TeamIds")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-		),
-		h.handleAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-get-conversation-prefs",
-			mcp.WithDescription("request returning *AdminConversationsGetConversationPrefsResponse"),
-			mcp.WithString("channel_id", mcp.Description("ChannelId")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminConversationsGetConversationPrefsWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-get-teams",
-			mcp.WithDescription("request returning *AdminConversationsGetTeamsResponse"),
-			mcp.WithString("channel_id", mcp.Description("ChannelId")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminConversationsGetTeamsWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-invite-with-formdata-body",
-			mcp.WithDescription("AdminConversationsInviteWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsInviteFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsInviteWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-rename-with-formdata-body",
-			mcp.WithDescription("AdminConversationsRenameWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsRenameFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsRenameWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-restrict-access-add-group-with-formdata-body",
-			mcp.WithDescription("AdminConversationsRestrictAccessAddGroupWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsRestrictAccessAddGroupFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-restrict-access-list-groups",
-			mcp.WithDescription("request returning *AdminConversationsRestrictAccessListGroupsResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("channel_id", mcp.Description("ChannelId")),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-		),
-		h.handleAdminConversationsRestrictAccessListGroupsWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-restrict-access-remove-group-with-formdata-body",
-			mcp.WithDescription("AdminConversationsRestrictAccessRemoveGroupWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsRestrictAccessRemoveGroupFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-search",
-			mcp.WithDescription("request returning *AdminConversationsSearchResponse"),
-			mcp.WithString("team_ids", mcp.Description("TeamIds")),
-			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithString("search_channel_types", mcp.Description("SearchChannelTypes")),
-			mcp.WithString("sort", mcp.Description("Sort")),
-			mcp.WithString("sort_dir", mcp.Description("SortDir")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminConversationsSearchWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-set-conversation-prefs-with-formdata-body",
-			mcp.WithDescription("AdminConversationsSetConversationPrefsWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsSetConversationPrefsFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-set-teams-with-formdata-body",
-			mcp.WithDescription("AdminConversationsSetTeamsWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsSetTeamsFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsSetTeamsWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-conversations-unarchive-with-formdata-body",
-			mcp.WithDescription("AdminConversationsUnarchiveWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsUnarchiveFormdataRequestBody)")),
-		),
-		h.handleAdminConversationsUnarchiveWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-emoji-add-alias-with-formdata-body",
-			mcp.WithDescription("AdminEmojiAddAliasWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminEmojiAddAliasFormdataRequestBody)")),
-		),
-		h.handleAdminEmojiAddAliasWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-emoji-add-with-formdata-body",
-			mcp.WithDescription("AdminEmojiAddWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminEmojiAddFormdataRequestBody)")),
-		),
-		h.handleAdminEmojiAddWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-emoji-list",
-			mcp.WithDescription("request returning *AdminEmojiListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-		),
-		h.handleAdminEmojiListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-emoji-remove-with-formdata-body",
-			mcp.WithDescription("AdminEmojiRemoveWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminEmojiRemoveFormdataRequestBody)")),
-		),
-		h.handleAdminEmojiRemoveWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-emoji-rename-with-formdata-body",
-			mcp.WithDescription("AdminEmojiRenameWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminEmojiRenameFormdataRequestBody)")),
-		),
-		h.handleAdminEmojiRenameWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-invite-requests-approve-with-formdata-body",
-			mcp.WithDescription("AdminInviteRequestsApproveWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminInviteRequestsApproveFormdataRequestBody)")),
-		),
-		h.handleAdminInviteRequestsApproveWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-invite-requests-approved-list",
-			mcp.WithDescription("request returning *AdminInviteRequestsApprovedListResponse"),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminInviteRequestsApprovedListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-invite-requests-denied-list",
-			mcp.WithDescription("request returning *AdminInviteRequestsDeniedListResponse"),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminInviteRequestsDeniedListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-invite-requests-deny-with-formdata-body",
-			mcp.WithDescription("AdminInviteRequestsDenyWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminInviteRequestsDenyFormdataRequestBody)")),
-		),
-		h.handleAdminInviteRequestsDenyWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-invite-requests-list",
-			mcp.WithDescription("request returning *AdminInviteRequestsListResponse"),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminInviteRequestsListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-admins-list",
-			mcp.WithDescription("request returning *AdminTeamsAdminsListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-		),
-		h.handleAdminTeamsAdminsListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-create-with-formdata-body",
-			mcp.WithDescription("AdminTeamsCreateWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsCreateFormdataRequestBody)")),
-		),
-		h.handleAdminTeamsCreateWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-list",
-			mcp.WithDescription("request returning *AdminTeamsListResponse"),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminTeamsListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-owners-list",
-			mcp.WithDescription("request returning *AdminTeamsOwnersListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-		),
-		h.handleAdminTeamsOwnersListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-settings-info",
-			mcp.WithDescription("request returning *AdminTeamsSettingsInfoResponse"),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminTeamsSettingsInfoWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-settings-set-default-channels-with-formdata-body",
-			mcp.WithDescription("AdminTeamsSettingsSetDefaultChannelsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetDefaultChannelsFormdataRequestBody)")),
-		),
-		h.handleAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-settings-set-description-with-formdata-body",
-			mcp.WithDescription("AdminTeamsSettingsSetDescriptionWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetDescriptionFormdataRequestBody)")),
-		),
-		h.handleAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-settings-set-discoverability-with-formdata-body",
-			mcp.WithDescription("AdminTeamsSettingsSetDiscoverabilityWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetDiscoverabilityFormdataRequestBody)")),
-		),
-		h.handleAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-settings-set-icon-with-formdata-body",
-			mcp.WithDescription("AdminTeamsSettingsSetIconWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetIconFormdataRequestBody)")),
-		),
-		h.handleAdminTeamsSettingsSetIconWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-teams-settings-set-name-with-formdata-body",
-			mcp.WithDescription("AdminTeamsSettingsSetNameWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetNameFormdataRequestBody)")),
-		),
-		h.handleAdminTeamsSettingsSetNameWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-usergroups-add-channels-with-formdata-body",
-			mcp.WithDescription("AdminUsergroupsAddChannelsWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsergroupsAddChannelsFormdataRequestBody)")),
-		),
-		h.handleAdminUsergroupsAddChannelsWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-usergroups-add-teams-with-formdata-body",
-			mcp.WithDescription("AdminUsergroupsAddTeamsWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsergroupsAddTeamsFormdataRequestBody)")),
-		),
-		h.handleAdminUsergroupsAddTeamsWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-usergroups-list-channels",
-			mcp.WithDescription("request returning *AdminUsergroupsListChannelsResponse"),
-			mcp.WithString("usergroup_id", mcp.Description("UsergroupId")),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithBoolean("include_num_members", mcp.Description("IncludeNumMembers")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminUsergroupsListChannelsWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-usergroups-remove-channels-with-formdata-body",
-			mcp.WithDescription("AdminUsergroupsRemoveChannelsWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsergroupsRemoveChannelsFormdataRequestBody)")),
-		),
-		h.handleAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-assign-with-formdata-body",
-			mcp.WithDescription("AdminUsersAssignWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersAssignFormdataRequestBody)")),
-		),
-		h.handleAdminUsersAssignWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-invite-with-formdata-body",
-			mcp.WithDescription("AdminUsersInviteWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersInviteFormdataRequestBody)")),
-		),
-		h.handleAdminUsersInviteWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-list",
-			mcp.WithDescription("request returning *AdminUsersListResponse"),
-			mcp.WithString("team_id", mcp.Description("TeamId")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAdminUsersListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-remove-with-formdata-body",
-			mcp.WithDescription("AdminUsersRemoveWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersRemoveFormdataRequestBody)")),
-		),
-		h.handleAdminUsersRemoveWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-session-invalidate-with-formdata-body",
-			mcp.WithDescription("AdminUsersSessionInvalidateWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSessionInvalidateFormdataRequestBody)")),
-		),
-		h.handleAdminUsersSessionInvalidateWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-session-reset-with-formdata-body",
-			mcp.WithDescription("AdminUsersSessionResetWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSessionResetFormdataRequestBody)")),
-		),
-		h.handleAdminUsersSessionResetWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-set-admin-with-formdata-body",
-			mcp.WithDescription("AdminUsersSetAdminWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSetAdminFormdataRequestBody)")),
-		),
-		h.handleAdminUsersSetAdminWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-set-expiration-with-formdata-body",
-			mcp.WithDescription("AdminUsersSetExpirationWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSetExpirationFormdataRequestBody)")),
-		),
-		h.handleAdminUsersSetExpirationWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-set-owner-with-formdata-body",
-			mcp.WithDescription("AdminUsersSetOwnerWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSetOwnerFormdataRequestBody)")),
-		),
-		h.handleAdminUsersSetOwnerWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("admin-users-set-regular-with-formdata-body",
-			mcp.WithDescription("AdminUsersSetRegularWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSetRegularFormdataRequestBody)")),
-		),
-		h.handleAdminUsersSetRegularWithFormdataBodyWithResponse,
-	)
-
-}
-
-// RegisterAdminAppsApproved adds Admin.apps.approved tools to the given MCP server.
+// RegisterAdminAppsApproved adds AdminAppsApproved tools to the given MCP server.
 func (h *Handler) RegisterAdminAppsApproved(s *server.MCPServer) {
 
 	s.AddTool(
@@ -596,7 +59,7 @@ func (h *Handler) RegisterAdminAppsApproved(s *server.MCPServer) {
 
 }
 
-// RegisterAdminAppsRequests adds Admin.apps.requests tools to the given MCP server.
+// RegisterAdminAppsRequests adds AdminAppsRequests tools to the given MCP server.
 func (h *Handler) RegisterAdminAppsRequests(s *server.MCPServer) {
 
 	s.AddTool(
@@ -612,7 +75,7 @@ func (h *Handler) RegisterAdminAppsRequests(s *server.MCPServer) {
 
 }
 
-// RegisterAdminAppsRestricted adds Admin.apps.restricted tools to the given MCP server.
+// RegisterAdminAppsRestricted adds AdminAppsRestricted tools to the given MCP server.
 func (h *Handler) RegisterAdminAppsRestricted(s *server.MCPServer) {
 
 	s.AddTool(
@@ -629,7 +92,7 @@ func (h *Handler) RegisterAdminAppsRestricted(s *server.MCPServer) {
 
 }
 
-// RegisterAdminConversations adds Admin.conversations tools to the given MCP server.
+// RegisterAdminConversations adds AdminConversations tools to the given MCP server.
 func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 
 	s.AddTool(
@@ -759,7 +222,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 
 }
 
-// RegisterAdminConversationsEkm adds Admin.conversations.ekm tools to the given MCP server.
+// RegisterAdminConversationsEkm adds AdminConversationsEkm tools to the given MCP server.
 func (h *Handler) RegisterAdminConversationsEkm(s *server.MCPServer) {
 
 	s.AddTool(
@@ -776,7 +239,7 @@ func (h *Handler) RegisterAdminConversationsEkm(s *server.MCPServer) {
 
 }
 
-// RegisterAdminConversationsRestrictAccess adds Admin.conversations.restrictAccess tools to the given MCP server.
+// RegisterAdminConversationsRestrictAccess adds AdminConversationsRestrictAccess tools to the given MCP server.
 func (h *Handler) RegisterAdminConversationsRestrictAccess(s *server.MCPServer) {
 
 	s.AddTool(
@@ -807,7 +270,7 @@ func (h *Handler) RegisterAdminConversationsRestrictAccess(s *server.MCPServer) 
 
 }
 
-// RegisterAdminEmoji adds Admin.emoji tools to the given MCP server.
+// RegisterAdminEmoji adds AdminEmoji tools to the given MCP server.
 func (h *Handler) RegisterAdminEmoji(s *server.MCPServer) {
 
 	s.AddTool(
@@ -854,7 +317,7 @@ func (h *Handler) RegisterAdminEmoji(s *server.MCPServer) {
 
 }
 
-// RegisterAdminInviteRequests adds Admin.inviteRequests tools to the given MCP server.
+// RegisterAdminInviteRequests adds AdminInviteRequests tools to the given MCP server.
 func (h *Handler) RegisterAdminInviteRequests(s *server.MCPServer) {
 
 	s.AddTool(
@@ -888,7 +351,7 @@ func (h *Handler) RegisterAdminInviteRequests(s *server.MCPServer) {
 
 }
 
-// RegisterAdminInviteRequestsApproved adds Admin.inviteRequests.approved tools to the given MCP server.
+// RegisterAdminInviteRequestsApproved adds AdminInviteRequestsApproved tools to the given MCP server.
 func (h *Handler) RegisterAdminInviteRequestsApproved(s *server.MCPServer) {
 
 	s.AddTool(
@@ -904,7 +367,7 @@ func (h *Handler) RegisterAdminInviteRequestsApproved(s *server.MCPServer) {
 
 }
 
-// RegisterAdminInviteRequestsDenied adds Admin.inviteRequests.denied tools to the given MCP server.
+// RegisterAdminInviteRequestsDenied adds AdminInviteRequestsDenied tools to the given MCP server.
 func (h *Handler) RegisterAdminInviteRequestsDenied(s *server.MCPServer) {
 
 	s.AddTool(
@@ -920,7 +383,7 @@ func (h *Handler) RegisterAdminInviteRequestsDenied(s *server.MCPServer) {
 
 }
 
-// RegisterAdminTeamsAdmins adds Admin.teams.admins tools to the given MCP server.
+// RegisterAdminTeamsAdmins adds AdminTeamsAdmins tools to the given MCP server.
 func (h *Handler) RegisterAdminTeamsAdmins(s *server.MCPServer) {
 
 	s.AddTool(
@@ -936,7 +399,7 @@ func (h *Handler) RegisterAdminTeamsAdmins(s *server.MCPServer) {
 
 }
 
-// RegisterAdminTeams adds Admin.teams tools to the given MCP server.
+// RegisterAdminTeams adds AdminTeams tools to the given MCP server.
 func (h *Handler) RegisterAdminTeams(s *server.MCPServer) {
 
 	s.AddTool(
@@ -960,7 +423,7 @@ func (h *Handler) RegisterAdminTeams(s *server.MCPServer) {
 
 }
 
-// RegisterAdminTeamsOwners adds Admin.teams.owners tools to the given MCP server.
+// RegisterAdminTeamsOwners adds AdminTeamsOwners tools to the given MCP server.
 func (h *Handler) RegisterAdminTeamsOwners(s *server.MCPServer) {
 
 	s.AddTool(
@@ -976,7 +439,7 @@ func (h *Handler) RegisterAdminTeamsOwners(s *server.MCPServer) {
 
 }
 
-// RegisterAdminTeamsSettings adds Admin.teams.settings tools to the given MCP server.
+// RegisterAdminTeamsSettings adds AdminTeamsSettings tools to the given MCP server.
 func (h *Handler) RegisterAdminTeamsSettings(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1033,7 +496,7 @@ func (h *Handler) RegisterAdminTeamsSettings(s *server.MCPServer) {
 
 }
 
-// RegisterAdminUsergroups adds Admin.usergroups tools to the given MCP server.
+// RegisterAdminUsergroups adds AdminUsergroups tools to the given MCP server.
 func (h *Handler) RegisterAdminUsergroups(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1076,7 +539,7 @@ func (h *Handler) RegisterAdminUsergroups(s *server.MCPServer) {
 
 }
 
-// RegisterAdminUsers adds Admin.users tools to the given MCP server.
+// RegisterAdminUsers adds AdminUsers tools to the given MCP server.
 func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1155,7 +618,7 @@ func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 
 }
 
-// RegisterAdminUsersSession adds Admin.users.session tools to the given MCP server.
+// RegisterAdminUsersSession adds AdminUsersSession tools to the given MCP server.
 func (h *Handler) RegisterAdminUsersSession(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1192,7 +655,7 @@ func (h *Handler) RegisterApi(s *server.MCPServer) {
 
 }
 
-// RegisterAppsEventAuthorizations adds Apps.event.authorizations tools to the given MCP server.
+// RegisterAppsEventAuthorizations adds AppsEventAuthorizations tools to the given MCP server.
 func (h *Handler) RegisterAppsEventAuthorizations(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1208,90 +671,7 @@ func (h *Handler) RegisterAppsEventAuthorizations(s *server.MCPServer) {
 
 }
 
-// RegisterApps adds Apps tools to the given MCP server.
-func (h *Handler) RegisterApps(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("apps-event-authorizations-list",
-			mcp.WithDescription("request returning *AppsEventAuthorizationsListResponse"),
-			mcp.WithString("event_context", mcp.Description("EventContext")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAppsEventAuthorizationsListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("apps-permissions-info",
-			mcp.WithDescription("request returning *AppsPermissionsInfoResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAppsPermissionsInfoWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("apps-permissions-request",
-			mcp.WithDescription("request returning *AppsPermissionsRequestResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("scopes", mcp.Description("Scopes")),
-			mcp.WithString("trigger_id", mcp.Description("TriggerId")),
-		),
-		h.handleAppsPermissionsRequestWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("apps-permissions-resources-list",
-			mcp.WithDescription("request returning *AppsPermissionsResourcesListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-		),
-		h.handleAppsPermissionsResourcesListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("apps-permissions-scopes-list",
-			mcp.WithDescription("request returning *AppsPermissionsScopesListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleAppsPermissionsScopesListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("apps-permissions-users-list",
-			mcp.WithDescription("request returning *AppsPermissionsUsersListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-		),
-		h.handleAppsPermissionsUsersListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("apps-permissions-users-request",
-			mcp.WithDescription("request returning *AppsPermissionsUsersRequestResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("scopes", mcp.Description("Scopes")),
-			mcp.WithString("trigger_id", mcp.Description("TriggerId")),
-			mcp.WithString("user", mcp.Description("User")),
-		),
-		h.handleAppsPermissionsUsersRequestWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("apps-uninstall",
-			mcp.WithDescription("request returning *AppsUninstallResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("client_id", mcp.Description("ClientId")),
-			mcp.WithString("client_secret", mcp.Description("ClientSecret")),
-		),
-		h.handleAppsUninstallWithResponse,
-	)
-
-}
-
-// RegisterAppsPermissions adds Apps.permissions tools to the given MCP server.
+// RegisterAppsPermissions adds AppsPermissions tools to the given MCP server.
 func (h *Handler) RegisterAppsPermissions(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1314,7 +694,7 @@ func (h *Handler) RegisterAppsPermissions(s *server.MCPServer) {
 
 }
 
-// RegisterAppsPermissionsResources adds Apps.permissions.resources tools to the given MCP server.
+// RegisterAppsPermissionsResources adds AppsPermissionsResources tools to the given MCP server.
 func (h *Handler) RegisterAppsPermissionsResources(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1329,7 +709,7 @@ func (h *Handler) RegisterAppsPermissionsResources(s *server.MCPServer) {
 
 }
 
-// RegisterAppsPermissionsScopes adds Apps.permissions.scopes tools to the given MCP server.
+// RegisterAppsPermissionsScopes adds AppsPermissionsScopes tools to the given MCP server.
 func (h *Handler) RegisterAppsPermissionsScopes(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1342,7 +722,7 @@ func (h *Handler) RegisterAppsPermissionsScopes(s *server.MCPServer) {
 
 }
 
-// RegisterAppsPermissionsUsers adds Apps.permissions.users tools to the given MCP server.
+// RegisterAppsPermissionsUsers adds AppsPermissionsUsers tools to the given MCP server.
 func (h *Handler) RegisterAppsPermissionsUsers(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1364,6 +744,21 @@ func (h *Handler) RegisterAppsPermissionsUsers(s *server.MCPServer) {
 			mcp.WithString("user", mcp.Description("User")),
 		),
 		h.handleAppsPermissionsUsersRequestWithResponse,
+	)
+
+}
+
+// RegisterApps adds Apps tools to the given MCP server.
+func (h *Handler) RegisterApps(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("apps-uninstall",
+			mcp.WithDescription("request returning *AppsUninstallResponse"),
+			mcp.WithString("token", mcp.Description("Token")),
+			mcp.WithString("client_id", mcp.Description("ClientId")),
+			mcp.WithString("client_secret", mcp.Description("ClientSecret")),
+		),
+		h.handleAppsUninstallWithResponse,
 	)
 
 }
@@ -1435,24 +830,6 @@ func (h *Handler) RegisterCalls(s *server.MCPServer) {
 	)
 
 	s.AddTool(
-		mcp.NewTool("calls-participants-add-with-formdata-body",
-			mcp.WithDescription("CallsParticipantsAddWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.CallsParticipantsAddFormdataRequestBody)")),
-		),
-		h.handleCallsParticipantsAddWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("calls-participants-remove-with-formdata-body",
-			mcp.WithDescription("CallsParticipantsRemoveWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.CallsParticipantsRemoveFormdataRequestBody)")),
-		),
-		h.handleCallsParticipantsRemoveWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
 		mcp.NewTool("calls-update-with-formdata-body",
 			mcp.WithDescription("CallsUpdateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
@@ -1463,7 +840,7 @@ func (h *Handler) RegisterCalls(s *server.MCPServer) {
 
 }
 
-// RegisterCallsParticipants adds Calls.participants tools to the given MCP server.
+// RegisterCallsParticipants adds CallsParticipants tools to the given MCP server.
 func (h *Handler) RegisterCallsParticipants(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1554,19 +931,6 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 	)
 
 	s.AddTool(
-		mcp.NewTool("chat-scheduled-messages-list",
-			mcp.WithDescription("request returning *ChatScheduledMessagesListResponse"),
-			mcp.WithString("channel", mcp.Description("Channel")),
-			mcp.WithNumber("latest", mcp.Description("Latest")),
-			mcp.WithNumber("oldest", mcp.Description("Oldest")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithString("token", mcp.Description("Token")),
-		),
-		h.handleChatScheduledMessagesListWithResponse,
-	)
-
-	s.AddTool(
 		mcp.NewTool("chat-unfurl-with-formdata-body",
 			mcp.WithDescription("ChatUnfurlWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
@@ -1586,7 +950,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 
 }
 
-// RegisterChatScheduledMessages adds Chat.scheduledMessages tools to the given MCP server.
+// RegisterChatScheduledMessages adds ChatScheduledMessages tools to the given MCP server.
 func (h *Handler) RegisterChatScheduledMessages(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1864,7 +1228,7 @@ func (h *Handler) RegisterEmoji(s *server.MCPServer) {
 
 }
 
-// RegisterFilesComments adds Files.comments tools to the given MCP server.
+// RegisterFilesComments adds FilesComments tools to the given MCP server.
 func (h *Handler) RegisterFilesComments(s *server.MCPServer) {
 
 	s.AddTool(
@@ -1880,15 +1244,6 @@ func (h *Handler) RegisterFilesComments(s *server.MCPServer) {
 
 // RegisterFiles adds Files tools to the given MCP server.
 func (h *Handler) RegisterFiles(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("files-comments-delete-with-formdata-body",
-			mcp.WithDescription("FilesCommentsDeleteWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesCommentsDeleteFormdataRequestBody)")),
-		),
-		h.handleFilesCommentsDeleteWithFormdataBodyWithResponse,
-	)
 
 	s.AddTool(
 		mcp.NewTool("files-delete-with-formdata-body",
@@ -1929,64 +1284,6 @@ func (h *Handler) RegisterFiles(s *server.MCPServer) {
 	)
 
 	s.AddTool(
-		mcp.NewTool("files-remote-add-with-formdata-body",
-			mcp.WithDescription("FilesRemoteAddWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesRemoteAddFormdataRequestBody)")),
-		),
-		h.handleFilesRemoteAddWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("files-remote-info",
-			mcp.WithDescription("request returning *FilesRemoteInfoResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("file", mcp.Description("File")),
-			mcp.WithString("external_id", mcp.Description("ExternalId")),
-		),
-		h.handleFilesRemoteInfoWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("files-remote-list",
-			mcp.WithDescription("request returning *FilesRemoteListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("channel", mcp.Description("Channel")),
-			mcp.WithNumber("ts_from", mcp.Description("TsFrom")),
-			mcp.WithNumber("ts_to", mcp.Description("TsTo")),
-			mcp.WithInteger("limit", mcp.Description("Limit")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-		),
-		h.handleFilesRemoteListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("files-remote-remove-with-formdata-body",
-			mcp.WithDescription("FilesRemoteRemoveWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesRemoteRemoveFormdataRequestBody)")),
-		),
-		h.handleFilesRemoteRemoveWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("files-remote-share",
-			mcp.WithDescription("request returning *FilesRemoteShareResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("file", mcp.Description("File")),
-			mcp.WithString("external_id", mcp.Description("ExternalId")),
-			mcp.WithString("channels", mcp.Description("Channels")),
-		),
-		h.handleFilesRemoteShareWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("files-remote-update-with-formdata-body",
-			mcp.WithDescription("FilesRemoteUpdateWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesRemoteUpdateFormdataRequestBody)")),
-		),
-		h.handleFilesRemoteUpdateWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
 		mcp.NewTool("files-revoke-public-u-r-l-with-formdata-body",
 			mcp.WithDescription("FilesRevokePublicURLWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
@@ -2014,7 +1311,7 @@ func (h *Handler) RegisterFiles(s *server.MCPServer) {
 
 }
 
-// RegisterFilesRemote adds Files.remote tools to the given MCP server.
+// RegisterFilesRemote adds FilesRemote tools to the given MCP server.
 func (h *Handler) RegisterFilesRemote(s *server.MCPServer) {
 
 	s.AddTool(
@@ -2120,20 +1417,9 @@ func (h *Handler) RegisterOauth(s *server.MCPServer) {
 		h.handleOauthTokenWithResponse,
 	)
 
-	s.AddTool(
-		mcp.NewTool("oauth-v2-access",
-			mcp.WithDescription("request returning *OauthV2AccessResponse"),
-			mcp.WithString("client_id", mcp.Description("ClientId")),
-			mcp.WithString("client_secret", mcp.Description("ClientSecret")),
-			mcp.WithString("code", mcp.Description("Code")),
-			mcp.WithString("redirect_uri", mcp.Description("RedirectUri")),
-		),
-		h.handleOauthV2AccessWithResponse,
-	)
-
 }
 
-// RegisterOauthV2 adds Oauth.v2 tools to the given MCP server.
+// RegisterOauthV2 adds OauthV2 tools to the given MCP server.
 func (h *Handler) RegisterOauthV2(s *server.MCPServer) {
 
 	s.AddTool(
@@ -2395,18 +1681,9 @@ func (h *Handler) RegisterTeam(s *server.MCPServer) {
 		h.handleTeamIntegrationLogsWithResponse,
 	)
 
-	s.AddTool(
-		mcp.NewTool("team-profile-get",
-			mcp.WithDescription("request returning *TeamProfileGetResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithString("visibility", mcp.Description("Visibility")),
-		),
-		h.handleTeamProfileGetWithResponse,
-	)
-
 }
 
-// RegisterTeamProfile adds Team.profile tools to the given MCP server.
+// RegisterTeamProfile adds TeamProfile tools to the given MCP server.
 func (h *Handler) RegisterTeamProfile(s *server.MCPServer) {
 
 	s.AddTool(
@@ -2470,28 +1747,9 @@ func (h *Handler) RegisterUsergroups(s *server.MCPServer) {
 		h.handleUsergroupsUpdateWithFormdataBodyWithResponse,
 	)
 
-	s.AddTool(
-		mcp.NewTool("usergroups-users-list",
-			mcp.WithDescription("request returning *UsergroupsUsersListResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithBoolean("include_disabled", mcp.Description("IncludeDisabled")),
-			mcp.WithString("usergroup", mcp.Description("Usergroup")),
-		),
-		h.handleUsergroupsUsersListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("usergroups-users-update-with-formdata-body",
-			mcp.WithDescription("UsergroupsUsersUpdateWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsergroupsUsersUpdateFormdataRequestBody)")),
-		),
-		h.handleUsergroupsUsersUpdateWithFormdataBodyWithResponse,
-	)
-
 }
 
-// RegisterUsergroupsUsers adds Usergroups.users tools to the given MCP server.
+// RegisterUsergroupsUsers adds UsergroupsUsers tools to the given MCP server.
 func (h *Handler) RegisterUsergroupsUsers(s *server.MCPServer) {
 
 	s.AddTool(
@@ -2587,25 +1845,6 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 	)
 
 	s.AddTool(
-		mcp.NewTool("users-profile-get",
-			mcp.WithDescription("request returning *UsersProfileGetResponse"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithBoolean("include_labels", mcp.Description("IncludeLabels")),
-			mcp.WithString("user", mcp.Description("User")),
-		),
-		h.handleUsersProfileGetWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("users-profile-set-with-formdata-body",
-			mcp.WithDescription("UsersProfileSetWithFormdataBody"),
-			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsersProfileSetFormdataRequestBody)")),
-		),
-		h.handleUsersProfileSetWithFormdataBodyWithResponse,
-	)
-
-	s.AddTool(
 		mcp.NewTool("users-set-active",
 			mcp.WithDescription("request returning *UsersSetActiveResponse"),
 			mcp.WithString("token", mcp.Description("Token")),
@@ -2632,7 +1871,7 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 
 }
 
-// RegisterUsersProfile adds Users.profile tools to the given MCP server.
+// RegisterUsersProfile adds UsersProfile tools to the given MCP server.
 func (h *Handler) RegisterUsersProfile(s *server.MCPServer) {
 
 	s.AddTool(
@@ -2745,7 +1984,6 @@ func (h *Handler) RegisterWorkflows(s *server.MCPServer) {
 // RegisterAll adds all tools to the given MCP server.
 func (h *Handler) RegisterAll(s *server.MCPServer) {
 	h.RegisterAdminApps(s)
-	h.RegisterAdmin(s)
 	h.RegisterAdminAppsApproved(s)
 	h.RegisterAdminAppsRequests(s)
 	h.RegisterAdminAppsRestricted(s)
@@ -2765,11 +2003,11 @@ func (h *Handler) RegisterAll(s *server.MCPServer) {
 	h.RegisterAdminUsersSession(s)
 	h.RegisterApi(s)
 	h.RegisterAppsEventAuthorizations(s)
-	h.RegisterApps(s)
 	h.RegisterAppsPermissions(s)
 	h.RegisterAppsPermissionsResources(s)
 	h.RegisterAppsPermissionsScopes(s)
 	h.RegisterAppsPermissionsUsers(s)
+	h.RegisterApps(s)
 	h.RegisterAuth(s)
 	h.RegisterBots(s)
 	h.RegisterCalls(s)
@@ -2812,284 +2050,279 @@ type Mounter interface {
 // {prefix}/{tag-name}.
 func (h *Handler) MountAll(m Mounter, prefix string) {
 	{
-		s := server.NewMCPServer("slack-Admin.apps", "0.1.0")
+		s := server.NewMCPServer("slack-AdminApps", "0.1.0")
 		h.RegisterAdminApps(s)
-		m.Mount(prefix + "/admin.apps", s)
+		m.Mount(prefix+"/admin-apps", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin", "0.1.0")
-		h.RegisterAdmin(s)
-		m.Mount(prefix + "/admin", s)
-	}
-	{
-		s := server.NewMCPServer("slack-Admin.apps.approved", "0.1.0")
+		s := server.NewMCPServer("slack-AdminAppsApproved", "0.1.0")
 		h.RegisterAdminAppsApproved(s)
-		m.Mount(prefix + "/admin.apps.approved", s)
+		m.Mount(prefix+"/admin-apps-approved", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.apps.requests", "0.1.0")
+		s := server.NewMCPServer("slack-AdminAppsRequests", "0.1.0")
 		h.RegisterAdminAppsRequests(s)
-		m.Mount(prefix + "/admin.apps.requests", s)
+		m.Mount(prefix+"/admin-apps-requests", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.apps.restricted", "0.1.0")
+		s := server.NewMCPServer("slack-AdminAppsRestricted", "0.1.0")
 		h.RegisterAdminAppsRestricted(s)
-		m.Mount(prefix + "/admin.apps.restricted", s)
+		m.Mount(prefix+"/admin-apps-restricted", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.conversations", "0.1.0")
+		s := server.NewMCPServer("slack-AdminConversations", "0.1.0")
 		h.RegisterAdminConversations(s)
-		m.Mount(prefix + "/admin.conversations", s)
+		m.Mount(prefix+"/admin-conversations", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.conversations.ekm", "0.1.0")
+		s := server.NewMCPServer("slack-AdminConversationsEkm", "0.1.0")
 		h.RegisterAdminConversationsEkm(s)
-		m.Mount(prefix + "/admin.conversations.ekm", s)
+		m.Mount(prefix+"/admin-conversations-ekm", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.conversations.restrictAccess", "0.1.0")
+		s := server.NewMCPServer("slack-AdminConversationsRestrictAccess", "0.1.0")
 		h.RegisterAdminConversationsRestrictAccess(s)
-		m.Mount(prefix + "/admin.conversations.restrict-access", s)
+		m.Mount(prefix+"/admin-conversations-restrict-access", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.emoji", "0.1.0")
+		s := server.NewMCPServer("slack-AdminEmoji", "0.1.0")
 		h.RegisterAdminEmoji(s)
-		m.Mount(prefix + "/admin.emoji", s)
+		m.Mount(prefix+"/admin-emoji", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.inviteRequests", "0.1.0")
+		s := server.NewMCPServer("slack-AdminInviteRequests", "0.1.0")
 		h.RegisterAdminInviteRequests(s)
-		m.Mount(prefix + "/admin.invite-requests", s)
+		m.Mount(prefix+"/admin-invite-requests", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.inviteRequests.approved", "0.1.0")
+		s := server.NewMCPServer("slack-AdminInviteRequestsApproved", "0.1.0")
 		h.RegisterAdminInviteRequestsApproved(s)
-		m.Mount(prefix + "/admin.invite-requests.approved", s)
+		m.Mount(prefix+"/admin-invite-requests-approved", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.inviteRequests.denied", "0.1.0")
+		s := server.NewMCPServer("slack-AdminInviteRequestsDenied", "0.1.0")
 		h.RegisterAdminInviteRequestsDenied(s)
-		m.Mount(prefix + "/admin.invite-requests.denied", s)
+		m.Mount(prefix+"/admin-invite-requests-denied", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.teams.admins", "0.1.0")
+		s := server.NewMCPServer("slack-AdminTeamsAdmins", "0.1.0")
 		h.RegisterAdminTeamsAdmins(s)
-		m.Mount(prefix + "/admin.teams.admins", s)
+		m.Mount(prefix+"/admin-teams-admins", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.teams", "0.1.0")
+		s := server.NewMCPServer("slack-AdminTeams", "0.1.0")
 		h.RegisterAdminTeams(s)
-		m.Mount(prefix + "/admin.teams", s)
+		m.Mount(prefix+"/admin-teams", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.teams.owners", "0.1.0")
+		s := server.NewMCPServer("slack-AdminTeamsOwners", "0.1.0")
 		h.RegisterAdminTeamsOwners(s)
-		m.Mount(prefix + "/admin.teams.owners", s)
+		m.Mount(prefix+"/admin-teams-owners", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.teams.settings", "0.1.0")
+		s := server.NewMCPServer("slack-AdminTeamsSettings", "0.1.0")
 		h.RegisterAdminTeamsSettings(s)
-		m.Mount(prefix + "/admin.teams.settings", s)
+		m.Mount(prefix+"/admin-teams-settings", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.usergroups", "0.1.0")
+		s := server.NewMCPServer("slack-AdminUsergroups", "0.1.0")
 		h.RegisterAdminUsergroups(s)
-		m.Mount(prefix + "/admin.usergroups", s)
+		m.Mount(prefix+"/admin-usergroups", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.users", "0.1.0")
+		s := server.NewMCPServer("slack-AdminUsers", "0.1.0")
 		h.RegisterAdminUsers(s)
-		m.Mount(prefix + "/admin.users", s)
+		m.Mount(prefix+"/admin-users", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Admin.users.session", "0.1.0")
+		s := server.NewMCPServer("slack-AdminUsersSession", "0.1.0")
 		h.RegisterAdminUsersSession(s)
-		m.Mount(prefix + "/admin.users.session", s)
+		m.Mount(prefix+"/admin-users-session", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Api", "0.1.0")
 		h.RegisterApi(s)
-		m.Mount(prefix + "/api", s)
+		m.Mount(prefix+"/api", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Apps.event.authorizations", "0.1.0")
+		s := server.NewMCPServer("slack-AppsEventAuthorizations", "0.1.0")
 		h.RegisterAppsEventAuthorizations(s)
-		m.Mount(prefix + "/apps.event.authorizations", s)
+		m.Mount(prefix+"/apps-event-authorizations", s)
+	}
+	{
+		s := server.NewMCPServer("slack-AppsPermissions", "0.1.0")
+		h.RegisterAppsPermissions(s)
+		m.Mount(prefix+"/apps-permissions", s)
+	}
+	{
+		s := server.NewMCPServer("slack-AppsPermissionsResources", "0.1.0")
+		h.RegisterAppsPermissionsResources(s)
+		m.Mount(prefix+"/apps-permissions-resources", s)
+	}
+	{
+		s := server.NewMCPServer("slack-AppsPermissionsScopes", "0.1.0")
+		h.RegisterAppsPermissionsScopes(s)
+		m.Mount(prefix+"/apps-permissions-scopes", s)
+	}
+	{
+		s := server.NewMCPServer("slack-AppsPermissionsUsers", "0.1.0")
+		h.RegisterAppsPermissionsUsers(s)
+		m.Mount(prefix+"/apps-permissions-users", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Apps", "0.1.0")
 		h.RegisterApps(s)
-		m.Mount(prefix + "/apps", s)
-	}
-	{
-		s := server.NewMCPServer("slack-Apps.permissions", "0.1.0")
-		h.RegisterAppsPermissions(s)
-		m.Mount(prefix + "/apps.permissions", s)
-	}
-	{
-		s := server.NewMCPServer("slack-Apps.permissions.resources", "0.1.0")
-		h.RegisterAppsPermissionsResources(s)
-		m.Mount(prefix + "/apps.permissions.resources", s)
-	}
-	{
-		s := server.NewMCPServer("slack-Apps.permissions.scopes", "0.1.0")
-		h.RegisterAppsPermissionsScopes(s)
-		m.Mount(prefix + "/apps.permissions.scopes", s)
-	}
-	{
-		s := server.NewMCPServer("slack-Apps.permissions.users", "0.1.0")
-		h.RegisterAppsPermissionsUsers(s)
-		m.Mount(prefix + "/apps.permissions.users", s)
+		m.Mount(prefix+"/apps", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Auth", "0.1.0")
 		h.RegisterAuth(s)
-		m.Mount(prefix + "/auth", s)
+		m.Mount(prefix+"/auth", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Bots", "0.1.0")
 		h.RegisterBots(s)
-		m.Mount(prefix + "/bots", s)
+		m.Mount(prefix+"/bots", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Calls", "0.1.0")
 		h.RegisterCalls(s)
-		m.Mount(prefix + "/calls", s)
+		m.Mount(prefix+"/calls", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Calls.participants", "0.1.0")
+		s := server.NewMCPServer("slack-CallsParticipants", "0.1.0")
 		h.RegisterCallsParticipants(s)
-		m.Mount(prefix + "/calls.participants", s)
+		m.Mount(prefix+"/calls-participants", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Chat", "0.1.0")
 		h.RegisterChat(s)
-		m.Mount(prefix + "/chat", s)
+		m.Mount(prefix+"/chat", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Chat.scheduledMessages", "0.1.0")
+		s := server.NewMCPServer("slack-ChatScheduledMessages", "0.1.0")
 		h.RegisterChatScheduledMessages(s)
-		m.Mount(prefix + "/chat.scheduled-messages", s)
+		m.Mount(prefix+"/chat-scheduled-messages", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Conversations", "0.1.0")
 		h.RegisterConversations(s)
-		m.Mount(prefix + "/conversations", s)
+		m.Mount(prefix+"/conversations", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Dialog", "0.1.0")
 		h.RegisterDialog(s)
-		m.Mount(prefix + "/dialog", s)
+		m.Mount(prefix+"/dialog", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Dnd", "0.1.0")
 		h.RegisterDnd(s)
-		m.Mount(prefix + "/dnd", s)
+		m.Mount(prefix+"/dnd", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Emoji", "0.1.0")
 		h.RegisterEmoji(s)
-		m.Mount(prefix + "/emoji", s)
+		m.Mount(prefix+"/emoji", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Files.comments", "0.1.0")
+		s := server.NewMCPServer("slack-FilesComments", "0.1.0")
 		h.RegisterFilesComments(s)
-		m.Mount(prefix + "/files.comments", s)
+		m.Mount(prefix+"/files-comments", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Files", "0.1.0")
 		h.RegisterFiles(s)
-		m.Mount(prefix + "/files", s)
+		m.Mount(prefix+"/files", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Files.remote", "0.1.0")
+		s := server.NewMCPServer("slack-FilesRemote", "0.1.0")
 		h.RegisterFilesRemote(s)
-		m.Mount(prefix + "/files.remote", s)
+		m.Mount(prefix+"/files-remote", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Migration", "0.1.0")
 		h.RegisterMigration(s)
-		m.Mount(prefix + "/migration", s)
+		m.Mount(prefix+"/migration", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Oauth", "0.1.0")
 		h.RegisterOauth(s)
-		m.Mount(prefix + "/oauth", s)
+		m.Mount(prefix+"/oauth", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Oauth.v2", "0.1.0")
+		s := server.NewMCPServer("slack-OauthV2", "0.1.0")
 		h.RegisterOauthV2(s)
-		m.Mount(prefix + "/oauth.v2", s)
+		m.Mount(prefix+"/oauth-v2", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Pins", "0.1.0")
 		h.RegisterPins(s)
-		m.Mount(prefix + "/pins", s)
+		m.Mount(prefix+"/pins", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Reactions", "0.1.0")
 		h.RegisterReactions(s)
-		m.Mount(prefix + "/reactions", s)
+		m.Mount(prefix+"/reactions", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Reminders", "0.1.0")
 		h.RegisterReminders(s)
-		m.Mount(prefix + "/reminders", s)
+		m.Mount(prefix+"/reminders", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Rtm", "0.1.0")
 		h.RegisterRtm(s)
-		m.Mount(prefix + "/rtm", s)
+		m.Mount(prefix+"/rtm", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Search", "0.1.0")
 		h.RegisterSearch(s)
-		m.Mount(prefix + "/search", s)
+		m.Mount(prefix+"/search", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Stars", "0.1.0")
 		h.RegisterStars(s)
-		m.Mount(prefix + "/stars", s)
+		m.Mount(prefix+"/stars", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Team", "0.1.0")
 		h.RegisterTeam(s)
-		m.Mount(prefix + "/team", s)
+		m.Mount(prefix+"/team", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Team.profile", "0.1.0")
+		s := server.NewMCPServer("slack-TeamProfile", "0.1.0")
 		h.RegisterTeamProfile(s)
-		m.Mount(prefix + "/team.profile", s)
+		m.Mount(prefix+"/team-profile", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Usergroups", "0.1.0")
 		h.RegisterUsergroups(s)
-		m.Mount(prefix + "/usergroups", s)
+		m.Mount(prefix+"/usergroups", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Usergroups.users", "0.1.0")
+		s := server.NewMCPServer("slack-UsergroupsUsers", "0.1.0")
 		h.RegisterUsergroupsUsers(s)
-		m.Mount(prefix + "/usergroups.users", s)
+		m.Mount(prefix+"/usergroups-users", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Users", "0.1.0")
 		h.RegisterUsers(s)
-		m.Mount(prefix + "/users", s)
+		m.Mount(prefix+"/users", s)
 	}
 	{
-		s := server.NewMCPServer("slack-Users.profile", "0.1.0")
+		s := server.NewMCPServer("slack-UsersProfile", "0.1.0")
 		h.RegisterUsersProfile(s)
-		m.Mount(prefix + "/users.profile", s)
+		m.Mount(prefix+"/users-profile", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Views", "0.1.0")
 		h.RegisterViews(s)
-		m.Mount(prefix + "/views", s)
+		m.Mount(prefix+"/views", s)
 	}
 	{
 		s := server.NewMCPServer("slack-Workflows", "0.1.0")
 		h.RegisterWorkflows(s)
-		m.Mount(prefix + "/workflows", s)
+		m.Mount(prefix+"/workflows", s)
 	}
 }
 func ptrVal[T any](v T) *T {
@@ -3114,7 +2347,7 @@ func (h *Handler) handleAdminAppsApproveWithFormdataBodyWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.AdminAppsApproveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminAppsApproveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3141,7 +2374,7 @@ func (h *Handler) handleAdminAppsRestrictWithFormdataBodyWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.AdminAppsRestrictWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminAppsRestrictWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3183,7 +2416,7 @@ func (h *Handler) handleAdminAppsApprovedListWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.AdminAppsApprovedListWithResponse(ctx, params, )
+	resp, err := client.AdminAppsApprovedListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3220,7 +2453,7 @@ func (h *Handler) handleAdminAppsRequestsListWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.AdminAppsRequestsListWithResponse(ctx, params, )
+	resp, err := client.AdminAppsRequestsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3262,7 +2495,7 @@ func (h *Handler) handleAdminAppsRestrictedListWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, err := client.AdminAppsRestrictedListWithResponse(ctx, params, )
+	resp, err := client.AdminAppsRestrictedListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3289,7 +2522,7 @@ func (h *Handler) handleAdminConversationsArchiveWithFormdataBodyWithResponse(ct
 		}
 	}
 
-	resp, err := client.AdminConversationsArchiveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminConversationsArchiveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3316,7 +2549,7 @@ func (h *Handler) handleAdminConversationsConvertToPrivateWithFormdataBodyWithRe
 		}
 	}
 
-	resp, err := client.AdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3343,7 +2576,7 @@ func (h *Handler) handleAdminConversationsCreateWithFormdataBodyWithResponse(ctx
 		}
 	}
 
-	resp, err := client.AdminConversationsCreateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminConversationsCreateWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3370,7 +2603,7 @@ func (h *Handler) handleAdminConversationsDeleteWithFormdataBodyWithResponse(ctx
 		}
 	}
 
-	resp, err := client.AdminConversationsDeleteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminConversationsDeleteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3397,49 +2630,7 @@ func (h *Handler) handleAdminConversationsDisconnectSharedWithFormdataBodyWithRe
 		}
 	}
 
-	resp, err := client.AdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	params := &target.AdminConversationsEkmListOriginalConnectedChannelInfoParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["channel_ids"]; ok {
-			params.ChannelIds = ptrVal(request.GetString("channel_ids", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["team_ids"]; ok {
-			params.TeamIds = ptrVal(request.GetString("team_ids", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["limit"]; ok {
-			params.Limit = ptrVal(int(request.GetInt("limit", 0)))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["cursor"]; ok {
-			params.Cursor = ptrVal(request.GetString("cursor", ""))
-		}
-	}
-
-	resp, err := client.AdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx, params, )
+	resp, err := client.AdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3466,7 +2657,7 @@ func (h *Handler) handleAdminConversationsGetConversationPrefsWithResponse(ctx c
 		}
 	}
 
-	resp, err := client.AdminConversationsGetConversationPrefsWithResponse(ctx, params, )
+	resp, err := client.AdminConversationsGetConversationPrefsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3503,7 +2694,7 @@ func (h *Handler) handleAdminConversationsGetTeamsWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, err := client.AdminConversationsGetTeamsWithResponse(ctx, params, )
+	resp, err := client.AdminConversationsGetTeamsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3530,7 +2721,7 @@ func (h *Handler) handleAdminConversationsInviteWithFormdataBodyWithResponse(ctx
 		}
 	}
 
-	resp, err := client.AdminConversationsInviteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminConversationsInviteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3557,81 +2748,7 @@ func (h *Handler) handleAdminConversationsRenameWithFormdataBodyWithResponse(ctx
 		}
 	}
 
-	resp, err := client.AdminConversationsRenameWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.AdminConversationsRestrictAccessAddGroupFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-
-	resp, err := client.AdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAdminConversationsRestrictAccessListGroupsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	params := &target.AdminConversationsRestrictAccessListGroupsParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["channel_id"]; ok {
-			params.ChannelId = request.GetString("channel_id", "")
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["team_id"]; ok {
-			params.TeamId = ptrVal(request.GetString("team_id", ""))
-		}
-	}
-
-	resp, err := client.AdminConversationsRestrictAccessListGroupsWithResponse(ctx, params, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.AdminConversationsRestrictAccessRemoveGroupFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-
-	resp, err := client.AdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.AdminConversationsRenameWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3688,7 +2805,7 @@ func (h *Handler) handleAdminConversationsSearchWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.AdminConversationsSearchWithResponse(ctx, params, )
+	resp, err := client.AdminConversationsSearchWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3715,7 +2832,7 @@ func (h *Handler) handleAdminConversationsSetConversationPrefsWithFormdataBodyWi
 		}
 	}
 
-	resp, err := client.AdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3742,7 +2859,7 @@ func (h *Handler) handleAdminConversationsSetTeamsWithFormdataBodyWithResponse(c
 		}
 	}
 
-	resp, err := client.AdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3769,7 +2886,123 @@ func (h *Handler) handleAdminConversationsUnarchiveWithFormdataBodyWithResponse(
 		}
 	}
 
-	resp, err := client.AdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	params := &target.AdminConversationsEkmListOriginalConnectedChannelInfoParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["channel_ids"]; ok {
+			params.ChannelIds = ptrVal(request.GetString("channel_ids", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["team_ids"]; ok {
+			params.TeamIds = ptrVal(request.GetString("team_ids", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["limit"]; ok {
+			params.Limit = ptrVal(int(request.GetInt("limit", 0)))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["cursor"]; ok {
+			params.Cursor = ptrVal(request.GetString("cursor", ""))
+		}
+	}
+
+	resp, err := client.AdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.AdminConversationsRestrictAccessAddGroupFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+
+	resp, err := client.AdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleAdminConversationsRestrictAccessListGroupsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	params := &target.AdminConversationsRestrictAccessListGroupsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["channel_id"]; ok {
+			params.ChannelId = request.GetString("channel_id", "")
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["team_id"]; ok {
+			params.TeamId = ptrVal(request.GetString("team_id", ""))
+		}
+	}
+
+	resp, err := client.AdminConversationsRestrictAccessListGroupsWithResponse(ctx, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.AdminConversationsRestrictAccessRemoveGroupFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+
+	resp, err := client.AdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3790,7 +3023,7 @@ func (h *Handler) handleAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx conte
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AdminEmojiAddAliasWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.AdminEmojiAddAliasWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3811,7 +3044,7 @@ func (h *Handler) handleAdminEmojiAddWithFormdataBodyWithResponse(ctx context.Co
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AdminEmojiAddWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.AdminEmojiAddWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3843,7 +3076,7 @@ func (h *Handler) handleAdminEmojiListWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.AdminEmojiListWithResponse(ctx, params, )
+	resp, err := client.AdminEmojiListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3864,7 +3097,7 @@ func (h *Handler) handleAdminEmojiRemoveWithFormdataBodyWithResponse(ctx context
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AdminEmojiRemoveWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.AdminEmojiRemoveWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3885,7 +3118,7 @@ func (h *Handler) handleAdminEmojiRenameWithFormdataBodyWithResponse(ctx context
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AdminEmojiRenameWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.AdminEmojiRenameWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3912,81 +3145,7 @@ func (h *Handler) handleAdminInviteRequestsApproveWithFormdataBodyWithResponse(c
 		}
 	}
 
-	resp, err := client.AdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAdminInviteRequestsApprovedListWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	params := &target.AdminInviteRequestsApprovedListParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["team_id"]; ok {
-			params.TeamId = ptrVal(request.GetString("team_id", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["cursor"]; ok {
-			params.Cursor = ptrVal(request.GetString("cursor", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["limit"]; ok {
-			params.Limit = ptrVal(int(request.GetInt("limit", 0)))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.AdminInviteRequestsApprovedListWithResponse(ctx, params, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAdminInviteRequestsDeniedListWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	params := &target.AdminInviteRequestsDeniedListParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["team_id"]; ok {
-			params.TeamId = ptrVal(request.GetString("team_id", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["cursor"]; ok {
-			params.Cursor = ptrVal(request.GetString("cursor", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["limit"]; ok {
-			params.Limit = ptrVal(int(request.GetInt("limit", 0)))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.AdminInviteRequestsDeniedListWithResponse(ctx, params, )
+	resp, err := client.AdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4013,7 +3172,7 @@ func (h *Handler) handleAdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx 
 		}
 	}
 
-	resp, err := client.AdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4050,7 +3209,81 @@ func (h *Handler) handleAdminInviteRequestsListWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, err := client.AdminInviteRequestsListWithResponse(ctx, params, )
+	resp, err := client.AdminInviteRequestsListWithResponse(ctx, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleAdminInviteRequestsApprovedListWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	params := &target.AdminInviteRequestsApprovedListParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["team_id"]; ok {
+			params.TeamId = ptrVal(request.GetString("team_id", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["cursor"]; ok {
+			params.Cursor = ptrVal(request.GetString("cursor", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["limit"]; ok {
+			params.Limit = ptrVal(int(request.GetInt("limit", 0)))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.AdminInviteRequestsApprovedListWithResponse(ctx, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleAdminInviteRequestsDeniedListWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	params := &target.AdminInviteRequestsDeniedListParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["team_id"]; ok {
+			params.TeamId = ptrVal(request.GetString("team_id", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["cursor"]; ok {
+			params.Cursor = ptrVal(request.GetString("cursor", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["limit"]; ok {
+			params.Limit = ptrVal(int(request.GetInt("limit", 0)))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.AdminInviteRequestsDeniedListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4087,7 +3320,7 @@ func (h *Handler) handleAdminTeamsAdminsListWithResponse(ctx context.Context, re
 		}
 	}
 
-	resp, err := client.AdminTeamsAdminsListWithResponse(ctx, params, )
+	resp, err := client.AdminTeamsAdminsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4114,7 +3347,7 @@ func (h *Handler) handleAdminTeamsCreateWithFormdataBodyWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.AdminTeamsCreateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminTeamsCreateWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4146,7 +3379,7 @@ func (h *Handler) handleAdminTeamsListWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.AdminTeamsListWithResponse(ctx, params, )
+	resp, err := client.AdminTeamsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4183,7 +3416,7 @@ func (h *Handler) handleAdminTeamsOwnersListWithResponse(ctx context.Context, re
 		}
 	}
 
-	resp, err := client.AdminTeamsOwnersListWithResponse(ctx, params, )
+	resp, err := client.AdminTeamsOwnersListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4210,7 +3443,7 @@ func (h *Handler) handleAdminTeamsSettingsInfoWithResponse(ctx context.Context, 
 		}
 	}
 
-	resp, err := client.AdminTeamsSettingsInfoWithResponse(ctx, params, )
+	resp, err := client.AdminTeamsSettingsInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4231,7 +3464,7 @@ func (h *Handler) handleAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWith
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.AdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4258,7 +3491,7 @@ func (h *Handler) handleAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResp
 		}
 	}
 
-	resp, err := client.AdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4285,7 +3518,7 @@ func (h *Handler) handleAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWith
 		}
 	}
 
-	resp, err := client.AdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4306,7 +3539,7 @@ func (h *Handler) handleAdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ct
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.AdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4333,7 +3566,7 @@ func (h *Handler) handleAdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ct
 		}
 	}
 
-	resp, err := client.AdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4360,7 +3593,7 @@ func (h *Handler) handleAdminUsergroupsAddChannelsWithFormdataBodyWithResponse(c
 		}
 	}
 
-	resp, err := client.AdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4387,7 +3620,7 @@ func (h *Handler) handleAdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx 
 		}
 	}
 
-	resp, err := client.AdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4424,7 +3657,7 @@ func (h *Handler) handleAdminUsergroupsListChannelsWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.AdminUsergroupsListChannelsWithResponse(ctx, params, )
+	resp, err := client.AdminUsergroupsListChannelsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4451,7 +3684,7 @@ func (h *Handler) handleAdminUsergroupsRemoveChannelsWithFormdataBodyWithRespons
 		}
 	}
 
-	resp, err := client.AdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4478,7 +3711,7 @@ func (h *Handler) handleAdminUsersAssignWithFormdataBodyWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.AdminUsersAssignWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsersAssignWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4505,7 +3738,7 @@ func (h *Handler) handleAdminUsersInviteWithFormdataBodyWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.AdminUsersInviteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsersInviteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4542,7 +3775,7 @@ func (h *Handler) handleAdminUsersListWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.AdminUsersListWithResponse(ctx, params, )
+	resp, err := client.AdminUsersListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4569,61 +3802,7 @@ func (h *Handler) handleAdminUsersRemoveWithFormdataBodyWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.AdminUsersRemoveWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.AdminUsersSessionInvalidateFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.AdminUsersSessionInvalidateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.AdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAdminUsersSessionResetWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.AdminUsersSessionResetFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.AdminUsersSessionResetParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.AdminUsersSessionResetWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsersRemoveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4650,7 +3829,7 @@ func (h *Handler) handleAdminUsersSetAdminWithFormdataBodyWithResponse(ctx conte
 		}
 	}
 
-	resp, err := client.AdminUsersSetAdminWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsersSetAdminWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4677,7 +3856,7 @@ func (h *Handler) handleAdminUsersSetExpirationWithFormdataBodyWithResponse(ctx 
 		}
 	}
 
-	resp, err := client.AdminUsersSetExpirationWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsersSetExpirationWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4704,7 +3883,7 @@ func (h *Handler) handleAdminUsersSetOwnerWithFormdataBodyWithResponse(ctx conte
 		}
 	}
 
-	resp, err := client.AdminUsersSetOwnerWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsersSetOwnerWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4731,7 +3910,61 @@ func (h *Handler) handleAdminUsersSetRegularWithFormdataBodyWithResponse(ctx con
 		}
 	}
 
-	resp, err := client.AdminUsersSetRegularWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.AdminUsersSetRegularWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.AdminUsersSessionInvalidateFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.AdminUsersSessionInvalidateParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.AdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleAdminUsersSessionResetWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.AdminUsersSessionResetFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.AdminUsersSessionResetParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.AdminUsersSessionResetWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4758,7 +3991,7 @@ func (h *Handler) handleApiTestWithResponse(ctx context.Context, request mcp.Cal
 		}
 	}
 
-	resp, err := client.ApiTestWithResponse(ctx, params, )
+	resp, err := client.ApiTestWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4795,7 +4028,7 @@ func (h *Handler) handleAppsEventAuthorizationsListWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.AppsEventAuthorizationsListWithResponse(ctx, params, )
+	resp, err := client.AppsEventAuthorizationsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4817,7 +4050,7 @@ func (h *Handler) handleAppsPermissionsInfoWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.AppsPermissionsInfoWithResponse(ctx, params, )
+	resp, err := client.AppsPermissionsInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4849,7 +4082,7 @@ func (h *Handler) handleAppsPermissionsRequestWithResponse(ctx context.Context, 
 		}
 	}
 
-	resp, err := client.AppsPermissionsRequestWithResponse(ctx, params, )
+	resp, err := client.AppsPermissionsRequestWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4881,7 +4114,7 @@ func (h *Handler) handleAppsPermissionsResourcesListWithResponse(ctx context.Con
 		}
 	}
 
-	resp, err := client.AppsPermissionsResourcesListWithResponse(ctx, params, )
+	resp, err := client.AppsPermissionsResourcesListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4903,7 +4136,7 @@ func (h *Handler) handleAppsPermissionsScopesListWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, err := client.AppsPermissionsScopesListWithResponse(ctx, params, )
+	resp, err := client.AppsPermissionsScopesListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4935,7 +4168,7 @@ func (h *Handler) handleAppsPermissionsUsersListWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.AppsPermissionsUsersListWithResponse(ctx, params, )
+	resp, err := client.AppsPermissionsUsersListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4972,7 +4205,7 @@ func (h *Handler) handleAppsPermissionsUsersRequestWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.AppsPermissionsUsersRequestWithResponse(ctx, params, )
+	resp, err := client.AppsPermissionsUsersRequestWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5004,7 +4237,7 @@ func (h *Handler) handleAppsUninstallWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.AppsUninstallWithResponse(ctx, params, )
+	resp, err := client.AppsUninstallWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5031,7 +4264,7 @@ func (h *Handler) handleAuthRevokeWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.AuthRevokeWithResponse(ctx, params, )
+	resp, err := client.AuthRevokeWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5053,7 +4286,7 @@ func (h *Handler) handleAuthTestWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.AuthTestWithResponse(ctx, params, )
+	resp, err := client.AuthTestWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5080,7 +4313,7 @@ func (h *Handler) handleBotsInfoWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.BotsInfoWithResponse(ctx, params, )
+	resp, err := client.BotsInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5107,7 +4340,7 @@ func (h *Handler) handleCallsAddWithFormdataBodyWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.CallsAddWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.CallsAddWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5134,7 +4367,7 @@ func (h *Handler) handleCallsEndWithFormdataBodyWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.CallsEndWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.CallsEndWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5161,61 +4394,7 @@ func (h *Handler) handleCallsInfoWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.CallsInfoWithResponse(ctx, params, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleCallsParticipantsAddWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.CallsParticipantsAddFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.CallsParticipantsAddParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.CallsParticipantsAddWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.CallsParticipantsRemoveFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.CallsParticipantsRemoveParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.CallsParticipantsRemoveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.CallsInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5242,7 +4421,61 @@ func (h *Handler) handleCallsUpdateWithFormdataBodyWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.CallsUpdateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.CallsUpdateWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCallsParticipantsAddWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.CallsParticipantsAddFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CallsParticipantsAddParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.CallsParticipantsAddWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.CallsParticipantsRemoveFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CallsParticipantsRemoveParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.CallsParticipantsRemoveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5269,7 +4502,7 @@ func (h *Handler) handleChatDeleteScheduledMessageWithFormdataBodyWithResponse(c
 		}
 	}
 
-	resp, err := client.ChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5296,7 +4529,7 @@ func (h *Handler) handleChatDeleteWithFormdataBodyWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, err := client.ChatDeleteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ChatDeleteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5328,7 +4561,7 @@ func (h *Handler) handleChatGetPermalinkWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.ChatGetPermalinkWithResponse(ctx, params, )
+	resp, err := client.ChatGetPermalinkWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5355,7 +4588,7 @@ func (h *Handler) handleChatMeMessageWithFormdataBodyWithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.ChatMeMessageWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ChatMeMessageWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5382,7 +4615,7 @@ func (h *Handler) handleChatPostEphemeralWithFormdataBodyWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.ChatPostEphemeralWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ChatPostEphemeralWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5409,7 +4642,7 @@ func (h *Handler) handleChatPostMessageWithFormdataBodyWithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.ChatPostMessageWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ChatPostMessageWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5436,7 +4669,61 @@ func (h *Handler) handleChatScheduleMessageWithFormdataBodyWithResponse(ctx cont
 		}
 	}
 
-	resp, err := client.ChatScheduleMessageWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ChatScheduleMessageWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleChatUnfurlWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.ChatUnfurlFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.ChatUnfurlParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.ChatUnfurlWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleChatUpdateWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.ChatUpdateFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.ChatUpdateParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.ChatUpdateWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5483,61 +4770,7 @@ func (h *Handler) handleChatScheduledMessagesListWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, err := client.ChatScheduledMessagesListWithResponse(ctx, params, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleChatUnfurlWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.ChatUnfurlFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.ChatUnfurlParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.ChatUnfurlWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleChatUpdateWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.ChatUpdateFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.ChatUpdateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.ChatUpdateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ChatScheduledMessagesListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5564,7 +4797,7 @@ func (h *Handler) handleConversationsArchiveWithFormdataBodyWithResponse(ctx con
 		}
 	}
 
-	resp, err := client.ConversationsArchiveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsArchiveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5591,7 +4824,7 @@ func (h *Handler) handleConversationsCloseWithFormdataBodyWithResponse(ctx conte
 		}
 	}
 
-	resp, err := client.ConversationsCloseWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsCloseWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5618,7 +4851,7 @@ func (h *Handler) handleConversationsCreateWithFormdataBodyWithResponse(ctx cont
 		}
 	}
 
-	resp, err := client.ConversationsCreateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsCreateWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5670,7 +4903,7 @@ func (h *Handler) handleConversationsHistoryWithResponse(ctx context.Context, re
 		}
 	}
 
-	resp, err := client.ConversationsHistoryWithResponse(ctx, params, )
+	resp, err := client.ConversationsHistoryWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5707,7 +4940,7 @@ func (h *Handler) handleConversationsInfoWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.ConversationsInfoWithResponse(ctx, params, )
+	resp, err := client.ConversationsInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5734,7 +4967,7 @@ func (h *Handler) handleConversationsInviteWithFormdataBodyWithResponse(ctx cont
 		}
 	}
 
-	resp, err := client.ConversationsInviteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsInviteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5761,7 +4994,7 @@ func (h *Handler) handleConversationsJoinWithFormdataBodyWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.ConversationsJoinWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsJoinWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5788,7 +5021,7 @@ func (h *Handler) handleConversationsKickWithFormdataBodyWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.ConversationsKickWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsKickWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5815,7 +5048,7 @@ func (h *Handler) handleConversationsLeaveWithFormdataBodyWithResponse(ctx conte
 		}
 	}
 
-	resp, err := client.ConversationsLeaveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsLeaveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5857,7 +5090,7 @@ func (h *Handler) handleConversationsListWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.ConversationsListWithResponse(ctx, params, )
+	resp, err := client.ConversationsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5884,7 +5117,7 @@ func (h *Handler) handleConversationsMarkWithFormdataBodyWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.ConversationsMarkWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsMarkWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5921,7 +5154,7 @@ func (h *Handler) handleConversationsMembersWithResponse(ctx context.Context, re
 		}
 	}
 
-	resp, err := client.ConversationsMembersWithResponse(ctx, params, )
+	resp, err := client.ConversationsMembersWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5948,7 +5181,7 @@ func (h *Handler) handleConversationsOpenWithFormdataBodyWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.ConversationsOpenWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsOpenWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5975,7 +5208,7 @@ func (h *Handler) handleConversationsRenameWithFormdataBodyWithResponse(ctx cont
 		}
 	}
 
-	resp, err := client.ConversationsRenameWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsRenameWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6032,7 +5265,7 @@ func (h *Handler) handleConversationsRepliesWithResponse(ctx context.Context, re
 		}
 	}
 
-	resp, err := client.ConversationsRepliesWithResponse(ctx, params, )
+	resp, err := client.ConversationsRepliesWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6059,7 +5292,7 @@ func (h *Handler) handleConversationsSetPurposeWithFormdataBodyWithResponse(ctx 
 		}
 	}
 
-	resp, err := client.ConversationsSetPurposeWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsSetPurposeWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6086,7 +5319,7 @@ func (h *Handler) handleConversationsSetTopicWithFormdataBodyWithResponse(ctx co
 		}
 	}
 
-	resp, err := client.ConversationsSetTopicWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsSetTopicWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6113,7 +5346,7 @@ func (h *Handler) handleConversationsUnarchiveWithFormdataBodyWithResponse(ctx c
 		}
 	}
 
-	resp, err := client.ConversationsUnarchiveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ConversationsUnarchiveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6145,7 +5378,7 @@ func (h *Handler) handleDialogOpenWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.DialogOpenWithResponse(ctx, params, )
+	resp, err := client.DialogOpenWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6167,7 +5400,7 @@ func (h *Handler) handleDndEndDndWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.DndEndDndWithResponse(ctx, params, )
+	resp, err := client.DndEndDndWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6189,7 +5422,7 @@ func (h *Handler) handleDndEndSnoozeWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.DndEndSnoozeWithResponse(ctx, params, )
+	resp, err := client.DndEndSnoozeWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6216,7 +5449,7 @@ func (h *Handler) handleDndInfoWithResponse(ctx context.Context, request mcp.Cal
 		}
 	}
 
-	resp, err := client.DndInfoWithResponse(ctx, params, )
+	resp, err := client.DndInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6237,7 +5470,7 @@ func (h *Handler) handleDndSetSnoozeWithFormdataBodyWithResponse(ctx context.Con
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.DndSetSnoozeWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.DndSetSnoozeWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6264,7 +5497,7 @@ func (h *Handler) handleDndTeamInfoWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.DndTeamInfoWithResponse(ctx, params, )
+	resp, err := client.DndTeamInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6286,7 +5519,7 @@ func (h *Handler) handleEmojiListWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.EmojiListWithResponse(ctx, params, )
+	resp, err := client.EmojiListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6313,7 +5546,7 @@ func (h *Handler) handleFilesCommentsDeleteWithFormdataBodyWithResponse(ctx cont
 		}
 	}
 
-	resp, err := client.FilesCommentsDeleteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.FilesCommentsDeleteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6340,7 +5573,7 @@ func (h *Handler) handleFilesDeleteWithFormdataBodyWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.FilesDeleteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.FilesDeleteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6387,7 +5620,7 @@ func (h *Handler) handleFilesInfoWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.FilesInfoWithResponse(ctx, params, )
+	resp, err := client.FilesInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6449,7 +5682,82 @@ func (h *Handler) handleFilesListWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.FilesListWithResponse(ctx, params, )
+	resp, err := client.FilesListWithResponse(ctx, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleFilesRevokePublicURLWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.FilesRevokePublicURLFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.FilesRevokePublicURLParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = ptrVal(request.GetString("token", ""))
+		}
+	}
+
+	resp, err := client.FilesRevokePublicURLWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleFilesSharedPublicURLWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.FilesSharedPublicURLFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.FilesSharedPublicURLParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = ptrVal(request.GetString("token", ""))
+		}
+	}
+
+	resp, err := client.FilesSharedPublicURLWithFormdataBodyWithResponse(ctx, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleFilesUploadWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.FilesUploadFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+
+	resp, err := client.FilesUploadWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6470,7 +5778,7 @@ func (h *Handler) handleFilesRemoteAddWithFormdataBodyWithResponse(ctx context.C
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.FilesRemoteAddWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.FilesRemoteAddWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6502,7 +5810,7 @@ func (h *Handler) handleFilesRemoteInfoWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.FilesRemoteInfoWithResponse(ctx, params, )
+	resp, err := client.FilesRemoteInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6549,7 +5857,7 @@ func (h *Handler) handleFilesRemoteListWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.FilesRemoteListWithResponse(ctx, params, )
+	resp, err := client.FilesRemoteListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6570,7 +5878,7 @@ func (h *Handler) handleFilesRemoteRemoveWithFormdataBodyWithResponse(ctx contex
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.FilesRemoteRemoveWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.FilesRemoteRemoveWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6607,7 +5915,7 @@ func (h *Handler) handleFilesRemoteShareWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.FilesRemoteShareWithResponse(ctx, params, )
+	resp, err := client.FilesRemoteShareWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6628,82 +5936,7 @@ func (h *Handler) handleFilesRemoteUpdateWithFormdataBodyWithResponse(ctx contex
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.FilesRemoteUpdateWithFormdataBodyWithResponse(ctx, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleFilesRevokePublicURLWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.FilesRevokePublicURLFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.FilesRevokePublicURLParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = ptrVal(request.GetString("token", ""))
-		}
-	}
-
-	resp, err := client.FilesRevokePublicURLWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleFilesSharedPublicURLWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.FilesSharedPublicURLFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.FilesSharedPublicURLParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = ptrVal(request.GetString("token", ""))
-		}
-	}
-
-	resp, err := client.FilesSharedPublicURLWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleFilesUploadWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.FilesUploadFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-
-	resp, err := client.FilesUploadWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.FilesRemoteUpdateWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6740,7 +5973,7 @@ func (h *Handler) handleMigrationExchangeWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.MigrationExchangeWithResponse(ctx, params, )
+	resp, err := client.MigrationExchangeWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6782,7 +6015,7 @@ func (h *Handler) handleOauthAccessWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.OauthAccessWithResponse(ctx, params, )
+	resp, err := client.OauthAccessWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6824,7 +6057,7 @@ func (h *Handler) handleOauthTokenWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.OauthTokenWithResponse(ctx, params, )
+	resp, err := client.OauthTokenWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6861,7 +6094,7 @@ func (h *Handler) handleOauthV2AccessWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.OauthV2AccessWithResponse(ctx, params, )
+	resp, err := client.OauthV2AccessWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6888,7 +6121,7 @@ func (h *Handler) handlePinsAddWithFormdataBodyWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, err := client.PinsAddWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.PinsAddWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6915,7 +6148,7 @@ func (h *Handler) handlePinsListWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.PinsListWithResponse(ctx, params, )
+	resp, err := client.PinsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6942,7 +6175,7 @@ func (h *Handler) handlePinsRemoveWithFormdataBodyWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, err := client.PinsRemoveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.PinsRemoveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6969,7 +6202,7 @@ func (h *Handler) handleReactionsAddWithFormdataBodyWithResponse(ctx context.Con
 		}
 	}
 
-	resp, err := client.ReactionsAddWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ReactionsAddWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7016,7 +6249,7 @@ func (h *Handler) handleReactionsGetWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.ReactionsGetWithResponse(ctx, params, )
+	resp, err := client.ReactionsGetWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7068,7 +6301,7 @@ func (h *Handler) handleReactionsListWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.ReactionsListWithResponse(ctx, params, )
+	resp, err := client.ReactionsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7095,7 +6328,7 @@ func (h *Handler) handleReactionsRemoveWithFormdataBodyWithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.ReactionsRemoveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.ReactionsRemoveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7122,7 +6355,7 @@ func (h *Handler) handleRemindersAddWithFormdataBodyWithResponse(ctx context.Con
 		}
 	}
 
-	resp, err := client.RemindersAddWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.RemindersAddWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7149,7 +6382,7 @@ func (h *Handler) handleRemindersCompleteWithFormdataBodyWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.RemindersCompleteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.RemindersCompleteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7176,7 +6409,7 @@ func (h *Handler) handleRemindersDeleteWithFormdataBodyWithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.RemindersDeleteWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.RemindersDeleteWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7203,7 +6436,7 @@ func (h *Handler) handleRemindersInfoWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.RemindersInfoWithResponse(ctx, params, )
+	resp, err := client.RemindersInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7225,7 +6458,7 @@ func (h *Handler) handleRemindersListWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.RemindersListWithResponse(ctx, params, )
+	resp, err := client.RemindersListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7257,7 +6490,7 @@ func (h *Handler) handleRtmConnectWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.RtmConnectWithResponse(ctx, params, )
+	resp, err := client.RtmConnectWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7309,7 +6542,7 @@ func (h *Handler) handleSearchMessagesWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.SearchMessagesWithResponse(ctx, params, )
+	resp, err := client.SearchMessagesWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7336,7 +6569,7 @@ func (h *Handler) handleStarsAddWithFormdataBodyWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.StarsAddWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.StarsAddWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7378,7 +6611,7 @@ func (h *Handler) handleStarsListWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.StarsListWithResponse(ctx, params, )
+	resp, err := client.StarsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7405,7 +6638,7 @@ func (h *Handler) handleStarsRemoveWithFormdataBodyWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.StarsRemoveWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.StarsRemoveWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7442,7 +6675,7 @@ func (h *Handler) handleTeamAccessLogsWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.TeamAccessLogsWithResponse(ctx, params, )
+	resp, err := client.TeamAccessLogsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7469,7 +6702,7 @@ func (h *Handler) handleTeamBillableInfoWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.TeamBillableInfoWithResponse(ctx, params, )
+	resp, err := client.TeamBillableInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7496,7 +6729,7 @@ func (h *Handler) handleTeamInfoWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.TeamInfoWithResponse(ctx, params, )
+	resp, err := client.TeamInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7548,7 +6781,7 @@ func (h *Handler) handleTeamIntegrationLogsWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.TeamIntegrationLogsWithResponse(ctx, params, )
+	resp, err := client.TeamIntegrationLogsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7575,7 +6808,7 @@ func (h *Handler) handleTeamProfileGetWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.TeamProfileGetWithResponse(ctx, params, )
+	resp, err := client.TeamProfileGetWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7602,7 +6835,7 @@ func (h *Handler) handleUsergroupsCreateWithFormdataBodyWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.UsergroupsCreateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.UsergroupsCreateWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7629,7 +6862,7 @@ func (h *Handler) handleUsergroupsDisableWithFormdataBodyWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.UsergroupsDisableWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.UsergroupsDisableWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7656,7 +6889,7 @@ func (h *Handler) handleUsergroupsEnableWithFormdataBodyWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.UsergroupsEnableWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.UsergroupsEnableWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7693,7 +6926,7 @@ func (h *Handler) handleUsergroupsListWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.UsergroupsListWithResponse(ctx, params, )
+	resp, err := client.UsergroupsListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7720,7 +6953,7 @@ func (h *Handler) handleUsergroupsUpdateWithFormdataBodyWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.UsergroupsUpdateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.UsergroupsUpdateWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7752,7 +6985,7 @@ func (h *Handler) handleUsergroupsUsersListWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.UsergroupsUsersListWithResponse(ctx, params, )
+	resp, err := client.UsergroupsUsersListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7779,7 +7012,7 @@ func (h *Handler) handleUsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx co
 		}
 	}
 
-	resp, err := client.UsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.UsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7826,7 +7059,7 @@ func (h *Handler) handleUsersConversationsWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.UsersConversationsWithResponse(ctx, params, )
+	resp, err := client.UsersConversationsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7847,7 +7080,7 @@ func (h *Handler) handleUsersDeletePhotoWithFormdataBodyWithResponse(ctx context
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.UsersDeletePhotoWithFormdataBodyWithResponse(ctx, body, )
+	resp, err := client.UsersDeletePhotoWithFormdataBodyWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7874,7 +7107,7 @@ func (h *Handler) handleUsersGetPresenceWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.UsersGetPresenceWithResponse(ctx, params, )
+	resp, err := client.UsersGetPresenceWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7896,7 +7129,7 @@ func (h *Handler) handleUsersIdentityWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.UsersIdentityWithResponse(ctx, params, )
+	resp, err := client.UsersIdentityWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7928,7 +7161,7 @@ func (h *Handler) handleUsersInfoWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.UsersInfoWithResponse(ctx, params, )
+	resp, err := client.UsersInfoWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7965,7 +7198,7 @@ func (h *Handler) handleUsersListWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.UsersListWithResponse(ctx, params, )
+	resp, err := client.UsersListWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7992,7 +7225,77 @@ func (h *Handler) handleUsersLookupByEmailWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.UsersLookupByEmailWithResponse(ctx, params, )
+	resp, err := client.UsersLookupByEmailWithResponse(ctx, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleUsersSetActiveWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	params := &target.UsersSetActiveParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.UsersSetActiveWithResponse(ctx, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleUsersSetPhotoWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.UsersSetPhotoFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+
+	resp, err := client.UsersSetPhotoWithFormdataBodyWithResponse(ctx, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleUsersSetPresenceWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	var body target.UsersSetPresenceFormdataRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.UsersSetPresenceParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["token"]; ok {
+			params.Token = request.GetString("token", "")
+		}
+	}
+
+	resp, err := client.UsersSetPresenceWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8024,7 +7327,7 @@ func (h *Handler) handleUsersProfileGetWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.UsersProfileGetWithResponse(ctx, params, )
+	resp, err := client.UsersProfileGetWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8051,77 +7354,7 @@ func (h *Handler) handleUsersProfileSetWithFormdataBodyWithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.UsersProfileSetWithFormdataBodyWithResponse(ctx, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleUsersSetActiveWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	params := &target.UsersSetActiveParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.UsersSetActiveWithResponse(ctx, params, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleUsersSetPhotoWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.UsersSetPhotoFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-
-	resp, err := client.UsersSetPhotoWithFormdataBodyWithResponse(ctx, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleUsersSetPresenceWithFormdataBodyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	var body target.UsersSetPresenceFormdataRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.UsersSetPresenceParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["token"]; ok {
-			params.Token = request.GetString("token", "")
-		}
-	}
-
-	resp, err := client.UsersSetPresenceWithFormdataBodyWithResponse(ctx, params, body, )
+	resp, err := client.UsersProfileSetWithFormdataBodyWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8153,7 +7386,7 @@ func (h *Handler) handleViewsOpenWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.ViewsOpenWithResponse(ctx, params, )
+	resp, err := client.ViewsOpenWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8190,7 +7423,7 @@ func (h *Handler) handleViewsPublishWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.ViewsPublishWithResponse(ctx, params, )
+	resp, err := client.ViewsPublishWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8222,7 +7455,7 @@ func (h *Handler) handleViewsPushWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.ViewsPushWithResponse(ctx, params, )
+	resp, err := client.ViewsPushWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8264,7 +7497,7 @@ func (h *Handler) handleViewsUpdateWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.ViewsUpdateWithResponse(ctx, params, )
+	resp, err := client.ViewsUpdateWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8296,7 +7529,7 @@ func (h *Handler) handleWorkflowsStepCompletedWithResponse(ctx context.Context, 
 		}
 	}
 
-	resp, err := client.WorkflowsStepCompletedWithResponse(ctx, params, )
+	resp, err := client.WorkflowsStepCompletedWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8328,7 +7561,7 @@ func (h *Handler) handleWorkflowsStepFailedWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.WorkflowsStepFailedWithResponse(ctx, params, )
+	resp, err := client.WorkflowsStepFailedWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8375,7 +7608,7 @@ func (h *Handler) handleWorkflowsUpdateStepWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.WorkflowsUpdateStepWithResponse(ctx, params, )
+	resp, err := client.WorkflowsUpdateStepWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}

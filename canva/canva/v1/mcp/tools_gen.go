@@ -309,8 +309,8 @@ func (h *Handler) RegisterFolder(s *server.MCPServer) {
 
 }
 
-// RegisterDesign_import adds Design_import tools to the given MCP server.
-func (h *Handler) RegisterDesign_import(s *server.MCPServer) {
+// RegisterDesignImport adds DesignImport tools to the given MCP server.
+func (h *Handler) RegisterDesignImport(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-image-to-design-import-job",
@@ -354,8 +354,8 @@ func (h *Handler) RegisterDesign_import(s *server.MCPServer) {
 
 }
 
-// RegisterImage_transformation adds Image_transformation tools to the given MCP server.
-func (h *Handler) RegisterImage_transformation(s *server.MCPServer) {
+// RegisterImageTransformation adds ImageTransformation tools to the given MCP server.
+func (h *Handler) RegisterImageTransformation(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-image-transformation-job",
@@ -471,8 +471,8 @@ func (h *Handler) RegisterApp(s *server.MCPServer) {
 
 }
 
-// RegisterBrand_template adds Brand_template tools to the given MCP server.
-func (h *Handler) RegisterBrand_template(s *server.MCPServer) {
+// RegisterBrandTemplate adds BrandTemplate tools to the given MCP server.
+func (h *Handler) RegisterBrandTemplate(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("get-brand-template-dataset",
@@ -636,12 +636,12 @@ func (h *Handler) RegisterAll(s *server.MCPServer) {
 	h.RegisterResize(s)
 	h.RegisterDesign(s)
 	h.RegisterFolder(s)
-	h.RegisterDesign_import(s)
-	h.RegisterImage_transformation(s)
+	h.RegisterDesignImport(s)
+	h.RegisterImageTransformation(s)
 	h.RegisterAsset(s)
 	h.RegisterOauth(s)
 	h.RegisterApp(s)
-	h.RegisterBrand_template(s)
+	h.RegisterBrandTemplate(s)
 	h.RegisterAnalytics(s)
 	h.RegisterOidc(s)
 	h.RegisterConnect(s)
@@ -693,14 +693,14 @@ func (h *Handler) MountAll(m Mounter, prefix string) {
 		m.Mount(prefix+"/folder", s)
 	}
 	{
-		s := server.NewMCPServer("canva-Design_import", "0.1.0")
-		h.RegisterDesign_import(s)
-		m.Mount(prefix+"/design_import", s)
+		s := server.NewMCPServer("canva-DesignImport", "0.1.0")
+		h.RegisterDesignImport(s)
+		m.Mount(prefix+"/design-import", s)
 	}
 	{
-		s := server.NewMCPServer("canva-Image_transformation", "0.1.0")
-		h.RegisterImage_transformation(s)
-		m.Mount(prefix+"/image_transformation", s)
+		s := server.NewMCPServer("canva-ImageTransformation", "0.1.0")
+		h.RegisterImageTransformation(s)
+		m.Mount(prefix+"/image-transformation", s)
 	}
 	{
 		s := server.NewMCPServer("canva-Asset", "0.1.0")
@@ -718,9 +718,9 @@ func (h *Handler) MountAll(m Mounter, prefix string) {
 		m.Mount(prefix+"/app", s)
 	}
 	{
-		s := server.NewMCPServer("canva-Brand_template", "0.1.0")
-		h.RegisterBrand_template(s)
-		m.Mount(prefix+"/brand_template", s)
+		s := server.NewMCPServer("canva-BrandTemplate", "0.1.0")
+		h.RegisterBrandTemplate(s)
+		m.Mount(prefix+"/brand-template", s)
 	}
 	{
 		s := server.NewMCPServer("canva-Analytics", "0.1.0")

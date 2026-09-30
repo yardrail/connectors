@@ -144,10 +144,9 @@ func normalizeID(s string) string {
 	return strings.ToLower(nonAlnum.ReplaceAllString(s, ""))
 }
 
-// sanitizeTagName converts a tag like "Billing Settings" to "BillingSettings"
-// for use as a Go identifier.
 func sanitizeTagName(tag string) string {
-	parts := strings.Fields(tag)
+	r := strings.NewReplacer(".", " ", "-", " ", "_", " ")
+	parts := strings.Fields(r.Replace(tag))
 	var b strings.Builder
 	for _, p := range parts {
 		if len(p) > 0 {
@@ -223,17 +222,17 @@ func analyze(pkgPath string, tagMap map[string][]string) ([]ControllerGroup, str
 			continue
 		}
 
-		var groups []string
-		for _, t := range tags {
-			groups = append(groups, sanitizeTagName(t))
-		}
-
-		for _, grp := range groups {
-			if _, exists := groupMap[grp]; !exists {
-				groupOrder = append(groupOrder, grp)
+		bestTag := tags[0]
+		for _, t := range tags[1:] {
+			if len(t) > len(bestTag) {
+				bestTag = t
 			}
-			groupMap[grp] = append(groupMap[grp], *tool)
 		}
+		grp := sanitizeTagName(bestTag)
+		if _, exists := groupMap[grp]; !exists {
+			groupOrder = append(groupOrder, grp)
+		}
+		groupMap[grp] = append(groupMap[grp], *tool)
 	}
 
 	var groups []ControllerGroup
@@ -308,7 +307,7 @@ func extractTool(methodName string, sig *types.Signature, scope *types.Scope, do
 								continue
 							}
 							jsonType, goType := goTypeToJSON(f.Type())
-							if jsonType == "" {
+							if jsonType == "" || goType == "object" {
 								continue
 							}
 							jsonName := jsonTagName(st.Tag(j))

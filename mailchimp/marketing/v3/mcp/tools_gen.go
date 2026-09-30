@@ -7,6 +7,7 @@ import (
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 	target "github.com/yardrail/connectors/mailchimp/marketing/v3/client"
+	"time"
 )
 
 type ServiceResolver func(ctx context.Context) (*target.ClientWithResponses, error)
@@ -96,6 +97,8 @@ func (h *Handler) RegisterAutomations(s *server.MCPServer) {
 		mcp.NewTool("get-automations-id",
 			mcp.WithDescription("request returning *GetAutomationsIdResponse"),
 			mcp.WithString("workflowId", mcp.Required(), mcp.Description("workflowId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetAutomationsIdWithResponse,
 	)
@@ -105,6 +108,12 @@ func (h *Handler) RegisterAutomations(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetAutomationsResponse"),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
+			mcp.WithString("before_create_time", mcp.Description("BeforeCreateTime")),
+			mcp.WithString("since_create_time", mcp.Description("SinceCreateTime")),
+			mcp.WithString("before_start_time", mcp.Description("BeforeStartTime")),
+			mcp.WithString("since_start_time", mcp.Description("SinceStartTime")),
 			mcp.WithString("status", mcp.Description("Status")),
 		),
 		h.handleGetAutomationsWithResponse,
@@ -201,8 +210,14 @@ func (h *Handler) RegisterAudiences(s *server.MCPServer) {
 		mcp.NewTool("get-audience-contact-list",
 			mcp.WithDescription("request returning *GetAudienceContactListResponse"),
 			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithString("cursor", mcp.Description("Cursor")),
+			mcp.WithString("created_before", mcp.Description("CreatedBefore")),
+			mcp.WithString("created_since", mcp.Description("CreatedSince")),
+			mcp.WithString("updated_before", mcp.Description("UpdatedBefore")),
+			mcp.WithString("updated_since", mcp.Description("UpdatedSince")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
 			mcp.WithString("sort_dir", mcp.Description("SortDir")),
 		),
@@ -214,6 +229,8 @@ func (h *Handler) RegisterAudiences(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetAudienceContactResponse"),
 			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
 			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetAudienceContactWithResponse,
 	)
@@ -228,90 +245,6 @@ func (h *Handler) RegisterAudiences(s *server.MCPServer) {
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchAudienceContactJSONRequestBody)")),
 		),
 		h.handlePatchAudienceContactWithResponse,
-	)
-
-}
-
-// RegisterContacts adds Contacts tools to the given MCP server.
-func (h *Handler) RegisterContacts(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("create-audience-contact",
-			mcp.WithDescription("CreateAudienceContact"),
-			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
-			mcp.WithString("merge_field_validation_mode", mcp.Description("MergeFieldValidationMode")),
-			mcp.WithString("data_mode", mcp.Description("DataMode")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.CreateAudienceContactJSONRequestBody)")),
-		),
-		h.handleCreateAudienceContactWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("get-audience-contact-list",
-			mcp.WithDescription("request returning *GetAudienceContactListResponse"),
-			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
-			mcp.WithInteger("count", mcp.Description("Count")),
-			mcp.WithString("cursor", mcp.Description("Cursor")),
-			mcp.WithString("sort_field", mcp.Description("SortField")),
-			mcp.WithString("sort_dir", mcp.Description("SortDir")),
-		),
-		h.handleGetAudienceContactListWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("get-audience-contact",
-			mcp.WithDescription("request returning *GetAudienceContactResponse"),
-			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
-			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
-		),
-		h.handleGetAudienceContactWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("get-audience-contacts",
-			mcp.WithDescription("request returning *GetAudienceContactsResponse"),
-			mcp.WithInteger("count", mcp.Description("Count")),
-			mcp.WithInteger("offset", mcp.Description("Offset")),
-		),
-		h.handleGetAudienceContactsWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("get-audience-id",
-			mcp.WithDescription("request returning *GetAudienceIdResponse"),
-			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
-		),
-		h.handleGetAudienceIdWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("patch-audience-contact",
-			mcp.WithDescription("PatchAudienceContact"),
-			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
-			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
-			mcp.WithString("merge_field_validation_mode", mcp.Description("MergeFieldValidationMode")),
-			mcp.WithString("data_mode", mcp.Description("DataMode")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchAudienceContactJSONRequestBody)")),
-		),
-		h.handlePatchAudienceContactWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("post-audiences-contacts-actions-archive",
-			mcp.WithDescription("request returning *PostAudiencesContactsActionsArchiveResponse"),
-			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
-			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
-		),
-		h.handlePostAudiencesContactsActionsArchiveWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("post-audiences-contacts-actions-forget",
-			mcp.WithDescription("request returning *PostAudiencesContactsActionsForgetResponse"),
-			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
-			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
-		),
-		h.handlePostAudiencesContactsActionsForgetWithResponse,
 	)
 
 }
@@ -376,6 +309,8 @@ func (h *Handler) RegisterBatchWebhooks(s *server.MCPServer) {
 		mcp.NewTool("get-batch-webhook",
 			mcp.WithDescription("request returning *GetBatchWebhookResponse"),
 			mcp.WithString("batchWebhookId", mcp.Required(), mcp.Description("batchWebhookId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetBatchWebhookWithResponse,
 	)
@@ -383,6 +318,8 @@ func (h *Handler) RegisterBatchWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-batch-webhooks",
 			mcp.WithDescription("request returning *GetBatchWebhooksResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -423,6 +360,8 @@ func (h *Handler) RegisterBatches(s *server.MCPServer) {
 		mcp.NewTool("get-batches-id",
 			mcp.WithDescription("request returning *GetBatchesIdResponse"),
 			mcp.WithString("batchId", mcp.Required(), mcp.Description("batchId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetBatchesIdWithResponse,
 	)
@@ -430,6 +369,8 @@ func (h *Handler) RegisterBatches(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-batches",
 			mcp.WithDescription("request returning *GetBatchesResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -461,6 +402,8 @@ func (h *Handler) RegisterCampaignFolders(s *server.MCPServer) {
 		mcp.NewTool("get-campaign-folders-id",
 			mcp.WithDescription("request returning *GetCampaignFoldersIdResponse"),
 			mcp.WithString("folderId", mcp.Required(), mcp.Description("folderId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetCampaignFoldersIdWithResponse,
 	)
@@ -468,6 +411,8 @@ func (h *Handler) RegisterCampaignFolders(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-campaign-folders",
 			mcp.WithDescription("request returning *GetCampaignFoldersResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -517,6 +462,8 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("get-campaigns-id-content",
 			mcp.WithDescription("request returning *GetCampaignsIdContentResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetCampaignsIdContentWithResponse,
 	)
@@ -526,6 +473,8 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetCampaignsIdFeedbackIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("feedbackId", mcp.Required(), mcp.Description("feedbackId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetCampaignsIdFeedbackIdWithResponse,
 	)
@@ -534,6 +483,8 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("get-campaigns-id-feedback",
 			mcp.WithDescription("request returning *GetCampaignsIdFeedbackResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetCampaignsIdFeedbackWithResponse,
 	)
@@ -542,6 +493,8 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("get-campaigns-id-send-checklist",
 			mcp.WithDescription("request returning *GetCampaignsIdSendChecklistResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetCampaignsIdSendChecklistWithResponse,
 	)
@@ -550,6 +503,8 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("get-campaigns-id",
 			mcp.WithDescription("request returning *GetCampaignsIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithBoolean("include_resend_shortcut_eligibility", mcp.Description("IncludeResendShortcutEligibility")),
 			mcp.WithBoolean("include_resend_shortcut_usage", mcp.Description("IncludeResendShortcutUsage")),
 		),
@@ -559,10 +514,16 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-campaigns",
 			mcp.WithDescription("request returning *GetCampaignsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("type", mcp.Description("Type")),
 			mcp.WithString("status", mcp.Description("Status")),
+			mcp.WithString("before_send_time", mcp.Description("BeforeSendTime")),
+			mcp.WithString("since_send_time", mcp.Description("SinceSendTime")),
+			mcp.WithString("before_create_time", mcp.Description("BeforeCreateTime")),
+			mcp.WithString("since_create_time", mcp.Description("SinceCreateTime")),
 			mcp.WithString("list_id", mcp.Description("ListId")),
 			mcp.WithString("folder_id", mcp.Description("FolderId")),
 			mcp.WithString("member_id", mcp.Description("MemberId")),
@@ -711,6 +672,8 @@ func (h *Handler) RegisterConnectedSites(s *server.MCPServer) {
 		mcp.NewTool("get-connected-sites-id",
 			mcp.WithDescription("request returning *GetConnectedSitesIdResponse"),
 			mcp.WithString("connectedSiteId", mcp.Required(), mcp.Description("connectedSiteId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetConnectedSitesIdWithResponse,
 	)
@@ -718,6 +681,8 @@ func (h *Handler) RegisterConnectedSites(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-connected-sites",
 			mcp.WithDescription("request returning *GetConnectedSitesResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -867,6 +832,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-ecommerce-orders",
 			mcp.WithDescription("request returning *GetEcommerceOrdersResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("campaign_id", mcp.Description("CampaignId")),
@@ -883,6 +850,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("cartId", mcp.Required(), mcp.Description("cartId")),
 			mcp.WithString("lineId", mcp.Required(), mcp.Description("lineId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdCartsIdLinesIdWithResponse,
 	)
@@ -892,6 +861,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdCartsIdLinesResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("cartId", mcp.Required(), mcp.Description("cartId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -903,6 +874,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdCartsIdResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("cartId", mcp.Required(), mcp.Description("cartId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdCartsIdWithResponse,
 	)
@@ -911,6 +884,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("get-ecommerce-stores-id-carts",
 			mcp.WithDescription("request returning *GetEcommerceStoresIdCartsResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -922,6 +897,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdCustomersIdResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("customerId", mcp.Required(), mcp.Description("customerId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdCustomersIdWithResponse,
 	)
@@ -930,6 +907,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("get-ecommerce-stores-id-customers",
 			mcp.WithDescription("request returning *GetEcommerceStoresIdCustomersResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("email_address", mcp.Description("EmailAddress")),
@@ -943,6 +922,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("orderId", mcp.Required(), mcp.Description("orderId")),
 			mcp.WithString("lineId", mcp.Required(), mcp.Description("lineId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdOrdersIdLinesIdWithResponse,
 	)
@@ -952,6 +933,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdOrdersIdLinesResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("orderId", mcp.Required(), mcp.Description("orderId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -963,6 +946,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdOrdersIdResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("orderId", mcp.Required(), mcp.Description("orderId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdOrdersIdWithResponse,
 	)
@@ -971,6 +956,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("get-ecommerce-stores-id-orders",
 			mcp.WithDescription("request returning *GetEcommerceStoresIdOrdersResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("customer_id", mcp.Description("CustomerId")),
@@ -987,6 +974,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
 			mcp.WithString("imageId", mcp.Required(), mcp.Description("imageId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdProductsIdImagesIdWithResponse,
 	)
@@ -996,6 +985,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdProductsIdImagesResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1008,6 +999,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
 			mcp.WithString("variantId", mcp.Required(), mcp.Description("variantId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdProductsIdVariantsIdWithResponse,
 	)
@@ -1017,6 +1010,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdProductsIdVariantsResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1028,6 +1023,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdProductsIdResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdProductsIdWithResponse,
 	)
@@ -1036,6 +1033,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("get-ecommerce-stores-id-products",
 			mcp.WithDescription("request returning *GetEcommerceStoresIdProductsResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1048,6 +1047,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("promoRuleId", mcp.Required(), mcp.Description("promoRuleId")),
 			mcp.WithString("promoCodeId", mcp.Required(), mcp.Description("promoCodeId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdPromocodesIdWithResponse,
 	)
@@ -1057,6 +1058,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdPromocodesResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("promoRuleId", mcp.Required(), mcp.Description("promoRuleId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1068,6 +1071,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetEcommerceStoresIdPromorulesIdResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("promoRuleId", mcp.Required(), mcp.Description("promoRuleId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdPromorulesIdWithResponse,
 	)
@@ -1076,6 +1081,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("get-ecommerce-stores-id-promorules",
 			mcp.WithDescription("request returning *GetEcommerceStoresIdPromorulesResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1086,6 +1093,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("get-ecommerce-stores-id",
 			mcp.WithDescription("request returning *GetEcommerceStoresIdResponse"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetEcommerceStoresIdWithResponse,
 	)
@@ -1093,6 +1102,8 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-ecommerce-stores",
 			mcp.WithDescription("request returning *GetEcommerceStoresResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1382,6 +1393,8 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 		mcp.NewTool("get-file-manager-files-id",
 			mcp.WithDescription("request returning *GetFileManagerFilesIdResponse"),
 			mcp.WithString("fileId", mcp.Required(), mcp.Description("fileId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetFileManagerFilesIdWithResponse,
 	)
@@ -1389,6 +1402,8 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-file-manager-files",
 			mcp.WithDescription("request returning *GetFileManagerFilesResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("type", mcp.Description("Type")),
@@ -1405,6 +1420,8 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 		mcp.NewTool("get-file-manager-folders-files",
 			mcp.WithDescription("request returning *GetFileManagerFoldersFilesResponse"),
 			mcp.WithString("folderId", mcp.Required(), mcp.Description("folderId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("type", mcp.Description("Type")),
@@ -1421,6 +1438,8 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 		mcp.NewTool("get-file-manager-folders-id",
 			mcp.WithDescription("request returning *GetFileManagerFoldersIdResponse"),
 			mcp.WithString("folderId", mcp.Required(), mcp.Description("folderId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetFileManagerFoldersIdWithResponse,
 	)
@@ -1428,6 +1447,8 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-file-manager-folders",
 			mcp.WithDescription("request returning *GetFileManagerFoldersResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("created_by", mcp.Description("CreatedBy")),
@@ -1489,6 +1510,8 @@ func (h *Handler) RegisterLandingPages(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetAllLandingPagesResponse"),
 			mcp.WithString("sort_dir", mcp.Description("SortDir")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 		),
 		h.handleGetAllLandingPagesWithResponse,
@@ -1498,6 +1521,8 @@ func (h *Handler) RegisterLandingPages(s *server.MCPServer) {
 		mcp.NewTool("get-landing-page-id-content",
 			mcp.WithDescription("request returning *GetLandingPageIdContentResponse"),
 			mcp.WithString("pageId", mcp.Required(), mcp.Description("pageId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetLandingPageIdContentWithResponse,
 	)
@@ -1506,6 +1531,8 @@ func (h *Handler) RegisterLandingPages(s *server.MCPServer) {
 		mcp.NewTool("get-landing-page-id",
 			mcp.WithDescription("request returning *GetLandingPageIdResponse"),
 			mcp.WithString("pageId", mcp.Required(), mcp.Description("pageId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetLandingPageIdWithResponse,
 	)
@@ -1646,6 +1673,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListMemberTagsResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1657,6 +1686,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdAbuseReportsIdResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("reportId", mcp.Required(), mcp.Description("reportId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1667,6 +1698,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("get-lists-id-abuse-reports",
 			mcp.WithDescription("request returning *GetListsIdAbuseReportsResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1679,6 +1712,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdActivityWithResponse,
 	)
@@ -1687,6 +1722,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("get-lists-id-clients",
 			mcp.WithDescription("request returning *GetListsIdClientsResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdClientsWithResponse,
 	)
@@ -1696,6 +1733,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdGrowthHistoryIdResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("month", mcp.Required(), mcp.Description("month")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdGrowthHistoryIdWithResponse,
 	)
@@ -1704,6 +1743,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("get-lists-id-growth-history",
 			mcp.WithDescription("request returning *GetListsIdGrowthHistoryResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
@@ -1718,6 +1759,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("interestCategoryId", mcp.Required(), mcp.Description("interestCategoryId")),
 			mcp.WithString("interestId", mcp.Required(), mcp.Description("interestId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdInterestCategoriesIdInterestsIdWithResponse,
 	)
@@ -1727,6 +1770,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdInterestCategoriesIdInterestsResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("interestCategoryId", mcp.Required(), mcp.Description("interestCategoryId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1738,6 +1783,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdInterestCategoriesIdResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("interestCategoryId", mcp.Required(), mcp.Description("interestCategoryId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdInterestCategoriesIdWithResponse,
 	)
@@ -1746,6 +1793,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("get-lists-id-interest-categories",
 			mcp.WithDescription("request returning *GetListsIdInterestCategoriesResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("type", mcp.Description("Type")),
@@ -1759,6 +1808,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("get-lists-id-locations",
 			mcp.WithDescription("request returning *GetListsIdLocationsResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdLocationsWithResponse,
 	)
@@ -1768,6 +1819,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdMembersIdActivityFeedResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1779,6 +1832,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdMembersIdActivityResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdMembersIdActivityWithResponse,
 	)
@@ -1790,6 +1845,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdMembersIdEventsWithResponse,
 	)
@@ -1799,6 +1856,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdMembersIdGoalsResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdMembersIdGoalsWithResponse,
 	)
@@ -1809,6 +1868,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
 			mcp.WithString("noteId", mcp.Required(), mcp.Description("noteId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdMembersIdNotesIdWithResponse,
 	)
@@ -1820,6 +1881,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
 			mcp.WithString("sort_dir", mcp.Description("SortDir")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -1831,6 +1894,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdMembersIdResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdMembersIdWithResponse,
 	)
@@ -1839,6 +1904,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("get-lists-id-members",
 			mcp.WithDescription("request returning *GetListsIdMembersResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("email_type", mcp.Description("EmailType")),
@@ -1865,6 +1932,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdMergeFieldsIdResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("mergeId", mcp.Required(), mcp.Description("mergeId")),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
 		),
 		h.handleGetListsIdMergeFieldsIdWithResponse,
 	)
@@ -1873,6 +1942,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("get-lists-id-merge-fields",
 			mcp.WithDescription("request returning *GetListsIdMergeFieldsResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("type", mcp.Description("Type")),
@@ -1886,6 +1957,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdSegmentsIdMembersResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("segmentId", mcp.Required(), mcp.Description("segmentId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithBoolean("include_cleaned", mcp.Description("IncludeCleaned")),
@@ -1900,6 +1973,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetListsIdSegmentsIdResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("segmentId", mcp.Required(), mcp.Description("segmentId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithBoolean("include_cleaned", mcp.Description("IncludeCleaned")),
 			mcp.WithBoolean("include_transactional", mcp.Description("IncludeTransactional")),
 			mcp.WithBoolean("include_unsubscribed", mcp.Description("IncludeUnsubscribed")),
@@ -1953,6 +2028,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("get-lists-id",
 			mcp.WithDescription("request returning *GetListsIdResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithBoolean("include_total_contacts", mcp.Description("IncludeTotalContacts")),
 		),
 		h.handleGetListsIdWithResponse,
@@ -1961,6 +2038,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-lists",
 			mcp.WithDescription("request returning *GetListsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("before_date_created", mcp.Description("BeforeDateCreated")),
@@ -2234,6 +2313,8 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("preview-a-segment",
 			mcp.WithDescription("request returning *PreviewASegmentResponse"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("type", mcp.Description("Type")),
@@ -2271,7 +2352,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 
 }
 
-// RegisterSmsCampaigns adds Sms-campaigns tools to the given MCP server.
+// RegisterSmsCampaigns adds SmsCampaigns tools to the given MCP server.
 func (h *Handler) RegisterSmsCampaigns(s *server.MCPServer) {
 
 	s.AddTool(
@@ -2286,6 +2367,8 @@ func (h *Handler) RegisterSmsCampaigns(s *server.MCPServer) {
 		mcp.NewTool("get-sms-campaigns-id-content",
 			mcp.WithDescription("request returning *GetSmsCampaignsIdContentResponse"),
 			mcp.WithString("smsCampaignId", mcp.Required(), mcp.Description("smsCampaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetSmsCampaignsIdContentWithResponse,
 	)
@@ -2294,6 +2377,8 @@ func (h *Handler) RegisterSmsCampaigns(s *server.MCPServer) {
 		mcp.NewTool("get-sms-campaigns-id",
 			mcp.WithDescription("request returning *GetSmsCampaignsIdResponse"),
 			mcp.WithString("smsCampaignId", mcp.Required(), mcp.Description("smsCampaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetSmsCampaignsIdWithResponse,
 	)
@@ -2301,6 +2386,8 @@ func (h *Handler) RegisterSmsCampaigns(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-sms-campaigns",
 			mcp.WithDescription("request returning *GetSmsCampaignsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2375,6 +2462,8 @@ func (h *Handler) RegisterTemplateFolders(s *server.MCPServer) {
 		mcp.NewTool("get-template-folders-id",
 			mcp.WithDescription("request returning *GetTemplateFoldersIdResponse"),
 			mcp.WithString("folderId", mcp.Required(), mcp.Description("folderId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetTemplateFoldersIdWithResponse,
 	)
@@ -2382,6 +2471,8 @@ func (h *Handler) RegisterTemplateFolders(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-template-folders",
 			mcp.WithDescription("request returning *GetTemplateFoldersResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2422,6 +2513,8 @@ func (h *Handler) RegisterTemplates(s *server.MCPServer) {
 		mcp.NewTool("get-templates-id-default-content",
 			mcp.WithDescription("request returning *GetTemplatesIdDefaultContentResponse"),
 			mcp.WithString("templateId", mcp.Required(), mcp.Description("templateId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetTemplatesIdDefaultContentWithResponse,
 	)
@@ -2430,6 +2523,8 @@ func (h *Handler) RegisterTemplates(s *server.MCPServer) {
 		mcp.NewTool("get-templates-id",
 			mcp.WithDescription("request returning *GetTemplatesIdResponse"),
 			mcp.WithString("templateId", mcp.Required(), mcp.Description("templateId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetTemplatesIdWithResponse,
 	)
@@ -2437,6 +2532,8 @@ func (h *Handler) RegisterTemplates(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-templates",
 			mcp.WithDescription("request returning *GetTemplatesResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("created_by", mcp.Description("CreatedBy")),
@@ -2478,6 +2575,8 @@ func (h *Handler) RegisterAccountExport(s *server.MCPServer) {
 		mcp.NewTool("get-account-export-id",
 			mcp.WithDescription("request returning *GetAccountExportIdResponse"),
 			mcp.WithString("exportId", mcp.Required(), mcp.Description("exportId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetAccountExportIdWithResponse,
 	)
@@ -2490,6 +2589,8 @@ func (h *Handler) RegisterAccountExports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-account-exports",
 			mcp.WithDescription("request returning *GetAccountExportsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2526,6 +2627,8 @@ func (h *Handler) RegisterFacebookAds(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-all-facebook-ads",
 			mcp.WithDescription("request returning *GetAllFacebookAdsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
@@ -2538,8 +2641,54 @@ func (h *Handler) RegisterFacebookAds(s *server.MCPServer) {
 		mcp.NewTool("get-facebook-ads-id",
 			mcp.WithDescription("request returning *GetFacebookAdsIdResponse"),
 			mcp.WithString("outreachId", mcp.Required(), mcp.Description("outreachId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetFacebookAdsIdWithResponse,
+	)
+
+}
+
+// RegisterContacts adds Contacts tools to the given MCP server.
+func (h *Handler) RegisterContacts(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("get-audience-contacts",
+			mcp.WithDescription("request returning *GetAudienceContactsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
+			mcp.WithInteger("count", mcp.Description("Count")),
+			mcp.WithInteger("offset", mcp.Description("Offset")),
+		),
+		h.handleGetAudienceContactsWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("get-audience-id",
+			mcp.WithDescription("request returning *GetAudienceIdResponse"),
+			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
+		),
+		h.handleGetAudienceIdWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("post-audiences-contacts-actions-archive",
+			mcp.WithDescription("request returning *PostAudiencesContactsActionsArchiveResponse"),
+			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
+			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
+		),
+		h.handlePostAudiencesContactsActionsArchiveWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("post-audiences-contacts-actions-forget",
+			mcp.WithDescription("request returning *PostAudiencesContactsActionsForgetResponse"),
+			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
+			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
+		),
+		h.handlePostAudiencesContactsActionsForgetWithResponse,
 	)
 
 }
@@ -2551,6 +2700,8 @@ func (h *Handler) RegisterAuthorizedApps(s *server.MCPServer) {
 		mcp.NewTool("get-authorized-apps-id",
 			mcp.WithDescription("request returning *GetAuthorizedAppsIdResponse"),
 			mcp.WithString("appId", mcp.Required(), mcp.Description("appId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetAuthorizedAppsIdWithResponse,
 	)
@@ -2558,6 +2709,8 @@ func (h *Handler) RegisterAuthorizedApps(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-authorized-apps",
 			mcp.WithDescription("request returning *GetAuthorizedAppsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2574,6 +2727,8 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetConversationsIdMessagesIdResponse"),
 			mcp.WithString("conversationId", mcp.Required(), mcp.Description("conversationId")),
 			mcp.WithString("messageId", mcp.Required(), mcp.Description("messageId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetConversationsIdMessagesIdWithResponse,
 	)
@@ -2582,7 +2737,11 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("get-conversations-id-messages",
 			mcp.WithDescription("request returning *GetConversationsIdMessagesResponse"),
 			mcp.WithString("conversationId", mcp.Required(), mcp.Description("conversationId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithString("is_read", mcp.Description("IsRead")),
+			mcp.WithString("before_timestamp", mcp.Description("BeforeTimestamp")),
+			mcp.WithString("since_timestamp", mcp.Description("SinceTimestamp")),
 		),
 		h.handleGetConversationsIdMessagesWithResponse,
 	)
@@ -2591,6 +2750,8 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("get-conversations-id",
 			mcp.WithDescription("request returning *GetConversationsIdResponse"),
 			mcp.WithString("conversationId", mcp.Required(), mcp.Description("conversationId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetConversationsIdWithResponse,
 	)
@@ -2598,6 +2759,8 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-conversations",
 			mcp.WithDescription("request returning *GetConversationsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("has_unread_messages", mcp.Description("HasUnreadMessages")),
@@ -2628,6 +2791,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 		mcp.NewTool("get-reporting-facebook-ads-id-ecommerce-product-activity",
 			mcp.WithDescription("request returning *GetReportingFacebookAdsIdEcommerceProductActivityResponse"),
 			mcp.WithString("outreachId", mcp.Required(), mcp.Description("outreachId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
@@ -2639,6 +2804,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 		mcp.NewTool("get-reporting-facebook-ads-id",
 			mcp.WithDescription("request returning *GetReportingFacebookAdsIdResponse"),
 			mcp.WithString("outreachId", mcp.Required(), mcp.Description("outreachId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportingFacebookAdsIdWithResponse,
 	)
@@ -2646,6 +2813,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-reporting-facebook-ads",
 			mcp.WithDescription("request returning *GetReportingFacebookAdsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
@@ -2658,6 +2827,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 		mcp.NewTool("get-reporting-landing-pages-id",
 			mcp.WithDescription("request returning *GetReportingLandingPagesIdResponse"),
 			mcp.WithString("outreachId", mcp.Required(), mcp.Description("outreachId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportingLandingPagesIdWithResponse,
 	)
@@ -2665,6 +2836,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-reporting-landing-pages",
 			mcp.WithDescription("request returning *GetReportingLandingPagesResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2676,6 +2849,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportingSurveysIdQuestionsIdAnswersResponse"),
 			mcp.WithString("surveyId", mcp.Required(), mcp.Description("surveyId")),
 			mcp.WithString("questionId", mcp.Required(), mcp.Description("questionId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithString("respondent_familiarity_is", mcp.Description("RespondentFamiliarityIs")),
 		),
 		h.handleGetReportingSurveysIdQuestionsIdAnswersWithResponse,
@@ -2686,6 +2861,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportingSurveysIdQuestionsIdResponse"),
 			mcp.WithString("surveyId", mcp.Required(), mcp.Description("surveyId")),
 			mcp.WithString("questionId", mcp.Required(), mcp.Description("questionId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportingSurveysIdQuestionsIdWithResponse,
 	)
@@ -2694,6 +2871,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 		mcp.NewTool("get-reporting-surveys-id-questions",
 			mcp.WithDescription("request returning *GetReportingSurveysIdQuestionsResponse"),
 			mcp.WithString("surveyId", mcp.Required(), mcp.Description("surveyId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportingSurveysIdQuestionsWithResponse,
 	)
@@ -2711,6 +2890,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 		mcp.NewTool("get-reporting-surveys-id-responses",
 			mcp.WithDescription("request returning *GetReportingSurveysIdResponsesResponse"),
 			mcp.WithString("surveyId", mcp.Required(), mcp.Description("surveyId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("answered_question", mcp.Description("AnsweredQuestion")),
 			mcp.WithString("chose_answer", mcp.Description("ChoseAnswer")),
 			mcp.WithString("respondent_familiarity_is", mcp.Description("RespondentFamiliarityIs")),
@@ -2722,6 +2903,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 		mcp.NewTool("get-reporting-surveys-id",
 			mcp.WithDescription("request returning *GetReportingSurveysIdResponse"),
 			mcp.WithString("surveyId", mcp.Required(), mcp.Description("surveyId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportingSurveysIdWithResponse,
 	)
@@ -2729,6 +2912,8 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-reporting-surveys",
 			mcp.WithDescription("request returning *GetReportingSurveysResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2745,6 +2930,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportsIdAbuseReportsIdIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("reportId", mcp.Required(), mcp.Description("reportId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdAbuseReportsIdIdWithResponse,
 	)
@@ -2753,6 +2940,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-abuse-reports-id",
 			mcp.WithDescription("request returning *GetReportsIdAbuseReportsIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdAbuseReportsIdWithResponse,
 	)
@@ -2761,6 +2950,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-advice",
 			mcp.WithDescription("request returning *GetReportsIdAdviceResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdAdviceWithResponse,
 	)
@@ -2771,6 +2962,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("linkId", mcp.Required(), mcp.Description("linkId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdClickDetailsIdMembersIdWithResponse,
 	)
@@ -2780,6 +2973,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportsIdClickDetailsIdMembersResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("linkId", mcp.Required(), mcp.Description("linkId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2791,6 +2986,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportsIdClickDetailsIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("linkId", mcp.Required(), mcp.Description("linkId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdClickDetailsIdWithResponse,
 	)
@@ -2799,6 +2996,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-click-details",
 			mcp.WithDescription("request returning *GetReportsIdClickDetailsResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
@@ -2811,6 +3010,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-domain-performance",
 			mcp.WithDescription("request returning *GetReportsIdDomainPerformanceResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdDomainPerformanceWithResponse,
 	)
@@ -2819,6 +3020,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-ecommerce-product-activity",
 			mcp.WithDescription("request returning *GetReportsIdEcommerceProductActivityResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("sort_field", mcp.Description("SortField")),
@@ -2830,6 +3033,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-eepurl",
 			mcp.WithDescription("request returning *GetReportsIdEepurlResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdEepurlWithResponse,
 	)
@@ -2839,6 +3044,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportsIdEmailActivityIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithString("since", mcp.Description("Since")),
 		),
 		h.handleGetReportsIdEmailActivityIdWithResponse,
@@ -2848,6 +3055,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-email-activity",
 			mcp.WithDescription("request returning *GetReportsIdEmailActivityResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("since", mcp.Description("Since")),
@@ -2859,6 +3068,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-locations",
 			mcp.WithDescription("request returning *GetReportsIdLocationsResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2870,6 +3081,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportsIdOpenDetailsIdMembersIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdOpenDetailsIdMembersIdWithResponse,
 	)
@@ -2878,6 +3091,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-open-details",
 			mcp.WithDescription("request returning *GetReportsIdOpenDetailsResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("since", mcp.Description("Since")),
@@ -2892,6 +3107,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportsIdSentToIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdSentToIdWithResponse,
 	)
@@ -2900,6 +3117,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-sent-to",
 			mcp.WithDescription("request returning *GetReportsIdSentToResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2910,6 +3129,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-sub-reports-id",
 			mcp.WithDescription("request returning *GetReportsIdSubReportsIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdSubReportsIdWithResponse,
 	)
@@ -2919,6 +3140,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 			mcp.WithDescription("request returning *GetReportsIdUnsubscribedIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdUnsubscribedIdWithResponse,
 	)
@@ -2927,6 +3150,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id-unsubscribed",
 			mcp.WithDescription("request returning *GetReportsIdUnsubscribedResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 		),
@@ -2937,6 +3162,8 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 		mcp.NewTool("get-reports-id",
 			mcp.WithDescription("request returning *GetReportsIdResponse"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetReportsIdWithResponse,
 	)
@@ -2944,9 +3171,13 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-reports",
 			mcp.WithDescription("request returning *GetReportsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithInteger("count", mcp.Description("Count")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
 			mcp.WithString("type", mcp.Description("Type")),
+			mcp.WithString("before_send_time", mcp.Description("BeforeSendTime")),
+			mcp.WithString("since_send_time", mcp.Description("SinceSendTime")),
 		),
 		h.handleGetReportsWithResponse,
 	)
@@ -2959,6 +3190,8 @@ func (h *Handler) RegisterRoot(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-root",
 			mcp.WithDescription("request returning *GetRootResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 		),
 		h.handleGetRootWithResponse,
 	)
@@ -2971,6 +3204,8 @@ func (h *Handler) RegisterSearchCampaigns(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-search-campaigns",
 			mcp.WithDescription("request returning *GetSearchCampaignsResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithString("query", mcp.Description("Query")),
 		),
 		h.handleGetSearchCampaignsWithResponse,
@@ -2984,6 +3219,8 @@ func (h *Handler) RegisterSearchMembers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("get-search-members",
 			mcp.WithDescription("request returning *GetSearchMembersResponse"),
+			mcp.WithArray("fields", mcp.Description("Fields"), mcp.WithStringItems()),
+			mcp.WithArray("exclude_fields", mcp.Description("ExcludeFields"), mcp.WithStringItems()),
 			mcp.WithString("query", mcp.Description("Query")),
 			mcp.WithString("list_id", mcp.Description("ListId")),
 		),
@@ -3043,7 +3280,6 @@ func (h *Handler) RegisterSurveys(s *server.MCPServer) {
 func (h *Handler) RegisterAll(s *server.MCPServer) {
 	h.RegisterAutomations(s)
 	h.RegisterAudiences(s)
-	h.RegisterContacts(s)
 	h.RegisterVerifiedDomains(s)
 	h.RegisterBatchWebhooks(s)
 	h.RegisterBatches(s)
@@ -3061,6 +3297,7 @@ func (h *Handler) RegisterAll(s *server.MCPServer) {
 	h.RegisterAccountExports(s)
 	h.RegisterActivityFeed(s)
 	h.RegisterFacebookAds(s)
+	h.RegisterContacts(s)
 	h.RegisterAuthorizedApps(s)
 	h.RegisterConversations(s)
 	h.RegisterPing(s)
@@ -3085,156 +3322,183 @@ func (h *Handler) MountAll(m Mounter, prefix string) {
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Automations", "0.1.0")
 		h.RegisterAutomations(s)
-		m.Mount(prefix + "/automations", s)
+		m.Mount(prefix+"/automations", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Audiences", "0.1.0")
 		h.RegisterAudiences(s)
-		m.Mount(prefix + "/audiences", s)
-	}
-	{
-		s := server.NewMCPServer("mailchimp-marketing-Contacts", "0.1.0")
-		h.RegisterContacts(s)
-		m.Mount(prefix + "/contacts", s)
+		m.Mount(prefix+"/audiences", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-VerifiedDomains", "0.1.0")
 		h.RegisterVerifiedDomains(s)
-		m.Mount(prefix + "/verified-domains", s)
+		m.Mount(prefix+"/verified-domains", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-BatchWebhooks", "0.1.0")
 		h.RegisterBatchWebhooks(s)
-		m.Mount(prefix + "/batch-webhooks", s)
+		m.Mount(prefix+"/batch-webhooks", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Batches", "0.1.0")
 		h.RegisterBatches(s)
-		m.Mount(prefix + "/batches", s)
+		m.Mount(prefix+"/batches", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-CampaignFolders", "0.1.0")
 		h.RegisterCampaignFolders(s)
-		m.Mount(prefix + "/campaign-folders", s)
+		m.Mount(prefix+"/campaign-folders", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Campaigns", "0.1.0")
 		h.RegisterCampaigns(s)
-		m.Mount(prefix + "/campaigns", s)
+		m.Mount(prefix+"/campaigns", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-ConnectedSites", "0.1.0")
 		h.RegisterConnectedSites(s)
-		m.Mount(prefix + "/connected-sites", s)
+		m.Mount(prefix+"/connected-sites", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Ecommerce", "0.1.0")
 		h.RegisterEcommerce(s)
-		m.Mount(prefix + "/ecommerce", s)
+		m.Mount(prefix+"/ecommerce", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-FileManager", "0.1.0")
 		h.RegisterFileManager(s)
-		m.Mount(prefix + "/file-manager", s)
+		m.Mount(prefix+"/file-manager", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-LandingPages", "0.1.0")
 		h.RegisterLandingPages(s)
-		m.Mount(prefix + "/landing-pages", s)
+		m.Mount(prefix+"/landing-pages", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Lists", "0.1.0")
 		h.RegisterLists(s)
-		m.Mount(prefix + "/lists", s)
+		m.Mount(prefix+"/lists", s)
 	}
 	{
-		s := server.NewMCPServer("mailchimp-marketing-Sms-campaigns", "0.1.0")
+		s := server.NewMCPServer("mailchimp-marketing-SmsCampaigns", "0.1.0")
 		h.RegisterSmsCampaigns(s)
-		m.Mount(prefix + "/sms-campaigns", s)
+		m.Mount(prefix+"/sms-campaigns", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-TemplateFolders", "0.1.0")
 		h.RegisterTemplateFolders(s)
-		m.Mount(prefix + "/template-folders", s)
+		m.Mount(prefix+"/template-folders", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Templates", "0.1.0")
 		h.RegisterTemplates(s)
-		m.Mount(prefix + "/templates", s)
+		m.Mount(prefix+"/templates", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-AccountExport", "0.1.0")
 		h.RegisterAccountExport(s)
-		m.Mount(prefix + "/account-export", s)
+		m.Mount(prefix+"/account-export", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-AccountExports", "0.1.0")
 		h.RegisterAccountExports(s)
-		m.Mount(prefix + "/account-exports", s)
+		m.Mount(prefix+"/account-exports", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-ActivityFeed", "0.1.0")
 		h.RegisterActivityFeed(s)
-		m.Mount(prefix + "/activity-feed", s)
+		m.Mount(prefix+"/activity-feed", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-FacebookAds", "0.1.0")
 		h.RegisterFacebookAds(s)
-		m.Mount(prefix + "/facebook-ads", s)
+		m.Mount(prefix+"/facebook-ads", s)
+	}
+	{
+		s := server.NewMCPServer("mailchimp-marketing-Contacts", "0.1.0")
+		h.RegisterContacts(s)
+		m.Mount(prefix+"/contacts", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-AuthorizedApps", "0.1.0")
 		h.RegisterAuthorizedApps(s)
-		m.Mount(prefix + "/authorized-apps", s)
+		m.Mount(prefix+"/authorized-apps", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Conversations", "0.1.0")
 		h.RegisterConversations(s)
-		m.Mount(prefix + "/conversations", s)
+		m.Mount(prefix+"/conversations", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Ping", "0.1.0")
 		h.RegisterPing(s)
-		m.Mount(prefix + "/ping", s)
+		m.Mount(prefix+"/ping", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Reporting", "0.1.0")
 		h.RegisterReporting(s)
-		m.Mount(prefix + "/reporting", s)
+		m.Mount(prefix+"/reporting", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Reports", "0.1.0")
 		h.RegisterReports(s)
-		m.Mount(prefix + "/reports", s)
+		m.Mount(prefix+"/reports", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Root", "0.1.0")
 		h.RegisterRoot(s)
-		m.Mount(prefix + "/root", s)
+		m.Mount(prefix+"/root", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-SearchCampaigns", "0.1.0")
 		h.RegisterSearchCampaigns(s)
-		m.Mount(prefix + "/search-campaigns", s)
+		m.Mount(prefix+"/search-campaigns", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-SearchMembers", "0.1.0")
 		h.RegisterSearchMembers(s)
-		m.Mount(prefix + "/search-members", s)
+		m.Mount(prefix+"/search-members", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-CustomerJourneys", "0.1.0")
 		h.RegisterCustomerJourneys(s)
-		m.Mount(prefix + "/customer-journeys", s)
+		m.Mount(prefix+"/customer-journeys", s)
 	}
 	{
 		s := server.NewMCPServer("mailchimp-marketing-Surveys", "0.1.0")
 		h.RegisterSurveys(s)
-		m.Mount(prefix + "/surveys", s)
+		m.Mount(prefix+"/surveys", s)
 	}
 }
 func ptrVal[T any](v T) *T {
 	return &v
+}
+
+func parseTime(s string) time.Time {
+	t, _ := time.Parse(time.RFC3339, s)
+	return t
+}
+
+func getStringSlice(request mcp.CallToolRequest, key string) []string {
+	args := request.GetArguments()
+	if args == nil {
+		return nil
+	}
+	v, ok := args[key]
+	if !ok {
+		return nil
+	}
+	slice, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]string, 0, len(slice))
+	for _, item := range slice {
+		if s, ok := item.(string); ok {
+			out = append(out, s)
+		}
+	}
+	return out
 }
 
 func (h *Handler) handleArchiveAutomationsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
@@ -3245,7 +3509,7 @@ func (h *Handler) handleArchiveAutomationsWithResponse(ctx context.Context, requ
 
 	workflowId := request.GetString("workflowId", "")
 
-	resp, err := client.ArchiveAutomationsWithResponse(ctx, workflowId, )
+	resp, err := client.ArchiveAutomationsWithResponse(ctx, workflowId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3263,7 +3527,7 @@ func (h *Handler) handleDeleteAutomationsIdEmailsIdWithResponse(ctx context.Cont
 	workflowId := request.GetString("workflowId", "")
 	workflowEmailId := request.GetString("workflowEmailId", "")
 
-	resp, err := client.DeleteAutomationsIdEmailsIdWithResponse(ctx, workflowId, workflowEmailId, )
+	resp, err := client.DeleteAutomationsIdEmailsIdWithResponse(ctx, workflowId, workflowEmailId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3282,7 +3546,7 @@ func (h *Handler) handleGetAutomationsIdEmailsIdQueueIdWithResponse(ctx context.
 	workflowEmailId := request.GetString("workflowEmailId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 
-	resp, err := client.GetAutomationsIdEmailsIdQueueIdWithResponse(ctx, workflowId, workflowEmailId, subscriberHash, )
+	resp, err := client.GetAutomationsIdEmailsIdQueueIdWithResponse(ctx, workflowId, workflowEmailId, subscriberHash)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3300,7 +3564,7 @@ func (h *Handler) handleGetAutomationsIdEmailsIdQueueWithResponse(ctx context.Co
 	workflowId := request.GetString("workflowId", "")
 	workflowEmailId := request.GetString("workflowEmailId", "")
 
-	resp, err := client.GetAutomationsIdEmailsIdQueueWithResponse(ctx, workflowId, workflowEmailId, )
+	resp, err := client.GetAutomationsIdEmailsIdQueueWithResponse(ctx, workflowId, workflowEmailId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3318,7 +3582,7 @@ func (h *Handler) handleGetAutomationsIdEmailsIdWithResponse(ctx context.Context
 	workflowId := request.GetString("workflowId", "")
 	workflowEmailId := request.GetString("workflowEmailId", "")
 
-	resp, err := client.GetAutomationsIdEmailsIdWithResponse(ctx, workflowId, workflowEmailId, )
+	resp, err := client.GetAutomationsIdEmailsIdWithResponse(ctx, workflowId, workflowEmailId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3335,7 +3599,7 @@ func (h *Handler) handleGetAutomationsIdEmailsWithResponse(ctx context.Context, 
 
 	workflowId := request.GetString("workflowId", "")
 
-	resp, err := client.GetAutomationsIdEmailsWithResponse(ctx, workflowId, )
+	resp, err := client.GetAutomationsIdEmailsWithResponse(ctx, workflowId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3353,7 +3617,7 @@ func (h *Handler) handleGetAutomationsIdRemovedSubscribersIdWithResponse(ctx con
 	workflowId := request.GetString("workflowId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 
-	resp, err := client.GetAutomationsIdRemovedSubscribersIdWithResponse(ctx, workflowId, subscriberHash, )
+	resp, err := client.GetAutomationsIdRemovedSubscribersIdWithResponse(ctx, workflowId, subscriberHash)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3370,7 +3634,7 @@ func (h *Handler) handleGetAutomationsIdRemovedSubscribersWithResponse(ctx conte
 
 	workflowId := request.GetString("workflowId", "")
 
-	resp, err := client.GetAutomationsIdRemovedSubscribersWithResponse(ctx, workflowId, )
+	resp, err := client.GetAutomationsIdRemovedSubscribersWithResponse(ctx, workflowId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3387,8 +3651,18 @@ func (h *Handler) handleGetAutomationsIdWithResponse(ctx context.Context, reques
 
 	workflowId := request.GetString("workflowId", "")
 	params := &target.GetAutomationsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetAutomationsIdWithResponse(ctx, workflowId, params, )
+	resp, err := client.GetAutomationsIdWithResponse(ctx, workflowId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3415,12 +3689,42 @@ func (h *Handler) handleGetAutomationsWithResponse(ctx context.Context, request 
 		}
 	}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["before_create_time"]; ok {
+			params.BeforeCreateTime = ptrVal(parseTime(request.GetString("before_create_time", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["since_create_time"]; ok {
+			params.SinceCreateTime = ptrVal(parseTime(request.GetString("since_create_time", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["before_start_time"]; ok {
+			params.BeforeStartTime = ptrVal(parseTime(request.GetString("before_start_time", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["since_start_time"]; ok {
+			params.SinceStartTime = ptrVal(parseTime(request.GetString("since_start_time", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["status"]; ok {
 			params.Status = ptrVal(target.GetAutomationsParamsStatus(request.GetString("status", "")))
 		}
 	}
 
-	resp, err := client.GetAutomationsWithResponse(ctx, params, )
+	resp, err := client.GetAutomationsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3443,7 +3747,7 @@ func (h *Handler) handlePatchAutomationEmailWorkflowIdWithResponse(ctx context.C
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchAutomationEmailWorkflowIdWithResponse(ctx, workflowId, workflowEmailId, body, )
+	resp, err := client.PatchAutomationEmailWorkflowIdWithResponse(ctx, workflowId, workflowEmailId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3460,7 +3764,7 @@ func (h *Handler) handlePostAutomationsIdActionsPauseAllEmailsWithResponse(ctx c
 
 	workflowId := request.GetString("workflowId", "")
 
-	resp, err := client.PostAutomationsIdActionsPauseAllEmailsWithResponse(ctx, workflowId, )
+	resp, err := client.PostAutomationsIdActionsPauseAllEmailsWithResponse(ctx, workflowId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3477,7 +3781,7 @@ func (h *Handler) handlePostAutomationsIdActionsStartAllEmailsWithResponse(ctx c
 
 	workflowId := request.GetString("workflowId", "")
 
-	resp, err := client.PostAutomationsIdActionsStartAllEmailsWithResponse(ctx, workflowId, )
+	resp, err := client.PostAutomationsIdActionsStartAllEmailsWithResponse(ctx, workflowId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3495,7 +3799,7 @@ func (h *Handler) handlePostAutomationsIdEmailsIdActionsPauseWithResponse(ctx co
 	workflowId := request.GetString("workflowId", "")
 	workflowEmailId := request.GetString("workflowEmailId", "")
 
-	resp, err := client.PostAutomationsIdEmailsIdActionsPauseWithResponse(ctx, workflowId, workflowEmailId, )
+	resp, err := client.PostAutomationsIdEmailsIdActionsPauseWithResponse(ctx, workflowId, workflowEmailId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3513,7 +3817,7 @@ func (h *Handler) handlePostAutomationsIdEmailsIdActionsStartWithResponse(ctx co
 	workflowId := request.GetString("workflowId", "")
 	workflowEmailId := request.GetString("workflowEmailId", "")
 
-	resp, err := client.PostAutomationsIdEmailsIdActionsStartWithResponse(ctx, workflowId, workflowEmailId, )
+	resp, err := client.PostAutomationsIdEmailsIdActionsStartWithResponse(ctx, workflowId, workflowEmailId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3536,7 +3840,7 @@ func (h *Handler) handlePostAutomationsIdEmailsIdQueueWithResponse(ctx context.C
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostAutomationsIdEmailsIdQueueWithResponse(ctx, workflowId, workflowEmailId, body, )
+	resp, err := client.PostAutomationsIdEmailsIdQueueWithResponse(ctx, workflowId, workflowEmailId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3558,7 +3862,7 @@ func (h *Handler) handlePostAutomationsIdRemovedSubscribersWithResponse(ctx cont
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostAutomationsIdRemovedSubscribersWithResponse(ctx, workflowId, body, )
+	resp, err := client.PostAutomationsIdRemovedSubscribersWithResponse(ctx, workflowId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3579,7 +3883,7 @@ func (h *Handler) handlePostAutomationsWithResponse(ctx context.Context, request
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostAutomationsWithResponse(ctx, body, )
+	resp, err := client.PostAutomationsWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3612,7 +3916,7 @@ func (h *Handler) handleCreateAudienceContactWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.CreateAudienceContactWithResponse(ctx, audienceId, params, body, )
+	resp, err := client.CreateAudienceContactWithResponse(ctx, audienceId, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3630,6 +3934,16 @@ func (h *Handler) handleGetAudienceContactListWithResponse(ctx context.Context, 
 	audienceId := request.GetString("audienceId", "")
 	params := &target.GetAudienceContactListParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -3637,6 +3951,26 @@ func (h *Handler) handleGetAudienceContactListWithResponse(ctx context.Context, 
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["cursor"]; ok {
 			params.Cursor = ptrVal(request.GetString("cursor", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["created_before"]; ok {
+			params.CreatedBefore = ptrVal(parseTime(request.GetString("created_before", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["created_since"]; ok {
+			params.CreatedSince = ptrVal(parseTime(request.GetString("created_since", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["updated_before"]; ok {
+			params.UpdatedBefore = ptrVal(parseTime(request.GetString("updated_before", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["updated_since"]; ok {
+			params.UpdatedSince = ptrVal(parseTime(request.GetString("updated_since", "")))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -3650,7 +3984,7 @@ func (h *Handler) handleGetAudienceContactListWithResponse(ctx context.Context, 
 		}
 	}
 
-	resp, err := client.GetAudienceContactListWithResponse(ctx, audienceId, params, )
+	resp, err := client.GetAudienceContactListWithResponse(ctx, audienceId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3668,8 +4002,18 @@ func (h *Handler) handleGetAudienceContactWithResponse(ctx context.Context, requ
 	audienceId := request.GetString("audienceId", "")
 	contactId := request.GetString("contactId", "")
 	params := &target.GetAudienceContactParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetAudienceContactWithResponse(ctx, audienceId, contactId, params, )
+	resp, err := client.GetAudienceContactWithResponse(ctx, audienceId, contactId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3703,92 +4047,7 @@ func (h *Handler) handlePatchAudienceContactWithResponse(ctx context.Context, re
 		}
 	}
 
-	resp, err := client.PatchAudienceContactWithResponse(ctx, audienceId, contactId, params, body, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-
-
-
-func (h *Handler) handleGetAudienceContactsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	params := &target.GetAudienceContactsParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["count"]; ok {
-			params.Count = ptrVal(int(request.GetInt("count", 0)))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["offset"]; ok {
-			params.Offset = ptrVal(int(request.GetInt("offset", 0)))
-		}
-	}
-
-	resp, err := client.GetAudienceContactsWithResponse(ctx, params, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleGetAudienceIdWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	audienceId := request.GetString("audienceId", "")
-	params := &target.GetAudienceIdParams{}
-
-	resp, err := client.GetAudienceIdWithResponse(ctx, audienceId, params, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-
-func (h *Handler) handlePostAudiencesContactsActionsArchiveWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	audienceId := request.GetString("audienceId", "")
-	contactId := request.GetString("contactId", "")
-
-	resp, err := client.PostAudiencesContactsActionsArchiveWithResponse(ctx, audienceId, contactId, )
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handlePostAudiencesContactsActionsForgetWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	audienceId := request.GetString("audienceId", "")
-	contactId := request.GetString("contactId", "")
-
-	resp, err := client.PostAudiencesContactsActionsForgetWithResponse(ctx, audienceId, contactId, )
+	resp, err := client.PatchAudienceContactWithResponse(ctx, audienceId, contactId, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3809,7 +4068,7 @@ func (h *Handler) handleCreateVerifiedDomainWithResponse(ctx context.Context, re
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.CreateVerifiedDomainWithResponse(ctx, body, )
+	resp, err := client.CreateVerifiedDomainWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3826,7 +4085,7 @@ func (h *Handler) handleDeleteVerifiedDomainWithResponse(ctx context.Context, re
 
 	domainName := request.GetString("domainName", "")
 
-	resp, err := client.DeleteVerifiedDomainWithResponse(ctx, domainName, )
+	resp, err := client.DeleteVerifiedDomainWithResponse(ctx, domainName)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3843,7 +4102,7 @@ func (h *Handler) handleGetVerifiedDomainWithResponse(ctx context.Context, reque
 
 	domainName := request.GetString("domainName", "")
 
-	resp, err := client.GetVerifiedDomainWithResponse(ctx, domainName, )
+	resp, err := client.GetVerifiedDomainWithResponse(ctx, domainName)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3858,8 +4117,7 @@ func (h *Handler) handleGetVerifiedDomainsWithResponse(ctx context.Context, requ
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-
-	resp, err := client.GetVerifiedDomainsWithResponse(ctx, )
+	resp, err := client.GetVerifiedDomainsWithResponse(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3881,7 +4139,7 @@ func (h *Handler) handleVerifyDomainWithResponse(ctx context.Context, request mc
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.VerifyDomainWithResponse(ctx, domainName, body, )
+	resp, err := client.VerifyDomainWithResponse(ctx, domainName, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3898,7 +4156,7 @@ func (h *Handler) handleDeleteBatchWebhookIdWithResponse(ctx context.Context, re
 
 	batchWebhookId := request.GetString("batchWebhookId", "")
 
-	resp, err := client.DeleteBatchWebhookIdWithResponse(ctx, batchWebhookId, )
+	resp, err := client.DeleteBatchWebhookIdWithResponse(ctx, batchWebhookId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3915,8 +4173,18 @@ func (h *Handler) handleGetBatchWebhookWithResponse(ctx context.Context, request
 
 	batchWebhookId := request.GetString("batchWebhookId", "")
 	params := &target.GetBatchWebhookParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetBatchWebhookWithResponse(ctx, batchWebhookId, params, )
+	resp, err := client.GetBatchWebhookWithResponse(ctx, batchWebhookId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3933,6 +4201,16 @@ func (h *Handler) handleGetBatchWebhooksWithResponse(ctx context.Context, reques
 
 	params := &target.GetBatchWebhooksParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -3943,7 +4221,7 @@ func (h *Handler) handleGetBatchWebhooksWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.GetBatchWebhooksWithResponse(ctx, params, )
+	resp, err := client.GetBatchWebhooksWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3965,7 +4243,7 @@ func (h *Handler) handlePatchBatchWebhooksWithResponse(ctx context.Context, requ
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchBatchWebhooksWithResponse(ctx, batchWebhookId, body, )
+	resp, err := client.PatchBatchWebhooksWithResponse(ctx, batchWebhookId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3986,7 +4264,7 @@ func (h *Handler) handlePostBatchWebhooksWithResponse(ctx context.Context, reque
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostBatchWebhooksWithResponse(ctx, body, )
+	resp, err := client.PostBatchWebhooksWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4003,7 +4281,7 @@ func (h *Handler) handleDeleteBatchesIdWithResponse(ctx context.Context, request
 
 	batchId := request.GetString("batchId", "")
 
-	resp, err := client.DeleteBatchesIdWithResponse(ctx, batchId, )
+	resp, err := client.DeleteBatchesIdWithResponse(ctx, batchId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4020,8 +4298,18 @@ func (h *Handler) handleGetBatchesIdWithResponse(ctx context.Context, request mc
 
 	batchId := request.GetString("batchId", "")
 	params := &target.GetBatchesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetBatchesIdWithResponse(ctx, batchId, params, )
+	resp, err := client.GetBatchesIdWithResponse(ctx, batchId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4038,6 +4326,16 @@ func (h *Handler) handleGetBatchesWithResponse(ctx context.Context, request mcp.
 
 	params := &target.GetBatchesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -4048,7 +4346,7 @@ func (h *Handler) handleGetBatchesWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.GetBatchesWithResponse(ctx, params, )
+	resp, err := client.GetBatchesWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4069,7 +4367,7 @@ func (h *Handler) handlePostBatchesWithResponse(ctx context.Context, request mcp
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostBatchesWithResponse(ctx, body, )
+	resp, err := client.PostBatchesWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4086,7 +4384,7 @@ func (h *Handler) handleDeleteCampaignFoldersIdWithResponse(ctx context.Context,
 
 	folderId := request.GetString("folderId", "")
 
-	resp, err := client.DeleteCampaignFoldersIdWithResponse(ctx, folderId, )
+	resp, err := client.DeleteCampaignFoldersIdWithResponse(ctx, folderId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4103,8 +4401,18 @@ func (h *Handler) handleGetCampaignFoldersIdWithResponse(ctx context.Context, re
 
 	folderId := request.GetString("folderId", "")
 	params := &target.GetCampaignFoldersIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetCampaignFoldersIdWithResponse(ctx, folderId, params, )
+	resp, err := client.GetCampaignFoldersIdWithResponse(ctx, folderId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4121,6 +4429,16 @@ func (h *Handler) handleGetCampaignFoldersWithResponse(ctx context.Context, requ
 
 	params := &target.GetCampaignFoldersParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -4131,7 +4449,7 @@ func (h *Handler) handleGetCampaignFoldersWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.GetCampaignFoldersWithResponse(ctx, params, )
+	resp, err := client.GetCampaignFoldersWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4153,7 +4471,7 @@ func (h *Handler) handlePatchCampaignFoldersIdWithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchCampaignFoldersIdWithResponse(ctx, folderId, body, )
+	resp, err := client.PatchCampaignFoldersIdWithResponse(ctx, folderId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4174,7 +4492,7 @@ func (h *Handler) handlePostCampaignFoldersWithResponse(ctx context.Context, req
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostCampaignFoldersWithResponse(ctx, body, )
+	resp, err := client.PostCampaignFoldersWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4192,7 +4510,7 @@ func (h *Handler) handleDeleteCampaignsIdFeedbackIdWithResponse(ctx context.Cont
 	campaignId := request.GetString("campaignId", "")
 	feedbackId := request.GetString("feedbackId", "")
 
-	resp, err := client.DeleteCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, )
+	resp, err := client.DeleteCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4209,7 +4527,7 @@ func (h *Handler) handleDeleteCampaignsIdWithResponse(ctx context.Context, reque
 
 	campaignId := request.GetString("campaignId", "")
 
-	resp, err := client.DeleteCampaignsIdWithResponse(ctx, campaignId, )
+	resp, err := client.DeleteCampaignsIdWithResponse(ctx, campaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4226,8 +4544,18 @@ func (h *Handler) handleGetCampaignsIdContentWithResponse(ctx context.Context, r
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetCampaignsIdContentParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetCampaignsIdContentWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetCampaignsIdContentWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4245,8 +4573,18 @@ func (h *Handler) handleGetCampaignsIdFeedbackIdWithResponse(ctx context.Context
 	campaignId := request.GetString("campaignId", "")
 	feedbackId := request.GetString("feedbackId", "")
 	params := &target.GetCampaignsIdFeedbackIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, params, )
+	resp, err := client.GetCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4263,8 +4601,18 @@ func (h *Handler) handleGetCampaignsIdFeedbackWithResponse(ctx context.Context, 
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetCampaignsIdFeedbackParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetCampaignsIdFeedbackWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetCampaignsIdFeedbackWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4281,8 +4629,18 @@ func (h *Handler) handleGetCampaignsIdSendChecklistWithResponse(ctx context.Cont
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetCampaignsIdSendChecklistParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetCampaignsIdSendChecklistWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetCampaignsIdSendChecklistWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4300,6 +4658,16 @@ func (h *Handler) handleGetCampaignsIdWithResponse(ctx context.Context, request 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetCampaignsIdParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["include_resend_shortcut_eligibility"]; ok {
 			params.IncludeResendShortcutEligibility = ptrVal(request.GetBool("include_resend_shortcut_eligibility", false))
 		}
@@ -4310,7 +4678,7 @@ func (h *Handler) handleGetCampaignsIdWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.GetCampaignsIdWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetCampaignsIdWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4326,6 +4694,16 @@ func (h *Handler) handleGetCampaignsWithResponse(ctx context.Context, request mc
 	}
 
 	params := &target.GetCampaignsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -4344,6 +4722,26 @@ func (h *Handler) handleGetCampaignsWithResponse(ctx context.Context, request mc
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["status"]; ok {
 			params.Status = ptrVal(target.GetCampaignsParamsStatus(request.GetString("status", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["before_send_time"]; ok {
+			params.BeforeSendTime = ptrVal(parseTime(request.GetString("before_send_time", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["since_send_time"]; ok {
+			params.SinceSendTime = ptrVal(parseTime(request.GetString("since_send_time", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["before_create_time"]; ok {
+			params.BeforeCreateTime = ptrVal(parseTime(request.GetString("before_create_time", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["since_create_time"]; ok {
+			params.SinceCreateTime = ptrVal(parseTime(request.GetString("since_create_time", "")))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -4382,7 +4780,7 @@ func (h *Handler) handleGetCampaignsWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.GetCampaignsWithResponse(ctx, params, )
+	resp, err := client.GetCampaignsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4405,7 +4803,7 @@ func (h *Handler) handlePatchCampaignsIdFeedbackIdWithResponse(ctx context.Conte
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, body, )
+	resp, err := client.PatchCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4427,7 +4825,7 @@ func (h *Handler) handlePatchCampaignsIdWithResponse(ctx context.Context, reques
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchCampaignsIdWithResponse(ctx, campaignId, body, )
+	resp, err := client.PatchCampaignsIdWithResponse(ctx, campaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4444,7 +4842,7 @@ func (h *Handler) handlePostCampaignsIdActionsCancelSendWithResponse(ctx context
 
 	campaignId := request.GetString("campaignId", "")
 
-	resp, err := client.PostCampaignsIdActionsCancelSendWithResponse(ctx, campaignId, )
+	resp, err := client.PostCampaignsIdActionsCancelSendWithResponse(ctx, campaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4466,7 +4864,7 @@ func (h *Handler) handlePostCampaignsIdActionsCreateResendWithResponse(ctx conte
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostCampaignsIdActionsCreateResendWithResponse(ctx, campaignId, body, )
+	resp, err := client.PostCampaignsIdActionsCreateResendWithResponse(ctx, campaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4483,7 +4881,7 @@ func (h *Handler) handlePostCampaignsIdActionsPauseWithResponse(ctx context.Cont
 
 	campaignId := request.GetString("campaignId", "")
 
-	resp, err := client.PostCampaignsIdActionsPauseWithResponse(ctx, campaignId, )
+	resp, err := client.PostCampaignsIdActionsPauseWithResponse(ctx, campaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4500,7 +4898,7 @@ func (h *Handler) handlePostCampaignsIdActionsReplicateWithResponse(ctx context.
 
 	campaignId := request.GetString("campaignId", "")
 
-	resp, err := client.PostCampaignsIdActionsReplicateWithResponse(ctx, campaignId, )
+	resp, err := client.PostCampaignsIdActionsReplicateWithResponse(ctx, campaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4517,7 +4915,7 @@ func (h *Handler) handlePostCampaignsIdActionsResumeWithResponse(ctx context.Con
 
 	campaignId := request.GetString("campaignId", "")
 
-	resp, err := client.PostCampaignsIdActionsResumeWithResponse(ctx, campaignId, )
+	resp, err := client.PostCampaignsIdActionsResumeWithResponse(ctx, campaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4539,7 +4937,7 @@ func (h *Handler) handlePostCampaignsIdActionsScheduleWithResponse(ctx context.C
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostCampaignsIdActionsScheduleWithResponse(ctx, campaignId, body, )
+	resp, err := client.PostCampaignsIdActionsScheduleWithResponse(ctx, campaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4556,7 +4954,7 @@ func (h *Handler) handlePostCampaignsIdActionsSendWithResponse(ctx context.Conte
 
 	campaignId := request.GetString("campaignId", "")
 
-	resp, err := client.PostCampaignsIdActionsSendWithResponse(ctx, campaignId, )
+	resp, err := client.PostCampaignsIdActionsSendWithResponse(ctx, campaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4578,7 +4976,7 @@ func (h *Handler) handlePostCampaignsIdActionsTestWithResponse(ctx context.Conte
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostCampaignsIdActionsTestWithResponse(ctx, campaignId, body, )
+	resp, err := client.PostCampaignsIdActionsTestWithResponse(ctx, campaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4595,7 +4993,7 @@ func (h *Handler) handlePostCampaignsIdActionsUnscheduleWithResponse(ctx context
 
 	campaignId := request.GetString("campaignId", "")
 
-	resp, err := client.PostCampaignsIdActionsUnscheduleWithResponse(ctx, campaignId, )
+	resp, err := client.PostCampaignsIdActionsUnscheduleWithResponse(ctx, campaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4617,7 +5015,7 @@ func (h *Handler) handlePostCampaignsIdFeedbackWithResponse(ctx context.Context,
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostCampaignsIdFeedbackWithResponse(ctx, campaignId, body, )
+	resp, err := client.PostCampaignsIdFeedbackWithResponse(ctx, campaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4638,7 +5036,7 @@ func (h *Handler) handlePostCampaignsWithResponse(ctx context.Context, request m
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostCampaignsWithResponse(ctx, body, )
+	resp, err := client.PostCampaignsWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4660,7 +5058,7 @@ func (h *Handler) handlePutCampaignsIdContentWithResponse(ctx context.Context, r
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PutCampaignsIdContentWithResponse(ctx, campaignId, body, )
+	resp, err := client.PutCampaignsIdContentWithResponse(ctx, campaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4677,7 +5075,7 @@ func (h *Handler) handleDeleteConnectedSitesIdWithResponse(ctx context.Context, 
 
 	connectedSiteId := request.GetString("connectedSiteId", "")
 
-	resp, err := client.DeleteConnectedSitesIdWithResponse(ctx, connectedSiteId, )
+	resp, err := client.DeleteConnectedSitesIdWithResponse(ctx, connectedSiteId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4694,8 +5092,18 @@ func (h *Handler) handleGetConnectedSitesIdWithResponse(ctx context.Context, req
 
 	connectedSiteId := request.GetString("connectedSiteId", "")
 	params := &target.GetConnectedSitesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetConnectedSitesIdWithResponse(ctx, connectedSiteId, params, )
+	resp, err := client.GetConnectedSitesIdWithResponse(ctx, connectedSiteId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4712,6 +5120,16 @@ func (h *Handler) handleGetConnectedSitesWithResponse(ctx context.Context, reque
 
 	params := &target.GetConnectedSitesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -4722,7 +5140,7 @@ func (h *Handler) handleGetConnectedSitesWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.GetConnectedSitesWithResponse(ctx, params, )
+	resp, err := client.GetConnectedSitesWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4739,7 +5157,7 @@ func (h *Handler) handlePostConnectedSitesIdActionsDisablePixelWithResponse(ctx 
 
 	connectedSiteId := request.GetString("connectedSiteId", "")
 
-	resp, err := client.PostConnectedSitesIdActionsDisablePixelWithResponse(ctx, connectedSiteId, )
+	resp, err := client.PostConnectedSitesIdActionsDisablePixelWithResponse(ctx, connectedSiteId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4756,7 +5174,7 @@ func (h *Handler) handlePostConnectedSitesIdActionsEnablePixelWithResponse(ctx c
 
 	connectedSiteId := request.GetString("connectedSiteId", "")
 
-	resp, err := client.PostConnectedSitesIdActionsEnablePixelWithResponse(ctx, connectedSiteId, )
+	resp, err := client.PostConnectedSitesIdActionsEnablePixelWithResponse(ctx, connectedSiteId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4773,7 +5191,7 @@ func (h *Handler) handlePostConnectedSitesIdActionsVerifyScriptInstallationWithR
 
 	connectedSiteId := request.GetString("connectedSiteId", "")
 
-	resp, err := client.PostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx, connectedSiteId, )
+	resp, err := client.PostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx, connectedSiteId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4794,7 +5212,7 @@ func (h *Handler) handlePostConnectedSitesWithResponse(ctx context.Context, requ
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostConnectedSitesWithResponse(ctx, body, )
+	resp, err := client.PostConnectedSitesWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4812,7 +5230,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdCartsIdWithResponse(ctx context.C
 	storeId := request.GetString("storeId", "")
 	cartId := request.GetString("cartId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, )
+	resp, err := client.DeleteEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4831,7 +5249,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx cont
 	cartId := request.GetString("cartId", "")
 	lineId := request.GetString("lineId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx, storeId, cartId, lineId, )
+	resp, err := client.DeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx, storeId, cartId, lineId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4849,7 +5267,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdCustomersIdWithResponse(ctx conte
 	storeId := request.GetString("storeId", "")
 	customerId := request.GetString("customerId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, )
+	resp, err := client.DeleteEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4868,7 +5286,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx c
 	orderId := request.GetString("orderId", "")
 	lineId := request.GetString("lineId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, )
+	resp, err := client.DeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4886,7 +5304,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdOrdersIdWithResponse(ctx context.
 	storeId := request.GetString("storeId", "")
 	orderId := request.GetString("orderId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, )
+	resp, err := client.DeleteEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4905,7 +5323,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ct
 	productId := request.GetString("productId", "")
 	imageId := request.GetString("imageId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, )
+	resp, err := client.DeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4924,7 +5342,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(
 	productId := request.GetString("productId", "")
 	variantId := request.GetString("variantId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, )
+	resp, err := client.DeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4942,7 +5360,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdProductsIdWithResponse(ctx contex
 	storeId := request.GetString("storeId", "")
 	productId := request.GetString("productId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, )
+	resp, err := client.DeleteEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4961,7 +5379,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdPromocodesIdWithResponse(ctx cont
 	promoRuleId := request.GetString("promoRuleId", "")
 	promoCodeId := request.GetString("promoCodeId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, )
+	resp, err := client.DeleteEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4979,7 +5397,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdPromorulesIdWithResponse(ctx cont
 	storeId := request.GetString("storeId", "")
 	promoRuleId := request.GetString("promoRuleId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, )
+	resp, err := client.DeleteEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4996,7 +5414,7 @@ func (h *Handler) handleDeleteEcommerceStoresIdWithResponse(ctx context.Context,
 
 	storeId := request.GetString("storeId", "")
 
-	resp, err := client.DeleteEcommerceStoresIdWithResponse(ctx, storeId, )
+	resp, err := client.DeleteEcommerceStoresIdWithResponse(ctx, storeId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5012,6 +5430,16 @@ func (h *Handler) handleGetEcommerceOrdersWithResponse(ctx context.Context, requ
 	}
 
 	params := &target.GetEcommerceOrdersParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -5043,7 +5471,7 @@ func (h *Handler) handleGetEcommerceOrdersWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.GetEcommerceOrdersWithResponse(ctx, params, )
+	resp, err := client.GetEcommerceOrdersWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5062,8 +5490,18 @@ func (h *Handler) handleGetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx conte
 	cartId := request.GetString("cartId", "")
 	lineId := request.GetString("lineId", "")
 	params := &target.GetEcommerceStoresIdCartsIdLinesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, storeId, cartId, lineId, params, )
+	resp, err := client.GetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, storeId, cartId, lineId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5082,6 +5520,16 @@ func (h *Handler) handleGetEcommerceStoresIdCartsIdLinesWithResponse(ctx context
 	cartId := request.GetString("cartId", "")
 	params := &target.GetEcommerceStoresIdCartsIdLinesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5092,7 +5540,7 @@ func (h *Handler) handleGetEcommerceStoresIdCartsIdLinesWithResponse(ctx context
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdCartsIdLinesWithResponse(ctx, storeId, cartId, params, )
+	resp, err := client.GetEcommerceStoresIdCartsIdLinesWithResponse(ctx, storeId, cartId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5110,8 +5558,18 @@ func (h *Handler) handleGetEcommerceStoresIdCartsIdWithResponse(ctx context.Cont
 	storeId := request.GetString("storeId", "")
 	cartId := request.GetString("cartId", "")
 	params := &target.GetEcommerceStoresIdCartsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, params, )
+	resp, err := client.GetEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5129,6 +5587,16 @@ func (h *Handler) handleGetEcommerceStoresIdCartsWithResponse(ctx context.Contex
 	storeId := request.GetString("storeId", "")
 	params := &target.GetEcommerceStoresIdCartsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5139,7 +5607,7 @@ func (h *Handler) handleGetEcommerceStoresIdCartsWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdCartsWithResponse(ctx, storeId, params, )
+	resp, err := client.GetEcommerceStoresIdCartsWithResponse(ctx, storeId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5157,8 +5625,18 @@ func (h *Handler) handleGetEcommerceStoresIdCustomersIdWithResponse(ctx context.
 	storeId := request.GetString("storeId", "")
 	customerId := request.GetString("customerId", "")
 	params := &target.GetEcommerceStoresIdCustomersIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, params, )
+	resp, err := client.GetEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5176,6 +5654,16 @@ func (h *Handler) handleGetEcommerceStoresIdCustomersWithResponse(ctx context.Co
 	storeId := request.GetString("storeId", "")
 	params := &target.GetEcommerceStoresIdCustomersParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5191,7 +5679,7 @@ func (h *Handler) handleGetEcommerceStoresIdCustomersWithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdCustomersWithResponse(ctx, storeId, params, )
+	resp, err := client.GetEcommerceStoresIdCustomersWithResponse(ctx, storeId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5210,8 +5698,18 @@ func (h *Handler) handleGetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx cont
 	orderId := request.GetString("orderId", "")
 	lineId := request.GetString("lineId", "")
 	params := &target.GetEcommerceStoresIdOrdersIdLinesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, params, )
+	resp, err := client.GetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5230,6 +5728,16 @@ func (h *Handler) handleGetEcommerceStoresIdOrdersIdLinesWithResponse(ctx contex
 	orderId := request.GetString("orderId", "")
 	params := &target.GetEcommerceStoresIdOrdersIdLinesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5240,7 +5748,7 @@ func (h *Handler) handleGetEcommerceStoresIdOrdersIdLinesWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdOrdersIdLinesWithResponse(ctx, storeId, orderId, params, )
+	resp, err := client.GetEcommerceStoresIdOrdersIdLinesWithResponse(ctx, storeId, orderId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5258,8 +5766,18 @@ func (h *Handler) handleGetEcommerceStoresIdOrdersIdWithResponse(ctx context.Con
 	storeId := request.GetString("storeId", "")
 	orderId := request.GetString("orderId", "")
 	params := &target.GetEcommerceStoresIdOrdersIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, params, )
+	resp, err := client.GetEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5276,6 +5794,16 @@ func (h *Handler) handleGetEcommerceStoresIdOrdersWithResponse(ctx context.Conte
 
 	storeId := request.GetString("storeId", "")
 	params := &target.GetEcommerceStoresIdOrdersParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -5307,7 +5835,7 @@ func (h *Handler) handleGetEcommerceStoresIdOrdersWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdOrdersWithResponse(ctx, storeId, params, )
+	resp, err := client.GetEcommerceStoresIdOrdersWithResponse(ctx, storeId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5326,8 +5854,18 @@ func (h *Handler) handleGetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx c
 	productId := request.GetString("productId", "")
 	imageId := request.GetString("imageId", "")
 	params := &target.GetEcommerceStoresIdProductsIdImagesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, params, )
+	resp, err := client.GetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5346,6 +5884,16 @@ func (h *Handler) handleGetEcommerceStoresIdProductsIdImagesWithResponse(ctx con
 	productId := request.GetString("productId", "")
 	params := &target.GetEcommerceStoresIdProductsIdImagesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5356,7 +5904,7 @@ func (h *Handler) handleGetEcommerceStoresIdProductsIdImagesWithResponse(ctx con
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdProductsIdImagesWithResponse(ctx, storeId, productId, params, )
+	resp, err := client.GetEcommerceStoresIdProductsIdImagesWithResponse(ctx, storeId, productId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5375,8 +5923,18 @@ func (h *Handler) handleGetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx
 	productId := request.GetString("productId", "")
 	variantId := request.GetString("variantId", "")
 	params := &target.GetEcommerceStoresIdProductsIdVariantsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, params, )
+	resp, err := client.GetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5395,6 +5953,16 @@ func (h *Handler) handleGetEcommerceStoresIdProductsIdVariantsWithResponse(ctx c
 	productId := request.GetString("productId", "")
 	params := &target.GetEcommerceStoresIdProductsIdVariantsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5405,7 +5973,7 @@ func (h *Handler) handleGetEcommerceStoresIdProductsIdVariantsWithResponse(ctx c
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdProductsIdVariantsWithResponse(ctx, storeId, productId, params, )
+	resp, err := client.GetEcommerceStoresIdProductsIdVariantsWithResponse(ctx, storeId, productId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5423,8 +5991,18 @@ func (h *Handler) handleGetEcommerceStoresIdProductsIdWithResponse(ctx context.C
 	storeId := request.GetString("storeId", "")
 	productId := request.GetString("productId", "")
 	params := &target.GetEcommerceStoresIdProductsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, params, )
+	resp, err := client.GetEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5442,6 +6020,16 @@ func (h *Handler) handleGetEcommerceStoresIdProductsWithResponse(ctx context.Con
 	storeId := request.GetString("storeId", "")
 	params := &target.GetEcommerceStoresIdProductsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5452,7 +6040,7 @@ func (h *Handler) handleGetEcommerceStoresIdProductsWithResponse(ctx context.Con
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdProductsWithResponse(ctx, storeId, params, )
+	resp, err := client.GetEcommerceStoresIdProductsWithResponse(ctx, storeId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5471,8 +6059,18 @@ func (h *Handler) handleGetEcommerceStoresIdPromocodesIdWithResponse(ctx context
 	promoRuleId := request.GetString("promoRuleId", "")
 	promoCodeId := request.GetString("promoCodeId", "")
 	params := &target.GetEcommerceStoresIdPromocodesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, params, )
+	resp, err := client.GetEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5491,6 +6089,16 @@ func (h *Handler) handleGetEcommerceStoresIdPromocodesWithResponse(ctx context.C
 	promoRuleId := request.GetString("promoRuleId", "")
 	params := &target.GetEcommerceStoresIdPromocodesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5501,7 +6109,7 @@ func (h *Handler) handleGetEcommerceStoresIdPromocodesWithResponse(ctx context.C
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdPromocodesWithResponse(ctx, storeId, promoRuleId, params, )
+	resp, err := client.GetEcommerceStoresIdPromocodesWithResponse(ctx, storeId, promoRuleId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5519,8 +6127,18 @@ func (h *Handler) handleGetEcommerceStoresIdPromorulesIdWithResponse(ctx context
 	storeId := request.GetString("storeId", "")
 	promoRuleId := request.GetString("promoRuleId", "")
 	params := &target.GetEcommerceStoresIdPromorulesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, params, )
+	resp, err := client.GetEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5538,6 +6156,16 @@ func (h *Handler) handleGetEcommerceStoresIdPromorulesWithResponse(ctx context.C
 	storeId := request.GetString("storeId", "")
 	params := &target.GetEcommerceStoresIdPromorulesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5548,7 +6176,7 @@ func (h *Handler) handleGetEcommerceStoresIdPromorulesWithResponse(ctx context.C
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresIdPromorulesWithResponse(ctx, storeId, params, )
+	resp, err := client.GetEcommerceStoresIdPromorulesWithResponse(ctx, storeId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5565,8 +6193,18 @@ func (h *Handler) handleGetEcommerceStoresIdWithResponse(ctx context.Context, re
 
 	storeId := request.GetString("storeId", "")
 	params := &target.GetEcommerceStoresIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetEcommerceStoresIdWithResponse(ctx, storeId, params, )
+	resp, err := client.GetEcommerceStoresIdWithResponse(ctx, storeId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5583,6 +6221,16 @@ func (h *Handler) handleGetEcommerceStoresWithResponse(ctx context.Context, requ
 
 	params := &target.GetEcommerceStoresParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -5593,7 +6241,7 @@ func (h *Handler) handleGetEcommerceStoresWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.GetEcommerceStoresWithResponse(ctx, params, )
+	resp, err := client.GetEcommerceStoresWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5617,7 +6265,7 @@ func (h *Handler) handlePatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx con
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, storeId, cartId, lineId, body, )
+	resp, err := client.PatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, storeId, cartId, lineId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5640,7 +6288,7 @@ func (h *Handler) handlePatchEcommerceStoresIdCartsIdWithResponse(ctx context.Co
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, body, )
+	resp, err := client.PatchEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5663,7 +6311,7 @@ func (h *Handler) handlePatchEcommerceStoresIdCustomersIdWithResponse(ctx contex
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, body, )
+	resp, err := client.PatchEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5687,7 +6335,7 @@ func (h *Handler) handlePatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx co
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, body, )
+	resp, err := client.PatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5710,7 +6358,7 @@ func (h *Handler) handlePatchEcommerceStoresIdOrdersIdWithResponse(ctx context.C
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, body, )
+	resp, err := client.PatchEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5734,7 +6382,7 @@ func (h *Handler) handlePatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, body, )
+	resp, err := client.PatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5758,7 +6406,7 @@ func (h *Handler) handlePatchEcommerceStoresIdProductsIdVariantsIdWithResponse(c
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, body, )
+	resp, err := client.PatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5781,7 +6429,7 @@ func (h *Handler) handlePatchEcommerceStoresIdProductsIdWithResponse(ctx context
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, body, )
+	resp, err := client.PatchEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5805,7 +6453,7 @@ func (h *Handler) handlePatchEcommerceStoresIdPromocodesIdWithResponse(ctx conte
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, body, )
+	resp, err := client.PatchEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5828,7 +6476,7 @@ func (h *Handler) handlePatchEcommerceStoresIdPromorulesIdWithResponse(ctx conte
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, body, )
+	resp, err := client.PatchEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5850,7 +6498,7 @@ func (h *Handler) handlePatchEcommerceStoresIdWithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchEcommerceStoresIdWithResponse(ctx, storeId, body, )
+	resp, err := client.PatchEcommerceStoresIdWithResponse(ctx, storeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5873,7 +6521,7 @@ func (h *Handler) handlePostEcommerceStoresIdCartsIdLinesWithResponse(ctx contex
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdCartsIdLinesWithResponse(ctx, storeId, cartId, body, )
+	resp, err := client.PostEcommerceStoresIdCartsIdLinesWithResponse(ctx, storeId, cartId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5895,7 +6543,7 @@ func (h *Handler) handlePostEcommerceStoresIdCartsWithResponse(ctx context.Conte
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdCartsWithResponse(ctx, storeId, body, )
+	resp, err := client.PostEcommerceStoresIdCartsWithResponse(ctx, storeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5917,7 +6565,7 @@ func (h *Handler) handlePostEcommerceStoresIdCustomersWithResponse(ctx context.C
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdCustomersWithResponse(ctx, storeId, body, )
+	resp, err := client.PostEcommerceStoresIdCustomersWithResponse(ctx, storeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5940,7 +6588,7 @@ func (h *Handler) handlePostEcommerceStoresIdOrdersIdLinesWithResponse(ctx conte
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdOrdersIdLinesWithResponse(ctx, storeId, orderId, body, )
+	resp, err := client.PostEcommerceStoresIdOrdersIdLinesWithResponse(ctx, storeId, orderId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5962,7 +6610,7 @@ func (h *Handler) handlePostEcommerceStoresIdOrdersWithResponse(ctx context.Cont
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdOrdersWithResponse(ctx, storeId, body, )
+	resp, err := client.PostEcommerceStoresIdOrdersWithResponse(ctx, storeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5985,7 +6633,7 @@ func (h *Handler) handlePostEcommerceStoresIdProductsIdImagesWithResponse(ctx co
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdProductsIdImagesWithResponse(ctx, storeId, productId, body, )
+	resp, err := client.PostEcommerceStoresIdProductsIdImagesWithResponse(ctx, storeId, productId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6008,7 +6656,7 @@ func (h *Handler) handlePostEcommerceStoresIdProductsIdVariantsWithResponse(ctx 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdProductsIdVariantsWithResponse(ctx, storeId, productId, body, )
+	resp, err := client.PostEcommerceStoresIdProductsIdVariantsWithResponse(ctx, storeId, productId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6030,7 +6678,7 @@ func (h *Handler) handlePostEcommerceStoresIdProductsWithResponse(ctx context.Co
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdProductsWithResponse(ctx, storeId, body, )
+	resp, err := client.PostEcommerceStoresIdProductsWithResponse(ctx, storeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6053,7 +6701,7 @@ func (h *Handler) handlePostEcommerceStoresIdPromocodesWithResponse(ctx context.
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdPromocodesWithResponse(ctx, storeId, promoRuleId, body, )
+	resp, err := client.PostEcommerceStoresIdPromocodesWithResponse(ctx, storeId, promoRuleId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6075,7 +6723,7 @@ func (h *Handler) handlePostEcommerceStoresIdPromorulesWithResponse(ctx context.
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresIdPromorulesWithResponse(ctx, storeId, body, )
+	resp, err := client.PostEcommerceStoresIdPromorulesWithResponse(ctx, storeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6096,7 +6744,7 @@ func (h *Handler) handlePostEcommerceStoresWithResponse(ctx context.Context, req
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostEcommerceStoresWithResponse(ctx, body, )
+	resp, err := client.PostEcommerceStoresWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6119,7 +6767,7 @@ func (h *Handler) handlePutEcommerceStoresIdCustomersIdWithResponse(ctx context.
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PutEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, body, )
+	resp, err := client.PutEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6142,7 +6790,7 @@ func (h *Handler) handlePutEcommerceStoresIdOrdersIdWithResponse(ctx context.Con
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PutEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, body, )
+	resp, err := client.PutEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6166,7 +6814,7 @@ func (h *Handler) handlePutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, body, )
+	resp, err := client.PutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6189,7 +6837,7 @@ func (h *Handler) handlePutEcommerceStoresIdProductsIdWithResponse(ctx context.C
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PutEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, body, )
+	resp, err := client.PutEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6206,7 +6854,7 @@ func (h *Handler) handleDeleteFileManagerFilesIdWithResponse(ctx context.Context
 
 	fileId := request.GetString("fileId", "")
 
-	resp, err := client.DeleteFileManagerFilesIdWithResponse(ctx, fileId, )
+	resp, err := client.DeleteFileManagerFilesIdWithResponse(ctx, fileId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6223,7 +6871,7 @@ func (h *Handler) handleDeleteFileManagerFoldersIdWithResponse(ctx context.Conte
 
 	folderId := request.GetString("folderId", "")
 
-	resp, err := client.DeleteFileManagerFoldersIdWithResponse(ctx, folderId, )
+	resp, err := client.DeleteFileManagerFoldersIdWithResponse(ctx, folderId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6240,8 +6888,18 @@ func (h *Handler) handleGetFileManagerFilesIdWithResponse(ctx context.Context, r
 
 	fileId := request.GetString("fileId", "")
 	params := &target.GetFileManagerFilesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetFileManagerFilesIdWithResponse(ctx, fileId, params, )
+	resp, err := client.GetFileManagerFilesIdWithResponse(ctx, fileId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6257,6 +6915,16 @@ func (h *Handler) handleGetFileManagerFilesWithResponse(ctx context.Context, req
 	}
 
 	params := &target.GetFileManagerFilesParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -6298,7 +6966,7 @@ func (h *Handler) handleGetFileManagerFilesWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.GetFileManagerFilesWithResponse(ctx, params, )
+	resp, err := client.GetFileManagerFilesWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6315,6 +6983,16 @@ func (h *Handler) handleGetFileManagerFoldersFilesWithResponse(ctx context.Conte
 
 	folderId := request.GetString("folderId", "")
 	params := &target.GetFileManagerFoldersFilesParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -6356,7 +7034,7 @@ func (h *Handler) handleGetFileManagerFoldersFilesWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, err := client.GetFileManagerFoldersFilesWithResponse(ctx, folderId, params, )
+	resp, err := client.GetFileManagerFoldersFilesWithResponse(ctx, folderId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6373,8 +7051,18 @@ func (h *Handler) handleGetFileManagerFoldersIdWithResponse(ctx context.Context,
 
 	folderId := request.GetString("folderId", "")
 	params := &target.GetFileManagerFoldersIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetFileManagerFoldersIdWithResponse(ctx, folderId, params, )
+	resp, err := client.GetFileManagerFoldersIdWithResponse(ctx, folderId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6390,6 +7078,16 @@ func (h *Handler) handleGetFileManagerFoldersWithResponse(ctx context.Context, r
 	}
 
 	params := &target.GetFileManagerFoldersParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -6416,7 +7114,7 @@ func (h *Handler) handleGetFileManagerFoldersWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.GetFileManagerFoldersWithResponse(ctx, params, )
+	resp, err := client.GetFileManagerFoldersWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6438,7 +7136,7 @@ func (h *Handler) handlePatchFileManagerFilesIdWithResponse(ctx context.Context,
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchFileManagerFilesIdWithResponse(ctx, fileId, body, )
+	resp, err := client.PatchFileManagerFilesIdWithResponse(ctx, fileId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6460,7 +7158,7 @@ func (h *Handler) handlePatchFileManagerFoldersIdWithResponse(ctx context.Contex
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchFileManagerFoldersIdWithResponse(ctx, folderId, body, )
+	resp, err := client.PatchFileManagerFoldersIdWithResponse(ctx, folderId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6481,7 +7179,7 @@ func (h *Handler) handlePostFileManagerFilesWithResponse(ctx context.Context, re
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostFileManagerFilesWithResponse(ctx, body, )
+	resp, err := client.PostFileManagerFilesWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6502,7 +7200,7 @@ func (h *Handler) handlePostFileManagerFoldersWithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostFileManagerFoldersWithResponse(ctx, body, )
+	resp, err := client.PostFileManagerFoldersWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6519,7 +7217,7 @@ func (h *Handler) handleDeleteLandingPageIdWithResponse(ctx context.Context, req
 
 	pageId := request.GetString("pageId", "")
 
-	resp, err := client.DeleteLandingPageIdWithResponse(ctx, pageId, )
+	resp, err := client.DeleteLandingPageIdWithResponse(ctx, pageId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6546,12 +7244,22 @@ func (h *Handler) handleGetAllLandingPagesWithResponse(ctx context.Context, requ
 		}
 	}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
 	}
 
-	resp, err := client.GetAllLandingPagesWithResponse(ctx, params, )
+	resp, err := client.GetAllLandingPagesWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6568,8 +7276,18 @@ func (h *Handler) handleGetLandingPageIdContentWithResponse(ctx context.Context,
 
 	pageId := request.GetString("pageId", "")
 	params := &target.GetLandingPageIdContentParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetLandingPageIdContentWithResponse(ctx, pageId, params, )
+	resp, err := client.GetLandingPageIdContentWithResponse(ctx, pageId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6586,8 +7304,18 @@ func (h *Handler) handleGetLandingPageIdWithResponse(ctx context.Context, reques
 
 	pageId := request.GetString("pageId", "")
 	params := &target.GetLandingPageIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetLandingPageIdWithResponse(ctx, pageId, params, )
+	resp, err := client.GetLandingPageIdWithResponse(ctx, pageId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6609,7 +7337,7 @@ func (h *Handler) handlePatchLandingPageIdWithResponse(ctx context.Context, requ
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchLandingPageIdWithResponse(ctx, pageId, body, )
+	resp, err := client.PatchLandingPageIdWithResponse(ctx, pageId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6636,7 +7364,7 @@ func (h *Handler) handlePostAllLandingPagesWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.PostAllLandingPagesWithResponse(ctx, params, body, )
+	resp, err := client.PostAllLandingPagesWithResponse(ctx, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6653,7 +7381,7 @@ func (h *Handler) handlePostLandingPageIdActionsPublishWithResponse(ctx context.
 
 	pageId := request.GetString("pageId", "")
 
-	resp, err := client.PostLandingPageIdActionsPublishWithResponse(ctx, pageId, )
+	resp, err := client.PostLandingPageIdActionsPublishWithResponse(ctx, pageId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6670,7 +7398,7 @@ func (h *Handler) handlePostLandingPageIdActionsUnpublishWithResponse(ctx contex
 
 	pageId := request.GetString("pageId", "")
 
-	resp, err := client.PostLandingPageIdActionsUnpublishWithResponse(ctx, pageId, )
+	resp, err := client.PostLandingPageIdActionsUnpublishWithResponse(ctx, pageId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6689,7 +7417,7 @@ func (h *Handler) handleDeleteListsIdInterestCategoriesIdInterestsIdWithResponse
 	interestCategoryId := request.GetString("interestCategoryId", "")
 	interestId := request.GetString("interestId", "")
 
-	resp, err := client.DeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, )
+	resp, err := client.DeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6707,7 +7435,7 @@ func (h *Handler) handleDeleteListsIdInterestCategoriesIdWithResponse(ctx contex
 	listId := request.GetString("listId", "")
 	interestCategoryId := request.GetString("interestCategoryId", "")
 
-	resp, err := client.DeleteListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, )
+	resp, err := client.DeleteListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6726,7 +7454,7 @@ func (h *Handler) handleDeleteListsIdMembersIdNotesIdWithResponse(ctx context.Co
 	subscriberHash := request.GetString("subscriberHash", "")
 	noteId := request.GetString("noteId", "")
 
-	resp, err := client.DeleteListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, )
+	resp, err := client.DeleteListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6744,7 +7472,7 @@ func (h *Handler) handleDeleteListsIdMembersIdWithResponse(ctx context.Context, 
 	listId := request.GetString("listId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 
-	resp, err := client.DeleteListsIdMembersIdWithResponse(ctx, listId, subscriberHash, )
+	resp, err := client.DeleteListsIdMembersIdWithResponse(ctx, listId, subscriberHash)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6762,7 +7490,7 @@ func (h *Handler) handleDeleteListsIdMergeFieldsIdWithResponse(ctx context.Conte
 	listId := request.GetString("listId", "")
 	mergeId := request.GetString("mergeId", "")
 
-	resp, err := client.DeleteListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, )
+	resp, err := client.DeleteListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6781,7 +7509,7 @@ func (h *Handler) handleDeleteListsIdSegmentsIdMembersIdWithResponse(ctx context
 	segmentId := request.GetString("segmentId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 
-	resp, err := client.DeleteListsIdSegmentsIdMembersIdWithResponse(ctx, listId, segmentId, subscriberHash, )
+	resp, err := client.DeleteListsIdSegmentsIdMembersIdWithResponse(ctx, listId, segmentId, subscriberHash)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6799,7 +7527,7 @@ func (h *Handler) handleDeleteListsIdSegmentsIdWithResponse(ctx context.Context,
 	listId := request.GetString("listId", "")
 	segmentId := request.GetString("segmentId", "")
 
-	resp, err := client.DeleteListsIdSegmentsIdWithResponse(ctx, listId, segmentId, )
+	resp, err := client.DeleteListsIdSegmentsIdWithResponse(ctx, listId, segmentId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6817,7 +7545,7 @@ func (h *Handler) handleDeleteListsIdSurveysIdWithResponse(ctx context.Context, 
 	listId := request.GetString("listId", "")
 	surveyId := request.GetString("surveyId", "")
 
-	resp, err := client.DeleteListsIdSurveysIdWithResponse(ctx, listId, surveyId, )
+	resp, err := client.DeleteListsIdSurveysIdWithResponse(ctx, listId, surveyId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6835,7 +7563,7 @@ func (h *Handler) handleDeleteListsIdWebhooksIdWithResponse(ctx context.Context,
 	listId := request.GetString("listId", "")
 	webhookId := request.GetString("webhookId", "")
 
-	resp, err := client.DeleteListsIdWebhooksIdWithResponse(ctx, listId, webhookId, )
+	resp, err := client.DeleteListsIdWebhooksIdWithResponse(ctx, listId, webhookId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6852,7 +7580,7 @@ func (h *Handler) handleDeleteListsIdWithResponse(ctx context.Context, request m
 
 	listId := request.GetString("listId", "")
 
-	resp, err := client.DeleteListsIdWithResponse(ctx, listId, )
+	resp, err := client.DeleteListsIdWithResponse(ctx, listId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6871,6 +7599,16 @@ func (h *Handler) handleGetListMemberTagsWithResponse(ctx context.Context, reque
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetListMemberTagsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -6881,7 +7619,7 @@ func (h *Handler) handleGetListMemberTagsWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.GetListMemberTagsWithResponse(ctx, listId, subscriberHash, params, )
+	resp, err := client.GetListMemberTagsWithResponse(ctx, listId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6900,6 +7638,16 @@ func (h *Handler) handleGetListsIdAbuseReportsIdWithResponse(ctx context.Context
 	reportId := request.GetString("reportId", "")
 	params := &target.GetListsIdAbuseReportsIdParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -6910,7 +7658,7 @@ func (h *Handler) handleGetListsIdAbuseReportsIdWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.GetListsIdAbuseReportsIdWithResponse(ctx, listId, reportId, params, )
+	resp, err := client.GetListsIdAbuseReportsIdWithResponse(ctx, listId, reportId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6928,6 +7676,16 @@ func (h *Handler) handleGetListsIdAbuseReportsWithResponse(ctx context.Context, 
 	listId := request.GetString("listId", "")
 	params := &target.GetListsIdAbuseReportsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -6938,7 +7696,7 @@ func (h *Handler) handleGetListsIdAbuseReportsWithResponse(ctx context.Context, 
 		}
 	}
 
-	resp, err := client.GetListsIdAbuseReportsWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdAbuseReportsWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6965,8 +7723,18 @@ func (h *Handler) handleGetListsIdActivityWithResponse(ctx context.Context, requ
 			params.Offset = ptrVal(int(request.GetInt("offset", 0)))
 		}
 	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdActivityWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdActivityWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6983,8 +7751,18 @@ func (h *Handler) handleGetListsIdClientsWithResponse(ctx context.Context, reque
 
 	listId := request.GetString("listId", "")
 	params := &target.GetListsIdClientsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdClientsWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdClientsWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7002,8 +7780,18 @@ func (h *Handler) handleGetListsIdGrowthHistoryIdWithResponse(ctx context.Contex
 	listId := request.GetString("listId", "")
 	month := request.GetString("month", "")
 	params := &target.GetListsIdGrowthHistoryIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdGrowthHistoryIdWithResponse(ctx, listId, month, params, )
+	resp, err := client.GetListsIdGrowthHistoryIdWithResponse(ctx, listId, month, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7020,6 +7808,16 @@ func (h *Handler) handleGetListsIdGrowthHistoryWithResponse(ctx context.Context,
 
 	listId := request.GetString("listId", "")
 	params := &target.GetListsIdGrowthHistoryParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -7041,7 +7839,7 @@ func (h *Handler) handleGetListsIdGrowthHistoryWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, err := client.GetListsIdGrowthHistoryWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdGrowthHistoryWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7060,8 +7858,18 @@ func (h *Handler) handleGetListsIdInterestCategoriesIdInterestsIdWithResponse(ct
 	interestCategoryId := request.GetString("interestCategoryId", "")
 	interestId := request.GetString("interestId", "")
 	params := &target.GetListsIdInterestCategoriesIdInterestsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, params, )
+	resp, err := client.GetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7080,6 +7888,16 @@ func (h *Handler) handleGetListsIdInterestCategoriesIdInterestsWithResponse(ctx 
 	interestCategoryId := request.GetString("interestCategoryId", "")
 	params := &target.GetListsIdInterestCategoriesIdInterestsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -7090,7 +7908,7 @@ func (h *Handler) handleGetListsIdInterestCategoriesIdInterestsWithResponse(ctx 
 		}
 	}
 
-	resp, err := client.GetListsIdInterestCategoriesIdInterestsWithResponse(ctx, listId, interestCategoryId, params, )
+	resp, err := client.GetListsIdInterestCategoriesIdInterestsWithResponse(ctx, listId, interestCategoryId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7108,8 +7926,18 @@ func (h *Handler) handleGetListsIdInterestCategoriesIdWithResponse(ctx context.C
 	listId := request.GetString("listId", "")
 	interestCategoryId := request.GetString("interestCategoryId", "")
 	params := &target.GetListsIdInterestCategoriesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, params, )
+	resp, err := client.GetListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7126,6 +7954,16 @@ func (h *Handler) handleGetListsIdInterestCategoriesWithResponse(ctx context.Con
 
 	listId := request.GetString("listId", "")
 	params := &target.GetListsIdInterestCategoriesParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -7152,7 +7990,7 @@ func (h *Handler) handleGetListsIdInterestCategoriesWithResponse(ctx context.Con
 		}
 	}
 
-	resp, err := client.GetListsIdInterestCategoriesWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdInterestCategoriesWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7169,8 +8007,18 @@ func (h *Handler) handleGetListsIdLocationsWithResponse(ctx context.Context, req
 
 	listId := request.GetString("listId", "")
 	params := &target.GetListsIdLocationsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdLocationsWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdLocationsWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7189,6 +8037,16 @@ func (h *Handler) handleGetListsIdMembersIdActivityFeedWithResponse(ctx context.
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetListsIdMembersIdActivityFeedParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -7199,7 +8057,7 @@ func (h *Handler) handleGetListsIdMembersIdActivityFeedWithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.GetListsIdMembersIdActivityFeedWithResponse(ctx, listId, subscriberHash, params, )
+	resp, err := client.GetListsIdMembersIdActivityFeedWithResponse(ctx, listId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7217,8 +8075,18 @@ func (h *Handler) handleGetListsIdMembersIdActivityWithResponse(ctx context.Cont
 	listId := request.GetString("listId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetListsIdMembersIdActivityParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdMembersIdActivityWithResponse(ctx, listId, subscriberHash, params, )
+	resp, err := client.GetListsIdMembersIdActivityWithResponse(ctx, listId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7246,8 +8114,18 @@ func (h *Handler) handleGetListsIdMembersIdEventsWithResponse(ctx context.Contex
 			params.Offset = ptrVal(int(request.GetInt("offset", 0)))
 		}
 	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdMembersIdEventsWithResponse(ctx, listId, subscriberHash, params, )
+	resp, err := client.GetListsIdMembersIdEventsWithResponse(ctx, listId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7265,8 +8143,18 @@ func (h *Handler) handleGetListsIdMembersIdGoalsWithResponse(ctx context.Context
 	listId := request.GetString("listId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetListsIdMembersIdGoalsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdMembersIdGoalsWithResponse(ctx, listId, subscriberHash, params, )
+	resp, err := client.GetListsIdMembersIdGoalsWithResponse(ctx, listId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7285,8 +8173,18 @@ func (h *Handler) handleGetListsIdMembersIdNotesIdWithResponse(ctx context.Conte
 	subscriberHash := request.GetString("subscriberHash", "")
 	noteId := request.GetString("noteId", "")
 	params := &target.GetListsIdMembersIdNotesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, params, )
+	resp, err := client.GetListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7315,6 +8213,16 @@ func (h *Handler) handleGetListsIdMembersIdNotesWithResponse(ctx context.Context
 		}
 	}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -7325,7 +8233,7 @@ func (h *Handler) handleGetListsIdMembersIdNotesWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.GetListsIdMembersIdNotesWithResponse(ctx, listId, subscriberHash, params, )
+	resp, err := client.GetListsIdMembersIdNotesWithResponse(ctx, listId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7343,8 +8251,18 @@ func (h *Handler) handleGetListsIdMembersIdWithResponse(ctx context.Context, req
 	listId := request.GetString("listId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetListsIdMembersIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdMembersIdWithResponse(ctx, listId, subscriberHash, params, )
+	resp, err := client.GetListsIdMembersIdWithResponse(ctx, listId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7361,6 +8279,16 @@ func (h *Handler) handleGetListsIdMembersWithResponse(ctx context.Context, reque
 
 	listId := request.GetString("listId", "")
 	params := &target.GetListsIdMembersParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -7447,7 +8375,7 @@ func (h *Handler) handleGetListsIdMembersWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.GetListsIdMembersWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdMembersWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7465,8 +8393,18 @@ func (h *Handler) handleGetListsIdMergeFieldsIdWithResponse(ctx context.Context,
 	listId := request.GetString("listId", "")
 	mergeId := request.GetString("mergeId", "")
 	params := &target.GetListsIdMergeFieldsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
 
-	resp, err := client.GetListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, params, )
+	resp, err := client.GetListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7483,6 +8421,16 @@ func (h *Handler) handleGetListsIdMergeFieldsWithResponse(ctx context.Context, r
 
 	listId := request.GetString("listId", "")
 	params := &target.GetListsIdMergeFieldsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -7504,7 +8452,7 @@ func (h *Handler) handleGetListsIdMergeFieldsWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.GetListsIdMergeFieldsWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdMergeFieldsWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7522,6 +8470,16 @@ func (h *Handler) handleGetListsIdSegmentsIdMembersWithResponse(ctx context.Cont
 	listId := request.GetString("listId", "")
 	segmentId := request.GetString("segmentId", "")
 	params := &target.GetListsIdSegmentsIdMembersParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -7548,7 +8506,7 @@ func (h *Handler) handleGetListsIdSegmentsIdMembersWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.GetListsIdSegmentsIdMembersWithResponse(ctx, listId, segmentId, params, )
+	resp, err := client.GetListsIdSegmentsIdMembersWithResponse(ctx, listId, segmentId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7567,6 +8525,16 @@ func (h *Handler) handleGetListsIdSegmentsIdWithResponse(ctx context.Context, re
 	segmentId := request.GetString("segmentId", "")
 	params := &target.GetListsIdSegmentsIdParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["include_cleaned"]; ok {
 			params.IncludeCleaned = ptrVal(request.GetBool("include_cleaned", false))
 		}
@@ -7582,7 +8550,7 @@ func (h *Handler) handleGetListsIdSegmentsIdWithResponse(ctx context.Context, re
 		}
 	}
 
-	resp, err := client.GetListsIdSegmentsIdWithResponse(ctx, listId, segmentId, params, )
+	resp, err := client.GetListsIdSegmentsIdWithResponse(ctx, listId, segmentId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7599,7 +8567,7 @@ func (h *Handler) handleGetListsIdSignupFormsWithResponse(ctx context.Context, r
 
 	listId := request.GetString("listId", "")
 
-	resp, err := client.GetListsIdSignupFormsWithResponse(ctx, listId, )
+	resp, err := client.GetListsIdSignupFormsWithResponse(ctx, listId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7617,7 +8585,7 @@ func (h *Handler) handleGetListsIdSurveysIdWithResponse(ctx context.Context, req
 	listId := request.GetString("listId", "")
 	surveyId := request.GetString("surveyId", "")
 
-	resp, err := client.GetListsIdSurveysIdWithResponse(ctx, listId, surveyId, )
+	resp, err := client.GetListsIdSurveysIdWithResponse(ctx, listId, surveyId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7634,7 +8602,7 @@ func (h *Handler) handleGetListsIdSurveysWithResponse(ctx context.Context, reque
 
 	listId := request.GetString("listId", "")
 
-	resp, err := client.GetListsIdSurveysWithResponse(ctx, listId, )
+	resp, err := client.GetListsIdSurveysWithResponse(ctx, listId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7652,7 +8620,7 @@ func (h *Handler) handleGetListsIdWebhooksIdWithResponse(ctx context.Context, re
 	listId := request.GetString("listId", "")
 	webhookId := request.GetString("webhookId", "")
 
-	resp, err := client.GetListsIdWebhooksIdWithResponse(ctx, listId, webhookId, )
+	resp, err := client.GetListsIdWebhooksIdWithResponse(ctx, listId, webhookId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7669,7 +8637,7 @@ func (h *Handler) handleGetListsIdWebhooksWithResponse(ctx context.Context, requ
 
 	listId := request.GetString("listId", "")
 
-	resp, err := client.GetListsIdWebhooksWithResponse(ctx, listId, )
+	resp, err := client.GetListsIdWebhooksWithResponse(ctx, listId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7687,12 +8655,22 @@ func (h *Handler) handleGetListsIdWithResponse(ctx context.Context, request mcp.
 	listId := request.GetString("listId", "")
 	params := &target.GetListsIdParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["include_total_contacts"]; ok {
 			params.IncludeTotalContacts = ptrVal(request.GetBool("include_total_contacts", false))
 		}
 	}
 
-	resp, err := client.GetListsIdWithResponse(ctx, listId, params, )
+	resp, err := client.GetListsIdWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7708,6 +8686,16 @@ func (h *Handler) handleGetListsWithResponse(ctx context.Context, request mcp.Ca
 	}
 
 	params := &target.GetListsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -7764,7 +8752,7 @@ func (h *Handler) handleGetListsWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.GetListsWithResponse(ctx, params, )
+	resp, err := client.GetListsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7788,7 +8776,7 @@ func (h *Handler) handlePatchListsIdInterestCategoriesIdInterestsIdWithResponse(
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, body, )
+	resp, err := client.PatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7811,7 +8799,7 @@ func (h *Handler) handlePatchListsIdInterestCategoriesIdWithResponse(ctx context
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, body, )
+	resp, err := client.PatchListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7835,7 +8823,7 @@ func (h *Handler) handlePatchListsIdMembersIdNotesIdWithResponse(ctx context.Con
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, body, )
+	resp, err := client.PatchListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7864,7 +8852,7 @@ func (h *Handler) handlePatchListsIdMembersIdWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.PatchListsIdMembersIdWithResponse(ctx, listId, subscriberHash, params, body, )
+	resp, err := client.PatchListsIdMembersIdWithResponse(ctx, listId, subscriberHash, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7887,7 +8875,7 @@ func (h *Handler) handlePatchListsIdMergeFieldsIdWithResponse(ctx context.Contex
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, body, )
+	resp, err := client.PatchListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7910,7 +8898,7 @@ func (h *Handler) handlePatchListsIdSegmentsIdWithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchListsIdSegmentsIdWithResponse(ctx, listId, segmentId, body, )
+	resp, err := client.PatchListsIdSegmentsIdWithResponse(ctx, listId, segmentId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7933,7 +8921,7 @@ func (h *Handler) handlePatchListsIdSurveysIdWithResponse(ctx context.Context, r
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchListsIdSurveysIdWithResponse(ctx, listId, surveyId, body, )
+	resp, err := client.PatchListsIdSurveysIdWithResponse(ctx, listId, surveyId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7956,7 +8944,7 @@ func (h *Handler) handlePatchListsIdWebhooksIdWithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchListsIdWebhooksIdWithResponse(ctx, listId, webhookId, body, )
+	resp, err := client.PatchListsIdWebhooksIdWithResponse(ctx, listId, webhookId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7978,7 +8966,7 @@ func (h *Handler) handlePatchListsIdWithResponse(ctx context.Context, request mc
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchListsIdWithResponse(ctx, listId, body, )
+	resp, err := client.PatchListsIdWithResponse(ctx, listId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8001,7 +8989,7 @@ func (h *Handler) handlePostListMemberEventsWithResponse(ctx context.Context, re
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListMemberEventsWithResponse(ctx, listId, subscriberHash, body, )
+	resp, err := client.PostListMemberEventsWithResponse(ctx, listId, subscriberHash, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8024,7 +9012,7 @@ func (h *Handler) handlePostListMemberTagsWithResponse(ctx context.Context, requ
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListMemberTagsWithResponse(ctx, listId, subscriberHash, body, )
+	resp, err := client.PostListMemberTagsWithResponse(ctx, listId, subscriberHash, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8047,7 +9035,7 @@ func (h *Handler) handlePostListsIdInterestCategoriesIdInterestsWithResponse(ctx
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdInterestCategoriesIdInterestsWithResponse(ctx, listId, interestCategoryId, body, )
+	resp, err := client.PostListsIdInterestCategoriesIdInterestsWithResponse(ctx, listId, interestCategoryId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8069,7 +9057,7 @@ func (h *Handler) handlePostListsIdInterestCategoriesWithResponse(ctx context.Co
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdInterestCategoriesWithResponse(ctx, listId, body, )
+	resp, err := client.PostListsIdInterestCategoriesWithResponse(ctx, listId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8087,7 +9075,7 @@ func (h *Handler) handlePostListsIdMembersHashActionsDeletePermanentWithResponse
 	listId := request.GetString("listId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 
-	resp, err := client.PostListsIdMembersHashActionsDeletePermanentWithResponse(ctx, listId, subscriberHash, )
+	resp, err := client.PostListsIdMembersHashActionsDeletePermanentWithResponse(ctx, listId, subscriberHash)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8110,7 +9098,7 @@ func (h *Handler) handlePostListsIdMembersIdNotesWithResponse(ctx context.Contex
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdMembersIdNotesWithResponse(ctx, listId, subscriberHash, body, )
+	resp, err := client.PostListsIdMembersIdNotesWithResponse(ctx, listId, subscriberHash, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8138,7 +9126,7 @@ func (h *Handler) handlePostListsIdMembersWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.PostListsIdMembersWithResponse(ctx, listId, params, body, )
+	resp, err := client.PostListsIdMembersWithResponse(ctx, listId, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8160,7 +9148,7 @@ func (h *Handler) handlePostListsIdMergeFieldsWithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdMergeFieldsWithResponse(ctx, listId, body, )
+	resp, err := client.PostListsIdMergeFieldsWithResponse(ctx, listId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8183,7 +9171,7 @@ func (h *Handler) handlePostListsIdSegmentsIdMembersWithResponse(ctx context.Con
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdSegmentsIdMembersWithResponse(ctx, listId, segmentId, body, )
+	resp, err := client.PostListsIdSegmentsIdMembersWithResponse(ctx, listId, segmentId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8206,7 +9194,7 @@ func (h *Handler) handlePostListsIdSegmentsIdWithResponse(ctx context.Context, r
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdSegmentsIdWithResponse(ctx, listId, segmentId, body, )
+	resp, err := client.PostListsIdSegmentsIdWithResponse(ctx, listId, segmentId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8228,7 +9216,7 @@ func (h *Handler) handlePostListsIdSegmentsWithResponse(ctx context.Context, req
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdSegmentsWithResponse(ctx, listId, body, )
+	resp, err := client.PostListsIdSegmentsWithResponse(ctx, listId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8250,7 +9238,7 @@ func (h *Handler) handlePostListsIdSignupFormsWithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdSignupFormsWithResponse(ctx, listId, body, )
+	resp, err := client.PostListsIdSignupFormsWithResponse(ctx, listId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8273,7 +9261,7 @@ func (h *Handler) handlePostListsIdSurveysIdActionsReplicateWithResponse(ctx con
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdSurveysIdActionsReplicateWithResponse(ctx, listId, surveyId, body, )
+	resp, err := client.PostListsIdSurveysIdActionsReplicateWithResponse(ctx, listId, surveyId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8295,7 +9283,7 @@ func (h *Handler) handlePostListsIdSurveysWithResponse(ctx context.Context, requ
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdSurveysWithResponse(ctx, listId, body, )
+	resp, err := client.PostListsIdSurveysWithResponse(ctx, listId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8317,7 +9305,7 @@ func (h *Handler) handlePostListsIdWebhooksWithResponse(ctx context.Context, req
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsIdWebhooksWithResponse(ctx, listId, body, )
+	resp, err := client.PostListsIdWebhooksWithResponse(ctx, listId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8350,7 +9338,7 @@ func (h *Handler) handlePostListsIdWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.PostListsIdWithResponse(ctx, listId, params, body, )
+	resp, err := client.PostListsIdWithResponse(ctx, listId, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8371,7 +9359,7 @@ func (h *Handler) handlePostListsWithResponse(ctx context.Context, request mcp.C
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostListsWithResponse(ctx, body, )
+	resp, err := client.PostListsWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8388,6 +9376,16 @@ func (h *Handler) handlePreviewASegmentWithResponse(ctx context.Context, request
 
 	listId := request.GetString("listId", "")
 	params := &target.PreviewASegmentParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -8444,7 +9442,7 @@ func (h *Handler) handlePreviewASegmentWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.PreviewASegmentWithResponse(ctx, listId, params, )
+	resp, err := client.PreviewASegmentWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8473,7 +9471,7 @@ func (h *Handler) handlePutListsIdMembersIdWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.PutListsIdMembersIdWithResponse(ctx, listId, subscriberHash, params, body, )
+	resp, err := client.PutListsIdMembersIdWithResponse(ctx, listId, subscriberHash, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8496,7 +9494,7 @@ func (h *Handler) handleSearchTagsByNameWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.SearchTagsByNameWithResponse(ctx, listId, params, )
+	resp, err := client.SearchTagsByNameWithResponse(ctx, listId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8513,7 +9511,7 @@ func (h *Handler) handleDeleteSmsCampaignsIdWithResponse(ctx context.Context, re
 
 	smsCampaignId := request.GetString("smsCampaignId", "")
 
-	resp, err := client.DeleteSmsCampaignsIdWithResponse(ctx, smsCampaignId, )
+	resp, err := client.DeleteSmsCampaignsIdWithResponse(ctx, smsCampaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8530,8 +9528,18 @@ func (h *Handler) handleGetSmsCampaignsIdContentWithResponse(ctx context.Context
 
 	smsCampaignId := request.GetString("smsCampaignId", "")
 	params := &target.GetSmsCampaignsIdContentParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetSmsCampaignsIdContentWithResponse(ctx, smsCampaignId, params, )
+	resp, err := client.GetSmsCampaignsIdContentWithResponse(ctx, smsCampaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8548,8 +9556,18 @@ func (h *Handler) handleGetSmsCampaignsIdWithResponse(ctx context.Context, reque
 
 	smsCampaignId := request.GetString("smsCampaignId", "")
 	params := &target.GetSmsCampaignsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetSmsCampaignsIdWithResponse(ctx, smsCampaignId, params, )
+	resp, err := client.GetSmsCampaignsIdWithResponse(ctx, smsCampaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8566,6 +9584,16 @@ func (h *Handler) handleGetSmsCampaignsWithResponse(ctx context.Context, request
 
 	params := &target.GetSmsCampaignsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -8576,7 +9604,7 @@ func (h *Handler) handleGetSmsCampaignsWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.GetSmsCampaignsWithResponse(ctx, params, )
+	resp, err := client.GetSmsCampaignsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8598,7 +9626,7 @@ func (h *Handler) handlePatchSmsCampaignsIdWithResponse(ctx context.Context, req
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchSmsCampaignsIdWithResponse(ctx, smsCampaignId, body, )
+	resp, err := client.PatchSmsCampaignsIdWithResponse(ctx, smsCampaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8615,7 +9643,7 @@ func (h *Handler) handlePostSmsCampaignsIdActionsCancelSendWithResponse(ctx cont
 
 	smsCampaignId := request.GetString("smsCampaignId", "")
 
-	resp, err := client.PostSmsCampaignsIdActionsCancelSendWithResponse(ctx, smsCampaignId, )
+	resp, err := client.PostSmsCampaignsIdActionsCancelSendWithResponse(ctx, smsCampaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8637,7 +9665,7 @@ func (h *Handler) handlePostSmsCampaignsIdActionsScheduleWithResponse(ctx contex
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostSmsCampaignsIdActionsScheduleWithResponse(ctx, smsCampaignId, body, )
+	resp, err := client.PostSmsCampaignsIdActionsScheduleWithResponse(ctx, smsCampaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8654,7 +9682,7 @@ func (h *Handler) handlePostSmsCampaignsIdActionsSendWithResponse(ctx context.Co
 
 	smsCampaignId := request.GetString("smsCampaignId", "")
 
-	resp, err := client.PostSmsCampaignsIdActionsSendWithResponse(ctx, smsCampaignId, )
+	resp, err := client.PostSmsCampaignsIdActionsSendWithResponse(ctx, smsCampaignId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8675,7 +9703,7 @@ func (h *Handler) handlePostSmsCampaignsWithResponse(ctx context.Context, reques
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostSmsCampaignsWithResponse(ctx, body, )
+	resp, err := client.PostSmsCampaignsWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8697,7 +9725,7 @@ func (h *Handler) handlePutSmsCampaignsIdContentWithResponse(ctx context.Context
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PutSmsCampaignsIdContentWithResponse(ctx, smsCampaignId, body, )
+	resp, err := client.PutSmsCampaignsIdContentWithResponse(ctx, smsCampaignId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8714,7 +9742,7 @@ func (h *Handler) handleDeleteTemplateFoldersIdWithResponse(ctx context.Context,
 
 	folderId := request.GetString("folderId", "")
 
-	resp, err := client.DeleteTemplateFoldersIdWithResponse(ctx, folderId, )
+	resp, err := client.DeleteTemplateFoldersIdWithResponse(ctx, folderId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8731,8 +9759,18 @@ func (h *Handler) handleGetTemplateFoldersIdWithResponse(ctx context.Context, re
 
 	folderId := request.GetString("folderId", "")
 	params := &target.GetTemplateFoldersIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetTemplateFoldersIdWithResponse(ctx, folderId, params, )
+	resp, err := client.GetTemplateFoldersIdWithResponse(ctx, folderId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8749,6 +9787,16 @@ func (h *Handler) handleGetTemplateFoldersWithResponse(ctx context.Context, requ
 
 	params := &target.GetTemplateFoldersParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -8759,7 +9807,7 @@ func (h *Handler) handleGetTemplateFoldersWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.GetTemplateFoldersWithResponse(ctx, params, )
+	resp, err := client.GetTemplateFoldersWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8781,7 +9829,7 @@ func (h *Handler) handlePatchTemplateFoldersIdWithResponse(ctx context.Context, 
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchTemplateFoldersIdWithResponse(ctx, folderId, body, )
+	resp, err := client.PatchTemplateFoldersIdWithResponse(ctx, folderId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8802,7 +9850,7 @@ func (h *Handler) handlePostTemplateFoldersWithResponse(ctx context.Context, req
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostTemplateFoldersWithResponse(ctx, body, )
+	resp, err := client.PostTemplateFoldersWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8819,7 +9867,7 @@ func (h *Handler) handleDeleteTemplatesIdWithResponse(ctx context.Context, reque
 
 	templateId := request.GetString("templateId", "")
 
-	resp, err := client.DeleteTemplatesIdWithResponse(ctx, templateId, )
+	resp, err := client.DeleteTemplatesIdWithResponse(ctx, templateId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8836,8 +9884,18 @@ func (h *Handler) handleGetTemplatesIdDefaultContentWithResponse(ctx context.Con
 
 	templateId := request.GetString("templateId", "")
 	params := &target.GetTemplatesIdDefaultContentParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetTemplatesIdDefaultContentWithResponse(ctx, templateId, params, )
+	resp, err := client.GetTemplatesIdDefaultContentWithResponse(ctx, templateId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8854,8 +9912,18 @@ func (h *Handler) handleGetTemplatesIdWithResponse(ctx context.Context, request 
 
 	templateId := request.GetString("templateId", "")
 	params := &target.GetTemplatesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetTemplatesIdWithResponse(ctx, templateId, params, )
+	resp, err := client.GetTemplatesIdWithResponse(ctx, templateId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8871,6 +9939,16 @@ func (h *Handler) handleGetTemplatesWithResponse(ctx context.Context, request mc
 	}
 
 	params := &target.GetTemplatesParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -8927,7 +10005,7 @@ func (h *Handler) handleGetTemplatesWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.GetTemplatesWithResponse(ctx, params, )
+	resp, err := client.GetTemplatesWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8949,7 +10027,7 @@ func (h *Handler) handlePatchTemplatesIdWithResponse(ctx context.Context, reques
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PatchTemplatesIdWithResponse(ctx, templateId, body, )
+	resp, err := client.PatchTemplatesIdWithResponse(ctx, templateId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8970,7 +10048,7 @@ func (h *Handler) handlePostTemplatesWithResponse(ctx context.Context, request m
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostTemplatesWithResponse(ctx, body, )
+	resp, err := client.PostTemplatesWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -8987,8 +10065,18 @@ func (h *Handler) handleGetAccountExportIdWithResponse(ctx context.Context, requ
 
 	exportId := request.GetString("exportId", "")
 	params := &target.GetAccountExportIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetAccountExportIdWithResponse(ctx, exportId, params, )
+	resp, err := client.GetAccountExportIdWithResponse(ctx, exportId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9005,6 +10093,16 @@ func (h *Handler) handleGetAccountExportsWithResponse(ctx context.Context, reque
 
 	params := &target.GetAccountExportsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9015,7 +10113,7 @@ func (h *Handler) handleGetAccountExportsWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.GetAccountExportsWithResponse(ctx, params, )
+	resp, err := client.GetAccountExportsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9036,7 +10134,7 @@ func (h *Handler) handlePostAccountExportWithResponse(ctx context.Context, reque
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostAccountExportWithResponse(ctx, body, )
+	resp, err := client.PostAccountExportWithResponse(ctx, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9063,7 +10161,7 @@ func (h *Handler) handleGetActivityFeedChimpChatterWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.GetActivityFeedChimpChatterWithResponse(ctx, params, )
+	resp, err := client.GetActivityFeedChimpChatterWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9079,6 +10177,16 @@ func (h *Handler) handleGetAllFacebookAdsWithResponse(ctx context.Context, reque
 	}
 
 	params := &target.GetAllFacebookAdsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -9100,7 +10208,7 @@ func (h *Handler) handleGetAllFacebookAdsWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.GetAllFacebookAdsWithResponse(ctx, params, )
+	resp, err := client.GetAllFacebookAdsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9117,8 +10225,119 @@ func (h *Handler) handleGetFacebookAdsIdWithResponse(ctx context.Context, reques
 
 	outreachId := request.GetString("outreachId", "")
 	params := &target.GetFacebookAdsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetFacebookAdsIdWithResponse(ctx, outreachId, params, )
+	resp, err := client.GetFacebookAdsIdWithResponse(ctx, outreachId, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleGetAudienceContactsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	params := &target.GetAudienceContactsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["count"]; ok {
+			params.Count = ptrVal(int(request.GetInt("count", 0)))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["offset"]; ok {
+			params.Offset = ptrVal(int(request.GetInt("offset", 0)))
+		}
+	}
+
+	resp, err := client.GetAudienceContactsWithResponse(ctx, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleGetAudienceIdWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	audienceId := request.GetString("audienceId", "")
+	params := &target.GetAudienceIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+
+	resp, err := client.GetAudienceIdWithResponse(ctx, audienceId, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handlePostAudiencesContactsActionsArchiveWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	audienceId := request.GetString("audienceId", "")
+	contactId := request.GetString("contactId", "")
+
+	resp, err := client.PostAudiencesContactsActionsArchiveWithResponse(ctx, audienceId, contactId)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handlePostAudiencesContactsActionsForgetWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	audienceId := request.GetString("audienceId", "")
+	contactId := request.GetString("contactId", "")
+
+	resp, err := client.PostAudiencesContactsActionsForgetWithResponse(ctx, audienceId, contactId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9135,8 +10354,18 @@ func (h *Handler) handleGetAuthorizedAppsIdWithResponse(ctx context.Context, req
 
 	appId := request.GetString("appId", "")
 	params := &target.GetAuthorizedAppsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetAuthorizedAppsIdWithResponse(ctx, appId, params, )
+	resp, err := client.GetAuthorizedAppsIdWithResponse(ctx, appId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9153,6 +10382,16 @@ func (h *Handler) handleGetAuthorizedAppsWithResponse(ctx context.Context, reque
 
 	params := &target.GetAuthorizedAppsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9163,7 +10402,7 @@ func (h *Handler) handleGetAuthorizedAppsWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.GetAuthorizedAppsWithResponse(ctx, params, )
+	resp, err := client.GetAuthorizedAppsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9181,8 +10420,18 @@ func (h *Handler) handleGetConversationsIdMessagesIdWithResponse(ctx context.Con
 	conversationId := request.GetString("conversationId", "")
 	messageId := request.GetString("messageId", "")
 	params := &target.GetConversationsIdMessagesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetConversationsIdMessagesIdWithResponse(ctx, conversationId, messageId, params, )
+	resp, err := client.GetConversationsIdMessagesIdWithResponse(ctx, conversationId, messageId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9200,12 +10449,32 @@ func (h *Handler) handleGetConversationsIdMessagesWithResponse(ctx context.Conte
 	conversationId := request.GetString("conversationId", "")
 	params := &target.GetConversationsIdMessagesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["is_read"]; ok {
 			params.IsRead = ptrVal(target.GetConversationsIdMessagesParamsIsRead(request.GetString("is_read", "")))
 		}
 	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["before_timestamp"]; ok {
+			params.BeforeTimestamp = ptrVal(parseTime(request.GetString("before_timestamp", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["since_timestamp"]; ok {
+			params.SinceTimestamp = ptrVal(parseTime(request.GetString("since_timestamp", "")))
+		}
+	}
 
-	resp, err := client.GetConversationsIdMessagesWithResponse(ctx, conversationId, params, )
+	resp, err := client.GetConversationsIdMessagesWithResponse(ctx, conversationId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9222,8 +10491,18 @@ func (h *Handler) handleGetConversationsIdWithResponse(ctx context.Context, requ
 
 	conversationId := request.GetString("conversationId", "")
 	params := &target.GetConversationsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetConversationsIdWithResponse(ctx, conversationId, params, )
+	resp, err := client.GetConversationsIdWithResponse(ctx, conversationId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9239,6 +10518,16 @@ func (h *Handler) handleGetConversationsWithResponse(ctx context.Context, reques
 	}
 
 	params := &target.GetConversationsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -9265,7 +10554,7 @@ func (h *Handler) handleGetConversationsWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.GetConversationsWithResponse(ctx, params, )
+	resp, err := client.GetConversationsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9280,8 +10569,7 @@ func (h *Handler) handleGetPingWithResponse(ctx context.Context, request mcp.Cal
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-
-	resp, err := client.GetPingWithResponse(ctx, )
+	resp, err := client.GetPingWithResponse(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9299,6 +10587,16 @@ func (h *Handler) handleGetReportingFacebookAdsIdEcommerceProductActivityWithRes
 	outreachId := request.GetString("outreachId", "")
 	params := &target.GetReportingFacebookAdsIdEcommerceProductActivityParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9314,7 +10612,7 @@ func (h *Handler) handleGetReportingFacebookAdsIdEcommerceProductActivityWithRes
 		}
 	}
 
-	resp, err := client.GetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx, outreachId, params, )
+	resp, err := client.GetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx, outreachId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9331,8 +10629,18 @@ func (h *Handler) handleGetReportingFacebookAdsIdWithResponse(ctx context.Contex
 
 	outreachId := request.GetString("outreachId", "")
 	params := &target.GetReportingFacebookAdsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportingFacebookAdsIdWithResponse(ctx, outreachId, params, )
+	resp, err := client.GetReportingFacebookAdsIdWithResponse(ctx, outreachId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9348,6 +10656,16 @@ func (h *Handler) handleGetReportingFacebookAdsWithResponse(ctx context.Context,
 	}
 
 	params := &target.GetReportingFacebookAdsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -9369,7 +10687,7 @@ func (h *Handler) handleGetReportingFacebookAdsWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, err := client.GetReportingFacebookAdsWithResponse(ctx, params, )
+	resp, err := client.GetReportingFacebookAdsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9386,8 +10704,18 @@ func (h *Handler) handleGetReportingLandingPagesIdWithResponse(ctx context.Conte
 
 	outreachId := request.GetString("outreachId", "")
 	params := &target.GetReportingLandingPagesIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportingLandingPagesIdWithResponse(ctx, outreachId, params, )
+	resp, err := client.GetReportingLandingPagesIdWithResponse(ctx, outreachId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9404,6 +10732,16 @@ func (h *Handler) handleGetReportingLandingPagesWithResponse(ctx context.Context
 
 	params := &target.GetReportingLandingPagesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9414,7 +10752,7 @@ func (h *Handler) handleGetReportingLandingPagesWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.GetReportingLandingPagesWithResponse(ctx, params, )
+	resp, err := client.GetReportingLandingPagesWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9433,12 +10771,22 @@ func (h *Handler) handleGetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx 
 	questionId := request.GetString("questionId", "")
 	params := &target.GetReportingSurveysIdQuestionsIdAnswersParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["respondent_familiarity_is"]; ok {
 			params.RespondentFamiliarityIs = ptrVal(target.GetReportingSurveysIdQuestionsIdAnswersParamsRespondentFamiliarityIs(request.GetString("respondent_familiarity_is", "")))
 		}
 	}
 
-	resp, err := client.GetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx, surveyId, questionId, params, )
+	resp, err := client.GetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx, surveyId, questionId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9456,8 +10804,18 @@ func (h *Handler) handleGetReportingSurveysIdQuestionsIdWithResponse(ctx context
 	surveyId := request.GetString("surveyId", "")
 	questionId := request.GetString("questionId", "")
 	params := &target.GetReportingSurveysIdQuestionsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportingSurveysIdQuestionsIdWithResponse(ctx, surveyId, questionId, params, )
+	resp, err := client.GetReportingSurveysIdQuestionsIdWithResponse(ctx, surveyId, questionId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9474,8 +10832,18 @@ func (h *Handler) handleGetReportingSurveysIdQuestionsWithResponse(ctx context.C
 
 	surveyId := request.GetString("surveyId", "")
 	params := &target.GetReportingSurveysIdQuestionsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportingSurveysIdQuestionsWithResponse(ctx, surveyId, params, )
+	resp, err := client.GetReportingSurveysIdQuestionsWithResponse(ctx, surveyId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9493,7 +10861,7 @@ func (h *Handler) handleGetReportingSurveysIdResponsesIdWithResponse(ctx context
 	surveyId := request.GetString("surveyId", "")
 	responseId := request.GetString("responseId", "")
 
-	resp, err := client.GetReportingSurveysIdResponsesIdWithResponse(ctx, surveyId, responseId, )
+	resp, err := client.GetReportingSurveysIdResponsesIdWithResponse(ctx, surveyId, responseId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9511,6 +10879,16 @@ func (h *Handler) handleGetReportingSurveysIdResponsesWithResponse(ctx context.C
 	surveyId := request.GetString("surveyId", "")
 	params := &target.GetReportingSurveysIdResponsesParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["answered_question"]; ok {
 			params.AnsweredQuestion = ptrVal(int(request.GetInt("answered_question", 0)))
 		}
@@ -9526,7 +10904,7 @@ func (h *Handler) handleGetReportingSurveysIdResponsesWithResponse(ctx context.C
 		}
 	}
 
-	resp, err := client.GetReportingSurveysIdResponsesWithResponse(ctx, surveyId, params, )
+	resp, err := client.GetReportingSurveysIdResponsesWithResponse(ctx, surveyId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9543,8 +10921,18 @@ func (h *Handler) handleGetReportingSurveysIdWithResponse(ctx context.Context, r
 
 	surveyId := request.GetString("surveyId", "")
 	params := &target.GetReportingSurveysIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportingSurveysIdWithResponse(ctx, surveyId, params, )
+	resp, err := client.GetReportingSurveysIdWithResponse(ctx, surveyId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9561,6 +10949,16 @@ func (h *Handler) handleGetReportingSurveysWithResponse(ctx context.Context, req
 
 	params := &target.GetReportingSurveysParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9571,7 +10969,7 @@ func (h *Handler) handleGetReportingSurveysWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.GetReportingSurveysWithResponse(ctx, params, )
+	resp, err := client.GetReportingSurveysWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9589,8 +10987,18 @@ func (h *Handler) handleGetReportsIdAbuseReportsIdIdWithResponse(ctx context.Con
 	campaignId := request.GetString("campaignId", "")
 	reportId := request.GetString("reportId", "")
 	params := &target.GetReportsIdAbuseReportsIdIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdAbuseReportsIdIdWithResponse(ctx, campaignId, reportId, params, )
+	resp, err := client.GetReportsIdAbuseReportsIdIdWithResponse(ctx, campaignId, reportId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9607,8 +11015,18 @@ func (h *Handler) handleGetReportsIdAbuseReportsIdWithResponse(ctx context.Conte
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdAbuseReportsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdAbuseReportsIdWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdAbuseReportsIdWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9625,8 +11043,18 @@ func (h *Handler) handleGetReportsIdAdviceWithResponse(ctx context.Context, requ
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdAdviceParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdAdviceWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdAdviceWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9645,8 +11073,18 @@ func (h *Handler) handleGetReportsIdClickDetailsIdMembersIdWithResponse(ctx cont
 	linkId := request.GetString("linkId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetReportsIdClickDetailsIdMembersIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdClickDetailsIdMembersIdWithResponse(ctx, campaignId, linkId, subscriberHash, params, )
+	resp, err := client.GetReportsIdClickDetailsIdMembersIdWithResponse(ctx, campaignId, linkId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9665,6 +11103,16 @@ func (h *Handler) handleGetReportsIdClickDetailsIdMembersWithResponse(ctx contex
 	linkId := request.GetString("linkId", "")
 	params := &target.GetReportsIdClickDetailsIdMembersParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9675,7 +11123,7 @@ func (h *Handler) handleGetReportsIdClickDetailsIdMembersWithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.GetReportsIdClickDetailsIdMembersWithResponse(ctx, campaignId, linkId, params, )
+	resp, err := client.GetReportsIdClickDetailsIdMembersWithResponse(ctx, campaignId, linkId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9693,8 +11141,18 @@ func (h *Handler) handleGetReportsIdClickDetailsIdWithResponse(ctx context.Conte
 	campaignId := request.GetString("campaignId", "")
 	linkId := request.GetString("linkId", "")
 	params := &target.GetReportsIdClickDetailsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdClickDetailsIdWithResponse(ctx, campaignId, linkId, params, )
+	resp, err := client.GetReportsIdClickDetailsIdWithResponse(ctx, campaignId, linkId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9711,6 +11169,16 @@ func (h *Handler) handleGetReportsIdClickDetailsWithResponse(ctx context.Context
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdClickDetailsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -9732,7 +11200,7 @@ func (h *Handler) handleGetReportsIdClickDetailsWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.GetReportsIdClickDetailsWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdClickDetailsWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9749,8 +11217,18 @@ func (h *Handler) handleGetReportsIdDomainPerformanceWithResponse(ctx context.Co
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdDomainPerformanceParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdDomainPerformanceWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdDomainPerformanceWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9768,6 +11246,16 @@ func (h *Handler) handleGetReportsIdEcommerceProductActivityWithResponse(ctx con
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdEcommerceProductActivityParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9783,7 +11271,7 @@ func (h *Handler) handleGetReportsIdEcommerceProductActivityWithResponse(ctx con
 		}
 	}
 
-	resp, err := client.GetReportsIdEcommerceProductActivityWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdEcommerceProductActivityWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9800,8 +11288,18 @@ func (h *Handler) handleGetReportsIdEepurlWithResponse(ctx context.Context, requ
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdEepurlParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdEepurlWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdEepurlWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9820,12 +11318,22 @@ func (h *Handler) handleGetReportsIdEmailActivityIdWithResponse(ctx context.Cont
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetReportsIdEmailActivityIdParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["since"]; ok {
 			params.Since = ptrVal(request.GetString("since", ""))
 		}
 	}
 
-	resp, err := client.GetReportsIdEmailActivityIdWithResponse(ctx, campaignId, subscriberHash, params, )
+	resp, err := client.GetReportsIdEmailActivityIdWithResponse(ctx, campaignId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9843,6 +11351,16 @@ func (h *Handler) handleGetReportsIdEmailActivityWithResponse(ctx context.Contex
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdEmailActivityParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9858,7 +11376,7 @@ func (h *Handler) handleGetReportsIdEmailActivityWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, err := client.GetReportsIdEmailActivityWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdEmailActivityWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9876,6 +11394,16 @@ func (h *Handler) handleGetReportsIdLocationsWithResponse(ctx context.Context, r
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdLocationsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9886,7 +11414,7 @@ func (h *Handler) handleGetReportsIdLocationsWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.GetReportsIdLocationsWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdLocationsWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9904,8 +11432,18 @@ func (h *Handler) handleGetReportsIdOpenDetailsIdMembersIdWithResponse(ctx conte
 	campaignId := request.GetString("campaignId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetReportsIdOpenDetailsIdMembersIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdOpenDetailsIdMembersIdWithResponse(ctx, campaignId, subscriberHash, params, )
+	resp, err := client.GetReportsIdOpenDetailsIdMembersIdWithResponse(ctx, campaignId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9922,6 +11460,16 @@ func (h *Handler) handleGetReportsIdOpenDetailsWithResponse(ctx context.Context,
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdOpenDetailsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
@@ -9948,7 +11496,7 @@ func (h *Handler) handleGetReportsIdOpenDetailsWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, err := client.GetReportsIdOpenDetailsWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdOpenDetailsWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9966,8 +11514,18 @@ func (h *Handler) handleGetReportsIdSentToIdWithResponse(ctx context.Context, re
 	campaignId := request.GetString("campaignId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetReportsIdSentToIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdSentToIdWithResponse(ctx, campaignId, subscriberHash, params, )
+	resp, err := client.GetReportsIdSentToIdWithResponse(ctx, campaignId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -9985,6 +11543,16 @@ func (h *Handler) handleGetReportsIdSentToWithResponse(ctx context.Context, requ
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdSentToParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -9995,7 +11563,7 @@ func (h *Handler) handleGetReportsIdSentToWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.GetReportsIdSentToWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdSentToWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10012,8 +11580,18 @@ func (h *Handler) handleGetReportsIdSubReportsIdWithResponse(ctx context.Context
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdSubReportsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdSubReportsIdWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdSubReportsIdWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10031,8 +11609,18 @@ func (h *Handler) handleGetReportsIdUnsubscribedIdWithResponse(ctx context.Conte
 	campaignId := request.GetString("campaignId", "")
 	subscriberHash := request.GetString("subscriberHash", "")
 	params := &target.GetReportsIdUnsubscribedIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdUnsubscribedIdWithResponse(ctx, campaignId, subscriberHash, params, )
+	resp, err := client.GetReportsIdUnsubscribedIdWithResponse(ctx, campaignId, subscriberHash, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10050,6 +11638,16 @@ func (h *Handler) handleGetReportsIdUnsubscribedWithResponse(ctx context.Context
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdUnsubscribedParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -10060,7 +11658,7 @@ func (h *Handler) handleGetReportsIdUnsubscribedWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.GetReportsIdUnsubscribedWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdUnsubscribedWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10077,8 +11675,18 @@ func (h *Handler) handleGetReportsIdWithResponse(ctx context.Context, request mc
 
 	campaignId := request.GetString("campaignId", "")
 	params := &target.GetReportsIdParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetReportsIdWithResponse(ctx, campaignId, params, )
+	resp, err := client.GetReportsIdWithResponse(ctx, campaignId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10095,6 +11703,16 @@ func (h *Handler) handleGetReportsWithResponse(ctx context.Context, request mcp.
 
 	params := &target.GetReportsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["count"]; ok {
 			params.Count = ptrVal(int(request.GetInt("count", 0)))
 		}
@@ -10109,8 +11727,18 @@ func (h *Handler) handleGetReportsWithResponse(ctx context.Context, request mcp.
 			params.Type = ptrVal(target.GetReportsParamsType(request.GetString("type", "")))
 		}
 	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["before_send_time"]; ok {
+			params.BeforeSendTime = ptrVal(parseTime(request.GetString("before_send_time", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["since_send_time"]; ok {
+			params.SinceSendTime = ptrVal(parseTime(request.GetString("since_send_time", "")))
+		}
+	}
 
-	resp, err := client.GetReportsWithResponse(ctx, params, )
+	resp, err := client.GetReportsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10126,8 +11754,18 @@ func (h *Handler) handleGetRootWithResponse(ctx context.Context, request mcp.Cal
 	}
 
 	params := &target.GetRootParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
 
-	resp, err := client.GetRootWithResponse(ctx, params, )
+	resp, err := client.GetRootWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10144,12 +11782,22 @@ func (h *Handler) handleGetSearchCampaignsWithResponse(ctx context.Context, requ
 
 	params := &target.GetSearchCampaignsParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["query"]; ok {
 			params.Query = request.GetString("query", "")
 		}
 	}
 
-	resp, err := client.GetSearchCampaignsWithResponse(ctx, params, )
+	resp, err := client.GetSearchCampaignsWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10166,6 +11814,16 @@ func (h *Handler) handleGetSearchMembersWithResponse(ctx context.Context, reques
 
 	params := &target.GetSearchMembersParams{}
 	if args := request.GetArguments(); args != nil {
+		if _, ok := args["fields"]; ok {
+			params.Fields = ptrVal(getStringSlice(request, "fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["exclude_fields"]; ok {
+			params.ExcludeFields = ptrVal(getStringSlice(request, "exclude_fields"))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
 		if _, ok := args["query"]; ok {
 			params.Query = request.GetString("query", "")
 		}
@@ -10176,7 +11834,7 @@ func (h *Handler) handleGetSearchMembersWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.GetSearchMembersWithResponse(ctx, params, )
+	resp, err := client.GetSearchMembersWithResponse(ctx, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10199,7 +11857,7 @@ func (h *Handler) handlePostCustomerJourneysJourneysIdStepsIdActionsTriggerWithR
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx, journeyId, stepId, body, )
+	resp, err := client.PostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx, journeyId, stepId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10217,7 +11875,7 @@ func (h *Handler) handlePostListsIdSurveysIdActionsCreateEmailWithResponse(ctx c
 	listId := request.GetString("listId", "")
 	surveyId := request.GetString("surveyId", "")
 
-	resp, err := client.PostListsIdSurveysIdActionsCreateEmailWithResponse(ctx, listId, surveyId, )
+	resp, err := client.PostListsIdSurveysIdActionsCreateEmailWithResponse(ctx, listId, surveyId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10235,7 +11893,7 @@ func (h *Handler) handlePostListsIdSurveysIdActionsPublishWithResponse(ctx conte
 	listId := request.GetString("listId", "")
 	surveyId := request.GetString("surveyId", "")
 
-	resp, err := client.PostListsIdSurveysIdActionsPublishWithResponse(ctx, listId, surveyId, )
+	resp, err := client.PostListsIdSurveysIdActionsPublishWithResponse(ctx, listId, surveyId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -10253,7 +11911,7 @@ func (h *Handler) handlePostListsIdSurveysIdActionsUnpublishWithResponse(ctx con
 	listId := request.GetString("listId", "")
 	surveyId := request.GetString("surveyId", "")
 
-	resp, err := client.PostListsIdSurveysIdActionsUnpublishWithResponse(ctx, listId, surveyId, )
+	resp, err := client.PostListsIdSurveysIdActionsUnpublishWithResponse(ctx, listId, surveyId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
