@@ -149619,20 +149619,20 @@ type SmorResourceManagedPayments struct {
 //
 // Related guides: [Sources API](https://docs.stripe.com/sources) and [Sources & Customers](https://docs.stripe.com/sources/customers).
 type Source struct {
-	AchCreditTransfer *SourceTypeAchCreditTransfer `json:"ach_credit_transfer,omitempty"`
-	AchDebit          *SourceTypeAchDebit          `json:"ach_debit,omitempty"`
-	AcssDebit         *SourceTypeAcssDebit         `json:"acss_debit,omitempty"`
-	Alipay            *SourceTypeAlipay            `json:"alipay,omitempty"`
+	SourceTypeDataAchCreditTransfer *SourceTypeDataAchCreditTransfer `json:"ach_credit_transfer,omitempty"`
+	SourceTypeDataAchDebit          *SourceTypeDataAchDebit          `json:"ach_debit,omitempty"`
+	SourceTypeDataAcssDebit         *SourceTypeDataAcssDebit         `json:"acss_debit,omitempty"`
+	SourceTypeDataAlipay            *SourceTypeDataAlipay            `json:"alipay,omitempty"`
 
 	// AllowRedisplay This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
 	AllowRedisplay *SourceAllowRedisplay `json:"allow_redisplay,omitempty"`
 
 	// Amount A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources.
-	Amount      *int                   `json:"amount,omitempty"`
-	AuBecsDebit *SourceTypeAuBecsDebit `json:"au_becs_debit,omitempty"`
-	Bancontact  *SourceTypeBancontact  `json:"bancontact,omitempty"`
-	Card        *SourceTypeCard        `json:"card,omitempty"`
-	CardPresent *SourceTypeCardPresent `json:"card_present,omitempty"`
+	Amount                    *int                       `json:"amount,omitempty"`
+	SourceTypeDataAuBecsDebit *SourceTypeDataAuBecsDebit `json:"au_becs_debit,omitempty"`
+	SourceTypeDataBancontact  *SourceTypeDataBancontact  `json:"bancontact,omitempty"`
+	SourceTypeDataCard        *SourceTypeDataCard        `json:"card,omitempty"`
+	SourceTypeDataCardPresent *SourceTypeDataCardPresent `json:"card_present,omitempty"`
 
 	// ClientSecret The client secret of the source. Used for client-side retrieval using a publishable key.
 	ClientSecret     string                      `json:"client_secret"`
@@ -149645,50 +149645,50 @@ type Source struct {
 	Currency *string `json:"currency,omitempty"`
 
 	// Customer The ID of the customer to which this source is attached. This will not be present when the source has not been attached to a customer.
-	Customer *string        `json:"customer,omitempty"`
-	Eps      *SourceTypeEps `json:"eps,omitempty"`
+	Customer          *string            `json:"customer,omitempty"`
+	SourceTypeDataEps *SourceTypeDataEps `json:"eps,omitempty"`
 
 	// Flow The authentication `flow` of the source. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`.
-	Flow    string             `json:"flow"`
-	Giropay *SourceTypeGiropay `json:"giropay,omitempty"`
+	Flow                  string                 `json:"flow"`
+	SourceTypeDataGiropay *SourceTypeDataGiropay `json:"giropay,omitempty"`
 
 	// Id Unique identifier for the object.
-	Id     string            `json:"id"`
-	Ideal  *SourceTypeIdeal  `json:"ideal,omitempty"`
-	Klarna *SourceTypeKlarna `json:"klarna,omitempty"`
+	Id                   string                `json:"id"`
+	SourceTypeDataIdeal  *SourceTypeDataIdeal  `json:"ideal,omitempty"`
+	SourceTypeDataKlarna *SourceTypeDataKlarna `json:"klarna,omitempty"`
 
 	// Livemode If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
 	Livemode bool `json:"livemode"`
 
 	// Metadata Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-	Metadata   *map[string]string    `json:"metadata,omitempty"`
-	Multibanco *SourceTypeMultibanco `json:"multibanco,omitempty"`
+	Metadata                 *map[string]string        `json:"metadata,omitempty"`
+	SourceTypeDataMultibanco *SourceTypeDataMultibanco `json:"multibanco,omitempty"`
 
 	// Object String representing the object's type. Objects of the same type share the same value.
 	Object SourceObject `json:"object"`
 
 	// Owner Information about the owner of the payment instrument that may be used or required by particular source types.
-	Owner       *Source_Owner        `json:"owner,omitempty"`
-	P24         *SourceTypeP24       `json:"p24,omitempty"`
-	Receiver    *SourceReceiverFlow  `json:"receiver,omitempty"`
-	Redirect    *SourceRedirectFlow  `json:"redirect,omitempty"`
-	SepaDebit   *SourceTypeSepaDebit `json:"sepa_debit,omitempty"`
-	Sofort      *SourceTypeSofort    `json:"sofort,omitempty"`
-	SourceOrder *SourceOrder         `json:"source_order,omitempty"`
+	Owner                   *Source_Owner            `json:"owner,omitempty"`
+	SourceTypeDataP24       *SourceTypeDataP24       `json:"p24,omitempty"`
+	Receiver                *SourceReceiverFlow      `json:"receiver,omitempty"`
+	Redirect                *SourceRedirectFlow      `json:"redirect,omitempty"`
+	SourceTypeDataSepaDebit *SourceTypeDataSepaDebit `json:"sepa_debit,omitempty"`
+	SourceTypeDataSofort    *SourceTypeDataSofort    `json:"sofort,omitempty"`
+	SourceOrder             *SourceOrder             `json:"source_order,omitempty"`
 
 	// StatementDescriptor Extra information about a source. This will appear on your customer's statement every time you charge the source.
 	StatementDescriptor *string `json:"statement_descriptor,omitempty"`
 
 	// Status The status of the source, one of `canceled`, `chargeable`, `consumed`, `failed`, or `pending`. Only `chargeable` sources can be used to create a charge.
-	Status       string                  `json:"status"`
-	ThreeDSecure *SourceTypeThreeDSecure `json:"three_d_secure,omitempty"`
+	Status                     string                      `json:"status"`
+	SourceTypeDataThreeDSecure *SourceTypeDataThreeDSecure `json:"three_d_secure,omitempty"`
 
 	// Type The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://docs.stripe.com/sources) used.
 	Type SourceType `json:"type"`
 
 	// Usage Either `reusable` or `single_use`. Whether this source should be reusable or not. Some source types may or may not be reusable by construction, while others may leave the option at creation. If an incompatible value is passed, an error will be returned.
-	Usage  *string           `json:"usage,omitempty"`
-	Wechat *SourceTypeWechat `json:"wechat,omitempty"`
+	Usage                *string               `json:"usage,omitempty"`
+	SourceTypeDataWechat *SourceTypeDataWechat `json:"wechat,omitempty"`
 }
 
 // SourceAllowRedisplay This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
@@ -150019,8 +150019,8 @@ type SourceTransactionSepaCreditTransferData struct {
 	SenderName *string `json:"sender_name,omitempty"`
 }
 
-// SourceTypeAchCreditTransfer defines model for source_type_ach_credit_transfer.
-type SourceTypeAchCreditTransfer struct {
+// SourceTypeDataAchCreditTransfer defines model for source_type_ach_credit_transfer.
+type SourceTypeDataAchCreditTransfer struct {
 	AccountNumber           *string `json:"account_number,omitempty"`
 	BankName                *string `json:"bank_name,omitempty"`
 	Fingerprint             *string `json:"fingerprint,omitempty"`
@@ -150031,8 +150031,8 @@ type SourceTypeAchCreditTransfer struct {
 	SwiftCode               *string `json:"swift_code,omitempty"`
 }
 
-// SourceTypeAchDebit defines model for source_type_ach_debit.
-type SourceTypeAchDebit struct {
+// SourceTypeDataAchDebit defines model for source_type_ach_debit.
+type SourceTypeDataAchDebit struct {
 	BankName      *string `json:"bank_name,omitempty"`
 	Country       *string `json:"country,omitempty"`
 	Fingerprint   *string `json:"fingerprint,omitempty"`
@@ -150041,8 +150041,8 @@ type SourceTypeAchDebit struct {
 	Type          *string `json:"type,omitempty"`
 }
 
-// SourceTypeAcssDebit defines model for source_type_acss_debit.
-type SourceTypeAcssDebit struct {
+// SourceTypeDataAcssDebit defines model for source_type_acss_debit.
+type SourceTypeDataAcssDebit struct {
 	BankAddressCity       *string `json:"bank_address_city,omitempty"`
 	BankAddressLine1      *string `json:"bank_address_line_1,omitempty"`
 	BankAddressLine2      *string `json:"bank_address_line_2,omitempty"`
@@ -150055,22 +150055,22 @@ type SourceTypeAcssDebit struct {
 	RoutingNumber         *string `json:"routing_number,omitempty"`
 }
 
-// SourceTypeAlipay defines model for source_type_alipay.
-type SourceTypeAlipay struct {
+// SourceTypeDataAlipay defines model for source_type_alipay.
+type SourceTypeDataAlipay struct {
 	DataString          *string `json:"data_string,omitempty"`
 	NativeUrl           *string `json:"native_url,omitempty"`
 	StatementDescriptor *string `json:"statement_descriptor,omitempty"`
 }
 
-// SourceTypeAuBecsDebit defines model for source_type_au_becs_debit.
-type SourceTypeAuBecsDebit struct {
+// SourceTypeDataAuBecsDebit defines model for source_type_au_becs_debit.
+type SourceTypeDataAuBecsDebit struct {
 	BsbNumber   *string `json:"bsb_number,omitempty"`
 	Fingerprint *string `json:"fingerprint,omitempty"`
 	Last4       *string `json:"last4,omitempty"`
 }
 
-// SourceTypeBancontact defines model for source_type_bancontact.
-type SourceTypeBancontact struct {
+// SourceTypeDataBancontact defines model for source_type_bancontact.
+type SourceTypeDataBancontact struct {
 	BankCode            *string `json:"bank_code,omitempty"`
 	BankName            *string `json:"bank_name,omitempty"`
 	Bic                 *string `json:"bic,omitempty"`
@@ -150079,8 +150079,8 @@ type SourceTypeBancontact struct {
 	StatementDescriptor *string `json:"statement_descriptor,omitempty"`
 }
 
-// SourceTypeCard defines model for source_type_card.
-type SourceTypeCard struct {
+// SourceTypeDataCard defines model for source_type_card.
+type SourceTypeDataCard struct {
 	AddressLine1Check  *string `json:"address_line1_check,omitempty"`
 	AddressZipCheck    *string `json:"address_zip_check,omitempty"`
 	Brand              *string `json:"brand,omitempty"`
@@ -150097,8 +150097,8 @@ type SourceTypeCard struct {
 	TokenizationMethod *string `json:"tokenization_method,omitempty"`
 }
 
-// SourceTypeCardPresent defines model for source_type_card_present.
-type SourceTypeCardPresent struct {
+// SourceTypeDataCardPresent defines model for source_type_card_present.
+type SourceTypeDataCardPresent struct {
 	ApplicationCryptogram          *string `json:"application_cryptogram,omitempty"`
 	ApplicationPreferredName       *string `json:"application_preferred_name,omitempty"`
 	AuthorizationCode              *string `json:"authorization_code,omitempty"`
@@ -150124,30 +150124,30 @@ type SourceTypeCardPresent struct {
 	TransactionStatusInformation   *string `json:"transaction_status_information,omitempty"`
 }
 
-// SourceTypeEps defines model for source_type_eps.
-type SourceTypeEps struct {
+// SourceTypeDataEps defines model for source_type_eps.
+type SourceTypeDataEps struct {
 	Reference           *string `json:"reference,omitempty"`
 	StatementDescriptor *string `json:"statement_descriptor,omitempty"`
 }
 
-// SourceTypeGiropay defines model for source_type_giropay.
-type SourceTypeGiropay struct {
+// SourceTypeDataGiropay defines model for source_type_giropay.
+type SourceTypeDataGiropay struct {
 	BankCode            *string `json:"bank_code,omitempty"`
 	BankName            *string `json:"bank_name,omitempty"`
 	Bic                 *string `json:"bic,omitempty"`
 	StatementDescriptor *string `json:"statement_descriptor,omitempty"`
 }
 
-// SourceTypeIdeal defines model for source_type_ideal.
-type SourceTypeIdeal struct {
+// SourceTypeDataIdeal defines model for source_type_ideal.
+type SourceTypeDataIdeal struct {
 	Bank                *string `json:"bank,omitempty"`
 	Bic                 *string `json:"bic,omitempty"`
 	IbanLast4           *string `json:"iban_last4,omitempty"`
 	StatementDescriptor *string `json:"statement_descriptor,omitempty"`
 }
 
-// SourceTypeKlarna defines model for source_type_klarna.
-type SourceTypeKlarna struct {
+// SourceTypeDataKlarna defines model for source_type_klarna.
+type SourceTypeDataKlarna struct {
 	BackgroundImageUrl              *string `json:"background_image_url,omitempty"`
 	ClientToken                     *string `json:"client_token,omitempty"`
 	FirstName                       *string `json:"first_name,omitempty"`
@@ -150176,8 +150176,8 @@ type SourceTypeKlarna struct {
 	ShippingLastName                *string `json:"shipping_last_name,omitempty"`
 }
 
-// SourceTypeMultibanco defines model for source_type_multibanco.
-type SourceTypeMultibanco struct {
+// SourceTypeDataMultibanco defines model for source_type_multibanco.
+type SourceTypeDataMultibanco struct {
 	Entity                               *string `json:"entity,omitempty"`
 	Reference                            *string `json:"reference,omitempty"`
 	RefundAccountHolderAddressCity       *string `json:"refund_account_holder_address_city,omitempty"`
@@ -150190,13 +150190,13 @@ type SourceTypeMultibanco struct {
 	RefundIban                           *string `json:"refund_iban,omitempty"`
 }
 
-// SourceTypeP24 defines model for source_type_p24.
-type SourceTypeP24 struct {
+// SourceTypeDataP24 defines model for source_type_p24.
+type SourceTypeDataP24 struct {
 	Reference *string `json:"reference,omitempty"`
 }
 
-// SourceTypeSepaDebit defines model for source_type_sepa_debit.
-type SourceTypeSepaDebit struct {
+// SourceTypeDataSepaDebit defines model for source_type_sepa_debit.
+type SourceTypeDataSepaDebit struct {
 	BankCode         *string `json:"bank_code,omitempty"`
 	BranchCode       *string `json:"branch_code,omitempty"`
 	Country          *string `json:"country,omitempty"`
@@ -150206,8 +150206,8 @@ type SourceTypeSepaDebit struct {
 	MandateUrl       *string `json:"mandate_url,omitempty"`
 }
 
-// SourceTypeSofort defines model for source_type_sofort.
-type SourceTypeSofort struct {
+// SourceTypeDataSofort defines model for source_type_sofort.
+type SourceTypeDataSofort struct {
 	BankCode            *string `json:"bank_code,omitempty"`
 	BankName            *string `json:"bank_name,omitempty"`
 	Bic                 *string `json:"bic,omitempty"`
@@ -150217,8 +150217,8 @@ type SourceTypeSofort struct {
 	StatementDescriptor *string `json:"statement_descriptor,omitempty"`
 }
 
-// SourceTypeThreeDSecure defines model for source_type_three_d_secure.
-type SourceTypeThreeDSecure struct {
+// SourceTypeDataThreeDSecure defines model for source_type_three_d_secure.
+type SourceTypeDataThreeDSecure struct {
 	AddressLine1Check  *string `json:"address_line1_check,omitempty"`
 	AddressZipCheck    *string `json:"address_zip_check,omitempty"`
 	Authenticated      *bool   `json:"authenticated,omitempty"`
@@ -150238,8 +150238,8 @@ type SourceTypeThreeDSecure struct {
 	TokenizationMethod *string `json:"tokenization_method,omitempty"`
 }
 
-// SourceTypeWechat defines model for source_type_wechat.
-type SourceTypeWechat struct {
+// SourceTypeDataWechat defines model for source_type_wechat.
+type SourceTypeDataWechat struct {
 	PrepayId            *string `json:"prepay_id,omitempty"`
 	QrCodeUrl           *string `json:"qr_code_url,omitempty"`
 	StatementDescriptor *string `json:"statement_descriptor,omitempty"`
@@ -160927,8 +160927,6 @@ type PostBillingPortalConfigurationsFormdataBody_DefaultReturnUrl struct {
 	union json.RawMessage
 }
 
-// PostBillingPortalConfigurationsFormdataBodyFeaturesCustomerUpdateAllowedUpdates0 defines parameters for PostBillingPortalConfigurations.
-type PostBillingPortalConfigurationsFormdataBodyFeaturesCustomerUpdateAllowedUpdates0 = []PostBillingPortalConfigurationsFormdataBodyFeaturesCustomerUpdateAllowedUpdates0
 
 // PostBillingPortalConfigurationsFormdataBodyFeaturesCustomerUpdateAllowedUpdates0 defines parameters for PostBillingPortalConfigurations.
 type PostBillingPortalConfigurationsFormdataBodyFeaturesCustomerUpdateAllowedUpdates0 string
@@ -160963,8 +160961,6 @@ type PostBillingPortalConfigurationsFormdataBody_Features_SubscriptionCancel_Can
 	union json.RawMessage
 }
 
-// PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0 defines parameters for PostBillingPortalConfigurations.
-type PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0 = []PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0
 
 // PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0 defines parameters for PostBillingPortalConfigurations.
 type PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0 string
@@ -160986,8 +160982,6 @@ type PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionCancelProrat
 // PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionUpdateBillingCycleAnchor defines parameters for PostBillingPortalConfigurations.
 type PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionUpdateBillingCycleAnchor string
 
-// PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0 defines parameters for PostBillingPortalConfigurations.
-type PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0 = []PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0
 
 // PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0 defines parameters for PostBillingPortalConfigurations.
 type PostBillingPortalConfigurationsFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0 string
@@ -161159,8 +161153,6 @@ type PostBillingPortalConfigurationsConfigurationFormdataBody_DefaultReturnUrl s
 	union json.RawMessage
 }
 
-// PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesCustomerUpdateAllowedUpdates0 defines parameters for PostBillingPortalConfigurationsConfiguration.
-type PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesCustomerUpdateAllowedUpdates0 = []PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesCustomerUpdateAllowedUpdates0
 
 // PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesCustomerUpdateAllowedUpdates0 defines parameters for PostBillingPortalConfigurationsConfiguration.
 type PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesCustomerUpdateAllowedUpdates0 string
@@ -161195,8 +161187,6 @@ type PostBillingPortalConfigurationsConfigurationFormdataBody_Features_Subscript
 	union json.RawMessage
 }
 
-// PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0 defines parameters for PostBillingPortalConfigurationsConfiguration.
-type PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0 = []PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0
 
 // PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0 defines parameters for PostBillingPortalConfigurationsConfiguration.
 type PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionCancelCancellationReasonOptions0 string
@@ -161218,8 +161208,6 @@ type PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptio
 // PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionUpdateBillingCycleAnchor defines parameters for PostBillingPortalConfigurationsConfiguration.
 type PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionUpdateBillingCycleAnchor string
 
-// PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0 defines parameters for PostBillingPortalConfigurationsConfiguration.
-type PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0 = []PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0
 
 // PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0 defines parameters for PostBillingPortalConfigurationsConfiguration.
 type PostBillingPortalConfigurationsConfigurationFormdataBodyFeaturesSubscriptionUpdateDefaultAllowedUpdates0 string
@@ -166710,8 +166698,6 @@ type PostCustomersCustomerSubscriptionsFormdataBody_PaymentSettings_PaymentMetho
 	union json.RawMessage
 }
 
-// PostCustomersCustomerSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostCustomersCustomerSubscriptions.
-type PostCustomersCustomerSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0 = []PostCustomersCustomerSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0
 
 // PostCustomersCustomerSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostCustomersCustomerSubscriptions.
 type PostCustomersCustomerSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0 string
@@ -167495,8 +167481,6 @@ type PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataBody_Payment
 	union json.RawMessage
 }
 
-// PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostCustomersCustomerSubscriptionsSubscriptionExposedId.
-type PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0 = []PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0
 
 // PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostCustomersCustomerSubscriptionsSubscriptionExposedId.
 type PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0 string
@@ -170089,8 +170073,6 @@ type PostInvoicesFormdataBody_PaymentSettings_PaymentMethodOptions_UsBankAccount
 	union json.RawMessage
 }
 
-// PostInvoicesFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostInvoices.
-type PostInvoicesFormdataBodyPaymentSettingsPaymentMethodTypes0 = []PostInvoicesFormdataBodyPaymentSettingsPaymentMethodTypes0
 
 // PostInvoicesFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostInvoices.
 type PostInvoicesFormdataBodyPaymentSettingsPaymentMethodTypes0 string
@@ -171448,8 +171430,6 @@ type PostInvoicesInvoiceFormdataBody_PaymentSettings_PaymentMethodOptions_UsBank
 	union json.RawMessage
 }
 
-// PostInvoicesInvoiceFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostInvoicesInvoice.
-type PostInvoicesInvoiceFormdataBodyPaymentSettingsPaymentMethodTypes0 = []PostInvoicesInvoiceFormdataBodyPaymentSettingsPaymentMethodTypes0
 
 // PostInvoicesInvoiceFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostInvoicesInvoice.
 type PostInvoicesInvoiceFormdataBodyPaymentSettingsPaymentMethodTypes0 string
@@ -177413,8 +177393,6 @@ type PostPaymentIntentsIntentFormdataBody_ApplicationFeeAmount struct {
 // PostPaymentIntentsIntentFormdataBodyCaptureMethod defines parameters for PostPaymentIntentsIntent.
 type PostPaymentIntentsIntentFormdataBodyCaptureMethod string
 
-// PostPaymentIntentsIntentFormdataBodyExcludedPaymentMethodTypes0 defines parameters for PostPaymentIntentsIntent.
-type PostPaymentIntentsIntentFormdataBodyExcludedPaymentMethodTypes0 = []PostPaymentIntentsIntentFormdataBodyExcludedPaymentMethodTypes0
 
 // PostPaymentIntentsIntentFormdataBodyExcludedPaymentMethodTypes0 defines parameters for PostPaymentIntentsIntent.
 type PostPaymentIntentsIntentFormdataBodyExcludedPaymentMethodTypes0 string
@@ -179798,8 +179776,6 @@ type PostPaymentIntentsIntentConfirmFormdataBody_AmountDetails struct {
 // PostPaymentIntentsIntentConfirmFormdataBodyCaptureMethod defines parameters for PostPaymentIntentsIntentConfirm.
 type PostPaymentIntentsIntentConfirmFormdataBodyCaptureMethod string
 
-// PostPaymentIntentsIntentConfirmFormdataBodyExcludedPaymentMethodTypes0 defines parameters for PostPaymentIntentsIntentConfirm.
-type PostPaymentIntentsIntentConfirmFormdataBodyExcludedPaymentMethodTypes0 = []PostPaymentIntentsIntentConfirmFormdataBodyExcludedPaymentMethodTypes0
 
 // PostPaymentIntentsIntentConfirmFormdataBodyExcludedPaymentMethodTypes0 defines parameters for PostPaymentIntentsIntentConfirm.
 type PostPaymentIntentsIntentConfirmFormdataBodyExcludedPaymentMethodTypes0 string
@@ -182717,8 +182693,6 @@ type PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodOptions0Card0Restrictio
 	BrandsBlocked *PostPaymentLinksPaymentLinkFormdataBody_PaymentMethodOptions_0_Card_0_Restrictions_0_BrandsBlocked `json:"brands_blocked,omitempty"`
 }
 
-// PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodOptions0Card0Restrictions0BrandsBlocked0 defines parameters for PostPaymentLinksPaymentLink.
-type PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodOptions0Card0Restrictions0BrandsBlocked0 = []PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodOptions0Card0Restrictions0BrandsBlocked0
 
 // PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodOptions0Card0Restrictions0BrandsBlocked0 defines parameters for PostPaymentLinksPaymentLink.
 type PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodOptions0Card0Restrictions0BrandsBlocked0 string
@@ -182755,8 +182729,6 @@ type PostPaymentLinksPaymentLinkFormdataBody_PaymentMethodOptions struct {
 	union json.RawMessage
 }
 
-// PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodTypes0 defines parameters for PostPaymentLinksPaymentLink.
-type PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodTypes0 = []PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodTypes0
 
 // PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodTypes0 defines parameters for PostPaymentLinksPaymentLink.
 type PostPaymentLinksPaymentLinkFormdataBodyPaymentMethodTypes0 string
@@ -188986,8 +188958,6 @@ type PostSetupIntentsIntentFormdataBody struct {
 	} `form:"payment_method_options,omitempty" json:"payment_method_options,omitempty"`
 }
 
-// PostSetupIntentsIntentFormdataBodyAllowedPaymentMethodTypes0 defines parameters for PostSetupIntentsIntent.
-type PostSetupIntentsIntentFormdataBodyAllowedPaymentMethodTypes0 = []PostSetupIntentsIntentFormdataBodyAllowedPaymentMethodTypes0
 
 // PostSetupIntentsIntentFormdataBodyAllowedPaymentMethodTypes0 defines parameters for PostSetupIntentsIntent.
 type PostSetupIntentsIntentFormdataBodyAllowedPaymentMethodTypes0 string
@@ -189000,8 +188970,6 @@ type PostSetupIntentsIntentFormdataBody_AllowedPaymentMethodTypes struct {
 	union json.RawMessage
 }
 
-// PostSetupIntentsIntentFormdataBodyExcludedPaymentMethodTypes0 defines parameters for PostSetupIntentsIntent.
-type PostSetupIntentsIntentFormdataBodyExcludedPaymentMethodTypes0 = []PostSetupIntentsIntentFormdataBodyExcludedPaymentMethodTypes0
 
 // PostSetupIntentsIntentFormdataBodyExcludedPaymentMethodTypes0 defines parameters for PostSetupIntentsIntent.
 type PostSetupIntentsIntentFormdataBodyExcludedPaymentMethodTypes0 string
@@ -192739,8 +192707,6 @@ type PostSubscriptionsFormdataBody_PaymentSettings_PaymentMethodOptions_UsBankAc
 	union json.RawMessage
 }
 
-// PostSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostSubscriptions.
-type PostSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0 = []PostSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0
 
 // PostSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostSubscriptions.
 type PostSubscriptionsFormdataBodyPaymentSettingsPaymentMethodTypes0 string
@@ -193631,8 +193597,6 @@ type PostSubscriptionsSubscriptionExposedIdFormdataBody_PaymentSettings_PaymentM
 	union json.RawMessage
 }
 
-// PostSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostSubscriptionsSubscriptionExposedId.
-type PostSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0 = []PostSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0
 
 // PostSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0 defines parameters for PostSubscriptionsSubscriptionExposedId.
 type PostSubscriptionsSubscriptionExposedIdFormdataBodyPaymentSettingsPaymentMethodTypes0 string
