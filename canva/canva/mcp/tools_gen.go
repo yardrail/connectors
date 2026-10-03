@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	target "github.com/yardrail/connectors/canva/canva/v1/client"
+	target "github.com/yardrail/connectors/canva/canva/client"
 )
 
 type ServiceResolver func(ctx context.Context) (*target.ClientWithResponses, error)
@@ -25,7 +25,7 @@ func (h *Handler) RegisterComment(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-comment",
 			mcp.WithDescription("CreateComment"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateCommentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateCommentJSONRequestBody)")),
 		),
 		h.handleCreateCommentWithResponse,
 	)
@@ -35,7 +35,7 @@ func (h *Handler) RegisterComment(s *server.MCPServer) {
 			mcp.WithDescription("CreateReply"),
 			mcp.WithString("designId", mcp.Required(), mcp.Description("designId")),
 			mcp.WithString("threadId", mcp.Required(), mcp.Description("threadId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateReplyJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateReplyJSONRequestBody)")),
 		),
 		h.handleCreateReplyWithResponse,
 	)
@@ -44,7 +44,7 @@ func (h *Handler) RegisterComment(s *server.MCPServer) {
 		mcp.NewTool("create-thread",
 			mcp.WithDescription("CreateThread"),
 			mcp.WithString("designId", mcp.Required(), mcp.Description("designId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateThreadJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateThreadJSONRequestBody)")),
 		),
 		h.handleCreateThreadWithResponse,
 	)
@@ -87,7 +87,7 @@ func (h *Handler) RegisterAutofill(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-design-autofill-job",
 			mcp.WithDescription("CreateDesignAutofillJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateDesignAutofillJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateDesignAutofillJobJSONRequestBody)")),
 		),
 		h.handleCreateDesignAutofillJobWithResponse,
 	)
@@ -108,7 +108,7 @@ func (h *Handler) RegisterExport(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-design-export-job",
 			mcp.WithDescription("CreateDesignExportJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateDesignExportJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateDesignExportJobJSONRequestBody)")),
 		),
 		h.handleCreateDesignExportJobWithResponse,
 	)
@@ -116,7 +116,7 @@ func (h *Handler) RegisterExport(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-print-partner-design-export-job",
 			mcp.WithDescription("CreatePrintPartnerDesignExportJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreatePrintPartnerDesignExportJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreatePrintPartnerDesignExportJobJSONRequestBody)")),
 		),
 		h.handleCreatePrintPartnerDesignExportJobWithResponse,
 	)
@@ -137,7 +137,7 @@ func (h *Handler) RegisterMerge(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-design-merge-job",
 			mcp.WithDescription("CreateDesignMergeJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateDesignMergeJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateDesignMergeJobJSONRequestBody)")),
 		),
 		h.handleCreateDesignMergeJobWithResponse,
 	)
@@ -158,7 +158,7 @@ func (h *Handler) RegisterResize(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-design-resize-job",
 			mcp.WithDescription("CreateDesignResizeJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateDesignResizeJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateDesignResizeJobJSONRequestBody)")),
 		),
 		h.handleCreateDesignResizeJobWithResponse,
 	)
@@ -179,7 +179,7 @@ func (h *Handler) RegisterDesign(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-design",
 			mcp.WithDescription("CreateDesign"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateDesignJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateDesignJSONRequestBody)")),
 		),
 		h.handleCreateDesignWithResponse,
 	)
@@ -187,7 +187,7 @@ func (h *Handler) RegisterDesign(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-print-partner-design",
 			mcp.WithDescription("CreatePrintPartnerDesign"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreatePrintPartnerDesignJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreatePrintPartnerDesignJSONRequestBody)")),
 		),
 		h.handleCreatePrintPartnerDesignWithResponse,
 	)
@@ -257,7 +257,7 @@ func (h *Handler) RegisterFolder(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-folder",
 			mcp.WithDescription("CreateFolder"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateFolderJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateFolderJSONRequestBody)")),
 		),
 		h.handleCreateFolderWithResponse,
 	)
@@ -293,7 +293,7 @@ func (h *Handler) RegisterFolder(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("move-folder-item",
 			mcp.WithDescription("MoveFolderItem"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.MoveFolderItemJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.MoveFolderItemJSONRequestBody)")),
 		),
 		h.handleMoveFolderItemWithResponse,
 	)
@@ -302,7 +302,7 @@ func (h *Handler) RegisterFolder(s *server.MCPServer) {
 		mcp.NewTool("update-folder",
 			mcp.WithDescription("UpdateFolder"),
 			mcp.WithString("folderId", mcp.Required(), mcp.Description("folderId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.UpdateFolderJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.UpdateFolderJSONRequestBody)")),
 		),
 		h.handleUpdateFolderWithResponse,
 	)
@@ -315,7 +315,7 @@ func (h *Handler) RegisterDesignImport(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-image-to-design-import-job",
 			mcp.WithDescription("CreateImageToDesignImportJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateImageToDesignImportJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateImageToDesignImportJobJSONRequestBody)")),
 		),
 		h.handleCreateImageToDesignImportJobWithResponse,
 	)
@@ -323,7 +323,7 @@ func (h *Handler) RegisterDesignImport(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-url-import-job",
 			mcp.WithDescription("CreateUrlImportJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateUrlImportJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateUrlImportJobJSONRequestBody)")),
 		),
 		h.handleCreateUrlImportJobWithResponse,
 	)
@@ -360,7 +360,7 @@ func (h *Handler) RegisterImageTransformation(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-image-transformation-job",
 			mcp.WithDescription("CreateImageTransformationJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateImageTransformationJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateImageTransformationJobJSONRequestBody)")),
 		),
 		h.handleCreateImageTransformationJobWithResponse,
 	)
@@ -381,7 +381,7 @@ func (h *Handler) RegisterAsset(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-url-asset-upload-job",
 			mcp.WithDescription("CreateUrlAssetUploadJob"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.CreateUrlAssetUploadJobJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.CreateUrlAssetUploadJobJSONRequestBody)")),
 		),
 		h.handleCreateUrlAssetUploadJobWithResponse,
 	)
@@ -422,7 +422,7 @@ func (h *Handler) RegisterAsset(s *server.MCPServer) {
 		mcp.NewTool("update-asset",
 			mcp.WithDescription("UpdateAsset"),
 			mcp.WithString("assetId", mcp.Required(), mcp.Description("assetId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.UpdateAssetJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.UpdateAssetJSONRequestBody)")),
 		),
 		h.handleUpdateAssetWithResponse,
 	)
@@ -435,7 +435,7 @@ func (h *Handler) RegisterOauth(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("exchange-access-token-with-formdata-body",
 			mcp.WithDescription("ExchangeAccessTokenWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.ExchangeAccessTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.ExchangeAccessTokenFormdataRequestBody)")),
 		),
 		h.handleExchangeAccessTokenWithFormdataBodyWithResponse,
 	)
@@ -443,7 +443,7 @@ func (h *Handler) RegisterOauth(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("introspect-token-with-formdata-body",
 			mcp.WithDescription("IntrospectTokenWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.IntrospectTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.IntrospectTokenFormdataRequestBody)")),
 		),
 		h.handleIntrospectTokenWithFormdataBodyWithResponse,
 	)
@@ -451,7 +451,7 @@ func (h *Handler) RegisterOauth(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("revoke-tokens-with-formdata-body",
 			mcp.WithDescription("RevokeTokensWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.RevokeTokensFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.RevokeTokensFormdataRequestBody)")),
 		),
 		h.handleRevokeTokensWithFormdataBodyWithResponse,
 	)
@@ -506,7 +506,7 @@ func (h *Handler) RegisterBrandTemplate(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("publish-brand-template",
 			mcp.WithDescription("PublishBrandTemplate"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.PublishBrandTemplateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.PublishBrandTemplateJSONRequestBody)")),
 		),
 		h.handlePublishBrandTemplateWithResponse,
 	)
@@ -530,7 +530,7 @@ func (h *Handler) RegisterAnalytics(s *server.MCPServer) {
 		mcp.NewTool("get-design-analytics-page-views",
 			mcp.WithDescription("GetDesignAnalyticsPageViews"),
 			mcp.WithString("designId", mcp.Required(), mcp.Description("designId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/v1/client.GetDesignAnalyticsPageViewsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/canva/canva/client.GetDesignAnalyticsPageViewsJSONRequestBody)")),
 		),
 		h.handleGetDesignAnalyticsPageViewsWithResponse,
 	)

@@ -1,0 +1,16 @@
+connector:
+  id: mailchimp
+  name: Mailchimp
+  description: Manage audiences, campaigns, and automations in Mailchimp.
+
+interfaces:
+  - id: api-key
+    name: API Key
+    protocol: rest
+    auth_method: api_key
+    auth_scope: user
+    security_scheme: basicAuth
+    cred_mapping:
+      username: anystring
+      password: api_key
+    capabilities: [audience.read, audience.write, campaign.read, campaign.write, template.read]

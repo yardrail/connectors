@@ -1,0 +1,13 @@
+connector:
+  id: canva
+  name: Canva
+  description: Create and manage designs, assets, and folders in Canva.
+
+interfaces:
+  - id: oauth
+    name: Canva OAuth
+    protocol: rest
+    auth_method: oauth2_user
+    auth_scope: org
+    security_scheme: oauthAuthCode
+    capabilities: [design.read, design.create, asset.read, asset.write, folder.read, folder.write]

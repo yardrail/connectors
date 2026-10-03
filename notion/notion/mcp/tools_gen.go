@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	target "github.com/yardrail/connectors/notion/notion/v1/client"
+	target "github.com/yardrail/connectors/notion/notion/client"
 )
 
 type ServiceResolver func(ctx context.Context) (*target.ClientWithResponses, error)
@@ -27,7 +27,7 @@ func (h *Handler) RegisterDataSources(s *server.MCPServer) {
 		mcp.NewTool("create-a-data-source",
 			mcp.WithDescription("CreateADataSource"),
 			mcp.WithString("Notion-Version", mcp.Description("NotionVersion")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/v1/client.CreateADataSourceJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/client.CreateADataSourceJSONRequestBody)")),
 		),
 		h.handleCreateADataSourceWithResponse,
 	)
@@ -49,7 +49,7 @@ func (h *Handler) RegisterDataSources(s *server.MCPServer) {
 			mcp.WithString("dataSourceId", mcp.Required(), mcp.Description("dataSourceId")),
 			mcp.WithArray("filter_properties", mcp.Description("FilterProperties"), mcp.WithStringItems()),
 			mcp.WithString("Notion-Version", mcp.Description("NotionVersion")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/v1/client.QueryDataSourceJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/client.QueryDataSourceJSONRequestBody)")),
 		),
 		h.handleQueryDataSourceWithResponse,
 	)
@@ -68,7 +68,7 @@ func (h *Handler) RegisterDataSources(s *server.MCPServer) {
 			mcp.WithDescription("UpdateADataSource"),
 			mcp.WithString("dataSourceId", mcp.Required(), mcp.Description("dataSourceId")),
 			mcp.WithString("Notion-Version", mcp.Description("NotionVersion")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/v1/client.UpdateADataSourceJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/client.UpdateADataSourceJSONRequestBody)")),
 		),
 		h.handleUpdateADataSourceWithResponse,
 	)
@@ -83,7 +83,7 @@ func (h *Handler) RegisterPages(s *server.MCPServer) {
 			mcp.WithDescription("MovePage"),
 			mcp.WithString("pageId", mcp.Required(), mcp.Description("pageId")),
 			mcp.WithString("Notion-Version", mcp.Description("NotionVersion")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/v1/client.MovePageJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/client.MovePageJSONRequestBody)")),
 		),
 		h.handleMovePageWithResponse,
 	)
@@ -103,7 +103,7 @@ func (h *Handler) RegisterPages(s *server.MCPServer) {
 			mcp.WithDescription("UpdatePageMarkdown"),
 			mcp.WithString("pageId", mcp.Required(), mcp.Description("pageId")),
 			mcp.WithString("Notion-Version", mcp.Description("NotionVersion")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/v1/client.UpdatePageMarkdownJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/notion/notion/client.UpdatePageMarkdownJSONRequestBody)")),
 		),
 		h.handleUpdatePageMarkdownWithResponse,
 	)

@@ -1,4 +1,4 @@
-module github.com/yardrail/connectors/notion/notion/v1
+module github.com/yardrail/connectors/notion/notion
 
 go 1.27.1
 

@@ -1,4 +1,4 @@
-module github.com/yardrail/connectors/stripe/stripe/v1
+module github.com/yardrail/connectors/stripe/stripe
 
 go 1.27.1
 
