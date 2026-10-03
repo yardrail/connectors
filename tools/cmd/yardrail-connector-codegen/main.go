@@ -80,18 +80,26 @@ func main() {
 		log.Fatal(err)
 	}
 
-	handlerSrc, renderErr := renderFile(handlerTemplate, ctx)
-	if renderErr != nil {
-		log.Fatalf("rendering handler_gen.go: %v", renderErr)
+	for _, f := range []struct {
+		name string
+		tmpl string
+	}{
+		{"handler_gen.go", handlerTemplate},
+		{"dispatch_gen.go", dispatchTemplate},
+	} {
+		src, renderErr := renderFile(f.tmpl, ctx)
+		if renderErr != nil {
+			log.Fatalf("rendering %s: %v", f.name, renderErr)
+		}
+
+		path := filepath.Join(*outDir, f.name)
+
+		if writeErr := os.WriteFile(path, src, 0o644); writeErr != nil {
+			log.Fatal(writeErr)
+		}
+
+		fmt.Fprintf(os.Stderr, "wrote %s\n", path)
 	}
-
-	handlerPath := filepath.Join(*outDir, "handler_gen.go")
-
-	if writeErr := os.WriteFile(handlerPath, handlerSrc, 0o644); writeErr != nil {
-		log.Fatal(writeErr)
-	}
-
-	fmt.Fprintf(os.Stderr, "wrote %s\n", handlerPath)
 
 	if *catalogOut != "" {
 		src, renderErr := renderFile(catalogTemplate, ctx)
