@@ -421,7 +421,9 @@ func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPk
 	var {{.JSONName}} {{.GoType}}
 
 	if raw, ok := pathArgs["{{.JSONName}}"]; ok {
-		_ = json.Unmarshal(raw, &{{.JSONName}})
+		if err := json.Unmarshal(raw, &{{.JSONName}}); err != nil {
+			return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: param {{.JSONName}}: %w", err)
+		}
 	}
 {{- end}}{{end}}
 {{end}}
