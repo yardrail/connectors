@@ -255,11 +255,7 @@ const (
 	callableInterfaceCount = {{len .CallableIfaces}}
 )
 
-type execFunc func(
-	context.Context,
-	*{{clientPkgName .ClientPkgPath}}.ClientWithResponses,
-	map[string]any,
-) (map[string]any, error)
+type execFunc func(context.Context, *{{clientPkgName .ClientPkgPath}}.ClientWithResponses, map[string]any) (map[string]any, error)
 
 var (
 	errUnknownInterface = errors.New(connectorID + ": unknown interface")
@@ -272,22 +268,14 @@ var dispatchers = map[string]execFunc{
 {{end}}}
 
 // HandlerFactory constructs a Handler from per-interface credentials and config.
-func HandlerFactory(
-	creds, config map[string]map[string]string,
-) (connector.Handler, error) {
-	clients := make(
-		map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses,
-		callableInterfaceCount,
-	)
+func HandlerFactory(creds, config map[string]map[string]string) (connector.Handler, error) {
+	clients := make(map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses, callableInterfaceCount)
 {{range .CallableIfaces}}
 	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
 		baseURL := resolveBaseURL(config["{{.ID}}"])
 		authFn := authEditor{{goIdent .ID}}(ifaceCreds)
 
-		c, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(
-			baseURL,
-			{{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn),
-		)
+		c, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn))
 		if err != nil {
 			return nil, fmt.Errorf("creating {{.ID}} client: %w", err)
 		}
@@ -304,11 +292,7 @@ type handler struct {
 
 func (h *handler) ConnectorID() string { return connectorID }
 
-func (h *handler) Execute(
-	ctx context.Context,
-	interfaceID, function string,
-	inputs map[string]any,
-) (map[string]any, error) {
+func (h *handler) Execute(ctx context.Context, interfaceID, function string, inputs map[string]any) (map[string]any, error) {
 	c, ok := h.clients[interfaceID]
 	if !ok {
 		return nil, fmt.Errorf("%w: %q", errUnknownInterface, interfaceID)
@@ -322,9 +306,7 @@ func (h *handler) Execute(
 	return fn(ctx, c, inputs)
 }
 
-func (h *handler) SupportedFunctions(
-	interfaceID string,
-) []connector.FunctionSpec {
+func (h *handler) SupportedFunctions(interfaceID string) []connector.FunctionSpec {
 	switch interfaceID {
 {{range .CallableIfaces}}	case "{{.ID}}":
 		return functionSpecs
@@ -342,12 +324,8 @@ func resolveBaseURL(config map[string]string) string {
 }
 
 {{range .CallableIfaces}}{{$strat := strategyFor $.AuthStrategy .ID}}
-func authEditor{{goIdent .ID}}(
-	creds map[string]string,
-) func(context.Context, *http.Request) error {
-	return func(
-		_ context.Context, req *http.Request,
-	) error {
+func authEditor{{goIdent .ID}}(creds map[string]string) func(context.Context, *http.Request) error {
+	return func(_ context.Context, req *http.Request) error {
 {{- if eq (authSchemeType $strat) "bearer"}}
 		token := creds["access_token"]
 		if token != "" {
@@ -387,29 +365,19 @@ func setParam(src, dst any) {
 }
 
 {{range .Methods}}{{$m := .}}
-func execute{{.MethodName}}(
-	ctx context.Context,
-	c *{{clientPkgName $.ClientPkgPath}}.ClientWithResponses,
-	inputs map[string]any,
-) (map[string]any, error) {
+func execute{{.MethodName}}(ctx context.Context, c *{{clientPkgName $.ClientPkgPath}}.ClientWithResponses, inputs map[string]any) (map[string]any, error) {
 {{- range .Params}}{{if .Required}}{{if .IsStruct}}
 	var {{.JSONName}} {{clientPkgName $.ClientPkgPath}}.{{trimPrefix .FullType "target."}}
 
 	if raw, ok := inputs[fieldBody]; ok {
 		b, bErr := json.Marshal(raw)
 		if bErr != nil {
-			return nil, fmt.Errorf(
-				"%s.%s: marshalling body: %w",
-				connectorID, "{{$m.Name}}", bErr,
-			)
+			return nil, fmt.Errorf("%s.%s: marshalling body: %w", connectorID, "{{$m.Name}}", bErr)
 		}
 
 		unmarshalErr := json.Unmarshal(b, &{{.JSONName}})
 		if unmarshalErr != nil {
-			return nil, fmt.Errorf(
-				"%s.%s: unmarshalling body: %w",
-				connectorID, "{{$m.Name}}", unmarshalErr,
-			)
+			return nil, fmt.Errorf("%s.%s: unmarshalling body: %w", connectorID, "{{$m.Name}}", unmarshalErr)
 		}
 	}
 {{- else if eq .GoType "string"}}
@@ -429,13 +397,9 @@ func execute{{.MethodName}}(
 	populateParams{{$m.MethodName}}(inputs, params)
 {{- end}}
 
-	resp, err := c.{{$m.MethodName}}(
-		ctx, {{range .CallArgs}}{{.Expr}}, {{end}}
-	)
+	resp, err := c.{{$m.MethodName}}(ctx, {{range .CallArgs}}{{.Expr}}, {{end}})
 	if err != nil {
-		return nil, fmt.Errorf(
-			"%s.%s: %w", connectorID, "{{$m.Name}}", err,
-		)
+		return nil, fmt.Errorf("%s.%s: %w", connectorID, "{{$m.Name}}", err)
 	}
 
 	if resp == nil {
@@ -446,20 +410,14 @@ func execute{{.MethodName}}(
 
 	unmarshalErr := json.Unmarshal(resp.Body, &result)
 	if unmarshalErr != nil {
-		return nil, fmt.Errorf(
-			"%s.%s: unmarshalling response: %w",
-			connectorID, "{{$m.Name}}", unmarshalErr,
-		)
+		return nil, fmt.Errorf("%s.%s: unmarshalling response: %w", connectorID, "{{$m.Name}}", unmarshalErr)
 	}
 
 	return result, nil
 }
 {{- if .ParamsType}}
 
-func populateParams{{$m.MethodName}}(
-	inputs map[string]any,
-	params *{{clientPkgName $.ClientPkgPath}}.{{.ParamsType}},
-) {
+func populateParams{{$m.MethodName}}(inputs map[string]any, params *{{clientPkgName $.ClientPkgPath}}.{{.ParamsType}}) {
 {{- range .Params}}{{if not .Required}}
 	if v, ok := inputs["{{.JSONName}}"]; ok {
 		setParam(v, &params.{{.Name}})
