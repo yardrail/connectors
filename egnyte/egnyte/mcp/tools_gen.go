@@ -8,7 +8,7 @@ import (
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 	openapi_types "github.com/oapi-codegen/runtime/types"
-	target "github.com/yardrail/connectors/egnyte/egnyte/v1/client"
+	target "github.com/yardrail/connectors/egnyte/egnyte/client"
 	"time"
 )
 
@@ -29,7 +29,7 @@ func (h *Handler) RegisterTrials(s *server.MCPServer) {
 		mcp.NewTool("activate-msp-trial",
 			mcp.WithDescription("ActivateMspTrial"),
 			mcp.WithString("domain", mcp.Required(), mcp.Description("domain")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.ActivateMspTrialJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.ActivateMspTrialJSONRequestBody)")),
 		),
 		h.handleActivateMspTrialWithResponse,
 	)
@@ -37,7 +37,7 @@ func (h *Handler) RegisterTrials(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-msp-trial",
 			mcp.WithDescription("CreateMspTrial"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateMspTrialJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateMspTrialJSONRequestBody)")),
 		),
 		h.handleCreateMspTrialWithResponse,
 	)
@@ -50,7 +50,7 @@ func (h *Handler) RegisterComments(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("add-comment",
 			mcp.WithDescription("AddComment"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AddCommentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AddCommentJSONRequestBody)")),
 		),
 		h.handleAddCommentWithResponse,
 	)
@@ -94,7 +94,7 @@ func (h *Handler) RegisterEtmf(s *server.MCPServer) {
 			mcp.WithString("studyId", mcp.Required(), mcp.Description("studyId")),
 			mcp.WithString("filingLevel.type", mcp.Description("FilingLevelType")),
 			mcp.WithString("filingLevel.systemId", mcp.Description("FilingLevelSystemId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AddDocumentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AddDocumentJSONRequestBody)")),
 		),
 		h.handleAddDocumentWithResponse,
 	)
@@ -120,7 +120,7 @@ func (h *Handler) RegisterEtmf(s *server.MCPServer) {
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithInteger("offset", mcp.Description("Offset")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.ListDocumentsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.ListDocumentsJSONRequestBody)")),
 		),
 		h.handleListDocumentsWithResponse,
 	)
@@ -148,7 +148,7 @@ func (h *Handler) RegisterSearch(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("advanced-search-v1",
 			mcp.WithDescription("AdvancedSearchV1"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AdvancedSearchV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AdvancedSearchV1JSONRequestBody)")),
 		),
 		h.handleAdvancedSearchV1WithResponse,
 	)
@@ -178,7 +178,7 @@ func (h *Handler) RegisterSearch(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("search-v2-post",
 			mcp.WithDescription("SearchV2Post"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.SearchV2PostJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.SearchV2PostJSONRequestBody)")),
 		),
 		h.handleSearchV2PostWithResponse,
 	)
@@ -192,7 +192,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 		mcp.NewTool("allocate-msp-domain-power-users",
 			mcp.WithDescription("AllocateMspDomainPowerUsers"),
 			mcp.WithString("domain", mcp.Required(), mcp.Description("domain")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AllocateMspDomainPowerUsersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AllocateMspDomainPowerUsersJSONRequestBody)")),
 		),
 		h.handleAllocateMspDomainPowerUsersWithResponse,
 	)
@@ -201,7 +201,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 		mcp.NewTool("get-msp-power-users-quote",
 			mcp.WithDescription("GetMspPowerUsersQuote"),
 			mcp.WithString("planId", mcp.Required(), mcp.Description("planId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.GetMspPowerUsersQuoteJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.GetMspPowerUsersQuoteJSONRequestBody)")),
 		),
 		h.handleGetMspPowerUsersQuoteWithResponse,
 	)
@@ -217,7 +217,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 		mcp.NewTool("purchase-msp-power-users",
 			mcp.WithDescription("PurchaseMspPowerUsers"),
 			mcp.WithString("planId", mcp.Required(), mcp.Description("planId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PurchaseMspPowerUsersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PurchaseMspPowerUsersJSONRequestBody)")),
 		),
 		h.handlePurchaseMspPowerUsersWithResponse,
 	)
@@ -231,7 +231,7 @@ func (h *Handler) RegisterAgents(s *server.MCPServer) {
 		mcp.NewTool("ask-agent",
 			mcp.WithDescription("AskAgent"),
 			mcp.WithString("agentId", mcp.Required(), mcp.Description("agentId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AskAgentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AskAgentJSONRequestBody)")),
 		),
 		h.handleAskAgentWithResponse,
 	)
@@ -262,7 +262,7 @@ func (h *Handler) RegisterAi(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("ask-assistant",
 			mcp.WithDescription("AskAssistant"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AskAssistantJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AskAssistantJSONRequestBody)")),
 		),
 		h.handleAskAssistantWithResponse,
 	)
@@ -270,7 +270,7 @@ func (h *Handler) RegisterAi(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("ask-copilot",
 			mcp.WithDescription("AskCopilot"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AskCopilotJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AskCopilotJSONRequestBody)")),
 		),
 		h.handleAskCopilotWithResponse,
 	)
@@ -279,7 +279,7 @@ func (h *Handler) RegisterAi(s *server.MCPServer) {
 		mcp.NewTool("ask-document",
 			mcp.WithDescription("AskDocument"),
 			mcp.WithString("entryId", mcp.Required(), mcp.Description("entryId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AskDocumentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AskDocumentJSONRequestBody)")),
 		),
 		h.handleAskDocumentWithResponse,
 	)
@@ -288,7 +288,7 @@ func (h *Handler) RegisterAi(s *server.MCPServer) {
 		mcp.NewTool("ask-kb",
 			mcp.WithDescription("AskKb"),
 			mcp.WithString("kbId", mcp.Required(), mcp.Description("kbId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.AskKbJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.AskKbJSONRequestBody)")),
 		),
 		h.handleAskKbWithResponse,
 	)
@@ -305,7 +305,7 @@ func (h *Handler) RegisterAi(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("hybrid-search",
 			mcp.WithDescription("HybridSearch"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.HybridSearchJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.HybridSearchJSONRequestBody)")),
 		),
 		h.handleHybridSearchWithResponse,
 	)
@@ -313,7 +313,7 @@ func (h *Handler) RegisterAi(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("list-kb",
 			mcp.WithDescription("ListKb"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.ListKbJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.ListKbJSONRequestBody)")),
 		),
 		h.handleListKbWithResponse,
 	)
@@ -322,7 +322,7 @@ func (h *Handler) RegisterAi(s *server.MCPServer) {
 		mcp.NewTool("summarize-document",
 			mcp.WithDescription("SummarizeDocument"),
 			mcp.WithString("entryId", mcp.Required(), mcp.Description("entryId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.SummarizeDocumentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.SummarizeDocumentJSONRequestBody)")),
 		),
 		h.handleSummarizeDocumentWithResponse,
 	)
@@ -336,7 +336,7 @@ func (h *Handler) RegisterSign(s *server.MCPServer) {
 		mcp.NewTool("cancel-signature-request",
 			mcp.WithDescription("CancelSignatureRequest"),
 			mcp.WithString("agreementId", mcp.Required(), mcp.Description("agreementId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CancelSignatureRequestJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CancelSignatureRequestJSONRequestBody)")),
 		),
 		h.handleCancelSignatureRequestWithResponse,
 	)
@@ -344,7 +344,7 @@ func (h *Handler) RegisterSign(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-signature-request",
 			mcp.WithDescription("CreateSignatureRequest"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateSignatureRequestJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateSignatureRequestJSONRequestBody)")),
 		),
 		h.handleCreateSignatureRequestWithResponse,
 	)
@@ -416,7 +416,7 @@ func (h *Handler) RegisterWorkflows(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-workflow",
 			mcp.WithDescription("CreateWorkflow"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateWorkflowJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateWorkflowJSONRequestBody)")),
 		),
 		h.handleCreateWorkflowWithResponse,
 	)
@@ -461,7 +461,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-configuration-settings-audit-report",
 			mcp.WithDescription("CreateConfigurationSettingsAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateConfigurationSettingsAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateConfigurationSettingsAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateConfigurationSettingsAuditReportWithResponse,
 	)
@@ -469,7 +469,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-etmf-audit-report",
 			mcp.WithDescription("CreateEtmfAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateEtmfAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateEtmfAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateEtmfAuditReportWithResponse,
 	)
@@ -477,7 +477,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-file-audit-report",
 			mcp.WithDescription("CreateFileAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateFileAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateFileAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateFileAuditReportWithResponse,
 	)
@@ -485,7 +485,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-group-provisioning-audit-report",
 			mcp.WithDescription("CreateGroupProvisioningAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateGroupProvisioningAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateGroupProvisioningAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateGroupProvisioningAuditReportWithResponse,
 	)
@@ -493,7 +493,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-login-audit-report",
 			mcp.WithDescription("CreateLoginAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateLoginAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateLoginAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateLoginAuditReportWithResponse,
 	)
@@ -501,7 +501,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-permissions-audit-report",
 			mcp.WithDescription("CreatePermissionsAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreatePermissionsAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreatePermissionsAuditReportJSONRequestBody)")),
 		),
 		h.handleCreatePermissionsAuditReportWithResponse,
 	)
@@ -509,7 +509,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-quality-docs-audit-report",
 			mcp.WithDescription("CreateQualityDocsAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateQualityDocsAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateQualityDocsAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateQualityDocsAuditReportWithResponse,
 	)
@@ -517,7 +517,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-quality-docs-categories-audit-report",
 			mcp.WithDescription("CreateQualityDocsCategoriesAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateQualityDocsCategoriesAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateQualityDocsCategoriesAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateQualityDocsCategoriesAuditReportWithResponse,
 	)
@@ -525,7 +525,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-quality-docs-courses-audit-report",
 			mcp.WithDescription("CreateQualityDocsCoursesAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateQualityDocsCoursesAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateQualityDocsCoursesAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateQualityDocsCoursesAuditReportWithResponse,
 	)
@@ -533,7 +533,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-snapshot-restore-audit-report",
 			mcp.WithDescription("CreateSnapshotRestoreAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateSnapshotRestoreAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateSnapshotRestoreAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateSnapshotRestoreAuditReportWithResponse,
 	)
@@ -541,7 +541,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-upload-requests-audit-report",
 			mcp.WithDescription("CreateUploadRequestsAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateUploadRequestsAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateUploadRequestsAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateUploadRequestsAuditReportWithResponse,
 	)
@@ -549,7 +549,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-user-provisioning-audit-report",
 			mcp.WithDescription("CreateUserProvisioningAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateUserProvisioningAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateUserProvisioningAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateUserProvisioningAuditReportWithResponse,
 	)
@@ -557,7 +557,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-workflow-audit-report",
 			mcp.WithDescription("CreateWorkflowAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateWorkflowAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateWorkflowAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateWorkflowAuditReportWithResponse,
 	)
@@ -565,7 +565,7 @@ func (h *Handler) RegisterV1Reports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-workflow-templates-audit-report",
 			mcp.WithDescription("CreateWorkflowTemplatesAuditReport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateWorkflowTemplatesAuditReportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateWorkflowTemplatesAuditReportJSONRequestBody)")),
 		),
 		h.handleCreateWorkflowTemplatesAuditReportWithResponse,
 	)
@@ -589,7 +589,7 @@ func (h *Handler) RegisterBookmarks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-bookmark",
 			mcp.WithDescription("CreateBookmark"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateBookmarkJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateBookmarkJSONRequestBody)")),
 		),
 		h.handleCreateBookmarkWithResponse,
 	)
@@ -627,7 +627,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-msp-webhook",
 			mcp.WithDescription("CreateMspWebhook"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateMspWebhookJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateMspWebhookJSONRequestBody)")),
 		),
 		h.handleCreateMspWebhookWithResponse,
 	)
@@ -689,7 +689,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("register-webhook",
 			mcp.WithDescription("RegisterWebhook"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.RegisterWebhookJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.RegisterWebhookJSONRequestBody)")),
 		),
 		h.handleRegisterWebhookWithResponse,
 	)
@@ -698,7 +698,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 		mcp.NewTool("set-webhook-status",
 			mcp.WithDescription("SetWebhookStatus"),
 			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.SetWebhookStatusJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.SetWebhookStatusJSONRequestBody)")),
 		),
 		h.handleSetWebhookStatusWithResponse,
 	)
@@ -707,7 +707,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 		mcp.NewTool("update-msp-webhook",
 			mcp.WithDescription("UpdateMspWebhook"),
 			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.UpdateMspWebhookJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.UpdateMspWebhookJSONRequestBody)")),
 		),
 		h.handleUpdateMspWebhookWithResponse,
 	)
@@ -716,7 +716,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 		mcp.NewTool("update-webhook",
 			mcp.WithDescription("UpdateWebhook"),
 			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.UpdateWebhookJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.UpdateWebhookJSONRequestBody)")),
 		),
 		h.handleUpdateWebhookWithResponse,
 	)
@@ -736,7 +736,7 @@ func (h *Handler) RegisterScim(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-scim-group",
 			mcp.WithDescription("CreateScimGroup"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateScimGroupJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateScimGroupJSONRequestBody)")),
 		),
 		h.handleCreateScimGroupWithResponse,
 	)
@@ -744,7 +744,7 @@ func (h *Handler) RegisterScim(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-scim-user",
 			mcp.WithDescription("CreateScimUser"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateScimUserJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateScimUserJSONRequestBody)")),
 		),
 		h.handleCreateScimUserWithResponse,
 	)
@@ -805,7 +805,7 @@ func (h *Handler) RegisterScim(s *server.MCPServer) {
 		mcp.NewTool("patch-scim-group",
 			mcp.WithDescription("PatchScimGroup"),
 			mcp.WithString("groupId", mcp.Required(), mcp.Description("groupId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PatchScimGroupJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PatchScimGroupJSONRequestBody)")),
 		),
 		h.handlePatchScimGroupWithResponse,
 	)
@@ -814,7 +814,7 @@ func (h *Handler) RegisterScim(s *server.MCPServer) {
 		mcp.NewTool("patch-scim-user",
 			mcp.WithDescription("PatchScimUser"),
 			mcp.WithString("userId", mcp.Required(), mcp.Description("userId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PatchScimUserJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PatchScimUserJSONRequestBody)")),
 		),
 		h.handlePatchScimUserWithResponse,
 	)
@@ -823,7 +823,7 @@ func (h *Handler) RegisterScim(s *server.MCPServer) {
 		mcp.NewTool("replace-scim-group",
 			mcp.WithDescription("ReplaceScimGroup"),
 			mcp.WithString("groupId", mcp.Required(), mcp.Description("groupId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.ReplaceScimGroupJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.ReplaceScimGroupJSONRequestBody)")),
 		),
 		h.handleReplaceScimGroupWithResponse,
 	)
@@ -832,7 +832,7 @@ func (h *Handler) RegisterScim(s *server.MCPServer) {
 		mcp.NewTool("replace-scim-user",
 			mcp.WithDescription("ReplaceScimUser"),
 			mcp.WithString("userId", mcp.Required(), mcp.Description("userId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.ReplaceScimUserJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.ReplaceScimUserJSONRequestBody)")),
 		),
 		h.handleReplaceScimUserWithResponse,
 	)
@@ -845,7 +845,7 @@ func (h *Handler) RegisterProcore(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-sync-with-formdata-body",
 			mcp.WithDescription("CreateSyncWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateSyncFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateSyncFormdataRequestBody)")),
 		),
 		h.handleCreateSyncWithFormdataBodyWithResponse,
 	)
@@ -885,7 +885,7 @@ func (h *Handler) RegisterProcore(s *server.MCPServer) {
 		mcp.NewTool("update-sync-with-formdata-body",
 			mcp.WithDescription("UpdateSyncWithFormdataBody"),
 			mcp.WithString("syncId", mcp.Required(), mcp.Description("syncId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.UpdateSyncFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.UpdateSyncFormdataRequestBody)")),
 		),
 		h.handleUpdateSyncWithFormdataBodyWithResponse,
 	)
@@ -898,7 +898,7 @@ func (h *Handler) RegisterUploadRequests(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-upload-request",
 			mcp.WithDescription("CreateUploadRequest"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateUploadRequestJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateUploadRequestJSONRequestBody)")),
 		),
 		h.handleCreateUploadRequestWithResponse,
 	)
@@ -911,7 +911,7 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-user",
 			mcp.WithDescription("CreateUser"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateUserJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateUserJSONRequestBody)")),
 		),
 		h.handleCreateUserWithResponse,
 	)
@@ -978,7 +978,7 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 		mcp.NewTool("update-user",
 			mcp.WithDescription("UpdateUser"),
 			mcp.WithInteger("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.UpdateUserJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.UpdateUserJSONRequestBody)")),
 		),
 		h.handleUpdateUserWithResponse,
 	)
@@ -991,7 +991,7 @@ func (h *Handler) RegisterWorkspaces(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-workspace",
 			mcp.WithDescription("CreateWorkspace"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.CreateWorkspaceJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.CreateWorkspaceJSONRequestBody)")),
 		),
 		h.handleCreateWorkspaceWithResponse,
 	)
@@ -1070,7 +1070,7 @@ func (h *Handler) RegisterProjectFolders(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("mark-folder-as-project",
 			mcp.WithDescription("MarkFolderAsProject"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.MarkFolderAsProjectJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.MarkFolderAsProjectJSONRequestBody)")),
 		),
 		h.handleMarkFolderAsProjectWithResponse,
 	)
@@ -1140,7 +1140,7 @@ func (h *Handler) RegisterTrash(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("trash-action",
 			mcp.WithDescription("TrashAction"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.TrashActionJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.TrashActionJSONRequestBody)")),
 		),
 		h.handleTrashActionWithResponse,
 	)
@@ -1160,7 +1160,7 @@ func (h *Handler) RegisterTokens(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("revoke-token-with-formdata-body",
 			mcp.WithDescription("RevokeTokenWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.RevokeTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.RevokeTokenFormdataRequestBody)")),
 		),
 		h.handleRevokeTokenWithFormdataBodyWithResponse,
 	)
@@ -1173,7 +1173,7 @@ func (h *Handler) RegisterDocuments(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("import-document",
 			mcp.WithDescription("ImportDocument"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.ImportDocumentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.ImportDocumentJSONRequestBody)")),
 		),
 		h.handleImportDocumentWithResponse,
 	)
@@ -1186,7 +1186,7 @@ func (h *Handler) RegisterAssignments(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("import-training-assignment",
 			mcp.WithDescription("ImportTrainingAssignment"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.ImportTrainingAssignmentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.ImportTrainingAssignmentJSONRequestBody)")),
 		),
 		h.handleImportTrainingAssignmentWithResponse,
 	)
@@ -1236,7 +1236,7 @@ func (h *Handler) RegisterNavigate(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("navigate-post-v2",
 			mcp.WithDescription("NavigatePostV2"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.NavigatePostV2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.NavigatePostV2JSONRequestBody)")),
 		),
 		h.handleNavigatePostV2WithResponse,
 	)
@@ -1369,7 +1369,7 @@ func (h *Handler) RegisterFs(s *server.MCPServer) {
 			mcp.WithDescription("PortalProdPostFsByIdV1"),
 			mcp.WithString("pType", mcp.Required(), mcp.Description("pType")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostFsByIdV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostFsByIdV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPostFsByIdV1WithResponse,
 	)
@@ -1378,7 +1378,7 @@ func (h *Handler) RegisterFs(s *server.MCPServer) {
 		mcp.NewTool("portal-prod-post-fs-v1",
 			mcp.WithDescription("PortalProdPostFsV1"),
 			mcp.WithString("path", mcp.Required(), mcp.Description("path")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostFsV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostFsV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPostFsV1WithResponse,
 	)
@@ -1387,7 +1387,7 @@ func (h *Handler) RegisterFs(s *server.MCPServer) {
 		mcp.NewTool("portal-prod-post-fs-v2",
 			mcp.WithDescription("PortalProdPostFsV2"),
 			mcp.WithString("path", mcp.Required(), mcp.Description("path")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostFsV2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostFsV2JSONRequestBody)")),
 		),
 		h.handlePortalProdPostFsV2WithResponse,
 	)
@@ -1427,7 +1427,7 @@ func (h *Handler) RegisterGroups(s *server.MCPServer) {
 		mcp.NewTool("portal-prod-patch-groups-by-id-v2",
 			mcp.WithDescription("PortalProdPatchGroupsByIdV2"),
 			mcp.WithString("groupId", mcp.Required(), mcp.Description("groupId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPatchGroupsByIdV2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPatchGroupsByIdV2JSONRequestBody)")),
 		),
 		h.handlePortalProdPatchGroupsByIdV2WithResponse,
 	)
@@ -1435,7 +1435,7 @@ func (h *Handler) RegisterGroups(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("portal-prod-post-groups-v2",
 			mcp.WithDescription("PortalProdPostGroupsV2"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostGroupsV2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostGroupsV2JSONRequestBody)")),
 		),
 		h.handlePortalProdPostGroupsV2WithResponse,
 	)
@@ -1444,7 +1444,7 @@ func (h *Handler) RegisterGroups(s *server.MCPServer) {
 		mcp.NewTool("portal-prod-put-groups-by-id-v2",
 			mcp.WithDescription("PortalProdPutGroupsByIdV2"),
 			mcp.WithString("groupId", mcp.Required(), mcp.Description("groupId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPutGroupsByIdV2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPutGroupsByIdV2JSONRequestBody)")),
 		),
 		h.handlePortalProdPutGroupsByIdV2WithResponse,
 	)
@@ -1519,7 +1519,7 @@ func (h *Handler) RegisterLinks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("portal-prod-post-links-v1",
 			mcp.WithDescription("PortalProdPostLinksV1"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostLinksV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostLinksV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPostLinksV1WithResponse,
 	)
@@ -1527,7 +1527,7 @@ func (h *Handler) RegisterLinks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("portal-prod-post-links-v2",
 			mcp.WithDescription("PortalProdPostLinksV2"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostLinksV2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostLinksV2JSONRequestBody)")),
 		),
 		h.handlePortalProdPostLinksV2WithResponse,
 	)
@@ -1606,7 +1606,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 			mcp.WithDescription("PortalProdPatchMetadataKeyV1"),
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
 			mcp.WithString("keyName", mcp.Required(), mcp.Description("keyName")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPatchMetadataKeyV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPatchMetadataKeyV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPatchMetadataKeyV1WithResponse,
 	)
@@ -1616,7 +1616,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 			mcp.WithDescription("PortalProdPatchMetadataKeysDataV1"),
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
 			mcp.WithString("X-Egnyte-Force-Delete", mcp.Description("XEgnyteForceDelete")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPatchMetadataKeysDataV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPatchMetadataKeysDataV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPatchMetadataKeysDataV1WithResponse,
 	)
@@ -1625,7 +1625,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 		mcp.NewTool("portal-prod-patch-namespace-v1",
 			mcp.WithDescription("PortalProdPatchNamespaceV1"),
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPatchNamespaceV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPatchNamespaceV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPatchNamespaceV1WithResponse,
 	)
@@ -1634,7 +1634,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 		mcp.NewTool("portal-prod-post-metadata-key-v1",
 			mcp.WithDescription("PortalProdPostMetadataKeyV1"),
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostMetadataKeyV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostMetadataKeyV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPostMetadataKeyV1WithResponse,
 	)
@@ -1642,7 +1642,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("portal-prod-post-namespace-v1",
 			mcp.WithDescription("PortalProdPostNamespaceV1"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostNamespaceV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostNamespaceV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPostNamespaceV1WithResponse,
 	)
@@ -1650,7 +1650,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("portal-prod-post-search-metadata-v1",
 			mcp.WithDescription("PortalProdPostSearchMetadataV1"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostSearchMetadataV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostSearchMetadataV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPostSearchMetadataV1WithResponse,
 	)
@@ -1660,7 +1660,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 			mcp.WithDescription("PortalProdPutFileMetadataV1"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPutFileMetadataV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPutFileMetadataV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPutFileMetadataV1WithResponse,
 	)
@@ -1670,7 +1670,7 @@ func (h *Handler) RegisterMetadata(s *server.MCPServer) {
 			mcp.WithDescription("PortalProdPutFolderMetadataV1"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("namespaceName", mcp.Required(), mcp.Description("namespaceName")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPutFolderMetadataV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPutFolderMetadataV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPutFolderMetadataV1WithResponse,
 	)
@@ -1710,7 +1710,7 @@ func (h *Handler) RegisterProjectCustomFields(s *server.MCPServer) {
 		mcp.NewTool("portal-prod-patch-project-custom-field-v1",
 			mcp.WithDescription("PortalProdPatchProjectCustomFieldV1"),
 			mcp.WithString("fieldName", mcp.Required(), mcp.Description("fieldName")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPatchProjectCustomFieldV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPatchProjectCustomFieldV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPatchProjectCustomFieldV1WithResponse,
 	)
@@ -1718,7 +1718,7 @@ func (h *Handler) RegisterProjectCustomFields(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("portal-prod-post-project-custom-field-v1",
 			mcp.WithDescription("PortalProdPostProjectCustomFieldV1"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.PortalProdPostProjectCustomFieldV1JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.PortalProdPostProjectCustomFieldV1JSONRequestBody)")),
 		),
 		h.handlePortalProdPostProjectCustomFieldV1WithResponse,
 	)
@@ -1816,7 +1816,7 @@ func (h *Handler) RegisterV2Stream(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("stream-audit-events-post",
 			mcp.WithDescription("StreamAuditEventsPost"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/v1/client.StreamAuditEventsPostJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/egnyte/egnyte/client.StreamAuditEventsPostJSONRequestBody)")),
 		),
 		h.handleStreamAuditEventsPostWithResponse,
 	)

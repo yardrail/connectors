@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	target "github.com/yardrail/connectors/stripe/stripe/v1/client"
+	target "github.com/yardrail/connectors/stripe/stripe/client"
 )
 
 type ServiceResolver func(ctx context.Context) (*target.ClientWithResponses, error)
@@ -27,7 +27,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("DeleteAccountsAccountBankAccountsIdWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteAccountsAccountBankAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteAccountsAccountBankAccountsIdFormdataRequestBody)")),
 		),
 		h.handleDeleteAccountsAccountBankAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -37,7 +37,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("DeleteAccountsAccountExternalAccountsIdWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteAccountsAccountExternalAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteAccountsAccountExternalAccountsIdFormdataRequestBody)")),
 		),
 		h.handleDeleteAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -47,7 +47,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("DeleteAccountsAccountPeoplePersonWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("person", mcp.Required(), mcp.Description("person")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteAccountsAccountPeoplePersonFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteAccountsAccountPeoplePersonFormdataRequestBody)")),
 		),
 		h.handleDeleteAccountsAccountPeoplePersonWithFormdataBodyWithResponse,
 	)
@@ -57,7 +57,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("DeleteAccountsAccountPersonsPersonWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("person", mcp.Required(), mcp.Description("person")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteAccountsAccountPersonsPersonFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteAccountsAccountPersonsPersonFormdataRequestBody)")),
 		),
 		h.handleDeleteAccountsAccountPersonsPersonWithFormdataBodyWithResponse,
 	)
@@ -66,7 +66,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("delete-accounts-account-with-formdata-body",
 			mcp.WithDescription("DeleteAccountsAccountWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteAccountsAccountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteAccountsAccountFormdataRequestBody)")),
 		),
 		h.handleDeleteAccountsAccountWithFormdataBodyWithResponse,
 	)
@@ -77,7 +77,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountBankAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountBankAccountsIdFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountBankAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -88,7 +88,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("capability", mcp.Required(), mcp.Description("capability")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountCapabilitiesCapabilityFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountCapabilitiesCapabilityFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse,
 	)
@@ -98,7 +98,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("GetAccountsAccountCapabilitiesWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountCapabilitiesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountCapabilitiesFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountCapabilitiesWithFormdataBodyWithResponse,
 	)
@@ -109,7 +109,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountExternalAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountExternalAccountsIdFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -123,7 +123,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("object", mcp.Description("Object")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountExternalAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountExternalAccountsFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountExternalAccountsWithFormdataBodyWithResponse,
 	)
@@ -134,7 +134,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("person", mcp.Required(), mcp.Description("person")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountPeoplePersonFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountPeoplePersonFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountPeoplePersonWithFormdataBodyWithResponse,
 	)
@@ -147,7 +147,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountPeopleFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountPeopleFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountPeopleWithFormdataBodyWithResponse,
 	)
@@ -158,7 +158,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("person", mcp.Required(), mcp.Description("person")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountPersonsPersonFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountPersonsPersonFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountPersonsPersonWithFormdataBodyWithResponse,
 	)
@@ -171,7 +171,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountPersonsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountPersonsFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountPersonsWithFormdataBodyWithResponse,
 	)
@@ -181,7 +181,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("GetAccountsAccountWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsAccountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsAccountFormdataRequestBody)")),
 		),
 		h.handleGetAccountsAccountWithFormdataBodyWithResponse,
 	)
@@ -193,7 +193,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountsFormdataRequestBody)")),
 		),
 		h.handleGetAccountsWithFormdataBodyWithResponse,
 	)
@@ -203,7 +203,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("PostAccountsAccountBankAccountsIdWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountBankAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountBankAccountsIdFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountBankAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -212,7 +212,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-accounts-account-bank-accounts-with-formdata-body",
 			mcp.WithDescription("PostAccountsAccountBankAccountsWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountBankAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountBankAccountsFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountBankAccountsWithFormdataBodyWithResponse,
 	)
@@ -222,7 +222,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("PostAccountsAccountCapabilitiesCapabilityWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("capability", mcp.Required(), mcp.Description("capability")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountCapabilitiesCapabilityFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountCapabilitiesCapabilityFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse,
 	)
@@ -232,7 +232,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("PostAccountsAccountExternalAccountsIdWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountExternalAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountExternalAccountsIdFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -241,7 +241,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-accounts-account-external-accounts-with-formdata-body",
 			mcp.WithDescription("PostAccountsAccountExternalAccountsWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountExternalAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountExternalAccountsFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountExternalAccountsWithFormdataBodyWithResponse,
 	)
@@ -250,7 +250,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-accounts-account-login-links-with-formdata-body",
 			mcp.WithDescription("PostAccountsAccountLoginLinksWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountLoginLinksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountLoginLinksFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountLoginLinksWithFormdataBodyWithResponse,
 	)
@@ -260,7 +260,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("PostAccountsAccountPeoplePersonWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("person", mcp.Required(), mcp.Description("person")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountPeoplePersonFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountPeoplePersonFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountPeoplePersonWithFormdataBodyWithResponse,
 	)
@@ -269,7 +269,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-accounts-account-people-with-formdata-body",
 			mcp.WithDescription("PostAccountsAccountPeopleWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountPeopleFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountPeopleFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountPeopleWithFormdataBodyWithResponse,
 	)
@@ -279,7 +279,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 			mcp.WithDescription("PostAccountsAccountPersonsPersonWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithString("person", mcp.Required(), mcp.Description("person")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountPersonsPersonFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountPersonsPersonFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountPersonsPersonWithFormdataBodyWithResponse,
 	)
@@ -288,7 +288,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-accounts-account-persons-with-formdata-body",
 			mcp.WithDescription("PostAccountsAccountPersonsWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountPersonsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountPersonsFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountPersonsWithFormdataBodyWithResponse,
 	)
@@ -297,7 +297,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-accounts-account-reject-with-formdata-body",
 			mcp.WithDescription("PostAccountsAccountRejectWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountRejectFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountRejectFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountRejectWithFormdataBodyWithResponse,
 	)
@@ -306,7 +306,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-accounts-account-unreject-with-formdata-body",
 			mcp.WithDescription("PostAccountsAccountUnrejectWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountUnrejectFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountUnrejectFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountUnrejectWithFormdataBodyWithResponse,
 	)
@@ -315,7 +315,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-accounts-account-with-formdata-body",
 			mcp.WithDescription("PostAccountsAccountWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsAccountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsAccountFormdataRequestBody)")),
 		),
 		h.handlePostAccountsAccountWithFormdataBodyWithResponse,
 	)
@@ -323,7 +323,7 @@ func (h *Handler) RegisterAccounts(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-accounts-with-formdata-body",
 			mcp.WithDescription("PostAccountsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountsFormdataRequestBody)")),
 		),
 		h.handlePostAccountsWithFormdataBodyWithResponse,
 	)
@@ -337,7 +337,7 @@ func (h *Handler) RegisterApplePay(s *server.MCPServer) {
 		mcp.NewTool("delete-apple-pay-domains-domain-with-formdata-body",
 			mcp.WithDescription("DeleteApplePayDomainsDomainWithFormdataBody"),
 			mcp.WithString("domain", mcp.Required(), mcp.Description("domain")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteApplePayDomainsDomainFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteApplePayDomainsDomainFormdataRequestBody)")),
 		),
 		h.handleDeleteApplePayDomainsDomainWithFormdataBodyWithResponse,
 	)
@@ -347,7 +347,7 @@ func (h *Handler) RegisterApplePay(s *server.MCPServer) {
 			mcp.WithDescription("GetApplePayDomainsDomainWithFormdataBody"),
 			mcp.WithString("domain", mcp.Required(), mcp.Description("domain")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetApplePayDomainsDomainFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetApplePayDomainsDomainFormdataRequestBody)")),
 		),
 		h.handleGetApplePayDomainsDomainWithFormdataBodyWithResponse,
 	)
@@ -360,7 +360,7 @@ func (h *Handler) RegisterApplePay(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetApplePayDomainsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetApplePayDomainsFormdataRequestBody)")),
 		),
 		h.handleGetApplePayDomainsWithFormdataBodyWithResponse,
 	)
@@ -368,7 +368,7 @@ func (h *Handler) RegisterApplePay(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-apple-pay-domains-with-formdata-body",
 			mcp.WithDescription("PostApplePayDomainsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostApplePayDomainsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostApplePayDomainsFormdataRequestBody)")),
 		),
 		h.handlePostApplePayDomainsWithFormdataBodyWithResponse,
 	)
@@ -382,7 +382,7 @@ func (h *Handler) RegisterCoupons(s *server.MCPServer) {
 		mcp.NewTool("delete-coupons-coupon-with-formdata-body",
 			mcp.WithDescription("DeleteCouponsCouponWithFormdataBody"),
 			mcp.WithString("coupon", mcp.Required(), mcp.Description("coupon")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCouponsCouponFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCouponsCouponFormdataRequestBody)")),
 		),
 		h.handleDeleteCouponsCouponWithFormdataBodyWithResponse,
 	)
@@ -392,7 +392,7 @@ func (h *Handler) RegisterCoupons(s *server.MCPServer) {
 			mcp.WithDescription("GetCouponsCouponWithFormdataBody"),
 			mcp.WithString("coupon", mcp.Required(), mcp.Description("coupon")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCouponsCouponFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCouponsCouponFormdataRequestBody)")),
 		),
 		h.handleGetCouponsCouponWithFormdataBodyWithResponse,
 	)
@@ -404,7 +404,7 @@ func (h *Handler) RegisterCoupons(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCouponsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCouponsFormdataRequestBody)")),
 		),
 		h.handleGetCouponsWithFormdataBodyWithResponse,
 	)
@@ -413,7 +413,7 @@ func (h *Handler) RegisterCoupons(s *server.MCPServer) {
 		mcp.NewTool("post-coupons-coupon-with-formdata-body",
 			mcp.WithDescription("PostCouponsCouponWithFormdataBody"),
 			mcp.WithString("coupon", mcp.Required(), mcp.Description("coupon")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCouponsCouponFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCouponsCouponFormdataRequestBody)")),
 		),
 		h.handlePostCouponsCouponWithFormdataBodyWithResponse,
 	)
@@ -421,7 +421,7 @@ func (h *Handler) RegisterCoupons(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-coupons-with-formdata-body",
 			mcp.WithDescription("PostCouponsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCouponsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCouponsFormdataRequestBody)")),
 		),
 		h.handlePostCouponsWithFormdataBodyWithResponse,
 	)
@@ -436,7 +436,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("DeleteCustomersCustomerBankAccountsIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCustomersCustomerBankAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCustomersCustomerBankAccountsIdFormdataRequestBody)")),
 		),
 		h.handleDeleteCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -446,7 +446,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("DeleteCustomersCustomerCardsIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCustomersCustomerCardsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCustomersCustomerCardsIdFormdataRequestBody)")),
 		),
 		h.handleDeleteCustomersCustomerCardsIdWithFormdataBodyWithResponse,
 	)
@@ -455,7 +455,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("delete-customers-customer-discount-with-formdata-body",
 			mcp.WithDescription("DeleteCustomersCustomerDiscountWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCustomersCustomerDiscountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCustomersCustomerDiscountFormdataRequestBody)")),
 		),
 		h.handleDeleteCustomersCustomerDiscountWithFormdataBodyWithResponse,
 	)
@@ -465,7 +465,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("DeleteCustomersCustomerSourcesIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCustomersCustomerSourcesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCustomersCustomerSourcesIdFormdataRequestBody)")),
 		),
 		h.handleDeleteCustomersCustomerSourcesIdWithFormdataBodyWithResponse,
 	)
@@ -475,7 +475,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody)")),
 		),
 		h.handleDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse,
 	)
@@ -485,7 +485,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
 		),
 		h.handleDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse,
 	)
@@ -495,7 +495,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("DeleteCustomersCustomerTaxIdsIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCustomersCustomerTaxIdsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCustomersCustomerTaxIdsIdFormdataRequestBody)")),
 		),
 		h.handleDeleteCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse,
 	)
@@ -504,7 +504,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("delete-customers-customer-with-formdata-body",
 			mcp.WithDescription("DeleteCustomersCustomerWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteCustomersCustomerFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteCustomersCustomerFormdataRequestBody)")),
 		),
 		h.handleDeleteCustomersCustomerWithFormdataBodyWithResponse,
 	)
@@ -515,7 +515,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("transaction", mcp.Required(), mcp.Description("transaction")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerBalanceTransactionsTransactionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerBalanceTransactionsTransactionFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse,
 	)
@@ -529,7 +529,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("invoice", mcp.Description("Invoice")),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerBalanceTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerBalanceTransactionsFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse,
 	)
@@ -540,7 +540,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerBankAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerBankAccountsIdFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -553,7 +553,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerBankAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerBankAccountsFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerBankAccountsWithFormdataBodyWithResponse,
 	)
@@ -564,7 +564,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerCardsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerCardsIdFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerCardsIdWithFormdataBodyWithResponse,
 	)
@@ -577,7 +577,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerCardsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerCardsFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerCardsWithFormdataBodyWithResponse,
 	)
@@ -588,7 +588,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("transaction", mcp.Required(), mcp.Description("transaction")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerCashBalanceTransactionsTransactionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerCashBalanceTransactionsTransactionFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBodyWithResponse,
 	)
@@ -601,7 +601,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerCashBalanceTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerCashBalanceTransactionsFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerCashBalanceTransactionsWithFormdataBodyWithResponse,
 	)
@@ -611,7 +611,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("GetCustomersCustomerCashBalanceWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerCashBalanceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerCashBalanceFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerCashBalanceWithFormdataBodyWithResponse,
 	)
@@ -621,7 +621,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("GetCustomersCustomerDiscountWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerDiscountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerDiscountFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerDiscountWithFormdataBodyWithResponse,
 	)
@@ -632,7 +632,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("paymentMethod", mcp.Required(), mcp.Description("paymentMethod")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerPaymentMethodsPaymentMethodFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerPaymentMethodsPaymentMethodFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBodyWithResponse,
 	)
@@ -647,7 +647,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerPaymentMethodsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerPaymentMethodsFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerPaymentMethodsWithFormdataBodyWithResponse,
 	)
@@ -658,7 +658,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerSourcesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerSourcesIdFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerSourcesIdWithFormdataBodyWithResponse,
 	)
@@ -672,7 +672,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("object", mcp.Description("Object")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerSourcesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerSourcesFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerSourcesWithFormdataBodyWithResponse,
 	)
@@ -683,7 +683,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse,
 	)
@@ -694,7 +694,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse,
 	)
@@ -707,7 +707,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerSubscriptionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerSubscriptionsFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerSubscriptionsWithFormdataBodyWithResponse,
 	)
@@ -718,7 +718,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerTaxIdsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerTaxIdsIdFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse,
 	)
@@ -731,7 +731,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerTaxIdsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerTaxIdsFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerTaxIdsWithFormdataBodyWithResponse,
 	)
@@ -741,7 +741,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("GetCustomersCustomerWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersCustomerFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersCustomerFormdataRequestBody)")),
 		),
 		h.handleGetCustomersCustomerWithFormdataBodyWithResponse,
 	)
@@ -753,7 +753,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("page", mcp.Description("Page")),
 			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersSearchFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersSearchFormdataRequestBody)")),
 		),
 		h.handleGetCustomersSearchWithFormdataBodyWithResponse,
 	)
@@ -767,7 +767,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("test_clock", mcp.Description("TestClock")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCustomersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCustomersFormdataRequestBody)")),
 		),
 		h.handleGetCustomersWithFormdataBodyWithResponse,
 	)
@@ -777,7 +777,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("PostCustomersCustomerBalanceTransactionsTransactionWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("transaction", mcp.Required(), mcp.Description("transaction")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerBalanceTransactionsTransactionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerBalanceTransactionsTransactionFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse,
 	)
@@ -786,7 +786,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-balance-transactions-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerBalanceTransactionsWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerBalanceTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerBalanceTransactionsFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse,
 	)
@@ -796,7 +796,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("PostCustomersCustomerBankAccountsIdVerifyWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerBankAccountsIdVerifyFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerBankAccountsIdVerifyFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerBankAccountsIdVerifyWithFormdataBodyWithResponse,
 	)
@@ -806,7 +806,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("PostCustomersCustomerBankAccountsIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerBankAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerBankAccountsIdFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse,
 	)
@@ -815,7 +815,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-bank-accounts-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerBankAccountsWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerBankAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerBankAccountsFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerBankAccountsWithFormdataBodyWithResponse,
 	)
@@ -825,7 +825,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("PostCustomersCustomerCardsIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerCardsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerCardsIdFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerCardsIdWithFormdataBodyWithResponse,
 	)
@@ -834,7 +834,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-cards-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerCardsWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerCardsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerCardsFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerCardsWithFormdataBodyWithResponse,
 	)
@@ -843,7 +843,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-cash-balance-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerCashBalanceWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerCashBalanceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerCashBalanceFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerCashBalanceWithFormdataBodyWithResponse,
 	)
@@ -852,7 +852,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-funding-instructions-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerFundingInstructionsWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerFundingInstructionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerFundingInstructionsFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerFundingInstructionsWithFormdataBodyWithResponse,
 	)
@@ -862,7 +862,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("PostCustomersCustomerSourcesIdVerifyWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerSourcesIdVerifyFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerSourcesIdVerifyFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerSourcesIdVerifyWithFormdataBodyWithResponse,
 	)
@@ -872,7 +872,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("PostCustomersCustomerSourcesIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerSourcesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerSourcesIdFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerSourcesIdWithFormdataBodyWithResponse,
 	)
@@ -881,7 +881,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-sources-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerSourcesWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerSourcesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerSourcesFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerSourcesWithFormdataBodyWithResponse,
 	)
@@ -891,7 +891,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 			mcp.WithDescription("PostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse,
 	)
@@ -900,7 +900,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-subscriptions-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerSubscriptionsWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerSubscriptionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerSubscriptionsFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerSubscriptionsWithFormdataBodyWithResponse,
 	)
@@ -909,7 +909,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-tax-ids-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerTaxIdsWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerTaxIdsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerTaxIdsFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerTaxIdsWithFormdataBodyWithResponse,
 	)
@@ -918,7 +918,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 		mcp.NewTool("post-customers-customer-with-formdata-body",
 			mcp.WithDescription("PostCustomersCustomerWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersCustomerFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersCustomerFormdataRequestBody)")),
 		),
 		h.handlePostCustomersCustomerWithFormdataBodyWithResponse,
 	)
@@ -926,7 +926,7 @@ func (h *Handler) RegisterCustomers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-customers-with-formdata-body",
 			mcp.WithDescription("PostCustomersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomersFormdataRequestBody)")),
 		),
 		h.handlePostCustomersWithFormdataBodyWithResponse,
 	)
@@ -940,7 +940,7 @@ func (h *Handler) RegisterEphemeralKeys(s *server.MCPServer) {
 		mcp.NewTool("delete-ephemeral-keys-key-with-formdata-body",
 			mcp.WithDescription("DeleteEphemeralKeysKeyWithFormdataBody"),
 			mcp.WithString("key", mcp.Required(), mcp.Description("key")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteEphemeralKeysKeyFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteEphemeralKeysKeyFormdataRequestBody)")),
 		),
 		h.handleDeleteEphemeralKeysKeyWithFormdataBodyWithResponse,
 	)
@@ -948,7 +948,7 @@ func (h *Handler) RegisterEphemeralKeys(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-ephemeral-keys-with-formdata-body",
 			mcp.WithDescription("PostEphemeralKeysWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostEphemeralKeysFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostEphemeralKeysFormdataRequestBody)")),
 		),
 		h.handlePostEphemeralKeysWithFormdataBodyWithResponse,
 	)
@@ -962,7 +962,7 @@ func (h *Handler) RegisterInvoiceitems(s *server.MCPServer) {
 		mcp.NewTool("delete-invoiceitems-invoiceitem-with-formdata-body",
 			mcp.WithDescription("DeleteInvoiceitemsInvoiceitemWithFormdataBody"),
 			mcp.WithString("invoiceitem", mcp.Required(), mcp.Description("invoiceitem")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteInvoiceitemsInvoiceitemFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteInvoiceitemsInvoiceitemFormdataRequestBody)")),
 		),
 		h.handleDeleteInvoiceitemsInvoiceitemWithFormdataBodyWithResponse,
 	)
@@ -972,7 +972,7 @@ func (h *Handler) RegisterInvoiceitems(s *server.MCPServer) {
 			mcp.WithDescription("GetInvoiceitemsInvoiceitemWithFormdataBody"),
 			mcp.WithString("invoiceitem", mcp.Required(), mcp.Description("invoiceitem")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoiceitemsInvoiceitemFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoiceitemsInvoiceitemFormdataRequestBody)")),
 		),
 		h.handleGetInvoiceitemsInvoiceitemWithFormdataBodyWithResponse,
 	)
@@ -988,7 +988,7 @@ func (h *Handler) RegisterInvoiceitems(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithBoolean("pending", mcp.Description("Pending")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoiceitemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoiceitemsFormdataRequestBody)")),
 		),
 		h.handleGetInvoiceitemsWithFormdataBodyWithResponse,
 	)
@@ -997,7 +997,7 @@ func (h *Handler) RegisterInvoiceitems(s *server.MCPServer) {
 		mcp.NewTool("post-invoiceitems-invoiceitem-with-formdata-body",
 			mcp.WithDescription("PostInvoiceitemsInvoiceitemWithFormdataBody"),
 			mcp.WithString("invoiceitem", mcp.Required(), mcp.Description("invoiceitem")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoiceitemsInvoiceitemFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoiceitemsInvoiceitemFormdataRequestBody)")),
 		),
 		h.handlePostInvoiceitemsInvoiceitemWithFormdataBodyWithResponse,
 	)
@@ -1005,7 +1005,7 @@ func (h *Handler) RegisterInvoiceitems(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-invoiceitems-with-formdata-body",
 			mcp.WithDescription("PostInvoiceitemsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoiceitemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoiceitemsFormdataRequestBody)")),
 		),
 		h.handlePostInvoiceitemsWithFormdataBodyWithResponse,
 	)
@@ -1019,7 +1019,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("delete-invoices-invoice-with-formdata-body",
 			mcp.WithDescription("DeleteInvoicesInvoiceWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteInvoicesInvoiceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteInvoicesInvoiceFormdataRequestBody)")),
 		),
 		h.handleDeleteInvoicesInvoiceWithFormdataBodyWithResponse,
 	)
@@ -1032,7 +1032,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoicesInvoiceLinesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoicesInvoiceLinesFormdataRequestBody)")),
 		),
 		h.handleGetInvoicesInvoiceLinesWithFormdataBodyWithResponse,
 	)
@@ -1042,7 +1042,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 			mcp.WithDescription("GetInvoicesInvoiceWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoicesInvoiceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoicesInvoiceFormdataRequestBody)")),
 		),
 		h.handleGetInvoicesInvoiceWithFormdataBodyWithResponse,
 	)
@@ -1054,7 +1054,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("page", mcp.Description("Page")),
 			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoicesSearchFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoicesSearchFormdataRequestBody)")),
 		),
 		h.handleGetInvoicesSearchWithFormdataBodyWithResponse,
 	)
@@ -1071,7 +1071,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithString("subscription", mcp.Description("Subscription")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoicesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoicesFormdataRequestBody)")),
 		),
 		h.handleGetInvoicesWithFormdataBodyWithResponse,
 	)
@@ -1079,7 +1079,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-invoices-create-preview-with-formdata-body",
 			mcp.WithDescription("PostInvoicesCreatePreviewWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesCreatePreviewFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesCreatePreviewFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesCreatePreviewWithFormdataBodyWithResponse,
 	)
@@ -1088,7 +1088,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-add-lines-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceAddLinesWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceAddLinesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceAddLinesFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceAddLinesWithFormdataBodyWithResponse,
 	)
@@ -1097,7 +1097,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-attach-payment-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceAttachPaymentWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceAttachPaymentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceAttachPaymentFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceAttachPaymentWithFormdataBodyWithResponse,
 	)
@@ -1106,7 +1106,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-finalize-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceFinalizeWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceFinalizeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceFinalizeFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceFinalizeWithFormdataBodyWithResponse,
 	)
@@ -1116,7 +1116,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 			mcp.WithDescription("PostInvoicesInvoiceLinesLineItemIdWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
 			mcp.WithString("lineItemId", mcp.Required(), mcp.Description("lineItemId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceLinesLineItemIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceLinesLineItemIdFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceLinesLineItemIdWithFormdataBodyWithResponse,
 	)
@@ -1125,7 +1125,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-mark-uncollectible-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceMarkUncollectibleWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceMarkUncollectibleFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceMarkUncollectibleFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceMarkUncollectibleWithFormdataBodyWithResponse,
 	)
@@ -1134,7 +1134,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-pay-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoicePayWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoicePayFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoicePayFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoicePayWithFormdataBodyWithResponse,
 	)
@@ -1143,7 +1143,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-remove-lines-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceRemoveLinesWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceRemoveLinesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceRemoveLinesFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceRemoveLinesWithFormdataBodyWithResponse,
 	)
@@ -1152,7 +1152,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-send-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceSendWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceSendFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceSendFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceSendWithFormdataBodyWithResponse,
 	)
@@ -1161,7 +1161,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-update-lines-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceUpdateLinesWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceUpdateLinesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceUpdateLinesFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceUpdateLinesWithFormdataBodyWithResponse,
 	)
@@ -1170,7 +1170,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-void-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceVoidWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceVoidFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceVoidFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceVoidWithFormdataBodyWithResponse,
 	)
@@ -1179,7 +1179,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 		mcp.NewTool("post-invoices-invoice-with-formdata-body",
 			mcp.WithDescription("PostInvoicesInvoiceWithFormdataBody"),
 			mcp.WithString("invoice", mcp.Required(), mcp.Description("invoice")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesInvoiceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesInvoiceFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesInvoiceWithFormdataBodyWithResponse,
 	)
@@ -1187,7 +1187,7 @@ func (h *Handler) RegisterInvoices(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-invoices-with-formdata-body",
 			mcp.WithDescription("PostInvoicesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoicesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoicesFormdataRequestBody)")),
 		),
 		h.handlePostInvoicesWithFormdataBodyWithResponse,
 	)
@@ -1201,7 +1201,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 		mcp.NewTool("delete-plans-plan-with-formdata-body",
 			mcp.WithDescription("DeletePlansPlanWithFormdataBody"),
 			mcp.WithString("plan", mcp.Required(), mcp.Description("plan")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeletePlansPlanFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeletePlansPlanFormdataRequestBody)")),
 		),
 		h.handleDeletePlansPlanWithFormdataBodyWithResponse,
 	)
@@ -1211,7 +1211,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 			mcp.WithDescription("GetPlansPlanWithFormdataBody"),
 			mcp.WithString("plan", mcp.Required(), mcp.Description("plan")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPlansPlanFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPlansPlanFormdataRequestBody)")),
 		),
 		h.handleGetPlansPlanWithFormdataBodyWithResponse,
 	)
@@ -1225,7 +1225,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("product", mcp.Description("Product")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPlansFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPlansFormdataRequestBody)")),
 		),
 		h.handleGetPlansWithFormdataBodyWithResponse,
 	)
@@ -1234,7 +1234,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 		mcp.NewTool("post-plans-plan-with-formdata-body",
 			mcp.WithDescription("PostPlansPlanWithFormdataBody"),
 			mcp.WithString("plan", mcp.Required(), mcp.Description("plan")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPlansPlanFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPlansPlanFormdataRequestBody)")),
 		),
 		h.handlePostPlansPlanWithFormdataBodyWithResponse,
 	)
@@ -1242,7 +1242,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-plans-with-formdata-body",
 			mcp.WithDescription("PostPlansWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPlansFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPlansFormdataRequestBody)")),
 		),
 		h.handlePostPlansWithFormdataBodyWithResponse,
 	)
@@ -1256,7 +1256,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 		mcp.NewTool("delete-products-id-with-formdata-body",
 			mcp.WithDescription("DeleteProductsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteProductsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteProductsIdFormdataRequestBody)")),
 		),
 		h.handleDeleteProductsIdWithFormdataBodyWithResponse,
 	)
@@ -1266,7 +1266,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 			mcp.WithDescription("DeleteProductsProductFeaturesIdWithFormdataBody"),
 			mcp.WithString("product", mcp.Required(), mcp.Description("product")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteProductsProductFeaturesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteProductsProductFeaturesIdFormdataRequestBody)")),
 		),
 		h.handleDeleteProductsProductFeaturesIdWithFormdataBodyWithResponse,
 	)
@@ -1276,7 +1276,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 			mcp.WithDescription("GetProductsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetProductsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetProductsIdFormdataRequestBody)")),
 		),
 		h.handleGetProductsIdWithFormdataBodyWithResponse,
 	)
@@ -1287,7 +1287,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 			mcp.WithString("product", mcp.Required(), mcp.Description("product")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetProductsProductFeaturesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetProductsProductFeaturesIdFormdataRequestBody)")),
 		),
 		h.handleGetProductsProductFeaturesIdWithFormdataBodyWithResponse,
 	)
@@ -1300,7 +1300,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetProductsProductFeaturesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetProductsProductFeaturesFormdataRequestBody)")),
 		),
 		h.handleGetProductsProductFeaturesWithFormdataBodyWithResponse,
 	)
@@ -1312,7 +1312,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("page", mcp.Description("Page")),
 			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetProductsSearchFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetProductsSearchFormdataRequestBody)")),
 		),
 		h.handleGetProductsSearchWithFormdataBodyWithResponse,
 	)
@@ -1328,7 +1328,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 			mcp.WithBoolean("shippable", mcp.Description("Shippable")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("url", mcp.Description("Url")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetProductsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetProductsFormdataRequestBody)")),
 		),
 		h.handleGetProductsWithFormdataBodyWithResponse,
 	)
@@ -1337,7 +1337,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 		mcp.NewTool("post-products-id-with-formdata-body",
 			mcp.WithDescription("PostProductsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostProductsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostProductsIdFormdataRequestBody)")),
 		),
 		h.handlePostProductsIdWithFormdataBodyWithResponse,
 	)
@@ -1346,7 +1346,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 		mcp.NewTool("post-products-product-features-with-formdata-body",
 			mcp.WithDescription("PostProductsProductFeaturesWithFormdataBody"),
 			mcp.WithString("product", mcp.Required(), mcp.Description("product")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostProductsProductFeaturesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostProductsProductFeaturesFormdataRequestBody)")),
 		),
 		h.handlePostProductsProductFeaturesWithFormdataBodyWithResponse,
 	)
@@ -1354,7 +1354,7 @@ func (h *Handler) RegisterProducts(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-products-with-formdata-body",
 			mcp.WithDescription("PostProductsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostProductsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostProductsFormdataRequestBody)")),
 		),
 		h.handlePostProductsWithFormdataBodyWithResponse,
 	)
@@ -1368,7 +1368,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 		mcp.NewTool("delete-radar-value-list-items-item-with-formdata-body",
 			mcp.WithDescription("DeleteRadarValueListItemsItemWithFormdataBody"),
 			mcp.WithString("item", mcp.Required(), mcp.Description("item")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteRadarValueListItemsItemFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteRadarValueListItemsItemFormdataRequestBody)")),
 		),
 		h.handleDeleteRadarValueListItemsItemWithFormdataBodyWithResponse,
 	)
@@ -1377,7 +1377,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 		mcp.NewTool("delete-radar-value-lists-value-list-with-formdata-body",
 			mcp.WithDescription("DeleteRadarValueListsValueListWithFormdataBody"),
 			mcp.WithString("valueList", mcp.Required(), mcp.Description("valueList")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteRadarValueListsValueListFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteRadarValueListsValueListFormdataRequestBody)")),
 		),
 		h.handleDeleteRadarValueListsValueListWithFormdataBodyWithResponse,
 	)
@@ -1387,7 +1387,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 			mcp.WithDescription("GetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBody"),
 			mcp.WithString("earlyFraudWarning", mcp.Required(), mcp.Description("earlyFraudWarning")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetRadarEarlyFraudWarningsEarlyFraudWarningFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetRadarEarlyFraudWarningsEarlyFraudWarningFormdataRequestBody)")),
 		),
 		h.handleGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBodyWithResponse,
 	)
@@ -1401,7 +1401,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("payment_intent", mcp.Description("PaymentIntent")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetRadarEarlyFraudWarningsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetRadarEarlyFraudWarningsFormdataRequestBody)")),
 		),
 		h.handleGetRadarEarlyFraudWarningsWithFormdataBodyWithResponse,
 	)
@@ -1411,7 +1411,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 			mcp.WithDescription("GetRadarValueListItemsItemWithFormdataBody"),
 			mcp.WithString("item", mcp.Required(), mcp.Description("item")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetRadarValueListItemsItemFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetRadarValueListItemsItemFormdataRequestBody)")),
 		),
 		h.handleGetRadarValueListItemsItemWithFormdataBodyWithResponse,
 	)
@@ -1425,7 +1425,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("value", mcp.Description("Value")),
 			mcp.WithString("value_list", mcp.Description("ValueList")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetRadarValueListItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetRadarValueListItemsFormdataRequestBody)")),
 		),
 		h.handleGetRadarValueListItemsWithFormdataBodyWithResponse,
 	)
@@ -1435,7 +1435,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 			mcp.WithDescription("GetRadarValueListsValueListWithFormdataBody"),
 			mcp.WithString("valueList", mcp.Required(), mcp.Description("valueList")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetRadarValueListsValueListFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetRadarValueListsValueListFormdataRequestBody)")),
 		),
 		h.handleGetRadarValueListsValueListWithFormdataBodyWithResponse,
 	)
@@ -1449,7 +1449,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetRadarValueListsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetRadarValueListsFormdataRequestBody)")),
 		),
 		h.handleGetRadarValueListsWithFormdataBodyWithResponse,
 	)
@@ -1457,7 +1457,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-radar-payment-evaluations-with-formdata-body",
 			mcp.WithDescription("PostRadarPaymentEvaluationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostRadarPaymentEvaluationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostRadarPaymentEvaluationsFormdataRequestBody)")),
 		),
 		h.handlePostRadarPaymentEvaluationsWithFormdataBodyWithResponse,
 	)
@@ -1465,7 +1465,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-radar-value-list-items-with-formdata-body",
 			mcp.WithDescription("PostRadarValueListItemsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostRadarValueListItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostRadarValueListItemsFormdataRequestBody)")),
 		),
 		h.handlePostRadarValueListItemsWithFormdataBodyWithResponse,
 	)
@@ -1474,7 +1474,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 		mcp.NewTool("post-radar-value-lists-value-list-with-formdata-body",
 			mcp.WithDescription("PostRadarValueListsValueListWithFormdataBody"),
 			mcp.WithString("valueList", mcp.Required(), mcp.Description("valueList")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostRadarValueListsValueListFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostRadarValueListsValueListFormdataRequestBody)")),
 		),
 		h.handlePostRadarValueListsValueListWithFormdataBodyWithResponse,
 	)
@@ -1482,7 +1482,7 @@ func (h *Handler) RegisterRadar(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-radar-value-lists-with-formdata-body",
 			mcp.WithDescription("PostRadarValueListsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostRadarValueListsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostRadarValueListsFormdataRequestBody)")),
 		),
 		h.handlePostRadarValueListsWithFormdataBodyWithResponse,
 	)
@@ -1496,7 +1496,7 @@ func (h *Handler) RegisterSubscriptionItems(s *server.MCPServer) {
 		mcp.NewTool("delete-subscription-items-item-with-formdata-body",
 			mcp.WithDescription("DeleteSubscriptionItemsItemWithFormdataBody"),
 			mcp.WithString("item", mcp.Required(), mcp.Description("item")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteSubscriptionItemsItemFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteSubscriptionItemsItemFormdataRequestBody)")),
 		),
 		h.handleDeleteSubscriptionItemsItemWithFormdataBodyWithResponse,
 	)
@@ -1506,7 +1506,7 @@ func (h *Handler) RegisterSubscriptionItems(s *server.MCPServer) {
 			mcp.WithDescription("GetSubscriptionItemsItemWithFormdataBody"),
 			mcp.WithString("item", mcp.Required(), mcp.Description("item")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSubscriptionItemsItemFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSubscriptionItemsItemFormdataRequestBody)")),
 		),
 		h.handleGetSubscriptionItemsItemWithFormdataBodyWithResponse,
 	)
@@ -1519,7 +1519,7 @@ func (h *Handler) RegisterSubscriptionItems(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("subscription", mcp.Description("Subscription")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSubscriptionItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSubscriptionItemsFormdataRequestBody)")),
 		),
 		h.handleGetSubscriptionItemsWithFormdataBodyWithResponse,
 	)
@@ -1528,7 +1528,7 @@ func (h *Handler) RegisterSubscriptionItems(s *server.MCPServer) {
 		mcp.NewTool("post-subscription-items-item-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionItemsItemWithFormdataBody"),
 			mcp.WithString("item", mcp.Required(), mcp.Description("item")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionItemsItemFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionItemsItemFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionItemsItemWithFormdataBodyWithResponse,
 	)
@@ -1536,7 +1536,7 @@ func (h *Handler) RegisterSubscriptionItems(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-subscription-items-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionItemsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionItemsFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionItemsWithFormdataBodyWithResponse,
 	)
@@ -1550,7 +1550,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 		mcp.NewTool("delete-subscriptions-subscription-exposed-id-discount-with-formdata-body",
 			mcp.WithDescription("DeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody"),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody)")),
 		),
 		h.handleDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse,
 	)
@@ -1559,7 +1559,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 		mcp.NewTool("delete-subscriptions-subscription-exposed-id-with-formdata-body",
 			mcp.WithDescription("DeleteSubscriptionsSubscriptionExposedIdWithFormdataBody"),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
 		),
 		h.handleDeleteSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse,
 	)
@@ -1571,7 +1571,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("page", mcp.Description("Page")),
 			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSubscriptionsSearchFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSubscriptionsSearchFormdataRequestBody)")),
 		),
 		h.handleGetSubscriptionsSearchWithFormdataBodyWithResponse,
 	)
@@ -1581,7 +1581,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 			mcp.WithDescription("GetSubscriptionsSubscriptionExposedIdWithFormdataBody"),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
 		),
 		h.handleGetSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse,
 	)
@@ -1599,7 +1599,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithString("test_clock", mcp.Description("TestClock")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSubscriptionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSubscriptionsFormdataRequestBody)")),
 		),
 		h.handleGetSubscriptionsWithFormdataBodyWithResponse,
 	)
@@ -1608,7 +1608,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 		mcp.NewTool("post-subscriptions-subscription-exposed-id-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionsSubscriptionExposedIdWithFormdataBody"),
 			mcp.WithString("subscriptionExposedId", mcp.Required(), mcp.Description("subscriptionExposedId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionsSubscriptionExposedIdFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse,
 	)
@@ -1617,7 +1617,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 		mcp.NewTool("post-subscriptions-subscription-migrate-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionsSubscriptionMigrateWithFormdataBody"),
 			mcp.WithString("subscription", mcp.Required(), mcp.Description("subscription")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionsSubscriptionMigrateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionsSubscriptionMigrateFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionsSubscriptionMigrateWithFormdataBodyWithResponse,
 	)
@@ -1626,7 +1626,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 		mcp.NewTool("post-subscriptions-subscription-pause-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionsSubscriptionPauseWithFormdataBody"),
 			mcp.WithString("subscription", mcp.Required(), mcp.Description("subscription")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionsSubscriptionPauseFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionsSubscriptionPauseFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionsSubscriptionPauseWithFormdataBodyWithResponse,
 	)
@@ -1635,7 +1635,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 		mcp.NewTool("post-subscriptions-subscription-resume-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionsSubscriptionResumeWithFormdataBody"),
 			mcp.WithString("subscription", mcp.Required(), mcp.Description("subscription")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionsSubscriptionResumeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionsSubscriptionResumeFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionsSubscriptionResumeWithFormdataBodyWithResponse,
 	)
@@ -1643,7 +1643,7 @@ func (h *Handler) RegisterSubscriptions(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-subscriptions-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionsFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionsWithFormdataBodyWithResponse,
 	)
@@ -1657,7 +1657,7 @@ func (h *Handler) RegisterTaxIds(s *server.MCPServer) {
 		mcp.NewTool("delete-tax-ids-id-with-formdata-body",
 			mcp.WithDescription("DeleteTaxIdsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteTaxIdsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteTaxIdsIdFormdataRequestBody)")),
 		),
 		h.handleDeleteTaxIdsIdWithFormdataBodyWithResponse,
 	)
@@ -1667,7 +1667,7 @@ func (h *Handler) RegisterTaxIds(s *server.MCPServer) {
 			mcp.WithDescription("GetTaxIdsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxIdsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxIdsIdFormdataRequestBody)")),
 		),
 		h.handleGetTaxIdsIdWithFormdataBodyWithResponse,
 	)
@@ -1679,7 +1679,7 @@ func (h *Handler) RegisterTaxIds(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxIdsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxIdsFormdataRequestBody)")),
 		),
 		h.handleGetTaxIdsWithFormdataBodyWithResponse,
 	)
@@ -1687,7 +1687,7 @@ func (h *Handler) RegisterTaxIds(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tax-ids-with-formdata-body",
 			mcp.WithDescription("PostTaxIdsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxIdsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxIdsFormdataRequestBody)")),
 		),
 		h.handlePostTaxIdsWithFormdataBodyWithResponse,
 	)
@@ -1701,7 +1701,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("delete-terminal-configurations-configuration-with-formdata-body",
 			mcp.WithDescription("DeleteTerminalConfigurationsConfigurationWithFormdataBody"),
 			mcp.WithString("configuration", mcp.Required(), mcp.Description("configuration")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteTerminalConfigurationsConfigurationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteTerminalConfigurationsConfigurationFormdataRequestBody)")),
 		),
 		h.handleDeleteTerminalConfigurationsConfigurationWithFormdataBodyWithResponse,
 	)
@@ -1710,7 +1710,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("delete-terminal-locations-location-with-formdata-body",
 			mcp.WithDescription("DeleteTerminalLocationsLocationWithFormdataBody"),
 			mcp.WithString("location", mcp.Required(), mcp.Description("location")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteTerminalLocationsLocationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteTerminalLocationsLocationFormdataRequestBody)")),
 		),
 		h.handleDeleteTerminalLocationsLocationWithFormdataBodyWithResponse,
 	)
@@ -1719,7 +1719,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("delete-terminal-readers-reader-with-formdata-body",
 			mcp.WithDescription("DeleteTerminalReadersReaderWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteTerminalReadersReaderFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteTerminalReadersReaderFormdataRequestBody)")),
 		),
 		h.handleDeleteTerminalReadersReaderWithFormdataBodyWithResponse,
 	)
@@ -1729,7 +1729,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 			mcp.WithDescription("GetTerminalConfigurationsConfigurationWithFormdataBody"),
 			mcp.WithString("configuration", mcp.Required(), mcp.Description("configuration")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTerminalConfigurationsConfigurationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTerminalConfigurationsConfigurationFormdataRequestBody)")),
 		),
 		h.handleGetTerminalConfigurationsConfigurationWithFormdataBodyWithResponse,
 	)
@@ -1742,7 +1742,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 			mcp.WithBoolean("is_account_default", mcp.Description("IsAccountDefault")),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTerminalConfigurationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTerminalConfigurationsFormdataRequestBody)")),
 		),
 		h.handleGetTerminalConfigurationsWithFormdataBodyWithResponse,
 	)
@@ -1752,7 +1752,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 			mcp.WithDescription("GetTerminalLocationsLocationWithFormdataBody"),
 			mcp.WithString("location", mcp.Required(), mcp.Description("location")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTerminalLocationsLocationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTerminalLocationsLocationFormdataRequestBody)")),
 		),
 		h.handleGetTerminalLocationsLocationWithFormdataBodyWithResponse,
 	)
@@ -1764,7 +1764,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTerminalLocationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTerminalLocationsFormdataRequestBody)")),
 		),
 		h.handleGetTerminalLocationsWithFormdataBodyWithResponse,
 	)
@@ -1774,7 +1774,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 			mcp.WithDescription("GetTerminalReadersReaderWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTerminalReadersReaderFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTerminalReadersReaderFormdataRequestBody)")),
 		),
 		h.handleGetTerminalReadersReaderWithFormdataBodyWithResponse,
 	)
@@ -1790,7 +1790,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 			mcp.WithString("serial_number", mcp.Description("SerialNumber")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTerminalReadersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTerminalReadersFormdataRequestBody)")),
 		),
 		h.handleGetTerminalReadersWithFormdataBodyWithResponse,
 	)
@@ -1799,7 +1799,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-configurations-configuration-with-formdata-body",
 			mcp.WithDescription("PostTerminalConfigurationsConfigurationWithFormdataBody"),
 			mcp.WithString("configuration", mcp.Required(), mcp.Description("configuration")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalConfigurationsConfigurationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalConfigurationsConfigurationFormdataRequestBody)")),
 		),
 		h.handlePostTerminalConfigurationsConfigurationWithFormdataBodyWithResponse,
 	)
@@ -1807,7 +1807,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-terminal-configurations-with-formdata-body",
 			mcp.WithDescription("PostTerminalConfigurationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalConfigurationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalConfigurationsFormdataRequestBody)")),
 		),
 		h.handlePostTerminalConfigurationsWithFormdataBodyWithResponse,
 	)
@@ -1815,7 +1815,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-terminal-connection-tokens-with-formdata-body",
 			mcp.WithDescription("PostTerminalConnectionTokensWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalConnectionTokensFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalConnectionTokensFormdataRequestBody)")),
 		),
 		h.handlePostTerminalConnectionTokensWithFormdataBodyWithResponse,
 	)
@@ -1824,7 +1824,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-locations-location-with-formdata-body",
 			mcp.WithDescription("PostTerminalLocationsLocationWithFormdataBody"),
 			mcp.WithString("location", mcp.Required(), mcp.Description("location")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalLocationsLocationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalLocationsLocationFormdataRequestBody)")),
 		),
 		h.handlePostTerminalLocationsLocationWithFormdataBodyWithResponse,
 	)
@@ -1832,7 +1832,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-terminal-locations-with-formdata-body",
 			mcp.WithDescription("PostTerminalLocationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalLocationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalLocationsFormdataRequestBody)")),
 		),
 		h.handlePostTerminalLocationsWithFormdataBodyWithResponse,
 	)
@@ -1840,7 +1840,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-terminal-onboarding-links-with-formdata-body",
 			mcp.WithDescription("PostTerminalOnboardingLinksWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalOnboardingLinksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalOnboardingLinksFormdataRequestBody)")),
 		),
 		h.handlePostTerminalOnboardingLinksWithFormdataBodyWithResponse,
 	)
@@ -1849,7 +1849,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-cancel-action-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderCancelActionWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderCancelActionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderCancelActionFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderCancelActionWithFormdataBodyWithResponse,
 	)
@@ -1858,7 +1858,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-collect-inputs-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderCollectInputsWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderCollectInputsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderCollectInputsFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderCollectInputsWithFormdataBodyWithResponse,
 	)
@@ -1867,7 +1867,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-collect-payment-method-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderCollectPaymentMethodWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderCollectPaymentMethodFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderCollectPaymentMethodFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderCollectPaymentMethodWithFormdataBodyWithResponse,
 	)
@@ -1876,7 +1876,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-confirm-payment-intent-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderConfirmPaymentIntentWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderConfirmPaymentIntentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderConfirmPaymentIntentFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderConfirmPaymentIntentWithFormdataBodyWithResponse,
 	)
@@ -1885,7 +1885,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-process-payment-intent-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderProcessPaymentIntentWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderProcessPaymentIntentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderProcessPaymentIntentFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderProcessPaymentIntentWithFormdataBodyWithResponse,
 	)
@@ -1894,7 +1894,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-process-setup-intent-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderProcessSetupIntentWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderProcessSetupIntentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderProcessSetupIntentFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderProcessSetupIntentWithFormdataBodyWithResponse,
 	)
@@ -1903,7 +1903,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-refund-payment-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderRefundPaymentWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderRefundPaymentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderRefundPaymentFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderRefundPaymentWithFormdataBodyWithResponse,
 	)
@@ -1912,7 +1912,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-set-reader-display-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderSetReaderDisplayWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderSetReaderDisplayFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderSetReaderDisplayFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderSetReaderDisplayWithFormdataBodyWithResponse,
 	)
@@ -1921,7 +1921,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 		mcp.NewTool("post-terminal-readers-reader-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersReaderWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersReaderFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersReaderFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersReaderWithFormdataBodyWithResponse,
 	)
@@ -1929,7 +1929,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-terminal-readers-with-formdata-body",
 			mcp.WithDescription("PostTerminalReadersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalReadersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalReadersFormdataRequestBody)")),
 		),
 		h.handlePostTerminalReadersWithFormdataBodyWithResponse,
 	)
@@ -1937,7 +1937,7 @@ func (h *Handler) RegisterTerminal(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-terminal-refunds-with-formdata-body",
 			mcp.WithDescription("PostTerminalRefundsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTerminalRefundsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTerminalRefundsFormdataRequestBody)")),
 		),
 		h.handlePostTerminalRefundsWithFormdataBodyWithResponse,
 	)
@@ -1951,7 +1951,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("delete-test-helpers-test-clocks-test-clock-with-formdata-body",
 			mcp.WithDescription("DeleteTestHelpersTestClocksTestClockWithFormdataBody"),
 			mcp.WithString("testClock", mcp.Required(), mcp.Description("testClock")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteTestHelpersTestClocksTestClockFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteTestHelpersTestClocksTestClockFormdataRequestBody)")),
 		),
 		h.handleDeleteTestHelpersTestClocksTestClockWithFormdataBodyWithResponse,
 	)
@@ -1961,7 +1961,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 			mcp.WithDescription("GetTestHelpersTestClocksTestClockWithFormdataBody"),
 			mcp.WithString("testClock", mcp.Required(), mcp.Description("testClock")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTestHelpersTestClocksTestClockFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTestHelpersTestClocksTestClockFormdataRequestBody)")),
 		),
 		h.handleGetTestHelpersTestClocksTestClockWithFormdataBodyWithResponse,
 	)
@@ -1973,7 +1973,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTestHelpersTestClocksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTestHelpersTestClocksFormdataRequestBody)")),
 		),
 		h.handleGetTestHelpersTestClocksWithFormdataBodyWithResponse,
 	)
@@ -1981,7 +1981,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-test-helpers-confirmation-tokens-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersConfirmationTokensWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersConfirmationTokensFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersConfirmationTokensFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersConfirmationTokensWithFormdataBodyWithResponse,
 	)
@@ -1990,7 +1990,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-customers-customer-fund-cash-balance-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBody"),
 			mcp.WithString("customer", mcp.Required(), mcp.Description("customer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersCustomersCustomerFundCashBalanceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersCustomersCustomerFundCashBalanceFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBodyWithResponse,
 	)
@@ -1999,7 +1999,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-authorizations-authorization-capture-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingAuthorizationsAuthorizationCaptureFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingAuthorizationsAuthorizationCaptureFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBodyWithResponse,
 	)
@@ -2008,7 +2008,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-authorizations-authorization-expire-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingAuthorizationsAuthorizationExpireFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingAuthorizationsAuthorizationExpireFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBodyWithResponse,
 	)
@@ -2017,7 +2017,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-authorizations-authorization-finalize-amount-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBodyWithResponse,
 	)
@@ -2026,7 +2026,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-authorizations-authorization-fraud-challenges-respond-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBodyWithResponse,
 	)
@@ -2035,7 +2035,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-authorizations-authorization-increment-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingAuthorizationsAuthorizationIncrementFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingAuthorizationsAuthorizationIncrementFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBodyWithResponse,
 	)
@@ -2044,7 +2044,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-authorizations-authorization-reverse-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingAuthorizationsAuthorizationReverseFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingAuthorizationsAuthorizationReverseFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBodyWithResponse,
 	)
@@ -2052,7 +2052,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-test-helpers-issuing-authorizations-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingAuthorizationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingAuthorizationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingAuthorizationsFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingAuthorizationsWithFormdataBodyWithResponse,
 	)
@@ -2061,7 +2061,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-cards-card-shipping-deliver-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBody"),
 			mcp.WithString("card", mcp.Required(), mcp.Description("card")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingCardsCardShippingDeliverFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingCardsCardShippingDeliverFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBodyWithResponse,
 	)
@@ -2070,7 +2070,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-cards-card-shipping-fail-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingCardsCardShippingFailWithFormdataBody"),
 			mcp.WithString("card", mcp.Required(), mcp.Description("card")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingCardsCardShippingFailFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingCardsCardShippingFailFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingCardsCardShippingFailWithFormdataBodyWithResponse,
 	)
@@ -2079,7 +2079,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-cards-card-shipping-return-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingCardsCardShippingReturnWithFormdataBody"),
 			mcp.WithString("card", mcp.Required(), mcp.Description("card")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingCardsCardShippingReturnFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingCardsCardShippingReturnFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingCardsCardShippingReturnWithFormdataBodyWithResponse,
 	)
@@ -2088,7 +2088,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-cards-card-shipping-ship-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingCardsCardShippingShipWithFormdataBody"),
 			mcp.WithString("card", mcp.Required(), mcp.Description("card")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingCardsCardShippingShipFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingCardsCardShippingShipFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingCardsCardShippingShipWithFormdataBodyWithResponse,
 	)
@@ -2097,7 +2097,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-cards-card-shipping-submit-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBody"),
 			mcp.WithString("card", mcp.Required(), mcp.Description("card")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingCardsCardShippingSubmitFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingCardsCardShippingSubmitFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBodyWithResponse,
 	)
@@ -2106,7 +2106,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-personalization-designs-personalization-design-activate-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBody"),
 			mcp.WithString("personalizationDesign", mcp.Required(), mcp.Description("personalizationDesign")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBodyWithResponse,
 	)
@@ -2115,7 +2115,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-personalization-designs-personalization-design-deactivate-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBody"),
 			mcp.WithString("personalizationDesign", mcp.Required(), mcp.Description("personalizationDesign")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBodyWithResponse,
 	)
@@ -2124,7 +2124,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-personalization-designs-personalization-design-reject-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBody"),
 			mcp.WithString("personalizationDesign", mcp.Required(), mcp.Description("personalizationDesign")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBodyWithResponse,
 	)
@@ -2133,7 +2133,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-settlements-settlement-complete-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBody"),
 			mcp.WithString("settlement", mcp.Required(), mcp.Description("settlement")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingSettlementsSettlementCompleteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingSettlementsSettlementCompleteFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBodyWithResponse,
 	)
@@ -2141,7 +2141,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-test-helpers-issuing-settlements-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingSettlementsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingSettlementsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingSettlementsFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingSettlementsWithFormdataBodyWithResponse,
 	)
@@ -2149,7 +2149,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-test-helpers-issuing-transactions-create-force-capture-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingTransactionsCreateForceCaptureFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingTransactionsCreateForceCaptureFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBodyWithResponse,
 	)
@@ -2157,7 +2157,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-test-helpers-issuing-transactions-create-unlinked-refund-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingTransactionsCreateUnlinkedRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingTransactionsCreateUnlinkedRefundFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBodyWithResponse,
 	)
@@ -2166,7 +2166,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-issuing-transactions-transaction-refund-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBody"),
 			mcp.WithString("transaction", mcp.Required(), mcp.Description("transaction")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersIssuingTransactionsTransactionRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersIssuingTransactionsTransactionRefundFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBodyWithResponse,
 	)
@@ -2175,7 +2175,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-refunds-refund-expire-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersRefundsRefundExpireWithFormdataBody"),
 			mcp.WithString("refund", mcp.Required(), mcp.Description("refund")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersRefundsRefundExpireFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersRefundsRefundExpireFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersRefundsRefundExpireWithFormdataBodyWithResponse,
 	)
@@ -2184,7 +2184,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-terminal-readers-reader-present-payment-method-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTerminalReadersReaderPresentPaymentMethodFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTerminalReadersReaderPresentPaymentMethodFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBodyWithResponse,
 	)
@@ -2193,7 +2193,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-terminal-readers-reader-succeed-input-collection-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTerminalReadersReaderSucceedInputCollectionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTerminalReadersReaderSucceedInputCollectionFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBodyWithResponse,
 	)
@@ -2202,7 +2202,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-terminal-readers-reader-timeout-input-collection-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBody"),
 			mcp.WithString("reader", mcp.Required(), mcp.Description("reader")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTerminalReadersReaderTimeoutInputCollectionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTerminalReadersReaderTimeoutInputCollectionFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBodyWithResponse,
 	)
@@ -2211,7 +2211,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-test-clocks-test-clock-advance-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTestClocksTestClockAdvanceWithFormdataBody"),
 			mcp.WithString("testClock", mcp.Required(), mcp.Description("testClock")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTestClocksTestClockAdvanceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTestClocksTestClockAdvanceFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTestClocksTestClockAdvanceWithFormdataBodyWithResponse,
 	)
@@ -2219,7 +2219,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-test-helpers-test-clocks-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTestClocksWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTestClocksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTestClocksFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTestClocksWithFormdataBodyWithResponse,
 	)
@@ -2228,7 +2228,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-inbound-transfers-id-fail-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryInboundTransfersIdFailFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryInboundTransfersIdFailFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBodyWithResponse,
 	)
@@ -2237,7 +2237,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-inbound-transfers-id-return-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryInboundTransfersIdReturnFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryInboundTransfersIdReturnFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBodyWithResponse,
 	)
@@ -2246,7 +2246,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-inbound-transfers-id-succeed-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryInboundTransfersIdSucceedFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryInboundTransfersIdSucceedFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBodyWithResponse,
 	)
@@ -2255,7 +2255,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-outbound-payments-id-fail-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryOutboundPaymentsIdFailFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryOutboundPaymentsIdFailFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBodyWithResponse,
 	)
@@ -2264,7 +2264,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-outbound-payments-id-post-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryOutboundPaymentsIdPostFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryOutboundPaymentsIdPostFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBodyWithResponse,
 	)
@@ -2273,7 +2273,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-outbound-payments-id-return-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryOutboundPaymentsIdReturnFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryOutboundPaymentsIdReturnFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBodyWithResponse,
 	)
@@ -2282,7 +2282,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-outbound-payments-id-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryOutboundPaymentsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryOutboundPaymentsIdFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse,
 	)
@@ -2291,7 +2291,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-outbound-transfers-outbound-transfer-fail-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBody"),
 			mcp.WithString("outboundTransfer", mcp.Required(), mcp.Description("outboundTransfer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBodyWithResponse,
 	)
@@ -2300,7 +2300,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-outbound-transfers-outbound-transfer-post-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBody"),
 			mcp.WithString("outboundTransfer", mcp.Required(), mcp.Description("outboundTransfer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBodyWithResponse,
 	)
@@ -2309,7 +2309,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-outbound-transfers-outbound-transfer-return-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBody"),
 			mcp.WithString("outboundTransfer", mcp.Required(), mcp.Description("outboundTransfer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBodyWithResponse,
 	)
@@ -2318,7 +2318,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 		mcp.NewTool("post-test-helpers-treasury-outbound-transfers-outbound-transfer-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBody"),
 			mcp.WithString("outboundTransfer", mcp.Required(), mcp.Description("outboundTransfer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse,
 	)
@@ -2326,7 +2326,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-test-helpers-treasury-received-credits-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryReceivedCreditsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryReceivedCreditsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryReceivedCreditsFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryReceivedCreditsWithFormdataBodyWithResponse,
 	)
@@ -2334,7 +2334,7 @@ func (h *Handler) RegisterTestHelpers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-test-helpers-treasury-received-debits-with-formdata-body",
 			mcp.WithDescription("PostTestHelpersTreasuryReceivedDebitsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTestHelpersTreasuryReceivedDebitsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTestHelpersTreasuryReceivedDebitsFormdataRequestBody)")),
 		),
 		h.handlePostTestHelpersTreasuryReceivedDebitsWithFormdataBodyWithResponse,
 	)
@@ -2348,7 +2348,7 @@ func (h *Handler) RegisterWebhookEndpoints(s *server.MCPServer) {
 		mcp.NewTool("delete-webhook-endpoints-webhook-endpoint-with-formdata-body",
 			mcp.WithDescription("DeleteWebhookEndpointsWebhookEndpointWithFormdataBody"),
 			mcp.WithString("webhookEndpoint", mcp.Required(), mcp.Description("webhookEndpoint")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.DeleteWebhookEndpointsWebhookEndpointFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.DeleteWebhookEndpointsWebhookEndpointFormdataRequestBody)")),
 		),
 		h.handleDeleteWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse,
 	)
@@ -2358,7 +2358,7 @@ func (h *Handler) RegisterWebhookEndpoints(s *server.MCPServer) {
 			mcp.WithDescription("GetWebhookEndpointsWebhookEndpointWithFormdataBody"),
 			mcp.WithString("webhookEndpoint", mcp.Required(), mcp.Description("webhookEndpoint")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetWebhookEndpointsWebhookEndpointFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetWebhookEndpointsWebhookEndpointFormdataRequestBody)")),
 		),
 		h.handleGetWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse,
 	)
@@ -2370,7 +2370,7 @@ func (h *Handler) RegisterWebhookEndpoints(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetWebhookEndpointsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetWebhookEndpointsFormdataRequestBody)")),
 		),
 		h.handleGetWebhookEndpointsWithFormdataBodyWithResponse,
 	)
@@ -2379,7 +2379,7 @@ func (h *Handler) RegisterWebhookEndpoints(s *server.MCPServer) {
 		mcp.NewTool("post-webhook-endpoints-webhook-endpoint-with-formdata-body",
 			mcp.WithDescription("PostWebhookEndpointsWebhookEndpointWithFormdataBody"),
 			mcp.WithString("webhookEndpoint", mcp.Required(), mcp.Description("webhookEndpoint")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostWebhookEndpointsWebhookEndpointFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostWebhookEndpointsWebhookEndpointFormdataRequestBody)")),
 		),
 		h.handlePostWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse,
 	)
@@ -2387,7 +2387,7 @@ func (h *Handler) RegisterWebhookEndpoints(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-webhook-endpoints-with-formdata-body",
 			mcp.WithDescription("PostWebhookEndpointsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostWebhookEndpointsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostWebhookEndpointsFormdataRequestBody)")),
 		),
 		h.handlePostWebhookEndpointsWithFormdataBodyWithResponse,
 	)
@@ -2401,7 +2401,7 @@ func (h *Handler) RegisterAccount(s *server.MCPServer) {
 		mcp.NewTool("get-account-with-formdata-body",
 			mcp.WithDescription("GetAccountWithFormdataBody"),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAccountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAccountFormdataRequestBody)")),
 		),
 		h.handleGetAccountWithFormdataBodyWithResponse,
 	)
@@ -2417,7 +2417,7 @@ func (h *Handler) RegisterApplicationFees(s *server.MCPServer) {
 			mcp.WithString("fee", mcp.Required(), mcp.Description("fee")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetApplicationFeesFeeRefundsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetApplicationFeesFeeRefundsIdFormdataRequestBody)")),
 		),
 		h.handleGetApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse,
 	)
@@ -2430,7 +2430,7 @@ func (h *Handler) RegisterApplicationFees(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetApplicationFeesIdRefundsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetApplicationFeesIdRefundsFormdataRequestBody)")),
 		),
 		h.handleGetApplicationFeesIdRefundsWithFormdataBodyWithResponse,
 	)
@@ -2440,7 +2440,7 @@ func (h *Handler) RegisterApplicationFees(s *server.MCPServer) {
 			mcp.WithDescription("GetApplicationFeesIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetApplicationFeesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetApplicationFeesIdFormdataRequestBody)")),
 		),
 		h.handleGetApplicationFeesIdWithFormdataBodyWithResponse,
 	)
@@ -2453,7 +2453,7 @@ func (h *Handler) RegisterApplicationFees(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetApplicationFeesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetApplicationFeesFormdataRequestBody)")),
 		),
 		h.handleGetApplicationFeesWithFormdataBodyWithResponse,
 	)
@@ -2463,7 +2463,7 @@ func (h *Handler) RegisterApplicationFees(s *server.MCPServer) {
 			mcp.WithDescription("PostApplicationFeesFeeRefundsIdWithFormdataBody"),
 			mcp.WithString("fee", mcp.Required(), mcp.Description("fee")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostApplicationFeesFeeRefundsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostApplicationFeesFeeRefundsIdFormdataRequestBody)")),
 		),
 		h.handlePostApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse,
 	)
@@ -2472,7 +2472,7 @@ func (h *Handler) RegisterApplicationFees(s *server.MCPServer) {
 		mcp.NewTool("post-application-fees-id-refund-with-formdata-body",
 			mcp.WithDescription("PostApplicationFeesIdRefundWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostApplicationFeesIdRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostApplicationFeesIdRefundFormdataRequestBody)")),
 		),
 		h.handlePostApplicationFeesIdRefundWithFormdataBodyWithResponse,
 	)
@@ -2481,7 +2481,7 @@ func (h *Handler) RegisterApplicationFees(s *server.MCPServer) {
 		mcp.NewTool("post-application-fees-id-refunds-with-formdata-body",
 			mcp.WithDescription("PostApplicationFeesIdRefundsWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostApplicationFeesIdRefundsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostApplicationFeesIdRefundsFormdataRequestBody)")),
 		),
 		h.handlePostApplicationFeesIdRefundsWithFormdataBodyWithResponse,
 	)
@@ -2496,7 +2496,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 			mcp.WithDescription("GetAppsInstallsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAppsInstallsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAppsInstallsIdFormdataRequestBody)")),
 		),
 		h.handleGetAppsInstallsIdWithFormdataBodyWithResponse,
 	)
@@ -2514,7 +2514,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAppsInstallsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAppsInstallsFormdataRequestBody)")),
 		),
 		h.handleGetAppsInstallsWithFormdataBodyWithResponse,
 	)
@@ -2524,7 +2524,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 			mcp.WithDescription("GetAppsSecretsFindWithFormdataBody"),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithString("name", mcp.Description("Name")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAppsSecretsFindFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAppsSecretsFindFormdataRequestBody)")),
 		),
 		h.handleGetAppsSecretsFindWithFormdataBodyWithResponse,
 	)
@@ -2536,7 +2536,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetAppsSecretsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetAppsSecretsFormdataRequestBody)")),
 		),
 		h.handleGetAppsSecretsWithFormdataBodyWithResponse,
 	)
@@ -2545,7 +2545,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 		mcp.NewTool("post-apps-installs-id-uninstall-with-formdata-body",
 			mcp.WithDescription("PostAppsInstallsIdUninstallWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAppsInstallsIdUninstallFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAppsInstallsIdUninstallFormdataRequestBody)")),
 		),
 		h.handlePostAppsInstallsIdUninstallWithFormdataBodyWithResponse,
 	)
@@ -2554,7 +2554,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 		mcp.NewTool("post-apps-installs-id-with-formdata-body",
 			mcp.WithDescription("PostAppsInstallsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAppsInstallsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAppsInstallsIdFormdataRequestBody)")),
 		),
 		h.handlePostAppsInstallsIdWithFormdataBodyWithResponse,
 	)
@@ -2562,7 +2562,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-apps-installs-with-formdata-body",
 			mcp.WithDescription("PostAppsInstallsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAppsInstallsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAppsInstallsFormdataRequestBody)")),
 		),
 		h.handlePostAppsInstallsWithFormdataBodyWithResponse,
 	)
@@ -2570,7 +2570,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-apps-secrets-delete-with-formdata-body",
 			mcp.WithDescription("PostAppsSecretsDeleteWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAppsSecretsDeleteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAppsSecretsDeleteFormdataRequestBody)")),
 		),
 		h.handlePostAppsSecretsDeleteWithFormdataBodyWithResponse,
 	)
@@ -2578,7 +2578,7 @@ func (h *Handler) RegisterApps(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-apps-secrets-with-formdata-body",
 			mcp.WithDescription("PostAppsSecretsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAppsSecretsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAppsSecretsFormdataRequestBody)")),
 		),
 		h.handlePostAppsSecretsWithFormdataBodyWithResponse,
 	)
@@ -2593,7 +2593,7 @@ func (h *Handler) RegisterBalance(s *server.MCPServer) {
 			mcp.WithDescription("GetBalanceHistoryIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBalanceHistoryIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBalanceHistoryIdFormdataRequestBody)")),
 		),
 		h.handleGetBalanceHistoryIdWithFormdataBodyWithResponse,
 	)
@@ -2609,7 +2609,7 @@ func (h *Handler) RegisterBalance(s *server.MCPServer) {
 			mcp.WithString("source", mcp.Description("Source")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBalanceHistoryFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBalanceHistoryFormdataRequestBody)")),
 		),
 		h.handleGetBalanceHistoryWithFormdataBodyWithResponse,
 	)
@@ -2618,7 +2618,7 @@ func (h *Handler) RegisterBalance(s *server.MCPServer) {
 		mcp.NewTool("get-balance-with-formdata-body",
 			mcp.WithDescription("GetBalanceWithFormdataBody"),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBalanceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBalanceFormdataRequestBody)")),
 		),
 		h.handleGetBalanceWithFormdataBodyWithResponse,
 	)
@@ -2632,7 +2632,7 @@ func (h *Handler) RegisterBalanceSettings(s *server.MCPServer) {
 		mcp.NewTool("get-balance-settings-with-formdata-body",
 			mcp.WithDescription("GetBalanceSettingsWithFormdataBody"),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBalanceSettingsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBalanceSettingsFormdataRequestBody)")),
 		),
 		h.handleGetBalanceSettingsWithFormdataBodyWithResponse,
 	)
@@ -2640,7 +2640,7 @@ func (h *Handler) RegisterBalanceSettings(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-balance-settings-with-formdata-body",
 			mcp.WithDescription("PostBalanceSettingsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBalanceSettingsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBalanceSettingsFormdataRequestBody)")),
 		),
 		h.handlePostBalanceSettingsWithFormdataBodyWithResponse,
 	)
@@ -2655,7 +2655,7 @@ func (h *Handler) RegisterBalanceTransactions(s *server.MCPServer) {
 			mcp.WithDescription("GetBalanceTransactionsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBalanceTransactionsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBalanceTransactionsIdFormdataRequestBody)")),
 		),
 		h.handleGetBalanceTransactionsIdWithFormdataBodyWithResponse,
 	)
@@ -2671,7 +2671,7 @@ func (h *Handler) RegisterBalanceTransactions(s *server.MCPServer) {
 			mcp.WithString("source", mcp.Description("Source")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBalanceTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBalanceTransactionsFormdataRequestBody)")),
 		),
 		h.handleGetBalanceTransactionsWithFormdataBodyWithResponse,
 	)
@@ -2686,7 +2686,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithDescription("GetBillingAlertsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingAlertsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingAlertsIdFormdataRequestBody)")),
 		),
 		h.handleGetBillingAlertsIdWithFormdataBodyWithResponse,
 	)
@@ -2700,7 +2700,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("meter", mcp.Description("Meter")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingAlertsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingAlertsFormdataRequestBody)")),
 		),
 		h.handleGetBillingAlertsWithFormdataBodyWithResponse,
 	)
@@ -2711,7 +2711,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithString("customer", mcp.Description("Customer")),
 			mcp.WithString("customer_account", mcp.Description("CustomerAccount")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingCreditBalanceSummaryFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingCreditBalanceSummaryFormdataRequestBody)")),
 		),
 		h.handleGetBillingCreditBalanceSummaryWithFormdataBodyWithResponse,
 	)
@@ -2721,7 +2721,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithDescription("GetBillingCreditBalanceTransactionsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingCreditBalanceTransactionsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingCreditBalanceTransactionsIdFormdataRequestBody)")),
 		),
 		h.handleGetBillingCreditBalanceTransactionsIdWithFormdataBodyWithResponse,
 	)
@@ -2736,7 +2736,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingCreditBalanceTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingCreditBalanceTransactionsFormdataRequestBody)")),
 		),
 		h.handleGetBillingCreditBalanceTransactionsWithFormdataBodyWithResponse,
 	)
@@ -2746,7 +2746,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithDescription("GetBillingCreditGrantsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingCreditGrantsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingCreditGrantsIdFormdataRequestBody)")),
 		),
 		h.handleGetBillingCreditGrantsIdWithFormdataBodyWithResponse,
 	)
@@ -2760,7 +2760,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingCreditGrantsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingCreditGrantsFormdataRequestBody)")),
 		),
 		h.handleGetBillingCreditGrantsWithFormdataBodyWithResponse,
 	)
@@ -2770,7 +2770,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithDescription("GetBillingFeedbackOptionsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingFeedbackOptionsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingFeedbackOptionsIdFormdataRequestBody)")),
 		),
 		h.handleGetBillingFeedbackOptionsIdWithFormdataBodyWithResponse,
 	)
@@ -2783,7 +2783,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingFeedbackOptionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingFeedbackOptionsFormdataRequestBody)")),
 		),
 		h.handleGetBillingFeedbackOptionsWithFormdataBodyWithResponse,
 	)
@@ -2800,7 +2800,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithInteger("start_time", mcp.Description("StartTime")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("value_grouping_window", mcp.Description("ValueGroupingWindow")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingMetersIdEventSummariesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingMetersIdEventSummariesFormdataRequestBody)")),
 		),
 		h.handleGetBillingMetersIdEventSummariesWithFormdataBodyWithResponse,
 	)
@@ -2810,7 +2810,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithDescription("GetBillingMetersIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingMetersIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingMetersIdFormdataRequestBody)")),
 		),
 		h.handleGetBillingMetersIdWithFormdataBodyWithResponse,
 	)
@@ -2823,7 +2823,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingMetersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingMetersFormdataRequestBody)")),
 		),
 		h.handleGetBillingMetersWithFormdataBodyWithResponse,
 	)
@@ -2832,7 +2832,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-alerts-id-activate-with-formdata-body",
 			mcp.WithDescription("PostBillingAlertsIdActivateWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingAlertsIdActivateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingAlertsIdActivateFormdataRequestBody)")),
 		),
 		h.handlePostBillingAlertsIdActivateWithFormdataBodyWithResponse,
 	)
@@ -2841,7 +2841,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-alerts-id-archive-with-formdata-body",
 			mcp.WithDescription("PostBillingAlertsIdArchiveWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingAlertsIdArchiveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingAlertsIdArchiveFormdataRequestBody)")),
 		),
 		h.handlePostBillingAlertsIdArchiveWithFormdataBodyWithResponse,
 	)
@@ -2850,7 +2850,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-alerts-id-deactivate-with-formdata-body",
 			mcp.WithDescription("PostBillingAlertsIdDeactivateWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingAlertsIdDeactivateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingAlertsIdDeactivateFormdataRequestBody)")),
 		),
 		h.handlePostBillingAlertsIdDeactivateWithFormdataBodyWithResponse,
 	)
@@ -2858,7 +2858,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-billing-alerts-with-formdata-body",
 			mcp.WithDescription("PostBillingAlertsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingAlertsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingAlertsFormdataRequestBody)")),
 		),
 		h.handlePostBillingAlertsWithFormdataBodyWithResponse,
 	)
@@ -2867,7 +2867,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-credit-grants-id-expire-with-formdata-body",
 			mcp.WithDescription("PostBillingCreditGrantsIdExpireWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingCreditGrantsIdExpireFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingCreditGrantsIdExpireFormdataRequestBody)")),
 		),
 		h.handlePostBillingCreditGrantsIdExpireWithFormdataBodyWithResponse,
 	)
@@ -2876,7 +2876,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-credit-grants-id-void-with-formdata-body",
 			mcp.WithDescription("PostBillingCreditGrantsIdVoidWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingCreditGrantsIdVoidFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingCreditGrantsIdVoidFormdataRequestBody)")),
 		),
 		h.handlePostBillingCreditGrantsIdVoidWithFormdataBodyWithResponse,
 	)
@@ -2885,7 +2885,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-credit-grants-id-with-formdata-body",
 			mcp.WithDescription("PostBillingCreditGrantsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingCreditGrantsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingCreditGrantsIdFormdataRequestBody)")),
 		),
 		h.handlePostBillingCreditGrantsIdWithFormdataBodyWithResponse,
 	)
@@ -2893,7 +2893,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-billing-credit-grants-with-formdata-body",
 			mcp.WithDescription("PostBillingCreditGrantsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingCreditGrantsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingCreditGrantsFormdataRequestBody)")),
 		),
 		h.handlePostBillingCreditGrantsWithFormdataBodyWithResponse,
 	)
@@ -2902,7 +2902,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-feedback-options-id-deactivate-with-formdata-body",
 			mcp.WithDescription("PostBillingFeedbackOptionsIdDeactivateWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingFeedbackOptionsIdDeactivateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingFeedbackOptionsIdDeactivateFormdataRequestBody)")),
 		),
 		h.handlePostBillingFeedbackOptionsIdDeactivateWithFormdataBodyWithResponse,
 	)
@@ -2911,7 +2911,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-feedback-options-id-with-formdata-body",
 			mcp.WithDescription("PostBillingFeedbackOptionsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingFeedbackOptionsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingFeedbackOptionsIdFormdataRequestBody)")),
 		),
 		h.handlePostBillingFeedbackOptionsIdWithFormdataBodyWithResponse,
 	)
@@ -2919,7 +2919,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-billing-feedback-options-with-formdata-body",
 			mcp.WithDescription("PostBillingFeedbackOptionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingFeedbackOptionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingFeedbackOptionsFormdataRequestBody)")),
 		),
 		h.handlePostBillingFeedbackOptionsWithFormdataBodyWithResponse,
 	)
@@ -2927,7 +2927,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-billing-meter-event-adjustments-with-formdata-body",
 			mcp.WithDescription("PostBillingMeterEventAdjustmentsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingMeterEventAdjustmentsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingMeterEventAdjustmentsFormdataRequestBody)")),
 		),
 		h.handlePostBillingMeterEventAdjustmentsWithFormdataBodyWithResponse,
 	)
@@ -2935,7 +2935,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-billing-meter-events-with-formdata-body",
 			mcp.WithDescription("PostBillingMeterEventsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingMeterEventsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingMeterEventsFormdataRequestBody)")),
 		),
 		h.handlePostBillingMeterEventsWithFormdataBodyWithResponse,
 	)
@@ -2944,7 +2944,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-meters-id-deactivate-with-formdata-body",
 			mcp.WithDescription("PostBillingMetersIdDeactivateWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingMetersIdDeactivateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingMetersIdDeactivateFormdataRequestBody)")),
 		),
 		h.handlePostBillingMetersIdDeactivateWithFormdataBodyWithResponse,
 	)
@@ -2953,7 +2953,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-meters-id-reactivate-with-formdata-body",
 			mcp.WithDescription("PostBillingMetersIdReactivateWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingMetersIdReactivateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingMetersIdReactivateFormdataRequestBody)")),
 		),
 		h.handlePostBillingMetersIdReactivateWithFormdataBodyWithResponse,
 	)
@@ -2962,7 +2962,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 		mcp.NewTool("post-billing-meters-id-with-formdata-body",
 			mcp.WithDescription("PostBillingMetersIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingMetersIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingMetersIdFormdataRequestBody)")),
 		),
 		h.handlePostBillingMetersIdWithFormdataBodyWithResponse,
 	)
@@ -2970,7 +2970,7 @@ func (h *Handler) RegisterBilling(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-billing-meters-with-formdata-body",
 			mcp.WithDescription("PostBillingMetersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingMetersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingMetersFormdataRequestBody)")),
 		),
 		h.handlePostBillingMetersWithFormdataBodyWithResponse,
 	)
@@ -2985,7 +2985,7 @@ func (h *Handler) RegisterBillingPortal(s *server.MCPServer) {
 			mcp.WithDescription("GetBillingPortalConfigurationsConfigurationWithFormdataBody"),
 			mcp.WithString("configuration", mcp.Required(), mcp.Description("configuration")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingPortalConfigurationsConfigurationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingPortalConfigurationsConfigurationFormdataRequestBody)")),
 		),
 		h.handleGetBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse,
 	)
@@ -2999,7 +2999,7 @@ func (h *Handler) RegisterBillingPortal(s *server.MCPServer) {
 			mcp.WithBoolean("is_default", mcp.Description("IsDefault")),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetBillingPortalConfigurationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetBillingPortalConfigurationsFormdataRequestBody)")),
 		),
 		h.handleGetBillingPortalConfigurationsWithFormdataBodyWithResponse,
 	)
@@ -3008,7 +3008,7 @@ func (h *Handler) RegisterBillingPortal(s *server.MCPServer) {
 		mcp.NewTool("post-billing-portal-configurations-configuration-with-formdata-body",
 			mcp.WithDescription("PostBillingPortalConfigurationsConfigurationWithFormdataBody"),
 			mcp.WithString("configuration", mcp.Required(), mcp.Description("configuration")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingPortalConfigurationsConfigurationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingPortalConfigurationsConfigurationFormdataRequestBody)")),
 		),
 		h.handlePostBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse,
 	)
@@ -3016,7 +3016,7 @@ func (h *Handler) RegisterBillingPortal(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-billing-portal-configurations-with-formdata-body",
 			mcp.WithDescription("PostBillingPortalConfigurationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingPortalConfigurationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingPortalConfigurationsFormdataRequestBody)")),
 		),
 		h.handlePostBillingPortalConfigurationsWithFormdataBodyWithResponse,
 	)
@@ -3024,7 +3024,7 @@ func (h *Handler) RegisterBillingPortal(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-billing-portal-sessions-with-formdata-body",
 			mcp.WithDescription("PostBillingPortalSessionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostBillingPortalSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostBillingPortalSessionsFormdataRequestBody)")),
 		),
 		h.handlePostBillingPortalSessionsWithFormdataBodyWithResponse,
 	)
@@ -3039,7 +3039,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithDescription("GetChargesChargeDisputeWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetChargesChargeDisputeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetChargesChargeDisputeFormdataRequestBody)")),
 		),
 		h.handleGetChargesChargeDisputeWithFormdataBodyWithResponse,
 	)
@@ -3050,7 +3050,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
 			mcp.WithString("refund", mcp.Required(), mcp.Description("refund")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetChargesChargeRefundsRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetChargesChargeRefundsRefundFormdataRequestBody)")),
 		),
 		h.handleGetChargesChargeRefundsRefundWithFormdataBodyWithResponse,
 	)
@@ -3063,7 +3063,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetChargesChargeRefundsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetChargesChargeRefundsFormdataRequestBody)")),
 		),
 		h.handleGetChargesChargeRefundsWithFormdataBodyWithResponse,
 	)
@@ -3073,7 +3073,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithDescription("GetChargesChargeWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetChargesChargeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetChargesChargeFormdataRequestBody)")),
 		),
 		h.handleGetChargesChargeWithFormdataBodyWithResponse,
 	)
@@ -3085,7 +3085,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("page", mcp.Description("Page")),
 			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetChargesSearchFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetChargesSearchFormdataRequestBody)")),
 		),
 		h.handleGetChargesSearchWithFormdataBodyWithResponse,
 	)
@@ -3100,7 +3100,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithString("payment_intent", mcp.Description("PaymentIntent")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("transfer_group", mcp.Description("TransferGroup")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetChargesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetChargesFormdataRequestBody)")),
 		),
 		h.handleGetChargesWithFormdataBodyWithResponse,
 	)
@@ -3109,7 +3109,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 		mcp.NewTool("post-charges-charge-capture-with-formdata-body",
 			mcp.WithDescription("PostChargesChargeCaptureWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostChargesChargeCaptureFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostChargesChargeCaptureFormdataRequestBody)")),
 		),
 		h.handlePostChargesChargeCaptureWithFormdataBodyWithResponse,
 	)
@@ -3118,7 +3118,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 		mcp.NewTool("post-charges-charge-dispute-close-with-formdata-body",
 			mcp.WithDescription("PostChargesChargeDisputeCloseWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostChargesChargeDisputeCloseFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostChargesChargeDisputeCloseFormdataRequestBody)")),
 		),
 		h.handlePostChargesChargeDisputeCloseWithFormdataBodyWithResponse,
 	)
@@ -3127,7 +3127,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 		mcp.NewTool("post-charges-charge-dispute-with-formdata-body",
 			mcp.WithDescription("PostChargesChargeDisputeWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostChargesChargeDisputeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostChargesChargeDisputeFormdataRequestBody)")),
 		),
 		h.handlePostChargesChargeDisputeWithFormdataBodyWithResponse,
 	)
@@ -3136,7 +3136,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 		mcp.NewTool("post-charges-charge-refund-with-formdata-body",
 			mcp.WithDescription("PostChargesChargeRefundWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostChargesChargeRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostChargesChargeRefundFormdataRequestBody)")),
 		),
 		h.handlePostChargesChargeRefundWithFormdataBodyWithResponse,
 	)
@@ -3146,7 +3146,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithDescription("PostChargesChargeRefundsRefundWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
 			mcp.WithString("refund", mcp.Required(), mcp.Description("refund")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostChargesChargeRefundsRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostChargesChargeRefundsRefundFormdataRequestBody)")),
 		),
 		h.handlePostChargesChargeRefundsRefundWithFormdataBodyWithResponse,
 	)
@@ -3155,7 +3155,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 		mcp.NewTool("post-charges-charge-refunds-with-formdata-body",
 			mcp.WithDescription("PostChargesChargeRefundsWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostChargesChargeRefundsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostChargesChargeRefundsFormdataRequestBody)")),
 		),
 		h.handlePostChargesChargeRefundsWithFormdataBodyWithResponse,
 	)
@@ -3164,7 +3164,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 		mcp.NewTool("post-charges-charge-with-formdata-body",
 			mcp.WithDescription("PostChargesChargeWithFormdataBody"),
 			mcp.WithString("charge", mcp.Required(), mcp.Description("charge")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostChargesChargeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostChargesChargeFormdataRequestBody)")),
 		),
 		h.handlePostChargesChargeWithFormdataBodyWithResponse,
 	)
@@ -3172,7 +3172,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-charges-with-formdata-body",
 			mcp.WithDescription("PostChargesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostChargesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostChargesFormdataRequestBody)")),
 		),
 		h.handlePostChargesWithFormdataBodyWithResponse,
 	)
@@ -3190,7 +3190,7 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCheckoutSessionsSessionLineItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCheckoutSessionsSessionLineItemsFormdataRequestBody)")),
 		),
 		h.handleGetCheckoutSessionsSessionLineItemsWithFormdataBodyWithResponse,
 	)
@@ -3200,7 +3200,7 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 			mcp.WithDescription("GetCheckoutSessionsSessionWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCheckoutSessionsSessionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCheckoutSessionsSessionFormdataRequestBody)")),
 		),
 		h.handleGetCheckoutSessionsSessionWithFormdataBodyWithResponse,
 	)
@@ -3218,7 +3218,7 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithString("subscription", mcp.Description("Subscription")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCheckoutSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCheckoutSessionsFormdataRequestBody)")),
 		),
 		h.handleGetCheckoutSessionsWithFormdataBodyWithResponse,
 	)
@@ -3227,7 +3227,7 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 		mcp.NewTool("post-checkout-sessions-session-expire-with-formdata-body",
 			mcp.WithDescription("PostCheckoutSessionsSessionExpireWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCheckoutSessionsSessionExpireFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCheckoutSessionsSessionExpireFormdataRequestBody)")),
 		),
 		h.handlePostCheckoutSessionsSessionExpireWithFormdataBodyWithResponse,
 	)
@@ -3236,7 +3236,7 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 		mcp.NewTool("post-checkout-sessions-session-with-formdata-body",
 			mcp.WithDescription("PostCheckoutSessionsSessionWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCheckoutSessionsSessionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCheckoutSessionsSessionFormdataRequestBody)")),
 		),
 		h.handlePostCheckoutSessionsSessionWithFormdataBodyWithResponse,
 	)
@@ -3244,7 +3244,7 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-checkout-sessions-with-formdata-body",
 			mcp.WithDescription("PostCheckoutSessionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCheckoutSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCheckoutSessionsFormdataRequestBody)")),
 		),
 		h.handlePostCheckoutSessionsWithFormdataBodyWithResponse,
 	)
@@ -3259,7 +3259,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 			mcp.WithDescription("GetClimateOrdersOrderWithFormdataBody"),
 			mcp.WithString("order", mcp.Required(), mcp.Description("order")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetClimateOrdersOrderFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetClimateOrdersOrderFormdataRequestBody)")),
 		),
 		h.handleGetClimateOrdersOrderWithFormdataBodyWithResponse,
 	)
@@ -3271,7 +3271,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetClimateOrdersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetClimateOrdersFormdataRequestBody)")),
 		),
 		h.handleGetClimateOrdersWithFormdataBodyWithResponse,
 	)
@@ -3281,7 +3281,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 			mcp.WithDescription("GetClimateProductsProductWithFormdataBody"),
 			mcp.WithString("product", mcp.Required(), mcp.Description("product")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetClimateProductsProductFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetClimateProductsProductFormdataRequestBody)")),
 		),
 		h.handleGetClimateProductsProductWithFormdataBodyWithResponse,
 	)
@@ -3293,7 +3293,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetClimateProductsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetClimateProductsFormdataRequestBody)")),
 		),
 		h.handleGetClimateProductsWithFormdataBodyWithResponse,
 	)
@@ -3303,7 +3303,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 			mcp.WithDescription("GetClimateSuppliersSupplierWithFormdataBody"),
 			mcp.WithString("supplier", mcp.Required(), mcp.Description("supplier")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetClimateSuppliersSupplierFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetClimateSuppliersSupplierFormdataRequestBody)")),
 		),
 		h.handleGetClimateSuppliersSupplierWithFormdataBodyWithResponse,
 	)
@@ -3315,7 +3315,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetClimateSuppliersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetClimateSuppliersFormdataRequestBody)")),
 		),
 		h.handleGetClimateSuppliersWithFormdataBodyWithResponse,
 	)
@@ -3324,7 +3324,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 		mcp.NewTool("post-climate-orders-order-cancel-with-formdata-body",
 			mcp.WithDescription("PostClimateOrdersOrderCancelWithFormdataBody"),
 			mcp.WithString("order", mcp.Required(), mcp.Description("order")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostClimateOrdersOrderCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostClimateOrdersOrderCancelFormdataRequestBody)")),
 		),
 		h.handlePostClimateOrdersOrderCancelWithFormdataBodyWithResponse,
 	)
@@ -3333,7 +3333,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 		mcp.NewTool("post-climate-orders-order-with-formdata-body",
 			mcp.WithDescription("PostClimateOrdersOrderWithFormdataBody"),
 			mcp.WithString("order", mcp.Required(), mcp.Description("order")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostClimateOrdersOrderFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostClimateOrdersOrderFormdataRequestBody)")),
 		),
 		h.handlePostClimateOrdersOrderWithFormdataBodyWithResponse,
 	)
@@ -3341,7 +3341,7 @@ func (h *Handler) RegisterClimate(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-climate-orders-with-formdata-body",
 			mcp.WithDescription("PostClimateOrdersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostClimateOrdersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostClimateOrdersFormdataRequestBody)")),
 		),
 		h.handlePostClimateOrdersWithFormdataBodyWithResponse,
 	)
@@ -3356,7 +3356,7 @@ func (h *Handler) RegisterConfirmationTokens(s *server.MCPServer) {
 			mcp.WithDescription("GetConfirmationTokensConfirmationTokenWithFormdataBody"),
 			mcp.WithString("confirmationToken", mcp.Required(), mcp.Description("confirmationToken")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetConfirmationTokensConfirmationTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetConfirmationTokensConfirmationTokenFormdataRequestBody)")),
 		),
 		h.handleGetConfirmationTokensConfirmationTokenWithFormdataBodyWithResponse,
 	)
@@ -3371,7 +3371,7 @@ func (h *Handler) RegisterCountrySpecs(s *server.MCPServer) {
 			mcp.WithDescription("GetCountrySpecsCountryWithFormdataBody"),
 			mcp.WithString("country", mcp.Required(), mcp.Description("country")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCountrySpecsCountryFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCountrySpecsCountryFormdataRequestBody)")),
 		),
 		h.handleGetCountrySpecsCountryWithFormdataBodyWithResponse,
 	)
@@ -3383,7 +3383,7 @@ func (h *Handler) RegisterCountrySpecs(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCountrySpecsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCountrySpecsFormdataRequestBody)")),
 		),
 		h.handleGetCountrySpecsWithFormdataBodyWithResponse,
 	)
@@ -3401,7 +3401,7 @@ func (h *Handler) RegisterCreditNotes(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCreditNotesCreditNoteLinesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCreditNotesCreditNoteLinesFormdataRequestBody)")),
 		),
 		h.handleGetCreditNotesCreditNoteLinesWithFormdataBodyWithResponse,
 	)
@@ -3411,7 +3411,7 @@ func (h *Handler) RegisterCreditNotes(s *server.MCPServer) {
 			mcp.WithDescription("GetCreditNotesIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCreditNotesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCreditNotesIdFormdataRequestBody)")),
 		),
 		h.handleGetCreditNotesIdWithFormdataBodyWithResponse,
 	)
@@ -3432,7 +3432,7 @@ func (h *Handler) RegisterCreditNotes(s *server.MCPServer) {
 			mcp.WithString("reason", mcp.Description("Reason")),
 			mcp.WithInteger("refund_amount", mcp.Description("RefundAmount")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCreditNotesPreviewLinesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCreditNotesPreviewLinesFormdataRequestBody)")),
 		),
 		h.handleGetCreditNotesPreviewLinesWithFormdataBodyWithResponse,
 	)
@@ -3450,7 +3450,7 @@ func (h *Handler) RegisterCreditNotes(s *server.MCPServer) {
 			mcp.WithInteger("out_of_band_amount", mcp.Description("OutOfBandAmount")),
 			mcp.WithString("reason", mcp.Description("Reason")),
 			mcp.WithInteger("refund_amount", mcp.Description("RefundAmount")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCreditNotesPreviewFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCreditNotesPreviewFormdataRequestBody)")),
 		),
 		h.handleGetCreditNotesPreviewWithFormdataBodyWithResponse,
 	)
@@ -3465,7 +3465,7 @@ func (h *Handler) RegisterCreditNotes(s *server.MCPServer) {
 			mcp.WithString("invoice", mcp.Description("Invoice")),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetCreditNotesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetCreditNotesFormdataRequestBody)")),
 		),
 		h.handleGetCreditNotesWithFormdataBodyWithResponse,
 	)
@@ -3474,7 +3474,7 @@ func (h *Handler) RegisterCreditNotes(s *server.MCPServer) {
 		mcp.NewTool("post-credit-notes-id-void-with-formdata-body",
 			mcp.WithDescription("PostCreditNotesIdVoidWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCreditNotesIdVoidFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCreditNotesIdVoidFormdataRequestBody)")),
 		),
 		h.handlePostCreditNotesIdVoidWithFormdataBodyWithResponse,
 	)
@@ -3483,7 +3483,7 @@ func (h *Handler) RegisterCreditNotes(s *server.MCPServer) {
 		mcp.NewTool("post-credit-notes-id-with-formdata-body",
 			mcp.WithDescription("PostCreditNotesIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCreditNotesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCreditNotesIdFormdataRequestBody)")),
 		),
 		h.handlePostCreditNotesIdWithFormdataBodyWithResponse,
 	)
@@ -3491,7 +3491,7 @@ func (h *Handler) RegisterCreditNotes(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-credit-notes-with-formdata-body",
 			mcp.WithDescription("PostCreditNotesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCreditNotesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCreditNotesFormdataRequestBody)")),
 		),
 		h.handlePostCreditNotesWithFormdataBodyWithResponse,
 	)
@@ -3506,7 +3506,7 @@ func (h *Handler) RegisterDisputes(s *server.MCPServer) {
 			mcp.WithDescription("GetDisputesDisputeWithFormdataBody"),
 			mcp.WithString("dispute", mcp.Required(), mcp.Description("dispute")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetDisputesDisputeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetDisputesDisputeFormdataRequestBody)")),
 		),
 		h.handleGetDisputesDisputeWithFormdataBodyWithResponse,
 	)
@@ -3520,7 +3520,7 @@ func (h *Handler) RegisterDisputes(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("payment_intent", mcp.Description("PaymentIntent")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetDisputesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetDisputesFormdataRequestBody)")),
 		),
 		h.handleGetDisputesWithFormdataBodyWithResponse,
 	)
@@ -3529,7 +3529,7 @@ func (h *Handler) RegisterDisputes(s *server.MCPServer) {
 		mcp.NewTool("post-disputes-dispute-close-with-formdata-body",
 			mcp.WithDescription("PostDisputesDisputeCloseWithFormdataBody"),
 			mcp.WithString("dispute", mcp.Required(), mcp.Description("dispute")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostDisputesDisputeCloseFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostDisputesDisputeCloseFormdataRequestBody)")),
 		),
 		h.handlePostDisputesDisputeCloseWithFormdataBodyWithResponse,
 	)
@@ -3538,7 +3538,7 @@ func (h *Handler) RegisterDisputes(s *server.MCPServer) {
 		mcp.NewTool("post-disputes-dispute-with-formdata-body",
 			mcp.WithDescription("PostDisputesDisputeWithFormdataBody"),
 			mcp.WithString("dispute", mcp.Required(), mcp.Description("dispute")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostDisputesDisputeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostDisputesDisputeFormdataRequestBody)")),
 		),
 		h.handlePostDisputesDisputeWithFormdataBodyWithResponse,
 	)
@@ -3553,7 +3553,7 @@ func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
 			mcp.WithDescription("GetEntitlementsActiveEntitlementsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetEntitlementsActiveEntitlementsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetEntitlementsActiveEntitlementsIdFormdataRequestBody)")),
 		),
 		h.handleGetEntitlementsActiveEntitlementsIdWithFormdataBodyWithResponse,
 	)
@@ -3566,7 +3566,7 @@ func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetEntitlementsActiveEntitlementsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetEntitlementsActiveEntitlementsFormdataRequestBody)")),
 		),
 		h.handleGetEntitlementsActiveEntitlementsWithFormdataBodyWithResponse,
 	)
@@ -3576,7 +3576,7 @@ func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
 			mcp.WithDescription("GetEntitlementsFeaturesIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetEntitlementsFeaturesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetEntitlementsFeaturesIdFormdataRequestBody)")),
 		),
 		h.handleGetEntitlementsFeaturesIdWithFormdataBodyWithResponse,
 	)
@@ -3590,7 +3590,7 @@ func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("lookup_key", mcp.Description("LookupKey")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetEntitlementsFeaturesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetEntitlementsFeaturesFormdataRequestBody)")),
 		),
 		h.handleGetEntitlementsFeaturesWithFormdataBodyWithResponse,
 	)
@@ -3599,7 +3599,7 @@ func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
 		mcp.NewTool("post-entitlements-features-id-with-formdata-body",
 			mcp.WithDescription("PostEntitlementsFeaturesIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostEntitlementsFeaturesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostEntitlementsFeaturesIdFormdataRequestBody)")),
 		),
 		h.handlePostEntitlementsFeaturesIdWithFormdataBodyWithResponse,
 	)
@@ -3607,7 +3607,7 @@ func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-entitlements-features-with-formdata-body",
 			mcp.WithDescription("PostEntitlementsFeaturesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostEntitlementsFeaturesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostEntitlementsFeaturesFormdataRequestBody)")),
 		),
 		h.handlePostEntitlementsFeaturesWithFormdataBodyWithResponse,
 	)
@@ -3622,7 +3622,7 @@ func (h *Handler) RegisterEvents(s *server.MCPServer) {
 			mcp.WithDescription("GetEventsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetEventsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetEventsIdFormdataRequestBody)")),
 		),
 		h.handleGetEventsIdWithFormdataBodyWithResponse,
 	)
@@ -3637,7 +3637,7 @@ func (h *Handler) RegisterEvents(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
 			mcp.WithArray("types", mcp.Description("Types"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetEventsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetEventsFormdataRequestBody)")),
 		),
 		h.handleGetEventsWithFormdataBodyWithResponse,
 	)
@@ -3652,7 +3652,7 @@ func (h *Handler) RegisterExchangeRates(s *server.MCPServer) {
 			mcp.WithDescription("GetExchangeRatesRateIdWithFormdataBody"),
 			mcp.WithString("rateId", mcp.Required(), mcp.Description("rateId")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetExchangeRatesRateIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetExchangeRatesRateIdFormdataRequestBody)")),
 		),
 		h.handleGetExchangeRatesRateIdWithFormdataBodyWithResponse,
 	)
@@ -3664,7 +3664,7 @@ func (h *Handler) RegisterExchangeRates(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetExchangeRatesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetExchangeRatesFormdataRequestBody)")),
 		),
 		h.handleGetExchangeRatesWithFormdataBodyWithResponse,
 	)
@@ -3679,7 +3679,7 @@ func (h *Handler) RegisterFileLinks(s *server.MCPServer) {
 			mcp.WithDescription("GetFileLinksLinkWithFormdataBody"),
 			mcp.WithString("link", mcp.Required(), mcp.Description("link")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFileLinksLinkFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFileLinksLinkFormdataRequestBody)")),
 		),
 		h.handleGetFileLinksLinkWithFormdataBodyWithResponse,
 	)
@@ -3693,7 +3693,7 @@ func (h *Handler) RegisterFileLinks(s *server.MCPServer) {
 			mcp.WithString("file", mcp.Description("File")),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFileLinksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFileLinksFormdataRequestBody)")),
 		),
 		h.handleGetFileLinksWithFormdataBodyWithResponse,
 	)
@@ -3702,7 +3702,7 @@ func (h *Handler) RegisterFileLinks(s *server.MCPServer) {
 		mcp.NewTool("post-file-links-link-with-formdata-body",
 			mcp.WithDescription("PostFileLinksLinkWithFormdataBody"),
 			mcp.WithString("link", mcp.Required(), mcp.Description("link")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostFileLinksLinkFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostFileLinksLinkFormdataRequestBody)")),
 		),
 		h.handlePostFileLinksLinkWithFormdataBodyWithResponse,
 	)
@@ -3710,7 +3710,7 @@ func (h *Handler) RegisterFileLinks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-file-links-with-formdata-body",
 			mcp.WithDescription("PostFileLinksWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostFileLinksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostFileLinksFormdataRequestBody)")),
 		),
 		h.handlePostFileLinksWithFormdataBodyWithResponse,
 	)
@@ -3725,7 +3725,7 @@ func (h *Handler) RegisterFiles(s *server.MCPServer) {
 			mcp.WithDescription("GetFilesFileWithFormdataBody"),
 			mcp.WithString("file", mcp.Required(), mcp.Description("file")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFilesFileFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFilesFileFormdataRequestBody)")),
 		),
 		h.handleGetFilesFileWithFormdataBodyWithResponse,
 	)
@@ -3738,7 +3738,7 @@ func (h *Handler) RegisterFiles(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("purpose", mcp.Description("Purpose")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFilesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFilesFormdataRequestBody)")),
 		),
 		h.handleGetFilesWithFormdataBodyWithResponse,
 	)
@@ -3757,7 +3757,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("ownership", mcp.Description("Ownership")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFinancialConnectionsAccountsAccountOwnersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFinancialConnectionsAccountsAccountOwnersFormdataRequestBody)")),
 		),
 		h.handleGetFinancialConnectionsAccountsAccountOwnersWithFormdataBodyWithResponse,
 	)
@@ -3767,7 +3767,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 			mcp.WithDescription("GetFinancialConnectionsAccountsAccountWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFinancialConnectionsAccountsAccountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFinancialConnectionsAccountsAccountFormdataRequestBody)")),
 		),
 		h.handleGetFinancialConnectionsAccountsAccountWithFormdataBodyWithResponse,
 	)
@@ -3780,7 +3780,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("session", mcp.Description("Session")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFinancialConnectionsAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFinancialConnectionsAccountsFormdataRequestBody)")),
 		),
 		h.handleGetFinancialConnectionsAccountsWithFormdataBodyWithResponse,
 	)
@@ -3790,7 +3790,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 			mcp.WithDescription("GetFinancialConnectionsSessionsSessionWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFinancialConnectionsSessionsSessionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFinancialConnectionsSessionsSessionFormdataRequestBody)")),
 		),
 		h.handleGetFinancialConnectionsSessionsSessionWithFormdataBodyWithResponse,
 	)
@@ -3800,7 +3800,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 			mcp.WithDescription("GetFinancialConnectionsTransactionsTransactionWithFormdataBody"),
 			mcp.WithString("transaction", mcp.Required(), mcp.Description("transaction")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFinancialConnectionsTransactionsTransactionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFinancialConnectionsTransactionsTransactionFormdataRequestBody)")),
 		),
 		h.handleGetFinancialConnectionsTransactionsTransactionWithFormdataBodyWithResponse,
 	)
@@ -3813,7 +3813,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetFinancialConnectionsTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetFinancialConnectionsTransactionsFormdataRequestBody)")),
 		),
 		h.handleGetFinancialConnectionsTransactionsWithFormdataBodyWithResponse,
 	)
@@ -3822,7 +3822,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 		mcp.NewTool("post-financial-connections-accounts-account-disconnect-with-formdata-body",
 			mcp.WithDescription("PostFinancialConnectionsAccountsAccountDisconnectWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostFinancialConnectionsAccountsAccountDisconnectFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostFinancialConnectionsAccountsAccountDisconnectFormdataRequestBody)")),
 		),
 		h.handlePostFinancialConnectionsAccountsAccountDisconnectWithFormdataBodyWithResponse,
 	)
@@ -3831,7 +3831,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 		mcp.NewTool("post-financial-connections-accounts-account-refresh-with-formdata-body",
 			mcp.WithDescription("PostFinancialConnectionsAccountsAccountRefreshWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostFinancialConnectionsAccountsAccountRefreshFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostFinancialConnectionsAccountsAccountRefreshFormdataRequestBody)")),
 		),
 		h.handlePostFinancialConnectionsAccountsAccountRefreshWithFormdataBodyWithResponse,
 	)
@@ -3840,7 +3840,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 		mcp.NewTool("post-financial-connections-accounts-account-subscribe-with-formdata-body",
 			mcp.WithDescription("PostFinancialConnectionsAccountsAccountSubscribeWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostFinancialConnectionsAccountsAccountSubscribeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostFinancialConnectionsAccountsAccountSubscribeFormdataRequestBody)")),
 		),
 		h.handlePostFinancialConnectionsAccountsAccountSubscribeWithFormdataBodyWithResponse,
 	)
@@ -3849,7 +3849,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 		mcp.NewTool("post-financial-connections-accounts-account-unsubscribe-with-formdata-body",
 			mcp.WithDescription("PostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostFinancialConnectionsAccountsAccountUnsubscribeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostFinancialConnectionsAccountsAccountUnsubscribeFormdataRequestBody)")),
 		),
 		h.handlePostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBodyWithResponse,
 	)
@@ -3857,7 +3857,7 @@ func (h *Handler) RegisterFinancialConnections(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-financial-connections-sessions-with-formdata-body",
 			mcp.WithDescription("PostFinancialConnectionsSessionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostFinancialConnectionsSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostFinancialConnectionsSessionsFormdataRequestBody)")),
 		),
 		h.handlePostFinancialConnectionsSessionsWithFormdataBodyWithResponse,
 	)
@@ -3872,7 +3872,7 @@ func (h *Handler) RegisterForwarding(s *server.MCPServer) {
 			mcp.WithDescription("GetForwardingRequestsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetForwardingRequestsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetForwardingRequestsIdFormdataRequestBody)")),
 		),
 		h.handleGetForwardingRequestsIdWithFormdataBodyWithResponse,
 	)
@@ -3884,7 +3884,7 @@ func (h *Handler) RegisterForwarding(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetForwardingRequestsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetForwardingRequestsFormdataRequestBody)")),
 		),
 		h.handleGetForwardingRequestsWithFormdataBodyWithResponse,
 	)
@@ -3892,7 +3892,7 @@ func (h *Handler) RegisterForwarding(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-forwarding-requests-with-formdata-body",
 			mcp.WithDescription("PostForwardingRequestsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostForwardingRequestsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostForwardingRequestsFormdataRequestBody)")),
 		),
 		h.handlePostForwardingRequestsWithFormdataBodyWithResponse,
 	)
@@ -3907,7 +3907,7 @@ func (h *Handler) RegisterIdentity(s *server.MCPServer) {
 			mcp.WithDescription("GetIdentityVerificationReportsReportWithFormdataBody"),
 			mcp.WithString("report", mcp.Required(), mcp.Description("report")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIdentityVerificationReportsReportFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIdentityVerificationReportsReportFormdataRequestBody)")),
 		),
 		h.handleGetIdentityVerificationReportsReportWithFormdataBodyWithResponse,
 	)
@@ -3922,7 +3922,7 @@ func (h *Handler) RegisterIdentity(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
 			mcp.WithString("verification_session", mcp.Description("VerificationSession")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIdentityVerificationReportsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIdentityVerificationReportsFormdataRequestBody)")),
 		),
 		h.handleGetIdentityVerificationReportsWithFormdataBodyWithResponse,
 	)
@@ -3932,7 +3932,7 @@ func (h *Handler) RegisterIdentity(s *server.MCPServer) {
 			mcp.WithDescription("GetIdentityVerificationSessionsSessionWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIdentityVerificationSessionsSessionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIdentityVerificationSessionsSessionFormdataRequestBody)")),
 		),
 		h.handleGetIdentityVerificationSessionsSessionWithFormdataBodyWithResponse,
 	)
@@ -3948,7 +3948,7 @@ func (h *Handler) RegisterIdentity(s *server.MCPServer) {
 			mcp.WithString("related_customer_account", mcp.Description("RelatedCustomerAccount")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIdentityVerificationSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIdentityVerificationSessionsFormdataRequestBody)")),
 		),
 		h.handleGetIdentityVerificationSessionsWithFormdataBodyWithResponse,
 	)
@@ -3957,7 +3957,7 @@ func (h *Handler) RegisterIdentity(s *server.MCPServer) {
 		mcp.NewTool("post-identity-verification-sessions-session-cancel-with-formdata-body",
 			mcp.WithDescription("PostIdentityVerificationSessionsSessionCancelWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIdentityVerificationSessionsSessionCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIdentityVerificationSessionsSessionCancelFormdataRequestBody)")),
 		),
 		h.handlePostIdentityVerificationSessionsSessionCancelWithFormdataBodyWithResponse,
 	)
@@ -3966,7 +3966,7 @@ func (h *Handler) RegisterIdentity(s *server.MCPServer) {
 		mcp.NewTool("post-identity-verification-sessions-session-redact-with-formdata-body",
 			mcp.WithDescription("PostIdentityVerificationSessionsSessionRedactWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIdentityVerificationSessionsSessionRedactFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIdentityVerificationSessionsSessionRedactFormdataRequestBody)")),
 		),
 		h.handlePostIdentityVerificationSessionsSessionRedactWithFormdataBodyWithResponse,
 	)
@@ -3975,7 +3975,7 @@ func (h *Handler) RegisterIdentity(s *server.MCPServer) {
 		mcp.NewTool("post-identity-verification-sessions-session-with-formdata-body",
 			mcp.WithDescription("PostIdentityVerificationSessionsSessionWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIdentityVerificationSessionsSessionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIdentityVerificationSessionsSessionFormdataRequestBody)")),
 		),
 		h.handlePostIdentityVerificationSessionsSessionWithFormdataBodyWithResponse,
 	)
@@ -3983,7 +3983,7 @@ func (h *Handler) RegisterIdentity(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-identity-verification-sessions-with-formdata-body",
 			mcp.WithDescription("PostIdentityVerificationSessionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIdentityVerificationSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIdentityVerificationSessionsFormdataRequestBody)")),
 		),
 		h.handlePostIdentityVerificationSessionsWithFormdataBodyWithResponse,
 	)
@@ -3998,7 +3998,7 @@ func (h *Handler) RegisterInvoicePayments(s *server.MCPServer) {
 			mcp.WithDescription("GetInvoicePaymentsInvoicePaymentWithFormdataBody"),
 			mcp.WithString("invoicePayment", mcp.Required(), mcp.Description("invoicePayment")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoicePaymentsInvoicePaymentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoicePaymentsInvoicePaymentFormdataRequestBody)")),
 		),
 		h.handleGetInvoicePaymentsInvoicePaymentWithFormdataBodyWithResponse,
 	)
@@ -4012,7 +4012,7 @@ func (h *Handler) RegisterInvoicePayments(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoicePaymentsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoicePaymentsFormdataRequestBody)")),
 		),
 		h.handleGetInvoicePaymentsWithFormdataBodyWithResponse,
 	)
@@ -4028,7 +4028,7 @@ func (h *Handler) RegisterInvoiceRenderingTemplates(s *server.MCPServer) {
 			mcp.WithString("template", mcp.Required(), mcp.Description("template")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("version", mcp.Description("Version")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoiceRenderingTemplatesTemplateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoiceRenderingTemplatesTemplateFormdataRequestBody)")),
 		),
 		h.handleGetInvoiceRenderingTemplatesTemplateWithFormdataBodyWithResponse,
 	)
@@ -4041,7 +4041,7 @@ func (h *Handler) RegisterInvoiceRenderingTemplates(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetInvoiceRenderingTemplatesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetInvoiceRenderingTemplatesFormdataRequestBody)")),
 		),
 		h.handleGetInvoiceRenderingTemplatesWithFormdataBodyWithResponse,
 	)
@@ -4050,7 +4050,7 @@ func (h *Handler) RegisterInvoiceRenderingTemplates(s *server.MCPServer) {
 		mcp.NewTool("post-invoice-rendering-templates-template-archive-with-formdata-body",
 			mcp.WithDescription("PostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBody"),
 			mcp.WithString("template", mcp.Required(), mcp.Description("template")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoiceRenderingTemplatesTemplateArchiveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoiceRenderingTemplatesTemplateArchiveFormdataRequestBody)")),
 		),
 		h.handlePostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBodyWithResponse,
 	)
@@ -4059,7 +4059,7 @@ func (h *Handler) RegisterInvoiceRenderingTemplates(s *server.MCPServer) {
 		mcp.NewTool("post-invoice-rendering-templates-template-unarchive-with-formdata-body",
 			mcp.WithDescription("PostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBody"),
 			mcp.WithString("template", mcp.Required(), mcp.Description("template")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostInvoiceRenderingTemplatesTemplateUnarchiveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostInvoiceRenderingTemplatesTemplateUnarchiveFormdataRequestBody)")),
 		),
 		h.handlePostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBodyWithResponse,
 	)
@@ -4074,7 +4074,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingAuthorizationsAuthorizationWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingAuthorizationsAuthorizationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingAuthorizationsAuthorizationFormdataRequestBody)")),
 		),
 		h.handleGetIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse,
 	)
@@ -4089,7 +4089,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingAuthorizationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingAuthorizationsFormdataRequestBody)")),
 		),
 		h.handleGetIssuingAuthorizationsWithFormdataBodyWithResponse,
 	)
@@ -4099,7 +4099,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingCardholdersCardholderWithFormdataBody"),
 			mcp.WithString("cardholder", mcp.Required(), mcp.Description("cardholder")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingCardholdersCardholderFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingCardholdersCardholderFormdataRequestBody)")),
 		),
 		h.handleGetIssuingCardholdersCardholderWithFormdataBodyWithResponse,
 	)
@@ -4115,7 +4115,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingCardholdersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingCardholdersFormdataRequestBody)")),
 		),
 		h.handleGetIssuingCardholdersWithFormdataBodyWithResponse,
 	)
@@ -4125,7 +4125,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingCardsCardWithFormdataBody"),
 			mcp.WithString("card", mcp.Required(), mcp.Description("card")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingCardsCardFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingCardsCardFormdataRequestBody)")),
 		),
 		h.handleGetIssuingCardsCardWithFormdataBodyWithResponse,
 	)
@@ -4144,7 +4144,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingCardsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingCardsFormdataRequestBody)")),
 		),
 		h.handleGetIssuingCardsWithFormdataBodyWithResponse,
 	)
@@ -4154,7 +4154,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingDisputesDisputeWithFormdataBody"),
 			mcp.WithString("dispute", mcp.Required(), mcp.Description("dispute")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingDisputesDisputeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingDisputesDisputeFormdataRequestBody)")),
 		),
 		h.handleGetIssuingDisputesDisputeWithFormdataBodyWithResponse,
 	)
@@ -4168,7 +4168,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithString("transaction", mcp.Description("Transaction")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingDisputesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingDisputesFormdataRequestBody)")),
 		),
 		h.handleGetIssuingDisputesWithFormdataBodyWithResponse,
 	)
@@ -4178,7 +4178,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody"),
 			mcp.WithString("personalizationDesign", mcp.Required(), mcp.Description("personalizationDesign")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingPersonalizationDesignsPersonalizationDesignFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingPersonalizationDesignsPersonalizationDesignFormdataRequestBody)")),
 		),
 		h.handleGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse,
 	)
@@ -4192,7 +4192,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithArray("lookup_keys", mcp.Description("LookupKeys"), mcp.WithStringItems()),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingPersonalizationDesignsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingPersonalizationDesignsFormdataRequestBody)")),
 		),
 		h.handleGetIssuingPersonalizationDesignsWithFormdataBodyWithResponse,
 	)
@@ -4202,7 +4202,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingPhysicalBundlesPhysicalBundleWithFormdataBody"),
 			mcp.WithString("physicalBundle", mcp.Required(), mcp.Description("physicalBundle")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingPhysicalBundlesPhysicalBundleFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingPhysicalBundlesPhysicalBundleFormdataRequestBody)")),
 		),
 		h.handleGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBodyWithResponse,
 	)
@@ -4216,7 +4216,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingPhysicalBundlesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingPhysicalBundlesFormdataRequestBody)")),
 		),
 		h.handleGetIssuingPhysicalBundlesWithFormdataBodyWithResponse,
 	)
@@ -4226,7 +4226,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingSettlementsSettlementWithFormdataBody"),
 			mcp.WithString("settlement", mcp.Required(), mcp.Description("settlement")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingSettlementsSettlementFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingSettlementsSettlementFormdataRequestBody)")),
 		),
 		h.handleGetIssuingSettlementsSettlementWithFormdataBodyWithResponse,
 	)
@@ -4236,7 +4236,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingTokensTokenWithFormdataBody"),
 			mcp.WithString("token", mcp.Required(), mcp.Description("token")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingTokensTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingTokensTokenFormdataRequestBody)")),
 		),
 		h.handleGetIssuingTokensTokenWithFormdataBodyWithResponse,
 	)
@@ -4250,7 +4250,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingTokensFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingTokensFormdataRequestBody)")),
 		),
 		h.handleGetIssuingTokensWithFormdataBodyWithResponse,
 	)
@@ -4260,7 +4260,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithDescription("GetIssuingTransactionsTransactionWithFormdataBody"),
 			mcp.WithString("transaction", mcp.Required(), mcp.Description("transaction")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingTransactionsTransactionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingTransactionsTransactionFormdataRequestBody)")),
 		),
 		h.handleGetIssuingTransactionsTransactionWithFormdataBodyWithResponse,
 	)
@@ -4275,7 +4275,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetIssuingTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetIssuingTransactionsFormdataRequestBody)")),
 		),
 		h.handleGetIssuingTransactionsWithFormdataBodyWithResponse,
 	)
@@ -4284,7 +4284,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-authorizations-authorization-approve-with-formdata-body",
 			mcp.WithDescription("PostIssuingAuthorizationsAuthorizationApproveWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingAuthorizationsAuthorizationApproveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingAuthorizationsAuthorizationApproveFormdataRequestBody)")),
 		),
 		h.handlePostIssuingAuthorizationsAuthorizationApproveWithFormdataBodyWithResponse,
 	)
@@ -4293,7 +4293,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-authorizations-authorization-decline-with-formdata-body",
 			mcp.WithDescription("PostIssuingAuthorizationsAuthorizationDeclineWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingAuthorizationsAuthorizationDeclineFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingAuthorizationsAuthorizationDeclineFormdataRequestBody)")),
 		),
 		h.handlePostIssuingAuthorizationsAuthorizationDeclineWithFormdataBodyWithResponse,
 	)
@@ -4302,7 +4302,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-authorizations-authorization-with-formdata-body",
 			mcp.WithDescription("PostIssuingAuthorizationsAuthorizationWithFormdataBody"),
 			mcp.WithString("authorization", mcp.Required(), mcp.Description("authorization")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingAuthorizationsAuthorizationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingAuthorizationsAuthorizationFormdataRequestBody)")),
 		),
 		h.handlePostIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse,
 	)
@@ -4311,7 +4311,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-cardholders-cardholder-with-formdata-body",
 			mcp.WithDescription("PostIssuingCardholdersCardholderWithFormdataBody"),
 			mcp.WithString("cardholder", mcp.Required(), mcp.Description("cardholder")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingCardholdersCardholderFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingCardholdersCardholderFormdataRequestBody)")),
 		),
 		h.handlePostIssuingCardholdersCardholderWithFormdataBodyWithResponse,
 	)
@@ -4319,7 +4319,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-issuing-cardholders-with-formdata-body",
 			mcp.WithDescription("PostIssuingCardholdersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingCardholdersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingCardholdersFormdataRequestBody)")),
 		),
 		h.handlePostIssuingCardholdersWithFormdataBodyWithResponse,
 	)
@@ -4328,7 +4328,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-cards-card-with-formdata-body",
 			mcp.WithDescription("PostIssuingCardsCardWithFormdataBody"),
 			mcp.WithString("card", mcp.Required(), mcp.Description("card")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingCardsCardFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingCardsCardFormdataRequestBody)")),
 		),
 		h.handlePostIssuingCardsCardWithFormdataBodyWithResponse,
 	)
@@ -4336,7 +4336,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-issuing-cards-with-formdata-body",
 			mcp.WithDescription("PostIssuingCardsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingCardsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingCardsFormdataRequestBody)")),
 		),
 		h.handlePostIssuingCardsWithFormdataBodyWithResponse,
 	)
@@ -4345,7 +4345,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-disputes-dispute-submit-with-formdata-body",
 			mcp.WithDescription("PostIssuingDisputesDisputeSubmitWithFormdataBody"),
 			mcp.WithString("dispute", mcp.Required(), mcp.Description("dispute")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingDisputesDisputeSubmitFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingDisputesDisputeSubmitFormdataRequestBody)")),
 		),
 		h.handlePostIssuingDisputesDisputeSubmitWithFormdataBodyWithResponse,
 	)
@@ -4354,7 +4354,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-disputes-dispute-with-formdata-body",
 			mcp.WithDescription("PostIssuingDisputesDisputeWithFormdataBody"),
 			mcp.WithString("dispute", mcp.Required(), mcp.Description("dispute")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingDisputesDisputeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingDisputesDisputeFormdataRequestBody)")),
 		),
 		h.handlePostIssuingDisputesDisputeWithFormdataBodyWithResponse,
 	)
@@ -4362,7 +4362,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-issuing-disputes-with-formdata-body",
 			mcp.WithDescription("PostIssuingDisputesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingDisputesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingDisputesFormdataRequestBody)")),
 		),
 		h.handlePostIssuingDisputesWithFormdataBodyWithResponse,
 	)
@@ -4371,7 +4371,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-personalization-designs-personalization-design-with-formdata-body",
 			mcp.WithDescription("PostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody"),
 			mcp.WithString("personalizationDesign", mcp.Required(), mcp.Description("personalizationDesign")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingPersonalizationDesignsPersonalizationDesignFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingPersonalizationDesignsPersonalizationDesignFormdataRequestBody)")),
 		),
 		h.handlePostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse,
 	)
@@ -4379,7 +4379,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-issuing-personalization-designs-with-formdata-body",
 			mcp.WithDescription("PostIssuingPersonalizationDesignsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingPersonalizationDesignsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingPersonalizationDesignsFormdataRequestBody)")),
 		),
 		h.handlePostIssuingPersonalizationDesignsWithFormdataBodyWithResponse,
 	)
@@ -4388,7 +4388,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-settlements-settlement-with-formdata-body",
 			mcp.WithDescription("PostIssuingSettlementsSettlementWithFormdataBody"),
 			mcp.WithString("settlement", mcp.Required(), mcp.Description("settlement")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingSettlementsSettlementFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingSettlementsSettlementFormdataRequestBody)")),
 		),
 		h.handlePostIssuingSettlementsSettlementWithFormdataBodyWithResponse,
 	)
@@ -4397,7 +4397,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-tokens-token-with-formdata-body",
 			mcp.WithDescription("PostIssuingTokensTokenWithFormdataBody"),
 			mcp.WithString("token", mcp.Required(), mcp.Description("token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingTokensTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingTokensTokenFormdataRequestBody)")),
 		),
 		h.handlePostIssuingTokensTokenWithFormdataBodyWithResponse,
 	)
@@ -4406,7 +4406,7 @@ func (h *Handler) RegisterIssuing(s *server.MCPServer) {
 		mcp.NewTool("post-issuing-transactions-transaction-with-formdata-body",
 			mcp.WithDescription("PostIssuingTransactionsTransactionWithFormdataBody"),
 			mcp.WithString("transaction", mcp.Required(), mcp.Description("transaction")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostIssuingTransactionsTransactionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostIssuingTransactionsTransactionFormdataRequestBody)")),
 		),
 		h.handlePostIssuingTransactionsTransactionWithFormdataBodyWithResponse,
 	)
@@ -4421,7 +4421,7 @@ func (h *Handler) RegisterLinkAccountSessions(s *server.MCPServer) {
 			mcp.WithDescription("GetLinkAccountSessionsSessionWithFormdataBody"),
 			mcp.WithString("session", mcp.Required(), mcp.Description("session")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetLinkAccountSessionsSessionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetLinkAccountSessionsSessionFormdataRequestBody)")),
 		),
 		h.handleGetLinkAccountSessionsSessionWithFormdataBodyWithResponse,
 	)
@@ -4429,7 +4429,7 @@ func (h *Handler) RegisterLinkAccountSessions(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-link-account-sessions-with-formdata-body",
 			mcp.WithDescription("PostLinkAccountSessionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostLinkAccountSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostLinkAccountSessionsFormdataRequestBody)")),
 		),
 		h.handlePostLinkAccountSessionsWithFormdataBodyWithResponse,
 	)
@@ -4448,7 +4448,7 @@ func (h *Handler) RegisterLinkedAccounts(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("ownership", mcp.Description("Ownership")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetLinkedAccountsAccountOwnersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetLinkedAccountsAccountOwnersFormdataRequestBody)")),
 		),
 		h.handleGetLinkedAccountsAccountOwnersWithFormdataBodyWithResponse,
 	)
@@ -4458,7 +4458,7 @@ func (h *Handler) RegisterLinkedAccounts(s *server.MCPServer) {
 			mcp.WithDescription("GetLinkedAccountsAccountWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetLinkedAccountsAccountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetLinkedAccountsAccountFormdataRequestBody)")),
 		),
 		h.handleGetLinkedAccountsAccountWithFormdataBodyWithResponse,
 	)
@@ -4471,7 +4471,7 @@ func (h *Handler) RegisterLinkedAccounts(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("session", mcp.Description("Session")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetLinkedAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetLinkedAccountsFormdataRequestBody)")),
 		),
 		h.handleGetLinkedAccountsWithFormdataBodyWithResponse,
 	)
@@ -4480,7 +4480,7 @@ func (h *Handler) RegisterLinkedAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-linked-accounts-account-disconnect-with-formdata-body",
 			mcp.WithDescription("PostLinkedAccountsAccountDisconnectWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostLinkedAccountsAccountDisconnectFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostLinkedAccountsAccountDisconnectFormdataRequestBody)")),
 		),
 		h.handlePostLinkedAccountsAccountDisconnectWithFormdataBodyWithResponse,
 	)
@@ -4489,7 +4489,7 @@ func (h *Handler) RegisterLinkedAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-linked-accounts-account-refresh-with-formdata-body",
 			mcp.WithDescription("PostLinkedAccountsAccountRefreshWithFormdataBody"),
 			mcp.WithString("account", mcp.Required(), mcp.Description("account")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostLinkedAccountsAccountRefreshFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostLinkedAccountsAccountRefreshFormdataRequestBody)")),
 		),
 		h.handlePostLinkedAccountsAccountRefreshWithFormdataBodyWithResponse,
 	)
@@ -4504,7 +4504,7 @@ func (h *Handler) RegisterMandates(s *server.MCPServer) {
 			mcp.WithDescription("GetMandatesMandateWithFormdataBody"),
 			mcp.WithString("mandate", mcp.Required(), mcp.Description("mandate")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetMandatesMandateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetMandatesMandateFormdataRequestBody)")),
 		),
 		h.handleGetMandatesMandateWithFormdataBodyWithResponse,
 	)
@@ -4519,7 +4519,7 @@ func (h *Handler) RegisterPaymentAttemptRecords(s *server.MCPServer) {
 			mcp.WithDescription("GetPaymentAttemptRecordsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentAttemptRecordsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentAttemptRecordsIdFormdataRequestBody)")),
 		),
 		h.handleGetPaymentAttemptRecordsIdWithFormdataBodyWithResponse,
 	)
@@ -4531,7 +4531,7 @@ func (h *Handler) RegisterPaymentAttemptRecords(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("payment_record", mcp.Description("PaymentRecord")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentAttemptRecordsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentAttemptRecordsFormdataRequestBody)")),
 		),
 		h.handleGetPaymentAttemptRecordsWithFormdataBodyWithResponse,
 	)
@@ -4549,7 +4549,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentIntentsIntentAmountDetailsLineItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentIntentsIntentAmountDetailsLineItemsFormdataRequestBody)")),
 		),
 		h.handleGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBodyWithResponse,
 	)
@@ -4560,7 +4560,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
 			mcp.WithString("client_secret", mcp.Description("ClientSecret")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentIntentsIntentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentIntentsIntentFormdataRequestBody)")),
 		),
 		h.handleGetPaymentIntentsIntentWithFormdataBodyWithResponse,
 	)
@@ -4572,7 +4572,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("page", mcp.Description("Page")),
 			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentIntentsSearchFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentIntentsSearchFormdataRequestBody)")),
 		),
 		h.handleGetPaymentIntentsSearchWithFormdataBodyWithResponse,
 	)
@@ -4586,7 +4586,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentIntentsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentIntentsFormdataRequestBody)")),
 		),
 		h.handleGetPaymentIntentsWithFormdataBodyWithResponse,
 	)
@@ -4595,7 +4595,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 		mcp.NewTool("post-payment-intents-intent-apply-customer-balance-with-formdata-body",
 			mcp.WithDescription("PostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentIntentsIntentApplyCustomerBalanceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentIntentsIntentApplyCustomerBalanceFormdataRequestBody)")),
 		),
 		h.handlePostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBodyWithResponse,
 	)
@@ -4604,7 +4604,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 		mcp.NewTool("post-payment-intents-intent-cancel-with-formdata-body",
 			mcp.WithDescription("PostPaymentIntentsIntentCancelWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentIntentsIntentCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentIntentsIntentCancelFormdataRequestBody)")),
 		),
 		h.handlePostPaymentIntentsIntentCancelWithFormdataBodyWithResponse,
 	)
@@ -4613,7 +4613,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 		mcp.NewTool("post-payment-intents-intent-capture-with-formdata-body",
 			mcp.WithDescription("PostPaymentIntentsIntentCaptureWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentIntentsIntentCaptureFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentIntentsIntentCaptureFormdataRequestBody)")),
 		),
 		h.handlePostPaymentIntentsIntentCaptureWithFormdataBodyWithResponse,
 	)
@@ -4622,7 +4622,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 		mcp.NewTool("post-payment-intents-intent-confirm-with-formdata-body",
 			mcp.WithDescription("PostPaymentIntentsIntentConfirmWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentIntentsIntentConfirmFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentIntentsIntentConfirmFormdataRequestBody)")),
 		),
 		h.handlePostPaymentIntentsIntentConfirmWithFormdataBodyWithResponse,
 	)
@@ -4631,7 +4631,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 		mcp.NewTool("post-payment-intents-intent-increment-authorization-with-formdata-body",
 			mcp.WithDescription("PostPaymentIntentsIntentIncrementAuthorizationWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentIntentsIntentIncrementAuthorizationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentIntentsIntentIncrementAuthorizationFormdataRequestBody)")),
 		),
 		h.handlePostPaymentIntentsIntentIncrementAuthorizationWithFormdataBodyWithResponse,
 	)
@@ -4640,7 +4640,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 		mcp.NewTool("post-payment-intents-intent-verify-microdeposits-with-formdata-body",
 			mcp.WithDescription("PostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentIntentsIntentVerifyMicrodepositsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentIntentsIntentVerifyMicrodepositsFormdataRequestBody)")),
 		),
 		h.handlePostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse,
 	)
@@ -4649,7 +4649,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 		mcp.NewTool("post-payment-intents-intent-with-formdata-body",
 			mcp.WithDescription("PostPaymentIntentsIntentWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentIntentsIntentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentIntentsIntentFormdataRequestBody)")),
 		),
 		h.handlePostPaymentIntentsIntentWithFormdataBodyWithResponse,
 	)
@@ -4657,7 +4657,7 @@ func (h *Handler) RegisterPaymentIntents(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-payment-intents-with-formdata-body",
 			mcp.WithDescription("PostPaymentIntentsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentIntentsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentIntentsFormdataRequestBody)")),
 		),
 		h.handlePostPaymentIntentsWithFormdataBodyWithResponse,
 	)
@@ -4675,7 +4675,7 @@ func (h *Handler) RegisterPaymentLinks(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentLinksPaymentLinkLineItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentLinksPaymentLinkLineItemsFormdataRequestBody)")),
 		),
 		h.handleGetPaymentLinksPaymentLinkLineItemsWithFormdataBodyWithResponse,
 	)
@@ -4685,7 +4685,7 @@ func (h *Handler) RegisterPaymentLinks(s *server.MCPServer) {
 			mcp.WithDescription("GetPaymentLinksPaymentLinkWithFormdataBody"),
 			mcp.WithString("paymentLink", mcp.Required(), mcp.Description("paymentLink")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentLinksPaymentLinkFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentLinksPaymentLinkFormdataRequestBody)")),
 		),
 		h.handleGetPaymentLinksPaymentLinkWithFormdataBodyWithResponse,
 	)
@@ -4698,7 +4698,7 @@ func (h *Handler) RegisterPaymentLinks(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentLinksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentLinksFormdataRequestBody)")),
 		),
 		h.handleGetPaymentLinksWithFormdataBodyWithResponse,
 	)
@@ -4707,7 +4707,7 @@ func (h *Handler) RegisterPaymentLinks(s *server.MCPServer) {
 		mcp.NewTool("post-payment-links-payment-link-with-formdata-body",
 			mcp.WithDescription("PostPaymentLinksPaymentLinkWithFormdataBody"),
 			mcp.WithString("paymentLink", mcp.Required(), mcp.Description("paymentLink")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentLinksPaymentLinkFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentLinksPaymentLinkFormdataRequestBody)")),
 		),
 		h.handlePostPaymentLinksPaymentLinkWithFormdataBodyWithResponse,
 	)
@@ -4715,7 +4715,7 @@ func (h *Handler) RegisterPaymentLinks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-payment-links-with-formdata-body",
 			mcp.WithDescription("PostPaymentLinksWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentLinksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentLinksFormdataRequestBody)")),
 		),
 		h.handlePostPaymentLinksWithFormdataBodyWithResponse,
 	)
@@ -4730,7 +4730,7 @@ func (h *Handler) RegisterPaymentMethodConfigurations(s *server.MCPServer) {
 			mcp.WithDescription("GetPaymentMethodConfigurationsConfigurationWithFormdataBody"),
 			mcp.WithString("configuration", mcp.Required(), mcp.Description("configuration")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentMethodConfigurationsConfigurationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentMethodConfigurationsConfigurationFormdataRequestBody)")),
 		),
 		h.handleGetPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse,
 	)
@@ -4743,7 +4743,7 @@ func (h *Handler) RegisterPaymentMethodConfigurations(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentMethodConfigurationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentMethodConfigurationsFormdataRequestBody)")),
 		),
 		h.handleGetPaymentMethodConfigurationsWithFormdataBodyWithResponse,
 	)
@@ -4752,7 +4752,7 @@ func (h *Handler) RegisterPaymentMethodConfigurations(s *server.MCPServer) {
 		mcp.NewTool("post-payment-method-configurations-configuration-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodConfigurationsConfigurationWithFormdataBody"),
 			mcp.WithString("configuration", mcp.Required(), mcp.Description("configuration")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodConfigurationsConfigurationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodConfigurationsConfigurationFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse,
 	)
@@ -4760,7 +4760,7 @@ func (h *Handler) RegisterPaymentMethodConfigurations(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-payment-method-configurations-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodConfigurationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodConfigurationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodConfigurationsFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodConfigurationsWithFormdataBodyWithResponse,
 	)
@@ -4775,7 +4775,7 @@ func (h *Handler) RegisterPaymentMethodDomains(s *server.MCPServer) {
 			mcp.WithDescription("GetPaymentMethodDomainsPaymentMethodDomainWithFormdataBody"),
 			mcp.WithString("paymentMethodDomain", mcp.Required(), mcp.Description("paymentMethodDomain")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentMethodDomainsPaymentMethodDomainFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentMethodDomainsPaymentMethodDomainFormdataRequestBody)")),
 		),
 		h.handleGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse,
 	)
@@ -4789,7 +4789,7 @@ func (h *Handler) RegisterPaymentMethodDomains(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentMethodDomainsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentMethodDomainsFormdataRequestBody)")),
 		),
 		h.handleGetPaymentMethodDomainsWithFormdataBodyWithResponse,
 	)
@@ -4798,7 +4798,7 @@ func (h *Handler) RegisterPaymentMethodDomains(s *server.MCPServer) {
 		mcp.NewTool("post-payment-method-domains-payment-method-domain-validate-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBody"),
 			mcp.WithString("paymentMethodDomain", mcp.Required(), mcp.Description("paymentMethodDomain")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodDomainsPaymentMethodDomainValidateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodDomainsPaymentMethodDomainValidateFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBodyWithResponse,
 	)
@@ -4807,7 +4807,7 @@ func (h *Handler) RegisterPaymentMethodDomains(s *server.MCPServer) {
 		mcp.NewTool("post-payment-method-domains-payment-method-domain-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodDomainsPaymentMethodDomainWithFormdataBody"),
 			mcp.WithString("paymentMethodDomain", mcp.Required(), mcp.Description("paymentMethodDomain")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodDomainsPaymentMethodDomainFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodDomainsPaymentMethodDomainFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse,
 	)
@@ -4815,7 +4815,7 @@ func (h *Handler) RegisterPaymentMethodDomains(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-payment-method-domains-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodDomainsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodDomainsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodDomainsFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodDomainsWithFormdataBodyWithResponse,
 	)
@@ -4830,7 +4830,7 @@ func (h *Handler) RegisterPaymentMethods(s *server.MCPServer) {
 			mcp.WithDescription("GetPaymentMethodsPaymentMethodWithFormdataBody"),
 			mcp.WithString("paymentMethod", mcp.Required(), mcp.Description("paymentMethod")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentMethodsPaymentMethodFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentMethodsPaymentMethodFormdataRequestBody)")),
 		),
 		h.handleGetPaymentMethodsPaymentMethodWithFormdataBodyWithResponse,
 	)
@@ -4846,7 +4846,7 @@ func (h *Handler) RegisterPaymentMethods(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentMethodsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentMethodsFormdataRequestBody)")),
 		),
 		h.handleGetPaymentMethodsWithFormdataBodyWithResponse,
 	)
@@ -4855,7 +4855,7 @@ func (h *Handler) RegisterPaymentMethods(s *server.MCPServer) {
 		mcp.NewTool("post-payment-methods-payment-method-attach-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodsPaymentMethodAttachWithFormdataBody"),
 			mcp.WithString("paymentMethod", mcp.Required(), mcp.Description("paymentMethod")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodsPaymentMethodAttachFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodsPaymentMethodAttachFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodsPaymentMethodAttachWithFormdataBodyWithResponse,
 	)
@@ -4864,7 +4864,7 @@ func (h *Handler) RegisterPaymentMethods(s *server.MCPServer) {
 		mcp.NewTool("post-payment-methods-payment-method-detach-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodsPaymentMethodDetachWithFormdataBody"),
 			mcp.WithString("paymentMethod", mcp.Required(), mcp.Description("paymentMethod")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodsPaymentMethodDetachFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodsPaymentMethodDetachFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodsPaymentMethodDetachWithFormdataBodyWithResponse,
 	)
@@ -4873,7 +4873,7 @@ func (h *Handler) RegisterPaymentMethods(s *server.MCPServer) {
 		mcp.NewTool("post-payment-methods-payment-method-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodsPaymentMethodWithFormdataBody"),
 			mcp.WithString("paymentMethod", mcp.Required(), mcp.Description("paymentMethod")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodsPaymentMethodFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodsPaymentMethodFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodsPaymentMethodWithFormdataBodyWithResponse,
 	)
@@ -4881,7 +4881,7 @@ func (h *Handler) RegisterPaymentMethods(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-payment-methods-with-formdata-body",
 			mcp.WithDescription("PostPaymentMethodsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentMethodsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentMethodsFormdataRequestBody)")),
 		),
 		h.handlePostPaymentMethodsWithFormdataBodyWithResponse,
 	)
@@ -4896,7 +4896,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 			mcp.WithDescription("GetPaymentRecordsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentRecordsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentRecordsIdFormdataRequestBody)")),
 		),
 		h.handleGetPaymentRecordsIdWithFormdataBodyWithResponse,
 	)
@@ -4910,7 +4910,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPaymentRecordsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPaymentRecordsFormdataRequestBody)")),
 		),
 		h.handleGetPaymentRecordsWithFormdataBodyWithResponse,
 	)
@@ -4919,7 +4919,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 		mcp.NewTool("post-payment-records-id-report-payment-attempt-canceled-with-formdata-body",
 			mcp.WithDescription("PostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentRecordsIdReportPaymentAttemptCanceledFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentRecordsIdReportPaymentAttemptCanceledFormdataRequestBody)")),
 		),
 		h.handlePostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBodyWithResponse,
 	)
@@ -4928,7 +4928,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 		mcp.NewTool("post-payment-records-id-report-payment-attempt-failed-with-formdata-body",
 			mcp.WithDescription("PostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentRecordsIdReportPaymentAttemptFailedFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentRecordsIdReportPaymentAttemptFailedFormdataRequestBody)")),
 		),
 		h.handlePostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBodyWithResponse,
 	)
@@ -4937,7 +4937,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 		mcp.NewTool("post-payment-records-id-report-payment-attempt-guaranteed-with-formdata-body",
 			mcp.WithDescription("PostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentRecordsIdReportPaymentAttemptGuaranteedFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentRecordsIdReportPaymentAttemptGuaranteedFormdataRequestBody)")),
 		),
 		h.handlePostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBodyWithResponse,
 	)
@@ -4946,7 +4946,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 		mcp.NewTool("post-payment-records-id-report-payment-attempt-informational-with-formdata-body",
 			mcp.WithDescription("PostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentRecordsIdReportPaymentAttemptInformationalFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentRecordsIdReportPaymentAttemptInformationalFormdataRequestBody)")),
 		),
 		h.handlePostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBodyWithResponse,
 	)
@@ -4955,7 +4955,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 		mcp.NewTool("post-payment-records-id-report-payment-attempt-with-formdata-body",
 			mcp.WithDescription("PostPaymentRecordsIdReportPaymentAttemptWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentRecordsIdReportPaymentAttemptFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentRecordsIdReportPaymentAttemptFormdataRequestBody)")),
 		),
 		h.handlePostPaymentRecordsIdReportPaymentAttemptWithFormdataBodyWithResponse,
 	)
@@ -4964,7 +4964,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 		mcp.NewTool("post-payment-records-id-report-refund-with-formdata-body",
 			mcp.WithDescription("PostPaymentRecordsIdReportRefundWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentRecordsIdReportRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentRecordsIdReportRefundFormdataRequestBody)")),
 		),
 		h.handlePostPaymentRecordsIdReportRefundWithFormdataBodyWithResponse,
 	)
@@ -4972,7 +4972,7 @@ func (h *Handler) RegisterPaymentRecords(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-payment-records-report-payment-with-formdata-body",
 			mcp.WithDescription("PostPaymentRecordsReportPaymentWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPaymentRecordsReportPaymentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPaymentRecordsReportPaymentFormdataRequestBody)")),
 		),
 		h.handlePostPaymentRecordsReportPaymentWithFormdataBodyWithResponse,
 	)
@@ -4987,7 +4987,7 @@ func (h *Handler) RegisterPayouts(s *server.MCPServer) {
 			mcp.WithDescription("GetPayoutsPayoutWithFormdataBody"),
 			mcp.WithString("payout", mcp.Required(), mcp.Description("payout")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPayoutsPayoutFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPayoutsPayoutFormdataRequestBody)")),
 		),
 		h.handleGetPayoutsPayoutWithFormdataBodyWithResponse,
 	)
@@ -5001,7 +5001,7 @@ func (h *Handler) RegisterPayouts(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPayoutsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPayoutsFormdataRequestBody)")),
 		),
 		h.handleGetPayoutsWithFormdataBodyWithResponse,
 	)
@@ -5010,7 +5010,7 @@ func (h *Handler) RegisterPayouts(s *server.MCPServer) {
 		mcp.NewTool("post-payouts-payout-cancel-with-formdata-body",
 			mcp.WithDescription("PostPayoutsPayoutCancelWithFormdataBody"),
 			mcp.WithString("payout", mcp.Required(), mcp.Description("payout")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPayoutsPayoutCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPayoutsPayoutCancelFormdataRequestBody)")),
 		),
 		h.handlePostPayoutsPayoutCancelWithFormdataBodyWithResponse,
 	)
@@ -5019,7 +5019,7 @@ func (h *Handler) RegisterPayouts(s *server.MCPServer) {
 		mcp.NewTool("post-payouts-payout-reverse-with-formdata-body",
 			mcp.WithDescription("PostPayoutsPayoutReverseWithFormdataBody"),
 			mcp.WithString("payout", mcp.Required(), mcp.Description("payout")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPayoutsPayoutReverseFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPayoutsPayoutReverseFormdataRequestBody)")),
 		),
 		h.handlePostPayoutsPayoutReverseWithFormdataBodyWithResponse,
 	)
@@ -5028,7 +5028,7 @@ func (h *Handler) RegisterPayouts(s *server.MCPServer) {
 		mcp.NewTool("post-payouts-payout-with-formdata-body",
 			mcp.WithDescription("PostPayoutsPayoutWithFormdataBody"),
 			mcp.WithString("payout", mcp.Required(), mcp.Description("payout")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPayoutsPayoutFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPayoutsPayoutFormdataRequestBody)")),
 		),
 		h.handlePostPayoutsPayoutWithFormdataBodyWithResponse,
 	)
@@ -5036,7 +5036,7 @@ func (h *Handler) RegisterPayouts(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-payouts-with-formdata-body",
 			mcp.WithDescription("PostPayoutsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPayoutsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPayoutsFormdataRequestBody)")),
 		),
 		h.handlePostPayoutsWithFormdataBodyWithResponse,
 	)
@@ -5051,7 +5051,7 @@ func (h *Handler) RegisterPrices(s *server.MCPServer) {
 			mcp.WithDescription("GetPricesPriceWithFormdataBody"),
 			mcp.WithString("price", mcp.Required(), mcp.Description("price")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPricesPriceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPricesPriceFormdataRequestBody)")),
 		),
 		h.handleGetPricesPriceWithFormdataBodyWithResponse,
 	)
@@ -5063,7 +5063,7 @@ func (h *Handler) RegisterPrices(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("page", mcp.Description("Page")),
 			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPricesSearchFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPricesSearchFormdataRequestBody)")),
 		),
 		h.handleGetPricesSearchWithFormdataBodyWithResponse,
 	)
@@ -5080,7 +5080,7 @@ func (h *Handler) RegisterPrices(s *server.MCPServer) {
 			mcp.WithString("product", mcp.Description("Product")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPricesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPricesFormdataRequestBody)")),
 		),
 		h.handleGetPricesWithFormdataBodyWithResponse,
 	)
@@ -5089,7 +5089,7 @@ func (h *Handler) RegisterPrices(s *server.MCPServer) {
 		mcp.NewTool("post-prices-price-with-formdata-body",
 			mcp.WithDescription("PostPricesPriceWithFormdataBody"),
 			mcp.WithString("price", mcp.Required(), mcp.Description("price")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPricesPriceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPricesPriceFormdataRequestBody)")),
 		),
 		h.handlePostPricesPriceWithFormdataBodyWithResponse,
 	)
@@ -5097,7 +5097,7 @@ func (h *Handler) RegisterPrices(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-prices-with-formdata-body",
 			mcp.WithDescription("PostPricesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPricesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPricesFormdataRequestBody)")),
 		),
 		h.handlePostPricesWithFormdataBodyWithResponse,
 	)
@@ -5112,7 +5112,7 @@ func (h *Handler) RegisterProductCatalog(s *server.MCPServer) {
 			mcp.WithDescription("GetProductCatalogTrialOffersIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetProductCatalogTrialOffersIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetProductCatalogTrialOffersIdFormdataRequestBody)")),
 		),
 		h.handleGetProductCatalogTrialOffersIdWithFormdataBodyWithResponse,
 	)
@@ -5126,7 +5126,7 @@ func (h *Handler) RegisterProductCatalog(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithArray("prices", mcp.Description("Prices"), mcp.WithStringItems()),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetProductCatalogTrialOffersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetProductCatalogTrialOffersFormdataRequestBody)")),
 		),
 		h.handleGetProductCatalogTrialOffersWithFormdataBodyWithResponse,
 	)
@@ -5135,7 +5135,7 @@ func (h *Handler) RegisterProductCatalog(s *server.MCPServer) {
 		mcp.NewTool("post-product-catalog-trial-offers-id-with-formdata-body",
 			mcp.WithDescription("PostProductCatalogTrialOffersIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostProductCatalogTrialOffersIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostProductCatalogTrialOffersIdFormdataRequestBody)")),
 		),
 		h.handlePostProductCatalogTrialOffersIdWithFormdataBodyWithResponse,
 	)
@@ -5143,7 +5143,7 @@ func (h *Handler) RegisterProductCatalog(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-product-catalog-trial-offers-with-formdata-body",
 			mcp.WithDescription("PostProductCatalogTrialOffersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostProductCatalogTrialOffersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostProductCatalogTrialOffersFormdataRequestBody)")),
 		),
 		h.handlePostProductCatalogTrialOffersWithFormdataBodyWithResponse,
 	)
@@ -5158,7 +5158,7 @@ func (h *Handler) RegisterPromotionCodes(s *server.MCPServer) {
 			mcp.WithDescription("GetPromotionCodesPromotionCodeWithFormdataBody"),
 			mcp.WithString("promotionCode", mcp.Required(), mcp.Description("promotionCode")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPromotionCodesPromotionCodeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPromotionCodesPromotionCodeFormdataRequestBody)")),
 		),
 		h.handleGetPromotionCodesPromotionCodeWithFormdataBodyWithResponse,
 	)
@@ -5175,7 +5175,7 @@ func (h *Handler) RegisterPromotionCodes(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetPromotionCodesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetPromotionCodesFormdataRequestBody)")),
 		),
 		h.handleGetPromotionCodesWithFormdataBodyWithResponse,
 	)
@@ -5184,7 +5184,7 @@ func (h *Handler) RegisterPromotionCodes(s *server.MCPServer) {
 		mcp.NewTool("post-promotion-codes-promotion-code-with-formdata-body",
 			mcp.WithDescription("PostPromotionCodesPromotionCodeWithFormdataBody"),
 			mcp.WithString("promotionCode", mcp.Required(), mcp.Description("promotionCode")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPromotionCodesPromotionCodeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPromotionCodesPromotionCodeFormdataRequestBody)")),
 		),
 		h.handlePostPromotionCodesPromotionCodeWithFormdataBodyWithResponse,
 	)
@@ -5192,7 +5192,7 @@ func (h *Handler) RegisterPromotionCodes(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-promotion-codes-with-formdata-body",
 			mcp.WithDescription("PostPromotionCodesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostPromotionCodesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostPromotionCodesFormdataRequestBody)")),
 		),
 		h.handlePostPromotionCodesWithFormdataBodyWithResponse,
 	)
@@ -5210,7 +5210,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetQuotesQuoteComputedUpfrontLineItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetQuotesQuoteComputedUpfrontLineItemsFormdataRequestBody)")),
 		),
 		h.handleGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBodyWithResponse,
 	)
@@ -5223,7 +5223,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetQuotesQuoteLineItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetQuotesQuoteLineItemsFormdataRequestBody)")),
 		),
 		h.handleGetQuotesQuoteLineItemsWithFormdataBodyWithResponse,
 	)
@@ -5233,7 +5233,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 			mcp.WithDescription("GetQuotesQuotePdfWithFormdataBody"),
 			mcp.WithString("quote", mcp.Required(), mcp.Description("quote")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetQuotesQuotePdfFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetQuotesQuotePdfFormdataRequestBody)")),
 		),
 		h.handleGetQuotesQuotePdfWithFormdataBodyWithResponse,
 	)
@@ -5243,7 +5243,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 			mcp.WithDescription("GetQuotesQuoteWithFormdataBody"),
 			mcp.WithString("quote", mcp.Required(), mcp.Description("quote")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetQuotesQuoteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetQuotesQuoteFormdataRequestBody)")),
 		),
 		h.handleGetQuotesQuoteWithFormdataBodyWithResponse,
 	)
@@ -5259,7 +5259,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
 			mcp.WithString("test_clock", mcp.Description("TestClock")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetQuotesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetQuotesFormdataRequestBody)")),
 		),
 		h.handleGetQuotesWithFormdataBodyWithResponse,
 	)
@@ -5268,7 +5268,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 		mcp.NewTool("post-quotes-quote-accept-with-formdata-body",
 			mcp.WithDescription("PostQuotesQuoteAcceptWithFormdataBody"),
 			mcp.WithString("quote", mcp.Required(), mcp.Description("quote")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostQuotesQuoteAcceptFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostQuotesQuoteAcceptFormdataRequestBody)")),
 		),
 		h.handlePostQuotesQuoteAcceptWithFormdataBodyWithResponse,
 	)
@@ -5277,7 +5277,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 		mcp.NewTool("post-quotes-quote-cancel-with-formdata-body",
 			mcp.WithDescription("PostQuotesQuoteCancelWithFormdataBody"),
 			mcp.WithString("quote", mcp.Required(), mcp.Description("quote")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostQuotesQuoteCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostQuotesQuoteCancelFormdataRequestBody)")),
 		),
 		h.handlePostQuotesQuoteCancelWithFormdataBodyWithResponse,
 	)
@@ -5286,7 +5286,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 		mcp.NewTool("post-quotes-quote-finalize-with-formdata-body",
 			mcp.WithDescription("PostQuotesQuoteFinalizeWithFormdataBody"),
 			mcp.WithString("quote", mcp.Required(), mcp.Description("quote")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostQuotesQuoteFinalizeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostQuotesQuoteFinalizeFormdataRequestBody)")),
 		),
 		h.handlePostQuotesQuoteFinalizeWithFormdataBodyWithResponse,
 	)
@@ -5295,7 +5295,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 		mcp.NewTool("post-quotes-quote-with-formdata-body",
 			mcp.WithDescription("PostQuotesQuoteWithFormdataBody"),
 			mcp.WithString("quote", mcp.Required(), mcp.Description("quote")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostQuotesQuoteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostQuotesQuoteFormdataRequestBody)")),
 		),
 		h.handlePostQuotesQuoteWithFormdataBodyWithResponse,
 	)
@@ -5303,7 +5303,7 @@ func (h *Handler) RegisterQuotes(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-quotes-with-formdata-body",
 			mcp.WithDescription("PostQuotesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostQuotesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostQuotesFormdataRequestBody)")),
 		),
 		h.handlePostQuotesWithFormdataBodyWithResponse,
 	)
@@ -5318,7 +5318,7 @@ func (h *Handler) RegisterRefunds(s *server.MCPServer) {
 			mcp.WithDescription("GetRefundsRefundWithFormdataBody"),
 			mcp.WithString("refund", mcp.Required(), mcp.Description("refund")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetRefundsRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetRefundsRefundFormdataRequestBody)")),
 		),
 		h.handleGetRefundsRefundWithFormdataBodyWithResponse,
 	)
@@ -5332,7 +5332,7 @@ func (h *Handler) RegisterRefunds(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("payment_intent", mcp.Description("PaymentIntent")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetRefundsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetRefundsFormdataRequestBody)")),
 		),
 		h.handleGetRefundsWithFormdataBodyWithResponse,
 	)
@@ -5341,7 +5341,7 @@ func (h *Handler) RegisterRefunds(s *server.MCPServer) {
 		mcp.NewTool("post-refunds-refund-cancel-with-formdata-body",
 			mcp.WithDescription("PostRefundsRefundCancelWithFormdataBody"),
 			mcp.WithString("refund", mcp.Required(), mcp.Description("refund")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostRefundsRefundCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostRefundsRefundCancelFormdataRequestBody)")),
 		),
 		h.handlePostRefundsRefundCancelWithFormdataBodyWithResponse,
 	)
@@ -5350,7 +5350,7 @@ func (h *Handler) RegisterRefunds(s *server.MCPServer) {
 		mcp.NewTool("post-refunds-refund-with-formdata-body",
 			mcp.WithDescription("PostRefundsRefundWithFormdataBody"),
 			mcp.WithString("refund", mcp.Required(), mcp.Description("refund")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostRefundsRefundFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostRefundsRefundFormdataRequestBody)")),
 		),
 		h.handlePostRefundsRefundWithFormdataBodyWithResponse,
 	)
@@ -5358,7 +5358,7 @@ func (h *Handler) RegisterRefunds(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-refunds-with-formdata-body",
 			mcp.WithDescription("PostRefundsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostRefundsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostRefundsFormdataRequestBody)")),
 		),
 		h.handlePostRefundsWithFormdataBodyWithResponse,
 	)
@@ -5373,7 +5373,7 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 			mcp.WithDescription("GetReportingReportRunsReportRunWithFormdataBody"),
 			mcp.WithString("reportRun", mcp.Required(), mcp.Description("reportRun")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetReportingReportRunsReportRunFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetReportingReportRunsReportRunFormdataRequestBody)")),
 		),
 		h.handleGetReportingReportRunsReportRunWithFormdataBodyWithResponse,
 	)
@@ -5385,7 +5385,7 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetReportingReportRunsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetReportingReportRunsFormdataRequestBody)")),
 		),
 		h.handleGetReportingReportRunsWithFormdataBodyWithResponse,
 	)
@@ -5395,7 +5395,7 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 			mcp.WithDescription("GetReportingReportTypesReportTypeWithFormdataBody"),
 			mcp.WithString("reportType", mcp.Required(), mcp.Description("reportType")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetReportingReportTypesReportTypeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetReportingReportTypesReportTypeFormdataRequestBody)")),
 		),
 		h.handleGetReportingReportTypesReportTypeWithFormdataBodyWithResponse,
 	)
@@ -5404,7 +5404,7 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 		mcp.NewTool("get-reporting-report-types-with-formdata-body",
 			mcp.WithDescription("GetReportingReportTypesWithFormdataBody"),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetReportingReportTypesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetReportingReportTypesFormdataRequestBody)")),
 		),
 		h.handleGetReportingReportTypesWithFormdataBodyWithResponse,
 	)
@@ -5412,7 +5412,7 @@ func (h *Handler) RegisterReporting(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-reporting-report-runs-with-formdata-body",
 			mcp.WithDescription("PostReportingReportRunsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostReportingReportRunsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostReportingReportRunsFormdataRequestBody)")),
 		),
 		h.handlePostReportingReportRunsWithFormdataBodyWithResponse,
 	)
@@ -5427,7 +5427,7 @@ func (h *Handler) RegisterReviews(s *server.MCPServer) {
 			mcp.WithDescription("GetReviewsReviewWithFormdataBody"),
 			mcp.WithString("review", mcp.Required(), mcp.Description("review")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetReviewsReviewFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetReviewsReviewFormdataRequestBody)")),
 		),
 		h.handleGetReviewsReviewWithFormdataBodyWithResponse,
 	)
@@ -5439,7 +5439,7 @@ func (h *Handler) RegisterReviews(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetReviewsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetReviewsFormdataRequestBody)")),
 		),
 		h.handleGetReviewsWithFormdataBodyWithResponse,
 	)
@@ -5448,7 +5448,7 @@ func (h *Handler) RegisterReviews(s *server.MCPServer) {
 		mcp.NewTool("post-reviews-review-approve-with-formdata-body",
 			mcp.WithDescription("PostReviewsReviewApproveWithFormdataBody"),
 			mcp.WithString("review", mcp.Required(), mcp.Description("review")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostReviewsReviewApproveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostReviewsReviewApproveFormdataRequestBody)")),
 		),
 		h.handlePostReviewsReviewApproveWithFormdataBodyWithResponse,
 	)
@@ -5466,7 +5466,7 @@ func (h *Handler) RegisterSetupAttempts(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("setup_intent", mcp.Description("SetupIntent")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSetupAttemptsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSetupAttemptsFormdataRequestBody)")),
 		),
 		h.handleGetSetupAttemptsWithFormdataBodyWithResponse,
 	)
@@ -5482,7 +5482,7 @@ func (h *Handler) RegisterSetupIntents(s *server.MCPServer) {
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
 			mcp.WithString("client_secret", mcp.Description("ClientSecret")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSetupIntentsIntentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSetupIntentsIntentFormdataRequestBody)")),
 		),
 		h.handleGetSetupIntentsIntentWithFormdataBodyWithResponse,
 	)
@@ -5498,7 +5498,7 @@ func (h *Handler) RegisterSetupIntents(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("payment_method", mcp.Description("PaymentMethod")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSetupIntentsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSetupIntentsFormdataRequestBody)")),
 		),
 		h.handleGetSetupIntentsWithFormdataBodyWithResponse,
 	)
@@ -5507,7 +5507,7 @@ func (h *Handler) RegisterSetupIntents(s *server.MCPServer) {
 		mcp.NewTool("post-setup-intents-intent-cancel-with-formdata-body",
 			mcp.WithDescription("PostSetupIntentsIntentCancelWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSetupIntentsIntentCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSetupIntentsIntentCancelFormdataRequestBody)")),
 		),
 		h.handlePostSetupIntentsIntentCancelWithFormdataBodyWithResponse,
 	)
@@ -5516,7 +5516,7 @@ func (h *Handler) RegisterSetupIntents(s *server.MCPServer) {
 		mcp.NewTool("post-setup-intents-intent-confirm-with-formdata-body",
 			mcp.WithDescription("PostSetupIntentsIntentConfirmWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSetupIntentsIntentConfirmFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSetupIntentsIntentConfirmFormdataRequestBody)")),
 		),
 		h.handlePostSetupIntentsIntentConfirmWithFormdataBodyWithResponse,
 	)
@@ -5525,7 +5525,7 @@ func (h *Handler) RegisterSetupIntents(s *server.MCPServer) {
 		mcp.NewTool("post-setup-intents-intent-verify-microdeposits-with-formdata-body",
 			mcp.WithDescription("PostSetupIntentsIntentVerifyMicrodepositsWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSetupIntentsIntentVerifyMicrodepositsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSetupIntentsIntentVerifyMicrodepositsFormdataRequestBody)")),
 		),
 		h.handlePostSetupIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse,
 	)
@@ -5534,7 +5534,7 @@ func (h *Handler) RegisterSetupIntents(s *server.MCPServer) {
 		mcp.NewTool("post-setup-intents-intent-with-formdata-body",
 			mcp.WithDescription("PostSetupIntentsIntentWithFormdataBody"),
 			mcp.WithString("intent", mcp.Required(), mcp.Description("intent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSetupIntentsIntentFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSetupIntentsIntentFormdataRequestBody)")),
 		),
 		h.handlePostSetupIntentsIntentWithFormdataBodyWithResponse,
 	)
@@ -5542,7 +5542,7 @@ func (h *Handler) RegisterSetupIntents(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-setup-intents-with-formdata-body",
 			mcp.WithDescription("PostSetupIntentsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSetupIntentsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSetupIntentsFormdataRequestBody)")),
 		),
 		h.handlePostSetupIntentsWithFormdataBodyWithResponse,
 	)
@@ -5557,7 +5557,7 @@ func (h *Handler) RegisterShippingRates(s *server.MCPServer) {
 			mcp.WithDescription("GetShippingRatesShippingRateTokenWithFormdataBody"),
 			mcp.WithString("shippingRateToken", mcp.Required(), mcp.Description("shippingRateToken")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetShippingRatesShippingRateTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetShippingRatesShippingRateTokenFormdataRequestBody)")),
 		),
 		h.handleGetShippingRatesShippingRateTokenWithFormdataBodyWithResponse,
 	)
@@ -5571,7 +5571,7 @@ func (h *Handler) RegisterShippingRates(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetShippingRatesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetShippingRatesFormdataRequestBody)")),
 		),
 		h.handleGetShippingRatesWithFormdataBodyWithResponse,
 	)
@@ -5580,7 +5580,7 @@ func (h *Handler) RegisterShippingRates(s *server.MCPServer) {
 		mcp.NewTool("post-shipping-rates-shipping-rate-token-with-formdata-body",
 			mcp.WithDescription("PostShippingRatesShippingRateTokenWithFormdataBody"),
 			mcp.WithString("shippingRateToken", mcp.Required(), mcp.Description("shippingRateToken")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostShippingRatesShippingRateTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostShippingRatesShippingRateTokenFormdataRequestBody)")),
 		),
 		h.handlePostShippingRatesShippingRateTokenWithFormdataBodyWithResponse,
 	)
@@ -5588,7 +5588,7 @@ func (h *Handler) RegisterShippingRates(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-shipping-rates-with-formdata-body",
 			mcp.WithDescription("PostShippingRatesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostShippingRatesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostShippingRatesFormdataRequestBody)")),
 		),
 		h.handlePostShippingRatesWithFormdataBodyWithResponse,
 	)
@@ -5603,7 +5603,7 @@ func (h *Handler) RegisterSigma(s *server.MCPServer) {
 			mcp.WithDescription("GetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBody"),
 			mcp.WithString("scheduledQueryRun", mcp.Required(), mcp.Description("scheduledQueryRun")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSigmaScheduledQueryRunsScheduledQueryRunFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSigmaScheduledQueryRunsScheduledQueryRunFormdataRequestBody)")),
 		),
 		h.handleGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBodyWithResponse,
 	)
@@ -5615,7 +5615,7 @@ func (h *Handler) RegisterSigma(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSigmaScheduledQueryRunsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSigmaScheduledQueryRunsFormdataRequestBody)")),
 		),
 		h.handleGetSigmaScheduledQueryRunsWithFormdataBodyWithResponse,
 	)
@@ -5624,7 +5624,7 @@ func (h *Handler) RegisterSigma(s *server.MCPServer) {
 		mcp.NewTool("post-sigma-saved-queries-id-with-formdata-body",
 			mcp.WithDescription("PostSigmaSavedQueriesIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSigmaSavedQueriesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSigmaSavedQueriesIdFormdataRequestBody)")),
 		),
 		h.handlePostSigmaSavedQueriesIdWithFormdataBodyWithResponse,
 	)
@@ -5640,7 +5640,7 @@ func (h *Handler) RegisterSources(s *server.MCPServer) {
 			mcp.WithString("source", mcp.Required(), mcp.Description("source")),
 			mcp.WithString("mandateNotification", mcp.Required(), mcp.Description("mandateNotification")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSourcesSourceMandateNotificationsMandateNotificationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSourcesSourceMandateNotificationsMandateNotificationFormdataRequestBody)")),
 		),
 		h.handleGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBodyWithResponse,
 	)
@@ -5651,7 +5651,7 @@ func (h *Handler) RegisterSources(s *server.MCPServer) {
 			mcp.WithString("source", mcp.Required(), mcp.Description("source")),
 			mcp.WithString("sourceTransaction", mcp.Required(), mcp.Description("sourceTransaction")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSourcesSourceSourceTransactionsSourceTransactionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSourcesSourceSourceTransactionsSourceTransactionFormdataRequestBody)")),
 		),
 		h.handleGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBodyWithResponse,
 	)
@@ -5664,7 +5664,7 @@ func (h *Handler) RegisterSources(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSourcesSourceSourceTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSourcesSourceSourceTransactionsFormdataRequestBody)")),
 		),
 		h.handleGetSourcesSourceSourceTransactionsWithFormdataBodyWithResponse,
 	)
@@ -5675,7 +5675,7 @@ func (h *Handler) RegisterSources(s *server.MCPServer) {
 			mcp.WithString("source", mcp.Required(), mcp.Description("source")),
 			mcp.WithString("client_secret", mcp.Description("ClientSecret")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSourcesSourceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSourcesSourceFormdataRequestBody)")),
 		),
 		h.handleGetSourcesSourceWithFormdataBodyWithResponse,
 	)
@@ -5684,7 +5684,7 @@ func (h *Handler) RegisterSources(s *server.MCPServer) {
 		mcp.NewTool("post-sources-source-verify-with-formdata-body",
 			mcp.WithDescription("PostSourcesSourceVerifyWithFormdataBody"),
 			mcp.WithString("source", mcp.Required(), mcp.Description("source")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSourcesSourceVerifyFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSourcesSourceVerifyFormdataRequestBody)")),
 		),
 		h.handlePostSourcesSourceVerifyWithFormdataBodyWithResponse,
 	)
@@ -5693,7 +5693,7 @@ func (h *Handler) RegisterSources(s *server.MCPServer) {
 		mcp.NewTool("post-sources-source-with-formdata-body",
 			mcp.WithDescription("PostSourcesSourceWithFormdataBody"),
 			mcp.WithString("source", mcp.Required(), mcp.Description("source")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSourcesSourceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSourcesSourceFormdataRequestBody)")),
 		),
 		h.handlePostSourcesSourceWithFormdataBodyWithResponse,
 	)
@@ -5701,7 +5701,7 @@ func (h *Handler) RegisterSources(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-sources-with-formdata-body",
 			mcp.WithDescription("PostSourcesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSourcesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSourcesFormdataRequestBody)")),
 		),
 		h.handlePostSourcesWithFormdataBodyWithResponse,
 	)
@@ -5716,7 +5716,7 @@ func (h *Handler) RegisterSubscriptionSchedules(s *server.MCPServer) {
 			mcp.WithDescription("GetSubscriptionSchedulesScheduleWithFormdataBody"),
 			mcp.WithString("schedule", mcp.Required(), mcp.Description("schedule")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSubscriptionSchedulesScheduleFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSubscriptionSchedulesScheduleFormdataRequestBody)")),
 		),
 		h.handleGetSubscriptionSchedulesScheduleWithFormdataBodyWithResponse,
 	)
@@ -5731,7 +5731,7 @@ func (h *Handler) RegisterSubscriptionSchedules(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithBoolean("scheduled", mcp.Description("Scheduled")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetSubscriptionSchedulesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetSubscriptionSchedulesFormdataRequestBody)")),
 		),
 		h.handleGetSubscriptionSchedulesWithFormdataBodyWithResponse,
 	)
@@ -5740,7 +5740,7 @@ func (h *Handler) RegisterSubscriptionSchedules(s *server.MCPServer) {
 		mcp.NewTool("post-subscription-schedules-schedule-cancel-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionSchedulesScheduleCancelWithFormdataBody"),
 			mcp.WithString("schedule", mcp.Required(), mcp.Description("schedule")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionSchedulesScheduleCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionSchedulesScheduleCancelFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionSchedulesScheduleCancelWithFormdataBodyWithResponse,
 	)
@@ -5749,7 +5749,7 @@ func (h *Handler) RegisterSubscriptionSchedules(s *server.MCPServer) {
 		mcp.NewTool("post-subscription-schedules-schedule-release-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionSchedulesScheduleReleaseWithFormdataBody"),
 			mcp.WithString("schedule", mcp.Required(), mcp.Description("schedule")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionSchedulesScheduleReleaseFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionSchedulesScheduleReleaseFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionSchedulesScheduleReleaseWithFormdataBodyWithResponse,
 	)
@@ -5758,7 +5758,7 @@ func (h *Handler) RegisterSubscriptionSchedules(s *server.MCPServer) {
 		mcp.NewTool("post-subscription-schedules-schedule-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionSchedulesScheduleWithFormdataBody"),
 			mcp.WithString("schedule", mcp.Required(), mcp.Description("schedule")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionSchedulesScheduleFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionSchedulesScheduleFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionSchedulesScheduleWithFormdataBodyWithResponse,
 	)
@@ -5766,7 +5766,7 @@ func (h *Handler) RegisterSubscriptionSchedules(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-subscription-schedules-with-formdata-body",
 			mcp.WithDescription("PostSubscriptionSchedulesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostSubscriptionSchedulesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostSubscriptionSchedulesFormdataRequestBody)")),
 		),
 		h.handlePostSubscriptionSchedulesWithFormdataBodyWithResponse,
 	)
@@ -5781,7 +5781,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithDescription("GetTaxAssociationsFindWithFormdataBody"),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithString("payment_intent", mcp.Description("PaymentIntent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxAssociationsFindFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxAssociationsFindFormdataRequestBody)")),
 		),
 		h.handleGetTaxAssociationsFindWithFormdataBodyWithResponse,
 	)
@@ -5794,7 +5794,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxCalculationsCalculationLineItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxCalculationsCalculationLineItemsFormdataRequestBody)")),
 		),
 		h.handleGetTaxCalculationsCalculationLineItemsWithFormdataBodyWithResponse,
 	)
@@ -5804,7 +5804,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithDescription("GetTaxCalculationsCalculationWithFormdataBody"),
 			mcp.WithString("calculation", mcp.Required(), mcp.Description("calculation")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxCalculationsCalculationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxCalculationsCalculationFormdataRequestBody)")),
 		),
 		h.handleGetTaxCalculationsCalculationWithFormdataBodyWithResponse,
 	)
@@ -5814,7 +5814,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithDescription("GetTaxLocationsLocationWithFormdataBody"),
 			mcp.WithString("location", mcp.Required(), mcp.Description("location")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxLocationsLocationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxLocationsLocationFormdataRequestBody)")),
 		),
 		h.handleGetTaxLocationsLocationWithFormdataBodyWithResponse,
 	)
@@ -5827,7 +5827,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("type", mcp.Description("Type")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxLocationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxLocationsFormdataRequestBody)")),
 		),
 		h.handleGetTaxLocationsWithFormdataBodyWithResponse,
 	)
@@ -5837,7 +5837,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithDescription("GetTaxRegistrationsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxRegistrationsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxRegistrationsIdFormdataRequestBody)")),
 		),
 		h.handleGetTaxRegistrationsIdWithFormdataBodyWithResponse,
 	)
@@ -5850,7 +5850,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxRegistrationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxRegistrationsFormdataRequestBody)")),
 		),
 		h.handleGetTaxRegistrationsWithFormdataBodyWithResponse,
 	)
@@ -5859,7 +5859,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 		mcp.NewTool("get-tax-settings-with-formdata-body",
 			mcp.WithDescription("GetTaxSettingsWithFormdataBody"),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxSettingsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxSettingsFormdataRequestBody)")),
 		),
 		h.handleGetTaxSettingsWithFormdataBodyWithResponse,
 	)
@@ -5872,7 +5872,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxTransactionsTransactionLineItemsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxTransactionsTransactionLineItemsFormdataRequestBody)")),
 		),
 		h.handleGetTaxTransactionsTransactionLineItemsWithFormdataBodyWithResponse,
 	)
@@ -5882,7 +5882,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 			mcp.WithDescription("GetTaxTransactionsTransactionWithFormdataBody"),
 			mcp.WithString("transaction", mcp.Required(), mcp.Description("transaction")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxTransactionsTransactionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxTransactionsTransactionFormdataRequestBody)")),
 		),
 		h.handleGetTaxTransactionsTransactionWithFormdataBodyWithResponse,
 	)
@@ -5890,7 +5890,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tax-calculations-with-formdata-body",
 			mcp.WithDescription("PostTaxCalculationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxCalculationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxCalculationsFormdataRequestBody)")),
 		),
 		h.handlePostTaxCalculationsWithFormdataBodyWithResponse,
 	)
@@ -5898,7 +5898,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tax-locations-with-formdata-body",
 			mcp.WithDescription("PostTaxLocationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxLocationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxLocationsFormdataRequestBody)")),
 		),
 		h.handlePostTaxLocationsWithFormdataBodyWithResponse,
 	)
@@ -5907,7 +5907,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 		mcp.NewTool("post-tax-registrations-id-with-formdata-body",
 			mcp.WithDescription("PostTaxRegistrationsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxRegistrationsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxRegistrationsIdFormdataRequestBody)")),
 		),
 		h.handlePostTaxRegistrationsIdWithFormdataBodyWithResponse,
 	)
@@ -5915,7 +5915,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tax-registrations-with-formdata-body",
 			mcp.WithDescription("PostTaxRegistrationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxRegistrationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxRegistrationsFormdataRequestBody)")),
 		),
 		h.handlePostTaxRegistrationsWithFormdataBodyWithResponse,
 	)
@@ -5923,7 +5923,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tax-settings-with-formdata-body",
 			mcp.WithDescription("PostTaxSettingsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxSettingsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxSettingsFormdataRequestBody)")),
 		),
 		h.handlePostTaxSettingsWithFormdataBodyWithResponse,
 	)
@@ -5931,7 +5931,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tax-transactions-create-from-calculation-with-formdata-body",
 			mcp.WithDescription("PostTaxTransactionsCreateFromCalculationWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxTransactionsCreateFromCalculationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxTransactionsCreateFromCalculationFormdataRequestBody)")),
 		),
 		h.handlePostTaxTransactionsCreateFromCalculationWithFormdataBodyWithResponse,
 	)
@@ -5939,7 +5939,7 @@ func (h *Handler) RegisterTax(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tax-transactions-create-reversal-with-formdata-body",
 			mcp.WithDescription("PostTaxTransactionsCreateReversalWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxTransactionsCreateReversalFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxTransactionsCreateReversalFormdataRequestBody)")),
 		),
 		h.handlePostTaxTransactionsCreateReversalWithFormdataBodyWithResponse,
 	)
@@ -5954,7 +5954,7 @@ func (h *Handler) RegisterTaxCodes(s *server.MCPServer) {
 			mcp.WithDescription("GetTaxCodesIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxCodesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxCodesIdFormdataRequestBody)")),
 		),
 		h.handleGetTaxCodesIdWithFormdataBodyWithResponse,
 	)
@@ -5966,7 +5966,7 @@ func (h *Handler) RegisterTaxCodes(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxCodesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxCodesFormdataRequestBody)")),
 		),
 		h.handleGetTaxCodesWithFormdataBodyWithResponse,
 	)
@@ -5981,7 +5981,7 @@ func (h *Handler) RegisterTaxRates(s *server.MCPServer) {
 			mcp.WithDescription("GetTaxRatesTaxRateWithFormdataBody"),
 			mcp.WithString("taxRate", mcp.Required(), mcp.Description("taxRate")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxRatesTaxRateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxRatesTaxRateFormdataRequestBody)")),
 		),
 		h.handleGetTaxRatesTaxRateWithFormdataBodyWithResponse,
 	)
@@ -5995,7 +5995,7 @@ func (h *Handler) RegisterTaxRates(s *server.MCPServer) {
 			mcp.WithBoolean("inclusive", mcp.Description("Inclusive")),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTaxRatesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTaxRatesFormdataRequestBody)")),
 		),
 		h.handleGetTaxRatesWithFormdataBodyWithResponse,
 	)
@@ -6004,7 +6004,7 @@ func (h *Handler) RegisterTaxRates(s *server.MCPServer) {
 		mcp.NewTool("post-tax-rates-tax-rate-with-formdata-body",
 			mcp.WithDescription("PostTaxRatesTaxRateWithFormdataBody"),
 			mcp.WithString("taxRate", mcp.Required(), mcp.Description("taxRate")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxRatesTaxRateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxRatesTaxRateFormdataRequestBody)")),
 		),
 		h.handlePostTaxRatesTaxRateWithFormdataBodyWithResponse,
 	)
@@ -6012,7 +6012,7 @@ func (h *Handler) RegisterTaxRates(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tax-rates-with-formdata-body",
 			mcp.WithDescription("PostTaxRatesWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTaxRatesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTaxRatesFormdataRequestBody)")),
 		),
 		h.handlePostTaxRatesWithFormdataBodyWithResponse,
 	)
@@ -6027,7 +6027,7 @@ func (h *Handler) RegisterThreeDSecure(s *server.MCPServer) {
 			mcp.WithDescription("GetThreeDSecureAuthenticationsAuthenticationWithFormdataBody"),
 			mcp.WithString("authentication", mcp.Required(), mcp.Description("authentication")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetThreeDSecureAuthenticationsAuthenticationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetThreeDSecureAuthenticationsAuthenticationFormdataRequestBody)")),
 		),
 		h.handleGetThreeDSecureAuthenticationsAuthenticationWithFormdataBodyWithResponse,
 	)
@@ -6040,7 +6040,7 @@ func (h *Handler) RegisterThreeDSecure(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetThreeDSecureAuthenticationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetThreeDSecureAuthenticationsFormdataRequestBody)")),
 		),
 		h.handleGetThreeDSecureAuthenticationsWithFormdataBodyWithResponse,
 	)
@@ -6049,7 +6049,7 @@ func (h *Handler) RegisterThreeDSecure(s *server.MCPServer) {
 		mcp.NewTool("post-three-d-secure-authentications-authentication-cancel-with-formdata-body",
 			mcp.WithDescription("PostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBody"),
 			mcp.WithString("authentication", mcp.Required(), mcp.Description("authentication")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostThreeDSecureAuthenticationsAuthenticationCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostThreeDSecureAuthenticationsAuthenticationCancelFormdataRequestBody)")),
 		),
 		h.handlePostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBodyWithResponse,
 	)
@@ -6058,7 +6058,7 @@ func (h *Handler) RegisterThreeDSecure(s *server.MCPServer) {
 		mcp.NewTool("post-three-d-secure-authentications-authentication-submit-with-formdata-body",
 			mcp.WithDescription("PostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBody"),
 			mcp.WithString("authentication", mcp.Required(), mcp.Description("authentication")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostThreeDSecureAuthenticationsAuthenticationSubmitFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostThreeDSecureAuthenticationsAuthenticationSubmitFormdataRequestBody)")),
 		),
 		h.handlePostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBodyWithResponse,
 	)
@@ -6066,7 +6066,7 @@ func (h *Handler) RegisterThreeDSecure(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-three-d-secure-authentications-with-formdata-body",
 			mcp.WithDescription("PostThreeDSecureAuthenticationsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostThreeDSecureAuthenticationsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostThreeDSecureAuthenticationsFormdataRequestBody)")),
 		),
 		h.handlePostThreeDSecureAuthenticationsWithFormdataBodyWithResponse,
 	)
@@ -6081,7 +6081,7 @@ func (h *Handler) RegisterTokens(s *server.MCPServer) {
 			mcp.WithDescription("GetTokensTokenWithFormdataBody"),
 			mcp.WithString("token", mcp.Required(), mcp.Description("token")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTokensTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTokensTokenFormdataRequestBody)")),
 		),
 		h.handleGetTokensTokenWithFormdataBodyWithResponse,
 	)
@@ -6089,7 +6089,7 @@ func (h *Handler) RegisterTokens(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-tokens-with-formdata-body",
 			mcp.WithDescription("PostTokensWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTokensFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTokensFormdataRequestBody)")),
 		),
 		h.handlePostTokensWithFormdataBodyWithResponse,
 	)
@@ -6104,7 +6104,7 @@ func (h *Handler) RegisterTopups(s *server.MCPServer) {
 			mcp.WithDescription("GetTopupsTopupWithFormdataBody"),
 			mcp.WithString("topup", mcp.Required(), mcp.Description("topup")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTopupsTopupFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTopupsTopupFormdataRequestBody)")),
 		),
 		h.handleGetTopupsTopupWithFormdataBodyWithResponse,
 	)
@@ -6117,7 +6117,7 @@ func (h *Handler) RegisterTopups(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTopupsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTopupsFormdataRequestBody)")),
 		),
 		h.handleGetTopupsWithFormdataBodyWithResponse,
 	)
@@ -6126,7 +6126,7 @@ func (h *Handler) RegisterTopups(s *server.MCPServer) {
 		mcp.NewTool("post-topups-topup-cancel-with-formdata-body",
 			mcp.WithDescription("PostTopupsTopupCancelWithFormdataBody"),
 			mcp.WithString("topup", mcp.Required(), mcp.Description("topup")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTopupsTopupCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTopupsTopupCancelFormdataRequestBody)")),
 		),
 		h.handlePostTopupsTopupCancelWithFormdataBodyWithResponse,
 	)
@@ -6135,7 +6135,7 @@ func (h *Handler) RegisterTopups(s *server.MCPServer) {
 		mcp.NewTool("post-topups-topup-with-formdata-body",
 			mcp.WithDescription("PostTopupsTopupWithFormdataBody"),
 			mcp.WithString("topup", mcp.Required(), mcp.Description("topup")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTopupsTopupFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTopupsTopupFormdataRequestBody)")),
 		),
 		h.handlePostTopupsTopupWithFormdataBodyWithResponse,
 	)
@@ -6143,7 +6143,7 @@ func (h *Handler) RegisterTopups(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-topups-with-formdata-body",
 			mcp.WithDescription("PostTopupsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTopupsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTopupsFormdataRequestBody)")),
 		),
 		h.handlePostTopupsWithFormdataBodyWithResponse,
 	)
@@ -6161,7 +6161,7 @@ func (h *Handler) RegisterTransfers(s *server.MCPServer) {
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTransfersIdReversalsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTransfersIdReversalsFormdataRequestBody)")),
 		),
 		h.handleGetTransfersIdReversalsWithFormdataBodyWithResponse,
 	)
@@ -6172,7 +6172,7 @@ func (h *Handler) RegisterTransfers(s *server.MCPServer) {
 			mcp.WithString("transfer", mcp.Required(), mcp.Description("transfer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTransfersTransferReversalsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTransfersTransferReversalsIdFormdataRequestBody)")),
 		),
 		h.handleGetTransfersTransferReversalsIdWithFormdataBodyWithResponse,
 	)
@@ -6182,7 +6182,7 @@ func (h *Handler) RegisterTransfers(s *server.MCPServer) {
 			mcp.WithDescription("GetTransfersTransferWithFormdataBody"),
 			mcp.WithString("transfer", mcp.Required(), mcp.Description("transfer")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTransfersTransferFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTransfersTransferFormdataRequestBody)")),
 		),
 		h.handleGetTransfersTransferWithFormdataBodyWithResponse,
 	)
@@ -6196,7 +6196,7 @@ func (h *Handler) RegisterTransfers(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("transfer_group", mcp.Description("TransferGroup")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTransfersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTransfersFormdataRequestBody)")),
 		),
 		h.handleGetTransfersWithFormdataBodyWithResponse,
 	)
@@ -6205,7 +6205,7 @@ func (h *Handler) RegisterTransfers(s *server.MCPServer) {
 		mcp.NewTool("post-transfers-id-reversals-with-formdata-body",
 			mcp.WithDescription("PostTransfersIdReversalsWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTransfersIdReversalsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTransfersIdReversalsFormdataRequestBody)")),
 		),
 		h.handlePostTransfersIdReversalsWithFormdataBodyWithResponse,
 	)
@@ -6215,7 +6215,7 @@ func (h *Handler) RegisterTransfers(s *server.MCPServer) {
 			mcp.WithDescription("PostTransfersTransferReversalsIdWithFormdataBody"),
 			mcp.WithString("transfer", mcp.Required(), mcp.Description("transfer")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTransfersTransferReversalsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTransfersTransferReversalsIdFormdataRequestBody)")),
 		),
 		h.handlePostTransfersTransferReversalsIdWithFormdataBodyWithResponse,
 	)
@@ -6224,7 +6224,7 @@ func (h *Handler) RegisterTransfers(s *server.MCPServer) {
 		mcp.NewTool("post-transfers-transfer-with-formdata-body",
 			mcp.WithDescription("PostTransfersTransferWithFormdataBody"),
 			mcp.WithString("transfer", mcp.Required(), mcp.Description("transfer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTransfersTransferFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTransfersTransferFormdataRequestBody)")),
 		),
 		h.handlePostTransfersTransferWithFormdataBodyWithResponse,
 	)
@@ -6232,7 +6232,7 @@ func (h *Handler) RegisterTransfers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-transfers-with-formdata-body",
 			mcp.WithDescription("PostTransfersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTransfersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTransfersFormdataRequestBody)")),
 		),
 		h.handlePostTransfersWithFormdataBodyWithResponse,
 	)
@@ -6247,7 +6247,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryCreditReversalsCreditReversalWithFormdataBody"),
 			mcp.WithString("creditReversal", mcp.Required(), mcp.Description("creditReversal")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryCreditReversalsCreditReversalFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryCreditReversalsCreditReversalFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryCreditReversalsCreditReversalWithFormdataBodyWithResponse,
 	)
@@ -6262,7 +6262,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithString("received_credit", mcp.Description("ReceivedCredit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryCreditReversalsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryCreditReversalsFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryCreditReversalsWithFormdataBodyWithResponse,
 	)
@@ -6272,7 +6272,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryDebitReversalsDebitReversalWithFormdataBody"),
 			mcp.WithString("debitReversal", mcp.Required(), mcp.Description("debitReversal")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryDebitReversalsDebitReversalFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryDebitReversalsDebitReversalFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryDebitReversalsDebitReversalWithFormdataBodyWithResponse,
 	)
@@ -6288,7 +6288,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithString("resolution", mcp.Description("Resolution")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryDebitReversalsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryDebitReversalsFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryDebitReversalsWithFormdataBodyWithResponse,
 	)
@@ -6298,7 +6298,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody"),
 			mcp.WithString("financialAccount", mcp.Required(), mcp.Description("financialAccount")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryFinancialAccountsFinancialAccountFeaturesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryFinancialAccountsFinancialAccountFeaturesFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse,
 	)
@@ -6308,7 +6308,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryFinancialAccountsFinancialAccountWithFormdataBody"),
 			mcp.WithString("financialAccount", mcp.Required(), mcp.Description("financialAccount")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryFinancialAccountsFinancialAccountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryFinancialAccountsFinancialAccountFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse,
 	)
@@ -6321,7 +6321,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryFinancialAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryFinancialAccountsFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryFinancialAccountsWithFormdataBodyWithResponse,
 	)
@@ -6331,7 +6331,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryInboundTransfersIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryInboundTransfersIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryInboundTransfersIdFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryInboundTransfersIdWithFormdataBodyWithResponse,
 	)
@@ -6345,7 +6345,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryInboundTransfersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryInboundTransfersFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryInboundTransfersWithFormdataBodyWithResponse,
 	)
@@ -6355,7 +6355,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryOutboundPaymentsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryOutboundPaymentsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryOutboundPaymentsIdFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse,
 	)
@@ -6370,7 +6370,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryOutboundPaymentsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryOutboundPaymentsFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryOutboundPaymentsWithFormdataBodyWithResponse,
 	)
@@ -6380,7 +6380,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryOutboundTransfersOutboundTransferWithFormdataBody"),
 			mcp.WithString("outboundTransfer", mcp.Required(), mcp.Description("outboundTransfer")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryOutboundTransfersOutboundTransferFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryOutboundTransfersOutboundTransferFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse,
 	)
@@ -6394,7 +6394,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryOutboundTransfersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryOutboundTransfersFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryOutboundTransfersWithFormdataBodyWithResponse,
 	)
@@ -6404,7 +6404,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryReceivedCreditsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryReceivedCreditsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryReceivedCreditsIdFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryReceivedCreditsIdWithFormdataBodyWithResponse,
 	)
@@ -6418,7 +6418,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryReceivedCreditsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryReceivedCreditsFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryReceivedCreditsWithFormdataBodyWithResponse,
 	)
@@ -6428,7 +6428,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryReceivedDebitsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryReceivedDebitsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryReceivedDebitsIdFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryReceivedDebitsIdWithFormdataBodyWithResponse,
 	)
@@ -6442,7 +6442,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithInteger("limit", mcp.Description("Limit")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryReceivedDebitsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryReceivedDebitsFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryReceivedDebitsWithFormdataBodyWithResponse,
 	)
@@ -6452,7 +6452,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryTransactionEntriesIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryTransactionEntriesIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryTransactionEntriesIdFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryTransactionEntriesIdWithFormdataBodyWithResponse,
 	)
@@ -6467,7 +6467,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithString("order_by", mcp.Description("OrderBy")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("transaction", mcp.Description("Transaction")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryTransactionEntriesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryTransactionEntriesFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryTransactionEntriesWithFormdataBodyWithResponse,
 	)
@@ -6477,7 +6477,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithDescription("GetTreasuryTransactionsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithArray("expand", mcp.Description("Expand"), mcp.WithStringItems()),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryTransactionsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryTransactionsIdFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryTransactionsIdWithFormdataBodyWithResponse,
 	)
@@ -6492,7 +6492,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 			mcp.WithString("order_by", mcp.Description("OrderBy")),
 			mcp.WithString("starting_after", mcp.Description("StartingAfter")),
 			mcp.WithString("status", mcp.Description("Status")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.GetTreasuryTransactionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.GetTreasuryTransactionsFormdataRequestBody)")),
 		),
 		h.handleGetTreasuryTransactionsWithFormdataBodyWithResponse,
 	)
@@ -6500,7 +6500,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-treasury-credit-reversals-with-formdata-body",
 			mcp.WithDescription("PostTreasuryCreditReversalsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryCreditReversalsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryCreditReversalsFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryCreditReversalsWithFormdataBodyWithResponse,
 	)
@@ -6508,7 +6508,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-treasury-debit-reversals-with-formdata-body",
 			mcp.WithDescription("PostTreasuryDebitReversalsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryDebitReversalsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryDebitReversalsFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryDebitReversalsWithFormdataBodyWithResponse,
 	)
@@ -6517,7 +6517,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 		mcp.NewTool("post-treasury-financial-accounts-financial-account-close-with-formdata-body",
 			mcp.WithDescription("PostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBody"),
 			mcp.WithString("financialAccount", mcp.Required(), mcp.Description("financialAccount")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryFinancialAccountsFinancialAccountCloseFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryFinancialAccountsFinancialAccountCloseFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBodyWithResponse,
 	)
@@ -6526,7 +6526,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 		mcp.NewTool("post-treasury-financial-accounts-financial-account-features-with-formdata-body",
 			mcp.WithDescription("PostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody"),
 			mcp.WithString("financialAccount", mcp.Required(), mcp.Description("financialAccount")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryFinancialAccountsFinancialAccountFeaturesFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryFinancialAccountsFinancialAccountFeaturesFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse,
 	)
@@ -6535,7 +6535,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 		mcp.NewTool("post-treasury-financial-accounts-financial-account-with-formdata-body",
 			mcp.WithDescription("PostTreasuryFinancialAccountsFinancialAccountWithFormdataBody"),
 			mcp.WithString("financialAccount", mcp.Required(), mcp.Description("financialAccount")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryFinancialAccountsFinancialAccountFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryFinancialAccountsFinancialAccountFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse,
 	)
@@ -6543,7 +6543,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-treasury-financial-accounts-with-formdata-body",
 			mcp.WithDescription("PostTreasuryFinancialAccountsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryFinancialAccountsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryFinancialAccountsFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryFinancialAccountsWithFormdataBodyWithResponse,
 	)
@@ -6552,7 +6552,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 		mcp.NewTool("post-treasury-inbound-transfers-inbound-transfer-cancel-with-formdata-body",
 			mcp.WithDescription("PostTreasuryInboundTransfersInboundTransferCancelWithFormdataBody"),
 			mcp.WithString("inboundTransfer", mcp.Required(), mcp.Description("inboundTransfer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryInboundTransfersInboundTransferCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryInboundTransfersInboundTransferCancelFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryInboundTransfersInboundTransferCancelWithFormdataBodyWithResponse,
 	)
@@ -6560,7 +6560,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-treasury-inbound-transfers-with-formdata-body",
 			mcp.WithDescription("PostTreasuryInboundTransfersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryInboundTransfersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryInboundTransfersFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryInboundTransfersWithFormdataBodyWithResponse,
 	)
@@ -6569,7 +6569,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 		mcp.NewTool("post-treasury-outbound-payments-id-cancel-with-formdata-body",
 			mcp.WithDescription("PostTreasuryOutboundPaymentsIdCancelWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryOutboundPaymentsIdCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryOutboundPaymentsIdCancelFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryOutboundPaymentsIdCancelWithFormdataBodyWithResponse,
 	)
@@ -6577,7 +6577,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-treasury-outbound-payments-with-formdata-body",
 			mcp.WithDescription("PostTreasuryOutboundPaymentsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryOutboundPaymentsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryOutboundPaymentsFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryOutboundPaymentsWithFormdataBodyWithResponse,
 	)
@@ -6586,7 +6586,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 		mcp.NewTool("post-treasury-outbound-transfers-outbound-transfer-cancel-with-formdata-body",
 			mcp.WithDescription("PostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBody"),
 			mcp.WithString("outboundTransfer", mcp.Required(), mcp.Description("outboundTransfer")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryOutboundTransfersOutboundTransferCancelFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryOutboundTransfersOutboundTransferCancelFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBodyWithResponse,
 	)
@@ -6594,7 +6594,7 @@ func (h *Handler) RegisterTreasury(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-treasury-outbound-transfers-with-formdata-body",
 			mcp.WithDescription("PostTreasuryOutboundTransfersWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostTreasuryOutboundTransfersFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostTreasuryOutboundTransfersFormdataRequestBody)")),
 		),
 		h.handlePostTreasuryOutboundTransfersWithFormdataBodyWithResponse,
 	)
@@ -6607,7 +6607,7 @@ func (h *Handler) RegisterAccountLinks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-account-links-with-formdata-body",
 			mcp.WithDescription("PostAccountLinksWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountLinksFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountLinksFormdataRequestBody)")),
 		),
 		h.handlePostAccountLinksWithFormdataBodyWithResponse,
 	)
@@ -6620,7 +6620,7 @@ func (h *Handler) RegisterAccountSessions(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-account-sessions-with-formdata-body",
 			mcp.WithDescription("PostAccountSessionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostAccountSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostAccountSessionsFormdataRequestBody)")),
 		),
 		h.handlePostAccountSessionsWithFormdataBodyWithResponse,
 	)
@@ -6633,7 +6633,7 @@ func (h *Handler) RegisterCustomerSessions(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-customer-sessions-with-formdata-body",
 			mcp.WithDescription("PostCustomerSessionsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostCustomerSessionsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostCustomerSessionsFormdataRequestBody)")),
 		),
 		h.handlePostCustomerSessionsWithFormdataBodyWithResponse,
 	)
@@ -6647,7 +6647,7 @@ func (h *Handler) RegisterExternalAccounts(s *server.MCPServer) {
 		mcp.NewTool("post-external-accounts-id-with-formdata-body",
 			mcp.WithDescription("PostExternalAccountsIdWithFormdataBody"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/v1/client.PostExternalAccountsIdFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/stripe/stripe/client.PostExternalAccountsIdFormdataRequestBody)")),
 		),
 		h.handlePostExternalAccountsIdWithFormdataBodyWithResponse,
 	)

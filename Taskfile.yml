@@ -25,6 +25,36 @@ tasks:
         -catalog {{.CATALOG}}
         -pkgname {{.PKGNAME}}
 
+  generate:connector:hubspot:
+    desc: Generate yardrail HubSpot CRM Contacts connector code
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/hubspot/crm-contacts/v3/manifest.yaml"
+          SPEC: "{{.ROOT_DIR}}/hubspot/crm-contacts/v3/spec/openapi.json"
+          PKG: github.com/yardrail/connectors/hubspot/crm-contacts/v3/client
+          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/hubspot"
+          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_hubspot_gen.go"
+          PKGNAME: hubspot
+
+  generate:connector:notion:
+    desc: Generate yardrail Notion connector code
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/notion/notion/manifest.yaml"
+          SPEC: "{{.ROOT_DIR}}/notion/notion/spec/openapi.json"
+          PKG: github.com/yardrail/connectors/notion/notion/client
+          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/notion"
+          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_notion_gen.go"
+          PKGNAME: notion
+
   generate:connector:slack:
     desc: Generate yardrail slack connector code
     vars:
