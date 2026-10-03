@@ -15,7 +15,7 @@ func main() {
 	manifestPath := flag.String("manifest", "", "path to connector manifest YAML (required)")
 	specPath := flag.String("spec", "", "path to OpenAPI spec JSON (required)")
 	pkgPath := flag.String("pkg", "", "import path of oapi-codegen client package (required)")
-	outDir := flag.String("out", "", "output dir for handler_gen.go + functions_gen.go (required)")
+	outDir := flag.String("out", "", "output dir for handler_gen.go (required)")
 	catalogOut := flag.String("catalog", "", "output path for catalog_<id>_gen.go (optional)")
 	pkgName := flag.String("pkgname", "", "Go package name for generated handler files (default: connector ID)")
 	flag.Parse()
@@ -80,23 +80,18 @@ func main() {
 		log.Fatal(err)
 	}
 
-	for _, f := range []struct {
-		name string
-		tmpl string
-	}{
-		{"handler_gen.go", handlerTemplate},
-		{"functions_gen.go", functionsTemplate},
-	} {
-		src, renderErr := renderFile(f.tmpl, ctx)
-		if renderErr != nil {
-			log.Fatalf("rendering %s: %v", f.name, renderErr)
-		}
-		path := filepath.Join(*outDir, f.name)
-		if writeErr := os.WriteFile(path, src, 0o644); writeErr != nil {
-			log.Fatal(writeErr)
-		}
-		fmt.Fprintf(os.Stderr, "wrote %s\n", path)
+	handlerSrc, renderErr := renderFile(handlerTemplate, ctx)
+	if renderErr != nil {
+		log.Fatalf("rendering handler_gen.go: %v", renderErr)
 	}
+
+	handlerPath := filepath.Join(*outDir, "handler_gen.go")
+
+	if writeErr := os.WriteFile(handlerPath, handlerSrc, 0o644); writeErr != nil {
+		log.Fatal(writeErr)
+	}
+
+	fmt.Fprintf(os.Stderr, "wrote %s\n", handlerPath)
 
 	if *catalogOut != "" {
 		src, renderErr := renderFile(catalogTemplate, ctx)
