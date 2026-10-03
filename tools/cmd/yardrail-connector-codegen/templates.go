@@ -424,11 +424,7 @@ func Resolve(
   {{- end -}}
 {{- end}}
 
-func dispatch{{.MethodName}}(
-	ctx context.Context,
-	cl *{{clientPkgName $.ClientPkgPath}}.ClientWithResponses,
-	inputs json.RawMessage,
-) (any, error) {
+func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPkgPath}}.ClientWithResponses, inputs json.RawMessage) (any, error) {
 {{- if $hasPathParams}}
 	var pathArgs map[string]json.RawMessage
 
