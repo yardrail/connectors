@@ -241,35 +241,21 @@ package {{.PkgName}}
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
 
 	"{{.ClientPkgPath}}"
-	"github.com/yardrail/yardrail/internal/connector"
 )
 
-const (
-	connectorID            = "{{.ConnectorID}}"
-	callableInterfaceCount = {{len .CallableIfaces}}
-)
+// Connector wraps authenticated oapi-codegen clients per interface.
+// Use Client() for typed access to the full API surface.
+type Connector struct {
+	clients map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses
+}
 
-type execFunc func(context.Context, *{{clientPkgName .ClientPkgPath}}.ClientWithResponses, map[string]any) (map[string]any, error)
-
-var (
-	errUnknownInterface = errors.New(connectorID + ": unknown interface")
-	errUnknownFunction  = errors.New(connectorID + ": unknown function")
-	errNilHTTPResponse  = errors.New(connectorID + ": nil HTTP response")
-)
-
-var dispatchers = map[string]execFunc{
-{{range .Methods}}	"{{.Name}}": execute{{.MethodName}},
-{{end}}}
-
-// HandlerFactory constructs a Handler from per-interface credentials and config.
-func HandlerFactory(creds, config map[string]map[string]string) (connector.Handler, error) {
-	clients := make(map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses, callableInterfaceCount)
+// NewConnector constructs a Connector from per-interface credentials and config.
+func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
+	clients := make(map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses, {{len .CallableIfaces}})
 {{range .CallableIfaces}}
 	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
 		baseURL := resolveBaseURL(config["{{.ID}}"])
@@ -283,36 +269,13 @@ func HandlerFactory(creds, config map[string]map[string]string) (connector.Handl
 		clients["{{.ID}}"] = c
 	}
 {{end}}
-	return &handler{clients: clients}, nil
+	return &Connector{clients: clients}, nil
 }
 
-type handler struct {
-	clients map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses
-}
-
-func (h *handler) ConnectorID() string { return connectorID }
-
-func (h *handler) Execute(ctx context.Context, interfaceID, function string, inputs map[string]any) (map[string]any, error) {
-	c, ok := h.clients[interfaceID]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownInterface, interfaceID)
-	}
-
-	fn, ok := dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
-	return fn(ctx, c, inputs)
-}
-
-func (h *handler) SupportedFunctions(interfaceID string) []connector.FunctionSpec {
-	switch interfaceID {
-{{range .CallableIfaces}}	case "{{.ID}}":
-		return functionSpecs
-{{end}}	default:
-		return nil
-	}
+// Client returns the typed oapi-codegen client for the given interface.
+// Returns nil if the interface was not configured with credentials.
+func (c *Connector) Client(interfaceID string) *{{clientPkgName .ClientPkgPath}}.ClientWithResponses {
+	return c.clients[interfaceID]
 }
 
 func resolveBaseURL(config map[string]string) string {
@@ -327,20 +290,17 @@ func resolveBaseURL(config map[string]string) string {
 func authEditor{{goIdent .ID}}(creds map[string]string) func(context.Context, *http.Request) error {
 	return func(_ context.Context, req *http.Request) error {
 {{- if eq (authSchemeType $strat) "bearer"}}
-		token := creds["access_token"]
-		if token != "" {
+		if token := creds["access_token"]; token != "" {
 			req.Header.Set("Authorization", "Bearer "+token)
 		}
 {{- else if eq (authSchemeType $strat) "basic"}}
 		req.SetBasicAuth(creds["username"], creds["password"])
 {{- else if eq (authSchemeType $strat) "apikey_header"}}
-		key := creds["{{$strat.CredKey}}"]
-		if key != "" {
+		if key := creds["{{$strat.CredKey}}"]; key != "" {
 			req.Header.Set("{{$strat.SecurityScheme.Name}}", key)
 		}
 {{- else if eq (authSchemeType $strat) "apikey_query"}}
-		key := creds["{{$strat.CredKey}}"]
-		if key != "" {
+		if key := creds["{{$strat.CredKey}}"]; key != "" {
 			q := req.URL.Query()
 			q.Set("{{$strat.SecurityScheme.Name}}", key)
 			req.URL.RawQuery = q.Encode()
@@ -352,79 +312,6 @@ func authEditor{{goIdent .ID}}(creds map[string]string) func(context.Context, *h
 }
 {{end}}
 
-func setParam(src, dst any) {
-	b, marshalErr := json.Marshal(src)
-	if marshalErr != nil {
-		return
-	}
-
-	unmarshalErr := json.Unmarshal(b, dst)
-	if unmarshalErr != nil {
-		return
-	}
-}
-
-{{range .Methods}}{{$m := .}}
-func execute{{.MethodName}}(ctx context.Context, c *{{clientPkgName $.ClientPkgPath}}.ClientWithResponses, inputs map[string]any) (map[string]any, error) {
-{{- range .Params}}{{if .Required}}{{if .IsStruct}}
-	var {{.JSONName}} {{clientPkgName $.ClientPkgPath}}.{{trimPrefix .FullType "target."}}
-
-	if raw, ok := inputs[fieldBody]; ok {
-		b, bErr := json.Marshal(raw)
-		if bErr != nil {
-			return nil, fmt.Errorf("%s.%s: marshalling body: %w", connectorID, "{{$m.Name}}", bErr)
-		}
-
-		unmarshalErr := json.Unmarshal(b, &{{.JSONName}})
-		if unmarshalErr != nil {
-			return nil, fmt.Errorf("%s.%s: unmarshalling body: %w", connectorID, "{{$m.Name}}", unmarshalErr)
-		}
-	}
-{{- else if eq .GoType "string"}}
-	{{.JSONName}}, _ := inputs["{{.JSONName}}"].(string)
-{{- else if eq .GoType "bool"}}
-	{{.JSONName}}, _ := inputs["{{.JSONName}}"].(bool)
-{{- else}}
-	{{.JSONName}}, _ := inputs["{{.JSONName}}"].(string)
-{{- end}}{{end}}{{end}}
-{{- if .ParamsType}}
-{{- if hasRequired $m}}
-
-	params := &{{clientPkgName $.ClientPkgPath}}.{{.ParamsType}}{}
-{{- else}}
-	params := &{{clientPkgName $.ClientPkgPath}}.{{.ParamsType}}{}
-{{- end}}
-	populateParams{{$m.MethodName}}(inputs, params)
-{{- end}}
-
-	resp, err := c.{{$m.MethodName}}(ctx, {{range .CallArgs}}{{.Expr}}, {{end}})
-	if err != nil {
-		return nil, fmt.Errorf("%s.%s: %w", connectorID, "{{$m.Name}}", err)
-	}
-
-	if resp == nil {
-		return nil, errNilHTTPResponse
-	}
-
-	var result map[string]any
-
-	unmarshalErr := json.Unmarshal(resp.Body, &result)
-	if unmarshalErr != nil {
-		return nil, fmt.Errorf("%s.%s: unmarshalling response: %w", connectorID, "{{$m.Name}}", unmarshalErr)
-	}
-
-	return result, nil
-}
-{{- if .ParamsType}}
-
-func populateParams{{$m.MethodName}}(inputs map[string]any, params *{{clientPkgName $.ClientPkgPath}}.{{.ParamsType}}) {
-{{- range .Params}}{{if not .Required}}
-	if v, ok := inputs["{{.JSONName}}"]; ok {
-		setParam(v, &params.{{.Name}})
-	}
-{{end}}{{end}}}
-{{- end}}
-{{end}}
 `
 
 const functionsTemplate = `// Code generated by yardrail-connector-codegen. DO NOT EDIT.
