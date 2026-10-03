@@ -268,8 +268,7 @@ var (
 )
 
 var dispatchers = map[string]execFunc{
-{{range .Methods}}	"{{.Name}}": //
-		execute{{.MethodName}},
+{{range .Methods}}	"{{.Name}}": execute{{.MethodName}},
 {{end}}}
 
 // HandlerFactory constructs a Handler from per-interface credentials and config.
