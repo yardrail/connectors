@@ -8,7 +8,7 @@ use (
 	./monday/monday/v2
 	./notion/notion/v1
 	./officernd/officernd/v2
-	./slack/slack/v1
+	./slack/slack
 	./stripe/stripe/v1
 	./tools
 )
