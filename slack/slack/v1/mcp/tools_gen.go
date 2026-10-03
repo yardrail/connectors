@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	target "github.com/yardrail/connectors/slack/slack/v1/client"
+	target "github.com/yardrail/connectors/slack/slack/client"
 )
 
 type ServiceResolver func(ctx context.Context) (*target.ClientWithResponses, error)
@@ -26,7 +26,7 @@ func (h *Handler) RegisterAdminApps(s *server.MCPServer) {
 		mcp.NewTool("admin-apps-approve-with-formdata-body",
 			mcp.WithDescription("AdminAppsApproveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminAppsApproveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminAppsApproveFormdataRequestBody)")),
 		),
 		h.handleAdminAppsApproveWithFormdataBodyWithResponse,
 	)
@@ -35,7 +35,7 @@ func (h *Handler) RegisterAdminApps(s *server.MCPServer) {
 		mcp.NewTool("admin-apps-restrict-with-formdata-body",
 			mcp.WithDescription("AdminAppsRestrictWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminAppsRestrictFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminAppsRestrictFormdataRequestBody)")),
 		),
 		h.handleAdminAppsRestrictWithFormdataBodyWithResponse,
 	)
@@ -99,7 +99,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-archive-with-formdata-body",
 			mcp.WithDescription("AdminConversationsArchiveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsArchiveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsArchiveFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsArchiveWithFormdataBodyWithResponse,
 	)
@@ -108,7 +108,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-convert-to-private-with-formdata-body",
 			mcp.WithDescription("AdminConversationsConvertToPrivateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsConvertToPrivateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsConvertToPrivateFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsConvertToPrivateWithFormdataBodyWithResponse,
 	)
@@ -117,7 +117,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-create-with-formdata-body",
 			mcp.WithDescription("AdminConversationsCreateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsCreateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsCreateFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsCreateWithFormdataBodyWithResponse,
 	)
@@ -126,7 +126,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-delete-with-formdata-body",
 			mcp.WithDescription("AdminConversationsDeleteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsDeleteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsDeleteFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsDeleteWithFormdataBodyWithResponse,
 	)
@@ -135,7 +135,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-disconnect-shared-with-formdata-body",
 			mcp.WithDescription("AdminConversationsDisconnectSharedWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsDisconnectSharedFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsDisconnectSharedFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsDisconnectSharedWithFormdataBodyWithResponse,
 	)
@@ -164,7 +164,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-invite-with-formdata-body",
 			mcp.WithDescription("AdminConversationsInviteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsInviteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsInviteFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsInviteWithFormdataBodyWithResponse,
 	)
@@ -173,7 +173,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-rename-with-formdata-body",
 			mcp.WithDescription("AdminConversationsRenameWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsRenameFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsRenameFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsRenameWithFormdataBodyWithResponse,
 	)
@@ -197,7 +197,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-set-conversation-prefs-with-formdata-body",
 			mcp.WithDescription("AdminConversationsSetConversationPrefsWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsSetConversationPrefsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsSetConversationPrefsFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse,
 	)
@@ -206,7 +206,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-set-teams-with-formdata-body",
 			mcp.WithDescription("AdminConversationsSetTeamsWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsSetTeamsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsSetTeamsFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsSetTeamsWithFormdataBodyWithResponse,
 	)
@@ -215,7 +215,7 @@ func (h *Handler) RegisterAdminConversations(s *server.MCPServer) {
 		mcp.NewTool("admin-conversations-unarchive-with-formdata-body",
 			mcp.WithDescription("AdminConversationsUnarchiveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsUnarchiveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsUnarchiveFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsUnarchiveWithFormdataBodyWithResponse,
 	)
@@ -245,7 +245,7 @@ func (h *Handler) RegisterAdminConversationsRestrictAccess(s *server.MCPServer) 
 	s.AddTool(
 		mcp.NewTool("admin-conversations-restrict-access-add-group-with-formdata-body",
 			mcp.WithDescription("AdminConversationsRestrictAccessAddGroupWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsRestrictAccessAddGroupFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsRestrictAccessAddGroupFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse,
 	)
@@ -263,7 +263,7 @@ func (h *Handler) RegisterAdminConversationsRestrictAccess(s *server.MCPServer) 
 	s.AddTool(
 		mcp.NewTool("admin-conversations-restrict-access-remove-group-with-formdata-body",
 			mcp.WithDescription("AdminConversationsRestrictAccessRemoveGroupWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminConversationsRestrictAccessRemoveGroupFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminConversationsRestrictAccessRemoveGroupFormdataRequestBody)")),
 		),
 		h.handleAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse,
 	)
@@ -276,7 +276,7 @@ func (h *Handler) RegisterAdminEmoji(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("admin-emoji-add-alias-with-formdata-body",
 			mcp.WithDescription("AdminEmojiAddAliasWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminEmojiAddAliasFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminEmojiAddAliasFormdataRequestBody)")),
 		),
 		h.handleAdminEmojiAddAliasWithFormdataBodyWithResponse,
 	)
@@ -284,7 +284,7 @@ func (h *Handler) RegisterAdminEmoji(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("admin-emoji-add-with-formdata-body",
 			mcp.WithDescription("AdminEmojiAddWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminEmojiAddFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminEmojiAddFormdataRequestBody)")),
 		),
 		h.handleAdminEmojiAddWithFormdataBodyWithResponse,
 	)
@@ -302,7 +302,7 @@ func (h *Handler) RegisterAdminEmoji(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("admin-emoji-remove-with-formdata-body",
 			mcp.WithDescription("AdminEmojiRemoveWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminEmojiRemoveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminEmojiRemoveFormdataRequestBody)")),
 		),
 		h.handleAdminEmojiRemoveWithFormdataBodyWithResponse,
 	)
@@ -310,7 +310,7 @@ func (h *Handler) RegisterAdminEmoji(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("admin-emoji-rename-with-formdata-body",
 			mcp.WithDescription("AdminEmojiRenameWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminEmojiRenameFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminEmojiRenameFormdataRequestBody)")),
 		),
 		h.handleAdminEmojiRenameWithFormdataBodyWithResponse,
 	)
@@ -324,7 +324,7 @@ func (h *Handler) RegisterAdminInviteRequests(s *server.MCPServer) {
 		mcp.NewTool("admin-invite-requests-approve-with-formdata-body",
 			mcp.WithDescription("AdminInviteRequestsApproveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminInviteRequestsApproveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminInviteRequestsApproveFormdataRequestBody)")),
 		),
 		h.handleAdminInviteRequestsApproveWithFormdataBodyWithResponse,
 	)
@@ -333,7 +333,7 @@ func (h *Handler) RegisterAdminInviteRequests(s *server.MCPServer) {
 		mcp.NewTool("admin-invite-requests-deny-with-formdata-body",
 			mcp.WithDescription("AdminInviteRequestsDenyWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminInviteRequestsDenyFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminInviteRequestsDenyFormdataRequestBody)")),
 		),
 		h.handleAdminInviteRequestsDenyWithFormdataBodyWithResponse,
 	)
@@ -406,7 +406,7 @@ func (h *Handler) RegisterAdminTeams(s *server.MCPServer) {
 		mcp.NewTool("admin-teams-create-with-formdata-body",
 			mcp.WithDescription("AdminTeamsCreateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsCreateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminTeamsCreateFormdataRequestBody)")),
 		),
 		h.handleAdminTeamsCreateWithFormdataBodyWithResponse,
 	)
@@ -454,7 +454,7 @@ func (h *Handler) RegisterAdminTeamsSettings(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("admin-teams-settings-set-default-channels-with-formdata-body",
 			mcp.WithDescription("AdminTeamsSettingsSetDefaultChannelsWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetDefaultChannelsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminTeamsSettingsSetDefaultChannelsFormdataRequestBody)")),
 		),
 		h.handleAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse,
 	)
@@ -463,7 +463,7 @@ func (h *Handler) RegisterAdminTeamsSettings(s *server.MCPServer) {
 		mcp.NewTool("admin-teams-settings-set-description-with-formdata-body",
 			mcp.WithDescription("AdminTeamsSettingsSetDescriptionWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetDescriptionFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminTeamsSettingsSetDescriptionFormdataRequestBody)")),
 		),
 		h.handleAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse,
 	)
@@ -472,7 +472,7 @@ func (h *Handler) RegisterAdminTeamsSettings(s *server.MCPServer) {
 		mcp.NewTool("admin-teams-settings-set-discoverability-with-formdata-body",
 			mcp.WithDescription("AdminTeamsSettingsSetDiscoverabilityWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetDiscoverabilityFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminTeamsSettingsSetDiscoverabilityFormdataRequestBody)")),
 		),
 		h.handleAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse,
 	)
@@ -480,7 +480,7 @@ func (h *Handler) RegisterAdminTeamsSettings(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("admin-teams-settings-set-icon-with-formdata-body",
 			mcp.WithDescription("AdminTeamsSettingsSetIconWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetIconFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminTeamsSettingsSetIconFormdataRequestBody)")),
 		),
 		h.handleAdminTeamsSettingsSetIconWithFormdataBodyWithResponse,
 	)
@@ -489,7 +489,7 @@ func (h *Handler) RegisterAdminTeamsSettings(s *server.MCPServer) {
 		mcp.NewTool("admin-teams-settings-set-name-with-formdata-body",
 			mcp.WithDescription("AdminTeamsSettingsSetNameWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminTeamsSettingsSetNameFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminTeamsSettingsSetNameFormdataRequestBody)")),
 		),
 		h.handleAdminTeamsSettingsSetNameWithFormdataBodyWithResponse,
 	)
@@ -503,7 +503,7 @@ func (h *Handler) RegisterAdminUsergroups(s *server.MCPServer) {
 		mcp.NewTool("admin-usergroups-add-channels-with-formdata-body",
 			mcp.WithDescription("AdminUsergroupsAddChannelsWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsergroupsAddChannelsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsergroupsAddChannelsFormdataRequestBody)")),
 		),
 		h.handleAdminUsergroupsAddChannelsWithFormdataBodyWithResponse,
 	)
@@ -512,7 +512,7 @@ func (h *Handler) RegisterAdminUsergroups(s *server.MCPServer) {
 		mcp.NewTool("admin-usergroups-add-teams-with-formdata-body",
 			mcp.WithDescription("AdminUsergroupsAddTeamsWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsergroupsAddTeamsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsergroupsAddTeamsFormdataRequestBody)")),
 		),
 		h.handleAdminUsergroupsAddTeamsWithFormdataBodyWithResponse,
 	)
@@ -532,7 +532,7 @@ func (h *Handler) RegisterAdminUsergroups(s *server.MCPServer) {
 		mcp.NewTool("admin-usergroups-remove-channels-with-formdata-body",
 			mcp.WithDescription("AdminUsergroupsRemoveChannelsWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsergroupsRemoveChannelsFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsergroupsRemoveChannelsFormdataRequestBody)")),
 		),
 		h.handleAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse,
 	)
@@ -546,7 +546,7 @@ func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 		mcp.NewTool("admin-users-assign-with-formdata-body",
 			mcp.WithDescription("AdminUsersAssignWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersAssignFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersAssignFormdataRequestBody)")),
 		),
 		h.handleAdminUsersAssignWithFormdataBodyWithResponse,
 	)
@@ -555,7 +555,7 @@ func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 		mcp.NewTool("admin-users-invite-with-formdata-body",
 			mcp.WithDescription("AdminUsersInviteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersInviteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersInviteFormdataRequestBody)")),
 		),
 		h.handleAdminUsersInviteWithFormdataBodyWithResponse,
 	)
@@ -575,7 +575,7 @@ func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 		mcp.NewTool("admin-users-remove-with-formdata-body",
 			mcp.WithDescription("AdminUsersRemoveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersRemoveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersRemoveFormdataRequestBody)")),
 		),
 		h.handleAdminUsersRemoveWithFormdataBodyWithResponse,
 	)
@@ -584,7 +584,7 @@ func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 		mcp.NewTool("admin-users-set-admin-with-formdata-body",
 			mcp.WithDescription("AdminUsersSetAdminWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSetAdminFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersSetAdminFormdataRequestBody)")),
 		),
 		h.handleAdminUsersSetAdminWithFormdataBodyWithResponse,
 	)
@@ -593,7 +593,7 @@ func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 		mcp.NewTool("admin-users-set-expiration-with-formdata-body",
 			mcp.WithDescription("AdminUsersSetExpirationWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSetExpirationFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersSetExpirationFormdataRequestBody)")),
 		),
 		h.handleAdminUsersSetExpirationWithFormdataBodyWithResponse,
 	)
@@ -602,7 +602,7 @@ func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 		mcp.NewTool("admin-users-set-owner-with-formdata-body",
 			mcp.WithDescription("AdminUsersSetOwnerWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSetOwnerFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersSetOwnerFormdataRequestBody)")),
 		),
 		h.handleAdminUsersSetOwnerWithFormdataBodyWithResponse,
 	)
@@ -611,7 +611,7 @@ func (h *Handler) RegisterAdminUsers(s *server.MCPServer) {
 		mcp.NewTool("admin-users-set-regular-with-formdata-body",
 			mcp.WithDescription("AdminUsersSetRegularWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSetRegularFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersSetRegularFormdataRequestBody)")),
 		),
 		h.handleAdminUsersSetRegularWithFormdataBodyWithResponse,
 	)
@@ -625,7 +625,7 @@ func (h *Handler) RegisterAdminUsersSession(s *server.MCPServer) {
 		mcp.NewTool("admin-users-session-invalidate-with-formdata-body",
 			mcp.WithDescription("AdminUsersSessionInvalidateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSessionInvalidateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersSessionInvalidateFormdataRequestBody)")),
 		),
 		h.handleAdminUsersSessionInvalidateWithFormdataBodyWithResponse,
 	)
@@ -634,7 +634,7 @@ func (h *Handler) RegisterAdminUsersSession(s *server.MCPServer) {
 		mcp.NewTool("admin-users-session-reset-with-formdata-body",
 			mcp.WithDescription("AdminUsersSessionResetWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.AdminUsersSessionResetFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.AdminUsersSessionResetFormdataRequestBody)")),
 		),
 		h.handleAdminUsersSessionResetWithFormdataBodyWithResponse,
 	)
@@ -806,7 +806,7 @@ func (h *Handler) RegisterCalls(s *server.MCPServer) {
 		mcp.NewTool("calls-add-with-formdata-body",
 			mcp.WithDescription("CallsAddWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.CallsAddFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.CallsAddFormdataRequestBody)")),
 		),
 		h.handleCallsAddWithFormdataBodyWithResponse,
 	)
@@ -815,7 +815,7 @@ func (h *Handler) RegisterCalls(s *server.MCPServer) {
 		mcp.NewTool("calls-end-with-formdata-body",
 			mcp.WithDescription("CallsEndWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.CallsEndFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.CallsEndFormdataRequestBody)")),
 		),
 		h.handleCallsEndWithFormdataBodyWithResponse,
 	)
@@ -833,7 +833,7 @@ func (h *Handler) RegisterCalls(s *server.MCPServer) {
 		mcp.NewTool("calls-update-with-formdata-body",
 			mcp.WithDescription("CallsUpdateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.CallsUpdateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.CallsUpdateFormdataRequestBody)")),
 		),
 		h.handleCallsUpdateWithFormdataBodyWithResponse,
 	)
@@ -847,7 +847,7 @@ func (h *Handler) RegisterCallsParticipants(s *server.MCPServer) {
 		mcp.NewTool("calls-participants-add-with-formdata-body",
 			mcp.WithDescription("CallsParticipantsAddWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.CallsParticipantsAddFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.CallsParticipantsAddFormdataRequestBody)")),
 		),
 		h.handleCallsParticipantsAddWithFormdataBodyWithResponse,
 	)
@@ -856,7 +856,7 @@ func (h *Handler) RegisterCallsParticipants(s *server.MCPServer) {
 		mcp.NewTool("calls-participants-remove-with-formdata-body",
 			mcp.WithDescription("CallsParticipantsRemoveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.CallsParticipantsRemoveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.CallsParticipantsRemoveFormdataRequestBody)")),
 		),
 		h.handleCallsParticipantsRemoveWithFormdataBodyWithResponse,
 	)
@@ -870,7 +870,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 		mcp.NewTool("chat-delete-scheduled-message-with-formdata-body",
 			mcp.WithDescription("ChatDeleteScheduledMessageWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ChatDeleteScheduledMessageFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ChatDeleteScheduledMessageFormdataRequestBody)")),
 		),
 		h.handleChatDeleteScheduledMessageWithFormdataBodyWithResponse,
 	)
@@ -879,7 +879,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 		mcp.NewTool("chat-delete-with-formdata-body",
 			mcp.WithDescription("ChatDeleteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ChatDeleteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ChatDeleteFormdataRequestBody)")),
 		),
 		h.handleChatDeleteWithFormdataBodyWithResponse,
 	)
@@ -898,7 +898,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 		mcp.NewTool("chat-me-message-with-formdata-body",
 			mcp.WithDescription("ChatMeMessageWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ChatMeMessageFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ChatMeMessageFormdataRequestBody)")),
 		),
 		h.handleChatMeMessageWithFormdataBodyWithResponse,
 	)
@@ -907,7 +907,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 		mcp.NewTool("chat-post-ephemeral-with-formdata-body",
 			mcp.WithDescription("ChatPostEphemeralWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ChatPostEphemeralFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ChatPostEphemeralFormdataRequestBody)")),
 		),
 		h.handleChatPostEphemeralWithFormdataBodyWithResponse,
 	)
@@ -916,7 +916,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 		mcp.NewTool("chat-post-message-with-formdata-body",
 			mcp.WithDescription("ChatPostMessageWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ChatPostMessageFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ChatPostMessageFormdataRequestBody)")),
 		),
 		h.handleChatPostMessageWithFormdataBodyWithResponse,
 	)
@@ -925,7 +925,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 		mcp.NewTool("chat-schedule-message-with-formdata-body",
 			mcp.WithDescription("ChatScheduleMessageWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ChatScheduleMessageFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ChatScheduleMessageFormdataRequestBody)")),
 		),
 		h.handleChatScheduleMessageWithFormdataBodyWithResponse,
 	)
@@ -934,7 +934,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 		mcp.NewTool("chat-unfurl-with-formdata-body",
 			mcp.WithDescription("ChatUnfurlWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ChatUnfurlFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ChatUnfurlFormdataRequestBody)")),
 		),
 		h.handleChatUnfurlWithFormdataBodyWithResponse,
 	)
@@ -943,7 +943,7 @@ func (h *Handler) RegisterChat(s *server.MCPServer) {
 		mcp.NewTool("chat-update-with-formdata-body",
 			mcp.WithDescription("ChatUpdateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ChatUpdateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ChatUpdateFormdataRequestBody)")),
 		),
 		h.handleChatUpdateWithFormdataBodyWithResponse,
 	)
@@ -975,7 +975,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-archive-with-formdata-body",
 			mcp.WithDescription("ConversationsArchiveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsArchiveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsArchiveFormdataRequestBody)")),
 		),
 		h.handleConversationsArchiveWithFormdataBodyWithResponse,
 	)
@@ -984,7 +984,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-close-with-formdata-body",
 			mcp.WithDescription("ConversationsCloseWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsCloseFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsCloseFormdataRequestBody)")),
 		),
 		h.handleConversationsCloseWithFormdataBodyWithResponse,
 	)
@@ -993,7 +993,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-create-with-formdata-body",
 			mcp.WithDescription("ConversationsCreateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsCreateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsCreateFormdataRequestBody)")),
 		),
 		h.handleConversationsCreateWithFormdataBodyWithResponse,
 	)
@@ -1027,7 +1027,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-invite-with-formdata-body",
 			mcp.WithDescription("ConversationsInviteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsInviteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsInviteFormdataRequestBody)")),
 		),
 		h.handleConversationsInviteWithFormdataBodyWithResponse,
 	)
@@ -1036,7 +1036,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-join-with-formdata-body",
 			mcp.WithDescription("ConversationsJoinWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsJoinFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsJoinFormdataRequestBody)")),
 		),
 		h.handleConversationsJoinWithFormdataBodyWithResponse,
 	)
@@ -1045,7 +1045,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-kick-with-formdata-body",
 			mcp.WithDescription("ConversationsKickWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsKickFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsKickFormdataRequestBody)")),
 		),
 		h.handleConversationsKickWithFormdataBodyWithResponse,
 	)
@@ -1054,7 +1054,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-leave-with-formdata-body",
 			mcp.WithDescription("ConversationsLeaveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsLeaveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsLeaveFormdataRequestBody)")),
 		),
 		h.handleConversationsLeaveWithFormdataBodyWithResponse,
 	)
@@ -1075,7 +1075,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-mark-with-formdata-body",
 			mcp.WithDescription("ConversationsMarkWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsMarkFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsMarkFormdataRequestBody)")),
 		),
 		h.handleConversationsMarkWithFormdataBodyWithResponse,
 	)
@@ -1095,7 +1095,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-open-with-formdata-body",
 			mcp.WithDescription("ConversationsOpenWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsOpenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsOpenFormdataRequestBody)")),
 		),
 		h.handleConversationsOpenWithFormdataBodyWithResponse,
 	)
@@ -1104,7 +1104,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-rename-with-formdata-body",
 			mcp.WithDescription("ConversationsRenameWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsRenameFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsRenameFormdataRequestBody)")),
 		),
 		h.handleConversationsRenameWithFormdataBodyWithResponse,
 	)
@@ -1128,7 +1128,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-set-purpose-with-formdata-body",
 			mcp.WithDescription("ConversationsSetPurposeWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsSetPurposeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsSetPurposeFormdataRequestBody)")),
 		),
 		h.handleConversationsSetPurposeWithFormdataBodyWithResponse,
 	)
@@ -1137,7 +1137,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-set-topic-with-formdata-body",
 			mcp.WithDescription("ConversationsSetTopicWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsSetTopicFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsSetTopicFormdataRequestBody)")),
 		),
 		h.handleConversationsSetTopicWithFormdataBodyWithResponse,
 	)
@@ -1146,7 +1146,7 @@ func (h *Handler) RegisterConversations(s *server.MCPServer) {
 		mcp.NewTool("conversations-unarchive-with-formdata-body",
 			mcp.WithDescription("ConversationsUnarchiveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ConversationsUnarchiveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ConversationsUnarchiveFormdataRequestBody)")),
 		),
 		h.handleConversationsUnarchiveWithFormdataBodyWithResponse,
 	)
@@ -1199,7 +1199,7 @@ func (h *Handler) RegisterDnd(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("dnd-set-snooze-with-formdata-body",
 			mcp.WithDescription("DndSetSnoozeWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.DndSetSnoozeFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.DndSetSnoozeFormdataRequestBody)")),
 		),
 		h.handleDndSetSnoozeWithFormdataBodyWithResponse,
 	)
@@ -1235,7 +1235,7 @@ func (h *Handler) RegisterFilesComments(s *server.MCPServer) {
 		mcp.NewTool("files-comments-delete-with-formdata-body",
 			mcp.WithDescription("FilesCommentsDeleteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesCommentsDeleteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.FilesCommentsDeleteFormdataRequestBody)")),
 		),
 		h.handleFilesCommentsDeleteWithFormdataBodyWithResponse,
 	)
@@ -1249,7 +1249,7 @@ func (h *Handler) RegisterFiles(s *server.MCPServer) {
 		mcp.NewTool("files-delete-with-formdata-body",
 			mcp.WithDescription("FilesDeleteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesDeleteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.FilesDeleteFormdataRequestBody)")),
 		),
 		h.handleFilesDeleteWithFormdataBodyWithResponse,
 	)
@@ -1287,7 +1287,7 @@ func (h *Handler) RegisterFiles(s *server.MCPServer) {
 		mcp.NewTool("files-revoke-public-u-r-l-with-formdata-body",
 			mcp.WithDescription("FilesRevokePublicURLWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesRevokePublicURLFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.FilesRevokePublicURLFormdataRequestBody)")),
 		),
 		h.handleFilesRevokePublicURLWithFormdataBodyWithResponse,
 	)
@@ -1296,7 +1296,7 @@ func (h *Handler) RegisterFiles(s *server.MCPServer) {
 		mcp.NewTool("files-shared-public-u-r-l-with-formdata-body",
 			mcp.WithDescription("FilesSharedPublicURLWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesSharedPublicURLFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.FilesSharedPublicURLFormdataRequestBody)")),
 		),
 		h.handleFilesSharedPublicURLWithFormdataBodyWithResponse,
 	)
@@ -1304,7 +1304,7 @@ func (h *Handler) RegisterFiles(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("files-upload-with-formdata-body",
 			mcp.WithDescription("FilesUploadWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesUploadFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.FilesUploadFormdataRequestBody)")),
 		),
 		h.handleFilesUploadWithFormdataBodyWithResponse,
 	)
@@ -1317,7 +1317,7 @@ func (h *Handler) RegisterFilesRemote(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("files-remote-add-with-formdata-body",
 			mcp.WithDescription("FilesRemoteAddWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesRemoteAddFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.FilesRemoteAddFormdataRequestBody)")),
 		),
 		h.handleFilesRemoteAddWithFormdataBodyWithResponse,
 	)
@@ -1348,7 +1348,7 @@ func (h *Handler) RegisterFilesRemote(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("files-remote-remove-with-formdata-body",
 			mcp.WithDescription("FilesRemoteRemoveWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesRemoteRemoveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.FilesRemoteRemoveFormdataRequestBody)")),
 		),
 		h.handleFilesRemoteRemoveWithFormdataBodyWithResponse,
 	)
@@ -1367,7 +1367,7 @@ func (h *Handler) RegisterFilesRemote(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("files-remote-update-with-formdata-body",
 			mcp.WithDescription("FilesRemoteUpdateWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.FilesRemoteUpdateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.FilesRemoteUpdateFormdataRequestBody)")),
 		),
 		h.handleFilesRemoteUpdateWithFormdataBodyWithResponse,
 	)
@@ -1442,7 +1442,7 @@ func (h *Handler) RegisterPins(s *server.MCPServer) {
 		mcp.NewTool("pins-add-with-formdata-body",
 			mcp.WithDescription("PinsAddWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.PinsAddFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.PinsAddFormdataRequestBody)")),
 		),
 		h.handlePinsAddWithFormdataBodyWithResponse,
 	)
@@ -1460,7 +1460,7 @@ func (h *Handler) RegisterPins(s *server.MCPServer) {
 		mcp.NewTool("pins-remove-with-formdata-body",
 			mcp.WithDescription("PinsRemoveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.PinsRemoveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.PinsRemoveFormdataRequestBody)")),
 		),
 		h.handlePinsRemoveWithFormdataBodyWithResponse,
 	)
@@ -1474,7 +1474,7 @@ func (h *Handler) RegisterReactions(s *server.MCPServer) {
 		mcp.NewTool("reactions-add-with-formdata-body",
 			mcp.WithDescription("ReactionsAddWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ReactionsAddFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ReactionsAddFormdataRequestBody)")),
 		),
 		h.handleReactionsAddWithFormdataBodyWithResponse,
 	)
@@ -1510,7 +1510,7 @@ func (h *Handler) RegisterReactions(s *server.MCPServer) {
 		mcp.NewTool("reactions-remove-with-formdata-body",
 			mcp.WithDescription("ReactionsRemoveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.ReactionsRemoveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.ReactionsRemoveFormdataRequestBody)")),
 		),
 		h.handleReactionsRemoveWithFormdataBodyWithResponse,
 	)
@@ -1524,7 +1524,7 @@ func (h *Handler) RegisterReminders(s *server.MCPServer) {
 		mcp.NewTool("reminders-add-with-formdata-body",
 			mcp.WithDescription("RemindersAddWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.RemindersAddFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.RemindersAddFormdataRequestBody)")),
 		),
 		h.handleRemindersAddWithFormdataBodyWithResponse,
 	)
@@ -1533,7 +1533,7 @@ func (h *Handler) RegisterReminders(s *server.MCPServer) {
 		mcp.NewTool("reminders-complete-with-formdata-body",
 			mcp.WithDescription("RemindersCompleteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.RemindersCompleteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.RemindersCompleteFormdataRequestBody)")),
 		),
 		h.handleRemindersCompleteWithFormdataBodyWithResponse,
 	)
@@ -1542,7 +1542,7 @@ func (h *Handler) RegisterReminders(s *server.MCPServer) {
 		mcp.NewTool("reminders-delete-with-formdata-body",
 			mcp.WithDescription("RemindersDeleteWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.RemindersDeleteFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.RemindersDeleteFormdataRequestBody)")),
 		),
 		h.handleRemindersDeleteWithFormdataBodyWithResponse,
 	)
@@ -1607,7 +1607,7 @@ func (h *Handler) RegisterStars(s *server.MCPServer) {
 		mcp.NewTool("stars-add-with-formdata-body",
 			mcp.WithDescription("StarsAddWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.StarsAddFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.StarsAddFormdataRequestBody)")),
 		),
 		h.handleStarsAddWithFormdataBodyWithResponse,
 	)
@@ -1628,7 +1628,7 @@ func (h *Handler) RegisterStars(s *server.MCPServer) {
 		mcp.NewTool("stars-remove-with-formdata-body",
 			mcp.WithDescription("StarsRemoveWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.StarsRemoveFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.StarsRemoveFormdataRequestBody)")),
 		),
 		h.handleStarsRemoveWithFormdataBodyWithResponse,
 	)
@@ -1704,7 +1704,7 @@ func (h *Handler) RegisterUsergroups(s *server.MCPServer) {
 		mcp.NewTool("usergroups-create-with-formdata-body",
 			mcp.WithDescription("UsergroupsCreateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsergroupsCreateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsergroupsCreateFormdataRequestBody)")),
 		),
 		h.handleUsergroupsCreateWithFormdataBodyWithResponse,
 	)
@@ -1713,7 +1713,7 @@ func (h *Handler) RegisterUsergroups(s *server.MCPServer) {
 		mcp.NewTool("usergroups-disable-with-formdata-body",
 			mcp.WithDescription("UsergroupsDisableWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsergroupsDisableFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsergroupsDisableFormdataRequestBody)")),
 		),
 		h.handleUsergroupsDisableWithFormdataBodyWithResponse,
 	)
@@ -1722,7 +1722,7 @@ func (h *Handler) RegisterUsergroups(s *server.MCPServer) {
 		mcp.NewTool("usergroups-enable-with-formdata-body",
 			mcp.WithDescription("UsergroupsEnableWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsergroupsEnableFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsergroupsEnableFormdataRequestBody)")),
 		),
 		h.handleUsergroupsEnableWithFormdataBodyWithResponse,
 	)
@@ -1742,7 +1742,7 @@ func (h *Handler) RegisterUsergroups(s *server.MCPServer) {
 		mcp.NewTool("usergroups-update-with-formdata-body",
 			mcp.WithDescription("UsergroupsUpdateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsergroupsUpdateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsergroupsUpdateFormdataRequestBody)")),
 		),
 		h.handleUsergroupsUpdateWithFormdataBodyWithResponse,
 	)
@@ -1766,7 +1766,7 @@ func (h *Handler) RegisterUsergroupsUsers(s *server.MCPServer) {
 		mcp.NewTool("usergroups-users-update-with-formdata-body",
 			mcp.WithDescription("UsergroupsUsersUpdateWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsergroupsUsersUpdateFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsergroupsUsersUpdateFormdataRequestBody)")),
 		),
 		h.handleUsergroupsUsersUpdateWithFormdataBodyWithResponse,
 	)
@@ -1792,7 +1792,7 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("users-delete-photo-with-formdata-body",
 			mcp.WithDescription("UsersDeletePhotoWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsersDeletePhotoFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsersDeletePhotoFormdataRequestBody)")),
 		),
 		h.handleUsersDeletePhotoWithFormdataBodyWithResponse,
 	)
@@ -1855,7 +1855,7 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("users-set-photo-with-formdata-body",
 			mcp.WithDescription("UsersSetPhotoWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsersSetPhotoFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsersSetPhotoFormdataRequestBody)")),
 		),
 		h.handleUsersSetPhotoWithFormdataBodyWithResponse,
 	)
@@ -1864,7 +1864,7 @@ func (h *Handler) RegisterUsers(s *server.MCPServer) {
 		mcp.NewTool("users-set-presence-with-formdata-body",
 			mcp.WithDescription("UsersSetPresenceWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsersSetPresenceFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsersSetPresenceFormdataRequestBody)")),
 		),
 		h.handleUsersSetPresenceWithFormdataBodyWithResponse,
 	)
@@ -1888,7 +1888,7 @@ func (h *Handler) RegisterUsersProfile(s *server.MCPServer) {
 		mcp.NewTool("users-profile-set-with-formdata-body",
 			mcp.WithDescription("UsersProfileSetWithFormdataBody"),
 			mcp.WithString("token", mcp.Description("Token")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/v1/client.UsersProfileSetFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/slack/slack/client.UsersProfileSetFormdataRequestBody)")),
 		),
 		h.handleUsersProfileSetWithFormdataBodyWithResponse,
 	)

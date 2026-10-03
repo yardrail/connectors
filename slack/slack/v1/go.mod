@@ -1,4 +1,4 @@
-module github.com/yardrail/connectors/slack/slack/v1
+module github.com/yardrail/connectors/slack/slack
 
 go 1.27.1
 
