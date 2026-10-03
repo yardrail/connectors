@@ -1,0 +1,13 @@
+connector:
+  id: egnyte
+  name: Egnyte
+  description: Manage files, folders, and permissions in Egnyte.
+
+interfaces:
+  - id: token
+    name: Access Token
+    protocol: rest
+    auth_method: oauth2_user
+    auth_scope: org
+    security_scheme: BearerAuth
+    capabilities: [file.read, file.write, folder.read, folder.write, permission.read, permission.write]

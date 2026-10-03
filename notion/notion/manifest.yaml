@@ -1,0 +1,13 @@
+connector:
+  id: notion
+  name: Notion
+  description: Read and create pages and query databases in Notion.
+
+interfaces:
+  - id: integration
+    name: Integration Token
+    protocol: rest
+    auth_method: api_key
+    auth_scope: org
+    security_scheme: bearerAuth
+    capabilities: [page.read, page.create, database.query, block.read]

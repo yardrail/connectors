@@ -1,0 +1,21 @@
+connector:
+  id: hubspot-crm-contacts
+  name: HubSpot CRM Contacts
+  description: Create, read, update, and search contacts in HubSpot CRM.
+
+interfaces:
+  - id: oauth
+    name: HubSpot OAuth
+    protocol: rest
+    auth_method: oauth2_user
+    auth_scope: org
+    security_scheme: oauth2
+    capabilities: [contact.read, contact.create, contact.update, contact.delete, contact.search]
+
+  - id: private-app
+    name: Private App
+    protocol: rest
+    auth_method: api_key
+    auth_scope: user
+    security_scheme: private_apps
+    capabilities: [contact.read, contact.create, contact.update, contact.delete, contact.search]

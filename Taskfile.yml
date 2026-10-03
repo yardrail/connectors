@@ -55,6 +55,66 @@ tasks:
           CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_notion_gen.go"
           PKGNAME: notion
 
+  generate:connector:canva:
+    desc: Generate yardrail Canva connector code
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/canva/canva/manifest.yaml"
+          SPEC: "{{.ROOT_DIR}}/canva/canva/spec/openapi.json"
+          PKG: github.com/yardrail/connectors/canva/canva/client
+          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/canva"
+          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_canva_gen.go"
+          PKGNAME: canva
+
+  generate:connector:egnyte:
+    desc: Generate yardrail Egnyte connector code
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/egnyte/egnyte/manifest.yaml"
+          SPEC: "{{.ROOT_DIR}}/egnyte/egnyte/spec/openapi.json"
+          PKG: github.com/yardrail/connectors/egnyte/egnyte/client
+          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/egnyte"
+          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_egnyte_gen.go"
+          PKGNAME: egnyte
+
+  generate:connector:mailchimp:
+    desc: Generate yardrail Mailchimp connector code
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/mailchimp/marketing/v3/manifest.yaml"
+          SPEC: "{{.ROOT_DIR}}/mailchimp/marketing/v3/spec/openapi.json"
+          PKG: github.com/yardrail/connectors/mailchimp/marketing/v3/client
+          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/mailchimp"
+          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_mailchimp_gen.go"
+          PKGNAME: mailchimp
+
+  generate:connector:stripe:
+    desc: Generate yardrail Stripe connector code
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/stripe/stripe/manifest.yaml"
+          SPEC: "{{.ROOT_DIR}}/stripe/stripe/spec/openapi.json"
+          PKG: github.com/yardrail/connectors/stripe/stripe/client
+          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/stripe"
+          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_stripe_gen.go"
+          PKGNAME: stripe
+
   generate:connector:slack:
     desc: Generate yardrail slack connector code
     vars:

@@ -1,0 +1,13 @@
+connector:
+  id: stripe
+  name: Stripe
+  description: Manage payments, customers, and subscriptions in Stripe.
+
+interfaces:
+  - id: secret-key
+    name: Secret Key
+    protocol: rest
+    auth_method: api_key
+    auth_scope: org
+    security_scheme: bearerAuth
+    capabilities: [payment.read, payment.create, customer.read, customer.create, subscription.read, subscription.create]
