@@ -1,0 +1,30 @@
+connector:
+  id: slack
+  name: Slack
+  description: Send messages and read channel history.
+
+interfaces:
+  - id: bot-api
+    name: Bot API
+    protocol: rest
+    auth_method: oauth2_user
+    auth_scope: org
+    security_scheme: slackAuth
+    capabilities: [message.send, message.read, channel.list]
+
+  - id: user-token
+    name: User Token
+    protocol: rest
+    auth_method: api_key
+    auth_scope: user
+    security_scheme: slackAuth
+    capabilities: [message.send, message.read, channel.list]
+
+  - id: events
+    name: Events API
+    protocol: webhook
+    auth_method: none
+    auth_scope: org
+    capabilities: [event.receive]
+    depends_on: [bot-api]
+    callable: false
