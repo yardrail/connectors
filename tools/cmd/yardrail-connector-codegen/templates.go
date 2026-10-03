@@ -26,6 +26,8 @@ type genContext struct {
 type authStrategy struct {
 	SecurityScheme SecurityScheme
 	CredKey        string
+	UsernameField  string
+	PasswordField  string
 }
 
 // deriveAuthStrategy maps each callable interface's security_scheme to concrete
@@ -43,21 +45,35 @@ func deriveAuthStrategy(manifest *Manifest, spec *SpecInfo) map[string]authStrat
 			continue
 		}
 
-		credKey := "access_token"
+		credKey := mapCredField(iface.CredMapping, "access_token", "access_token")
+
 		switch {
 		case scheme.Type == "apiKey":
-			credKey = scheme.Name
+			credKey = mapCredField(iface.CredMapping, scheme.Name, scheme.Name)
 		case scheme.Type == "http" && scheme.Scheme == "basic":
 			credKey = "username"
 		}
 
+		usernameField := mapCredField(iface.CredMapping, "username", "username")
+		passwordField := mapCredField(iface.CredMapping, "password", "password")
+
 		strategies[iface.ID] = authStrategy{
 			SecurityScheme: scheme,
 			CredKey:        credKey,
+			UsernameField:  usernameField,
+			PasswordField:  passwordField,
 		}
 	}
 
 	return strategies
+}
+
+func mapCredField(mapping map[string]string, key, defaultVal string) string {
+	if v, ok := mapping[key]; ok {
+		return v
+	}
+
+	return defaultVal
 }
 
 func renderFile(tmplStr string, ctx *genContext) ([]byte, error) {
@@ -294,7 +310,7 @@ func authEditor{{goIdent .ID}}(creds map[string]string) func(context.Context, *h
 			req.Header.Set("Authorization", "Bearer "+token)
 		}
 {{- else if eq (authSchemeType $strat) "basic"}}
-		req.SetBasicAuth(creds["username"], creds["password"])
+		req.SetBasicAuth(creds["{{$strat.UsernameField}}"], creds["{{$strat.PasswordField}}"])
 {{- else if eq (authSchemeType $strat) "apikey_header"}}
 		if key := creds["{{$strat.CredKey}}"]; key != "" {
 			req.Header.Set("{{$strat.SecurityScheme.Name}}", key)

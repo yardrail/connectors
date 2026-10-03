@@ -28,6 +28,7 @@ type ManifestInterface struct {
 	AuthMethod     string               `yaml:"auth_method"`
 	AuthScope      string               `yaml:"auth_scope"`
 	SecurityScheme string               `yaml:"security_scheme"`
+	CredMapping    map[string]string    `yaml:"cred_mapping"`
 	Capabilities   []string             `yaml:"capabilities"`
 	DependsOn      []string             `yaml:"depends_on"`
 	Callable       *bool                `yaml:"callable"`
