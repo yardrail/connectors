@@ -27,18 +27,18 @@ tasks:
 
   generate:connector:slack:
     desc: Generate yardrail slack connector code
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
     cmds:
       - task: generate:connector
         vars:
-          CONNECTOR: slack
           MANIFEST: "{{.ROOT_DIR}}/slack/slack/manifest.yaml"
           SPEC: "{{.ROOT_DIR}}/slack/slack/spec/openapi.json"
           PKG: github.com/yardrail/connectors/slack/slack/client
-          OUT: "{{.ROOT_DIR}}/{{.YARDRAIL_DIR}}/internal/connectors/slack"
-          CATALOG: "{{.ROOT_DIR}}/{{.YARDRAIL_DIR}}/internal/connector/catalog_slack_gen.go"
+          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/slack"
+          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_slack_gen.go"
           PKGNAME: slack
-    vars:
-      YARDRAIL_DIR: '{{.YARDRAIL_DIR | default "../yardrail"}}'
 
   generate:
     desc: Run go generate across all service modules
