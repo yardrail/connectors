@@ -10,4 +10,8 @@ interfaces:
     auth_method: api_key
     auth_scope: org
     security_scheme: bearerAuth
+    cred_mapping:
+      access_token: token
+    headers:
+      Notion-Version: "2022-06-28"
     capabilities: [page.read, page.create, database.query, block.read]

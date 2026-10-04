@@ -306,7 +306,7 @@ func resolveBaseURL(config map[string]string) string {
 func authEditor{{goIdent .ID}}(creds map[string]string) func(context.Context, *http.Request) error {
 	return func(_ context.Context, req *http.Request) error {
 {{- if eq (authSchemeType $strat) "bearer"}}
-		if token := creds["access_token"]; token != "" {
+		if token := creds["{{$strat.CredKey}}"]; token != "" {
 			req.Header.Set("Authorization", "Bearer "+token)
 		}
 {{- else if eq (authSchemeType $strat) "basic"}}
@@ -321,6 +321,9 @@ func authEditor{{goIdent .ID}}(creds map[string]string) func(context.Context, *h
 			q.Set("{{$strat.SecurityScheme.Name}}", key)
 			req.URL.RawQuery = q.Encode()
 		}
+{{- end}}
+{{- range $k, $v := .Headers}}
+		req.Header.Set("{{$k}}", "{{$v}}")
 {{- end}}
 
 		return nil
@@ -459,7 +462,16 @@ func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPk
 		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: params: %w", paramsErr)
 	}
 {{end}}
-	return cl.{{$m.MethodName}}(ctx, {{range .CallArgs}}{{if .IsParams}}&params{{else if eq .Expr "params"}}&params{{else if eq .Expr "body"}}body{{else}}{{fixTargetRef $.ClientPkgPath .Expr}}{{end}}, {{end}})
+	resp, callErr := cl.{{$m.MethodName}}(ctx, {{range .CallArgs}}{{if .IsParams}}&params{{else if eq .Expr "params"}}&params{{else if eq .Expr "body"}}body{{else}}{{fixTargetRef $.ClientPkgPath .Expr}}{{end}}, {{end}})
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: nil response")
+	}
+
+	return json.RawMessage(resp.Body), nil
 }
 {{end}}
 `
