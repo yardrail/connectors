@@ -471,6 +471,10 @@ func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPk
 		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: nil response")
 	}
 
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
 	return json.RawMessage(resp.Body), nil
 }
 {{end}}
