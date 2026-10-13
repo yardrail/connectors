@@ -115,6 +115,21 @@ tasks:
           CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_stripe_gen.go"
           PKGNAME: stripe
 
+  generate:connector:quickbooks-account:
+    desc: Generate yardrail QuickBooks Account connector code
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/quickbooks/account/manifest.yaml"
+          SPEC: "{{.ROOT_DIR}}/quickbooks/account/spec/openapi.json"
+          PKG: github.com/yardrail/connectors/quickbooks/account/client
+          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/quickbooks-account"
+          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_quickbooks_account_gen.go"
+          PKGNAME: quickbooks_account
+
   generate:connector:slack:
     desc: Generate yardrail slack connector code
     vars:

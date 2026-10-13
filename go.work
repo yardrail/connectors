@@ -8,6 +8,7 @@ use (
 	./monday/monday/v2
 	./notion/notion
 	./officernd/officernd/v2
+	./quickbooks/account
 	./slack/slack
 	./stripe/stripe
 	./tools

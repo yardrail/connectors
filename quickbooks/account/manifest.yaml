@@ -1,0 +1,13 @@
+connector:
+  id: quickbooks-account
+  name: QuickBooks Online Accounting
+  description: Manage accounts, invoices, bills, payments, and other accounting entities in QuickBooks Online.
+
+interfaces:
+  - id: oauth
+    name: QuickBooks OAuth
+    protocol: rest
+    auth_method: oauth2_user
+    auth_scope: org
+    security_scheme: oauthAuthCode
+    capabilities: [accounting]
