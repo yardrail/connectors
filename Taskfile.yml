@@ -145,6 +145,12 @@ tasks:
           CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_slack_gen.go"
           PKGNAME: slack
 
+  docs:readme:
+    desc: Regenerate README.md from template
+    dir: tools
+    cmds:
+      - go run ./cmd/gen-readme
+
   generate:
     desc: Run go generate across all service modules
     cmds:
