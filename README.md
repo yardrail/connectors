@@ -38,6 +38,7 @@ Services are nested `company/product/version`:
 | `slack/slack/v1/` | `github.com/yardrail/connectors/slack/slack/v1` | ~150 |
 | `stripe/stripe/v1/` | `github.com/yardrail/connectors/stripe/stripe/v1` | 611 |
 | `monday/monday/v2/` | `github.com/yardrail/connectors/monday/monday/v2` | — |
+| `quickbooks/account/` | `github.com/yardrail/connectors/quickbooks/account` | 89 |
 
 Single-product companies repeat the name (`slack/slack/`, `officernd/officernd/`). This keeps the structure consistent and avoids restructuring if the company later exposes additional products.
 
