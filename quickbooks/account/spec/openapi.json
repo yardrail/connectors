@@ -8,7 +8,7 @@
   },
   "servers": [
     {
-      "url": "https://{{baseurl}}"
+      "url": "https://quickbooks.api.intuit.com"
     }
   ],
   "paths": {
@@ -1337,7 +1337,7 @@
                       {
                         "Amount": 2400,
                         "CostAmount": 600,
-                        "Description": "Structural steel — additional load-bearing beam (LB-200)",
+                        "Description": "Structural steel \u2014 additional load-bearing beam (LB-200)",
                         "DetailType": "SalesItemLineDetail",
                         "LineNum": 1,
                         "SalesItemLineDetail": {
@@ -1356,7 +1356,7 @@
                       {
                         "Amount": 2000,
                         "CostAmount": 1000,
-                        "Description": "Labor — structural reinforcement installation (20 hrs)",
+                        "Description": "Labor \u2014 structural reinforcement installation (20 hrs)",
                         "DetailType": "SalesItemLineDetail",
                         "LineNum": 2,
                         "SalesItemLineDetail": {
@@ -1405,7 +1405,7 @@
                     "Line": [
                       {
                         "Amount": 2400,
-                        "Description": "Structural steel — additional load-bearing beam (LB-200)",
+                        "Description": "Structural steel \u2014 additional load-bearing beam (LB-200)",
                         "DetailType": "SalesItemLineDetail",
                         "Id": "1",
                         "LineNum": 1,
@@ -1423,7 +1423,7 @@
                       },
                       {
                         "Amount": 2000,
-                        "Description": "Labor — structural reinforcement installation (20 hrs)",
+                        "Description": "Labor \u2014 structural reinforcement installation (20 hrs)",
                         "DetailType": "SalesItemLineDetail",
                         "Id": "2",
                         "LineNum": 2,
@@ -1441,7 +1441,7 @@
                       },
                       {
                         "Amount": 350,
-                        "Description": "Permit fee — structural modification",
+                        "Description": "Permit fee \u2014 structural modification",
                         "DetailType": "SalesItemLineDetail",
                         "LineNum": 3,
                         "SalesItemLineDetail": {
@@ -8694,7 +8694,7 @@
     },
     {
       "name": "Employee",
-      "description": "https://developer.intuit.com/docs/api/accounting/employee\n\nAn Employee object represents a person working for the company.\n\nThe DisplayName attribute must be unique.\nThe GivenName, MiddleName, FamilyName, and PrintOnCheckName attributes must not contain a colon (:).\nThe GivenName and FamilyName attributes are required.\nThe PrimaryEmailAddress attribute must contain an at sign (@) and dot (.).\nThe full complement of read, create, delete via deactivation (active=false), and update operations are available both with and without QuickBooks Payroll enabled. However, when Payroll is enabled, support for some attributes is limited:\nTitle—Not supported when QuickBooks Payroll is enabled.\nSuffix—Not supported when QuickBooks Payroll is enabled.\nDisplayName —It’s read only when QuickBooks Payroll is enabled and a concatenation of GivenName MiddleName FamilyName.\nPrintOnCheckName—Not supported when QuickBooks Payroll is enabled.\nBillRate—Not supported when QuickBooks Payroll is enabled.\nSSN—Masked SSNs, as is returned in a response, cannot be passed in a request when QuickBooks Payroll is enabled. Code for this field must be removed before submitting."
+      "description": "https://developer.intuit.com/docs/api/accounting/employee\n\nAn Employee object represents a person working for the company.\n\nThe DisplayName attribute must be unique.\nThe GivenName, MiddleName, FamilyName, and PrintOnCheckName attributes must not contain a colon (:).\nThe GivenName and FamilyName attributes are required.\nThe PrimaryEmailAddress attribute must contain an at sign (@) and dot (.).\nThe full complement of read, create, delete via deactivation (active=false), and update operations are available both with and without QuickBooks Payroll enabled. However, when Payroll is enabled, support for some attributes is limited:\nTitle\u2014Not supported when QuickBooks Payroll is enabled.\nSuffix\u2014Not supported when QuickBooks Payroll is enabled.\nDisplayName \u2014It\u2019s read only when QuickBooks Payroll is enabled and a concatenation of GivenName MiddleName FamilyName.\nPrintOnCheckName\u2014Not supported when QuickBooks Payroll is enabled.\nBillRate\u2014Not supported when QuickBooks Payroll is enabled.\nSSN\u2014Masked SSNs, as is returned in a response, cannot be passed in a request when QuickBooks Payroll is enabled. Code for this field must be removed before submitting."
     },
     {
       "name": "Estimate",

@@ -21,6 +21,7 @@ type genContext struct {
 	CallableIfaces []ManifestInterface
 	BaseURL        string
 	AuthStrategy   map[string]authStrategy
+	ConfigParams   map[string]string
 }
 
 type authStrategy struct {
@@ -233,6 +234,9 @@ var tmplFuncs = template.FuncMap{
 	"strategyFor": func(strategies map[string]authStrategy, id string) authStrategy {
 		return strategies[id]
 	},
+	"configParam": func(configParams map[string]string, jsonName string) string {
+		return configParams[jsonName]
+	},
 	"configFieldTypeConst": func(s string) string {
 		switch s {
 		case "string":
@@ -371,6 +375,7 @@ var (
 type Dispatcher func(
 	ctx context.Context,
 	cl *{{clientPkgName .ClientPkgPath}}.ClientWithResponses,
+	config map[string]string,
 	inputs json.RawMessage,
 ) (any, error)
 
@@ -405,14 +410,14 @@ func Resolve(
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, inputs)
+		return d(ctx, cl, config, inputs)
 	}, nil
 }
 
 {{range .Methods}}{{$m := .}}
 {{- /* Determine what args this method needs */ -}}
 {{- $hasBody := false -}}
-{{- $hasPathParams := false -}}
+{{- $hasInputPathParams := false -}}
 {{- $bodyJSONName := "" -}}
 {{- $bodyType := "" -}}
 {{- range .Params -}}
@@ -422,13 +427,21 @@ func Resolve(
       {{- $bodyJSONName = .JSONName -}}
       {{- $bodyType = (trimPrefix .FullType "target.") -}}
     {{- else -}}
-      {{- $hasPathParams = true -}}
+      {{- if eq (configParam $.ConfigParams .JSONName) "" -}}
+        {{- $hasInputPathParams = true -}}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
 {{- end}}
 
-func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPkgPath}}.ClientWithResponses, inputs json.RawMessage) (any, error) {
-{{- if $hasPathParams}}
+func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPkgPath}}.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+{{- range .Params}}{{if and .Required (not .IsStruct)}}
+{{- $cp := configParam $.ConfigParams .JSONName}}
+{{- if ne $cp ""}}
+	{{.JSONName}} := config["{{$cp}}"]
+{{- end}}
+{{- end}}{{end}}
+{{- if $hasInputPathParams}}
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -436,6 +449,7 @@ func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPk
 		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: %w", pathErr)
 	}
 {{range .Params}}{{if and .Required (not .IsStruct)}}
+{{- if eq (configParam $.ConfigParams .JSONName) ""}}
 	var {{.JSONName}} {{.GoType}}
 
 	if raw, ok := pathArgs["{{.JSONName}}"]; ok {
@@ -444,6 +458,7 @@ func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPk
 			return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: param {{.JSONName}}: %w", paramErr)
 		}
 	}
+{{- end}}
 {{end}}{{end}}
 {{- end}}
 {{- if $hasBody}}

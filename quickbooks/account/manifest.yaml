@@ -9,5 +9,18 @@ interfaces:
     protocol: rest
     auth_method: oauth2_user
     auth_scope: org
-    security_scheme: oauthAuthCode
+    security_scheme: oauth2
     capabilities: [accounting]
+    config_params:
+      companyid: realm_id
+    config_fields:
+      - name: realm_id
+        type: string
+        label: Company ID (Realm ID)
+        description: Your QuickBooks Online company ID. Found in the URL when logged into QuickBooks.
+        required: true
+      - name: base_url
+        type: url
+        label: API Base URL
+        description: Override the default API URL (use https://sandbox-quickbooks.api.intuit.com for sandbox testing).
+        required: false

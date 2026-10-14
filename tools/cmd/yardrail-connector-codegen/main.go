@@ -64,6 +64,13 @@ func main() {
 		baseURL = resolveBaseURLTemplate(spec.Servers[0])
 	}
 
+	configParams := make(map[string]string)
+	for _, iface := range callableIfaces {
+		for k, v := range iface.ConfigParams {
+			configParams[k] = v
+		}
+	}
+
 	ctx := &genContext{
 		ConnectorID:    manifest.Connector.ID,
 		PkgName:        *pkgName,
@@ -74,6 +81,7 @@ func main() {
 		CallableIfaces:  callableIfaces,
 		BaseURL:         baseURL,
 		AuthStrategy:    deriveAuthStrategy(manifest, spec),
+		ConfigParams:    configParams,
 	}
 
 	if err := os.MkdirAll(*outDir, 0o755); err != nil {
