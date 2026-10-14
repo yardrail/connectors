@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -83,7 +84,16 @@ func collectInputs(op rawOperation, resolver *refResolver) []FieldInfo {
 	reqSchema := firstContentSchema(op.RequestBody.Content)
 	if reqSchema != nil {
 		requiredSet := toSet(reqSchema.Required)
-		for name, prop := range reqSchema.Properties {
+
+		names := make([]string, 0, len(reqSchema.Properties))
+		for name := range reqSchema.Properties {
+			names = append(names, name)
+		}
+
+		sort.Strings(names)
+
+		for _, name := range names {
+			prop := reqSchema.Properties[name]
 			typ := resolveType(prop, resolver)
 			inputs = append(inputs, FieldInfo{
 				Name:     name,
@@ -117,9 +127,18 @@ func collectOutputs(op rawOperation, resolver *refResolver) []FieldInfo {
 	}
 
 	requiredSet := toSet(resolved.Required)
+
+	names := make([]string, 0, len(resolved.Properties))
+	for name := range resolved.Properties {
+		names = append(names, name)
+	}
+
+	sort.Strings(names)
+
 	var outputs []FieldInfo
 
-	for name, prop := range resolved.Properties {
+	for _, name := range names {
+		prop := resolved.Properties[name]
 		typ := resolveType(prop, resolver)
 		outputs = append(outputs, FieldInfo{
 			Name:     name,
