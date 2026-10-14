@@ -33,6 +33,7 @@ type ManifestInterface struct {
 	Capabilities   []string             `yaml:"capabilities"`
 	DependsOn      []string             `yaml:"depends_on"`
 	Callable       *bool                `yaml:"callable"`
+	ConfigParams   map[string]string     `yaml:"config_params"`
 	ConfigFields   []ManifestConfigField `yaml:"config_fields"`
 	MCPGroups      []string             `yaml:"mcp_groups"`
 }
