@@ -70,8 +70,7 @@ func TestRenderCWLSchema(t *testing.T) {
 
 			ctx := &genContext{
 				ConnectorID: tt.connectorID,
-				Methods:     tt.methods,
-				Spec:        &SpecInfo{Operations: tt.operations},
+				Functions:   openAPIFunctions(tt.methods, tt.operations),
 			}
 
 			out, err := renderCWLSchema(ctx)

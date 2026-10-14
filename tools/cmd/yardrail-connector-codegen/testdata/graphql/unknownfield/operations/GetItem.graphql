@@ -1,0 +1,6 @@
+query GetItem($itemId: ID!) {
+  item(id: $itemId) {
+    id
+    missingField
+  }
+}

@@ -1,0 +1,8 @@
+query GetWidget($widgetId: ID!) {
+  widget(id: $widgetId) {
+    id
+    name
+    size
+    attributes
+  }
+}

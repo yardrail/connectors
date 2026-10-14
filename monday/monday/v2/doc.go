@@ -1,3 +1,5 @@
-// Package v2 will provide a generated client and MCP server for the Monday.com GraphQL API.
-// Blocked on GraphQL codegen tooling — see tools/cmd/ for available generators.
+// Package v2 holds the monday.com GraphQL API contract (spec/schema.graphql)
+// and the operations (operations/*.graphql) that yardrail-connector-codegen
+// turns into the yardrail monday connector, as declared in manifest.yaml.
+// Regenerate the yardrail code with `task generate:connector:monday`.
 package v2

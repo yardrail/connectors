@@ -1,0 +1,40 @@
+connector:
+  id: mixedfixture
+  name: Mixed Fixture
+  description: Test connector combining a REST interface and a GraphQL interface.
+
+security_schemes:
+  gqlToken:
+    type: apiKey
+    in: header
+    name: Authorization
+
+interfaces:
+  - id: rest
+    name: REST Integration Token
+    protocol: rest
+    auth_method: api_key
+    auth_scope: org
+    security_scheme: bearerAuth
+    cred_mapping:
+      access_token: token
+    headers:
+      Notion-Version: "2022-06-28"
+    capabilities: [page.read]
+    source:
+      openapi: ../../../../../notion/notion/spec/openapi.json
+      client: github.com/yardrail/connectors/notion/notion/client
+
+  - id: gql
+    name: GraphQL API Token
+    protocol: graphql
+    auth_method: api_key
+    auth_scope: org
+    security_scheme: gqlToken
+    cred_mapping:
+      Authorization: token
+    capabilities: [widget.read]
+    source:
+      schema: schema.graphql
+      operations: operations/
+      endpoint: https://mixed.invalid/graphql

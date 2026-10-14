@@ -1,0 +1,27 @@
+connector:
+  id: graphqlfixture
+  name: GraphQL Fixture
+  description: Test connector for generated GraphQL dispatch.
+
+security_schemes:
+  fixtureToken:
+    type: apiKey
+    in: header
+    name: Authorization
+
+interfaces:
+  - id: api
+    name: API Token
+    protocol: graphql
+    auth_method: api_key
+    auth_scope: org
+    security_scheme: fixtureToken
+    cred_mapping:
+      Authorization: token
+    headers:
+      API-Version: "2026-01"
+    capabilities: [widget.read, widget.write]
+    source:
+      schema: spec/schema.graphql
+      operations: operations/
+      endpoint: https://fixture.invalid/graphql

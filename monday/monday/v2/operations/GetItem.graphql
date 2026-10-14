@@ -1,0 +1,12 @@
+query GetItem($itemId: ID!) {
+  items(ids: [$itemId]) {
+    id
+    name
+    column_values {
+      id
+      type
+      text
+      value
+    }
+  }
+}

@@ -1,0 +1,7 @@
+mutation CreateUpdate($itemId: ID!, $body: String!) {
+  create_update(item_id: $itemId, body: $body) {
+    id
+    body
+    created_at
+  }
+}

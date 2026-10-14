@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+
+	"github.com/yardrail/connectors/tools/internal/introspect"
 )
 
 func renderCWLSchema(ctx *genContext) ([]byte, error) {
@@ -18,18 +20,14 @@ func renderCWLSchema(ctx *genContext) ([]byte, error) {
 	fmt.Fprintf(&buf, "  cwl: \"https://w3id.org/cwl/cwl#\"\n")
 	fmt.Fprintf(&buf, "\n$graph:\n")
 
-	methods := ctx.Methods
-	sort.Slice(methods, func(i, j int) bool {
-		return methods[i].Name < methods[j].Name
+	funcs := append([]connectorFunction(nil), ctx.Functions...)
+	sort.Slice(funcs, func(i, j int) bool {
+		return funcs[i].Name < funcs[j].Name
 	})
 
-	for _, m := range methods {
-		className := goIdent(m.Name)
-		opKey := normalizeMethodToOpKey(m.Name)
-		op := ctx.Spec.Operations[opKey]
-
-		writeClassEnum(&buf, connID, className)
-		writeClassRecord(&buf, connID, className, op)
+	for _, fn := range funcs {
+		writeClassEnum(&buf, connID, fn.ClassName)
+		writeClassRecord(&buf, connID, fn.ClassName, fn.Op)
 	}
 
 	return buf.Bytes(), nil
@@ -84,8 +82,22 @@ func openAPIToCWLType(t string) string {
 	}
 }
 
+// openAPIFunctions pairs each oapi-codegen method with its spec operation.
+func openAPIFunctions(methods []introspect.MethodInfo, ops map[string]*OperationInfo) []connectorFunction {
+	funcs := make([]connectorFunction, 0, len(methods))
+	for _, m := range methods {
+		funcs = append(funcs, connectorFunction{
+			Name:      m.Name,
+			ClassName: goIdent(m.Name),
+			Op:        ops[normalizeMethodToOpKey(m.Name)],
+		})
+	}
+
+	return funcs
+}
+
 // normalizeMethodToOpKey converts a kebab method name to the same normalized
-// form used as the key in Spec.Operations.
+// form used as the key in SpecInfo.Operations.
 func normalizeMethodToOpKey(kebabName string) string {
 	return strings.ToLower(strings.ReplaceAll(kebabName, "-", ""))
 }

@@ -1,0 +1,39 @@
+schema {
+  query: Query
+}
+
+"Arbitrary JSON."
+scalar JSON
+
+"Redeclared built-in, as vendor introspection dumps do."
+scalar String
+
+"Redeclared built-in, as vendor introspection dumps do."
+directive @deprecated(reason: String = "No longer supported") on FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION
+
+"Lifecycle state of an item."
+enum Status {
+  OPEN
+  CLOSED
+}
+
+type Owner {
+  id: ID!
+}
+
+type Item {
+  id: ID!
+  name: String!
+  status: Status
+  tags: [String!]
+  data: JSON
+  count: Int
+  score: Float
+  archived: Boolean
+  owner: Owner
+}
+
+type Query {
+  "Get one item by ID."
+  item(id: ID!, limit: Int): Item
+}

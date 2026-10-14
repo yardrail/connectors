@@ -18,10 +18,26 @@ type genContext struct {
 	Manifest       *Manifest
 	Spec           *SpecInfo
 	Methods        []introspect.MethodInfo
+	Functions      []connectorFunction
 	CallableIfaces []ManifestInterface
-	BaseURL        string
-	AuthStrategy   map[string]authStrategy
-	ConfigParams   map[string]string
+	// RESTIfaces are the callable interfaces backed by the OpenAPI client.
+	RESTIfaces []ManifestInterface
+	// GraphQLIfaces and GraphQLFunctions are the callable GraphQL interfaces
+	// and the operations they serve.
+	GraphQLIfaces    []ManifestInterface
+	GraphQLFunctions []graphqlFunction
+	BaseURL          string
+	AuthStrategy     map[string]authStrategy
+	ConfigParams     map[string]string
+}
+
+// connectorFunction is one callable connector function, independent of the
+// protocol that backs it. The CWL schema and class mapping render from these.
+type connectorFunction struct {
+	Name        string // kebab-case function name
+	ClassName   string // CWL class name
+	InterfaceID string // interface that serves the function; empty when every callable interface does
+	Op          *OperationInfo
 }
 
 type authStrategy struct {
@@ -31,9 +47,25 @@ type authStrategy struct {
 	PasswordField  string
 }
 
+// mergeSecuritySchemes combines spec-supplied and manifest-declared security
+// schemes. A manifest scheme replaces a spec scheme of the same name.
+func mergeSecuritySchemes(spec, manifest map[string]SecurityScheme) map[string]SecurityScheme {
+	merged := make(map[string]SecurityScheme, len(spec)+len(manifest))
+	for k, v := range spec {
+		merged[k] = v
+	}
+
+	for k, v := range manifest {
+		merged[k] = v
+	}
+
+	return merged
+}
+
 // deriveAuthStrategy maps each callable interface's security_scheme to concrete
-// auth wiring based on the OpenAPI securitySchemes.
-func deriveAuthStrategy(manifest *Manifest, spec *SpecInfo) map[string]authStrategy {
+// auth wiring based on the merged security schemes. A security_scheme that is
+// set but not in schemes is an error.
+func deriveAuthStrategy(manifest *Manifest, schemes map[string]SecurityScheme) (map[string]authStrategy, error) {
 	strategies := make(map[string]authStrategy)
 
 	for _, iface := range manifest.Interfaces {
@@ -41,9 +73,9 @@ func deriveAuthStrategy(manifest *Manifest, spec *SpecInfo) map[string]authStrat
 			continue
 		}
 
-		scheme, ok := spec.SecuritySchemes[iface.SecurityScheme]
+		scheme, ok := schemes[iface.SecurityScheme]
 		if !ok {
-			continue
+			return nil, fmt.Errorf("interface %q: %w: %q", iface.ID, errUnresolvedSecurityScheme, iface.SecurityScheme)
 		}
 
 		credKey := mapCredField(iface.CredMapping, "access_token", "access_token")
@@ -66,7 +98,7 @@ func deriveAuthStrategy(manifest *Manifest, spec *SpecInfo) map[string]authStrat
 		}
 	}
 
-	return strategies
+	return strategies, nil
 }
 
 func mapCredField(mapping map[string]string, key, defaultVal string) string {
@@ -210,7 +242,8 @@ var tmplFuncs = template.FuncMap{
 	"trimPrefix":      strings.TrimPrefix,
 	"kebab":           introspect.ToKebab,
 	"authSchemeType":  authSchemeType,
-	"clientPkgName": clientPkgName,
+	"clientPkgName":   clientPkgName,
+	"goString":        goStringLiteral,
 	"fixTargetRef": func(clientPkgPath, expr string) string {
 		pkg := clientPkgName(clientPkgPath)
 
@@ -238,12 +271,6 @@ var tmplFuncs = template.FuncMap{
 	},
 	"configParam": func(configParams map[string]string, jsonName string) string {
 		return configParams[jsonName]
-	},
-	"normalizeMethodToOpKey": func(name string) string {
-		return normalizeMethodToOpKey(name)
-	},
-	"opForMethod": func(ops map[string]*OperationInfo, key string) *OperationInfo {
-		return ops[key]
 	},
 	"opDescription": func(op *OperationInfo) string {
 		if op == nil {
@@ -297,38 +324,14 @@ type Connector struct {
 
 // NewConnector constructs a Connector from per-interface credentials and config.
 func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
-	clients := make(map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses, {{len .CallableIfaces}})
-{{range .CallableIfaces}}
-	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
-		baseURL := resolveBaseURL(config["{{.ID}}"])
-		authFn := authEditor{{goIdent .ID}}(ifaceCreds)
-
-		c, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn))
-		if err != nil {
-			return nil, fmt.Errorf("creating {{.ID}} client: %w", err)
-		}
-
-		clients["{{.ID}}"] = c
-	}
-{{end}}
-	return &Connector{clients: clients}, nil
+` + openAPIClientsTemplate + `	return &Connector{clients: clients}, nil
 }
 
-// Client returns the typed oapi-codegen client for the given interface.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *{{clientPkgName .ClientPkgPath}}.ClientWithResponses {
-	return c.clients[interfaceID]
-}
+` + openAPIAccessorsTemplate + authEditorsTemplate
 
-func resolveBaseURL(config map[string]string) string {
-	if u, ok := config["base_url"]; ok && u != "" {
-		return u
-	}
-
-	return "{{.BaseURL}}"
-}
-
-{{range .CallableIfaces}}{{$strat := strategyFor $.AuthStrategy .ID}}
+// authEditorsTemplate renders one request editor per callable interface that
+// applies its auth scheme and static headers. Every handler template uses it.
+const authEditorsTemplate = `{{range .CallableIfaces}}{{$strat := strategyFor $.AuthStrategy .ID}}
 func authEditor{{goIdent .ID}}(creds map[string]string) func(context.Context, *http.Request) error {
 	return func(_ context.Context, req *http.Request) error {
 {{- if eq (authSchemeType $strat) "bearer"}}
@@ -377,36 +380,13 @@ import (
 	"{{.ClientPkgPath}}"
 )
 
-{{- if needsUUID .Methods}}
-
-func parseUUID(s string) uuid.UUID {
-	id, _ := uuid.Parse(s)
-
-	return id
-}
-{{- end}}
-
+` + openAPIUUIDTemplate + `
 var (
 	errInterfaceNotConfigured = errors.New("{{.ConnectorID}}: interface not configured")
 	errUnknownFunction        = errors.New("{{.ConnectorID}}: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *{{clientPkgName .ClientPkgPath}}.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-{{range .Methods}}	"{{.Name}}": dispatch{{.MethodName}},
-{{end}}}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
+` + openAPIDispatchersTemplate + `// Resolve constructs a Connector and returns a ready-to-call function for the
 // given interface and function name. The returned function deserializes JSON
 // inputs and calls the typed client method.
 func Resolve(
@@ -436,7 +416,76 @@ func Resolve(
 	}, nil
 }
 
-{{range .Methods}}{{$m := .}}
+` + openAPIMethodsTemplate
+
+// openAPIClientsTemplate builds the clients map in NewConnector, one
+// oapi-codegen client per interface in .RESTIfaces.
+const openAPIClientsTemplate = `	clients := make(map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses, {{len .RESTIfaces}})
+{{range .RESTIfaces}}
+	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
+		baseURL := resolveBaseURL(config["{{.ID}}"])
+		authFn := authEditor{{goIdent .ID}}(ifaceCreds)
+
+		c, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn))
+		if err != nil {
+			return nil, fmt.Errorf("creating {{.ID}} client: %w", err)
+		}
+
+		clients["{{.ID}}"] = c
+	}
+{{end}}
+`
+
+// openAPIAccessorsTemplate renders the typed client accessor and base URL
+// resolution for OpenAPI interfaces.
+const openAPIAccessorsTemplate = `// Client returns the typed oapi-codegen client for the given interface.
+// Returns nil if the interface was not configured with credentials.
+func (c *Connector) Client(interfaceID string) *{{clientPkgName .ClientPkgPath}}.ClientWithResponses {
+	return c.clients[interfaceID]
+}
+
+func resolveBaseURL(config map[string]string) string {
+	if u, ok := config["base_url"]; ok && u != "" {
+		return u
+	}
+
+	return "{{.BaseURL}}"
+}
+
+`
+
+// openAPIUUIDTemplate renders parseUUID when a method takes a UUID.
+const openAPIUUIDTemplate = `{{- if needsUUID .Methods}}
+
+func parseUUID(s string) uuid.UUID {
+	id, _ := uuid.Parse(s)
+
+	return id
+}
+{{- end}}
+`
+
+// openAPIDispatchersTemplate renders the Dispatcher type and the function
+// table for .Methods.
+const openAPIDispatchersTemplate = `// Dispatcher deserializes JSON inputs into typed args, calls a typed client
+// method, and returns the typed response. This is the serialization boundary
+// for Temporal/CWL — typed callers use Client() directly instead.
+type Dispatcher func(
+	ctx context.Context,
+	cl *{{clientPkgName .ClientPkgPath}}.ClientWithResponses,
+	config map[string]string,
+	inputs json.RawMessage,
+) (any, error)
+
+// Dispatchers maps function names to their typed dispatch functions.
+var Dispatchers = map[string]Dispatcher{
+{{range .Methods}}	"{{.Name}}": dispatch{{.MethodName}},
+{{end}}}
+
+`
+
+// openAPIMethodsTemplate renders one dispatch function per method.
+const openAPIMethodsTemplate = `{{range .Methods}}{{$m := .}}
 {{- /* Determine what args this method needs */ -}}
 {{- $hasBody := false -}}
 {{- $hasInputPathParams := false -}}
@@ -522,16 +571,14 @@ const cwlMappingTemplate = `// Code generated by yardrail-connector-codegen. DO 
 package workflows
 
 func init() {
-{{- range .Methods}}
-{{- $opKey := normalizeMethodToOpKey .Name}}
-{{- $op := opForMethod $.Spec.Operations $opKey}}
-	registerConnectorClass("https://yardrail.com/cwl/{{$.ConnectorID}}#{{goIdent .Name}}", connectorClassInfo{
+{{- range .Functions}}
+	registerConnectorClass("https://yardrail.com/cwl/{{$.ConnectorID}}#{{.ClassName}}", connectorClassInfo{
 		ConnectorID: "{{$.ConnectorID}}",
 		Function:    "{{.Name}}",
-		ClassName:   "{{goIdent .Name}}",
-		Description: "{{escDesc (opDescription $op)}}",
+		ClassName:   "{{.ClassName}}",
+		Description: "{{escDesc (opDescription .Op)}}",
 		Inputs: []connectorFieldInfo{
-{{- range opInputs $op}}
+{{- range opInputs .Op}}
 			{Name: "{{.Name}}", Type: "{{.Type}}", Required: {{.Required}}, Description: "{{escDesc .Doc}}"},
 {{- end}}
 		},

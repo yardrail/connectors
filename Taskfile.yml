@@ -145,6 +145,22 @@ tasks:
           CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_slack_gen.go"
           PKGNAME: slack
 
+  generate:connector:monday:
+    desc: Generate yardrail monday.com connector code from GraphQL operations
+    dir: tools
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    cmds:
+      - >-
+        go run ./cmd/yardrail-connector-codegen
+        -manifest {{.ROOT_DIR}}/monday/monday/v2/manifest.yaml
+        -out {{.YARDRAIL_ROOT}}/internal/connectors/monday
+        -catalog {{.YARDRAIL_ROOT}}/internal/connector/catalog_monday_gen.go
+        -pkgname monday
+        -cwl-schema {{.YARDRAIL_ROOT}}/pkg/workflows/schema/monday-ext.yml
+        -cwl-mapping {{.YARDRAIL_ROOT}}/pkg/workflows/connector_monday_gen.go
+
   docs:readme:
     desc: Regenerate README.md from template
     dir: tools

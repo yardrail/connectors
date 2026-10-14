@@ -1,6 +1,6 @@
 # connectors
 
-Go packages for integrating [yardrail](https://github.com/yardrail/yardrail) with external services. Each service produces a typed Go client and/or an MCP server package. Yardrail imports these packages directly.
+Go packages for integrating [yardrail](https://github.com/yardrail/yardrail) with external services. Each service produces a typed Go client, an MCP server package, or yardrail connector code generated from a manifest. Yardrail imports these packages directly.
 
 This repo also holds the API specs and codegen tools used to produce those packages.
 
@@ -21,10 +21,12 @@ connectors/
 ├── go.work                         # Go workspace — lists all modules
 ├── Taskfile.yml                    # Orchestrate codegen and validation across modules
 ├── tools/                          # Codegen utilities (separate Go module)
-│   └── cmd/
-│       ├── gen-readme/             # Generates this README from a template
-│       ├── mcp-google-codegen/     # Generate MCP server from a Google Go SDK package
-│       └── mcp-openapi-codegen/    # Generate MCP server from an oapi-codegen client
+│   ├── cmd/
+│   │   ├── gen-readme/             # Generates this README from a template
+│   │   ├── mcp-google-codegen/     # Generate MCP server from a Google Go SDK package
+│   │   ├── mcp-openapi-codegen/    # Generate MCP server from an oapi-codegen client
+│   │   └── yardrail-connector-codegen/  # Generate yardrail connector code from a manifest
+│   └── codegentest/                # Connectors generated from codegen fixtures, with runtime tests
 └── <company>/
     └── <product>/
         └── <version>/              # Each version is its own Go module
@@ -80,6 +82,43 @@ officernd/officernd/v2/
     └── tools_gen.go
 ```
 
+### GraphQL
+
+For GraphQL APIs, yardrail connector code is generated from hand-written operations; no Go client or MCP package is generated:
+
+- `spec/schema.graphql` holds the vendor schema, committed as downloaded. Redeclared built-in scalars and directives (`Int`, `String`, `@deprecated`, …) that introspection dumps contain are dropped by `yardrail-connector-codegen` when it parses the schema; the file needs no edits.
+- `operations/` holds one named operation per `.graphql` file, and the file's base name equals the operation name (`GetItem.graphql` holds `query GetItem`). Each operation becomes one connector function: `GetItem` becomes function `get-item` and CWL class `GetItem`. The class is the function name converted back to PascalCase, which equals the operation name for plain PascalCase names. Operation names become CWL class IRIs that workflows reference, so do not rename one after it ships.
+- `manifest.yaml` declares the interface with `protocol: graphql` and a `source` block. Paths are relative to the manifest. Excerpt from `monday/monday/v2/manifest.yaml` (the full file also has the top-level `connector:` block with `id`, `name` and `description`, and sets the interface's `name`, `auth_method`, `auth_scope`, `headers` and `capabilities`):
+
+```yaml
+security_schemes:
+  mondayToken: {type: apiKey, in: header, name: Authorization}
+
+interfaces:
+  - id: api
+    protocol: graphql
+    security_scheme: mondayToken
+    cred_mapping: {Authorization: token}
+    source:
+      schema: spec/schema.graphql   # optional; without it, outputs are untyped
+      operations: operations/
+      endpoint: https://api.monday.com/v2
+```
+
+`security_schemes` uses the OpenAPI `securitySchemes` shape and is merged with any schemes from an OpenAPI spec (the manifest wins on a name clash). Codegen fails when an interface's `security_scheme` matches neither.
+
+```
+monday/monday/v2/
+├── go.mod
+├── doc.go
+├── manifest.yaml
+├── spec/
+│   └── schema.graphql
+└── operations/
+    ├── GetItem.graphql
+    └── ...
+```
+
 ## Spec preparation
 
 Many upstream specs need fixups before oapi-codegen and mcp-openapi-codegen can process them. Common issues and their fixes:
@@ -103,12 +142,11 @@ All codegen commands live in `tools/`, which is its own Go module (`github.com/y
 |---|---|
 | `mcp-google-codegen` | Generate MCP server package from a Google Go SDK |
 | `mcp-openapi-codegen` | Generate MCP server package from an oapi-codegen client |
+| `yardrail-connector-codegen` | Generate yardrail connector handler, dispatch, catalog entry, CWL schema and CWL class mapping (CWL outputs only when `-cwl-schema` / `-cwl-mapping` are given) from a manifest, for OpenAPI (oapi-codegen client) and GraphQL (operation files) interfaces |
 
-Service packages invoke these via `//go:generate` directives in `generate.go` files.
+Service packages invoke the MCP generators via `//go:generate` directives in `generate.go` files. `yardrail-connector-codegen` runs from the `generate:connector:*` tasks in this repo and, for the OpenAPI connectors only, from yardrail's `gen:connectors` task (pinned to `CODEGEN_VERSION`). Both write into the yardrail repo.
 
 `mcp-openapi-codegen` handles type conversions for `uuid.UUID`, `types.Date`, `time.Time`, named string types, `[]string`, and `map[string]interface{}` params. It sanitizes tag names containing dots, hyphens, and underscores, and deduplicates operations that appear under multiple tags.
-
-Future protocol-specific generators (graphql, grpc, etc.) will be added as sibling commands under `tools/cmd/`.
 
 ## Taskfile
 
@@ -124,6 +162,7 @@ Future protocol-specific generators (graphql, grpc, etc.) will be added as sibli
 | `task list:modules` | List all Go modules in the repo |
 | `task sync:workspace` | Regenerate `go.work` from all `go.mod` files |
 | `task docs:readme` | Regenerate README.md from template |
+| `task generate:connector:<name>` | Run `yardrail-connector-codegen` for one connector, writing into the yardrail repo (`YARDRAIL_DIR`, default `../yardrail`). `task --list` shows the names. Only `generate:connector:monday` writes the CWL schema and mapping |
 
 ## Adding a new service
 
