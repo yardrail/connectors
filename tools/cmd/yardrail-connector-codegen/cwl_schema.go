@@ -28,10 +28,18 @@ func renderCWLSchema(ctx *genContext) ([]byte, error) {
 		opKey := normalizeMethodToOpKey(m.Name)
 		op := ctx.Spec.Operations[opKey]
 
+		writeClassEnum(&buf, connID, className)
 		writeClassRecord(&buf, connID, className, op)
 	}
 
 	return buf.Bytes(), nil
+}
+
+func writeClassEnum(buf *bytes.Buffer, connID, className string) {
+	fmt.Fprintf(buf, "\n  - name: %s_class\n", className)
+	fmt.Fprintf(buf, "    type: enum\n")
+	fmt.Fprintf(buf, "    inVocab: false\n")
+	fmt.Fprintf(buf, "    symbols: [\"%s:%s\"]\n", connID, className)
 }
 
 func writeClassRecord(buf *bytes.Buffer, connID, className string, op *OperationInfo) {
@@ -55,11 +63,7 @@ func writeClassRecord(buf *bytes.Buffer, connID, className string, op *Operation
 	fmt.Fprintf(buf, "        specializeTo: cwl:OperationOutputParameter\n")
 	fmt.Fprintf(buf, "    fields:\n")
 	fmt.Fprintf(buf, "      - name: class\n")
-	fmt.Fprintf(buf, "        type:\n")
-	fmt.Fprintf(buf, "          type: enum\n")
-	fmt.Fprintf(buf, "          name: %s_class\n", className)
-	fmt.Fprintf(buf, "          inVocab: false\n")
-	fmt.Fprintf(buf, "          symbols: [\"%s:%s\"]\n", connID, className)
+	fmt.Fprintf(buf, "        type: \"#%s_class\"\n", className)
 	fmt.Fprintf(buf, "        jsonldPredicate:\n")
 	fmt.Fprintf(buf, "          _id: \"@type\"\n")
 	fmt.Fprintf(buf, "          _type: \"@vocab\"\n")

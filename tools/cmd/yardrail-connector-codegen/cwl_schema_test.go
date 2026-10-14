@@ -27,11 +27,13 @@ func TestRenderCWLSchema(t *testing.T) {
 			wantContains: []string{
 				`$base: "https://yardrail.com/cwl/slack#"`,
 				`slack: "https://yardrail.com/cwl/slack#"`,
+				"name: ChatPostMessage_class",
 				"name: ChatPostMessage",
 				"inVocab: false",
 				`symbols: ["slack:ChatPostMessage"]`,
 				"extends: cwl:Process",
 				"documentRoot: true",
+				`type: "#ChatPostMessage_class"`,
 			},
 		},
 		{
