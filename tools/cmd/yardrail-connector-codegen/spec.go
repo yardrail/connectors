@@ -14,6 +14,7 @@ type SpecInfo struct {
 	Servers         []ServerInfo
 	SecuritySchemes map[string]SecurityScheme
 	TagMap          map[string][]string
+	Operations      map[string]*OperationInfo
 }
 
 // ServerInfo describes one entry from the spec's servers array.
@@ -94,6 +95,11 @@ func parseSpec(path string) (*SpecInfo, error) {
 	info.TagMap, err = introspect.ParseSpecTags(path)
 	if err != nil {
 		return nil, err
+	}
+
+	info.Operations, err = parseOperations(path)
+	if err != nil {
+		return nil, fmt.Errorf("parsing operations: %w", err)
 	}
 
 	return info, nil

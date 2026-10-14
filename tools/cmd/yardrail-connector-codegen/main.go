@@ -17,6 +17,8 @@ func main() {
 	pkgPath := flag.String("pkg", "", "import path of oapi-codegen client package (required)")
 	outDir := flag.String("out", "", "output dir for handler_gen.go (required)")
 	catalogOut := flag.String("catalog", "", "output path for catalog_<id>_gen.go (optional)")
+	cwlSchemaOut := flag.String("cwl-schema", "", "output path for CWL extension schema YAML (optional)")
+	cwlMappingOut := flag.String("cwl-mapping", "", "output path for Go CWL class mapping file (optional)")
 	pkgName := flag.String("pkgname", "", "Go package name for generated handler files (default: connector ID)")
 	flag.Parse()
 
@@ -118,6 +120,28 @@ func main() {
 			log.Fatal(writeErr)
 		}
 		fmt.Fprintf(os.Stderr, "wrote %s\n", *catalogOut)
+	}
+
+	if *cwlSchemaOut != "" {
+		src, renderErr := renderCWLSchema(ctx)
+		if renderErr != nil {
+			log.Fatalf("rendering CWL schema: %v", renderErr)
+		}
+		if writeErr := os.WriteFile(*cwlSchemaOut, src, 0o644); writeErr != nil {
+			log.Fatal(writeErr)
+		}
+		fmt.Fprintf(os.Stderr, "wrote %s\n", *cwlSchemaOut)
+	}
+
+	if *cwlMappingOut != "" {
+		src, renderErr := renderFile(cwlMappingTemplate, ctx)
+		if renderErr != nil {
+			log.Fatalf("rendering CWL mapping: %v", renderErr)
+		}
+		if writeErr := os.WriteFile(*cwlMappingOut, src, 0o644); writeErr != nil {
+			log.Fatal(writeErr)
+		}
+		fmt.Fprintf(os.Stderr, "wrote %s\n", *cwlMappingOut)
 	}
 
 	fmt.Fprintf(os.Stderr, "generated %d functions for connector %q\n", len(methods), manifest.Connector.ID)
