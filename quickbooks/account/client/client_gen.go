@@ -171,6 +171,25 @@ type BillpaymentReadbyidParams struct {
 	UserAgent    *string `json:"user-agent,omitempty"`
 }
 
+// BudgetCreateJSONBody defines parameters for BudgetCreate.
+type BudgetCreateJSONBody struct {
+	Id        *string `json:"Id,omitempty"`
+	SyncToken *string `json:"SyncToken,omitempty"`
+}
+
+// BudgetCreateParams defines parameters for BudgetCreate.
+type BudgetCreateParams struct {
+	Minorversion *string `form:"minorversion,omitempty" json:"minorversion,omitempty"`
+	Operation    *string `form:"operation,omitempty" json:"operation,omitempty"`
+	UserAgent    *string `json:"user-agent,omitempty"`
+}
+
+// BudgetGetbyidParams defines parameters for BudgetGetbyid.
+type BudgetGetbyidParams struct {
+	Minorversion *string `form:"minorversion,omitempty" json:"minorversion,omitempty"`
+	UserAgent    *string `json:"user-agent,omitempty"`
+}
+
 // CdcReadParams defines parameters for CdcRead.
 type CdcReadParams struct {
 	Entities     *string `form:"entities,omitempty" json:"entities,omitempty"`
@@ -1084,6 +1103,9 @@ type BillCreateJSONRequestBody BillCreateJSONBody
 // BillpaymentCreateJSONRequestBody defines body for BillpaymentCreate for application/json ContentType.
 type BillpaymentCreateJSONRequestBody BillpaymentCreateJSONBody
 
+// BudgetCreateJSONRequestBody defines body for BudgetCreate for application/json ContentType.
+type BudgetCreateJSONRequestBody BudgetCreateJSONBody
+
 // CreateChangeOrderJSONRequestBody defines body for CreateChangeOrder for application/json ContentType.
 type CreateChangeOrderJSONRequestBody CreateChangeOrderJSONBody
 
@@ -1283,6 +1305,14 @@ type ClientInterface interface {
 
 	// BillpaymentReadbyid request
 	BillpaymentReadbyid(ctx context.Context, companyid string, id string, params *BillpaymentReadbyidParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// BudgetCreateWithBody request with any body
+	BudgetCreateWithBody(ctx context.Context, companyid string, params *BudgetCreateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	BudgetCreate(ctx context.Context, companyid string, params *BudgetCreateParams, body BudgetCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// BudgetGetbyid request
+	BudgetGetbyid(ctx context.Context, companyid string, id string, params *BudgetGetbyidParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CdcRead request
 	CdcRead(ctx context.Context, companyid string, params *CdcReadParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1750,6 +1780,42 @@ func (c *Client) BillpaymentCreate(ctx context.Context, companyid string, params
 
 func (c *Client) BillpaymentReadbyid(ctx context.Context, companyid string, id string, params *BillpaymentReadbyidParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewBillpaymentReadbyidRequest(c.Server, companyid, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BudgetCreateWithBody(ctx context.Context, companyid string, params *BudgetCreateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBudgetCreateRequestWithBody(c.Server, companyid, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BudgetCreate(ctx context.Context, companyid string, params *BudgetCreateParams, body BudgetCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBudgetCreateRequest(c.Server, companyid, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BudgetGetbyid(ctx context.Context, companyid string, id string, params *BudgetGetbyidParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBudgetGetbyidRequest(c.Server, companyid, id, params)
 	if err != nil {
 		return nil, err
 	}
@@ -3809,6 +3875,184 @@ func NewBillpaymentReadbyidRequest(server string, companyid string, id string, p
 	}
 
 	operationPath := fmt.Sprintf("/v3/company/%s/billpayment/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Minorversion != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "minorversion", *params.Minorversion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.UserAgent != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "user-agent", *params.UserAgent, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("user-agent", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewBudgetCreateRequest calls the generic BudgetCreate builder with application/json body
+func NewBudgetCreateRequest(server string, companyid string, params *BudgetCreateParams, body BudgetCreateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewBudgetCreateRequestWithBody(server, companyid, params, "application/json", bodyReader)
+}
+
+// NewBudgetCreateRequestWithBody generates requests for BudgetCreate with any type of body
+func NewBudgetCreateRequestWithBody(server string, companyid string, params *BudgetCreateParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "companyid", companyid, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v3/company/%s/budget", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Minorversion != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "minorversion", *params.Minorversion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Operation != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "operation", *params.Operation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.UserAgent != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "user-agent", *params.UserAgent, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("user-agent", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewBudgetGetbyidRequest generates requests for BudgetGetbyid
+func NewBudgetGetbyidRequest(server string, companyid string, id string, params *BudgetGetbyidParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "companyid", companyid, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v3/company/%s/budget/%s", pathParam0, pathParam1)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -10330,6 +10574,14 @@ type ClientWithResponsesInterface interface {
 	// BillpaymentReadbyidWithResponse request
 	BillpaymentReadbyidWithResponse(ctx context.Context, companyid string, id string, params *BillpaymentReadbyidParams, reqEditors ...RequestEditorFn) (*BillpaymentReadbyidResp, error)
 
+	// BudgetCreateWithBodyWithResponse request with any body
+	BudgetCreateWithBodyWithResponse(ctx context.Context, companyid string, params *BudgetCreateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BudgetCreateResp, error)
+
+	BudgetCreateWithResponse(ctx context.Context, companyid string, params *BudgetCreateParams, body BudgetCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*BudgetCreateResp, error)
+
+	// BudgetGetbyidWithResponse request
+	BudgetGetbyidWithResponse(ctx context.Context, companyid string, id string, params *BudgetGetbyidParams, reqEditors ...RequestEditorFn) (*BudgetGetbyidResp, error)
+
 	// CdcReadWithResponse request
 	CdcReadWithResponse(ctx context.Context, companyid string, params *CdcReadParams, reqEditors ...RequestEditorFn) (*CdcReadResp, error)
 
@@ -10830,6 +11082,48 @@ func (r BillpaymentReadbyidResp) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r BillpaymentReadbyidResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type BudgetCreateResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+}
+
+// Status returns HTTPResponse.Status
+func (r BudgetCreateResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BudgetCreateResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type BudgetGetbyidResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+}
+
+// Status returns HTTPResponse.Status
+func (r BudgetGetbyidResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BudgetGetbyidResp) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -12625,6 +12919,32 @@ func (c *ClientWithResponses) BillpaymentReadbyidWithResponse(ctx context.Contex
 	return ParseBillpaymentReadbyidResp(rsp)
 }
 
+// BudgetCreateWithBodyWithResponse request with arbitrary body returning *BudgetCreateResp
+func (c *ClientWithResponses) BudgetCreateWithBodyWithResponse(ctx context.Context, companyid string, params *BudgetCreateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BudgetCreateResp, error) {
+	rsp, err := c.BudgetCreateWithBody(ctx, companyid, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBudgetCreateResp(rsp)
+}
+
+func (c *ClientWithResponses) BudgetCreateWithResponse(ctx context.Context, companyid string, params *BudgetCreateParams, body BudgetCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*BudgetCreateResp, error) {
+	rsp, err := c.BudgetCreate(ctx, companyid, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBudgetCreateResp(rsp)
+}
+
+// BudgetGetbyidWithResponse request returning *BudgetGetbyidResp
+func (c *ClientWithResponses) BudgetGetbyidWithResponse(ctx context.Context, companyid string, id string, params *BudgetGetbyidParams, reqEditors ...RequestEditorFn) (*BudgetGetbyidResp, error) {
+	rsp, err := c.BudgetGetbyid(ctx, companyid, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBudgetGetbyidResp(rsp)
+}
+
 // CdcReadWithResponse request returning *CdcReadResp
 func (c *ClientWithResponses) CdcReadWithResponse(ctx context.Context, companyid string, params *CdcReadParams, reqEditors ...RequestEditorFn) (*CdcReadResp, error) {
 	rsp, err := c.CdcRead(ctx, companyid, params, reqEditors...)
@@ -13721,6 +14041,38 @@ func ParseBillpaymentReadbyidResp(rsp *http.Response) (*BillpaymentReadbyidResp,
 	}
 
 	response := &BillpaymentReadbyidResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	return response, nil
+}
+
+// ParseBudgetCreateResp parses an HTTP response from a BudgetCreateWithResponse call
+func ParseBudgetCreateResp(rsp *http.Response) (*BudgetCreateResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BudgetCreateResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	return response, nil
+}
+
+// ParseBudgetGetbyidResp parses an HTTP response from a BudgetGetbyidWithResponse call
+func ParseBudgetGetbyidResp(rsp *http.Response) (*BudgetGetbyidResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BudgetGetbyidResp{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

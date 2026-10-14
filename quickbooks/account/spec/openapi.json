@@ -12,6 +12,21 @@
     }
   ],
   "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Preferences"
+        ],
+        "summary": "CreateInventoryAdjustment Copy",
+        "description": "CreateInventoryAdjustment Copy",
+        "operationId": "createinventoryadjustmentCopy",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/v3/company/{companyid}/account": {
       "post": {
         "tags": [
@@ -205,74 +220,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      }
-    },
-    "/v3/company/{companyid}/query": {
-      "post": {
-        "tags": [
-          "VendorCredit"
-        ],
-        "summary": "Account-ReadAll",
-        "description": "Get all customer records using generic 'Query' endpoint.\nMethod - POST",
-        "operationId": "accountReadall",
-        "parameters": [
-          {
-            "name": "minorversion",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example": "{{minorversion}}"
-            }
-          },
-          {
-            "name": "user-agent",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "example": "{{UserAgent}}"
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example": "select * from exchangerate where sourcecurrencycode in ('EUR', 'INR') and asofdate='2017-07-07'"
-            }
-          },
-          {
-            "name": "companyid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "query": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": ""
@@ -519,58 +466,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      }
-    },
-    "/v3/company/{companyid}/upload": {
-      "post": {
-        "tags": [
-          "Attachable"
-        ],
-        "summary": "Upload-Attachments",
-        "description": "Uploading and linking new attachments\n\nhttps://developer.intuit.com/docs/0100_quickbooks_online/0200_dev_guides/accounting/attachments#Uploading_and_linking_new_attachments\n\nIf the attachment is not in the Attachment list already, it's possible to upload it and link it to the object in one multipart operation.\n\nOperation:      POST https://quickbooks.api.intuit.com/v3/company/companyID/upload\nContent type: multipart/form-data\n\nRequest body\n\nThe following sample code shows the multipart request body for uploading a file and its supporting Attachable metatdata object, with the result of it being both added to the Attachment list and added to the object.\n\nThe Attachable object accompanying this request supplies metadata and object information to which the attachment is linked. \nEach part of the multipart request is separated by a boundary.  In the sample below, the string  --YOjcLaTlykb6OxfYJx4O07j1MweeMFem is used.  You can use any random and unique string.\nThe file to be uploaded and its Attachable object are paired together via the name parameter in the part header for each one.\nThe name parameter for the file part is of the form file_content_nn, where nn is a unique index number among the set of files being uploaded.\nThe name parameter for the Attachable object is of the form file_metadata_nn, where nn corresponds to the file index number used with the content .\nThe file or files are stored in the Attachment list with the name specified by the filename parameter.\nIf the data supplied with the Attachable object cannot be validated, an error is returned and the file is not uploaded.",
-        "operationId": "uploadAttachments",
-        "parameters": [
-          {
-            "name": "user-agent",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "example": "{{UserAgent}}"
-            }
-          },
-          {
-            "name": "companyid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "query": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": ""
@@ -1175,6 +1070,190 @@
         "summary": "BillPayment-ReadById",
         "description": "Retrieve BillPayment by Id\nMethod - GET",
         "operationId": "billpaymentReadbyid",
+        "parameters": [
+          {
+            "name": "minorversion",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "{{minorversion}}"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "example": "{{UserAgent}}"
+            }
+          },
+          {
+            "name": "companyid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
+    "/v3/company/{companyid}/budget": {
+      "post": {
+        "tags": [
+          "Budget"
+        ],
+        "summary": "Budget-Create",
+        "description": "Create a budget\nContent-Type:application/json\nMethod - POST",
+        "operationId": "budgetCreate",
+        "parameters": [
+          {
+            "name": "minorversion",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "{{minorversion}}"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "example": "{{UserAgent}}"
+            }
+          },
+          {
+            "name": "operation",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "delete"
+            }
+          },
+          {
+            "name": "companyid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "SyncToken": {
+                    "type": "string",
+                    "example": "0"
+                  }
+                }
+              },
+              "examples": {
+                "Budget-Create": {
+                  "value": {
+                    "StartDate": "2024-01-01",
+                    "BudgetEntryType": "Quarterly",
+                    "EndDate": "2024-12-31",
+                    "Name": "MyBudget",
+                    "BudgetType": "ProfitAndLoss",
+                    "BudgetDetail": [
+                      {
+                        "Amount": 12.0,
+                        "CustomerRef": {
+                          "value": "2"
+                        },
+                        "AccountRef": {
+                          "value": "5"
+                        },
+                        "BudgetDate": "2024-01-01"
+                      }
+                    ]
+                  }
+                },
+                "Budget-Delete": {
+                  "value": {
+                    "Id": "1",
+                    "SyncToken": "4"
+                  }
+                },
+                "Budget-Update": {
+                  "value": {
+                    "SyncToken": "3",
+                    "BudgetEntryType": "Monthly",
+                    "EndDate": "2015-12-31",
+                    "Name": "New",
+                    "StartDate": "2015-01-01",
+                    "BudgetType": "ProfitAndLoss",
+                    "Active": "true",
+                    "BudgetDetail": [
+                      {
+                        "Amount": "7.00",
+                        "AccountRef": {
+                          "type": "String",
+                          "name": "Fees Billed",
+                          "value": "5"
+                        },
+                        "CustomerRef": {
+                          "type": "String",
+                          "name": "Fazil",
+                          "value": "3"
+                        },
+                        "BudgetDate": "2015-01-01"
+                      }
+                    ],
+                    "Id": "21"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
+    "/v3/company/{companyid}/budget/{id}": {
+      "get": {
+        "tags": [
+          "Budget"
+        ],
+        "summary": "Budget-GetById",
+        "description": "Retrieve a budget by Id\nAccept:application/json\nMethod - GET",
+        "operationId": "budgetGetbyid",
         "parameters": [
           {
             "name": "minorversion",
@@ -3371,21 +3450,6 @@
             ]
           }
         ]
-      }
-    },
-    "/": {
-      "get": {
-        "tags": [
-          "Preferences"
-        ],
-        "summary": "CreateInventoryAdjustment Copy",
-        "description": "CreateInventoryAdjustment Copy",
-        "operationId": "createinventoryadjustmentCopy",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
       }
     },
     "/v3/company/{companyid}/invoice": {
@@ -5770,6 +5834,74 @@
         ]
       }
     },
+    "/v3/company/{companyid}/query": {
+      "post": {
+        "tags": [
+          "VendorCredit"
+        ],
+        "summary": "Account-ReadAll",
+        "description": "Get all customer records using generic 'Query' endpoint.\nMethod - POST",
+        "operationId": "accountReadall",
+        "parameters": [
+          {
+            "name": "minorversion",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "{{minorversion}}"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "example": "{{UserAgent}}"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "select * from exchangerate where sourcecurrencycode in ('EUR', 'INR') and asofdate='2017-07-07'"
+            }
+          },
+          {
+            "name": "companyid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
     "/v3/company/{companyid}/refundreceipt": {
       "post": {
         "tags": [
@@ -6813,14 +6945,14 @@
         ]
       }
     },
-    "/v3/company/{companyid}/reports/TrialBalance": {
+    "/v3/company/{companyid}/reports/TransactionList": {
       "get": {
         "tags": [
           "Reports"
         ],
-        "summary": "Report-TrialBalance",
-        "description": "Report - Trial Balance \nMethod : GET\n\nDocs - https://developer.intuit.com/docs/api/accounting/trial%20balance\n\n\n\n\n\n\n\n",
-        "operationId": "reportTrialbalance",
+        "summary": "Report-TransactionList",
+        "description": "Report - Trial List \nMethod : GET\n\nDocs - https://developer.intuit.com/docs/api/accounting/transaction%20list\n\n\n\n\n\n\n\n",
+        "operationId": "reportTransactionlist",
         "parameters": [
           {
             "name": "minorversion",
@@ -6859,14 +6991,14 @@
         ]
       }
     },
-    "/v3/company/{companyid}/reports/TransactionList": {
+    "/v3/company/{companyid}/reports/TrialBalance": {
       "get": {
         "tags": [
           "Reports"
         ],
-        "summary": "Report-TransactionList",
-        "description": "Report - Trial List \nMethod : GET\n\nDocs - https://developer.intuit.com/docs/api/accounting/transaction%20list\n\n\n\n\n\n\n\n",
-        "operationId": "reportTransactionlist",
+        "summary": "Report-TrialBalance",
+        "description": "Report - Trial Balance \nMethod : GET\n\nDocs - https://developer.intuit.com/docs/api/accounting/trial%20balance\n\n\n\n\n\n\n\n",
+        "operationId": "reportTrialbalance",
         "parameters": [
           {
             "name": "minorversion",
@@ -8097,6 +8229,58 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
+    "/v3/company/{companyid}/upload": {
+      "post": {
+        "tags": [
+          "Attachable"
+        ],
+        "summary": "Upload-Attachments",
+        "description": "Uploading and linking new attachments\n\nhttps://developer.intuit.com/docs/0100_quickbooks_online/0200_dev_guides/accounting/attachments#Uploading_and_linking_new_attachments\n\nIf the attachment is not in the Attachment list already, it's possible to upload it and link it to the object in one multipart operation.\n\nOperation:      POST https://quickbooks.api.intuit.com/v3/company/companyID/upload\nContent type: multipart/form-data\n\nRequest body\n\nThe following sample code shows the multipart request body for uploading a file and its supporting Attachable metatdata object, with the result of it being both added to the Attachment list and added to the object.\n\nThe Attachable object accompanying this request supplies metadata and object information to which the attachment is linked. \nEach part of the multipart request is separated by a boundary.  In the sample below, the string  --YOjcLaTlykb6OxfYJx4O07j1MweeMFem is used.  You can use any random and unique string.\nThe file to be uploaded and its Attachable object are paired together via the name parameter in the part header for each one.\nThe name parameter for the file part is of the form file_content_nn, where nn is a unique index number among the set of files being uploaded.\nThe name parameter for the Attachable object is of the form file_metadata_nn, where nn corresponds to the file index number used with the content .\nThe file or files are stored in the Attachment list with the name specified by the filename parameter.\nIf the data supplied with the Attachable object cannot be validated, an error is returned and the file is not uploaded.",
+        "operationId": "uploadAttachments",
+        "parameters": [
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "example": "{{UserAgent}}"
+            }
+          },
+          {
+            "name": "companyid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": ""

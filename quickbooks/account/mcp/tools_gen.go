@@ -196,6 +196,34 @@ func (h *Handler) RegisterBillPayment(s *server.MCPServer) {
 
 }
 
+// RegisterBudget adds Budget tools to the given MCP server.
+func (h *Handler) RegisterBudget(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("budget-create",
+			mcp.WithDescription("BudgetCreate"),
+			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithString("operation", mcp.Description("Operation")),
+			mcp.WithString("user-agent", mcp.Description("UserAgent")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.BudgetCreateJSONRequestBody)")),
+		),
+		h.handleBudgetCreateWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("budget-getbyid",
+			mcp.WithDescription("request returning *BudgetGetbyidResp"),
+			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithString("user-agent", mcp.Description("UserAgent")),
+		),
+		h.handleBudgetGetbyidWithResponse,
+	)
+
+}
+
 // RegisterChangeDataCapture adds ChangeDataCapture tools to the given MCP server.
 func (h *Handler) RegisterChangeDataCapture(s *server.MCPServer) {
 
@@ -1179,6 +1207,7 @@ func (h *Handler) RegisterAll(s *server.MCPServer) {
 	h.RegisterBatch(s)
 	h.RegisterBill(s)
 	h.RegisterBillPayment(s)
+	h.RegisterBudget(s)
 	h.RegisterChangeDataCapture(s)
 	h.RegisterClass(s)
 	h.RegisterCompanyInfo(s)
@@ -1250,6 +1279,11 @@ func (h *Handler) MountAll(m Mounter, prefix string) {
 		s := server.NewMCPServer("quickbooks-account-BillPayment", "0.1.0")
 		h.RegisterBillPayment(s)
 		m.Mount(prefix+"/bill-payment", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-Budget", "0.1.0")
+		h.RegisterBudget(s)
+		m.Mount(prefix+"/budget", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-ChangeDataCapture", "0.1.0")
@@ -1832,6 +1866,73 @@ func (h *Handler) handleBillpaymentReadbyidWithResponse(ctx context.Context, req
 	}
 
 	resp, err := client.BillpaymentReadbyidWithResponse(ctx, companyid, id, params)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleBudgetCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	companyid := request.GetString("companyid", "")
+	var body target.BudgetCreateJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.BudgetCreateParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["operation"]; ok {
+			params.Operation = ptrVal(request.GetString("operation", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["user-agent"]; ok {
+			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
+		}
+	}
+
+	resp, err := client.BudgetCreateWithResponse(ctx, companyid, params, body)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleBudgetGetbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	companyid := request.GetString("companyid", "")
+	id := request.GetString("id", "")
+	params := &target.BudgetGetbyidParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["user-agent"]; ok {
+			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
+		}
+	}
+
+	resp, err := client.BudgetGetbyidWithResponse(ctx, companyid, id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
