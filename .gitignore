@@ -5,7 +5,8 @@
 *.dylib
 tools/mcp-*
 tools/yardrail-connector-codegen
-yardrail-connector-codegen
+/yardrail-connector-codegen
+tools/cmd/yardrail-connector-codegen/yardrail-connector-codegen
 
 # Test output
 *.test

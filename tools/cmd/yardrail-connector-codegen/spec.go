@@ -31,11 +31,12 @@ type ServerVariable struct {
 }
 
 // SecurityScheme captures what we need from an OpenAPI securityScheme.
+// Manifests declare the same shape under security_schemes.
 type SecurityScheme struct {
-	Type   string // "oauth2", "apiKey", "http"
-	Scheme string // "bearer", "basic" (for type=http)
-	In     string // "header", "query" (for type=apiKey)
-	Name   string // header/query param name (for type=apiKey)
+	Type   string `yaml:"type"`   // "oauth2", "apiKey", "http"
+	Scheme string `yaml:"scheme"` // "bearer", "basic" (for type=http)
+	In     string `yaml:"in"`     // "header", "query" (for type=apiKey)
+	Name   string `yaml:"name"`   // header/query param name (for type=apiKey)
 }
 
 func parseSpec(path string) (*SpecInfo, error) {

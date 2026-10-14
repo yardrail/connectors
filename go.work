@@ -12,4 +12,5 @@ use (
 	./slack/slack
 	./stripe/stripe
 	./tools
+	./tools/codegentest
 )

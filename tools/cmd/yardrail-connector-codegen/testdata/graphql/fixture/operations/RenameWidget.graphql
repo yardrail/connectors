@@ -1,0 +1,6 @@
+mutation RenameWidget($widgetId: ID!, $name: String!) {
+  rename_widget(id: $widgetId, name: $name) {
+    id
+    name
+  }
+}

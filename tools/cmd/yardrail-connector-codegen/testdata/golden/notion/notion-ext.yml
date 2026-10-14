@@ -1,0 +1,213 @@
+$base: "https://yardrail.com/cwl/notion#"
+$namespaces:
+  notion: "https://yardrail.com/cwl/notion#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: CreateADataSource_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:CreateADataSource"]
+
+  - name: CreateADataSource
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create a data source"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateADataSource_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListDataSourceTemplates_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:ListDataSourceTemplates"]
+
+  - name: ListDataSourceTemplates
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List templates in a data source"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListDataSourceTemplates_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MovePage_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:MovePage"]
+
+  - name: MovePage
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Move a page"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MovePage_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: QueryDataSource_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:QueryDataSource"]
+
+  - name: QueryDataSource
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Query a data source"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#QueryDataSource_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveADataSource_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:RetrieveADataSource"]
+
+  - name: RetrieveADataSource
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a data source"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveADataSource_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveADatabase_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:RetrieveADatabase"]
+
+  - name: RetrieveADatabase
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a database"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveADatabase_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrievePageMarkdown_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:RetrievePageMarkdown"]
+
+  - name: RetrievePageMarkdown
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a page as Markdown"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrievePageMarkdown_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateADataSource_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:UpdateADataSource"]
+
+  - name: UpdateADataSource
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update a data source"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateADataSource_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdatePageMarkdown_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:UpdatePageMarkdown"]
+
+  - name: UpdatePageMarkdown
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update a page's content as Markdown"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdatePageMarkdown_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

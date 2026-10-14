@@ -1,148 +1,31 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
-	"log"
 	"os"
-	"path/filepath"
-	"sort"
-
-	"github.com/yardrail/connectors/tools/internal/introspect"
 )
 
 func main() {
-	manifestPath := flag.String("manifest", "", "path to connector manifest YAML (required)")
-	specPath := flag.String("spec", "", "path to OpenAPI spec JSON (required)")
-	pkgPath := flag.String("pkg", "", "import path of oapi-codegen client package (required)")
-	outDir := flag.String("out", "", "output dir for handler_gen.go (required)")
-	catalogOut := flag.String("catalog", "", "output path for catalog_<id>_gen.go (optional)")
-	cwlSchemaOut := flag.String("cwl-schema", "", "output path for CWL extension schema YAML (optional)")
-	cwlMappingOut := flag.String("cwl-mapping", "", "output path for Go CWL class mapping file (optional)")
-	pkgName := flag.String("pkgname", "", "Go package name for generated handler files (default: connector ID)")
+	var cfg runConfig
+
+	flag.StringVar(&cfg.ManifestPath, "manifest", "", "path to connector manifest YAML (required)")
+	flag.StringVar(&cfg.SpecPath, "spec", "", "path to OpenAPI spec JSON (required when a rest interface has no source block)")
+	flag.StringVar(&cfg.PkgPath, "pkg", "", "import path of oapi-codegen client package (required when a rest interface has no source block)")
+	flag.StringVar(&cfg.OutDir, "out", "", "output dir for handler_gen.go (required)")
+	flag.StringVar(&cfg.CatalogOut, "catalog", "", "output path for catalog_<id>_gen.go (optional)")
+	flag.StringVar(&cfg.CWLSchemaOut, "cwl-schema", "", "output path for CWL extension schema YAML (optional)")
+	flag.StringVar(&cfg.CWLMappingOut, "cwl-mapping", "", "output path for Go CWL class mapping file (optional)")
+	flag.StringVar(&cfg.PkgName, "pkgname", "", "Go package name for generated handler files (default: connector ID)")
 	flag.Parse()
 
-	if *manifestPath == "" || *specPath == "" || *pkgPath == "" || *outDir == "" {
-		flag.Usage()
+	if err := run(cfg); err != nil {
+		if errors.Is(err, errMissingFlags) {
+			flag.Usage()
+		}
+
+		fmt.Fprintf(os.Stderr, "yardrail-connector-codegen: %v\n", err)
 		os.Exit(1)
 	}
-
-	manifest, err := parseManifest(*manifestPath)
-	if err != nil {
-		log.Fatalf("manifest: %v", err)
-	}
-
-	spec, err := parseSpec(*specPath)
-	if err != nil {
-		log.Fatalf("spec: %v", err)
-	}
-
-	groups, _, err := introspect.LoadMethods(*pkgPath, spec.TagMap)
-	if err != nil {
-		log.Fatalf("introspect: %v", err)
-	}
-
-	var methods []introspect.MethodInfo
-	for _, g := range groups {
-		methods = append(methods, g.Methods...)
-	}
-	sort.Slice(methods, func(i, j int) bool {
-		return methods[i].Name < methods[j].Name
-	})
-
-	if *pkgName == "" {
-		*pkgName = manifest.Connector.ID
-	}
-
-	var callableIfaces []ManifestInterface
-	for _, iface := range manifest.Interfaces {
-		if iface.IsCallable() {
-			callableIfaces = append(callableIfaces, iface)
-		}
-	}
-
-	baseURL := ""
-	if len(spec.Servers) > 0 {
-		baseURL = resolveBaseURLTemplate(spec.Servers[0])
-	}
-
-	configParams := make(map[string]string)
-	for _, iface := range callableIfaces {
-		for k, v := range iface.ConfigParams {
-			configParams[k] = v
-		}
-	}
-
-	ctx := &genContext{
-		ConnectorID:    manifest.Connector.ID,
-		PkgName:        *pkgName,
-		ClientPkgPath:  *pkgPath,
-		Manifest:        manifest,
-		Spec:            spec,
-		Methods:         methods,
-		CallableIfaces:  callableIfaces,
-		BaseURL:         baseURL,
-		AuthStrategy:    deriveAuthStrategy(manifest, spec),
-		ConfigParams:    configParams,
-	}
-
-	if err := os.MkdirAll(*outDir, 0o755); err != nil {
-		log.Fatal(err)
-	}
-
-	for _, f := range []struct {
-		name string
-		tmpl string
-	}{
-		{"handler_gen.go", handlerTemplate},
-		{"dispatch_gen.go", dispatchTemplate},
-	} {
-		src, renderErr := renderFile(f.tmpl, ctx)
-		if renderErr != nil {
-			log.Fatalf("rendering %s: %v", f.name, renderErr)
-		}
-
-		path := filepath.Join(*outDir, f.name)
-
-		if writeErr := os.WriteFile(path, src, 0o644); writeErr != nil {
-			log.Fatal(writeErr)
-		}
-
-		fmt.Fprintf(os.Stderr, "wrote %s\n", path)
-	}
-
-	if *catalogOut != "" {
-		src, renderErr := renderFile(catalogTemplate, ctx)
-		if renderErr != nil {
-			log.Fatalf("rendering catalog: %v", renderErr)
-		}
-		if writeErr := os.WriteFile(*catalogOut, src, 0o644); writeErr != nil {
-			log.Fatal(writeErr)
-		}
-		fmt.Fprintf(os.Stderr, "wrote %s\n", *catalogOut)
-	}
-
-	if *cwlSchemaOut != "" {
-		src, renderErr := renderCWLSchema(ctx)
-		if renderErr != nil {
-			log.Fatalf("rendering CWL schema: %v", renderErr)
-		}
-		if writeErr := os.WriteFile(*cwlSchemaOut, src, 0o644); writeErr != nil {
-			log.Fatal(writeErr)
-		}
-		fmt.Fprintf(os.Stderr, "wrote %s\n", *cwlSchemaOut)
-	}
-
-	if *cwlMappingOut != "" {
-		src, renderErr := renderFile(cwlMappingTemplate, ctx)
-		if renderErr != nil {
-			log.Fatalf("rendering CWL mapping: %v", renderErr)
-		}
-		if writeErr := os.WriteFile(*cwlMappingOut, src, 0o644); writeErr != nil {
-			log.Fatal(writeErr)
-		}
-		fmt.Fprintf(os.Stderr, "wrote %s\n", *cwlMappingOut)
-	}
-
-	fmt.Fprintf(os.Stderr, "generated %d functions for connector %q\n", len(methods), manifest.Connector.ID)
 }

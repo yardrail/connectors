@@ -1,0 +1,15 @@
+query GetItem($itemId: ID!, $limit: Int = 5) {
+  item(id: $itemId, limit: $limit) {
+    id
+    label: name
+    status
+    tags
+    data
+    count
+    score
+    archived
+    owner {
+      id
+    }
+  }
+}

@@ -1,0 +1,26 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Arbitrary JSON."
+scalar JSON
+
+scalar String
+
+type Widget {
+  id: ID!
+  name: String!
+  size: Int
+  attributes: JSON
+}
+
+type Query {
+  "Get one widget by ID."
+  widget(id: ID!): Widget
+}
+
+type Mutation {
+  "Rename a widget."
+  rename_widget(id: ID!, name: String!): Widget
+}

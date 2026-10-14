@@ -1,0 +1,11 @@
+query GetItem($itemId: ID!) {
+  item(id: $itemId) {
+    id
+  }
+}
+
+query GetOther($itemId: ID!) {
+  item(id: $itemId) {
+    name
+  }
+}

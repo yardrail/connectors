@@ -1,0 +1,52 @@
+$base: "https://yardrail.com/cwl/graphqlfixture#"
+$namespaces:
+  graphqlfixture: "https://yardrail.com/cwl/graphqlfixture#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: GetWidget_class
+    type: enum
+    inVocab: false
+    symbols: ["graphqlfixture:GetWidget"]
+
+  - name: GetWidget
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Get one widget by ID."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#GetWidget_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RenameWidget_class
+    type: enum
+    inVocab: false
+    symbols: ["graphqlfixture:RenameWidget"]
+
+  - name: RenameWidget
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Rename a widget."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RenameWidget_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

@@ -1,0 +1,27 @@
+connector:
+  id: monday
+  name: monday.com
+  description: Read and update items, post updates and list users on monday.com boards.
+
+security_schemes:
+  mondayToken:
+    type: apiKey
+    in: header
+    name: Authorization
+
+interfaces:
+  - id: api
+    name: API Token
+    protocol: graphql
+    auth_method: api_key
+    auth_scope: org
+    security_scheme: mondayToken
+    cred_mapping:
+      Authorization: token
+    headers:
+      API-Version: "2026-07"
+    capabilities: [item.read, item.update, update.create, user.list]
+    source:
+      schema: spec/schema.graphql
+      operations: operations/
+      endpoint: https://api.monday.com/v2

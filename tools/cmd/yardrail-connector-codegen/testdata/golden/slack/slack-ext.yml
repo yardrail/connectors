@@ -1,0 +1,3917 @@
+$base: "https://yardrail.com/cwl/slack#"
+$namespaces:
+  slack: "https://yardrail.com/cwl/slack#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: AdminAppsApproveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminAppsApproveWithFormdataBody"]
+
+  - name: AdminAppsApproveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminAppsApproveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminAppsApprovedList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminAppsApprovedList"]
+
+  - name: AdminAppsApprovedList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List approved apps for an org or workspace."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminAppsApprovedList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminAppsRequestsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminAppsRequestsList"]
+
+  - name: AdminAppsRequestsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List app requests for a team/workspace."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminAppsRequestsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminAppsRestrictWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminAppsRestrictWithFormdataBody"]
+
+  - name: AdminAppsRestrictWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminAppsRestrictWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminAppsRestrictedList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminAppsRestrictedList"]
+
+  - name: AdminAppsRestrictedList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List restricted apps for an org or workspace."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminAppsRestrictedList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsArchiveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsArchiveWithFormdataBody"]
+
+  - name: AdminConversationsArchiveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsArchiveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsConvertToPrivateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsConvertToPrivateWithFormdataBody"]
+
+  - name: AdminConversationsConvertToPrivateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsConvertToPrivateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsCreateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsCreateWithFormdataBody"]
+
+  - name: AdminConversationsCreateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsCreateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsDeleteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsDeleteWithFormdataBody"]
+
+  - name: AdminConversationsDeleteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsDeleteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsDisconnectSharedWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsDisconnectSharedWithFormdataBody"]
+
+  - name: AdminConversationsDisconnectSharedWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsDisconnectSharedWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsEkmListOriginalConnectedChannelInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsEkmListOriginalConnectedChannelInfo"]
+
+  - name: AdminConversationsEkmListOriginalConnectedChannelInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all disconnected channels—i.e., channels that were once connected to other workspaces and then disconnected—and the corresponding original channel IDs for key revocation with EKM."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsEkmListOriginalConnectedChannelInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsGetConversationPrefs_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsGetConversationPrefs"]
+
+  - name: AdminConversationsGetConversationPrefs
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Get conversation preferences for a public or private channel."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsGetConversationPrefs_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsGetTeams_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsGetTeams"]
+
+  - name: AdminConversationsGetTeams
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Get all the workspaces a given public or private channel is connected to within this Enterprise org."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsGetTeams_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsInviteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsInviteWithFormdataBody"]
+
+  - name: AdminConversationsInviteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsInviteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsRenameWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsRenameWithFormdataBody"]
+
+  - name: AdminConversationsRenameWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsRenameWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsRestrictAccessAddGroupWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsRestrictAccessAddGroupWithFormdataBody"]
+
+  - name: AdminConversationsRestrictAccessAddGroupWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsRestrictAccessAddGroupWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsRestrictAccessListGroups_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsRestrictAccessListGroups"]
+
+  - name: AdminConversationsRestrictAccessListGroups
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all IDP Groups linked to a channel"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsRestrictAccessListGroups_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsRestrictAccessRemoveGroupWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsRestrictAccessRemoveGroupWithFormdataBody"]
+
+  - name: AdminConversationsRestrictAccessRemoveGroupWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsRestrictAccessRemoveGroupWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsSearch_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsSearch"]
+
+  - name: AdminConversationsSearch
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Search for public or private channels in an Enterprise organization."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsSearch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsSetConversationPrefsWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsSetConversationPrefsWithFormdataBody"]
+
+  - name: AdminConversationsSetConversationPrefsWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsSetConversationPrefsWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsSetTeamsWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsSetTeamsWithFormdataBody"]
+
+  - name: AdminConversationsSetTeamsWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsSetTeamsWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminConversationsUnarchiveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminConversationsUnarchiveWithFormdataBody"]
+
+  - name: AdminConversationsUnarchiveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminConversationsUnarchiveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminEmojiAddAliasWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminEmojiAddAliasWithFormdataBody"]
+
+  - name: AdminEmojiAddAliasWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminEmojiAddAliasWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminEmojiAddWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminEmojiAddWithFormdataBody"]
+
+  - name: AdminEmojiAddWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminEmojiAddWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminEmojiList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminEmojiList"]
+
+  - name: AdminEmojiList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List emoji for an Enterprise Grid organization."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminEmojiList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminEmojiRemoveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminEmojiRemoveWithFormdataBody"]
+
+  - name: AdminEmojiRemoveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminEmojiRemoveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminEmojiRenameWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminEmojiRenameWithFormdataBody"]
+
+  - name: AdminEmojiRenameWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminEmojiRenameWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminInviteRequestsApproveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminInviteRequestsApproveWithFormdataBody"]
+
+  - name: AdminInviteRequestsApproveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminInviteRequestsApproveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminInviteRequestsApprovedList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminInviteRequestsApprovedList"]
+
+  - name: AdminInviteRequestsApprovedList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all approved workspace invite requests."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminInviteRequestsApprovedList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminInviteRequestsDeniedList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminInviteRequestsDeniedList"]
+
+  - name: AdminInviteRequestsDeniedList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all denied workspace invite requests."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminInviteRequestsDeniedList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminInviteRequestsDenyWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminInviteRequestsDenyWithFormdataBody"]
+
+  - name: AdminInviteRequestsDenyWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminInviteRequestsDenyWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminInviteRequestsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminInviteRequestsList"]
+
+  - name: AdminInviteRequestsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all pending workspace invite requests."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminInviteRequestsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsAdminsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsAdminsList"]
+
+  - name: AdminTeamsAdminsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all of the admins on a given workspace."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsAdminsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsCreateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsCreateWithFormdataBody"]
+
+  - name: AdminTeamsCreateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsCreateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsList"]
+
+  - name: AdminTeamsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all teams on an Enterprise organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsOwnersList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsOwnersList"]
+
+  - name: AdminTeamsOwnersList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all of the owners on a given workspace."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsOwnersList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsSettingsInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsSettingsInfo"]
+
+  - name: AdminTeamsSettingsInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Fetch information about settings in a workspace"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsSettingsInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsSettingsSetDefaultChannelsWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsSettingsSetDefaultChannelsWithFormdataBody"]
+
+  - name: AdminTeamsSettingsSetDefaultChannelsWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsSettingsSetDefaultChannelsWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsSettingsSetDescriptionWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsSettingsSetDescriptionWithFormdataBody"]
+
+  - name: AdminTeamsSettingsSetDescriptionWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsSettingsSetDescriptionWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsSettingsSetDiscoverabilityWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsSettingsSetDiscoverabilityWithFormdataBody"]
+
+  - name: AdminTeamsSettingsSetDiscoverabilityWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsSettingsSetDiscoverabilityWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsSettingsSetIconWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsSettingsSetIconWithFormdataBody"]
+
+  - name: AdminTeamsSettingsSetIconWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsSettingsSetIconWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminTeamsSettingsSetNameWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminTeamsSettingsSetNameWithFormdataBody"]
+
+  - name: AdminTeamsSettingsSetNameWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminTeamsSettingsSetNameWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsergroupsAddChannelsWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsergroupsAddChannelsWithFormdataBody"]
+
+  - name: AdminUsergroupsAddChannelsWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsergroupsAddChannelsWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsergroupsAddTeamsWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsergroupsAddTeamsWithFormdataBody"]
+
+  - name: AdminUsergroupsAddTeamsWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsergroupsAddTeamsWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsergroupsListChannels_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsergroupsListChannels"]
+
+  - name: AdminUsergroupsListChannels
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List the channels linked to an org-level IDP group (user group)."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsergroupsListChannels_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsergroupsRemoveChannelsWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsergroupsRemoveChannelsWithFormdataBody"]
+
+  - name: AdminUsergroupsRemoveChannelsWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsergroupsRemoveChannelsWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersAssignWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersAssignWithFormdataBody"]
+
+  - name: AdminUsersAssignWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersAssignWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersInviteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersInviteWithFormdataBody"]
+
+  - name: AdminUsersInviteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersInviteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersList"]
+
+  - name: AdminUsersList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List users on a workspace"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersRemoveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersRemoveWithFormdataBody"]
+
+  - name: AdminUsersRemoveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersRemoveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersSessionInvalidateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersSessionInvalidateWithFormdataBody"]
+
+  - name: AdminUsersSessionInvalidateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersSessionInvalidateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersSessionResetWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersSessionResetWithFormdataBody"]
+
+  - name: AdminUsersSessionResetWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersSessionResetWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersSetAdminWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersSetAdminWithFormdataBody"]
+
+  - name: AdminUsersSetAdminWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersSetAdminWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersSetExpirationWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersSetExpirationWithFormdataBody"]
+
+  - name: AdminUsersSetExpirationWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersSetExpirationWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersSetOwnerWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersSetOwnerWithFormdataBody"]
+
+  - name: AdminUsersSetOwnerWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersSetOwnerWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdminUsersSetRegularWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AdminUsersSetRegularWithFormdataBody"]
+
+  - name: AdminUsersSetRegularWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AdminUsersSetRegularWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApiTest_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ApiTest"]
+
+  - name: ApiTest
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Checks API calling code."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ApiTest_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsEventAuthorizationsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AppsEventAuthorizationsList"]
+
+  - name: AppsEventAuthorizationsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AppsEventAuthorizationsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsPermissionsInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AppsPermissionsInfo"]
+
+  - name: AppsPermissionsInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Returns list of permissions this app has on a team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AppsPermissionsInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsPermissionsRequest_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AppsPermissionsRequest"]
+
+  - name: AppsPermissionsRequest
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Allows an app to request additional scopes"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AppsPermissionsRequest_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsPermissionsResourcesList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AppsPermissionsResourcesList"]
+
+  - name: AppsPermissionsResourcesList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Returns list of resource grants this app has on a team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AppsPermissionsResourcesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsPermissionsScopesList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AppsPermissionsScopesList"]
+
+  - name: AppsPermissionsScopesList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Returns list of scopes this app has on a team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AppsPermissionsScopesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsPermissionsUsersList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AppsPermissionsUsersList"]
+
+  - name: AppsPermissionsUsersList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Returns list of user grants and corresponding scopes this app has on a team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AppsPermissionsUsersList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsPermissionsUsersRequest_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AppsPermissionsUsersRequest"]
+
+  - name: AppsPermissionsUsersRequest
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Enables an app to trigger a permissions modal to grant an app access to a user access scope."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AppsPermissionsUsersRequest_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsUninstall_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AppsUninstall"]
+
+  - name: AppsUninstall
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Uninstalls your app from a workspace."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AppsUninstall_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AuthRevoke_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AuthRevoke"]
+
+  - name: AuthRevoke
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Revokes a token."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AuthRevoke_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AuthTest_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:AuthTest"]
+
+  - name: AuthTest
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Checks authentication & identity."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AuthTest_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BotsInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:BotsInfo"]
+
+  - name: BotsInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets information about a bot user."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BotsInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CallsAddWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:CallsAddWithFormdataBody"]
+
+  - name: CallsAddWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CallsAddWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CallsEndWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:CallsEndWithFormdataBody"]
+
+  - name: CallsEndWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CallsEndWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CallsInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:CallsInfo"]
+
+  - name: CallsInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Returns information about a Call."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CallsInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CallsParticipantsAddWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:CallsParticipantsAddWithFormdataBody"]
+
+  - name: CallsParticipantsAddWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CallsParticipantsAddWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CallsParticipantsRemoveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:CallsParticipantsRemoveWithFormdataBody"]
+
+  - name: CallsParticipantsRemoveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CallsParticipantsRemoveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CallsUpdateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:CallsUpdateWithFormdataBody"]
+
+  - name: CallsUpdateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CallsUpdateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatDeleteScheduledMessageWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatDeleteScheduledMessageWithFormdataBody"]
+
+  - name: ChatDeleteScheduledMessageWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatDeleteScheduledMessageWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatDeleteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatDeleteWithFormdataBody"]
+
+  - name: ChatDeleteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatDeleteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatGetPermalink_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatGetPermalink"]
+
+  - name: ChatGetPermalink
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a permalink URL for a specific extant message"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatGetPermalink_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatMeMessageWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatMeMessageWithFormdataBody"]
+
+  - name: ChatMeMessageWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatMeMessageWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatPostEphemeralWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatPostEphemeralWithFormdataBody"]
+
+  - name: ChatPostEphemeralWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatPostEphemeralWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatPostMessageWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatPostMessageWithFormdataBody"]
+
+  - name: ChatPostMessageWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatPostMessageWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatScheduleMessageWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatScheduleMessageWithFormdataBody"]
+
+  - name: ChatScheduleMessageWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatScheduleMessageWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatScheduledMessagesList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatScheduledMessagesList"]
+
+  - name: ChatScheduledMessagesList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Returns a list of scheduled messages."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatScheduledMessagesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatUnfurlWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatUnfurlWithFormdataBody"]
+
+  - name: ChatUnfurlWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatUnfurlWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChatUpdateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ChatUpdateWithFormdataBody"]
+
+  - name: ChatUpdateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChatUpdateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsArchiveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsArchiveWithFormdataBody"]
+
+  - name: ConversationsArchiveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsArchiveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsCloseWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsCloseWithFormdataBody"]
+
+  - name: ConversationsCloseWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsCloseWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsCreateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsCreateWithFormdataBody"]
+
+  - name: ConversationsCreateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsCreateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsHistory_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsHistory"]
+
+  - name: ConversationsHistory
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Fetches a conversation's history of messages and events."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsHistory_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsInfo"]
+
+  - name: ConversationsInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve information about a conversation."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsInviteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsInviteWithFormdataBody"]
+
+  - name: ConversationsInviteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsInviteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsJoinWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsJoinWithFormdataBody"]
+
+  - name: ConversationsJoinWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsJoinWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsKickWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsKickWithFormdataBody"]
+
+  - name: ConversationsKickWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsKickWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsLeaveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsLeaveWithFormdataBody"]
+
+  - name: ConversationsLeaveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsLeaveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsList"]
+
+  - name: ConversationsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Lists all channels in a Slack team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsMarkWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsMarkWithFormdataBody"]
+
+  - name: ConversationsMarkWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsMarkWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsMembers_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsMembers"]
+
+  - name: ConversationsMembers
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve members of a conversation."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsMembers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsOpenWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsOpenWithFormdataBody"]
+
+  - name: ConversationsOpenWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsOpenWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsRenameWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsRenameWithFormdataBody"]
+
+  - name: ConversationsRenameWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsRenameWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsReplies_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsReplies"]
+
+  - name: ConversationsReplies
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a thread of messages posted to a conversation"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsReplies_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsSetPurposeWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsSetPurposeWithFormdataBody"]
+
+  - name: ConversationsSetPurposeWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsSetPurposeWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsSetTopicWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsSetTopicWithFormdataBody"]
+
+  - name: ConversationsSetTopicWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsSetTopicWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ConversationsUnarchiveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ConversationsUnarchiveWithFormdataBody"]
+
+  - name: ConversationsUnarchiveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ConversationsUnarchiveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DialogOpen_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:DialogOpen"]
+
+  - name: DialogOpen
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Open a dialog with a user"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DialogOpen_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DndEndDnd_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:DndEndDnd"]
+
+  - name: DndEndDnd
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Ends the current user's Do Not Disturb session immediately."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DndEndDnd_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DndEndSnooze_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:DndEndSnooze"]
+
+  - name: DndEndSnooze
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Ends the current user's snooze mode immediately."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DndEndSnooze_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DndInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:DndInfo"]
+
+  - name: DndInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieves a user's current Do Not Disturb status."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DndInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DndSetSnoozeWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:DndSetSnoozeWithFormdataBody"]
+
+  - name: DndSetSnoozeWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DndSetSnoozeWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DndTeamInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:DndTeamInfo"]
+
+  - name: DndTeamInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieves the Do Not Disturb status for up to 50 users on a team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DndTeamInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EmojiList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:EmojiList"]
+
+  - name: EmojiList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Lists custom emoji for a team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#EmojiList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesCommentsDeleteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesCommentsDeleteWithFormdataBody"]
+
+  - name: FilesCommentsDeleteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesCommentsDeleteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesDeleteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesDeleteWithFormdataBody"]
+
+  - name: FilesDeleteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesDeleteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesInfo"]
+
+  - name: FilesInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets information about a file."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesList"]
+
+  - name: FilesList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List for a team, in a channel, or from a user with applied filters."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesRemoteAddWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesRemoteAddWithFormdataBody"]
+
+  - name: FilesRemoteAddWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesRemoteAddWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesRemoteInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesRemoteInfo"]
+
+  - name: FilesRemoteInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve information about a remote file added to Slack"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesRemoteInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesRemoteList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesRemoteList"]
+
+  - name: FilesRemoteList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve information about a remote file added to Slack"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesRemoteList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesRemoteRemoveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesRemoteRemoveWithFormdataBody"]
+
+  - name: FilesRemoteRemoveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesRemoteRemoveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesRemoteShare_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesRemoteShare"]
+
+  - name: FilesRemoteShare
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Share a remote file into a channel."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesRemoteShare_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesRemoteUpdateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesRemoteUpdateWithFormdataBody"]
+
+  - name: FilesRemoteUpdateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesRemoteUpdateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesRevokePublicURLWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesRevokePublicURLWithFormdataBody"]
+
+  - name: FilesRevokePublicURLWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesRevokePublicURLWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesSharedPublicURLWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesSharedPublicURLWithFormdataBody"]
+
+  - name: FilesSharedPublicURLWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesSharedPublicURLWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesUploadWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:FilesUploadWithFormdataBody"]
+
+  - name: FilesUploadWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FilesUploadWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MigrationExchange_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:MigrationExchange"]
+
+  - name: MigrationExchange
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "For Enterprise Grid workspaces, map local user IDs to global user IDs"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MigrationExchange_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OauthAccess_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:OauthAccess"]
+
+  - name: OauthAccess
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Exchanges a temporary OAuth verifier code for an access token."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OauthAccess_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OauthToken_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:OauthToken"]
+
+  - name: OauthToken
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Exchanges a temporary OAuth verifier code for a workspace token."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OauthToken_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OauthV2Access_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:OauthV2Access"]
+
+  - name: OauthV2Access
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Exchanges a temporary OAuth verifier code for an access token."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OauthV2Access_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PinsAddWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:PinsAddWithFormdataBody"]
+
+  - name: PinsAddWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PinsAddWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PinsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:PinsList"]
+
+  - name: PinsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Lists items pinned to a channel."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PinsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PinsRemoveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:PinsRemoveWithFormdataBody"]
+
+  - name: PinsRemoveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PinsRemoveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReactionsAddWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ReactionsAddWithFormdataBody"]
+
+  - name: ReactionsAddWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ReactionsAddWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReactionsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ReactionsGet"]
+
+  - name: ReactionsGet
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets reactions for an item."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ReactionsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReactionsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ReactionsList"]
+
+  - name: ReactionsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Lists reactions made by a user."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ReactionsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReactionsRemoveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ReactionsRemoveWithFormdataBody"]
+
+  - name: ReactionsRemoveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ReactionsRemoveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RemindersAddWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:RemindersAddWithFormdataBody"]
+
+  - name: RemindersAddWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RemindersAddWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RemindersCompleteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:RemindersCompleteWithFormdataBody"]
+
+  - name: RemindersCompleteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RemindersCompleteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RemindersDeleteWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:RemindersDeleteWithFormdataBody"]
+
+  - name: RemindersDeleteWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RemindersDeleteWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RemindersInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:RemindersInfo"]
+
+  - name: RemindersInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets information about a reminder."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RemindersInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RemindersList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:RemindersList"]
+
+  - name: RemindersList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Lists all reminders created by or for a given user."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RemindersList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RtmConnect_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:RtmConnect"]
+
+  - name: RtmConnect
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Starts a Real Time Messaging session."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RtmConnect_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SearchMessages_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:SearchMessages"]
+
+  - name: SearchMessages
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Searches for messages matching a query."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SearchMessages_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: StarsAddWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:StarsAddWithFormdataBody"]
+
+  - name: StarsAddWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#StarsAddWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: StarsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:StarsList"]
+
+  - name: StarsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Lists stars for a user."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#StarsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: StarsRemoveWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:StarsRemoveWithFormdataBody"]
+
+  - name: StarsRemoveWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#StarsRemoveWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamAccessLogs_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:TeamAccessLogs"]
+
+  - name: TeamAccessLogs
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets the access logs for the current team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TeamAccessLogs_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamBillableInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:TeamBillableInfo"]
+
+  - name: TeamBillableInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets billable users information for the current team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TeamBillableInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:TeamInfo"]
+
+  - name: TeamInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets information about the current team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TeamInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamIntegrationLogs_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:TeamIntegrationLogs"]
+
+  - name: TeamIntegrationLogs
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets the integration logs for the current team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TeamIntegrationLogs_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamProfileGet_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:TeamProfileGet"]
+
+  - name: TeamProfileGet
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a team's profile."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TeamProfileGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsergroupsCreateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsergroupsCreateWithFormdataBody"]
+
+  - name: UsergroupsCreateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsergroupsCreateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsergroupsDisableWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsergroupsDisableWithFormdataBody"]
+
+  - name: UsergroupsDisableWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsergroupsDisableWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsergroupsEnableWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsergroupsEnableWithFormdataBody"]
+
+  - name: UsergroupsEnableWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsergroupsEnableWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsergroupsList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsergroupsList"]
+
+  - name: UsergroupsList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all User Groups for a team"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsergroupsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsergroupsUpdateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsergroupsUpdateWithFormdataBody"]
+
+  - name: UsergroupsUpdateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsergroupsUpdateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsergroupsUsersList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsergroupsUsersList"]
+
+  - name: UsergroupsUsersList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List all users in a User Group"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsergroupsUsersList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsergroupsUsersUpdateWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsergroupsUsersUpdateWithFormdataBody"]
+
+  - name: UsergroupsUsersUpdateWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsergroupsUsersUpdateWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersConversations_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersConversations"]
+
+  - name: UsersConversations
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List conversations the calling user may access."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersConversations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersDeletePhotoWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersDeletePhotoWithFormdataBody"]
+
+  - name: UsersDeletePhotoWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersDeletePhotoWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersGetPresence_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersGetPresence"]
+
+  - name: UsersGetPresence
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets user presence information."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersGetPresence_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersIdentity_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersIdentity"]
+
+  - name: UsersIdentity
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Get a user's identity."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersIdentity_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersInfo"]
+
+  - name: UsersInfo
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets information about a user."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersList_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersList"]
+
+  - name: UsersList
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Lists all users in a Slack team."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersLookupByEmail_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersLookupByEmail"]
+
+  - name: UsersLookupByEmail
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Find a user with an email address."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersLookupByEmail_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersProfileGet_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersProfileGet"]
+
+  - name: UsersProfileGet
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieves a user's profile information."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersProfileGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersProfileSetWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersProfileSetWithFormdataBody"]
+
+  - name: UsersProfileSetWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersProfileSetWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersSetActive_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersSetActive"]
+
+  - name: UsersSetActive
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Marked a user as active. Deprecated and non-functional."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersSetActive_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersSetPhotoWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersSetPhotoWithFormdataBody"]
+
+  - name: UsersSetPhotoWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersSetPhotoWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UsersSetPresenceWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:UsersSetPresenceWithFormdataBody"]
+
+  - name: UsersSetPresenceWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UsersSetPresenceWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ViewsOpen_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ViewsOpen"]
+
+  - name: ViewsOpen
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Open a view for a user."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ViewsOpen_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ViewsPublish_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ViewsPublish"]
+
+  - name: ViewsPublish
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Publish a static view for a User."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ViewsPublish_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ViewsPush_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ViewsPush"]
+
+  - name: ViewsPush
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Push a view onto the stack of a root view."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ViewsPush_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ViewsUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:ViewsUpdate"]
+
+  - name: ViewsUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update an existing view."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ViewsUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: WorkflowsStepCompleted_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:WorkflowsStepCompleted"]
+
+  - name: WorkflowsStepCompleted
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Indicate that an app's step in a workflow completed execution."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#WorkflowsStepCompleted_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: WorkflowsStepFailed_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:WorkflowsStepFailed"]
+
+  - name: WorkflowsStepFailed
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Indicate that an app's step in a workflow failed to execute."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#WorkflowsStepFailed_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: WorkflowsUpdateStep_class
+    type: enum
+    inVocab: false
+    symbols: ["slack:WorkflowsUpdateStep"]
+
+  - name: WorkflowsUpdateStep
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update the configuration for a workflow extension step."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#WorkflowsUpdateStep_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
