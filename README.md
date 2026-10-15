@@ -16,6 +16,7 @@ This repo also holds the API specs and codegen tools used to produce those packa
 |---|---|---|---|
 | `canva/canva` | `github.com/yardrail/connectors/canva/canva` | 61 | 23 / 6 / 329 |
 | `egnyte/egnyte` | `github.com/yardrail/connectors/egnyte/egnyte` | 178 | 80 / 61 / 243 |
+| `fireflies/fireflies` | `github.com/yardrail/connectors/fireflies/fireflies` | — | — |
 | `hubspot/crm-contacts/v3` | `github.com/yardrail/connectors/hubspot/crm-contacts/v3` | 13 | 10 / 3 / 4 |
 | `mailchimp/marketing/v3` | `github.com/yardrail/connectors/mailchimp/marketing/v3` | 298 | 297 / 0 / 11 |
 | `monday/monday/v2` | `github.com/yardrail/connectors/monday/monday/v2` | — | — |

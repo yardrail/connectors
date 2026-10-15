@@ -1,0 +1,32 @@
+# Named GetMeeting because Fireflies calls a meeting record a "transcript".
+# Deliberately does not select sentences (the full transcript text), so the
+# transcript never enters Yardrail's run history.
+query GetMeeting($id: String!) {
+  transcript(id: $id) {
+    id
+    title
+    date
+    duration
+    organizer_email
+    participants
+    summary {
+      keywords
+      action_items
+      outline
+      shorthand_bullet
+      overview
+      bullet_gist
+      notes
+      gist
+      short_summary
+      short_overview
+      meeting_type
+      topics_discussed
+      transcript_chapters
+      extended_sections {
+        title
+        content
+      }
+    }
+  }
+}

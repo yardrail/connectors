@@ -1,0 +1,26 @@
+connector:
+  id: fireflies
+  name: Fireflies
+  description: Read meeting metadata and AI summaries from Fireflies.
+
+security_schemes:
+  firefliesToken:
+    type: http
+    scheme: bearer
+
+interfaces:
+  - id: api
+    name: API Key
+    protocol: graphql
+    auth_method: api_key
+    auth_scope: org
+    security_scheme: firefliesToken
+    cred_mapping:
+      access_token: token
+    capabilities: [meeting.read]
+    source:
+      schema: spec/schema.graphql
+      operations: operations/
+      endpoint: https://api.fireflies.ai/graphql
+      descriptions:
+        GetMeeting: "Gets a meeting's metadata and AI summary. Does not return the full transcript text."

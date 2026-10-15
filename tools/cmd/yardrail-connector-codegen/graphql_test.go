@@ -4,6 +4,7 @@ import (
 	"errors"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -307,5 +308,53 @@ func TestLoadMondaySchema(t *testing.T) {
 				t.Errorf("%s root has no field %q", tt.root, tt.field)
 			}
 		})
+	}
+}
+
+func TestLoadFirefliesManifest(t *testing.T) {
+	t.Parallel()
+
+	const operation = "GetMeeting"
+
+	m, err := parseManifest(filepath.Join(connectorsRoot, "fireflies", "fireflies", "manifest.yaml"))
+	if err != nil {
+		t.Fatalf("parseManifest: %v", err)
+	}
+
+	src := m.Interfaces[0].Source
+
+	funcs, err := loadGraphQL(graphqlSource{
+		Schema:       src.Schema,
+		Operations:   src.Operations,
+		Scalars:      src.Scalars,
+		Descriptions: src.Descriptions,
+	})
+	if err != nil {
+		t.Fatalf("loadGraphQL: %v", err)
+	}
+
+	fn := findFunc(t, funcs, "get-meeting")
+
+	if fn.ClassName != operation {
+		t.Errorf("class = %q, want %q", fn.ClassName, operation)
+	}
+
+	wantInputs := []FieldInfo{{Name: "id", Type: "string", Required: true}}
+	if !reflect.DeepEqual(fn.Op.Inputs, wantInputs) {
+		t.Errorf("inputs = %+v, want %+v", fn.Op.Inputs, wantInputs)
+	}
+
+	outputs := make([]string, 0, len(fn.Op.Outputs))
+	for _, out := range fn.Op.Outputs {
+		outputs = append(outputs, out.Name)
+	}
+
+	wantOutputs := []string{"id", "title", "date", "duration", "organizer_email", "participants", "summary"}
+	if !slices.Equal(outputs, wantOutputs) {
+		t.Errorf("outputs = %v, want %v", outputs, wantOutputs)
+	}
+
+	if want := src.Descriptions[operation]; fn.Op.Description != want {
+		t.Errorf("description = %q, want %q", fn.Op.Description, want)
 	}
 }
