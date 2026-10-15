@@ -174,6 +174,66 @@ func TestLoadGraphQLScalars(t *testing.T) {
 
 // inputType returns the type of input name on function fn, failing the test
 // when either is missing.
+func TestLoadGraphQLDescriptions(t *testing.T) {
+	t.Parallel()
+
+	const desc = "Declared description."
+
+	dir := filepath.Join(graphqlTestdata, "basic")
+	src := graphqlSource{
+		Schema:     filepath.Join(dir, "schema.graphql"),
+		Operations: filepath.Join(dir, "operations"),
+		Scalars:    map[string]string{jsonScalar: "object"},
+	}
+
+	t.Run("override", func(t *testing.T) {
+		t.Parallel()
+
+		declared := src
+		declared.Descriptions = map[string]string{"GetItem": desc}
+
+		funcs, err := loadGraphQL(declared)
+		if err != nil {
+			t.Fatalf("loadGraphQL: %v", err)
+		}
+
+		if got := findFunc(t, funcs, "get-item").Op.Description; got != desc {
+			t.Errorf("description = %q, want %q", got, desc)
+		}
+	})
+
+	t.Run("unknown", func(t *testing.T) {
+		t.Parallel()
+
+		unknown := src
+		unknown.Descriptions = map[string]string{"Missing": desc}
+
+		_, err := loadGraphQL(unknown)
+		if !errors.Is(err, errUnknownDescription) {
+			t.Fatalf("loadGraphQL error = %v, want errUnknownDescription", err)
+		}
+
+		if !strings.Contains(err.Error(), "Missing") {
+			t.Errorf("error %q does not name Missing", err)
+		}
+	})
+}
+
+// findFunc returns the function named fn, failing the test when there is none.
+func findFunc(t *testing.T, funcs []graphqlFunction, fn string) graphqlFunction {
+	t.Helper()
+
+	for _, f := range funcs {
+		if f.Name == fn {
+			return f
+		}
+	}
+
+	t.Fatalf("no function %q", fn)
+
+	return graphqlFunction{}
+}
+
 func inputType(t *testing.T, funcs []graphqlFunction, fn, name string) string {
 	t.Helper()
 

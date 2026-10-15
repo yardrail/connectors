@@ -16,10 +16,11 @@ import (
 )
 
 var (
-	errOperationCount   = errors.New("operation file must hold exactly one named operation")
-	errOperationName    = errors.New("operation file name must equal the operation name")
-	errInvalidOperation = errors.New("operation does not validate against the schema")
-	errUndeclaredScalar = errors.New("custom scalar not declared in the manifest's source.scalars")
+	errOperationCount     = errors.New("operation file must hold exactly one named operation")
+	errOperationName      = errors.New("operation file name must equal the operation name")
+	errInvalidOperation   = errors.New("operation does not validate against the schema")
+	errUndeclaredScalar   = errors.New("custom scalar not declared in the manifest's source.scalars")
+	errUnknownDescription = errors.New("source.descriptions names no operation")
 )
 
 // builtinScalars and builtinDirectives are the GraphQL built-ins that vendor
@@ -34,12 +35,13 @@ var (
 )
 
 // graphqlSource locates a GraphQL interface's schema (optional) and its
-// directory of operation files, and maps custom scalar names to FieldInfo.Type
-// names.
+// directory of operation files, maps custom scalar names to FieldInfo.Type
+// names, and maps operation names to descriptions that replace the schema's.
 type graphqlSource struct {
-	Schema     string
-	Operations string
-	Scalars    map[string]string
+	Schema       string
+	Operations   string
+	Scalars      map[string]string
+	Descriptions map[string]string
 }
 
 // graphqlFunction is one connector function backed by a named operation.
@@ -53,7 +55,9 @@ type graphqlFunction struct {
 
 // loadGraphQL reads every *.graphql file in src.Operations and returns one
 // function per file, sorted by name. When src.Schema is set, every operation
-// is validated against it and inputs and outputs are typed from it.
+// is validated against it and inputs and outputs are typed from it. An
+// operation named in src.Descriptions takes that description; a name that
+// matches no operation fails with errUnknownDescription.
 func loadGraphQL(src graphqlSource) ([]graphqlFunction, error) {
 	var schema *ast.Schema
 
@@ -81,10 +85,43 @@ func loadGraphQL(src graphqlSource) ([]graphqlFunction, error) {
 			return nil, fmt.Errorf("%s: %w", path, err)
 		}
 
+		if desc, ok := src.Descriptions[fn.Op.OperationID]; ok {
+			fn.Op.Description = desc
+		}
+
 		funcs = append(funcs, fn)
 	}
 
+	err = checkDescriptions(src.Descriptions, funcs)
+	if err != nil {
+		return nil, err
+	}
+
 	return funcs, nil
+}
+
+// checkDescriptions fails with errUnknownDescription for the first key, in
+// sorted order, that names none of funcs' operations.
+func checkDescriptions(descriptions map[string]string, funcs []graphqlFunction) error {
+	ops := make(map[string]bool, len(funcs))
+	for _, fn := range funcs {
+		ops[fn.Op.OperationID] = true
+	}
+
+	names := make([]string, 0, len(descriptions))
+	for name := range descriptions {
+		names = append(names, name)
+	}
+
+	sort.Strings(names)
+
+	for _, name := range names {
+		if !ops[name] {
+			return fmt.Errorf("%w: %s", errUnknownDescription, name)
+		}
+	}
+
+	return nil
 }
 
 // loadGraphQLSchema parses a schema file, drops its redeclared built-ins and
