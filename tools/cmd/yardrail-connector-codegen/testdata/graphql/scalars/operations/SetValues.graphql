@@ -1,0 +1,5 @@
+mutation SetValues($itemId: ID!, $values: JSON!) {
+  set_values(id: $itemId, values: $values) {
+    id
+  }
+}

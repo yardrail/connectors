@@ -25,3 +25,6 @@ interfaces:
       schema: spec/schema.graphql
       operations: operations/
       endpoint: https://api.monday.com/v2
+      scalars:
+        Date: string
+        JSON: string

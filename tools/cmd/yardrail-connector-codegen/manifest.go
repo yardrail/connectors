@@ -13,6 +13,8 @@ var (
 	errMissingSource            = errors.New("graphql interface requires source.operations and source.endpoint")
 	errMissingRESTSource        = errors.New("rest interface source requires source.openapi and source.client")
 	errUnresolvedSecurityScheme = errors.New("security_scheme not declared in manifest security_schemes or spec")
+	errScalarsNotGraphQL        = errors.New("source.scalars is only valid on a graphql interface")
+	errInvalidScalarType        = errors.New("source.scalars type must be string, integer, number, boolean, object or array")
 )
 
 // Manifest is the top-level connector manifest structure.
@@ -49,15 +51,16 @@ type ManifestInterface struct {
 }
 
 // ManifestSource declares where an interface's functions come from. GraphQL
-// interfaces set Schema, Operations and Endpoint; REST interfaces set OpenAPI
-// and Client. File paths are relative to the manifest and resolved to absolute
-// paths by parseManifest.
+// interfaces set Schema, Operations and Endpoint, and Scalars to type the
+// schema's custom scalars; REST interfaces set OpenAPI and Client. File paths
+// are relative to the manifest and resolved to absolute paths by parseManifest.
 type ManifestSource struct {
-	Schema     string `yaml:"schema"`
-	Operations string `yaml:"operations"`
-	Endpoint   string `yaml:"endpoint"`
-	OpenAPI    string `yaml:"openapi"`
-	Client     string `yaml:"client"`
+	Schema     string            `yaml:"schema"`
+	Operations string            `yaml:"operations"`
+	Endpoint   string            `yaml:"endpoint"`
+	Scalars    map[string]string `yaml:"scalars"`
+	OpenAPI    string            `yaml:"openapi"`
+	Client     string            `yaml:"client"`
 }
 
 // ManifestConfigField declares a non-secret configuration parameter.
@@ -142,6 +145,13 @@ var validAuthMethods = map[string]bool{
 
 var validAuthScopes = map[string]bool{"org": true, "user": true}
 
+// validScalarTypes is the FieldInfo.Type vocabulary a declared custom scalar
+// may map to.
+var validScalarTypes = map[string]bool{
+	"string": true, "integer": true, "number": true,
+	"boolean": true, "object": true, "array": true,
+}
+
 func (m *Manifest) validate() error {
 	if m.Connector.ID == "" {
 		return fmt.Errorf("connector.id is required")
@@ -181,11 +191,37 @@ func validateInterface(i int, iface ManifestInterface) error {
 	if !validAuthScopes[iface.AuthScope] {
 		return fmt.Errorf("interfaces[%d].auth_scope %q is not valid", i, iface.AuthScope)
 	}
-	if iface.Protocol == "graphql" && (iface.Source == nil || iface.Source.Operations == "" || iface.Source.Endpoint == "") {
+
+	return validateSource(iface)
+}
+
+// validateSource checks an interface's source block against its protocol.
+func validateSource(iface ManifestInterface) error {
+	src := iface.Source
+	if iface.Protocol == "graphql" && (src == nil || src.Operations == "" || src.Endpoint == "") {
 		return fmt.Errorf("interface %q: %w", iface.ID, errMissingSource)
 	}
-	if iface.Protocol == "rest" && iface.Source != nil && (iface.Source.OpenAPI == "" || iface.Source.Client == "") {
+	if src == nil {
+		return nil
+	}
+	if iface.Protocol == "rest" && (src.OpenAPI == "" || src.Client == "") {
 		return fmt.Errorf("interface %q: %w", iface.ID, errMissingRESTSource)
+	}
+
+	return validateScalars(iface)
+}
+
+// validateScalars checks that only a graphql interface declares scalars and
+// that each maps to a FieldInfo.Type name.
+func validateScalars(iface ManifestInterface) error {
+	if len(iface.Source.Scalars) > 0 && iface.Protocol != "graphql" {
+		return fmt.Errorf("interface %q: %w", iface.ID, errScalarsNotGraphQL)
+	}
+
+	for name, typ := range iface.Source.Scalars {
+		if !validScalarTypes[typ] {
+			return fmt.Errorf("interface %q scalar %q type %q: %w", iface.ID, name, typ, errInvalidScalarType)
+		}
 	}
 
 	return nil

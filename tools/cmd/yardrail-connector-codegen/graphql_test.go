@@ -8,7 +8,10 @@ import (
 	"testing"
 )
 
-const graphqlTestdata = "testdata/graphql"
+const (
+	graphqlTestdata = "testdata/graphql"
+	jsonScalar      = "JSON"
+)
 
 func TestLoadGraphQL(t *testing.T) {
 	t.Parallel()
@@ -55,6 +58,7 @@ func TestLoadGraphQLTyped(t *testing.T) {
 	tests := []struct {
 		name        string
 		schema      string
+		scalars     map[string]string
 		wantDesc    string
 		wantInputs  []FieldInfo
 		wantOutputs []FieldInfo
@@ -62,6 +66,7 @@ func TestLoadGraphQLTyped(t *testing.T) {
 		{
 			name:     "with schema",
 			schema:   filepath.Join(graphqlTestdata, "basic", "schema.graphql"),
+			scalars:  map[string]string{jsonScalar: "object"},
 			wantDesc: "Get one item by ID.",
 			wantInputs: []FieldInfo{
 				{Name: "itemId", Type: "string", Required: true},
@@ -72,7 +77,7 @@ func TestLoadGraphQLTyped(t *testing.T) {
 				{Name: "label", Type: "string"},
 				{Name: "status", Type: "string"},
 				{Name: "tags", Type: "array"},
-				{Name: "data", Type: ""},
+				{Name: "data", Type: "object"},
 				{Name: "count", Type: "integer"},
 				{Name: "score", Type: "number"},
 				{Name: "archived", Type: "boolean"},
@@ -96,7 +101,7 @@ func TestLoadGraphQLTyped(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			funcs, err := loadGraphQL(graphqlSource{Schema: tt.schema, Operations: ops})
+			funcs, err := loadGraphQL(graphqlSource{Schema: tt.schema, Operations: ops, Scalars: tt.scalars})
 			if err != nil {
 				t.Fatalf("loadGraphQL: %v", err)
 			}
@@ -129,6 +134,68 @@ func TestLoadGraphQLTyped(t *testing.T) {
 	}
 }
 
+func TestLoadGraphQLScalars(t *testing.T) {
+	t.Parallel()
+
+	dir := filepath.Join(graphqlTestdata, "scalars")
+	src := graphqlSource{Schema: filepath.Join(dir, "schema.graphql"), Operations: filepath.Join(dir, "operations")}
+
+	t.Run("declared", func(t *testing.T) {
+		t.Parallel()
+
+		declared := src
+		declared.Scalars = map[string]string{jsonScalar: "string"}
+
+		funcs, err := loadGraphQL(declared)
+		if err != nil {
+			t.Fatalf("loadGraphQL: %v", err)
+		}
+
+		if got := inputType(t, funcs, "set-values", "values"); got != "string" {
+			t.Errorf("values type = %q, want string", got)
+		}
+	})
+
+	t.Run("undeclared", func(t *testing.T) {
+		t.Parallel()
+
+		_, err := loadGraphQL(src)
+		if !errors.Is(err, errUndeclaredScalar) {
+			t.Fatalf("loadGraphQL error = %v, want errUndeclaredScalar", err)
+		}
+
+		for _, want := range []string{jsonScalar, "SetValues.graphql"} {
+			if !strings.Contains(err.Error(), want) {
+				t.Errorf("error %q does not name %q", err, want)
+			}
+		}
+	})
+}
+
+// inputType returns the type of input name on function fn, failing the test
+// when either is missing.
+func inputType(t *testing.T, funcs []graphqlFunction, fn, name string) string {
+	t.Helper()
+
+	for _, f := range funcs {
+		if f.Name != fn {
+			continue
+		}
+
+		for _, in := range f.Op.Inputs {
+			if in.Name == name {
+				return in.Type
+			}
+		}
+
+		t.Fatalf("function %q has no input %q", fn, name)
+	}
+
+	t.Fatalf("no function %q", fn)
+
+	return ""
+}
+
 func TestLoadMondaySchema(t *testing.T) {
 	t.Parallel()
 
@@ -136,6 +203,26 @@ func TestLoadMondaySchema(t *testing.T) {
 	if err != nil {
 		t.Fatalf("loadGraphQLSchema: %v", err)
 	}
+
+	t.Run("columnValues type", func(t *testing.T) {
+		t.Parallel()
+
+		m, err := parseManifest(filepath.Join(connectorsRoot, "monday", "monday", "v2", "manifest.yaml"))
+		if err != nil {
+			t.Fatalf("parseManifest: %v", err)
+		}
+
+		src := m.Interfaces[0].Source
+
+		funcs, err := loadGraphQL(graphqlSource{Schema: src.Schema, Operations: src.Operations, Scalars: src.Scalars})
+		if err != nil {
+			t.Fatalf("loadGraphQL: %v", err)
+		}
+
+		if got := inputType(t, funcs, "change-multiple-column-values", "columnValues"); got != "string" {
+			t.Errorf("columnValues type = %q, want string", got)
+		}
+	})
 
 	tests := []struct {
 		root  string

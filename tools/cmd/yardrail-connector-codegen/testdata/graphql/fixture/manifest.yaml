@@ -25,3 +25,5 @@ interfaces:
       schema: spec/schema.graphql
       operations: operations/
       endpoint: https://fixture.invalid/graphql
+      scalars:
+        JSON: object

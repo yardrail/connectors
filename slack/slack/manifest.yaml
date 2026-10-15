@@ -11,6 +11,9 @@ interfaces:
     auth_scope: org
     security_scheme: slackAuth
     capabilities: [message.send, message.read, channel.list]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/slack/slack/client
 
   - id: user-token
     name: User Token
@@ -19,6 +22,9 @@ interfaces:
     auth_scope: user
     security_scheme: slackAuth
     capabilities: [message.send, message.read, channel.list]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/slack/slack/client
 
   - id: events
     name: Events API

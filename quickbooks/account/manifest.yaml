@@ -24,3 +24,6 @@ interfaces:
         label: API Base URL
         description: Override the default API URL (use https://sandbox-quickbooks.api.intuit.com for sandbox testing).
         required: false
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/quickbooks/account/client
