@@ -11,3 +11,6 @@ interfaces:
     auth_scope: org
     security_scheme: bearerAuth
     capabilities: [payment.read, payment.create, customer.read, customer.create, subscription.read, subscription.create]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/stripe/stripe/client

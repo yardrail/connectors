@@ -228,7 +228,11 @@ func loadGraphQLInterfaces(ctx *genContext) error {
 			continue
 		}
 
-		funcs, err := loadGraphQL(graphqlSource{Schema: iface.Source.Schema, Operations: iface.Source.Operations})
+		funcs, err := loadGraphQL(graphqlSource{
+			Schema:     iface.Source.Schema,
+			Operations: iface.Source.Operations,
+			Scalars:    iface.Source.Scalars,
+		})
 		if err != nil {
 			return fmt.Errorf("interface %q: %w", iface.ID, err)
 		}

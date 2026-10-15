@@ -126,6 +126,47 @@ interfaces:
 	}
 }
 
+const (
+	graphqlScalarSource = "source: {operations: ops/, endpoint: https://example.com/graphql, scalars: "
+	restScalarSource    = "source: {openapi: spec/openapi.json, client: example.com/client, scalars: "
+)
+
+func TestManifestScalars(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name     string
+		protocol string
+		source   string
+		wantErr  error
+	}{
+		{"graphql declared", "graphql", graphqlScalarSource + "{JSON: string}}", nil},
+		{"graphql invalid type", "graphql", graphqlScalarSource + "{JSON: date}}", errInvalidScalarType},
+		{"rest declared", "rest", restScalarSource + "{JSON: string}}", errScalarsNotGraphQL},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			path := writeManifest(t, `
+connector: {id: fixture, name: Fixture}
+interfaces:
+  - id: api
+    protocol: `+tt.protocol+`
+    auth_method: none
+    auth_scope: org
+    `+tt.source+`
+`)
+
+			_, err := parseManifest(path)
+			if !errors.Is(err, tt.wantErr) {
+				t.Fatalf("parseManifest error = %v, want %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
 func TestManifestSourcePaths(t *testing.T) {
 	t.Parallel()
 

@@ -1,8 +1,5 @@
 version: "3"
 
-vars:
-  TOOLS_PKG: github.com/yardrail/connectors/tools
-
 tasks:
   build:tools:
     desc: Build all codegen tools
@@ -11,155 +8,94 @@ tasks:
       - go build ./cmd/...
 
   generate:connector:
-    desc: Generate yardrail connector code from a manifest
+    desc: Generate yardrail connector code from a manifest into the yardrail repo layout
     dir: tools
     requires:
-      vars: [MANIFEST, SPEC, PKG, OUT, CATALOG, PKGNAME]
+      vars: [MANIFEST, NAME]
+    vars:
+      YARDRAIL_ROOT:
+        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
     cmds:
       - >-
         go run ./cmd/yardrail-connector-codegen
         -manifest {{.MANIFEST}}
-        -spec {{.SPEC}}
-        -pkg {{.PKG}}
-        -out {{.OUT}}
-        -catalog {{.CATALOG}}
-        -pkgname {{.PKGNAME}}
-
-  generate:connector:hubspot:
-    desc: Generate yardrail HubSpot CRM Contacts connector code
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/hubspot/crm-contacts/v3/manifest.yaml"
-          SPEC: "{{.ROOT_DIR}}/hubspot/crm-contacts/v3/spec/openapi.json"
-          PKG: github.com/yardrail/connectors/hubspot/crm-contacts/v3/client
-          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/hubspot"
-          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_hubspot_gen.go"
-          PKGNAME: hubspot
-
-  generate:connector:notion:
-    desc: Generate yardrail Notion connector code
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/notion/notion/manifest.yaml"
-          SPEC: "{{.ROOT_DIR}}/notion/notion/spec/openapi.json"
-          PKG: github.com/yardrail/connectors/notion/notion/client
-          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/notion"
-          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_notion_gen.go"
-          PKGNAME: notion
-
-  generate:connector:canva:
-    desc: Generate yardrail Canva connector code
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/canva/canva/manifest.yaml"
-          SPEC: "{{.ROOT_DIR}}/canva/canva/spec/openapi.json"
-          PKG: github.com/yardrail/connectors/canva/canva/client
-          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/canva"
-          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_canva_gen.go"
-          PKGNAME: canva
-
-  generate:connector:egnyte:
-    desc: Generate yardrail Egnyte connector code
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/egnyte/egnyte/manifest.yaml"
-          SPEC: "{{.ROOT_DIR}}/egnyte/egnyte/spec/openapi.json"
-          PKG: github.com/yardrail/connectors/egnyte/egnyte/client
-          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/egnyte"
-          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_egnyte_gen.go"
-          PKGNAME: egnyte
-
-  generate:connector:mailchimp:
-    desc: Generate yardrail Mailchimp connector code
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/mailchimp/marketing/v3/manifest.yaml"
-          SPEC: "{{.ROOT_DIR}}/mailchimp/marketing/v3/spec/openapi.json"
-          PKG: github.com/yardrail/connectors/mailchimp/marketing/v3/client
-          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/mailchimp"
-          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_mailchimp_gen.go"
-          PKGNAME: mailchimp
-
-  generate:connector:stripe:
-    desc: Generate yardrail Stripe connector code
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/stripe/stripe/manifest.yaml"
-          SPEC: "{{.ROOT_DIR}}/stripe/stripe/spec/openapi.json"
-          PKG: github.com/yardrail/connectors/stripe/stripe/client
-          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/stripe"
-          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_stripe_gen.go"
-          PKGNAME: stripe
-
-  generate:connector:quickbooks-account:
-    desc: Generate yardrail QuickBooks Account connector code
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/quickbooks/account/manifest.yaml"
-          SPEC: "{{.ROOT_DIR}}/quickbooks/account/spec/openapi.json"
-          PKG: github.com/yardrail/connectors/quickbooks/account/client
-          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/quickbooks-account"
-          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_quickbooks_account_gen.go"
-          PKGNAME: quickbooks_account
+        -out {{.YARDRAIL_ROOT}}/internal/connectors/{{.NAME}}
+        -catalog {{.YARDRAIL_ROOT}}/internal/connector/catalog_{{.NAME}}_gen.go
+        -pkgname {{.NAME}}
+        -cwl-schema {{.YARDRAIL_ROOT}}/pkg/workflows/schema/{{.NAME}}-ext.yml
+        -cwl-mapping {{.YARDRAIL_ROOT}}/pkg/workflows/connector_{{.NAME}}_gen.go
 
   generate:connector:slack:
-    desc: Generate yardrail slack connector code
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    desc: Generate yardrail Slack connector code
     cmds:
       - task: generate:connector
         vars:
           MANIFEST: "{{.ROOT_DIR}}/slack/slack/manifest.yaml"
-          SPEC: "{{.ROOT_DIR}}/slack/slack/spec/openapi.json"
-          PKG: github.com/yardrail/connectors/slack/slack/client
-          OUT: "{{.YARDRAIL_ROOT}}/internal/connectors/slack"
-          CATALOG: "{{.YARDRAIL_ROOT}}/internal/connector/catalog_slack_gen.go"
-          PKGNAME: slack
+          NAME: slack
+
+  generate:connector:hubspot:
+    desc: Generate yardrail HubSpot CRM Contacts connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/hubspot/crm-contacts/v3/manifest.yaml"
+          NAME: hubspot
+
+  generate:connector:notion:
+    desc: Generate yardrail Notion connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/notion/notion/manifest.yaml"
+          NAME: notion
+
+  generate:connector:canva:
+    desc: Generate yardrail Canva connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/canva/canva/manifest.yaml"
+          NAME: canva
+
+  generate:connector:egnyte:
+    desc: Generate yardrail Egnyte connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/egnyte/egnyte/manifest.yaml"
+          NAME: egnyte
+
+  generate:connector:mailchimp:
+    desc: Generate yardrail Mailchimp connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/mailchimp/marketing/v3/manifest.yaml"
+          NAME: mailchimp
+
+  generate:connector:stripe:
+    desc: Generate yardrail Stripe connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/stripe/stripe/manifest.yaml"
+          NAME: stripe
+
+  generate:connector:quickbooks:
+    desc: Generate yardrail QuickBooks Account connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/quickbooks/account/manifest.yaml"
+          NAME: quickbooks
 
   generate:connector:monday:
-    desc: Generate yardrail monday.com connector code from GraphQL operations
-    dir: tools
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+    desc: Generate yardrail monday.com connector code
     cmds:
-      - >-
-        go run ./cmd/yardrail-connector-codegen
-        -manifest {{.ROOT_DIR}}/monday/monday/v2/manifest.yaml
-        -out {{.YARDRAIL_ROOT}}/internal/connectors/monday
-        -catalog {{.YARDRAIL_ROOT}}/internal/connector/catalog_monday_gen.go
-        -pkgname monday
-        -cwl-schema {{.YARDRAIL_ROOT}}/pkg/workflows/schema/monday-ext.yml
-        -cwl-mapping {{.YARDRAIL_ROOT}}/pkg/workflows/connector_monday_gen.go
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/monday/monday/v2/manifest.yaml"
+          NAME: monday
 
   docs:readme:
     desc: Regenerate README.md from template

@@ -1,0 +1,20 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Arbitrary JSON."
+scalar JSON
+
+type Item {
+  id: ID!
+}
+
+type Query {
+  item(id: ID!): Item
+}
+
+type Mutation {
+  "Set an item's values."
+  set_values(id: ID!, values: JSON!): Item
+}

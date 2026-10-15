@@ -19,6 +19,7 @@ var (
 	errOperationCount   = errors.New("operation file must hold exactly one named operation")
 	errOperationName    = errors.New("operation file name must equal the operation name")
 	errInvalidOperation = errors.New("operation does not validate against the schema")
+	errUndeclaredScalar = errors.New("custom scalar not declared in the manifest's source.scalars")
 )
 
 // builtinScalars and builtinDirectives are the GraphQL built-ins that vendor
@@ -33,10 +34,12 @@ var (
 )
 
 // graphqlSource locates a GraphQL interface's schema (optional) and its
-// directory of operation files.
+// directory of operation files, and maps custom scalar names to FieldInfo.Type
+// names.
 type graphqlSource struct {
 	Schema     string
 	Operations string
+	Scalars    map[string]string
 }
 
 // graphqlFunction is one connector function backed by a named operation.
@@ -73,7 +76,7 @@ func loadGraphQL(src graphqlSource) ([]graphqlFunction, error) {
 	funcs := make([]graphqlFunction, 0, len(paths))
 
 	for _, path := range paths {
-		fn, err := loadOperationFile(path, schema)
+		fn, err := loadOperationFile(path, schema, src.Scalars)
 		if err != nil {
 			return nil, fmt.Errorf("%s: %w", path, err)
 		}
@@ -141,8 +144,9 @@ func stripBuiltins(doc *ast.SchemaDocument) {
 }
 
 // loadOperationFile parses one operation file, checks it holds a single
-// operation named after the file, and validates it when schema is non-nil.
-func loadOperationFile(path string, schema *ast.Schema) (graphqlFunction, error) {
+// operation named after the file, and validates and types it when schema is
+// non-nil.
+func loadOperationFile(path string, schema *ast.Schema, scalars map[string]string) (graphqlFunction, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return graphqlFunction{}, err
@@ -171,37 +175,62 @@ func loadOperationFile(path string, schema *ast.Schema) (graphqlFunction, error)
 		}
 	}
 
+	info, err := operationInfo(op, schema, scalars)
+	if err != nil {
+		return graphqlFunction{}, err
+	}
+
 	name := introspect.ToKebab(op.Name)
 
 	return graphqlFunction{
 		Name:      name,
 		ClassName: goIdent(name),
 		Query:     text,
-		Op:        operationInfo(op, schema),
+		Op:        info,
 	}, nil
 }
 
 // operationInfo builds inputs from the operation's variables and outputs from
 // the fields selected under its first root field.
-func operationInfo(op *ast.OperationDefinition, schema *ast.Schema) *OperationInfo {
+func operationInfo(op *ast.OperationDefinition, schema *ast.Schema, scalars map[string]string) (*OperationInfo, error) {
 	info := &OperationInfo{OperationID: op.Name}
 
 	for _, v := range op.VariableDefinitions {
+		typ, err := graphqlFieldType(v.Type, schema, scalars)
+		if err != nil {
+			return nil, err
+		}
+
 		info.Inputs = append(info.Inputs, FieldInfo{
 			Name:     v.Variable,
-			Type:     graphqlFieldType(v.Type, schema),
+			Type:     typ,
 			Required: v.Type.NonNull && v.DefaultValue == nil,
 		})
 	}
 
 	root := firstField(op.SelectionSet)
 	if root == nil {
-		return info
+		return info, nil
 	}
 
 	if root.Definition != nil {
 		info.Description = root.Definition.Description
 	}
+
+	outputs, err := operationOutputs(root, schema, scalars)
+	if err != nil {
+		return nil, err
+	}
+
+	info.Outputs = outputs
+
+	return info, nil
+}
+
+// operationOutputs returns one output per field selected under root. Each is
+// typed when schema is non-nil; fields nested deeper are not inspected.
+func operationOutputs(root *ast.Field, schema *ast.Schema, scalars map[string]string) ([]FieldInfo, error) {
+	var outputs []FieldInfo
 
 	for _, sel := range root.SelectionSet {
 		f, ok := sel.(*ast.Field)
@@ -210,14 +239,20 @@ func operationInfo(op *ast.OperationDefinition, schema *ast.Schema) *OperationIn
 		}
 
 		var typ string
+
 		if schema != nil && f.Definition != nil {
-			typ = graphqlFieldType(f.Definition.Type, schema)
+			var err error
+
+			typ, err = graphqlFieldType(f.Definition.Type, schema, scalars)
+			if err != nil {
+				return nil, err
+			}
 		}
 
-		info.Outputs = append(info.Outputs, FieldInfo{Name: f.Alias, Type: typ})
+		outputs = append(outputs, FieldInfo{Name: f.Alias, Type: typ})
 	}
 
-	return info
+	return outputs, nil
 }
 
 func firstField(set ast.SelectionSet) *ast.Field {
@@ -231,39 +266,50 @@ func firstField(set ast.SelectionSet) *ast.Field {
 }
 
 // graphqlFieldType maps a GraphQL type to the FieldInfo.Type names used for
-// OpenAPI. Custom scalars, and named types that cannot be looked up without a
-// schema, map to "" (CWL Any).
-func graphqlFieldType(t *ast.Type, schema *ast.Schema) string {
+// OpenAPI. A custom scalar maps to its type in scalars and fails with
+// errUndeclaredScalar when scalars does not declare it. Named types that
+// cannot be looked up without a schema map to "" (CWL Any).
+func graphqlFieldType(t *ast.Type, schema *ast.Schema, scalars map[string]string) (string, error) {
 	if t.Elem != nil {
-		return "array"
+		return "array", nil
 	}
 
 	switch t.NamedType {
 	case "Int":
-		return "integer"
+		return "integer", nil
 	case "Float":
-		return "number"
+		return "number", nil
 	case "Boolean":
-		return "boolean"
+		return "boolean", nil
 	case "String", "ID":
-		return "string"
+		return "string", nil
 	}
 
 	if schema == nil {
-		return ""
+		return "", nil
 	}
 
 	def := schema.Types[t.NamedType]
 	if def == nil {
-		return ""
+		return "", nil
 	}
 
 	switch def.Kind {
 	case ast.Enum:
-		return "string"
+		return "string", nil
 	case ast.Object, ast.InputObject, ast.Interface, ast.Union:
-		return "object"
-	default:
-		return ""
+		return "object", nil
+	default: // ast.Scalar; built-in scalars returned above
+		return declaredScalarType(def.Name, scalars)
 	}
+}
+
+// declaredScalarType returns the type scalars declares for a custom scalar.
+func declaredScalarType(name string, scalars map[string]string) (string, error) {
+	typ, ok := scalars[name]
+	if !ok {
+		return "", fmt.Errorf("%w: %s", errUndeclaredScalar, name)
+	}
+
+	return typ, nil
 }

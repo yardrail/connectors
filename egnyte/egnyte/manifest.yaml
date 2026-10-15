@@ -11,3 +11,6 @@ interfaces:
     auth_scope: org
     security_scheme: BearerAuth
     capabilities: [file.read, file.write, folder.read, folder.write, permission.read, permission.write]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/egnyte/egnyte/client

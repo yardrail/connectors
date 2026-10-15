@@ -38,3 +38,5 @@ interfaces:
       schema: schema.graphql
       operations: operations/
       endpoint: https://mixed.invalid/graphql
+      scalars:
+        JSON: object

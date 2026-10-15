@@ -14,3 +14,6 @@ interfaces:
       username: anystring
       password: api_key
     capabilities: [audience.read, audience.write, campaign.read, campaign.write, template.read]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/mailchimp/marketing/v3/client
