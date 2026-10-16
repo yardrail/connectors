@@ -15,6 +15,7 @@ var (
 	errUnresolvedSecurityScheme = errors.New("security_scheme not declared in manifest security_schemes or spec")
 	errScalarsNotGraphQL        = errors.New("source.scalars is only valid on a graphql interface")
 	errInvalidScalarType        = errors.New("source.scalars type must be string, integer, number, boolean, object or array")
+	errDescriptionsNotGraphQL   = errors.New("source.descriptions is only valid on a graphql interface")
 )
 
 // Manifest is the top-level connector manifest structure.
@@ -51,16 +52,18 @@ type ManifestInterface struct {
 }
 
 // ManifestSource declares where an interface's functions come from. GraphQL
-// interfaces set Schema, Operations and Endpoint, and Scalars to type the
-// schema's custom scalars; REST interfaces set OpenAPI and Client. File paths
+// interfaces set Schema, Operations and Endpoint, Scalars to type the schema's
+// custom scalars, and Descriptions to override operation descriptions, keyed
+// by operation name; REST interfaces set OpenAPI and Client. File paths
 // are relative to the manifest and resolved to absolute paths by parseManifest.
 type ManifestSource struct {
-	Schema     string            `yaml:"schema"`
-	Operations string            `yaml:"operations"`
-	Endpoint   string            `yaml:"endpoint"`
-	Scalars    map[string]string `yaml:"scalars"`
-	OpenAPI    string            `yaml:"openapi"`
-	Client     string            `yaml:"client"`
+	Schema       string            `yaml:"schema"`
+	Operations   string            `yaml:"operations"`
+	Endpoint     string            `yaml:"endpoint"`
+	Scalars      map[string]string `yaml:"scalars"`
+	Descriptions map[string]string `yaml:"descriptions"`
+	OpenAPI      string            `yaml:"openapi"`
+	Client       string            `yaml:"client"`
 }
 
 // ManifestConfigField declares a non-secret configuration parameter.
@@ -206,6 +209,10 @@ func validateSource(iface ManifestInterface) error {
 	}
 	if iface.Protocol == "rest" && (src.OpenAPI == "" || src.Client == "") {
 		return fmt.Errorf("interface %q: %w", iface.ID, errMissingRESTSource)
+	}
+
+	if len(src.Descriptions) > 0 && iface.Protocol != "graphql" {
+		return fmt.Errorf("interface %q: %w", iface.ID, errDescriptionsNotGraphQL)
 	}
 
 	return validateScalars(iface)

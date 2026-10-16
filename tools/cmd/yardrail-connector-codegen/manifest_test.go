@@ -167,6 +167,46 @@ interfaces:
 	}
 }
 
+const (
+	graphqlDescriptionSource = "source: {operations: ops/, endpoint: https://example.com/graphql, descriptions: "
+	restDescriptionSource    = "source: {openapi: spec/openapi.json, client: example.com/client, descriptions: "
+)
+
+func TestManifestDescriptions(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name     string
+		protocol string
+		source   string
+		wantErr  error
+	}{
+		{"graphql declared", "graphql", graphqlDescriptionSource + "{GetItem: Gets an item.}}", nil},
+		{"rest declared", "rest", restDescriptionSource + "{GetItem: Gets an item.}}", errDescriptionsNotGraphQL},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			path := writeManifest(t, `
+connector: {id: fixture, name: Fixture}
+interfaces:
+  - id: api
+    protocol: `+tt.protocol+`
+    auth_method: none
+    auth_scope: org
+    `+tt.source+`
+`)
+
+			_, err := parseManifest(path)
+			if !errors.Is(err, tt.wantErr) {
+				t.Fatalf("parseManifest error = %v, want %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
 func TestManifestSourcePaths(t *testing.T) {
 	t.Parallel()
 

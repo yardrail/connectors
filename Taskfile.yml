@@ -97,6 +97,14 @@ tasks:
           MANIFEST: "{{.ROOT_DIR}}/monday/monday/v2/manifest.yaml"
           NAME: monday
 
+  generate:connector:fireflies:
+    desc: Generate yardrail Fireflies connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/fireflies/fireflies/manifest.yaml"
+          NAME: fireflies
+
   docs:readme:
     desc: Regenerate README.md from template
     dir: tools

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -174,6 +175,66 @@ func TestLoadGraphQLScalars(t *testing.T) {
 
 // inputType returns the type of input name on function fn, failing the test
 // when either is missing.
+func TestLoadGraphQLDescriptions(t *testing.T) {
+	t.Parallel()
+
+	const desc = "Declared description."
+
+	dir := filepath.Join(graphqlTestdata, "basic")
+	src := graphqlSource{
+		Schema:     filepath.Join(dir, "schema.graphql"),
+		Operations: filepath.Join(dir, "operations"),
+		Scalars:    map[string]string{jsonScalar: "object"},
+	}
+
+	t.Run("override", func(t *testing.T) {
+		t.Parallel()
+
+		declared := src
+		declared.Descriptions = map[string]string{"GetItem": desc}
+
+		funcs, err := loadGraphQL(declared)
+		if err != nil {
+			t.Fatalf("loadGraphQL: %v", err)
+		}
+
+		if got := findFunc(t, funcs, "get-item").Op.Description; got != desc {
+			t.Errorf("description = %q, want %q", got, desc)
+		}
+	})
+
+	t.Run("unknown", func(t *testing.T) {
+		t.Parallel()
+
+		unknown := src
+		unknown.Descriptions = map[string]string{"Missing": desc}
+
+		_, err := loadGraphQL(unknown)
+		if !errors.Is(err, errUnknownDescription) {
+			t.Fatalf("loadGraphQL error = %v, want errUnknownDescription", err)
+		}
+
+		if !strings.Contains(err.Error(), "Missing") {
+			t.Errorf("error %q does not name Missing", err)
+		}
+	})
+}
+
+// findFunc returns the function named fn, failing the test when there is none.
+func findFunc(t *testing.T, funcs []graphqlFunction, fn string) graphqlFunction {
+	t.Helper()
+
+	for _, f := range funcs {
+		if f.Name == fn {
+			return f
+		}
+	}
+
+	t.Fatalf("no function %q", fn)
+
+	return graphqlFunction{}
+}
+
 func inputType(t *testing.T, funcs []graphqlFunction, fn, name string) string {
 	t.Helper()
 
@@ -247,5 +308,53 @@ func TestLoadMondaySchema(t *testing.T) {
 				t.Errorf("%s root has no field %q", tt.root, tt.field)
 			}
 		})
+	}
+}
+
+func TestLoadFirefliesManifest(t *testing.T) {
+	t.Parallel()
+
+	const operation = "GetMeeting"
+
+	m, err := parseManifest(filepath.Join(connectorsRoot, "fireflies", "fireflies", "manifest.yaml"))
+	if err != nil {
+		t.Fatalf("parseManifest: %v", err)
+	}
+
+	src := m.Interfaces[0].Source
+
+	funcs, err := loadGraphQL(graphqlSource{
+		Schema:       src.Schema,
+		Operations:   src.Operations,
+		Scalars:      src.Scalars,
+		Descriptions: src.Descriptions,
+	})
+	if err != nil {
+		t.Fatalf("loadGraphQL: %v", err)
+	}
+
+	fn := findFunc(t, funcs, "get-meeting")
+
+	if fn.ClassName != operation {
+		t.Errorf("class = %q, want %q", fn.ClassName, operation)
+	}
+
+	wantInputs := []FieldInfo{{Name: "id", Type: "string", Required: true}}
+	if !reflect.DeepEqual(fn.Op.Inputs, wantInputs) {
+		t.Errorf("inputs = %+v, want %+v", fn.Op.Inputs, wantInputs)
+	}
+
+	outputs := make([]string, 0, len(fn.Op.Outputs))
+	for _, out := range fn.Op.Outputs {
+		outputs = append(outputs, out.Name)
+	}
+
+	wantOutputs := []string{"id", "title", "date", "duration", "organizer_email", "participants", "summary"}
+	if !slices.Equal(outputs, wantOutputs) {
+		t.Errorf("outputs = %v, want %v", outputs, wantOutputs)
+	}
+
+	if want := src.Descriptions[operation]; fn.Op.Description != want {
+		t.Errorf("description = %q, want %q", fn.Op.Description, want)
 	}
 }

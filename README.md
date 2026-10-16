@@ -16,6 +16,7 @@ This repo also holds the API specs and codegen tools used to produce those packa
 |---|---|---|---|
 | `canva/canva` | `github.com/yardrail/connectors/canva/canva` | 61 | 23 / 6 / 329 |
 | `egnyte/egnyte` | `github.com/yardrail/connectors/egnyte/egnyte` | 178 | 80 / 61 / 243 |
+| `fireflies/fireflies` | `github.com/yardrail/connectors/fireflies/fireflies` | — | — |
 | `hubspot/crm-contacts/v3` | `github.com/yardrail/connectors/hubspot/crm-contacts/v3` | 13 | 10 / 3 / 4 |
 | `mailchimp/marketing/v3` | `github.com/yardrail/connectors/mailchimp/marketing/v3` | 298 | 297 / 0 / 11 |
 | `monday/monday/v2` | `github.com/yardrail/connectors/monday/monday/v2` | — | — |
@@ -101,6 +102,7 @@ For GraphQL APIs, yardrail connector code is generated from hand-written operati
 
 - `spec/schema.graphql` holds the vendor schema, committed as downloaded. Redeclared built-in scalars and directives (`Int`, `String`, `@deprecated`, …) that introspection dumps contain are dropped by `yardrail-connector-codegen` when it parses the schema; the file needs no edits.
 - `operations/` holds one named operation per `.graphql` file, and the file's base name equals the operation name (`GetItem.graphql` holds `query GetItem`). Each operation becomes one connector function: `GetItem` becomes function `get-item` and CWL class `GetItem`. The class is the function name converted back to PascalCase, which equals the operation name for plain PascalCase names. Operation names become CWL class IRIs that workflows reference, so do not rename one after it ships.
+- `source.descriptions` in `manifest.yaml` maps an operation name to the description shown to workflow authors, overriding the schema's root-field description (`descriptions: {GetMeeting: "Gets a meeting's metadata and AI summary."}`). Use it when an operation's name or scope differs from the provider's root field. A name that matches no operation fails generation, and REST interfaces reject the field.
 - `manifest.yaml` declares the interface with `protocol: graphql` and a `source` block. Paths are relative to the manifest. Excerpt from `monday/monday/v2/manifest.yaml` (the full file also has the top-level `connector:` block with `id`, `name` and `description`, and sets the interface's `name`, `auth_method`, `auth_scope`, `headers` and `capabilities`):
 
 ```yaml
