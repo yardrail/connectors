@@ -20,32 +20,38 @@ const (
 	Oauth2Scopes = "oauth2.Scopes"
 )
 
-// DateTimeTimeZone defines model for DateTimeTimeZone.
+// DateTimeTimeZone A date and time with its time zone.
 type DateTimeTimeZone struct {
 	DateTime *string `json:"dateTime,omitempty"`
 	TimeZone *string `json:"timeZone,omitempty"`
 }
 
-// EmailAddress defines model for EmailAddress.
+// EmailAddress A person's name and email address.
 type EmailAddress struct {
 	Address *string `json:"address,omitempty"`
 	Name    *string `json:"name,omitempty"`
 }
 
-// Event defines model for Event.
+// Event A calendar event.
 type Event struct {
 	Attendees *[]struct {
+		// EmailAddress A person's name and email address.
 		EmailAddress *EmailAddress `json:"emailAddress,omitempty"`
 		Type         *string       `json:"type,omitempty"`
 	} `json:"attendees,omitempty"`
+
+	// End A date and time with its time zone.
 	End      *DateTimeTimeZone `json:"end,omitempty"`
 	Id       *string           `json:"id,omitempty"`
 	Location *struct {
 		DisplayName *string `json:"displayName,omitempty"`
 	} `json:"location,omitempty"`
 	Organizer *struct {
+		// EmailAddress A person's name and email address.
 		EmailAddress *EmailAddress `json:"emailAddress,omitempty"`
 	} `json:"organizer,omitempty"`
+
+	// Start A date and time with its time zone.
 	Start   *DateTimeTimeZone `json:"start,omitempty"`
 	Subject *string           `json:"subject,omitempty"`
 	WebLink *string           `json:"webLink,omitempty"`

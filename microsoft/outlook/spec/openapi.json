@@ -80,7 +80,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Calendar"
+        ]
       }
     }
   },
@@ -95,7 +98,8 @@
           "timeZone": {
             "type": "string"
           }
-        }
+        },
+        "description": "A date and time with its time zone."
       },
       "EmailAddress": {
         "type": "object",
@@ -106,7 +110,8 @@
           "address": {
             "type": "string"
           }
-        }
+        },
+        "description": "A person's name and email address."
       },
       "Event": {
         "type": "object",
@@ -156,7 +161,8 @@
           "webLink": {
             "type": "string"
           }
-        }
+        },
+        "description": "A calendar event."
       }
     },
     "securitySchemes": {
@@ -174,5 +180,11 @@
         }
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "Calendar",
+      "description": "Calendar events on a mailbox."
+    }
+  ]
 }

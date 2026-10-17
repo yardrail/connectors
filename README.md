@@ -12,19 +12,20 @@ This repo also holds the API specs and codegen tools used to produce those packa
 
 ## Connectors
 
-| Path | Module | Tools | Missing Desc (Op / Param / Component) |
-|---|---|---|---|
-| `canva/canva` | `github.com/yardrail/connectors/canva/canva` | 61 | 23 / 6 / 329 |
-| `egnyte/egnyte` | `github.com/yardrail/connectors/egnyte/egnyte` | 178 | 80 / 61 / 243 |
-| `fireflies/fireflies` | `github.com/yardrail/connectors/fireflies/fireflies` | — | — |
-| `hubspot/crm-contacts/v3` | `github.com/yardrail/connectors/hubspot/crm-contacts/v3` | 13 | 10 / 3 / 4 |
-| `mailchimp/marketing/v3` | `github.com/yardrail/connectors/mailchimp/marketing/v3` | 298 | 297 / 0 / 11 |
-| `monday/monday/v2` | `github.com/yardrail/connectors/monday/monday/v2` | — | — |
-| `notion/notion` | `github.com/yardrail/connectors/notion/notion` | 9 | 11 / 3 / 11 |
-| `officernd/officernd/v2` | `github.com/yardrail/connectors/officernd/officernd/v2` | 161 | 206 / 120 / 179 |
-| `quickbooks/account` | `github.com/yardrail/connectors/quickbooks/account` | 91 | 126 / 318 / 1 |
-| `slack/slack` | `github.com/yardrail/connectors/slack/slack` | 174 | 91 / 25 / 49 |
-| `stripe/stripe` | `github.com/yardrail/connectors/stripe/stripe` | 611 | 617 / 422 / 1237 |
+| Connector | Path | Module | Tools | Missing Desc (Op / Param / Component) |
+|---|---|---|---|---|
+| Canva | `canva/canva` | `github.com/yardrail/connectors/canva/canva` | 61 | 23 / 6 / 329 |
+| Egnyte | `egnyte/egnyte` | `github.com/yardrail/connectors/egnyte/egnyte` | 178 | 80 / 61 / 243 |
+| Fireflies | `fireflies/fireflies` | `github.com/yardrail/connectors/fireflies/fireflies` | — | — |
+| HubSpot CRM Contacts | `hubspot/crm-contacts/v3` | `github.com/yardrail/connectors/hubspot/crm-contacts/v3` | 13 | 10 / 3 / 4 |
+| Mailchimp | `mailchimp/marketing/v3` | `github.com/yardrail/connectors/mailchimp/marketing/v3` | 298 | 297 / 0 / 11 |
+| Microsoft Outlook | `microsoft/outlook` | `github.com/yardrail/connectors/microsoft/outlook` | — | 0 / 0 / 1 |
+| monday.com | `monday/monday/v2` | `github.com/yardrail/connectors/monday/monday/v2` | — | — |
+| Notion | `notion/notion` | `github.com/yardrail/connectors/notion/notion` | 9 | 11 / 3 / 11 |
+| officernd | `officernd/officernd/v2` | `github.com/yardrail/connectors/officernd/officernd/v2` | 161 | 206 / 120 / 179 |
+| QuickBooks Online Accounting | `quickbooks/account` | `github.com/yardrail/connectors/quickbooks/account` | 91 | 126 / 318 / 1 |
+| Slack | `slack/slack` | `github.com/yardrail/connectors/slack/slack` | 174 | 91 / 25 / 49 |
+| Stripe | `stripe/stripe` | `github.com/yardrail/connectors/stripe/stripe` | 611 | 617 / 422 / 1237 |
 
 Missing description counts are from [vacuum](https://github.com/daveshanley/vacuum) spectral reports run against each connector's OpenAPI spec. Lower is better — missing descriptions degrade MCP tool usability for LLMs.
 

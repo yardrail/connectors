@@ -1,0 +1,16 @@
+connector:
+  id: microsoft-outlook
+  name: Microsoft Outlook
+  description: Read calendar events from Microsoft Outlook. Does not read mail or change calendar data.
+
+interfaces:
+  - id: graph
+    name: Microsoft account
+    protocol: rest
+    auth_method: oauth2_user
+    auth_scope: org
+    security_scheme: oauth2
+    capabilities: [calendar.event.list]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/microsoft/outlook/client
