@@ -16,14 +16,14 @@
     }
   ],
   "paths": {
-    "/users/{user-id}/calendarView": {
+    "/users/{userId}/calendarView": {
       "get": {
         "operationId": "ListEvents",
         "summary": "Lists events on a mailbox's calendar between two times, including attendees. Read-only; does not return event bodies.",
         "description": "Lists events on a mailbox's calendar between two times, including attendees. Read-only; does not return event bodies.",
         "parameters": [
           {
-            "name": "user-id",
+            "name": "userId",
             "in": "path",
             "required": true,
             "description": "The mailbox's email address or user ID.",
