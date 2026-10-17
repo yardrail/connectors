@@ -1,0 +1,23 @@
+query ListItemsByColumnValues($boardId: ID!, $columnId: String!, $values: [String]!, $limit: Int = 500) {
+  items_page_by_column_values(
+    board_id: $boardId
+    columns: [{column_id: $columnId, column_values: $values}]
+    limit: $limit
+  ) {
+    cursor
+    items {
+      id
+      name
+      group {
+        id
+        title
+      }
+      column_values {
+        id
+        type
+        text
+        value
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+query ListBoardItems($boardId: ID!, $groupIds: [String], $limit: Int = 500) {
+  boards(ids: [$boardId]) {
+    groups(ids: $groupIds) {
+      id
+      title
+      items_page(limit: $limit) {
+        cursor
+        items {
+          id
+          name
+          group {
+            id
+            title
+          }
+          column_values {
+            id
+            type
+            text
+            value
+          }
+        }
+      }
+    }
+  }
+}
