@@ -234,9 +234,8 @@ func loadConnector(root, dir, relPath, manifestPath string) (connectorInfo, erro
 		c.Name = m.Connector.Name
 		c.Description = m.Connector.Description
 	} else {
-		// Derive name from path
-		parts := strings.Split(relPath, "/")
-		c.Name = parts[len(parts)-1]
+		// Derive name from the path's top directory (the vendor)
+		c.Name = strings.Split(relPath, "/")[0]
 	}
 
 	// Check for spec/client/mcp

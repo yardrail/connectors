@@ -6,10 +6,10 @@ This repo also holds the API specs and codegen tools used to produce those packa
 
 ## Connectors
 
-| Path | Module | Tools | Missing Desc (Op / Param / Component) |
-|---|---|---|---|
+| Connector | Path | Module | Tools | Missing Desc (Op / Param / Component) |
+|---|---|---|---|---|
 {{- range .Connectors}}
-| `{{.Path}}` | `{{.Module}}` | {{dash .Tools}} | {{descTriple .MissingOpDesc .MissingParamDesc .MissingCompDesc}} |
+| {{.Name}} | `{{.Path}}` | `{{.Module}}` | {{dash .Tools}} | {{descTriple .MissingOpDesc .MissingParamDesc .MissingCompDesc}} |
 {{- end}}
 
 Missing description counts are from [vacuum](https://github.com/daveshanley/vacuum) spectral reports run against each connector's OpenAPI spec. Lower is better — missing descriptions degrade MCP tool usability for LLMs.

@@ -6,6 +6,7 @@ use (
 	./fireflies/fireflies
 	./hubspot/crm-contacts/v3
 	./mailchimp/marketing/v3
+	./microsoft/outlook
 	./monday/monday/v2
 	./notion/notion
 	./officernd/officernd/v2

@@ -105,6 +105,14 @@ tasks:
           MANIFEST: "{{.ROOT_DIR}}/fireflies/fireflies/manifest.yaml"
           NAME: fireflies
 
+  generate:connector:outlook:
+    desc: Generate yardrail Microsoft Outlook connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/microsoft/outlook/manifest.yaml"
+          NAME: outlook
+
   docs:readme:
     desc: Regenerate README.md from template
     dir: tools
