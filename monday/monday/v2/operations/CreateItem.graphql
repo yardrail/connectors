@@ -1,0 +1,16 @@
+mutation CreateItem($boardId: ID!, $groupId: String!, $itemName: String!, $columnValues: JSON) {
+  create_item(board_id: $boardId, group_id: $groupId, item_name: $itemName, column_values: $columnValues) {
+    id
+    name
+    group {
+      id
+      title
+    }
+    column_values {
+      id
+      type
+      text
+      value
+    }
+  }
+}
