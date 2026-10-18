@@ -1,7 +1,7 @@
 connector:
   id: monday
   name: monday.com
-  description: List, find, create, read and update items, post updates and list users on monday.com boards.
+  description: List, find, create, read and update items, list board columns, post updates and list users on monday.com boards.
 
 security_schemes:
   mondayToken:
@@ -20,7 +20,7 @@ interfaces:
       Authorization: token
     headers:
       API-Version: "2026-07"
-    capabilities: [item.read, item.list, item.create, item.update, update.create, user.list]
+    capabilities: [item.read, item.list, item.create, item.update, update.create, user.list, column.list]
     source:
       schema: spec/schema.graphql
       operations: operations/
@@ -32,3 +32,4 @@ interfaces:
         ListBoardItems: "Lists a board's items with their column values, optionally limited to some groups. Returns up to 500 items per group and a cursor; does not fetch further pages."
         ListItemsByColumnValues: "Finds a board's items whose column matches any of the given values. Returns up to 500 items and a cursor; does not fetch further pages."
         CreateItem: "Creates an item in a board group with initial column values. Uses only labels the board already has."
+        ListBoardColumns: "Lists a board's columns with their IDs, titles, types and settings, including status and dropdown labels."
