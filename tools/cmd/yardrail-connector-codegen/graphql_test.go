@@ -280,8 +280,19 @@ func TestLoadMondaySchema(t *testing.T) {
 			t.Fatalf("loadGraphQL: %v", err)
 		}
 
-		if got := inputType(t, funcs, "change-multiple-column-values", "columnValues"); got != "string" {
-			t.Errorf("columnValues type = %q, want string", got)
+		inputs := []struct {
+			fn, input, want string
+		}{
+			{"change-multiple-column-values", "columnValues", "string"},
+			{"list-board-items", "groupIds", "array"},
+			{"list-board-items", "limit", "integer"},
+			{"create-item", "columnValues", "string"},
+		}
+
+		for _, in := range inputs {
+			if got := inputType(t, funcs, in.fn, in.input); got != in.want {
+				t.Errorf("%s %s type = %q, want %q", in.fn, in.input, got, in.want)
+			}
 		}
 	})
 
@@ -291,7 +302,10 @@ func TestLoadMondaySchema(t *testing.T) {
 	}{
 		{"query", "items"},
 		{"query", "users"},
+		{"query", "boards"},
+		{"query", "items_page_by_column_values"},
 		{"mutation", "change_multiple_column_values"},
+		{"mutation", "create_item"},
 		{"mutation", "create_update"},
 	}
 
