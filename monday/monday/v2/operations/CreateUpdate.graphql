@@ -1,5 +1,5 @@
-mutation CreateUpdate($itemId: ID!, $body: String!) {
-  create_update(item_id: $itemId, body: $body) {
+mutation CreateUpdate($itemId: ID!, $body: String!, $mentionsList: [UpdateMention]) {
+  create_update(item_id: $itemId, body: $body, mentions_list: $mentionsList) {
     id
     body
     created_at
