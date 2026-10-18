@@ -1,0 +1,190 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Microsoft Graph Outlook Calendar",
+    "version": "v1.0",
+    "description": "Read-only access to Outlook calendar events through Microsoft Graph."
+  },
+  "servers": [
+    {
+      "url": "https://graph.microsoft.com/v1.0"
+    }
+  ],
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "paths": {
+    "/users/{userId}/calendarView": {
+      "get": {
+        "operationId": "ListEvents",
+        "summary": "Lists events on a mailbox's calendar between two times, including attendees. Read-only; does not return event bodies.",
+        "description": "Lists events on a mailbox's calendar between two times, including attendees. Read-only; does not return event bodies.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The mailbox's email address or user ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDateTime",
+            "in": "query",
+            "required": true,
+            "description": "Start of the time window, ISO 8601.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDateTime",
+            "in": "query",
+            "required": true,
+            "description": "End of the time window, ISO 8601.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of events to return.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Events in the time window.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Event"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Calendar"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DateTimeTimeZone": {
+        "type": "object",
+        "properties": {
+          "dateTime": {
+            "type": "string"
+          },
+          "timeZone": {
+            "type": "string"
+          }
+        },
+        "description": "A date and time with its time zone."
+      },
+      "EmailAddress": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "description": "A person's name and email address."
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "start": {
+            "$ref": "#/components/schemas/DateTimeTimeZone"
+          },
+          "end": {
+            "$ref": "#/components/schemas/DateTimeTimeZone"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "displayName": {
+                "type": "string"
+              }
+            }
+          },
+          "organizer": {
+            "type": "object",
+            "properties": {
+              "emailAddress": {
+                "$ref": "#/components/schemas/EmailAddress"
+              }
+            }
+          },
+          "attendees": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "emailAddress": {
+                  "$ref": "#/components/schemas/EmailAddress"
+                }
+              }
+            }
+          },
+          "webLink": {
+            "type": "string"
+          }
+        },
+        "description": "A calendar event."
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+            "tokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+            "scopes": {
+              "Calendars.Read.Shared": "Read calendars the signed-in user can access, including shared calendars.",
+              "offline_access": "Keep access by refreshing tokens."
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Calendar",
+      "description": "Calendar events on a mailbox."
+    }
+  ]
+}
