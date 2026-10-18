@@ -288,6 +288,7 @@ func TestLoadMondaySchema(t *testing.T) {
 			{"list-board-items", "limit", "integer"},
 			{"create-item", "columnValues", "string"},
 			{"create-update", "mentionsList", "array"},
+			{"list-board-columns", "boardId", "string"},
 		}
 
 		for _, in := range inputs {
