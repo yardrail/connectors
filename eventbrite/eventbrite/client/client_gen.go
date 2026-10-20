@@ -239,30 +239,6 @@ func (e CreateAVenueBodyVenueAgeRestriction) Valid() bool {
 	}
 }
 
-// Defines values for ListOrdersByEventIDStatus.
-const (
-	ListOrdersByEventIDStatusActive        ListOrdersByEventIDStatus = "active"
-	ListOrdersByEventIDStatusAllNotDeleted ListOrdersByEventIDStatus = "all_not_deleted"
-	ListOrdersByEventIDStatusBoth          ListOrdersByEventIDStatus = "both"
-	ListOrdersByEventIDStatusInactive      ListOrdersByEventIDStatus = "inactive"
-)
-
-// Valid indicates whether the value is a known member of the ListOrdersByEventIDStatus enum.
-func (e ListOrdersByEventIDStatus) Valid() bool {
-	switch e {
-	case ListOrdersByEventIDStatusActive:
-		return true
-	case ListOrdersByEventIDStatusAllNotDeleted:
-		return true
-	case ListOrdersByEventIDStatusBoth:
-		return true
-	case ListOrdersByEventIDStatusInactive:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for UpdateADiscountBodyDiscountType.
 const (
 	UpdateADiscountBodyDiscountTypeAccess UpdateADiscountBodyDiscountType = "access"
@@ -311,27 +287,6 @@ func (e UpdateADiscountJSONBodyDiscountType) Valid() bool {
 	}
 }
 
-// Defines values for ListAttendeesByEventJSONBody.
-const (
-	ListAttendeesByEventJSONBodyAttending    ListAttendeesByEventJSONBody = "attending"
-	ListAttendeesByEventJSONBodyNotAttending ListAttendeesByEventJSONBody = "not_attending"
-	ListAttendeesByEventJSONBodyUnpaid       ListAttendeesByEventJSONBody = "unpaid"
-)
-
-// Valid indicates whether the value is a known member of the ListAttendeesByEventJSONBody enum.
-func (e ListAttendeesByEventJSONBody) Valid() bool {
-	switch e {
-	case ListAttendeesByEventJSONBodyAttending:
-		return true
-	case ListAttendeesByEventJSONBodyNotAttending:
-		return true
-	case ListAttendeesByEventJSONBodyUnpaid:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for UpdateDisplaySettingsJSONBodyDisplaySettingsTerminology.
 const (
 	EnduranceVertical UpdateDisplaySettingsJSONBodyDisplaySettingsTerminology = "endurance_vertical"
@@ -344,66 +299,6 @@ func (e UpdateDisplaySettingsJSONBodyDisplaySettingsTerminology) Valid() bool {
 	case EnduranceVertical:
 		return true
 	case TicketsVertical:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListOrdersByEventIDJSONBody.
-const (
-	ListOrdersByEventIDJSONBodyActive        ListOrdersByEventIDJSONBody = "active"
-	ListOrdersByEventIDJSONBodyAllNotDeleted ListOrdersByEventIDJSONBody = "all_not_deleted"
-	ListOrdersByEventIDJSONBodyBoth          ListOrdersByEventIDJSONBody = "both"
-	ListOrdersByEventIDJSONBodyInactive      ListOrdersByEventIDJSONBody = "inactive"
-)
-
-// Valid indicates whether the value is a known member of the ListOrdersByEventIDJSONBody enum.
-func (e ListOrdersByEventIDJSONBody) Valid() bool {
-	switch e {
-	case ListOrdersByEventIDJSONBodyActive:
-		return true
-	case ListOrdersByEventIDJSONBodyAllNotDeleted:
-		return true
-	case ListOrdersByEventIDJSONBodyBoth:
-		return true
-	case ListOrdersByEventIDJSONBodyInactive:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListTicketClassesByEventJSONBody.
-const (
-	ListTicketClassesByEventJSONBodyAtTheDoor ListTicketClassesByEventJSONBody = "at_the_door"
-	ListTicketClassesByEventJSONBodyOnline    ListTicketClassesByEventJSONBody = "online"
-)
-
-// Valid indicates whether the value is a known member of the ListTicketClassesByEventJSONBody enum.
-func (e ListTicketClassesByEventJSONBody) Valid() bool {
-	switch e {
-	case ListTicketClassesByEventJSONBodyAtTheDoor:
-		return true
-	case ListTicketClassesByEventJSONBodyOnline:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListTicketClassesAvailableForSaleByEventJSONBody.
-const (
-	ListTicketClassesAvailableForSaleByEventJSONBodyAtTheDoor ListTicketClassesAvailableForSaleByEventJSONBody = "at_the_door"
-	ListTicketClassesAvailableForSaleByEventJSONBodyOnline    ListTicketClassesAvailableForSaleByEventJSONBody = "online"
-)
-
-// Valid indicates whether the value is a known member of the ListTicketClassesAvailableForSaleByEventJSONBody enum.
-func (e ListTicketClassesAvailableForSaleByEventJSONBody) Valid() bool {
-	switch e {
-	case ListTicketClassesAvailableForSaleByEventJSONBodyAtTheDoor:
-		return true
-	case ListTicketClassesAvailableForSaleByEventJSONBodyOnline:
 		return true
 	default:
 		return false
@@ -572,24 +467,6 @@ func (e RefundOrderJSONBodyRefundRetentionPolicyStrategyCode) Valid() bool {
 	}
 }
 
-// Defines values for ListAttendeesByOrganizationJSONBody.
-const (
-	ListAttendeesByOrganizationJSONBodyAttending    ListAttendeesByOrganizationJSONBody = "attending"
-	ListAttendeesByOrganizationJSONBodyNotAttending ListAttendeesByOrganizationJSONBody = "not_attending"
-)
-
-// Valid indicates whether the value is a known member of the ListAttendeesByOrganizationJSONBody enum.
-func (e ListAttendeesByOrganizationJSONBody) Valid() bool {
-	switch e {
-	case ListAttendeesByOrganizationJSONBodyAttending:
-		return true
-	case ListAttendeesByOrganizationJSONBodyNotAttending:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for SearchDiscountsByOrganizationParamsScope.
 const (
 	SearchDiscountsByOrganizationParamsScopeEvent       SearchDiscountsByOrganizationParamsScope = "event"
@@ -725,30 +602,6 @@ func (e CreateAnEventJSONBodyEventLocale) Valid() bool {
 	case PtBR:
 		return true
 	case PtPT:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListOrdersByOrganizationIDJSONBody.
-const (
-	Active        ListOrdersByOrganizationIDJSONBody = "active"
-	AllNotDeleted ListOrdersByOrganizationIDJSONBody = "all_not_deleted"
-	Both          ListOrdersByOrganizationIDJSONBody = "both"
-	Inactive      ListOrdersByOrganizationIDJSONBody = "inactive"
-)
-
-// Valid indicates whether the value is a known member of the ListOrdersByOrganizationIDJSONBody enum.
-func (e ListOrdersByOrganizationIDJSONBody) Valid() bool {
-	switch e {
-	case Active:
-		return true
-	case AllNotDeleted:
-		return true
-	case Both:
-		return true
-	case Inactive:
 		return true
 	default:
 		return false
@@ -1076,27 +929,6 @@ func (e ListPricingParamsItemType) Valid() bool {
 	}
 }
 
-// Defines values for ListEventsBySeriesJSONBody.
-const (
-	ListEventsBySeriesJSONBodyAll           ListEventsBySeriesJSONBody = "all"
-	ListEventsBySeriesJSONBodyCurrentFuture ListEventsBySeriesJSONBody = "current_future"
-	ListEventsBySeriesJSONBodyPast          ListEventsBySeriesJSONBody = "past"
-)
-
-// Valid indicates whether the value is a known member of the ListEventsBySeriesJSONBody enum.
-func (e ListEventsBySeriesJSONBody) Valid() bool {
-	switch e {
-	case ListEventsBySeriesJSONBodyAll:
-		return true
-	case ListEventsBySeriesJSONBodyCurrentFuture:
-		return true
-	case ListEventsBySeriesJSONBodyPast:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for UpdateAVenueJSONBodyVenueAgeRestriction.
 const (
 	AGERESTRICTIONALLAGES                    UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_ALL_AGES"
@@ -1139,39 +971,6 @@ func (e UpdateAVenueJSONBodyVenueAgeRestriction) Valid() bool {
 	case AGERESTRICTIONUNDEREIGHTEENWITHGUARDIAN:
 		return true
 	case AGERESTRICTIONUNDERTWENTYONEWITHGUARDIAN:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListEventsByVenueJSONBody.
-const (
-	ListEventsByVenueJSONBodyAll       ListEventsByVenueJSONBody = "all"
-	ListEventsByVenueJSONBodyCanceled  ListEventsByVenueJSONBody = "canceled"
-	ListEventsByVenueJSONBodyCompleted ListEventsByVenueJSONBody = "completed"
-	ListEventsByVenueJSONBodyDraft     ListEventsByVenueJSONBody = "draft"
-	ListEventsByVenueJSONBodyEnded     ListEventsByVenueJSONBody = "ended"
-	ListEventsByVenueJSONBodyLive      ListEventsByVenueJSONBody = "live"
-	ListEventsByVenueJSONBodyStarted   ListEventsByVenueJSONBody = "started"
-)
-
-// Valid indicates whether the value is a known member of the ListEventsByVenueJSONBody enum.
-func (e ListEventsByVenueJSONBody) Valid() bool {
-	switch e {
-	case ListEventsByVenueJSONBodyAll:
-		return true
-	case ListEventsByVenueJSONBodyCanceled:
-		return true
-	case ListEventsByVenueJSONBodyCompleted:
-		return true
-	case ListEventsByVenueJSONBodyDraft:
-		return true
-	case ListEventsByVenueJSONBodyEnded:
-		return true
-	case ListEventsByVenueJSONBodyLive:
-		return true
-	case ListEventsByVenueJSONBodyStarted:
 		return true
 	default:
 		return false
@@ -1322,15 +1121,6 @@ type CreateAVenueBody struct {
 // CreateAVenueBodyVenueAgeRestriction The age restrictions for the venue
 type CreateAVenueBodyVenueAgeRestriction string
 
-// ListOrdersByEventIDStatus defines model for List_Orders_by_Event_IDStatus.
-type ListOrdersByEventIDStatus string
-
-// RetrieveLatestPublishedVersionOfStructuredContentByEventIdPurpose defines model for Retrieve_Latest_Published_Version_of_Structured_Content_by_Event_IdPurpose.
-type RetrieveLatestPublishedVersionOfStructuredContentByEventIdPurpose = string
-
-// RetrieveAAttendeeReportEventIds defines model for Retrieve_a_Attendee_ReportEventIds.
-type RetrieveAAttendeeReportEventIds = string
-
 // UpdateADiscountBody defines model for Update_a_DiscountBody.
 type UpdateADiscountBody struct {
 	Discount *struct {
@@ -1377,9 +1167,6 @@ type UpdateADiscountBody struct {
 
 // UpdateADiscountBodyDiscountType The type of discount
 type UpdateADiscountBodyDiscountType string
-
-// RemainingBalanceJSONBody defines parameters for RemainingBalance.
-type RemainingBalanceJSONBody = string
 
 // UpdateADiscountJSONBody defines parameters for UpdateADiscount.
 type UpdateADiscountJSONBody struct {
@@ -1433,9 +1220,6 @@ type UpdateDefaultQuestionByIdParams struct {
 	// Plus e.g. Authorization: Bearer PERSONAL_OAUTH_TOKEN
 	Plus *string `json:"+,omitempty"`
 }
-
-// SearchEventsDeprecatedJSONBody defines parameters for SearchEventsDeprecated.
-type SearchEventsDeprecatedJSONBody = string
 
 // UpdateAnEventJSONBody defines parameters for UpdateAnEvent.
 type UpdateAnEventJSONBody struct {
@@ -1538,12 +1322,6 @@ type UpdateAnEventJSONBody struct {
 		VenueId *string `json:"venue_id,omitempty"`
 	} `json:"event,omitempty"`
 }
-
-// ListAttendeesByEventJSONBody defines parameters for ListAttendeesByEvent.
-type ListAttendeesByEventJSONBody string
-
-// ListDefaultQuestionsByEventJSONBody defines parameters for ListDefaultQuestionsByEvent.
-type ListDefaultQuestionsByEventJSONBody = bool
 
 // CreateADefaultQuestionForAnEventJSONBody defines parameters for CreateADefaultQuestionForAnEvent.
 type CreateADefaultQuestionForAnEventJSONBody struct {
@@ -1651,12 +1429,6 @@ type UpdateAnInventoryTierJSONBody struct {
 	} `json:"inventory_tier,omitempty"`
 }
 
-// ListOrdersByEventIDJSONBody defines parameters for ListOrdersByEventID.
-type ListOrdersByEventIDJSONBody string
-
-// ListCustomQuestionsByEventJSONBody defines parameters for ListCustomQuestionsByEvent.
-type ListCustomQuestionsByEventJSONBody = bool
-
 // CreateACustomQuestionForAnEventJSONBody defines parameters for CreateACustomQuestionForAnEvent.
 type CreateACustomQuestionForAnEventJSONBody struct {
 	// Headers Authorization: Bearer PERSONAL_OAUTH_TOKEN
@@ -1753,14 +1525,8 @@ type UpdateTicketBuyerSettingsForAnEventJSONBody struct {
 	} `json:"ticket_buyer_settings,omitempty"`
 }
 
-// ListTicketClassesByEventJSONBody defines parameters for ListTicketClassesByEvent.
-type ListTicketClassesByEventJSONBody string
-
 // CreateATicketClassJSONBody defines parameters for CreateATicketClass.
 type CreateATicketClassJSONBody = string
-
-// ListTicketClassesAvailableForSaleByEventJSONBody defines parameters for ListTicketClassesAvailableForSaleByEvent.
-type ListTicketClassesAvailableForSaleByEventJSONBody string
 
 // UpdateATicketClassJSONBody defines parameters for UpdateATicketClass.
 type UpdateATicketClassJSONBody struct {
@@ -1885,12 +1651,6 @@ type UpdateATicketClassJSONBody struct {
 // UpdateATicketClassJSONBodyTicketClassSalesEndRelativeRelativeToEvent defines parameters for UpdateATicketClass.
 type UpdateATicketClassJSONBodyTicketClassSalesEndRelativeRelativeToEvent string
 
-// RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONBody defines parameters for RetrieveLatestPublishedVersionOfStructuredContentByEventId.
-type RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONBody = string
-
-// RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONBody defines parameters for RetrieveLatestWorkingVersionOfStructuredContentByEventId.
-type RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONBody = string
-
 // SetStructuredContentByEventIdAndVersionJSONBody defines parameters for SetStructuredContentByEventIdAndVersion.
 type SetStructuredContentByEventIdAndVersionJSONBody struct {
 	AccessType *SetStructuredContentByEventIdAndVersionJSONBodyAccessType `json:"access_type,omitempty"`
@@ -1942,9 +1702,6 @@ type RetrieveMediaParams struct {
 	Height *int `form:"height,omitempty" json:"height,omitempty"`
 }
 
-// GetRefundRetentionPolicyJSONBody defines parameters for GetRefundRetentionPolicy.
-type GetRefundRetentionPolicyJSONBody = string
-
 // RefundOrderJSONBody defines parameters for RefundOrder.
 type RefundOrderJSONBody struct {
 	// CreditExpirationPeriod Expiration period of credit issued for refund.  Defaults to the value configured by Event [Refund Policy](#refund_policy_object).
@@ -1980,12 +1737,6 @@ type RefundOrderJSONBodyRefundMethod string
 
 // RefundOrderJSONBodyRefundRetentionPolicyStrategyCode defines parameters for RefundOrder.
 type RefundOrderJSONBodyRefundRetentionPolicyStrategyCode string
-
-// ListAttendeesByOrganizationJSONBody defines parameters for ListAttendeesByOrganization.
-type ListAttendeesByOrganizationJSONBody string
-
-// SearchDiscountsByOrganizationJSONBody defines parameters for SearchDiscountsByOrganization.
-type SearchDiscountsByOrganizationJSONBody = string
 
 // SearchDiscountsByOrganizationParams defines parameters for SearchDiscountsByOrganization.
 type SearchDiscountsByOrganizationParams struct {
@@ -2042,9 +1793,6 @@ type CreateADiscountJSONBody struct {
 
 // CreateADiscountJSONBodyDiscountType defines parameters for CreateADiscount.
 type CreateADiscountJSONBodyDiscountType string
-
-// ListEventsByOrganizationJSONBody defines parameters for ListEventsByOrganization.
-type ListEventsByOrganizationJSONBody = string
 
 // CreateAnEventJSONBody defines parameters for CreateAnEvent.
 type CreateAnEventJSONBody struct {
@@ -2160,9 +1908,6 @@ type AddATicketClassToTicketGroupsJSONBody struct {
 	TicketGroupIds *[]interface{} `json:"ticket_group_ids,omitempty"`
 }
 
-// ListOrdersByOrganizationIDJSONBody defines parameters for ListOrdersByOrganizationID.
-type ListOrdersByOrganizationIDJSONBody string
-
 // ListSeatMapsByOrganizationParams defines parameters for ListSeatMapsByOrganization.
 type ListSeatMapsByOrganizationParams struct {
 	// VenueId Filter Seat Maps by a venue.
@@ -2204,9 +1949,6 @@ type CreateTextOverridesJSONBody struct {
 	// VenueId Venue ID.
 	VenueId *string `json:"venue_id,omitempty"`
 }
-
-// ListTicketGroupsByOrganizationJSONBody defines parameters for ListTicketGroupsByOrganization.
-type ListTicketGroupsByOrganizationJSONBody = string
 
 // CreateATicketGroupJSONBody defines parameters for CreateATicketGroup.
 type CreateATicketGroupJSONBody struct {
@@ -2359,15 +2101,6 @@ type ListPricingParamsChannel string
 // ListPricingParamsItemType defines parameters for ListPricing.
 type ListPricingParamsItemType string
 
-// RetrieveAAttendeeReportJSONBody defines parameters for RetrieveAAttendeeReport.
-type RetrieveAAttendeeReportJSONBody = string
-
-// RetrieveASalesReportJSONBody defines parameters for RetrieveASalesReport.
-type RetrieveASalesReportJSONBody = string
-
-// ListEventsBySeriesJSONBody defines parameters for ListEventsBySeries.
-type ListEventsBySeriesJSONBody string
-
 // UpdateATicketGroupJSONBody defines parameters for UpdateATicketGroup.
 type UpdateATicketGroupJSONBody struct {
 	TicketGroup *struct {
@@ -2381,9 +2114,6 @@ type UpdateATicketGroupJSONBody struct {
 		Status *string `json:"status,omitempty"`
 	} `json:"ticket_group,omitempty"`
 }
-
-// ListOrdersByUserIDJSONBody defines parameters for ListOrdersByUserID.
-type ListOrdersByUserIDJSONBody = string
 
 // UpdateAVenueJSONBody defines parameters for UpdateAVenue.
 type UpdateAVenueJSONBody struct {
@@ -2435,29 +2165,14 @@ type UpdateAVenueJSONBody struct {
 // UpdateAVenueJSONBodyVenueAgeRestriction defines parameters for UpdateAVenue.
 type UpdateAVenueJSONBodyVenueAgeRestriction string
 
-// ListEventsByVenueJSONBody defines parameters for ListEventsByVenue.
-type ListEventsByVenueJSONBody string
-
 // CreateWebhooksDeprecatedJSONBody defines parameters for CreateWebhooksDeprecated.
 type CreateWebhooksDeprecatedJSONBody = string
-
-// RemainingBalanceJSONRequestBody defines body for RemainingBalance for application/json ContentType.
-type RemainingBalanceJSONRequestBody = RemainingBalanceJSONBody
 
 // UpdateADiscountJSONRequestBody defines body for UpdateADiscount for application/json ContentType.
 type UpdateADiscountJSONRequestBody UpdateADiscountJSONBody
 
-// SearchEventsDeprecatedJSONRequestBody defines body for SearchEventsDeprecated for application/json ContentType.
-type SearchEventsDeprecatedJSONRequestBody = SearchEventsDeprecatedJSONBody
-
 // UpdateAnEventJSONRequestBody defines body for UpdateAnEvent for application/json ContentType.
 type UpdateAnEventJSONRequestBody UpdateAnEventJSONBody
-
-// ListAttendeesByEventJSONRequestBody defines body for ListAttendeesByEvent for application/json ContentType.
-type ListAttendeesByEventJSONRequestBody ListAttendeesByEventJSONBody
-
-// ListDefaultQuestionsByEventJSONRequestBody defines body for ListDefaultQuestionsByEvent for application/json ContentType.
-type ListDefaultQuestionsByEventJSONRequestBody = ListDefaultQuestionsByEventJSONBody
 
 // CreateADefaultQuestionForAnEventJSONRequestBody defines body for CreateADefaultQuestionForAnEvent for application/json ContentType.
 type CreateADefaultQuestionForAnEventJSONRequestBody CreateADefaultQuestionForAnEventJSONBody
@@ -2477,12 +2192,6 @@ type UpdateMultipleInventoryTiersJSONRequestBody UpdateMultipleInventoryTiersJSO
 // UpdateAnInventoryTierJSONRequestBody defines body for UpdateAnInventoryTier for application/json ContentType.
 type UpdateAnInventoryTierJSONRequestBody UpdateAnInventoryTierJSONBody
 
-// ListOrdersByEventIDJSONRequestBody defines body for ListOrdersByEventID for application/json ContentType.
-type ListOrdersByEventIDJSONRequestBody ListOrdersByEventIDJSONBody
-
-// ListCustomQuestionsByEventJSONRequestBody defines body for ListCustomQuestionsByEvent for application/json ContentType.
-type ListCustomQuestionsByEventJSONRequestBody = ListCustomQuestionsByEventJSONBody
-
 // CreateACustomQuestionForAnEventJSONRequestBody defines body for CreateACustomQuestionForAnEvent for application/json ContentType.
 type CreateACustomQuestionForAnEventJSONRequestBody CreateACustomQuestionForAnEventJSONBody
 
@@ -2501,23 +2210,11 @@ type VerifyPasswordForATeamJSONRequestBody VerifyPasswordForATeamJSONBody
 // UpdateTicketBuyerSettingsForAnEventJSONRequestBody defines body for UpdateTicketBuyerSettingsForAnEvent for application/json ContentType.
 type UpdateTicketBuyerSettingsForAnEventJSONRequestBody UpdateTicketBuyerSettingsForAnEventJSONBody
 
-// ListTicketClassesByEventJSONRequestBody defines body for ListTicketClassesByEvent for application/json ContentType.
-type ListTicketClassesByEventJSONRequestBody ListTicketClassesByEventJSONBody
-
 // CreateATicketClassJSONRequestBody defines body for CreateATicketClass for application/json ContentType.
 type CreateATicketClassJSONRequestBody = CreateATicketClassJSONBody
 
-// ListTicketClassesAvailableForSaleByEventJSONRequestBody defines body for ListTicketClassesAvailableForSaleByEvent for application/json ContentType.
-type ListTicketClassesAvailableForSaleByEventJSONRequestBody ListTicketClassesAvailableForSaleByEventJSONBody
-
 // UpdateATicketClassJSONRequestBody defines body for UpdateATicketClass for application/json ContentType.
 type UpdateATicketClassJSONRequestBody UpdateATicketClassJSONBody
-
-// RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONRequestBody defines body for RetrieveLatestPublishedVersionOfStructuredContentByEventId for application/json ContentType.
-type RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONRequestBody = RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONBody
-
-// RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONRequestBody defines body for RetrieveLatestWorkingVersionOfStructuredContentByEventId for application/json ContentType.
-type RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONRequestBody = RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONBody
 
 // SetStructuredContentByEventIdAndVersionJSONRequestBody defines body for SetStructuredContentByEventIdAndVersion for application/json ContentType.
 type SetStructuredContentByEventIdAndVersionJSONRequestBody SetStructuredContentByEventIdAndVersionJSONBody
@@ -2525,23 +2222,11 @@ type SetStructuredContentByEventIdAndVersionJSONRequestBody SetStructuredContent
 // UploadAMediaFileJSONRequestBody defines body for UploadAMediaFile for application/json ContentType.
 type UploadAMediaFileJSONRequestBody UploadAMediaFileJSONBody
 
-// GetRefundRetentionPolicyJSONRequestBody defines body for GetRefundRetentionPolicy for application/json ContentType.
-type GetRefundRetentionPolicyJSONRequestBody = GetRefundRetentionPolicyJSONBody
-
 // RefundOrderJSONRequestBody defines body for RefundOrder for application/json ContentType.
 type RefundOrderJSONRequestBody RefundOrderJSONBody
 
-// ListAttendeesByOrganizationJSONRequestBody defines body for ListAttendeesByOrganization for application/json ContentType.
-type ListAttendeesByOrganizationJSONRequestBody ListAttendeesByOrganizationJSONBody
-
-// SearchDiscountsByOrganizationJSONRequestBody defines body for SearchDiscountsByOrganization for application/json ContentType.
-type SearchDiscountsByOrganizationJSONRequestBody = SearchDiscountsByOrganizationJSONBody
-
 // CreateADiscountJSONRequestBody defines body for CreateADiscount for application/json ContentType.
 type CreateADiscountJSONRequestBody CreateADiscountJSONBody
-
-// ListEventsByOrganizationJSONRequestBody defines body for ListEventsByOrganization for application/json ContentType.
-type ListEventsByOrganizationJSONRequestBody = ListEventsByOrganizationJSONBody
 
 // CreateAnEventJSONRequestBody defines body for CreateAnEvent for application/json ContentType.
 type CreateAnEventJSONRequestBody CreateAnEventJSONBody
@@ -2549,14 +2234,8 @@ type CreateAnEventJSONRequestBody CreateAnEventJSONBody
 // AddATicketClassToTicketGroupsJSONRequestBody defines body for AddATicketClassToTicketGroups for application/json ContentType.
 type AddATicketClassToTicketGroupsJSONRequestBody AddATicketClassToTicketGroupsJSONBody
 
-// ListOrdersByOrganizationIDJSONRequestBody defines body for ListOrdersByOrganizationID for application/json ContentType.
-type ListOrdersByOrganizationIDJSONRequestBody ListOrdersByOrganizationIDJSONBody
-
 // CreateTextOverridesJSONRequestBody defines body for CreateTextOverrides for application/json ContentType.
 type CreateTextOverridesJSONRequestBody CreateTextOverridesJSONBody
-
-// ListTicketGroupsByOrganizationJSONRequestBody defines body for ListTicketGroupsByOrganization for application/json ContentType.
-type ListTicketGroupsByOrganizationJSONRequestBody = ListTicketGroupsByOrganizationJSONBody
 
 // CreateATicketGroupJSONRequestBody defines body for CreateATicketGroup for application/json ContentType.
 type CreateATicketGroupJSONRequestBody CreateATicketGroupJSONBody
@@ -2570,26 +2249,11 @@ type CreateWebhooksByOrganizationIDJSONRequestBody CreateWebhooksByOrganizationI
 // CalculateItemsJSONRequestBody defines body for CalculateItems for application/json ContentType.
 type CalculateItemsJSONRequestBody CalculateItemsJSONBody
 
-// RetrieveAAttendeeReportJSONRequestBody defines body for RetrieveAAttendeeReport for application/json ContentType.
-type RetrieveAAttendeeReportJSONRequestBody = RetrieveAAttendeeReportJSONBody
-
-// RetrieveASalesReportJSONRequestBody defines body for RetrieveASalesReport for application/json ContentType.
-type RetrieveASalesReportJSONRequestBody = RetrieveASalesReportJSONBody
-
-// ListEventsBySeriesJSONRequestBody defines body for ListEventsBySeries for application/json ContentType.
-type ListEventsBySeriesJSONRequestBody ListEventsBySeriesJSONBody
-
 // UpdateATicketGroupJSONRequestBody defines body for UpdateATicketGroup for application/json ContentType.
 type UpdateATicketGroupJSONRequestBody UpdateATicketGroupJSONBody
 
-// ListOrdersByUserIDJSONRequestBody defines body for ListOrdersByUserID for application/json ContentType.
-type ListOrdersByUserIDJSONRequestBody = ListOrdersByUserIDJSONBody
-
 // UpdateAVenueJSONRequestBody defines body for UpdateAVenue for application/json ContentType.
 type UpdateAVenueJSONRequestBody UpdateAVenueJSONBody
-
-// ListEventsByVenueJSONRequestBody defines body for ListEventsByVenue for application/json ContentType.
-type ListEventsByVenueJSONRequestBody ListEventsByVenueJSONBody
 
 // CreateWebhooksDeprecatedJSONRequestBody defines body for CreateWebhooksDeprecated for application/json ContentType.
 type CreateWebhooksDeprecatedJSONRequestBody = CreateWebhooksDeprecatedJSONBody
@@ -2667,10 +2331,8 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
-	// RemainingBalanceWithBody request with any body
-	RemainingBalanceWithBody(ctx context.Context, publicOrganizationId string, publicEventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	RemainingBalance(ctx context.Context, publicOrganizationId string, publicEventId string, body RemainingBalanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// RemainingBalance request
+	RemainingBalance(ctx context.Context, publicOrganizationId string, publicEventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListOfCategories request
 	ListOfCategories(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2698,10 +2360,8 @@ type ClientInterface interface {
 	// UpdateDefaultQuestionById request
 	UpdateDefaultQuestionById(ctx context.Context, eventId string, questionId string, params *UpdateDefaultQuestionByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// SearchEventsDeprecatedWithBody request with any body
-	SearchEventsDeprecatedWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	SearchEventsDeprecated(ctx context.Context, body SearchEventsDeprecatedJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// SearchEventsDeprecated request
+	SearchEventsDeprecated(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteAnEvent request
 	DeleteAnEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2714,10 +2374,8 @@ type ClientInterface interface {
 
 	UpdateAnEvent(ctx context.Context, eventId string, body UpdateAnEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListAttendeesByEventWithBody request with any body
-	ListAttendeesByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListAttendeesByEvent(ctx context.Context, eventId string, body ListAttendeesByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListAttendeesByEvent request
+	ListAttendeesByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveAnAttendee request
 	RetrieveAnAttendee(ctx context.Context, eventId string, attendeeId string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2725,10 +2383,8 @@ type ClientInterface interface {
 	// CancelAnEvent request
 	CancelAnEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListDefaultQuestionsByEventWithBody request with any body
-	ListDefaultQuestionsByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListDefaultQuestionsByEvent(ctx context.Context, eventId string, body ListDefaultQuestionsByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListDefaultQuestionsByEvent request
+	ListDefaultQuestionsByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateADefaultQuestionForAnEventWithBody request with any body
 	CreateADefaultQuestionForAnEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2778,18 +2434,14 @@ type ClientInterface interface {
 
 	UpdateAnInventoryTier(ctx context.Context, eventId string, inventoryTierId string, body UpdateAnInventoryTierJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListOrdersByEventIDWithBody request with any body
-	ListOrdersByEventIDWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListOrdersByEventID(ctx context.Context, eventId string, body ListOrdersByEventIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListOrdersByEventID request
+	ListOrdersByEventID(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// PublishAnEvent request
 	PublishAnEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListCustomQuestionsByEventWithBody request with any body
-	ListCustomQuestionsByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListCustomQuestionsByEvent(ctx context.Context, eventId string, body ListCustomQuestionsByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListCustomQuestionsByEvent request
+	ListCustomQuestionsByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateACustomQuestionForAnEventWithBody request with any body
 	CreateACustomQuestionForAnEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2842,20 +2494,16 @@ type ClientInterface interface {
 
 	UpdateTicketBuyerSettingsForAnEvent(ctx context.Context, eventId string, body UpdateTicketBuyerSettingsForAnEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListTicketClassesByEventWithBody request with any body
-	ListTicketClassesByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListTicketClassesByEvent(ctx context.Context, eventId string, body ListTicketClassesByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListTicketClassesByEvent request
+	ListTicketClassesByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateATicketClassWithBody request with any body
 	CreateATicketClassWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	CreateATicketClass(ctx context.Context, eventId string, body CreateATicketClassJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListTicketClassesAvailableForSaleByEventWithBody request with any body
-	ListTicketClassesAvailableForSaleByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListTicketClassesAvailableForSaleByEvent(ctx context.Context, eventId string, body ListTicketClassesAvailableForSaleByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListTicketClassesAvailableForSaleByEvent request
+	ListTicketClassesAvailableForSaleByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveATicketClass request
 	RetrieveATicketClass(ctx context.Context, eventId string, ticketClassId string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2868,15 +2516,11 @@ type ClientInterface interface {
 	// UnpublishAnEvent request
 	UnpublishAnEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithBody request with any body
-	RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// RetrieveLatestPublishedVersionOfStructuredContentByEventId request
+	RetrieveLatestPublishedVersionOfStructuredContentByEventId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	RetrieveLatestPublishedVersionOfStructuredContentByEventId(ctx context.Context, id string, body RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithBody request with any body
-	RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	RetrieveLatestWorkingVersionOfStructuredContentByEventId(ctx context.Context, id string, body RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// RetrieveLatestWorkingVersionOfStructuredContentByEventId request
+	RetrieveLatestWorkingVersionOfStructuredContentByEventId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SetStructuredContentByEventIdAndVersionWithBody request with any body
 	SetStructuredContentByEventIdAndVersionWithBody(ctx context.Context, id string, version string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2903,35 +2547,27 @@ type ClientInterface interface {
 	// RetrieveOrderByID request
 	RetrieveOrderByID(ctx context.Context, orderId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// GetRefundRetentionPolicyWithBody request with any body
-	GetRefundRetentionPolicyWithBody(ctx context.Context, orderId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	GetRefundRetentionPolicy(ctx context.Context, orderId string, body GetRefundRetentionPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// GetRefundRetentionPolicy request
+	GetRefundRetentionPolicy(ctx context.Context, orderId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RefundOrderWithBody request with any body
 	RefundOrderWithBody(ctx context.Context, orderId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	RefundOrder(ctx context.Context, orderId string, body RefundOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListAttendeesByOrganizationWithBody request with any body
-	ListAttendeesByOrganizationWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListAttendeesByOrganization request
+	ListAttendeesByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	ListAttendeesByOrganization(ctx context.Context, organizationId string, body ListAttendeesByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// SearchDiscountsByOrganizationWithBody request with any body
-	SearchDiscountsByOrganizationWithBody(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	SearchDiscountsByOrganization(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, body SearchDiscountsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// SearchDiscountsByOrganization request
+	SearchDiscountsByOrganization(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateADiscountWithBody request with any body
 	CreateADiscountWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	CreateADiscount(ctx context.Context, organizationId string, body CreateADiscountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListEventsByOrganizationWithBody request with any body
-	ListEventsByOrganizationWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListEventsByOrganization(ctx context.Context, organizationId string, body ListEventsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListEventsByOrganization request
+	ListEventsByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateAnEventWithBody request with any body
 	CreateAnEventWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2946,10 +2582,8 @@ type ClientInterface interface {
 	// ListMembersOfAnOrganization request
 	ListMembersOfAnOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListOrdersByOrganizationIDWithBody request with any body
-	ListOrdersByOrganizationIDWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListOrdersByOrganizationID(ctx context.Context, organizationId string, body ListOrdersByOrganizationIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListOrdersByOrganizationID request
+	ListOrdersByOrganizationID(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListRolesByOrganization request
 	ListRolesByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2965,10 +2599,8 @@ type ClientInterface interface {
 
 	CreateTextOverrides(ctx context.Context, organizationId string, body CreateTextOverridesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListTicketGroupsByOrganizationWithBody request with any body
-	ListTicketGroupsByOrganizationWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListTicketGroupsByOrganization(ctx context.Context, organizationId string, body ListTicketGroupsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListTicketGroupsByOrganization request
+	ListTicketGroupsByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateATicketGroupWithBody request with any body
 	CreateATicketGroupWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2999,23 +2631,17 @@ type ClientInterface interface {
 	// ListPricing request
 	ListPricing(ctx context.Context, params *ListPricingParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// RetrieveAAttendeeReportWithBody request with any body
-	RetrieveAAttendeeReportWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// RetrieveAAttendeeReport request
+	RetrieveAAttendeeReport(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	RetrieveAAttendeeReport(ctx context.Context, body RetrieveAAttendeeReportJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// RetrieveASalesReportWithBody request with any body
-	RetrieveASalesReportWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	RetrieveASalesReport(ctx context.Context, body RetrieveASalesReportJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// RetrieveASalesReport request
+	RetrieveASalesReport(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveAnEventSeries request
 	RetrieveAnEventSeries(ctx context.Context, eventSeriesId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListEventsBySeriesWithBody request with any body
-	ListEventsBySeriesWithBody(ctx context.Context, eventSeriesId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListEventsBySeries(ctx context.Context, eventSeriesId string, body ListEventsBySeriesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListEventsBySeries request
+	ListEventsBySeries(ctx context.Context, eventSeriesId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListOfSubcategories request
 	ListOfSubcategories(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -3043,10 +2669,8 @@ type ClientInterface interface {
 	// RetrieveInformationAboutAUserAccount request
 	RetrieveInformationAboutAUserAccount(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListOrdersByUserIDWithBody request with any body
-	ListOrdersByUserIDWithBody(ctx context.Context, userId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListOrdersByUserID(ctx context.Context, userId string, body ListOrdersByUserIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListOrdersByUserID request
+	ListOrdersByUserID(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListOrganizationsByUser request
 	ListOrganizationsByUser(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -3059,10 +2683,8 @@ type ClientInterface interface {
 
 	UpdateAVenue(ctx context.Context, venueId string, body UpdateAVenueJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListEventsByVenueWithBody request with any body
-	ListEventsByVenueWithBody(ctx context.Context, venueId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ListEventsByVenue(ctx context.Context, venueId string, body ListEventsByVenueJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListEventsByVenue request
+	ListEventsByVenue(ctx context.Context, venueId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListOfWebhooksDeprecation request
 	ListOfWebhooksDeprecation(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -3076,20 +2698,8 @@ type ClientInterface interface {
 	DeleteWebhookByID(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
-func (c *Client) RemainingBalanceWithBody(ctx context.Context, publicOrganizationId string, publicEventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRemainingBalanceRequestWithBody(c.Server, publicOrganizationId, publicEventId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RemainingBalance(ctx context.Context, publicOrganizationId string, publicEventId string, body RemainingBalanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRemainingBalanceRequest(c.Server, publicOrganizationId, publicEventId, body)
+func (c *Client) RemainingBalance(ctx context.Context, publicOrganizationId string, publicEventId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRemainingBalanceRequest(c.Server, publicOrganizationId, publicEventId)
 	if err != nil {
 		return nil, err
 	}
@@ -3208,20 +2818,8 @@ func (c *Client) UpdateDefaultQuestionById(ctx context.Context, eventId string, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) SearchEventsDeprecatedWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchEventsDeprecatedRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SearchEventsDeprecated(ctx context.Context, body SearchEventsDeprecatedJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchEventsDeprecatedRequest(c.Server, body)
+func (c *Client) SearchEventsDeprecated(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchEventsDeprecatedRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -3280,20 +2878,8 @@ func (c *Client) UpdateAnEvent(ctx context.Context, eventId string, body UpdateA
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListAttendeesByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAttendeesByEventRequestWithBody(c.Server, eventId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListAttendeesByEvent(ctx context.Context, eventId string, body ListAttendeesByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAttendeesByEventRequest(c.Server, eventId, body)
+func (c *Client) ListAttendeesByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAttendeesByEventRequest(c.Server, eventId)
 	if err != nil {
 		return nil, err
 	}
@@ -3328,20 +2914,8 @@ func (c *Client) CancelAnEvent(ctx context.Context, eventId string, reqEditors .
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListDefaultQuestionsByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListDefaultQuestionsByEventRequestWithBody(c.Server, eventId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListDefaultQuestionsByEvent(ctx context.Context, eventId string, body ListDefaultQuestionsByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListDefaultQuestionsByEventRequest(c.Server, eventId, body)
+func (c *Client) ListDefaultQuestionsByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListDefaultQuestionsByEventRequest(c.Server, eventId)
 	if err != nil {
 		return nil, err
 	}
@@ -3568,20 +3142,8 @@ func (c *Client) UpdateAnInventoryTier(ctx context.Context, eventId string, inve
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListOrdersByEventIDWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListOrdersByEventIDRequestWithBody(c.Server, eventId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListOrdersByEventID(ctx context.Context, eventId string, body ListOrdersByEventIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListOrdersByEventIDRequest(c.Server, eventId, body)
+func (c *Client) ListOrdersByEventID(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListOrdersByEventIDRequest(c.Server, eventId)
 	if err != nil {
 		return nil, err
 	}
@@ -3604,20 +3166,8 @@ func (c *Client) PublishAnEvent(ctx context.Context, eventId string, reqEditors 
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListCustomQuestionsByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListCustomQuestionsByEventRequestWithBody(c.Server, eventId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListCustomQuestionsByEvent(ctx context.Context, eventId string, body ListCustomQuestionsByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListCustomQuestionsByEventRequest(c.Server, eventId, body)
+func (c *Client) ListCustomQuestionsByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListCustomQuestionsByEventRequest(c.Server, eventId)
 	if err != nil {
 		return nil, err
 	}
@@ -3856,20 +3406,8 @@ func (c *Client) UpdateTicketBuyerSettingsForAnEvent(ctx context.Context, eventI
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListTicketClassesByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListTicketClassesByEventRequestWithBody(c.Server, eventId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListTicketClassesByEvent(ctx context.Context, eventId string, body ListTicketClassesByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListTicketClassesByEventRequest(c.Server, eventId, body)
+func (c *Client) ListTicketClassesByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListTicketClassesByEventRequest(c.Server, eventId)
 	if err != nil {
 		return nil, err
 	}
@@ -3904,20 +3442,8 @@ func (c *Client) CreateATicketClass(ctx context.Context, eventId string, body Cr
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListTicketClassesAvailableForSaleByEventWithBody(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListTicketClassesAvailableForSaleByEventRequestWithBody(c.Server, eventId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListTicketClassesAvailableForSaleByEvent(ctx context.Context, eventId string, body ListTicketClassesAvailableForSaleByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListTicketClassesAvailableForSaleByEventRequest(c.Server, eventId, body)
+func (c *Client) ListTicketClassesAvailableForSaleByEvent(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListTicketClassesAvailableForSaleByEventRequest(c.Server, eventId)
 	if err != nil {
 		return nil, err
 	}
@@ -3976,8 +3502,8 @@ func (c *Client) UnpublishAnEvent(ctx context.Context, eventId string, reqEditor
 	return c.Client.Do(req)
 }
 
-func (c *Client) RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequestWithBody(c.Server, id, contentType, body)
+func (c *Client) RetrieveLatestPublishedVersionOfStructuredContentByEventId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
 	}
@@ -3988,32 +3514,8 @@ func (c *Client) RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithB
 	return c.Client.Do(req)
 }
 
-func (c *Client) RetrieveLatestPublishedVersionOfStructuredContentByEventId(ctx context.Context, id string, body RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequest(c.Server, id, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequestWithBody(c.Server, id, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RetrieveLatestWorkingVersionOfStructuredContentByEventId(ctx context.Context, id string, body RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequest(c.Server, id, body)
+func (c *Client) RetrieveLatestWorkingVersionOfStructuredContentByEventId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
 	}
@@ -4132,20 +3634,8 @@ func (c *Client) RetrieveOrderByID(ctx context.Context, orderId string, reqEdito
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetRefundRetentionPolicyWithBody(ctx context.Context, orderId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetRefundRetentionPolicyRequestWithBody(c.Server, orderId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) GetRefundRetentionPolicy(ctx context.Context, orderId string, body GetRefundRetentionPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetRefundRetentionPolicyRequest(c.Server, orderId, body)
+func (c *Client) GetRefundRetentionPolicy(ctx context.Context, orderId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetRefundRetentionPolicyRequest(c.Server, orderId)
 	if err != nil {
 		return nil, err
 	}
@@ -4180,8 +3670,8 @@ func (c *Client) RefundOrder(ctx context.Context, orderId string, body RefundOrd
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListAttendeesByOrganizationWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAttendeesByOrganizationRequestWithBody(c.Server, organizationId, contentType, body)
+func (c *Client) ListAttendeesByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAttendeesByOrganizationRequest(c.Server, organizationId)
 	if err != nil {
 		return nil, err
 	}
@@ -4192,32 +3682,8 @@ func (c *Client) ListAttendeesByOrganizationWithBody(ctx context.Context, organi
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListAttendeesByOrganization(ctx context.Context, organizationId string, body ListAttendeesByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAttendeesByOrganizationRequest(c.Server, organizationId, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SearchDiscountsByOrganizationWithBody(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchDiscountsByOrganizationRequestWithBody(c.Server, organizationId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SearchDiscountsByOrganization(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, body SearchDiscountsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchDiscountsByOrganizationRequest(c.Server, organizationId, params, body)
+func (c *Client) SearchDiscountsByOrganization(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchDiscountsByOrganizationRequest(c.Server, organizationId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -4252,20 +3718,8 @@ func (c *Client) CreateADiscount(ctx context.Context, organizationId string, bod
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListEventsByOrganizationWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListEventsByOrganizationRequestWithBody(c.Server, organizationId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListEventsByOrganization(ctx context.Context, organizationId string, body ListEventsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListEventsByOrganizationRequest(c.Server, organizationId, body)
+func (c *Client) ListEventsByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEventsByOrganizationRequest(c.Server, organizationId)
 	if err != nil {
 		return nil, err
 	}
@@ -4336,20 +3790,8 @@ func (c *Client) ListMembersOfAnOrganization(ctx context.Context, organizationId
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListOrdersByOrganizationIDWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListOrdersByOrganizationIDRequestWithBody(c.Server, organizationId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListOrdersByOrganizationID(ctx context.Context, organizationId string, body ListOrdersByOrganizationIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListOrdersByOrganizationIDRequest(c.Server, organizationId, body)
+func (c *Client) ListOrdersByOrganizationID(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListOrdersByOrganizationIDRequest(c.Server, organizationId)
 	if err != nil {
 		return nil, err
 	}
@@ -4420,20 +3862,8 @@ func (c *Client) CreateTextOverrides(ctx context.Context, organizationId string,
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListTicketGroupsByOrganizationWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListTicketGroupsByOrganizationRequestWithBody(c.Server, organizationId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListTicketGroupsByOrganization(ctx context.Context, organizationId string, body ListTicketGroupsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListTicketGroupsByOrganizationRequest(c.Server, organizationId, body)
+func (c *Client) ListTicketGroupsByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListTicketGroupsByOrganizationRequest(c.Server, organizationId)
 	if err != nil {
 		return nil, err
 	}
@@ -4576,8 +4006,8 @@ func (c *Client) ListPricing(ctx context.Context, params *ListPricingParams, req
 	return c.Client.Do(req)
 }
 
-func (c *Client) RetrieveAAttendeeReportWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveAAttendeeReportRequestWithBody(c.Server, contentType, body)
+func (c *Client) RetrieveAAttendeeReport(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveAAttendeeReportRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -4588,32 +4018,8 @@ func (c *Client) RetrieveAAttendeeReportWithBody(ctx context.Context, contentTyp
 	return c.Client.Do(req)
 }
 
-func (c *Client) RetrieveAAttendeeReport(ctx context.Context, body RetrieveAAttendeeReportJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveAAttendeeReportRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RetrieveASalesReportWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveASalesReportRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RetrieveASalesReport(ctx context.Context, body RetrieveASalesReportJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveASalesReportRequest(c.Server, body)
+func (c *Client) RetrieveASalesReport(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveASalesReportRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -4636,20 +4042,8 @@ func (c *Client) RetrieveAnEventSeries(ctx context.Context, eventSeriesId string
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListEventsBySeriesWithBody(ctx context.Context, eventSeriesId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListEventsBySeriesRequestWithBody(c.Server, eventSeriesId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListEventsBySeries(ctx context.Context, eventSeriesId string, body ListEventsBySeriesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListEventsBySeriesRequest(c.Server, eventSeriesId, body)
+func (c *Client) ListEventsBySeries(ctx context.Context, eventSeriesId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEventsBySeriesRequest(c.Server, eventSeriesId)
 	if err != nil {
 		return nil, err
 	}
@@ -4768,20 +4162,8 @@ func (c *Client) RetrieveInformationAboutAUserAccount(ctx context.Context, userI
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListOrdersByUserIDWithBody(ctx context.Context, userId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListOrdersByUserIDRequestWithBody(c.Server, userId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListOrdersByUserID(ctx context.Context, userId string, body ListOrdersByUserIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListOrdersByUserIDRequest(c.Server, userId, body)
+func (c *Client) ListOrdersByUserID(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListOrdersByUserIDRequest(c.Server, userId)
 	if err != nil {
 		return nil, err
 	}
@@ -4840,20 +4222,8 @@ func (c *Client) UpdateAVenue(ctx context.Context, venueId string, body UpdateAV
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListEventsByVenueWithBody(ctx context.Context, venueId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListEventsByVenueRequestWithBody(c.Server, venueId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListEventsByVenue(ctx context.Context, venueId string, body ListEventsByVenueJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListEventsByVenueRequest(c.Server, venueId, body)
+func (c *Client) ListEventsByVenue(ctx context.Context, venueId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEventsByVenueRequest(c.Server, venueId)
 	if err != nil {
 		return nil, err
 	}
@@ -4912,19 +4282,8 @@ func (c *Client) DeleteWebhookByID(ctx context.Context, id string, reqEditors ..
 	return c.Client.Do(req)
 }
 
-// NewRemainingBalanceRequest calls the generic RemainingBalance builder with application/json body
-func NewRemainingBalanceRequest(server string, publicOrganizationId string, publicEventId string, body RemainingBalanceJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRemainingBalanceRequestWithBody(server, publicOrganizationId, publicEventId, "application/json", bodyReader)
-}
-
-// NewRemainingBalanceRequestWithBody generates requests for RemainingBalance with any type of body
-func NewRemainingBalanceRequestWithBody(server string, publicOrganizationId string, publicEventId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewRemainingBalanceRequest generates requests for RemainingBalance
+func NewRemainingBalanceRequest(server string, publicOrganizationId string, publicEventId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -4956,12 +4315,10 @@ func NewRemainingBalanceRequestWithBody(server string, publicOrganizationId stri
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -5280,19 +4637,8 @@ func NewUpdateDefaultQuestionByIdRequest(server string, eventId string, question
 	return req, nil
 }
 
-// NewSearchEventsDeprecatedRequest calls the generic SearchEventsDeprecated builder with application/json body
-func NewSearchEventsDeprecatedRequest(server string, body SearchEventsDeprecatedJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewSearchEventsDeprecatedRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewSearchEventsDeprecatedRequestWithBody generates requests for SearchEventsDeprecated with any type of body
-func NewSearchEventsDeprecatedRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+// NewSearchEventsDeprecatedRequest generates requests for SearchEventsDeprecated
+func NewSearchEventsDeprecatedRequest(server string) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -5310,12 +4656,10 @@ func NewSearchEventsDeprecatedRequestWithBody(server string, contentType string,
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -5435,19 +4779,8 @@ func NewUpdateAnEventRequestWithBody(server string, eventId string, contentType 
 	return req, nil
 }
 
-// NewListAttendeesByEventRequest calls the generic ListAttendeesByEvent builder with application/json body
-func NewListAttendeesByEventRequest(server string, eventId string, body ListAttendeesByEventJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListAttendeesByEventRequestWithBody(server, eventId, "application/json", bodyReader)
-}
-
-// NewListAttendeesByEventRequestWithBody generates requests for ListAttendeesByEvent with any type of body
-func NewListAttendeesByEventRequestWithBody(server string, eventId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListAttendeesByEventRequest generates requests for ListAttendeesByEvent
+func NewListAttendeesByEventRequest(server string, eventId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -5472,12 +4805,10 @@ func NewListAttendeesByEventRequestWithBody(server string, eventId string, conte
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -5557,19 +4888,8 @@ func NewCancelAnEventRequest(server string, eventId string) (*http.Request, erro
 	return req, nil
 }
 
-// NewListDefaultQuestionsByEventRequest calls the generic ListDefaultQuestionsByEvent builder with application/json body
-func NewListDefaultQuestionsByEventRequest(server string, eventId string, body ListDefaultQuestionsByEventJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListDefaultQuestionsByEventRequestWithBody(server, eventId, "application/json", bodyReader)
-}
-
-// NewListDefaultQuestionsByEventRequestWithBody generates requests for ListDefaultQuestionsByEvent with any type of body
-func NewListDefaultQuestionsByEventRequestWithBody(server string, eventId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListDefaultQuestionsByEventRequest generates requests for ListDefaultQuestionsByEvent
+func NewListDefaultQuestionsByEventRequest(server string, eventId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -5594,12 +4914,10 @@ func NewListDefaultQuestionsByEventRequestWithBody(server string, eventId string
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -6111,19 +5429,8 @@ func NewUpdateAnInventoryTierRequestWithBody(server string, eventId string, inve
 	return req, nil
 }
 
-// NewListOrdersByEventIDRequest calls the generic ListOrdersByEventID builder with application/json body
-func NewListOrdersByEventIDRequest(server string, eventId string, body ListOrdersByEventIDJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListOrdersByEventIDRequestWithBody(server, eventId, "application/json", bodyReader)
-}
-
-// NewListOrdersByEventIDRequestWithBody generates requests for ListOrdersByEventID with any type of body
-func NewListOrdersByEventIDRequestWithBody(server string, eventId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListOrdersByEventIDRequest generates requests for ListOrdersByEventID
+func NewListOrdersByEventIDRequest(server string, eventId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -6148,12 +5455,10 @@ func NewListOrdersByEventIDRequestWithBody(server string, eventId string, conten
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -6192,19 +5497,8 @@ func NewPublishAnEventRequest(server string, eventId string) (*http.Request, err
 	return req, nil
 }
 
-// NewListCustomQuestionsByEventRequest calls the generic ListCustomQuestionsByEvent builder with application/json body
-func NewListCustomQuestionsByEventRequest(server string, eventId string, body ListCustomQuestionsByEventJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListCustomQuestionsByEventRequestWithBody(server, eventId, "application/json", bodyReader)
-}
-
-// NewListCustomQuestionsByEventRequestWithBody generates requests for ListCustomQuestionsByEvent with any type of body
-func NewListCustomQuestionsByEventRequestWithBody(server string, eventId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListCustomQuestionsByEventRequest generates requests for ListCustomQuestionsByEvent
+func NewListCustomQuestionsByEventRequest(server string, eventId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -6229,12 +5523,10 @@ func NewListCustomQuestionsByEventRequestWithBody(server string, eventId string,
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -6801,19 +6093,8 @@ func NewUpdateTicketBuyerSettingsForAnEventRequestWithBody(server string, eventI
 	return req, nil
 }
 
-// NewListTicketClassesByEventRequest calls the generic ListTicketClassesByEvent builder with application/json body
-func NewListTicketClassesByEventRequest(server string, eventId string, body ListTicketClassesByEventJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListTicketClassesByEventRequestWithBody(server, eventId, "application/json", bodyReader)
-}
-
-// NewListTicketClassesByEventRequestWithBody generates requests for ListTicketClassesByEvent with any type of body
-func NewListTicketClassesByEventRequestWithBody(server string, eventId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListTicketClassesByEventRequest generates requests for ListTicketClassesByEvent
+func NewListTicketClassesByEventRequest(server string, eventId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -6838,12 +6119,10 @@ func NewListTicketClassesByEventRequestWithBody(server string, eventId string, c
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -6895,19 +6174,8 @@ func NewCreateATicketClassRequestWithBody(server string, eventId string, content
 	return req, nil
 }
 
-// NewListTicketClassesAvailableForSaleByEventRequest calls the generic ListTicketClassesAvailableForSaleByEvent builder with application/json body
-func NewListTicketClassesAvailableForSaleByEventRequest(server string, eventId string, body ListTicketClassesAvailableForSaleByEventJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListTicketClassesAvailableForSaleByEventRequestWithBody(server, eventId, "application/json", bodyReader)
-}
-
-// NewListTicketClassesAvailableForSaleByEventRequestWithBody generates requests for ListTicketClassesAvailableForSaleByEvent with any type of body
-func NewListTicketClassesAvailableForSaleByEventRequestWithBody(server string, eventId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListTicketClassesAvailableForSaleByEventRequest generates requests for ListTicketClassesAvailableForSaleByEvent
+func NewListTicketClassesAvailableForSaleByEventRequest(server string, eventId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -6932,12 +6200,10 @@ func NewListTicketClassesAvailableForSaleByEventRequestWithBody(server string, e
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7071,19 +6337,8 @@ func NewUnpublishAnEventRequest(server string, eventId string) (*http.Request, e
 	return req, nil
 }
 
-// NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequest calls the generic RetrieveLatestPublishedVersionOfStructuredContentByEventId builder with application/json body
-func NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequest(server string, id string, body RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequestWithBody(server, id, "application/json", bodyReader)
-}
-
-// NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequestWithBody generates requests for RetrieveLatestPublishedVersionOfStructuredContentByEventId with any type of body
-func NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequestWithBody(server string, id string, contentType string, body io.Reader) (*http.Request, error) {
+// NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequest generates requests for RetrieveLatestPublishedVersionOfStructuredContentByEventId
+func NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequest(server string, id string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -7108,29 +6363,16 @@ func NewRetrieveLatestPublishedVersionOfStructuredContentByEventIdRequestWithBod
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
 
-// NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequest calls the generic RetrieveLatestWorkingVersionOfStructuredContentByEventId builder with application/json body
-func NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequest(server string, id string, body RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequestWithBody(server, id, "application/json", bodyReader)
-}
-
-// NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequestWithBody generates requests for RetrieveLatestWorkingVersionOfStructuredContentByEventId with any type of body
-func NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequestWithBody(server string, id string, contentType string, body io.Reader) (*http.Request, error) {
+// NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequest generates requests for RetrieveLatestWorkingVersionOfStructuredContentByEventId
+func NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequest(server string, id string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -7155,12 +6397,10 @@ func NewRetrieveLatestWorkingVersionOfStructuredContentByEventIdRequestWithBody(
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7453,19 +6693,8 @@ func NewRetrieveOrderByIDRequest(server string, orderId string) (*http.Request, 
 	return req, nil
 }
 
-// NewGetRefundRetentionPolicyRequest calls the generic GetRefundRetentionPolicy builder with application/json body
-func NewGetRefundRetentionPolicyRequest(server string, orderId string, body GetRefundRetentionPolicyJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewGetRefundRetentionPolicyRequestWithBody(server, orderId, "application/json", bodyReader)
-}
-
-// NewGetRefundRetentionPolicyRequestWithBody generates requests for GetRefundRetentionPolicy with any type of body
-func NewGetRefundRetentionPolicyRequestWithBody(server string, orderId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewGetRefundRetentionPolicyRequest generates requests for GetRefundRetentionPolicy
+func NewGetRefundRetentionPolicyRequest(server string, orderId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -7490,12 +6719,10 @@ func NewGetRefundRetentionPolicyRequestWithBody(server string, orderId string, c
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7547,19 +6774,8 @@ func NewRefundOrderRequestWithBody(server string, orderId string, contentType st
 	return req, nil
 }
 
-// NewListAttendeesByOrganizationRequest calls the generic ListAttendeesByOrganization builder with application/json body
-func NewListAttendeesByOrganizationRequest(server string, organizationId string, body ListAttendeesByOrganizationJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListAttendeesByOrganizationRequestWithBody(server, organizationId, "application/json", bodyReader)
-}
-
-// NewListAttendeesByOrganizationRequestWithBody generates requests for ListAttendeesByOrganization with any type of body
-func NewListAttendeesByOrganizationRequestWithBody(server string, organizationId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListAttendeesByOrganizationRequest generates requests for ListAttendeesByOrganization
+func NewListAttendeesByOrganizationRequest(server string, organizationId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -7584,29 +6800,16 @@ func NewListAttendeesByOrganizationRequestWithBody(server string, organizationId
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
 
-// NewSearchDiscountsByOrganizationRequest calls the generic SearchDiscountsByOrganization builder with application/json body
-func NewSearchDiscountsByOrganizationRequest(server string, organizationId string, params *SearchDiscountsByOrganizationParams, body SearchDiscountsByOrganizationJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewSearchDiscountsByOrganizationRequestWithBody(server, organizationId, params, "application/json", bodyReader)
-}
-
-// NewSearchDiscountsByOrganizationRequestWithBody generates requests for SearchDiscountsByOrganization with any type of body
-func NewSearchDiscountsByOrganizationRequestWithBody(server string, organizationId string, params *SearchDiscountsByOrganizationParams, contentType string, body io.Reader) (*http.Request, error) {
+// NewSearchDiscountsByOrganizationRequest generates requests for SearchDiscountsByOrganization
+func NewSearchDiscountsByOrganizationRequest(server string, organizationId string, params *SearchDiscountsByOrganizationParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -7649,12 +6852,10 @@ func NewSearchDiscountsByOrganizationRequestWithBody(server string, organization
 		queryURL.RawQuery = queryValues.Encode()
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7706,19 +6907,8 @@ func NewCreateADiscountRequestWithBody(server string, organizationId string, con
 	return req, nil
 }
 
-// NewListEventsByOrganizationRequest calls the generic ListEventsByOrganization builder with application/json body
-func NewListEventsByOrganizationRequest(server string, organizationId string, body ListEventsByOrganizationJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListEventsByOrganizationRequestWithBody(server, organizationId, "application/json", bodyReader)
-}
-
-// NewListEventsByOrganizationRequestWithBody generates requests for ListEventsByOrganization with any type of body
-func NewListEventsByOrganizationRequestWithBody(server string, organizationId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListEventsByOrganizationRequest generates requests for ListEventsByOrganization
+func NewListEventsByOrganizationRequest(server string, organizationId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -7743,12 +6933,10 @@ func NewListEventsByOrganizationRequestWithBody(server string, organizationId st
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7895,19 +7083,8 @@ func NewListMembersOfAnOrganizationRequest(server string, organizationId string)
 	return req, nil
 }
 
-// NewListOrdersByOrganizationIDRequest calls the generic ListOrdersByOrganizationID builder with application/json body
-func NewListOrdersByOrganizationIDRequest(server string, organizationId string, body ListOrdersByOrganizationIDJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListOrdersByOrganizationIDRequestWithBody(server, organizationId, "application/json", bodyReader)
-}
-
-// NewListOrdersByOrganizationIDRequestWithBody generates requests for ListOrdersByOrganizationID with any type of body
-func NewListOrdersByOrganizationIDRequestWithBody(server string, organizationId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListOrdersByOrganizationIDRequest generates requests for ListOrdersByOrganizationID
+func NewListOrdersByOrganizationIDRequest(server string, organizationId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -7932,12 +7109,10 @@ func NewListOrdersByOrganizationIDRequestWithBody(server string, organizationId 
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -8191,19 +7366,8 @@ func NewCreateTextOverridesRequestWithBody(server string, organizationId string,
 	return req, nil
 }
 
-// NewListTicketGroupsByOrganizationRequest calls the generic ListTicketGroupsByOrganization builder with application/json body
-func NewListTicketGroupsByOrganizationRequest(server string, organizationId string, body ListTicketGroupsByOrganizationJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListTicketGroupsByOrganizationRequestWithBody(server, organizationId, "application/json", bodyReader)
-}
-
-// NewListTicketGroupsByOrganizationRequestWithBody generates requests for ListTicketGroupsByOrganization with any type of body
-func NewListTicketGroupsByOrganizationRequestWithBody(server string, organizationId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListTicketGroupsByOrganizationRequest generates requests for ListTicketGroupsByOrganization
+func NewListTicketGroupsByOrganizationRequest(server string, organizationId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -8228,12 +7392,10 @@ func NewListTicketGroupsByOrganizationRequestWithBody(server string, organizatio
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -8608,19 +7770,8 @@ func NewListPricingRequest(server string, params *ListPricingParams) (*http.Requ
 	return req, nil
 }
 
-// NewRetrieveAAttendeeReportRequest calls the generic RetrieveAAttendeeReport builder with application/json body
-func NewRetrieveAAttendeeReportRequest(server string, body RetrieveAAttendeeReportJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRetrieveAAttendeeReportRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewRetrieveAAttendeeReportRequestWithBody generates requests for RetrieveAAttendeeReport with any type of body
-func NewRetrieveAAttendeeReportRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+// NewRetrieveAAttendeeReportRequest generates requests for RetrieveAAttendeeReport
+func NewRetrieveAAttendeeReportRequest(server string) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -8638,29 +7789,16 @@ func NewRetrieveAAttendeeReportRequestWithBody(server string, contentType string
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
 
-// NewRetrieveASalesReportRequest calls the generic RetrieveASalesReport builder with application/json body
-func NewRetrieveASalesReportRequest(server string, body RetrieveASalesReportJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRetrieveASalesReportRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewRetrieveASalesReportRequestWithBody generates requests for RetrieveASalesReport with any type of body
-func NewRetrieveASalesReportRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+// NewRetrieveASalesReportRequest generates requests for RetrieveASalesReport
+func NewRetrieveASalesReportRequest(server string) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -8678,12 +7816,10 @@ func NewRetrieveASalesReportRequestWithBody(server string, contentType string, b
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -8722,19 +7858,8 @@ func NewRetrieveAnEventSeriesRequest(server string, eventSeriesId string) (*http
 	return req, nil
 }
 
-// NewListEventsBySeriesRequest calls the generic ListEventsBySeries builder with application/json body
-func NewListEventsBySeriesRequest(server string, eventSeriesId string, body ListEventsBySeriesJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListEventsBySeriesRequestWithBody(server, eventSeriesId, "application/json", bodyReader)
-}
-
-// NewListEventsBySeriesRequestWithBody generates requests for ListEventsBySeries with any type of body
-func NewListEventsBySeriesRequestWithBody(server string, eventSeriesId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListEventsBySeriesRequest generates requests for ListEventsBySeries
+func NewListEventsBySeriesRequest(server string, eventSeriesId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -8759,12 +7884,10 @@ func NewListEventsBySeriesRequestWithBody(server string, eventSeriesId string, c
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -9033,19 +8156,8 @@ func NewRetrieveInformationAboutAUserAccountRequest(server string, userId string
 	return req, nil
 }
 
-// NewListOrdersByUserIDRequest calls the generic ListOrdersByUserID builder with application/json body
-func NewListOrdersByUserIDRequest(server string, userId string, body ListOrdersByUserIDJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListOrdersByUserIDRequestWithBody(server, userId, "application/json", bodyReader)
-}
-
-// NewListOrdersByUserIDRequestWithBody generates requests for ListOrdersByUserID with any type of body
-func NewListOrdersByUserIDRequestWithBody(server string, userId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListOrdersByUserIDRequest generates requests for ListOrdersByUserID
+func NewListOrdersByUserIDRequest(server string, userId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -9070,12 +8182,10 @@ func NewListOrdersByUserIDRequestWithBody(server string, userId string, contentT
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -9195,19 +8305,8 @@ func NewUpdateAVenueRequestWithBody(server string, venueId string, contentType s
 	return req, nil
 }
 
-// NewListEventsByVenueRequest calls the generic ListEventsByVenue builder with application/json body
-func NewListEventsByVenueRequest(server string, venueId string, body ListEventsByVenueJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListEventsByVenueRequestWithBody(server, venueId, "application/json", bodyReader)
-}
-
-// NewListEventsByVenueRequestWithBody generates requests for ListEventsByVenue with any type of body
-func NewListEventsByVenueRequestWithBody(server string, venueId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewListEventsByVenueRequest generates requests for ListEventsByVenue
+func NewListEventsByVenueRequest(server string, venueId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -9232,12 +8331,10 @@ func NewListEventsByVenueRequestWithBody(server string, venueId string, contentT
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", queryURL.String(), body)
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -9386,10 +8483,8 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
-	// RemainingBalanceWithBodyWithResponse request with any body
-	RemainingBalanceWithBodyWithResponse(ctx context.Context, publicOrganizationId string, publicEventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RemainingBalanceResponse, error)
-
-	RemainingBalanceWithResponse(ctx context.Context, publicOrganizationId string, publicEventId string, body RemainingBalanceJSONRequestBody, reqEditors ...RequestEditorFn) (*RemainingBalanceResponse, error)
+	// RemainingBalanceWithResponse request
+	RemainingBalanceWithResponse(ctx context.Context, publicOrganizationId string, publicEventId string, reqEditors ...RequestEditorFn) (*RemainingBalanceResponse, error)
 
 	// ListOfCategoriesWithResponse request
 	ListOfCategoriesWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListOfCategoriesResponse, error)
@@ -9417,10 +8512,8 @@ type ClientWithResponsesInterface interface {
 	// UpdateDefaultQuestionByIdWithResponse request
 	UpdateDefaultQuestionByIdWithResponse(ctx context.Context, eventId string, questionId string, params *UpdateDefaultQuestionByIdParams, reqEditors ...RequestEditorFn) (*UpdateDefaultQuestionByIdResponse, error)
 
-	// SearchEventsDeprecatedWithBodyWithResponse request with any body
-	SearchEventsDeprecatedWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SearchEventsDeprecatedResponse, error)
-
-	SearchEventsDeprecatedWithResponse(ctx context.Context, body SearchEventsDeprecatedJSONRequestBody, reqEditors ...RequestEditorFn) (*SearchEventsDeprecatedResponse, error)
+	// SearchEventsDeprecatedWithResponse request
+	SearchEventsDeprecatedWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*SearchEventsDeprecatedResponse, error)
 
 	// DeleteAnEventWithResponse request
 	DeleteAnEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*DeleteAnEventResponse, error)
@@ -9433,10 +8526,8 @@ type ClientWithResponsesInterface interface {
 
 	UpdateAnEventWithResponse(ctx context.Context, eventId string, body UpdateAnEventJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAnEventResponse, error)
 
-	// ListAttendeesByEventWithBodyWithResponse request with any body
-	ListAttendeesByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListAttendeesByEventResponse, error)
-
-	ListAttendeesByEventWithResponse(ctx context.Context, eventId string, body ListAttendeesByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListAttendeesByEventResponse, error)
+	// ListAttendeesByEventWithResponse request
+	ListAttendeesByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListAttendeesByEventResponse, error)
 
 	// RetrieveAnAttendeeWithResponse request
 	RetrieveAnAttendeeWithResponse(ctx context.Context, eventId string, attendeeId string, reqEditors ...RequestEditorFn) (*RetrieveAnAttendeeResponse, error)
@@ -9444,10 +8535,8 @@ type ClientWithResponsesInterface interface {
 	// CancelAnEventWithResponse request
 	CancelAnEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*CancelAnEventResponse, error)
 
-	// ListDefaultQuestionsByEventWithBodyWithResponse request with any body
-	ListDefaultQuestionsByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListDefaultQuestionsByEventResponse, error)
-
-	ListDefaultQuestionsByEventWithResponse(ctx context.Context, eventId string, body ListDefaultQuestionsByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListDefaultQuestionsByEventResponse, error)
+	// ListDefaultQuestionsByEventWithResponse request
+	ListDefaultQuestionsByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListDefaultQuestionsByEventResponse, error)
 
 	// CreateADefaultQuestionForAnEventWithBodyWithResponse request with any body
 	CreateADefaultQuestionForAnEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateADefaultQuestionForAnEventResponse, error)
@@ -9497,18 +8586,14 @@ type ClientWithResponsesInterface interface {
 
 	UpdateAnInventoryTierWithResponse(ctx context.Context, eventId string, inventoryTierId string, body UpdateAnInventoryTierJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAnInventoryTierResponse, error)
 
-	// ListOrdersByEventIDWithBodyWithResponse request with any body
-	ListOrdersByEventIDWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListOrdersByEventIDResponse, error)
-
-	ListOrdersByEventIDWithResponse(ctx context.Context, eventId string, body ListOrdersByEventIDJSONRequestBody, reqEditors ...RequestEditorFn) (*ListOrdersByEventIDResponse, error)
+	// ListOrdersByEventIDWithResponse request
+	ListOrdersByEventIDWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListOrdersByEventIDResponse, error)
 
 	// PublishAnEventWithResponse request
 	PublishAnEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*PublishAnEventResponse, error)
 
-	// ListCustomQuestionsByEventWithBodyWithResponse request with any body
-	ListCustomQuestionsByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListCustomQuestionsByEventResponse, error)
-
-	ListCustomQuestionsByEventWithResponse(ctx context.Context, eventId string, body ListCustomQuestionsByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListCustomQuestionsByEventResponse, error)
+	// ListCustomQuestionsByEventWithResponse request
+	ListCustomQuestionsByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListCustomQuestionsByEventResponse, error)
 
 	// CreateACustomQuestionForAnEventWithBodyWithResponse request with any body
 	CreateACustomQuestionForAnEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateACustomQuestionForAnEventResponse, error)
@@ -9561,20 +8646,16 @@ type ClientWithResponsesInterface interface {
 
 	UpdateTicketBuyerSettingsForAnEventWithResponse(ctx context.Context, eventId string, body UpdateTicketBuyerSettingsForAnEventJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateTicketBuyerSettingsForAnEventResponse, error)
 
-	// ListTicketClassesByEventWithBodyWithResponse request with any body
-	ListTicketClassesByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListTicketClassesByEventResponse, error)
-
-	ListTicketClassesByEventWithResponse(ctx context.Context, eventId string, body ListTicketClassesByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListTicketClassesByEventResponse, error)
+	// ListTicketClassesByEventWithResponse request
+	ListTicketClassesByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListTicketClassesByEventResponse, error)
 
 	// CreateATicketClassWithBodyWithResponse request with any body
 	CreateATicketClassWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateATicketClassResponse, error)
 
 	CreateATicketClassWithResponse(ctx context.Context, eventId string, body CreateATicketClassJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateATicketClassResponse, error)
 
-	// ListTicketClassesAvailableForSaleByEventWithBodyWithResponse request with any body
-	ListTicketClassesAvailableForSaleByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListTicketClassesAvailableForSaleByEventResponse, error)
-
-	ListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Context, eventId string, body ListTicketClassesAvailableForSaleByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListTicketClassesAvailableForSaleByEventResponse, error)
+	// ListTicketClassesAvailableForSaleByEventWithResponse request
+	ListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListTicketClassesAvailableForSaleByEventResponse, error)
 
 	// RetrieveATicketClassWithResponse request
 	RetrieveATicketClassWithResponse(ctx context.Context, eventId string, ticketClassId string, reqEditors ...RequestEditorFn) (*RetrieveATicketClassResponse, error)
@@ -9587,15 +8668,11 @@ type ClientWithResponsesInterface interface {
 	// UnpublishAnEventWithResponse request
 	UnpublishAnEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*UnpublishAnEventResponse, error)
 
-	// RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithBodyWithResponse request with any body
-	RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse, error)
+	// RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse request
+	RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse, error)
 
-	RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, id string, body RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONRequestBody, reqEditors ...RequestEditorFn) (*RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse, error)
-
-	// RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithBodyWithResponse request with any body
-	RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse, error)
-
-	RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, id string, body RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONRequestBody, reqEditors ...RequestEditorFn) (*RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse, error)
+	// RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse request
+	RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse, error)
 
 	// SetStructuredContentByEventIdAndVersionWithBodyWithResponse request with any body
 	SetStructuredContentByEventIdAndVersionWithBodyWithResponse(ctx context.Context, id string, version string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SetStructuredContentByEventIdAndVersionResponse, error)
@@ -9622,35 +8699,27 @@ type ClientWithResponsesInterface interface {
 	// RetrieveOrderByIDWithResponse request
 	RetrieveOrderByIDWithResponse(ctx context.Context, orderId string, reqEditors ...RequestEditorFn) (*RetrieveOrderByIDResponse, error)
 
-	// GetRefundRetentionPolicyWithBodyWithResponse request with any body
-	GetRefundRetentionPolicyWithBodyWithResponse(ctx context.Context, orderId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*GetRefundRetentionPolicyResponse, error)
-
-	GetRefundRetentionPolicyWithResponse(ctx context.Context, orderId string, body GetRefundRetentionPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*GetRefundRetentionPolicyResponse, error)
+	// GetRefundRetentionPolicyWithResponse request
+	GetRefundRetentionPolicyWithResponse(ctx context.Context, orderId string, reqEditors ...RequestEditorFn) (*GetRefundRetentionPolicyResponse, error)
 
 	// RefundOrderWithBodyWithResponse request with any body
 	RefundOrderWithBodyWithResponse(ctx context.Context, orderId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RefundOrderResponse, error)
 
 	RefundOrderWithResponse(ctx context.Context, orderId string, body RefundOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*RefundOrderResponse, error)
 
-	// ListAttendeesByOrganizationWithBodyWithResponse request with any body
-	ListAttendeesByOrganizationWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListAttendeesByOrganizationResponse, error)
+	// ListAttendeesByOrganizationWithResponse request
+	ListAttendeesByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListAttendeesByOrganizationResponse, error)
 
-	ListAttendeesByOrganizationWithResponse(ctx context.Context, organizationId string, body ListAttendeesByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*ListAttendeesByOrganizationResponse, error)
-
-	// SearchDiscountsByOrganizationWithBodyWithResponse request with any body
-	SearchDiscountsByOrganizationWithBodyWithResponse(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SearchDiscountsByOrganizationResponse, error)
-
-	SearchDiscountsByOrganizationWithResponse(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, body SearchDiscountsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*SearchDiscountsByOrganizationResponse, error)
+	// SearchDiscountsByOrganizationWithResponse request
+	SearchDiscountsByOrganizationWithResponse(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, reqEditors ...RequestEditorFn) (*SearchDiscountsByOrganizationResponse, error)
 
 	// CreateADiscountWithBodyWithResponse request with any body
 	CreateADiscountWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateADiscountResponse, error)
 
 	CreateADiscountWithResponse(ctx context.Context, organizationId string, body CreateADiscountJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateADiscountResponse, error)
 
-	// ListEventsByOrganizationWithBodyWithResponse request with any body
-	ListEventsByOrganizationWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error)
-
-	ListEventsByOrganizationWithResponse(ctx context.Context, organizationId string, body ListEventsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error)
+	// ListEventsByOrganizationWithResponse request
+	ListEventsByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error)
 
 	// CreateAnEventWithBodyWithResponse request with any body
 	CreateAnEventWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAnEventResponse, error)
@@ -9665,10 +8734,8 @@ type ClientWithResponsesInterface interface {
 	// ListMembersOfAnOrganizationWithResponse request
 	ListMembersOfAnOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListMembersOfAnOrganizationResponse, error)
 
-	// ListOrdersByOrganizationIDWithBodyWithResponse request with any body
-	ListOrdersByOrganizationIDWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListOrdersByOrganizationIDResponse, error)
-
-	ListOrdersByOrganizationIDWithResponse(ctx context.Context, organizationId string, body ListOrdersByOrganizationIDJSONRequestBody, reqEditors ...RequestEditorFn) (*ListOrdersByOrganizationIDResponse, error)
+	// ListOrdersByOrganizationIDWithResponse request
+	ListOrdersByOrganizationIDWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListOrdersByOrganizationIDResponse, error)
 
 	// ListRolesByOrganizationWithResponse request
 	ListRolesByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListRolesByOrganizationResponse, error)
@@ -9684,10 +8751,8 @@ type ClientWithResponsesInterface interface {
 
 	CreateTextOverridesWithResponse(ctx context.Context, organizationId string, body CreateTextOverridesJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTextOverridesResponse, error)
 
-	// ListTicketGroupsByOrganizationWithBodyWithResponse request with any body
-	ListTicketGroupsByOrganizationWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListTicketGroupsByOrganizationResponse, error)
-
-	ListTicketGroupsByOrganizationWithResponse(ctx context.Context, organizationId string, body ListTicketGroupsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*ListTicketGroupsByOrganizationResponse, error)
+	// ListTicketGroupsByOrganizationWithResponse request
+	ListTicketGroupsByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListTicketGroupsByOrganizationResponse, error)
 
 	// CreateATicketGroupWithBodyWithResponse request with any body
 	CreateATicketGroupWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateATicketGroupResponse, error)
@@ -9718,23 +8783,17 @@ type ClientWithResponsesInterface interface {
 	// ListPricingWithResponse request
 	ListPricingWithResponse(ctx context.Context, params *ListPricingParams, reqEditors ...RequestEditorFn) (*ListPricingResponse, error)
 
-	// RetrieveAAttendeeReportWithBodyWithResponse request with any body
-	RetrieveAAttendeeReportWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RetrieveAAttendeeReportResponse, error)
+	// RetrieveAAttendeeReportWithResponse request
+	RetrieveAAttendeeReportWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RetrieveAAttendeeReportResponse, error)
 
-	RetrieveAAttendeeReportWithResponse(ctx context.Context, body RetrieveAAttendeeReportJSONRequestBody, reqEditors ...RequestEditorFn) (*RetrieveAAttendeeReportResponse, error)
-
-	// RetrieveASalesReportWithBodyWithResponse request with any body
-	RetrieveASalesReportWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RetrieveASalesReportResponse, error)
-
-	RetrieveASalesReportWithResponse(ctx context.Context, body RetrieveASalesReportJSONRequestBody, reqEditors ...RequestEditorFn) (*RetrieveASalesReportResponse, error)
+	// RetrieveASalesReportWithResponse request
+	RetrieveASalesReportWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RetrieveASalesReportResponse, error)
 
 	// RetrieveAnEventSeriesWithResponse request
 	RetrieveAnEventSeriesWithResponse(ctx context.Context, eventSeriesId string, reqEditors ...RequestEditorFn) (*RetrieveAnEventSeriesResponse, error)
 
-	// ListEventsBySeriesWithBodyWithResponse request with any body
-	ListEventsBySeriesWithBodyWithResponse(ctx context.Context, eventSeriesId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListEventsBySeriesResponse, error)
-
-	ListEventsBySeriesWithResponse(ctx context.Context, eventSeriesId string, body ListEventsBySeriesJSONRequestBody, reqEditors ...RequestEditorFn) (*ListEventsBySeriesResponse, error)
+	// ListEventsBySeriesWithResponse request
+	ListEventsBySeriesWithResponse(ctx context.Context, eventSeriesId string, reqEditors ...RequestEditorFn) (*ListEventsBySeriesResponse, error)
 
 	// ListOfSubcategoriesWithResponse request
 	ListOfSubcategoriesWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListOfSubcategoriesResponse, error)
@@ -9762,10 +8821,8 @@ type ClientWithResponsesInterface interface {
 	// RetrieveInformationAboutAUserAccountWithResponse request
 	RetrieveInformationAboutAUserAccountWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*RetrieveInformationAboutAUserAccountResponse, error)
 
-	// ListOrdersByUserIDWithBodyWithResponse request with any body
-	ListOrdersByUserIDWithBodyWithResponse(ctx context.Context, userId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListOrdersByUserIDResponse, error)
-
-	ListOrdersByUserIDWithResponse(ctx context.Context, userId string, body ListOrdersByUserIDJSONRequestBody, reqEditors ...RequestEditorFn) (*ListOrdersByUserIDResponse, error)
+	// ListOrdersByUserIDWithResponse request
+	ListOrdersByUserIDWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*ListOrdersByUserIDResponse, error)
 
 	// ListOrganizationsByUserWithResponse request
 	ListOrganizationsByUserWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*ListOrganizationsByUserResponse, error)
@@ -9778,10 +8835,8 @@ type ClientWithResponsesInterface interface {
 
 	UpdateAVenueWithResponse(ctx context.Context, venueId string, body UpdateAVenueJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAVenueResponse, error)
 
-	// ListEventsByVenueWithBodyWithResponse request with any body
-	ListEventsByVenueWithBodyWithResponse(ctx context.Context, venueId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListEventsByVenueResponse, error)
-
-	ListEventsByVenueWithResponse(ctx context.Context, venueId string, body ListEventsByVenueJSONRequestBody, reqEditors ...RequestEditorFn) (*ListEventsByVenueResponse, error)
+	// ListEventsByVenueWithResponse request
+	ListEventsByVenueWithResponse(ctx context.Context, venueId string, reqEditors ...RequestEditorFn) (*ListEventsByVenueResponse, error)
 
 	// ListOfWebhooksDeprecationWithResponse request
 	ListOfWebhooksDeprecationWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListOfWebhooksDeprecationResponse, error)
@@ -20923,17 +19978,9 @@ func (r DeleteWebhookByIDResponse) StatusCode() int {
 	return 0
 }
 
-// RemainingBalanceWithBodyWithResponse request with arbitrary body returning *RemainingBalanceResponse
-func (c *ClientWithResponses) RemainingBalanceWithBodyWithResponse(ctx context.Context, publicOrganizationId string, publicEventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RemainingBalanceResponse, error) {
-	rsp, err := c.RemainingBalanceWithBody(ctx, publicOrganizationId, publicEventId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRemainingBalanceResponse(rsp)
-}
-
-func (c *ClientWithResponses) RemainingBalanceWithResponse(ctx context.Context, publicOrganizationId string, publicEventId string, body RemainingBalanceJSONRequestBody, reqEditors ...RequestEditorFn) (*RemainingBalanceResponse, error) {
-	rsp, err := c.RemainingBalance(ctx, publicOrganizationId, publicEventId, body, reqEditors...)
+// RemainingBalanceWithResponse request returning *RemainingBalanceResponse
+func (c *ClientWithResponses) RemainingBalanceWithResponse(ctx context.Context, publicOrganizationId string, publicEventId string, reqEditors ...RequestEditorFn) (*RemainingBalanceResponse, error) {
+	rsp, err := c.RemainingBalance(ctx, publicOrganizationId, publicEventId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21020,17 +20067,9 @@ func (c *ClientWithResponses) UpdateDefaultQuestionByIdWithResponse(ctx context.
 	return ParseUpdateDefaultQuestionByIdResponse(rsp)
 }
 
-// SearchEventsDeprecatedWithBodyWithResponse request with arbitrary body returning *SearchEventsDeprecatedResponse
-func (c *ClientWithResponses) SearchEventsDeprecatedWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SearchEventsDeprecatedResponse, error) {
-	rsp, err := c.SearchEventsDeprecatedWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSearchEventsDeprecatedResponse(rsp)
-}
-
-func (c *ClientWithResponses) SearchEventsDeprecatedWithResponse(ctx context.Context, body SearchEventsDeprecatedJSONRequestBody, reqEditors ...RequestEditorFn) (*SearchEventsDeprecatedResponse, error) {
-	rsp, err := c.SearchEventsDeprecated(ctx, body, reqEditors...)
+// SearchEventsDeprecatedWithResponse request returning *SearchEventsDeprecatedResponse
+func (c *ClientWithResponses) SearchEventsDeprecatedWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*SearchEventsDeprecatedResponse, error) {
+	rsp, err := c.SearchEventsDeprecated(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21072,17 +20111,9 @@ func (c *ClientWithResponses) UpdateAnEventWithResponse(ctx context.Context, eve
 	return ParseUpdateAnEventResponse(rsp)
 }
 
-// ListAttendeesByEventWithBodyWithResponse request with arbitrary body returning *ListAttendeesByEventResponse
-func (c *ClientWithResponses) ListAttendeesByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListAttendeesByEventResponse, error) {
-	rsp, err := c.ListAttendeesByEventWithBody(ctx, eventId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListAttendeesByEventResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListAttendeesByEventWithResponse(ctx context.Context, eventId string, body ListAttendeesByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListAttendeesByEventResponse, error) {
-	rsp, err := c.ListAttendeesByEvent(ctx, eventId, body, reqEditors...)
+// ListAttendeesByEventWithResponse request returning *ListAttendeesByEventResponse
+func (c *ClientWithResponses) ListAttendeesByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListAttendeesByEventResponse, error) {
+	rsp, err := c.ListAttendeesByEvent(ctx, eventId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21107,17 +20138,9 @@ func (c *ClientWithResponses) CancelAnEventWithResponse(ctx context.Context, eve
 	return ParseCancelAnEventResponse(rsp)
 }
 
-// ListDefaultQuestionsByEventWithBodyWithResponse request with arbitrary body returning *ListDefaultQuestionsByEventResponse
-func (c *ClientWithResponses) ListDefaultQuestionsByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListDefaultQuestionsByEventResponse, error) {
-	rsp, err := c.ListDefaultQuestionsByEventWithBody(ctx, eventId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListDefaultQuestionsByEventResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListDefaultQuestionsByEventWithResponse(ctx context.Context, eventId string, body ListDefaultQuestionsByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListDefaultQuestionsByEventResponse, error) {
-	rsp, err := c.ListDefaultQuestionsByEvent(ctx, eventId, body, reqEditors...)
+// ListDefaultQuestionsByEventWithResponse request returning *ListDefaultQuestionsByEventResponse
+func (c *ClientWithResponses) ListDefaultQuestionsByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListDefaultQuestionsByEventResponse, error) {
+	rsp, err := c.ListDefaultQuestionsByEvent(ctx, eventId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21280,17 +20303,9 @@ func (c *ClientWithResponses) UpdateAnInventoryTierWithResponse(ctx context.Cont
 	return ParseUpdateAnInventoryTierResponse(rsp)
 }
 
-// ListOrdersByEventIDWithBodyWithResponse request with arbitrary body returning *ListOrdersByEventIDResponse
-func (c *ClientWithResponses) ListOrdersByEventIDWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListOrdersByEventIDResponse, error) {
-	rsp, err := c.ListOrdersByEventIDWithBody(ctx, eventId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListOrdersByEventIDResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListOrdersByEventIDWithResponse(ctx context.Context, eventId string, body ListOrdersByEventIDJSONRequestBody, reqEditors ...RequestEditorFn) (*ListOrdersByEventIDResponse, error) {
-	rsp, err := c.ListOrdersByEventID(ctx, eventId, body, reqEditors...)
+// ListOrdersByEventIDWithResponse request returning *ListOrdersByEventIDResponse
+func (c *ClientWithResponses) ListOrdersByEventIDWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListOrdersByEventIDResponse, error) {
+	rsp, err := c.ListOrdersByEventID(ctx, eventId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21306,17 +20321,9 @@ func (c *ClientWithResponses) PublishAnEventWithResponse(ctx context.Context, ev
 	return ParsePublishAnEventResponse(rsp)
 }
 
-// ListCustomQuestionsByEventWithBodyWithResponse request with arbitrary body returning *ListCustomQuestionsByEventResponse
-func (c *ClientWithResponses) ListCustomQuestionsByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListCustomQuestionsByEventResponse, error) {
-	rsp, err := c.ListCustomQuestionsByEventWithBody(ctx, eventId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListCustomQuestionsByEventResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListCustomQuestionsByEventWithResponse(ctx context.Context, eventId string, body ListCustomQuestionsByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListCustomQuestionsByEventResponse, error) {
-	rsp, err := c.ListCustomQuestionsByEvent(ctx, eventId, body, reqEditors...)
+// ListCustomQuestionsByEventWithResponse request returning *ListCustomQuestionsByEventResponse
+func (c *ClientWithResponses) ListCustomQuestionsByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListCustomQuestionsByEventResponse, error) {
+	rsp, err := c.ListCustomQuestionsByEvent(ctx, eventId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21488,17 +20495,9 @@ func (c *ClientWithResponses) UpdateTicketBuyerSettingsForAnEventWithResponse(ct
 	return ParseUpdateTicketBuyerSettingsForAnEventResponse(rsp)
 }
 
-// ListTicketClassesByEventWithBodyWithResponse request with arbitrary body returning *ListTicketClassesByEventResponse
-func (c *ClientWithResponses) ListTicketClassesByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListTicketClassesByEventResponse, error) {
-	rsp, err := c.ListTicketClassesByEventWithBody(ctx, eventId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListTicketClassesByEventResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListTicketClassesByEventWithResponse(ctx context.Context, eventId string, body ListTicketClassesByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListTicketClassesByEventResponse, error) {
-	rsp, err := c.ListTicketClassesByEvent(ctx, eventId, body, reqEditors...)
+// ListTicketClassesByEventWithResponse request returning *ListTicketClassesByEventResponse
+func (c *ClientWithResponses) ListTicketClassesByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListTicketClassesByEventResponse, error) {
+	rsp, err := c.ListTicketClassesByEvent(ctx, eventId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21522,17 +20521,9 @@ func (c *ClientWithResponses) CreateATicketClassWithResponse(ctx context.Context
 	return ParseCreateATicketClassResponse(rsp)
 }
 
-// ListTicketClassesAvailableForSaleByEventWithBodyWithResponse request with arbitrary body returning *ListTicketClassesAvailableForSaleByEventResponse
-func (c *ClientWithResponses) ListTicketClassesAvailableForSaleByEventWithBodyWithResponse(ctx context.Context, eventId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListTicketClassesAvailableForSaleByEventResponse, error) {
-	rsp, err := c.ListTicketClassesAvailableForSaleByEventWithBody(ctx, eventId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListTicketClassesAvailableForSaleByEventResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Context, eventId string, body ListTicketClassesAvailableForSaleByEventJSONRequestBody, reqEditors ...RequestEditorFn) (*ListTicketClassesAvailableForSaleByEventResponse, error) {
-	rsp, err := c.ListTicketClassesAvailableForSaleByEvent(ctx, eventId, body, reqEditors...)
+// ListTicketClassesAvailableForSaleByEventWithResponse request returning *ListTicketClassesAvailableForSaleByEventResponse
+func (c *ClientWithResponses) ListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Context, eventId string, reqEditors ...RequestEditorFn) (*ListTicketClassesAvailableForSaleByEventResponse, error) {
+	rsp, err := c.ListTicketClassesAvailableForSaleByEvent(ctx, eventId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21574,34 +20565,18 @@ func (c *ClientWithResponses) UnpublishAnEventWithResponse(ctx context.Context, 
 	return ParseUnpublishAnEventResponse(rsp)
 }
 
-// RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithBodyWithResponse request with arbitrary body returning *RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse
-func (c *ClientWithResponses) RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse, error) {
-	rsp, err := c.RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithBody(ctx, id, contentType, body, reqEditors...)
+// RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse request returning *RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse
+func (c *ClientWithResponses) RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse, error) {
+	rsp, err := c.RetrieveLatestPublishedVersionOfStructuredContentByEventId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseRetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse(rsp)
 }
 
-func (c *ClientWithResponses) RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, id string, body RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONRequestBody, reqEditors ...RequestEditorFn) (*RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse, error) {
-	rsp, err := c.RetrieveLatestPublishedVersionOfStructuredContentByEventId(ctx, id, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse(rsp)
-}
-
-// RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithBodyWithResponse request with arbitrary body returning *RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse
-func (c *ClientWithResponses) RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse, error) {
-	rsp, err := c.RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithBody(ctx, id, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse(rsp)
-}
-
-func (c *ClientWithResponses) RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, id string, body RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONRequestBody, reqEditors ...RequestEditorFn) (*RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse, error) {
-	rsp, err := c.RetrieveLatestWorkingVersionOfStructuredContentByEventId(ctx, id, body, reqEditors...)
+// RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse request returning *RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse
+func (c *ClientWithResponses) RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse, error) {
+	rsp, err := c.RetrieveLatestWorkingVersionOfStructuredContentByEventId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21687,17 +20662,9 @@ func (c *ClientWithResponses) RetrieveOrderByIDWithResponse(ctx context.Context,
 	return ParseRetrieveOrderByIDResponse(rsp)
 }
 
-// GetRefundRetentionPolicyWithBodyWithResponse request with arbitrary body returning *GetRefundRetentionPolicyResponse
-func (c *ClientWithResponses) GetRefundRetentionPolicyWithBodyWithResponse(ctx context.Context, orderId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*GetRefundRetentionPolicyResponse, error) {
-	rsp, err := c.GetRefundRetentionPolicyWithBody(ctx, orderId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetRefundRetentionPolicyResponse(rsp)
-}
-
-func (c *ClientWithResponses) GetRefundRetentionPolicyWithResponse(ctx context.Context, orderId string, body GetRefundRetentionPolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*GetRefundRetentionPolicyResponse, error) {
-	rsp, err := c.GetRefundRetentionPolicy(ctx, orderId, body, reqEditors...)
+// GetRefundRetentionPolicyWithResponse request returning *GetRefundRetentionPolicyResponse
+func (c *ClientWithResponses) GetRefundRetentionPolicyWithResponse(ctx context.Context, orderId string, reqEditors ...RequestEditorFn) (*GetRefundRetentionPolicyResponse, error) {
+	rsp, err := c.GetRefundRetentionPolicy(ctx, orderId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21721,34 +20688,18 @@ func (c *ClientWithResponses) RefundOrderWithResponse(ctx context.Context, order
 	return ParseRefundOrderResponse(rsp)
 }
 
-// ListAttendeesByOrganizationWithBodyWithResponse request with arbitrary body returning *ListAttendeesByOrganizationResponse
-func (c *ClientWithResponses) ListAttendeesByOrganizationWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListAttendeesByOrganizationResponse, error) {
-	rsp, err := c.ListAttendeesByOrganizationWithBody(ctx, organizationId, contentType, body, reqEditors...)
+// ListAttendeesByOrganizationWithResponse request returning *ListAttendeesByOrganizationResponse
+func (c *ClientWithResponses) ListAttendeesByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListAttendeesByOrganizationResponse, error) {
+	rsp, err := c.ListAttendeesByOrganization(ctx, organizationId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseListAttendeesByOrganizationResponse(rsp)
 }
 
-func (c *ClientWithResponses) ListAttendeesByOrganizationWithResponse(ctx context.Context, organizationId string, body ListAttendeesByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*ListAttendeesByOrganizationResponse, error) {
-	rsp, err := c.ListAttendeesByOrganization(ctx, organizationId, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListAttendeesByOrganizationResponse(rsp)
-}
-
-// SearchDiscountsByOrganizationWithBodyWithResponse request with arbitrary body returning *SearchDiscountsByOrganizationResponse
-func (c *ClientWithResponses) SearchDiscountsByOrganizationWithBodyWithResponse(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SearchDiscountsByOrganizationResponse, error) {
-	rsp, err := c.SearchDiscountsByOrganizationWithBody(ctx, organizationId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSearchDiscountsByOrganizationResponse(rsp)
-}
-
-func (c *ClientWithResponses) SearchDiscountsByOrganizationWithResponse(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, body SearchDiscountsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*SearchDiscountsByOrganizationResponse, error) {
-	rsp, err := c.SearchDiscountsByOrganization(ctx, organizationId, params, body, reqEditors...)
+// SearchDiscountsByOrganizationWithResponse request returning *SearchDiscountsByOrganizationResponse
+func (c *ClientWithResponses) SearchDiscountsByOrganizationWithResponse(ctx context.Context, organizationId string, params *SearchDiscountsByOrganizationParams, reqEditors ...RequestEditorFn) (*SearchDiscountsByOrganizationResponse, error) {
+	rsp, err := c.SearchDiscountsByOrganization(ctx, organizationId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21772,17 +20723,9 @@ func (c *ClientWithResponses) CreateADiscountWithResponse(ctx context.Context, o
 	return ParseCreateADiscountResponse(rsp)
 }
 
-// ListEventsByOrganizationWithBodyWithResponse request with arbitrary body returning *ListEventsByOrganizationResponse
-func (c *ClientWithResponses) ListEventsByOrganizationWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error) {
-	rsp, err := c.ListEventsByOrganizationWithBody(ctx, organizationId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListEventsByOrganizationResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListEventsByOrganizationWithResponse(ctx context.Context, organizationId string, body ListEventsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error) {
-	rsp, err := c.ListEventsByOrganization(ctx, organizationId, body, reqEditors...)
+// ListEventsByOrganizationWithResponse request returning *ListEventsByOrganizationResponse
+func (c *ClientWithResponses) ListEventsByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error) {
+	rsp, err := c.ListEventsByOrganization(ctx, organizationId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21832,17 +20775,9 @@ func (c *ClientWithResponses) ListMembersOfAnOrganizationWithResponse(ctx contex
 	return ParseListMembersOfAnOrganizationResponse(rsp)
 }
 
-// ListOrdersByOrganizationIDWithBodyWithResponse request with arbitrary body returning *ListOrdersByOrganizationIDResponse
-func (c *ClientWithResponses) ListOrdersByOrganizationIDWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListOrdersByOrganizationIDResponse, error) {
-	rsp, err := c.ListOrdersByOrganizationIDWithBody(ctx, organizationId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListOrdersByOrganizationIDResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListOrdersByOrganizationIDWithResponse(ctx context.Context, organizationId string, body ListOrdersByOrganizationIDJSONRequestBody, reqEditors ...RequestEditorFn) (*ListOrdersByOrganizationIDResponse, error) {
-	rsp, err := c.ListOrdersByOrganizationID(ctx, organizationId, body, reqEditors...)
+// ListOrdersByOrganizationIDWithResponse request returning *ListOrdersByOrganizationIDResponse
+func (c *ClientWithResponses) ListOrdersByOrganizationIDWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListOrdersByOrganizationIDResponse, error) {
+	rsp, err := c.ListOrdersByOrganizationID(ctx, organizationId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -21893,17 +20828,9 @@ func (c *ClientWithResponses) CreateTextOverridesWithResponse(ctx context.Contex
 	return ParseCreateTextOverridesResponse(rsp)
 }
 
-// ListTicketGroupsByOrganizationWithBodyWithResponse request with arbitrary body returning *ListTicketGroupsByOrganizationResponse
-func (c *ClientWithResponses) ListTicketGroupsByOrganizationWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListTicketGroupsByOrganizationResponse, error) {
-	rsp, err := c.ListTicketGroupsByOrganizationWithBody(ctx, organizationId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListTicketGroupsByOrganizationResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListTicketGroupsByOrganizationWithResponse(ctx context.Context, organizationId string, body ListTicketGroupsByOrganizationJSONRequestBody, reqEditors ...RequestEditorFn) (*ListTicketGroupsByOrganizationResponse, error) {
-	rsp, err := c.ListTicketGroupsByOrganization(ctx, organizationId, body, reqEditors...)
+// ListTicketGroupsByOrganizationWithResponse request returning *ListTicketGroupsByOrganizationResponse
+func (c *ClientWithResponses) ListTicketGroupsByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListTicketGroupsByOrganizationResponse, error) {
+	rsp, err := c.ListTicketGroupsByOrganization(ctx, organizationId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -22005,34 +20932,18 @@ func (c *ClientWithResponses) ListPricingWithResponse(ctx context.Context, param
 	return ParseListPricingResponse(rsp)
 }
 
-// RetrieveAAttendeeReportWithBodyWithResponse request with arbitrary body returning *RetrieveAAttendeeReportResponse
-func (c *ClientWithResponses) RetrieveAAttendeeReportWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RetrieveAAttendeeReportResponse, error) {
-	rsp, err := c.RetrieveAAttendeeReportWithBody(ctx, contentType, body, reqEditors...)
+// RetrieveAAttendeeReportWithResponse request returning *RetrieveAAttendeeReportResponse
+func (c *ClientWithResponses) RetrieveAAttendeeReportWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RetrieveAAttendeeReportResponse, error) {
+	rsp, err := c.RetrieveAAttendeeReport(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseRetrieveAAttendeeReportResponse(rsp)
 }
 
-func (c *ClientWithResponses) RetrieveAAttendeeReportWithResponse(ctx context.Context, body RetrieveAAttendeeReportJSONRequestBody, reqEditors ...RequestEditorFn) (*RetrieveAAttendeeReportResponse, error) {
-	rsp, err := c.RetrieveAAttendeeReport(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveAAttendeeReportResponse(rsp)
-}
-
-// RetrieveASalesReportWithBodyWithResponse request with arbitrary body returning *RetrieveASalesReportResponse
-func (c *ClientWithResponses) RetrieveASalesReportWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RetrieveASalesReportResponse, error) {
-	rsp, err := c.RetrieveASalesReportWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveASalesReportResponse(rsp)
-}
-
-func (c *ClientWithResponses) RetrieveASalesReportWithResponse(ctx context.Context, body RetrieveASalesReportJSONRequestBody, reqEditors ...RequestEditorFn) (*RetrieveASalesReportResponse, error) {
-	rsp, err := c.RetrieveASalesReport(ctx, body, reqEditors...)
+// RetrieveASalesReportWithResponse request returning *RetrieveASalesReportResponse
+func (c *ClientWithResponses) RetrieveASalesReportWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RetrieveASalesReportResponse, error) {
+	rsp, err := c.RetrieveASalesReport(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -22048,17 +20959,9 @@ func (c *ClientWithResponses) RetrieveAnEventSeriesWithResponse(ctx context.Cont
 	return ParseRetrieveAnEventSeriesResponse(rsp)
 }
 
-// ListEventsBySeriesWithBodyWithResponse request with arbitrary body returning *ListEventsBySeriesResponse
-func (c *ClientWithResponses) ListEventsBySeriesWithBodyWithResponse(ctx context.Context, eventSeriesId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListEventsBySeriesResponse, error) {
-	rsp, err := c.ListEventsBySeriesWithBody(ctx, eventSeriesId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListEventsBySeriesResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListEventsBySeriesWithResponse(ctx context.Context, eventSeriesId string, body ListEventsBySeriesJSONRequestBody, reqEditors ...RequestEditorFn) (*ListEventsBySeriesResponse, error) {
-	rsp, err := c.ListEventsBySeries(ctx, eventSeriesId, body, reqEditors...)
+// ListEventsBySeriesWithResponse request returning *ListEventsBySeriesResponse
+func (c *ClientWithResponses) ListEventsBySeriesWithResponse(ctx context.Context, eventSeriesId string, reqEditors ...RequestEditorFn) (*ListEventsBySeriesResponse, error) {
+	rsp, err := c.ListEventsBySeries(ctx, eventSeriesId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -22145,17 +21048,9 @@ func (c *ClientWithResponses) RetrieveInformationAboutAUserAccountWithResponse(c
 	return ParseRetrieveInformationAboutAUserAccountResponse(rsp)
 }
 
-// ListOrdersByUserIDWithBodyWithResponse request with arbitrary body returning *ListOrdersByUserIDResponse
-func (c *ClientWithResponses) ListOrdersByUserIDWithBodyWithResponse(ctx context.Context, userId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListOrdersByUserIDResponse, error) {
-	rsp, err := c.ListOrdersByUserIDWithBody(ctx, userId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListOrdersByUserIDResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListOrdersByUserIDWithResponse(ctx context.Context, userId string, body ListOrdersByUserIDJSONRequestBody, reqEditors ...RequestEditorFn) (*ListOrdersByUserIDResponse, error) {
-	rsp, err := c.ListOrdersByUserID(ctx, userId, body, reqEditors...)
+// ListOrdersByUserIDWithResponse request returning *ListOrdersByUserIDResponse
+func (c *ClientWithResponses) ListOrdersByUserIDWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*ListOrdersByUserIDResponse, error) {
+	rsp, err := c.ListOrdersByUserID(ctx, userId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -22197,17 +21092,9 @@ func (c *ClientWithResponses) UpdateAVenueWithResponse(ctx context.Context, venu
 	return ParseUpdateAVenueResponse(rsp)
 }
 
-// ListEventsByVenueWithBodyWithResponse request with arbitrary body returning *ListEventsByVenueResponse
-func (c *ClientWithResponses) ListEventsByVenueWithBodyWithResponse(ctx context.Context, venueId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListEventsByVenueResponse, error) {
-	rsp, err := c.ListEventsByVenueWithBody(ctx, venueId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListEventsByVenueResponse(rsp)
-}
-
-func (c *ClientWithResponses) ListEventsByVenueWithResponse(ctx context.Context, venueId string, body ListEventsByVenueJSONRequestBody, reqEditors ...RequestEditorFn) (*ListEventsByVenueResponse, error) {
-	rsp, err := c.ListEventsByVenue(ctx, venueId, body, reqEditors...)
+// ListEventsByVenueWithResponse request returning *ListEventsByVenueResponse
+func (c *ClientWithResponses) ListEventsByVenueWithResponse(ctx context.Context, venueId string, reqEditors ...RequestEditorFn) (*ListEventsByVenueResponse, error) {
+	rsp, err := c.ListEventsByVenue(ctx, venueId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}

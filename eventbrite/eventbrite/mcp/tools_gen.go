@@ -52,9 +52,8 @@ func (h *Handler) RegisterTicketGroup(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("list-ticket-groups-by-organization",
-			mcp.WithDescription("ListTicketGroupsByOrganization"),
+			mcp.WithDescription("request returning *ListTicketGroupsByOrganizationResponse"),
 			mcp.WithString("organizationId", mcp.Required(), mcp.Description("organizationId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListTicketGroupsByOrganizationWithResponse,
 	)
@@ -143,27 +142,24 @@ func (h *Handler) RegisterEvent(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("list-events-by-organization",
-			mcp.WithDescription("ListEventsByOrganization"),
+			mcp.WithDescription("request returning *ListEventsByOrganizationResponse"),
 			mcp.WithString("organizationId", mcp.Required(), mcp.Description("organizationId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListEventsByOrganizationWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("list-events-by-series",
-			mcp.WithDescription("ListEventsBySeries"),
+			mcp.WithDescription("request returning *ListEventsBySeriesResponse"),
 			mcp.WithString("eventSeriesId", mcp.Required(), mcp.Description("eventSeriesId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListEventsBySeriesWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("list-events-by-venue",
-			mcp.WithDescription("ListEventsByVenue"),
+			mcp.WithDescription("request returning *ListEventsByVenueResponse"),
 			mcp.WithString("venueId", mcp.Required(), mcp.Description("venueId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListEventsByVenueWithResponse,
 	)
@@ -297,18 +293,16 @@ func (h *Handler) RegisterQuestions(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("list-custom-questions-by-event",
-			mcp.WithDescription("ListCustomQuestionsByEvent"),
+			mcp.WithDescription("request returning *ListCustomQuestionsByEventResponse"),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-			mcp.WithBoolean("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListCustomQuestionsByEventWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("list-default-questions-by-event",
-			mcp.WithDescription("ListDefaultQuestionsByEvent"),
+			mcp.WithDescription("request returning *ListDefaultQuestionsByEventResponse"),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-			mcp.WithBoolean("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListDefaultQuestionsByEventWithResponse,
 	)
@@ -355,10 +349,9 @@ func (h *Handler) RegisterDiscount(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("search-discounts-by-organization",
-			mcp.WithDescription("SearchDiscountsByOrganization"),
+			mcp.WithDescription("request returning *SearchDiscountsByOrganizationResponse"),
 			mcp.WithString("organizationId", mcp.Required(), mcp.Description("organizationId")),
 			mcp.WithString("scope", mcp.Description("Scope")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleSearchDiscountsByOrganizationWithResponse,
 	)
@@ -447,18 +440,16 @@ func (h *Handler) RegisterTicketClass(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("list-ticket-classes-available-for-sale-by-event",
-			mcp.WithDescription("ListTicketClassesAvailableForSaleByEvent"),
+			mcp.WithDescription("request returning *ListTicketClassesAvailableForSaleByEventResponse"),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListTicketClassesAvailableForSaleByEventWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("list-ticket-classes-by-event",
-			mcp.WithDescription("ListTicketClassesByEvent"),
+			mcp.WithDescription("request returning *ListTicketClassesByEventResponse"),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListTicketClassesByEventWithResponse,
 	)
@@ -687,36 +678,32 @@ func (h *Handler) RegisterOrder(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("get-refund-retention-policy",
-			mcp.WithDescription("GetRefundRetentionPolicy"),
+			mcp.WithDescription("request returning *GetRefundRetentionPolicyResponse"),
 			mcp.WithString("orderId", mcp.Required(), mcp.Description("orderId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleGetRefundRetentionPolicyWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("list-orders-by-event-i-d",
-			mcp.WithDescription("ListOrdersByEventID"),
+			mcp.WithDescription("request returning *ListOrdersByEventIDResponse"),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListOrdersByEventIDWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("list-orders-by-organization-i-d",
-			mcp.WithDescription("ListOrdersByOrganizationID"),
+			mcp.WithDescription("request returning *ListOrdersByOrganizationIDResponse"),
 			mcp.WithString("organizationId", mcp.Required(), mcp.Description("organizationId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListOrdersByOrganizationIDWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("list-orders-by-user-i-d",
-			mcp.WithDescription("ListOrdersByUserID"),
+			mcp.WithDescription("request returning *ListOrdersByUserIDResponse"),
 			mcp.WithString("userId", mcp.Required(), mcp.Description("userId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListOrdersByUserIDWithResponse,
 	)
@@ -745,18 +732,16 @@ func (h *Handler) RegisterAttendee(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("list-attendees-by-event",
-			mcp.WithDescription("ListAttendeesByEvent"),
+			mcp.WithDescription("request returning *ListAttendeesByEventResponse"),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListAttendeesByEventWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("list-attendees-by-organization",
-			mcp.WithDescription("ListAttendeesByOrganization"),
+			mcp.WithDescription("request returning *ListAttendeesByOrganizationResponse"),
 			mcp.WithString("organizationId", mcp.Required(), mcp.Description("organizationId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleListAttendeesByOrganizationWithResponse,
 	)
@@ -843,10 +828,9 @@ func (h *Handler) RegisterBalance(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("remaining-balance",
-			mcp.WithDescription("RemainingBalance"),
+			mcp.WithDescription("request returning *RemainingBalanceResponse"),
 			mcp.WithString("publicOrganizationId", mcp.Required(), mcp.Description("publicOrganizationId")),
 			mcp.WithString("publicEventId", mcp.Required(), mcp.Description("publicEventId")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleRemainingBalanceWithResponse,
 	)
@@ -858,16 +842,14 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("retrieve-a-attendee-report",
-			mcp.WithDescription("RetrieveAAttendeeReport"),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
+			mcp.WithDescription("request returning *RetrieveAAttendeeReportResponse"),
 		),
 		h.handleRetrieveAAttendeeReportWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("retrieve-a-sales-report",
-			mcp.WithDescription("RetrieveASalesReport"),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
+			mcp.WithDescription("request returning *RetrieveASalesReportResponse"),
 		),
 		h.handleRetrieveASalesReportWithResponse,
 	)
@@ -999,18 +981,16 @@ func (h *Handler) RegisterStructuredContent(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("retrieve-latest-published-version-of-structured-content-by-event-id",
-			mcp.WithDescription("RetrieveLatestPublishedVersionOfStructuredContentByEventId"),
+			mcp.WithDescription("request returning *RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleRetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse,
 	)
 
 	s.AddTool(
 		mcp.NewTool("retrieve-latest-working-version-of-structured-content-by-event-id",
-			mcp.WithDescription("RetrieveLatestWorkingVersionOfStructuredContentByEventId"),
+			mcp.WithDescription("request returning *RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse"),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
 		),
 		h.handleRetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse,
 	)
@@ -1054,8 +1034,7 @@ func (h *Handler) RegisterEventSearch(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("search-events-deprecated",
-			mcp.WithDescription("SearchEventsDeprecated"),
-			mcp.WithString("body", mcp.Required(), mcp.Description("body")),
+			mcp.WithDescription("request returning *SearchEventsDeprecatedResponse"),
 		),
 		h.handleSearchEventsDeprecatedWithResponse,
 	)
@@ -1336,9 +1315,8 @@ func (h *Handler) handleListTicketGroupsByOrganizationWithResponse(ctx context.C
 	}
 
 	organizationId := request.GetString("organizationId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListTicketGroupsByOrganizationWithResponse(ctx, organizationId, target.ListTicketGroupsByOrganizationJSONRequestBody(body))
+	resp, err := client.ListTicketGroupsByOrganizationWithResponse(ctx, organizationId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1539,9 +1517,8 @@ func (h *Handler) handleListEventsByOrganizationWithResponse(ctx context.Context
 	}
 
 	organizationId := request.GetString("organizationId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListEventsByOrganizationWithResponse(ctx, organizationId, target.ListEventsByOrganizationJSONRequestBody(body))
+	resp, err := client.ListEventsByOrganizationWithResponse(ctx, organizationId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1557,9 +1534,8 @@ func (h *Handler) handleListEventsBySeriesWithResponse(ctx context.Context, requ
 	}
 
 	eventSeriesId := request.GetString("eventSeriesId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListEventsBySeriesWithResponse(ctx, eventSeriesId, target.ListEventsBySeriesJSONRequestBody(body))
+	resp, err := client.ListEventsBySeriesWithResponse(ctx, eventSeriesId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1575,9 +1551,8 @@ func (h *Handler) handleListEventsByVenueWithResponse(ctx context.Context, reque
 	}
 
 	venueId := request.GetString("venueId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListEventsByVenueWithResponse(ctx, venueId, target.ListEventsByVenueJSONRequestBody(body))
+	resp, err := client.ListEventsByVenueWithResponse(ctx, venueId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1846,9 +1821,8 @@ func (h *Handler) handleListCustomQuestionsByEventWithResponse(ctx context.Conte
 	}
 
 	eventId := request.GetString("eventId", "")
-	body := request.GetBool("body", false)
 
-	resp, err := client.ListCustomQuestionsByEventWithResponse(ctx, eventId, body)
+	resp, err := client.ListCustomQuestionsByEventWithResponse(ctx, eventId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1864,9 +1838,8 @@ func (h *Handler) handleListDefaultQuestionsByEventWithResponse(ctx context.Cont
 	}
 
 	eventId := request.GetString("eventId", "")
-	body := request.GetBool("body", false)
 
-	resp, err := client.ListDefaultQuestionsByEventWithResponse(ctx, eventId, body)
+	resp, err := client.ListDefaultQuestionsByEventWithResponse(ctx, eventId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1962,7 +1935,6 @@ func (h *Handler) handleSearchDiscountsByOrganizationWithResponse(ctx context.Co
 	}
 
 	organizationId := request.GetString("organizationId", "")
-	body := request.GetString("body", "")
 	params := &target.SearchDiscountsByOrganizationParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["scope"]; ok {
@@ -1970,7 +1942,7 @@ func (h *Handler) handleSearchDiscountsByOrganizationWithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.SearchDiscountsByOrganizationWithResponse(ctx, organizationId, params, target.SearchDiscountsByOrganizationJSONRequestBody(body))
+	resp, err := client.SearchDiscountsByOrganizationWithResponse(ctx, organizationId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2142,9 +2114,8 @@ func (h *Handler) handleListTicketClassesAvailableForSaleByEventWithResponse(ctx
 	}
 
 	eventId := request.GetString("eventId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListTicketClassesAvailableForSaleByEventWithResponse(ctx, eventId, target.ListTicketClassesAvailableForSaleByEventJSONRequestBody(body))
+	resp, err := client.ListTicketClassesAvailableForSaleByEventWithResponse(ctx, eventId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2160,9 +2131,8 @@ func (h *Handler) handleListTicketClassesByEventWithResponse(ctx context.Context
 	}
 
 	eventId := request.GetString("eventId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListTicketClassesByEventWithResponse(ctx, eventId, target.ListTicketClassesByEventJSONRequestBody(body))
+	resp, err := client.ListTicketClassesByEventWithResponse(ctx, eventId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2615,9 +2585,8 @@ func (h *Handler) handleGetRefundRetentionPolicyWithResponse(ctx context.Context
 	}
 
 	orderId := request.GetString("orderId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.GetRefundRetentionPolicyWithResponse(ctx, orderId, target.GetRefundRetentionPolicyJSONRequestBody(body))
+	resp, err := client.GetRefundRetentionPolicyWithResponse(ctx, orderId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2633,9 +2602,8 @@ func (h *Handler) handleListOrdersByEventIDWithResponse(ctx context.Context, req
 	}
 
 	eventId := request.GetString("eventId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListOrdersByEventIDWithResponse(ctx, eventId, target.ListOrdersByEventIDJSONRequestBody(body))
+	resp, err := client.ListOrdersByEventIDWithResponse(ctx, eventId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2651,9 +2619,8 @@ func (h *Handler) handleListOrdersByOrganizationIDWithResponse(ctx context.Conte
 	}
 
 	organizationId := request.GetString("organizationId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListOrdersByOrganizationIDWithResponse(ctx, organizationId, target.ListOrdersByOrganizationIDJSONRequestBody(body))
+	resp, err := client.ListOrdersByOrganizationIDWithResponse(ctx, organizationId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2669,9 +2636,8 @@ func (h *Handler) handleListOrdersByUserIDWithResponse(ctx context.Context, requ
 	}
 
 	userId := request.GetString("userId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListOrdersByUserIDWithResponse(ctx, userId, target.ListOrdersByUserIDJSONRequestBody(body))
+	resp, err := client.ListOrdersByUserIDWithResponse(ctx, userId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2726,9 +2692,8 @@ func (h *Handler) handleListAttendeesByEventWithResponse(ctx context.Context, re
 	}
 
 	eventId := request.GetString("eventId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListAttendeesByEventWithResponse(ctx, eventId, target.ListAttendeesByEventJSONRequestBody(body))
+	resp, err := client.ListAttendeesByEventWithResponse(ctx, eventId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2744,9 +2709,8 @@ func (h *Handler) handleListAttendeesByOrganizationWithResponse(ctx context.Cont
 	}
 
 	organizationId := request.GetString("organizationId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.ListAttendeesByOrganizationWithResponse(ctx, organizationId, target.ListAttendeesByOrganizationJSONRequestBody(body))
+	resp, err := client.ListAttendeesByOrganizationWithResponse(ctx, organizationId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2879,9 +2843,8 @@ func (h *Handler) handleRemainingBalanceWithResponse(ctx context.Context, reques
 
 	publicOrganizationId := request.GetString("publicOrganizationId", "")
 	publicEventId := request.GetString("publicEventId", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.RemainingBalanceWithResponse(ctx, publicOrganizationId, publicEventId, target.RemainingBalanceJSONRequestBody(body))
+	resp, err := client.RemainingBalanceWithResponse(ctx, publicOrganizationId, publicEventId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2896,9 +2859,7 @@ func (h *Handler) handleRetrieveAAttendeeReportWithResponse(ctx context.Context,
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	body := request.GetString("body", "")
-
-	resp, err := client.RetrieveAAttendeeReportWithResponse(ctx, target.RetrieveAAttendeeReportJSONRequestBody(body))
+	resp, err := client.RetrieveAAttendeeReportWithResponse(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2913,9 +2874,7 @@ func (h *Handler) handleRetrieveASalesReportWithResponse(ctx context.Context, re
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	body := request.GetString("body", "")
-
-	resp, err := client.RetrieveASalesReportWithResponse(ctx, target.RetrieveASalesReportJSONRequestBody(body))
+	resp, err := client.RetrieveASalesReportWithResponse(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3139,9 +3098,8 @@ func (h *Handler) handleRetrieveLatestPublishedVersionOfStructuredContentByEvent
 	}
 
 	id := request.GetString("id", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx, id, target.RetrieveLatestPublishedVersionOfStructuredContentByEventIdJSONRequestBody(body))
+	resp, err := client.RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx, id)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3157,9 +3115,8 @@ func (h *Handler) handleRetrieveLatestWorkingVersionOfStructuredContentByEventId
 	}
 
 	id := request.GetString("id", "")
-	body := request.GetString("body", "")
 
-	resp, err := client.RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx, id, target.RetrieveLatestWorkingVersionOfStructuredContentByEventIdJSONRequestBody(body))
+	resp, err := client.RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx, id)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3236,9 +3193,7 @@ func (h *Handler) handleSearchEventsDeprecatedWithResponse(ctx context.Context, 
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	body := request.GetString("body", "")
-
-	resp, err := client.SearchEventsDeprecatedWithResponse(ctx, target.SearchEventsDeprecatedJSONRequestBody(body))
+	resp, err := client.SearchEventsDeprecatedWithResponse(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
