@@ -97,6 +97,12 @@ tasks:
           MANIFEST: "{{.ROOT_DIR}}/monday/monday/v2/manifest.yaml"
           NAME: monday
 
+  spec:eventbrite:
+    desc: Convert Eventbrite API Blueprint to OpenAPI 3.0
+    dir: eventbrite/eventbrite/spec
+    cmds:
+      - ./convert.sh
+
   generate:connector:eventbrite:
     desc: Generate yardrail Eventbrite connector code
     cmds:
