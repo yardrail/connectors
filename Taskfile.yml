@@ -101,7 +101,11 @@ tasks:
     desc: Convert Eventbrite API Blueprint to OpenAPI 3.0
     dir: eventbrite/eventbrite/spec
     cmds:
-      - ./convert.sh
+      - npx --yes api-spec-converter@2 --from api_blueprint --to swagger_2 eventbrite-api-v3-public.apib > swagger2.json
+      - python3 fixup.py swagger2 swagger2.json swagger2-fixed.json
+      - npx --yes swagger2openapi@7 --patch swagger2-fixed.json -o openapi.json
+      - python3 fixup.py openapi3 openapi.json
+      - rm swagger2.json swagger2-fixed.json
 
   generate:connector:eventbrite:
     desc: Generate yardrail Eventbrite connector code
