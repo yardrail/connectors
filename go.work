@@ -3,6 +3,7 @@ go 1.27.1
 use (
 	./canva/canva
 	./egnyte/egnyte
+	./eventbrite/eventbrite
 	./fireflies/fireflies
 	./hubspot/crm-contacts/v3
 	./mailchimp/marketing/v3

@@ -1,0 +1,27 @@
+connector:
+  id: eventbrite
+  name: Eventbrite
+  description: Create and manage events, orders, attendees, and venues on Eventbrite.
+
+interfaces:
+  - id: oauth
+    name: Eventbrite OAuth
+    protocol: rest
+    auth_method: oauth2_user
+    auth_scope: org
+    security_scheme: oauth2
+    capabilities: [event.read, event.create, event.update, attendee.read, order.read, venue.read]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/eventbrite/eventbrite/client
+
+  - id: private-token
+    name: Private Token
+    protocol: rest
+    auth_method: api_key
+    auth_scope: user
+    security_scheme: bearer
+    capabilities: [event.read, event.create, event.update, attendee.read, order.read, venue.read]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/eventbrite/eventbrite/client
