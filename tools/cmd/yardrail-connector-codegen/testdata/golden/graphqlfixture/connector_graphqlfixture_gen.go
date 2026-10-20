@@ -11,6 +11,12 @@ func init() {
 		Inputs: []connectorFieldInfo{
 			{Name: "widgetId", Type: "string", Required: true, Description: ""},
 		},
+		Outputs: []connectorFieldInfo{
+			{Name: "id", Type: "string", Required: false, Description: ""},
+			{Name: "name", Type: "string", Required: false, Description: ""},
+			{Name: "size", Type: "integer", Required: false, Description: ""},
+			{Name: "attributes", Type: "object", Required: false, Description: ""},
+		},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/graphqlfixture#RenameWidget", connectorClassInfo{
 		ConnectorID: "graphqlfixture",
@@ -20,6 +26,10 @@ func init() {
 		Inputs: []connectorFieldInfo{
 			{Name: "widgetId", Type: "string", Required: true, Description: ""},
 			{Name: "name", Type: "string", Required: true, Description: ""},
+		},
+		Outputs: []connectorFieldInfo{
+			{Name: "id", Type: "string", Required: false, Description: ""},
+			{Name: "name", Type: "string", Required: false, Description: ""},
 		},
 	})
 }
