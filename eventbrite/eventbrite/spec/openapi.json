@@ -35607,6 +35607,10 @@
             "scopes": {}
           }
         }
+      },
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
       }
     },
     "schemas": {

@@ -45,6 +45,12 @@ def fix_openapi3(path):
     with open(path) as f:
         spec = json.load(f)
 
+    # Add bearer token security scheme (not in the apib source)
+    spec.setdefault("components", {}).setdefault("securitySchemes", {})["bearer"] = {
+        "type": "http",
+        "scheme": "bearer",
+    }
+
     for url, path_item in spec.get("paths", {}).items():
         path_params = re.findall(r"\{(\w+)\}", url)
 

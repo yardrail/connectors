@@ -16,6 +16,7 @@ This repo also holds the API specs and codegen tools used to produce those packa
 |---|---|---|---|---|
 | Canva | `canva/canva` | `github.com/yardrail/connectors/canva/canva` | 61 | 23 / 6 / 329 |
 | Egnyte | `egnyte/egnyte` | `github.com/yardrail/connectors/egnyte/egnyte` | 178 | 80 / 61 / 243 |
+| Eventbrite | `eventbrite/eventbrite` | `github.com/yardrail/connectors/eventbrite/eventbrite` | 102 | 28 / 3 / 278 |
 | Fireflies | `fireflies/fireflies` | `github.com/yardrail/connectors/fireflies/fireflies` | — | — |
 | HubSpot CRM Contacts | `hubspot/crm-contacts/v3` | `github.com/yardrail/connectors/hubspot/crm-contacts/v3` | 13 | 10 / 3 / 4 |
 | Mailchimp | `mailchimp/marketing/v3` | `github.com/yardrail/connectors/mailchimp/marketing/v3` | 298 | 297 / 0 / 11 |
@@ -149,6 +150,24 @@ Many upstream specs need fixups before oapi-codegen and mcp-openapi-codegen can 
 | Self-referencing type aliases (`type X = []X`) | Remove from generated output | Stripe |
 | Missing `components/headers` referenced by `$ref` | Add stub definitions | Egnyte |
 | Dotted or hyphenated tag names | Handled by `mcp-openapi-codegen` tag sanitization | Slack, Egnyte, Mailchimp |
+
+### Applying post-generation fixups
+
+When a spec is generated or converted from another format, the output often needs fixes before codegen can consume it. Two approaches:
+
+**Python fixup script** — Use when fixes are dynamic or conditional (iterating all operations, regex-based key renaming, adding missing declarations based on URL patterns). Place a `fixup.py` in `spec/` and call it from a Taskfile step after conversion. See `eventbrite/eventbrite/spec/fixup.py` for an example that deduplicates body parameters, normalizes path parameter syntax, removes bogus `requestBody` from GET operations, injects missing path parameter declarations, fixes parameter types, and adds security schemes not present in the source spec.
+
+**JSON Patch file** — Use when fixes are static additions or replacements that don't depend on iterating the spec. Place a `patch.json` in `spec/` using [RFC 6902](https://datatracker.ietf.org/doc/html/rfc6902) format and apply it with `python3 -c "import json; ..."`  or a Taskfile step. Example adding a bearer security scheme:
+
+```json
+[
+  {"op": "add", "path": "/components/securitySchemes/bearer", "value": {"type": "http", "scheme": "bearer"}}
+]
+```
+
+Apply with: `python3 -c "import json, jsonpatch; jsonpatch.apply_patch(...)"`  or inline in a Taskfile step using the stdlib `json` module.
+
+Prefer the fixup script when you need logic; prefer JSON Patch when a handful of static operations suffice. Both can coexist — run the script first, then apply the patch.
 
 ## Codegen tools
 
