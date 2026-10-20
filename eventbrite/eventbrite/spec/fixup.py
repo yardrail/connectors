@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""Fix Eventbrite spec issues from the apib->swagger2->openapi3 conversion pipeline.
+
+Reads swagger2.json, applies fixes, writes openapi3-ready swagger2-fixed.json.
+Then reads the final openapi.json (after swagger2openapi) and patches it too.
+
+Usage (called by Taskfile):
+  python3 fixup.py swagger2 swagger2.json swagger2-fixed.json
+  python3 fixup.py openapi3 openapi.json
+"""
+import json, re, sys
+
+
+def fix_swagger2(inpath, outpath):
+    with open(inpath) as f:
+        spec = json.load(f)
+
+    for path_item in spec.get("paths", {}).values():
+        for op in path_item.values():
+            if not isinstance(op, dict):
+                continue
+            # Deduplicate body parameters (blueprint produces multiples per operation)
+            params = op.get("parameters", [])
+            seen_body = False
+            new_params = []
+            for p in params:
+                if isinstance(p, dict) and p.get("in") == "body":
+                    if seen_body:
+                        continue
+                    seen_body = True
+                new_params.append(p)
+            op["parameters"] = new_params
+
+    # Normalise angle-bracket path params to curly braces
+    spec["paths"] = {
+        re.sub(r"<(\w+)>", r"{\1}", path): methods
+        for path, methods in spec["paths"].items()
+    }
+
+    with open(outpath, "w") as f:
+        json.dump(spec, f, indent=2)
+
+
+def fix_openapi3(path):
+    with open(path) as f:
+        spec = json.load(f)
+
+    for url, path_item in spec.get("paths", {}).items():
+        path_params = re.findall(r"\{(\w+)\}", url)
+
+        # Remove bogus requestBody from GET operations
+        if "get" in path_item and "requestBody" in path_item["get"]:
+            del path_item["get"]["requestBody"]
+
+        for op in path_item.values():
+            if not isinstance(op, dict):
+                continue
+            params = op.get("parameters", [])
+
+            # Add missing path parameter declarations
+            declared = {p["name"] for p in params if isinstance(p, dict) and p.get("in") == "path"}
+            for name in path_params:
+                if name not in declared:
+                    params.append({"name": name, "in": "path", "required": True, "schema": {"type": "string"}})
+            if params:
+                op["parameters"] = params
+
+            # Fix param types
+            for param in params:
+                if not isinstance(param, dict):
+                    continue
+                schema = param.get("schema", {})
+                if schema.get("type") == "number":
+                    schema["type"] = "string" if param.get("in") == "path" else "integer"
+
+    with open(path, "w") as f:
+        json.dump(spec, f, indent=2)
+
+
+if __name__ == "__main__":
+    cmd = sys.argv[1]
+    if cmd == "swagger2":
+        fix_swagger2(sys.argv[2], sys.argv[3])
+    elif cmd == "openapi3":
+        fix_openapi3(sys.argv[2])
+    else:
+        sys.exit(f"unknown command: {cmd}")
