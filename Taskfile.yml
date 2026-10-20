@@ -97,6 +97,14 @@ tasks:
           MANIFEST: "{{.ROOT_DIR}}/monday/monday/v2/manifest.yaml"
           NAME: monday
 
+  generate:connector:eventbrite:
+    desc: Generate yardrail Eventbrite connector code
+    cmds:
+      - task: generate:connector
+        vars:
+          MANIFEST: "{{.ROOT_DIR}}/eventbrite/eventbrite/manifest.yaml"
+          NAME: eventbrite
+
   generate:connector:fireflies:
     desc: Generate yardrail Fireflies connector code
     cmds:
