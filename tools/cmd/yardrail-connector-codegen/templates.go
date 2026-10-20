@@ -286,6 +286,13 @@ var tmplFuncs = template.FuncMap{
 
 		return op.Inputs
 	},
+	"opOutputs": func(op *OperationInfo) []FieldInfo {
+		if op == nil {
+			return nil
+		}
+
+		return op.Outputs
+	},
 	"configFieldTypeConst": func(s string) string {
 		switch s {
 		case "string":
@@ -579,6 +586,11 @@ func init() {
 		Description: "{{escDesc (opDescription .Op)}}",
 		Inputs: []connectorFieldInfo{
 {{- range opInputs .Op}}
+			{Name: "{{.Name}}", Type: "{{.Type}}", Required: {{.Required}}, Description: "{{escDesc .Doc}}"},
+{{- end}}
+		},
+		Outputs: []connectorFieldInfo{
+{{- range opOutputs .Op}}
 			{Name: "{{.Name}}", Type: "{{.Type}}", Required: {{.Required}}, Description: "{{escDesc .Doc}}"},
 {{- end}}
 		},

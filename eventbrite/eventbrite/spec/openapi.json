@@ -282,39 +282,16 @@
                 "schema": {
                   "properties": {
                     "categories": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      },
                       "type": "array"
                     },
                     "locale": {
                       "type": "string"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -1408,36 +1385,13 @@
                 "schema": {
                   "properties": {
                     "events": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Event"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -4779,36 +4733,13 @@
                 "schema": {
                   "properties": {
                     "attendees": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Attendee"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -9939,32 +9870,7 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "questions": {
                       "items": {},
@@ -12430,32 +12336,7 @@
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -13665,36 +13546,13 @@
                 "schema": {
                   "properties": {
                     "orders": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Order"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -14719,32 +14577,7 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "questions": {
                       "items": {},
@@ -14944,7 +14777,9 @@
                     },
                     "ticket_classes": {
                       "description": "Tickets to which to limit this question. Format: [{\u201cid\u201d: \u201c1234\u201d}, {\u201cid\u201d: \u201c4567\u201d}]",
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Ticket_Class"
+                      },
                       "type": "array"
                     },
                     "type": {
@@ -15297,7 +15132,9 @@
                     },
                     "ticket_classes": {
                       "description": "Tickets to which to limit this question. Format: [{\u201cid\u201d: \u201c1234\u201d}, {\u201cid\u201d: \u201c4567\u201d}]",
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Ticket_Class"
+                      },
                       "type": "array"
                     },
                     "type": {
@@ -15751,35 +15588,12 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "teams": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Event_Team_Response"
+                      },
                       "type": "array"
                     }
                   },
@@ -15979,35 +15793,12 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "teams": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Event_Team_Response"
+                      },
                       "type": "array"
                     }
                   },
@@ -16216,36 +16007,13 @@
                 "schema": {
                   "properties": {
                     "attendees": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Attendee"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -17929,35 +17697,12 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "ticket_classes": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Ticket_Class"
+                      },
                       "type": "array"
                     }
                   },
@@ -18577,35 +18322,12 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "ticket_classes": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Ticket_Class"
+                      },
                       "type": "array"
                     }
                   },
@@ -20240,32 +19962,7 @@
                       "type": "string"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "purpose": {
                       "enum": [
@@ -20527,32 +20224,7 @@
                       "type": "string"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "purpose": {
                       "enum": [
@@ -20923,32 +20595,7 @@
                       "type": "string"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "purpose": {
                       "enum": [
@@ -21183,7 +20830,9 @@
                 "schema": {
                   "properties": {
                     "formats": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Format"
+                      },
                       "type": "array"
                     },
                     "locale": {
@@ -21642,7 +21291,9 @@
                   "properties": {
                     "attendees": {
                       "description": "The list of attendees that belong to this order (requires the `attendees` expansion)",
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Attendee"
+                      },
                       "type": "array"
                     },
                     "changed": {
@@ -24311,36 +23962,13 @@
                 "schema": {
                   "properties": {
                     "attendees": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Attendee"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -25280,7 +24908,9 @@
                 "schema": {
                   "properties": {
                     "discounts": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Discount"
+                      },
                       "type": "array"
                     }
                   },
@@ -25579,36 +25209,13 @@
                 "schema": {
                   "properties": {
                     "events": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Event"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -27734,36 +27341,13 @@
                 "schema": {
                   "properties": {
                     "orders": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Order"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -28688,20 +28272,12 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "Link to the next page",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "description": "Is there another page of results",
-                          "type": "boolean"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "roles": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Role"
+                      },
                       "type": "array"
                     }
                   },
@@ -29401,35 +28977,12 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "venues": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Venue_Response"
+                      },
                       "type": "array"
                     }
                   },
@@ -29656,32 +29209,7 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "webhooks": {
                       "properties": {
@@ -30350,32 +29878,7 @@
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -32083,36 +31586,13 @@
                 "schema": {
                   "properties": {
                     "events": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Event"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -32415,35 +31895,12 @@
                       "type": "string"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "subcategories": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Subcategory"
+                      },
                       "type": "array"
                     },
                     "subcategory": {
@@ -32959,36 +32416,13 @@
                 "schema": {
                   "properties": {
                     "organizations": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -33150,36 +32584,13 @@
                 "schema": {
                   "properties": {
                     "orders": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Order"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -34104,36 +33515,13 @@
                 "schema": {
                   "properties": {
                     "organizations": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -34491,36 +33879,13 @@
                 "schema": {
                   "properties": {
                     "events": {
-                      "items": {},
+                      "items": {
+                        "$ref": "#/components/schemas/Event"
+                      },
                       "type": "array"
                     },
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "type": "object"
@@ -34820,32 +34185,7 @@
                 "schema": {
                   "properties": {
                     "pagination": {
-                      "properties": {
-                        "continuation": {
-                          "description": "A token to return to the server to get the next set of results (see \u201cContinuated Responses\u201d below)",
-                          "type": "string"
-                        },
-                        "has_more_items": {
-                          "type": "boolean"
-                        },
-                        "object_count": {
-                          "description": "The total number of objects across all pages (optional)",
-                          "type": "number"
-                        },
-                        "page_count": {
-                          "description": "The total number of pages (starting at 1) (optional)",
-                          "type": "number"
-                        },
-                        "page_number": {
-                          "description": "The current page number (starts at 1)",
-                          "type": "number"
-                        },
-                        "page_size": {
-                          "description": "The number of objects on each page (roughly)",
-                          "type": "number"
-                        }
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Pagination"
                     },
                     "webhooks": {
                       "properties": {

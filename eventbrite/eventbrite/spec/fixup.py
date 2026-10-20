@@ -79,6 +79,41 @@ def fix_openapi3(path):
                 if schema.get("type") == "number":
                     schema["type"] = "string" if param.get("in") == "path" else "integer"
 
+    # Wire up $ref for list endpoints whose items are untyped ({}) but have
+    # a matching component schema.  The apib→swagger2→openapi3 pipeline loses
+    # array item types; this table restores them for the endpoints we use.
+    list_item_refs = {
+        "attendees": "#/components/schemas/Attendee",
+        "orders": "#/components/schemas/Order",
+        "events": "#/components/schemas/Event",
+        "ticket_classes": "#/components/schemas/Ticket_Class",
+        "venues": "#/components/schemas/Venue_Response",
+        "discounts": "#/components/schemas/Discount",
+        "teams": "#/components/schemas/Event_Team_Response",
+        "organizations": "#/components/schemas/Organization",
+        "categories": "#/components/schemas/Category",
+        "subcategories": "#/components/schemas/Subcategory",
+        "formats": "#/components/schemas/Format",
+        "roles": "#/components/schemas/Role",
+    }
+    for path_item in spec.get("paths", {}).values():
+        for op in path_item.values():
+            if not isinstance(op, dict):
+                continue
+            resp = op.get("responses", {}).get("200", {})
+            schema = resp.get("content", {}).get("application/json", {}).get("schema")
+            if not schema:
+                continue
+            props = schema.get("properties", {})
+            for prop_name, prop_val in props.items():
+                if prop_val.get("type") == "array" and prop_val.get("items") == {}:
+                    ref = list_item_refs.get(prop_name)
+                    if ref:
+                        prop_val["items"] = {"$ref": ref}
+            # Replace inline pagination with component ref
+            if "pagination" in props and "$ref" not in props["pagination"]:
+                props["pagination"] = {"$ref": "#/components/schemas/Pagination"}
+
     with open(path, "w") as f:
         json.dump(spec, f, indent=2)
 

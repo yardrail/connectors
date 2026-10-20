@@ -14,6 +14,7 @@ func init() {
 			{Name: "properties", Type: "object", Required: true, Description: "Property schema of data source"},
 			{Name: "title", Type: "array", Required: false, Description: ""},
 		},
+		Outputs: []connectorFieldInfo{},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#GetWidget", connectorClassInfo{
 		ConnectorID: "mixedfixture",
@@ -22,6 +23,12 @@ func init() {
 		Description: "Get one widget by ID.",
 		Inputs: []connectorFieldInfo{
 			{Name: "widgetId", Type: "string", Required: true, Description: ""},
+		},
+		Outputs: []connectorFieldInfo{
+			{Name: "id", Type: "string", Required: false, Description: ""},
+			{Name: "name", Type: "string", Required: false, Description: ""},
+			{Name: "size", Type: "integer", Required: false, Description: ""},
+			{Name: "attributes", Type: "object", Required: false, Description: ""},
 		},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#ListDataSourceTemplates", connectorClassInfo{
@@ -35,6 +42,7 @@ func init() {
 			{Name: "page_size", Type: "integer", Required: false, Description: ""},
 			{Name: "", Type: "object", Required: false, Description: ""},
 		},
+		Outputs: []connectorFieldInfo{},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#MovePage", connectorClassInfo{
 		ConnectorID: "mixedfixture",
@@ -46,6 +54,7 @@ func init() {
 			{Name: "", Type: "object", Required: false, Description: ""},
 			{Name: "parent", Type: "object", Required: true, Description: ""},
 		},
+		Outputs: []connectorFieldInfo{},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#QueryDataSource", connectorClassInfo{
 		ConnectorID: "mixedfixture",
@@ -63,6 +72,7 @@ func init() {
 			{Name: "sorts", Type: "array", Required: false, Description: ""},
 			{Name: "start_cursor", Type: "string", Required: false, Description: ""},
 		},
+		Outputs: []connectorFieldInfo{},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#RetrieveADataSource", connectorClassInfo{
 		ConnectorID: "mixedfixture",
@@ -73,6 +83,7 @@ func init() {
 			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
 			{Name: "", Type: "object", Required: false, Description: ""},
 		},
+		Outputs: []connectorFieldInfo{},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#RetrieveADatabase", connectorClassInfo{
 		ConnectorID: "mixedfixture",
@@ -83,6 +94,7 @@ func init() {
 			{Name: "database_id", Type: "string", Required: true, Description: "Identifier for a Notion database"},
 			{Name: "", Type: "object", Required: false, Description: ""},
 		},
+		Outputs: []connectorFieldInfo{},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#RetrievePageMarkdown", connectorClassInfo{
 		ConnectorID: "mixedfixture",
@@ -92,6 +104,13 @@ func init() {
 		Inputs: []connectorFieldInfo{
 			{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
 			{Name: "include_transcript", Type: "boolean", Required: false, Description: "Whether to include meeting note transcripts. When false (default), a placeholder with the meeting note URL is shown instead of the full transcript."},
+		},
+		Outputs: []connectorFieldInfo{
+			{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
+			{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
+			{Name: "object", Type: "string", Required: false, Description: ""},
+			{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
+			{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
 		},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#UpdateADataSource", connectorClassInfo{
@@ -106,6 +125,7 @@ func init() {
 			{Name: "properties", Type: "object", Required: false, Description: "Property schema updates"},
 			{Name: "title", Type: "array", Required: false, Description: ""},
 		},
+		Outputs: []connectorFieldInfo{},
 	})
 	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#UpdatePageMarkdown", connectorClassInfo{
 		ConnectorID: "mixedfixture",
@@ -119,6 +139,13 @@ func init() {
 			{Name: "replace_content_range", Type: "object", Required: false, Description: "Deprecated. Provide when type is `replace_content_range`. Replaces a selected range of Markdown."},
 			{Name: "type", Type: "string", Required: true, Description: "The kind of edit to apply. Prefer `replace_content` (overwrite the whole page) or `update_content` (targeted find-and-replace). `insert_content` and `replace_content_range` are deprecated."},
 			{Name: "update_content", Type: "object", Required: false, Description: "Provide when type is `update_content`. Applies targeted find-and-replace edits."},
+		},
+		Outputs: []connectorFieldInfo{
+			{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
+			{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
+			{Name: "object", Type: "string", Required: false, Description: ""},
+			{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
+			{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
 		},
 	})
 }
