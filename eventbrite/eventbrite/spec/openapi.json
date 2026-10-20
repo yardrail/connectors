@@ -8,17 +8,6 @@
   "paths": {
     "/balance/{public_organization_id}/events/{public_event_id}/": {
       "get": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "Public organization ID",
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -1410,16 +1399,6 @@
     },
     "/events/search/": {
       "get": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "Return only those Events matching the given keyword(s). Accepts any string as a keyword."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -4791,21 +4770,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "enum": [
-                  "attending",
-                  "not_attending",
-                  "unpaid"
-                ],
-                "type": "string"
-              }
-            }
-          },
-          "description": "Filter Attendees by status of either `attending`, `not attending` or `unpaid`."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -9966,17 +9930,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "boolean"
-              }
-            }
-          },
-          "description": "Return the whole list of canned included or not",
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -13703,9 +13656,6 @@
             }
           }
         ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/List_Orders_by_Event_IDStatus"
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -14760,16 +14710,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "boolean"
-              }
-            }
-          },
-          "description": "Return private Events and fields."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -17980,20 +17920,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "enum": [
-                  "online",
-                  "at_the_door"
-                ],
-                "type": "string"
-              }
-            }
-          },
-          "description": "Only return ticket classes valid for the given point of sale"
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -18642,20 +18568,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "enum": [
-                  "online",
-                  "at_the_door"
-                ],
-                "type": "string"
-              }
-            }
-          },
-          "description": "Only return ticket classes valid for the given point of sale. If unspecified, `online` is the default value."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -20302,9 +20214,6 @@
             }
           }
         ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/Retrieve_Latest_Published_Version_of_Structured_Content_by_Event_IdPurpose"
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -20592,9 +20501,6 @@
             }
           }
         ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/Retrieve_Latest_Published_Version_of_Structured_Content_by_Event_IdPurpose"
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -24177,16 +24083,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "Refund reason to evaluate (same values as the Refund Order `reason` field)."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -24406,20 +24302,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "enum": [
-                  "attending",
-                  "not_attending"
-                ],
-                "type": "string"
-              }
-            }
-          },
-          "description": "Filter Attendees by status of either `attending` or `not_attending`."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -25389,16 +25271,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "Filter Discounts by approximate match code or name."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -25698,16 +25570,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "Filter Organization's Events by specified name."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -27863,9 +27725,6 @@
             }
           }
         ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/List_Orders_by_Event_IDStatus"
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -29362,16 +29221,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "Filter Ticket Groups by status. This can be `live`, `archived`, `deleted`, or `all`."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -30636,9 +30485,6 @@
     },
     "/reports/attendees/": {
       "get": {
-        "requestBody": {
-          "$ref": "#/components/requestBodies/Retrieve_a_Attendee_ReportEventIds"
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -30747,9 +30593,6 @@
     },
     "/reports/sales/": {
       "get": {
-        "requestBody": {
-          "$ref": "#/components/requestBodies/Retrieve_a_Attendee_ReportEventIds"
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -32231,21 +32074,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "enum": [
-                  "all",
-                  "past",
-                  "current_future"
-                ],
-                "type": "string"
-              }
-            }
-          },
-          "description": "Limits the list results to either past or current and future Events."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -33313,16 +33141,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "Order changed on or after this time."
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -34664,25 +34482,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "enum": [
-                  "draft",
-                  "live",
-                  "started",
-                  "ended",
-                  "completed",
-                  "canceled",
-                  "all"
-                ],
-                "type": "string"
-              }
-            }
-          },
-          "description": "Filter Events at the Venue by status. Specify multiple status values as a comma delimited string."
-        },
         "responses": {
           "200": {
             "description": "OK",
