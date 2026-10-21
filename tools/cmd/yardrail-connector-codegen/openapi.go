@@ -205,7 +205,15 @@ func refName(ref string) string {
 }
 
 func firstContentSchema(content map[string]rawMediaType) *rawSchema {
-	for _, mt := range content {
+	keys := make([]string, 0, len(content))
+	for k := range content {
+		keys = append(keys, k)
+	}
+
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		mt := content[k]
 		if mt.Schema.Type != "" || mt.Schema.Ref != "" || mt.Schema.Properties != nil {
 			s := mt.Schema
 			return &s
