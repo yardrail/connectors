@@ -114,6 +114,27 @@ def fix_openapi3(path):
             if "pagination" in props and "$ref" not in props["pagination"]:
                 props["pagination"] = {"$ref": "#/components/schemas/Pagination"}
 
+    # Add query parameters the conversion dropped, for the endpoints we use.
+    # Descriptions come from the apib source.
+    extra_query_params = {
+        ("/organizations/{organization_id}/events/", "get"): [
+            {"name": "status", "in": "query", "required": False, "schema": {"type": "string"},
+             "description": "Filter Organization's Events by status. Specify multiple status values as a comma delimited string."},
+            {"name": "order_by", "in": "query", "required": False,
+             "schema": {"type": "string", "enum": ["start_asc", "start_desc", "created_asc", "created_desc", "name_asc", "name_desc"]},
+             "description": "Sort order for the list of Events."},
+            {"name": "page_size", "in": "query", "required": False, "schema": {"type": "integer"},
+             "description": "Number of records to display on each page of the list."},
+        ],
+    }
+    for (url, method), extra in extra_query_params.items():
+        op = spec.get("paths", {}).get(url, {}).get(method)
+        if op is None:
+            continue
+        params = op.setdefault("parameters", [])
+        declared = {p["name"] for p in params if isinstance(p, dict)}
+        params.extend(p for p in extra if p["name"] not in declared)
+
     # Drop property names containing whitespace: apib description lines the
     # conversion turned into keys (e.g. "fee_name: payment_fee"). They are not
     # API fields and produce struct tags go vet rejects.

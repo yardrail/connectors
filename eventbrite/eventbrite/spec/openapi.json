@@ -25194,6 +25194,41 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter Organization's Events by status. Specify multiple status values as a comma delimited string."
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "start_asc",
+                "start_desc",
+                "created_asc",
+                "created_desc",
+                "name_asc",
+                "name_desc"
+              ]
+            },
+            "description": "Sort order for the list of Events."
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of records to display on each page of the list."
           }
         ],
         "responses": {

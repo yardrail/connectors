@@ -887,6 +887,36 @@ func (e CreateADiscountJSONBodyDiscountType) Valid() bool {
 	}
 }
 
+// Defines values for ListEventsByOrganizationParamsOrderBy.
+const (
+	CreatedAsc  ListEventsByOrganizationParamsOrderBy = "created_asc"
+	CreatedDesc ListEventsByOrganizationParamsOrderBy = "created_desc"
+	NameAsc     ListEventsByOrganizationParamsOrderBy = "name_asc"
+	NameDesc    ListEventsByOrganizationParamsOrderBy = "name_desc"
+	StartAsc    ListEventsByOrganizationParamsOrderBy = "start_asc"
+	StartDesc   ListEventsByOrganizationParamsOrderBy = "start_desc"
+)
+
+// Valid indicates whether the value is a known member of the ListEventsByOrganizationParamsOrderBy enum.
+func (e ListEventsByOrganizationParamsOrderBy) Valid() bool {
+	switch e {
+	case CreatedAsc:
+		return true
+	case CreatedDesc:
+		return true
+	case NameAsc:
+		return true
+	case NameDesc:
+		return true
+	case StartAsc:
+		return true
+	case StartDesc:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for CreateAnEventJSONBodyEventLocale.
 const (
 	DeAT CreateAnEventJSONBodyEventLocale = "de_AT"
@@ -3511,6 +3541,21 @@ type CreateADiscountJSONBody struct {
 // CreateADiscountJSONBodyDiscountType defines parameters for CreateADiscount.
 type CreateADiscountJSONBodyDiscountType string
 
+// ListEventsByOrganizationParams defines parameters for ListEventsByOrganization.
+type ListEventsByOrganizationParams struct {
+	// Status Filter Organization's Events by status. Specify multiple status values as a comma delimited string.
+	Status *string `form:"status,omitempty" json:"status,omitempty"`
+
+	// OrderBy Sort order for the list of Events.
+	OrderBy *ListEventsByOrganizationParamsOrderBy `form:"order_by,omitempty" json:"order_by,omitempty"`
+
+	// PageSize Number of records to display on each page of the list.
+	PageSize *int `form:"page_size,omitempty" json:"page_size,omitempty"`
+}
+
+// ListEventsByOrganizationParamsOrderBy defines parameters for ListEventsByOrganization.
+type ListEventsByOrganizationParamsOrderBy string
+
 // CreateAnEventJSONBody defines parameters for CreateAnEvent.
 type CreateAnEventJSONBody struct {
 	Event *struct {
@@ -5644,7 +5689,7 @@ type ClientInterface interface {
 	CreateADiscount(ctx context.Context, organizationId string, body CreateADiscountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListEventsByOrganization request
-	ListEventsByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListEventsByOrganization(ctx context.Context, organizationId string, params *ListEventsByOrganizationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateAnEventWithBody request with any body
 	CreateAnEventWithBody(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -6795,8 +6840,8 @@ func (c *Client) CreateADiscount(ctx context.Context, organizationId string, bod
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListEventsByOrganization(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListEventsByOrganizationRequest(c.Server, organizationId)
+func (c *Client) ListEventsByOrganization(ctx context.Context, organizationId string, params *ListEventsByOrganizationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEventsByOrganizationRequest(c.Server, organizationId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -9985,7 +10030,7 @@ func NewCreateADiscountRequestWithBody(server string, organizationId string, con
 }
 
 // NewListEventsByOrganizationRequest generates requests for ListEventsByOrganization
-func NewListEventsByOrganizationRequest(server string, organizationId string) (*http.Request, error) {
+func NewListEventsByOrganizationRequest(server string, organizationId string, params *ListEventsByOrganizationParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -10008,6 +10053,60 @@ func NewListEventsByOrganizationRequest(server string, organizationId string) (*
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order_by", *params.OrderBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page_size", *params.PageSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("GET", queryURL.String(), nil)
@@ -11796,7 +11895,7 @@ type ClientWithResponsesInterface interface {
 	CreateADiscountWithResponse(ctx context.Context, organizationId string, body CreateADiscountJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateADiscountResponse, error)
 
 	// ListEventsByOrganizationWithResponse request
-	ListEventsByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error)
+	ListEventsByOrganizationWithResponse(ctx context.Context, organizationId string, params *ListEventsByOrganizationParams, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error)
 
 	// CreateAnEventWithBodyWithResponse request with any body
 	CreateAnEventWithBodyWithResponse(ctx context.Context, organizationId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAnEventResponse, error)
@@ -23347,8 +23446,8 @@ func (c *ClientWithResponses) CreateADiscountWithResponse(ctx context.Context, o
 }
 
 // ListEventsByOrganizationWithResponse request returning *ListEventsByOrganizationResponse
-func (c *ClientWithResponses) ListEventsByOrganizationWithResponse(ctx context.Context, organizationId string, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error) {
-	rsp, err := c.ListEventsByOrganization(ctx, organizationId, reqEditors...)
+func (c *ClientWithResponses) ListEventsByOrganizationWithResponse(ctx context.Context, organizationId string, params *ListEventsByOrganizationParams, reqEditors ...RequestEditorFn) (*ListEventsByOrganizationResponse, error) {
+	rsp, err := c.ListEventsByOrganization(ctx, organizationId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
