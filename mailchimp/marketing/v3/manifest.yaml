@@ -11,8 +11,14 @@ interfaces:
     auth_scope: user
     security_scheme: basicAuth
     cred_mapping:
-      username: anystring
-      password: api_key
+      username: token
+      password: token
+    config_fields:
+      - name: base_url
+        type: url
+        label: API Base URL
+        description: "Your account's API address: https://<dc>.api.mailchimp.com/3.0, where <dc> is the part of the API key after the dash."
+        required: true
     capabilities: [audience.read, audience.write, campaign.read, campaign.write, template.read]
     source:
       openapi: spec/openapi.json
