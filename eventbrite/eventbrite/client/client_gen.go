@@ -20,6 +20,48 @@ const (
 	Oauth2Scopes = "oauth2.Scopes"
 )
 
+// Defines values for AttendeeDeliveryMethod.
+const (
+	Electronic         AttendeeDeliveryMethod = "electronic"
+	StandardShipping   AttendeeDeliveryMethod = "standard_shipping"
+	ThirdPartyShipping AttendeeDeliveryMethod = "third_party_shipping"
+	WillCall           AttendeeDeliveryMethod = "will_call"
+)
+
+// Valid indicates whether the value is a known member of the AttendeeDeliveryMethod enum.
+func (e AttendeeDeliveryMethod) Valid() bool {
+	switch e {
+	case Electronic:
+		return true
+	case StandardShipping:
+		return true
+	case ThirdPartyShipping:
+		return true
+	case WillCall:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AttendeeProfileGender.
+const (
+	Female AttendeeProfileGender = "female"
+	Male   AttendeeProfileGender = "male"
+)
+
+// Valid indicates whether the value is a known member of the AttendeeProfileGender enum.
+func (e AttendeeProfileGender) Valid() bool {
+	switch e {
+	case Female:
+		return true
+	case Male:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for BaseQuestionCreateRespondent.
 const (
 	BaseQuestionCreateRespondentAttendee    BaseQuestionCreateRespondent = "attendee"
@@ -143,24 +185,6 @@ func (e CannedQuestionCreateCannedType) Valid() bool {
 	}
 }
 
-// Defines values for CannedQuestionCreateRespondentDEPRECATED.
-const (
-	CannedQuestionCreateRespondentDEPRECATEDAttendee    CannedQuestionCreateRespondentDEPRECATED = "attendee"
-	CannedQuestionCreateRespondentDEPRECATEDTicketBuyer CannedQuestionCreateRespondentDEPRECATED = "ticket_buyer"
-)
-
-// Valid indicates whether the value is a known member of the CannedQuestionCreateRespondentDEPRECATED enum.
-func (e CannedQuestionCreateRespondentDEPRECATED) Valid() bool {
-	switch e {
-	case CannedQuestionCreateRespondentDEPRECATEDAttendee:
-		return true
-	case CannedQuestionCreateRespondentDEPRECATEDTicketBuyer:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for CannedQuestionCreateType.
 const (
 	CannedQuestionCreateTypeCheckbox  CannedQuestionCreateType = "checkbox"
@@ -185,6 +209,357 @@ func (e CannedQuestionCreateType) Valid() bool {
 	case CannedQuestionCreateTypeText:
 		return true
 	case CannedQuestionCreateTypeWaiver:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CheckoutSettingsCheckoutMethod.
+const (
+	CheckoutSettingsCheckoutMethodAuthnet    CheckoutSettingsCheckoutMethod = "authnet"
+	CheckoutSettingsCheckoutMethodEventbrite CheckoutSettingsCheckoutMethod = "eventbrite"
+	CheckoutSettingsCheckoutMethodOffline    CheckoutSettingsCheckoutMethod = "offline"
+	CheckoutSettingsCheckoutMethodPaypal     CheckoutSettingsCheckoutMethod = "paypal"
+)
+
+// Valid indicates whether the value is a known member of the CheckoutSettingsCheckoutMethod enum.
+func (e CheckoutSettingsCheckoutMethod) Valid() bool {
+	switch e {
+	case CheckoutSettingsCheckoutMethodAuthnet:
+		return true
+	case CheckoutSettingsCheckoutMethodEventbrite:
+		return true
+	case CheckoutSettingsCheckoutMethodOffline:
+		return true
+	case CheckoutSettingsCheckoutMethodPaypal:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CostDiscountType.
+const (
+	CostDiscountTypeAccess CostDiscountType = "access"
+	CostDiscountTypeCoded  CostDiscountType = "coded"
+	CostDiscountTypeHold   CostDiscountType = "hold"
+	CostDiscountTypePublic CostDiscountType = "public"
+)
+
+// Valid indicates whether the value is a known member of the CostDiscountType enum.
+func (e CostDiscountType) Valid() bool {
+	switch e {
+	case CostDiscountTypeAccess:
+		return true
+	case CostDiscountTypeCoded:
+		return true
+	case CostDiscountTypeHold:
+		return true
+	case CostDiscountTypePublic:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DiscountType.
+const (
+	DiscountTypeAccess DiscountType = "access"
+	DiscountTypeCoded  DiscountType = "coded"
+	DiscountTypeHold   DiscountType = "hold"
+	DiscountTypePublic DiscountType = "public"
+)
+
+// Valid indicates whether the value is a known member of the DiscountType enum.
+func (e DiscountType) Valid() bool {
+	switch e {
+	case DiscountTypeAccess:
+		return true
+	case DiscountTypeCoded:
+		return true
+	case DiscountTypeHold:
+		return true
+	case DiscountTypePublic:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DiscountBaseType.
+const (
+	DiscountBaseTypeAccess DiscountBaseType = "access"
+	DiscountBaseTypeCoded  DiscountBaseType = "coded"
+	DiscountBaseTypeHold   DiscountBaseType = "hold"
+	DiscountBaseTypePublic DiscountBaseType = "public"
+)
+
+// Valid indicates whether the value is a known member of the DiscountBaseType enum.
+func (e DiscountBaseType) Valid() bool {
+	switch e {
+	case DiscountBaseTypeAccess:
+		return true
+	case DiscountBaseTypeCoded:
+		return true
+	case DiscountBaseTypeHold:
+		return true
+	case DiscountBaseTypePublic:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventStatus.
+const (
+	EventStatusCanceled  EventStatus = "canceled"
+	EventStatusCompleted EventStatus = "completed"
+	EventStatusDraft     EventStatus = "draft"
+	EventStatusEnded     EventStatus = "ended"
+	EventStatusLive      EventStatus = "live"
+	EventStatusStarted   EventStatus = "started"
+)
+
+// Valid indicates whether the value is a known member of the EventStatus enum.
+func (e EventStatus) Valid() bool {
+	switch e {
+	case EventStatusCanceled:
+		return true
+	case EventStatusCompleted:
+		return true
+	case EventStatusDraft:
+		return true
+	case EventStatusEnded:
+		return true
+	case EventStatusLive:
+		return true
+	case EventStatusStarted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSalesStatusMessageCode.
+const (
+	EventSalesStatusMessageCodeEventCancelled        EventSalesStatusMessageCode = "event_cancelled"
+	EventSalesStatusMessageCodeEventPostponed        EventSalesStatusMessageCode = "event_postponed"
+	EventSalesStatusMessageCodeTicketsAtTheDoor      EventSalesStatusMessageCode = "tickets_at_the_door"
+	EventSalesStatusMessageCodeTicketsNotYetOnSale   EventSalesStatusMessageCode = "tickets_not_yet_on_sale"
+	EventSalesStatusMessageCodeTicketsSoldOut        EventSalesStatusMessageCode = "tickets_sold_out"
+	EventSalesStatusMessageCodeTicketsUnavailable    EventSalesStatusMessageCode = "tickets_unavailable"
+	EventSalesStatusMessageCodeTicketsWithSalesEnded EventSalesStatusMessageCode = "tickets_with_sales_ended"
+)
+
+// Valid indicates whether the value is a known member of the EventSalesStatusMessageCode enum.
+func (e EventSalesStatusMessageCode) Valid() bool {
+	switch e {
+	case EventSalesStatusMessageCodeEventCancelled:
+		return true
+	case EventSalesStatusMessageCodeEventPostponed:
+		return true
+	case EventSalesStatusMessageCodeTicketsAtTheDoor:
+		return true
+	case EventSalesStatusMessageCodeTicketsNotYetOnSale:
+		return true
+	case EventSalesStatusMessageCodeTicketsSoldOut:
+		return true
+	case EventSalesStatusMessageCodeTicketsUnavailable:
+		return true
+	case EventSalesStatusMessageCodeTicketsWithSalesEnded:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSalesStatusMessageType.
+const (
+	Canonical EventSalesStatusMessageType = "canonical"
+	Custom    EventSalesStatusMessageType = "custom"
+	Default   EventSalesStatusMessageType = "default"
+)
+
+// Valid indicates whether the value is a known member of the EventSalesStatusMessageType enum.
+func (e EventSalesStatusMessageType) Valid() bool {
+	switch e {
+	case Canonical:
+		return true
+	case Custom:
+		return true
+	case Default:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSalesStatusSalesStatus.
+const (
+	NotYetOnSale EventSalesStatusSalesStatus = "not_yet_on_sale"
+	OnSale       EventSalesStatusSalesStatus = "on_sale"
+	SalesEnded   EventSalesStatusSalesStatus = "sales_ended"
+	SoldOut      EventSalesStatusSalesStatus = "sold_out"
+	Unavailable  EventSalesStatusSalesStatus = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the EventSalesStatusSalesStatus enum.
+func (e EventSalesStatusSalesStatus) Valid() bool {
+	switch e {
+	case NotYetOnSale:
+		return true
+	case OnSale:
+		return true
+	case SalesEnded:
+		return true
+	case SoldOut:
+		return true
+	case Unavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MusicPropertiesAgeRestriction.
+const (
+	AllAges             MusicPropertiesAgeRestriction = "all_ages"
+	N12                 MusicPropertiesAgeRestriction = "12+"
+	N13                 MusicPropertiesAgeRestriction = "13+"
+	N14                 MusicPropertiesAgeRestriction = "14+"
+	N15                 MusicPropertiesAgeRestriction = "15+"
+	N16                 MusicPropertiesAgeRestriction = "16+"
+	N17                 MusicPropertiesAgeRestriction = "17+"
+	N18                 MusicPropertiesAgeRestriction = "18+"
+	N19                 MusicPropertiesAgeRestriction = "19+"
+	N21                 MusicPropertiesAgeRestriction = "21+"
+	Under14WithGuardian MusicPropertiesAgeRestriction = "under_14_with_guardian"
+	Under16WithGuardian MusicPropertiesAgeRestriction = "under_16_with_guardian"
+	Under18WithGuardian MusicPropertiesAgeRestriction = "under_18_with_guardian"
+	Under21WithGuardian MusicPropertiesAgeRestriction = "under_21_with_guardian"
+)
+
+// Valid indicates whether the value is a known member of the MusicPropertiesAgeRestriction enum.
+func (e MusicPropertiesAgeRestriction) Valid() bool {
+	switch e {
+	case AllAges:
+		return true
+	case N12:
+		return true
+	case N13:
+		return true
+	case N14:
+		return true
+	case N15:
+		return true
+	case N16:
+		return true
+	case N17:
+		return true
+	case N18:
+		return true
+	case N19:
+		return true
+	case N21:
+		return true
+	case Under14WithGuardian:
+		return true
+	case Under16WithGuardian:
+		return true
+	case Under18WithGuardian:
+		return true
+	case Under21WithGuardian:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for OrderStatus.
+const (
+	OrderStatusAbandoned OrderStatus = "abandoned"
+	OrderStatusPending   OrderStatus = "pending"
+	OrderStatusPlaced    OrderStatus = "placed"
+	OrderStatusStarted   OrderStatus = "started"
+)
+
+// Valid indicates whether the value is a known member of the OrderStatus enum.
+func (e OrderStatus) Valid() bool {
+	switch e {
+	case OrderStatusAbandoned:
+		return true
+	case OrderStatusPending:
+		return true
+	case OrderStatusPlaced:
+		return true
+	case OrderStatusStarted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RolePermissionType.
+const (
+	RolePermissionTypeEvent RolePermissionType = "event"
+	RolePermissionTypeUser  RolePermissionType = "user"
+)
+
+// Valid indicates whether the value is a known member of the RolePermissionType enum.
+func (e RolePermissionType) Valid() bool {
+	switch e {
+	case RolePermissionTypeEvent:
+		return true
+	case RolePermissionTypeUser:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VenueBaseAgeRestriction.
+const (
+	VenueBaseAgeRestrictionAGERESTRICTIONALLAGES                    VenueBaseAgeRestriction = "AGE_RESTRICTION_ALL_AGES"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINEIGHTEEN                VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_EIGHTEEN"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINFIFTEEN                 VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_FIFTEEN"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINFOURTEEN                VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_FOURTEEN"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINNINETEEN                VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_NINETEEN"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINSEVENTEEN               VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_SEVENTEEN"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINSIXTEEN                 VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_SIXTEEN"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINTHIRTEEN                VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_THIRTEEN"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINTWELVE                  VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_TWELVE"
+	VenueBaseAgeRestrictionAGERESTRICTIONMINTWENTYONE               VenueBaseAgeRestriction = "AGE_RESTRICTION_MIN_TWENTY_ONE"
+	VenueBaseAgeRestrictionAGERESTRICTIONUNDEREIGHTEENWITHGUARDIAN  VenueBaseAgeRestriction = "AGE_RESTRICTION_UNDER_EIGHTEEN_WITH_GUARDIAN"
+	VenueBaseAgeRestrictionAGERESTRICTIONUNDERTWENTYONEWITHGUARDIAN VenueBaseAgeRestriction = "AGE_RESTRICTION_UNDER_TWENTY_ONE_WITH_GUARDIAN"
+)
+
+// Valid indicates whether the value is a known member of the VenueBaseAgeRestriction enum.
+func (e VenueBaseAgeRestriction) Valid() bool {
+	switch e {
+	case VenueBaseAgeRestrictionAGERESTRICTIONALLAGES:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINEIGHTEEN:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINFIFTEEN:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINFOURTEEN:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINNINETEEN:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINSEVENTEEN:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINSIXTEEN:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINTHIRTEEN:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINTWELVE:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONMINTWENTYONE:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONUNDEREIGHTEENWITHGUARDIAN:
+		return true
+	case VenueBaseAgeRestrictionAGERESTRICTIONUNDERTWENTYONEWITHGUARDIAN:
 		return true
 	default:
 		return false
@@ -490,22 +865,22 @@ func (e SearchDiscountsByOrganizationParamsScope) Valid() bool {
 
 // Defines values for CreateADiscountJSONBodyDiscountType.
 const (
-	CreateADiscountJSONBodyDiscountTypeAccess CreateADiscountJSONBodyDiscountType = "access"
-	CreateADiscountJSONBodyDiscountTypeCoded  CreateADiscountJSONBodyDiscountType = "coded"
-	CreateADiscountJSONBodyDiscountTypeHold   CreateADiscountJSONBodyDiscountType = "hold"
-	CreateADiscountJSONBodyDiscountTypePublic CreateADiscountJSONBodyDiscountType = "public"
+	Access CreateADiscountJSONBodyDiscountType = "access"
+	Coded  CreateADiscountJSONBodyDiscountType = "coded"
+	Hold   CreateADiscountJSONBodyDiscountType = "hold"
+	Public CreateADiscountJSONBodyDiscountType = "public"
 )
 
 // Valid indicates whether the value is a known member of the CreateADiscountJSONBodyDiscountType enum.
 func (e CreateADiscountJSONBodyDiscountType) Valid() bool {
 	switch e {
-	case CreateADiscountJSONBodyDiscountTypeAccess:
+	case Access:
 		return true
-	case CreateADiscountJSONBodyDiscountTypeCoded:
+	case Coded:
 		return true
-	case CreateADiscountJSONBodyDiscountTypeHold:
+	case Hold:
 		return true
-	case CreateADiscountJSONBodyDiscountTypePublic:
+	case Public:
 		return true
 	default:
 		return false
@@ -610,40 +985,40 @@ func (e CreateAnEventJSONBodyEventLocale) Valid() bool {
 
 // Defines values for RetrieveTextOverridesParamsTextCodes.
 const (
-	RetrieveTextOverridesParamsTextCodesCheckoutTitleAddOns    RetrieveTextOverridesParamsTextCodes = "checkout_title_add_ons"
-	RetrieveTextOverridesParamsTextCodesCheckoutTitleDonations RetrieveTextOverridesParamsTextCodes = "checkout_title_donations"
-	RetrieveTextOverridesParamsTextCodesCheckoutTitleTickets   RetrieveTextOverridesParamsTextCodes = "checkout_title_tickets"
-	RetrieveTextOverridesParamsTextCodesEventCancelled         RetrieveTextOverridesParamsTextCodes = "event_cancelled"
-	RetrieveTextOverridesParamsTextCodesEventPostponed         RetrieveTextOverridesParamsTextCodes = "event_postponed"
-	RetrieveTextOverridesParamsTextCodesTicketsAtTheDoor       RetrieveTextOverridesParamsTextCodes = "tickets_at_the_door"
-	RetrieveTextOverridesParamsTextCodesTicketsNotYetOnSale    RetrieveTextOverridesParamsTextCodes = "tickets_not_yet_on_sale"
-	RetrieveTextOverridesParamsTextCodesTicketsSoldOut         RetrieveTextOverridesParamsTextCodes = "tickets_sold_out"
-	RetrieveTextOverridesParamsTextCodesTicketsUnavailable     RetrieveTextOverridesParamsTextCodes = "tickets_unavailable"
-	RetrieveTextOverridesParamsTextCodesTicketsWithSalesEnded  RetrieveTextOverridesParamsTextCodes = "tickets_with_sales_ended"
+	CheckoutTitleAddOns    RetrieveTextOverridesParamsTextCodes = "checkout_title_add_ons"
+	CheckoutTitleDonations RetrieveTextOverridesParamsTextCodes = "checkout_title_donations"
+	CheckoutTitleTickets   RetrieveTextOverridesParamsTextCodes = "checkout_title_tickets"
+	EventCancelled         RetrieveTextOverridesParamsTextCodes = "event_cancelled"
+	EventPostponed         RetrieveTextOverridesParamsTextCodes = "event_postponed"
+	TicketsAtTheDoor       RetrieveTextOverridesParamsTextCodes = "tickets_at_the_door"
+	TicketsNotYetOnSale    RetrieveTextOverridesParamsTextCodes = "tickets_not_yet_on_sale"
+	TicketsSoldOut         RetrieveTextOverridesParamsTextCodes = "tickets_sold_out"
+	TicketsUnavailable     RetrieveTextOverridesParamsTextCodes = "tickets_unavailable"
+	TicketsWithSalesEnded  RetrieveTextOverridesParamsTextCodes = "tickets_with_sales_ended"
 )
 
 // Valid indicates whether the value is a known member of the RetrieveTextOverridesParamsTextCodes enum.
 func (e RetrieveTextOverridesParamsTextCodes) Valid() bool {
 	switch e {
-	case RetrieveTextOverridesParamsTextCodesCheckoutTitleAddOns:
+	case CheckoutTitleAddOns:
 		return true
-	case RetrieveTextOverridesParamsTextCodesCheckoutTitleDonations:
+	case CheckoutTitleDonations:
 		return true
-	case RetrieveTextOverridesParamsTextCodesCheckoutTitleTickets:
+	case CheckoutTitleTickets:
 		return true
-	case RetrieveTextOverridesParamsTextCodesEventCancelled:
+	case EventCancelled:
 		return true
-	case RetrieveTextOverridesParamsTextCodesEventPostponed:
+	case EventPostponed:
 		return true
-	case RetrieveTextOverridesParamsTextCodesTicketsAtTheDoor:
+	case TicketsAtTheDoor:
 		return true
-	case RetrieveTextOverridesParamsTextCodesTicketsNotYetOnSale:
+	case TicketsNotYetOnSale:
 		return true
-	case RetrieveTextOverridesParamsTextCodesTicketsSoldOut:
+	case TicketsSoldOut:
 		return true
-	case RetrieveTextOverridesParamsTextCodesTicketsUnavailable:
+	case TicketsUnavailable:
 		return true
-	case RetrieveTextOverridesParamsTextCodesTicketsWithSalesEnded:
+	case TicketsWithSalesEnded:
 		return true
 	default:
 		return false
@@ -910,19 +1285,19 @@ func (e ListPricingParamsChannel) Valid() bool {
 
 // Defines values for ListPricingParamsItemType.
 const (
-	ListPricingParamsItemTypeAny     ListPricingParamsItemType = "any"
-	ListPricingParamsItemTypeProduct ListPricingParamsItemType = "product"
-	ListPricingParamsItemTypeTicket  ListPricingParamsItemType = "ticket"
+	Any     ListPricingParamsItemType = "any"
+	Product ListPricingParamsItemType = "product"
+	Ticket  ListPricingParamsItemType = "ticket"
 )
 
 // Valid indicates whether the value is a known member of the ListPricingParamsItemType enum.
 func (e ListPricingParamsItemType) Valid() bool {
 	switch e {
-	case ListPricingParamsItemTypeAny:
+	case Any:
 		return true
-	case ListPricingParamsItemTypeProduct:
+	case Product:
 		return true
-	case ListPricingParamsItemTypeTicket:
+	case Ticket:
 		return true
 	default:
 		return false
@@ -931,50 +1306,339 @@ func (e ListPricingParamsItemType) Valid() bool {
 
 // Defines values for UpdateAVenueJSONBodyVenueAgeRestriction.
 const (
-	AGERESTRICTIONALLAGES                    UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_ALL_AGES"
-	AGERESTRICTIONMINEIGHTEEN                UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_EIGHTEEN"
-	AGERESTRICTIONMINFIFTEEN                 UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_FIFTEEN"
-	AGERESTRICTIONMINFOURTEEN                UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_FOURTEEN"
-	AGERESTRICTIONMINNINETEEN                UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_NINETEEN"
-	AGERESTRICTIONMINSEVENTEEN               UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_SEVENTEEN"
-	AGERESTRICTIONMINSIXTEEN                 UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_SIXTEEN"
-	AGERESTRICTIONMINTHIRTEEN                UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_THIRTEEN"
-	AGERESTRICTIONMINTWELVE                  UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_TWELVE"
-	AGERESTRICTIONMINTWENTYONE               UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_TWENTY_ONE"
-	AGERESTRICTIONUNDEREIGHTEENWITHGUARDIAN  UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_UNDER_EIGHTEEN_WITH_GUARDIAN"
-	AGERESTRICTIONUNDERTWENTYONEWITHGUARDIAN UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_UNDER_TWENTY_ONE_WITH_GUARDIAN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONALLAGES                    UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_ALL_AGES"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINEIGHTEEN                UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_EIGHTEEN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINFIFTEEN                 UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_FIFTEEN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINFOURTEEN                UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_FOURTEEN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINNINETEEN                UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_NINETEEN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINSEVENTEEN               UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_SEVENTEEN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINSIXTEEN                 UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_SIXTEEN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINTHIRTEEN                UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_THIRTEEN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINTWELVE                  UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_TWELVE"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINTWENTYONE               UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_MIN_TWENTY_ONE"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONUNDEREIGHTEENWITHGUARDIAN  UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_UNDER_EIGHTEEN_WITH_GUARDIAN"
+	UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONUNDERTWENTYONEWITHGUARDIAN UpdateAVenueJSONBodyVenueAgeRestriction = "AGE_RESTRICTION_UNDER_TWENTY_ONE_WITH_GUARDIAN"
 )
 
 // Valid indicates whether the value is a known member of the UpdateAVenueJSONBodyVenueAgeRestriction enum.
 func (e UpdateAVenueJSONBodyVenueAgeRestriction) Valid() bool {
 	switch e {
-	case AGERESTRICTIONALLAGES:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONALLAGES:
 		return true
-	case AGERESTRICTIONMINEIGHTEEN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINEIGHTEEN:
 		return true
-	case AGERESTRICTIONMINFIFTEEN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINFIFTEEN:
 		return true
-	case AGERESTRICTIONMINFOURTEEN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINFOURTEEN:
 		return true
-	case AGERESTRICTIONMINNINETEEN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINNINETEEN:
 		return true
-	case AGERESTRICTIONMINSEVENTEEN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINSEVENTEEN:
 		return true
-	case AGERESTRICTIONMINSIXTEEN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINSIXTEEN:
 		return true
-	case AGERESTRICTIONMINTHIRTEEN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINTHIRTEEN:
 		return true
-	case AGERESTRICTIONMINTWELVE:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINTWELVE:
 		return true
-	case AGERESTRICTIONMINTWENTYONE:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONMINTWENTYONE:
 		return true
-	case AGERESTRICTIONUNDEREIGHTEENWITHGUARDIAN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONUNDEREIGHTEENWITHGUARDIAN:
 		return true
-	case AGERESTRICTIONUNDERTWENTYONEWITHGUARDIAN:
+	case UpdateAVenueJSONBodyVenueAgeRestrictionAGERESTRICTIONUNDERTWENTYONEWITHGUARDIAN:
 		return true
 	default:
 		return false
 	}
+}
+
+// Address defines model for Address.
+type Address struct {
+	// Address1 The street/location address (part 1)
+	Address1 *string `json:"address_1,omitempty"`
+
+	// Address2 The street/location address (part 2)
+	Address2 *string `json:"address_2,omitempty"`
+
+	// City City
+	City *string `json:"city,omitempty"`
+
+	// Country ISO 3166-1 2-character international code for the country
+	Country *string `json:"country,omitempty"`
+
+	// Latitude Latitude portion of the address coordinates
+	Latitude *string `json:"latitude,omitempty"`
+
+	// LocalizedAddressDisplay Format of the address display localized to the address country
+	LocalizedAddressDisplay *string `json:"localized_address_display,omitempty"`
+
+	// LocalizedAreaDisplay Format of the address area display localized to the address country
+	LocalizedAreaDisplay *string `json:"localized_area_display,omitempty"`
+
+	// LocalizedMultiLineAddressDisplay The multi-line format order of the address display localized to the address country, where each line is an item in the list
+	LocalizedMultiLineAddressDisplay *[]interface{} `json:"localized_multi_line_address_display,omitempty"`
+
+	// Longitude Longitude portion of the address coordinates
+	Longitude *string `json:"longitude,omitempty"`
+
+	// PostalCode Postal code
+	PostalCode *string `json:"postal_code,omitempty"`
+
+	// Region ISO 3166-2 2- or 3-character region code for the state, province, region, or district
+	Region *string `json:"region,omitempty"`
+}
+
+// AddressResponse defines model for Address_Response.
+type AddressResponse struct {
+	// Address1 The street/location address (part 1)
+	Address1 *string `json:"address_1,omitempty"`
+
+	// Address2 The street/location address (part 2)
+	Address2 *string `json:"address_2,omitempty"`
+
+	// City City
+	City *string `json:"city,omitempty"`
+
+	// Country ISO 3166-1 2-character international code for the country
+	Country *string `json:"country,omitempty"`
+
+	// Latitude Latitude portion of the address coordinates
+	Latitude *string `json:"latitude,omitempty"`
+
+	// Longitude Longitude portion of the address coordinates
+	Longitude *string `json:"longitude,omitempty"`
+
+	// PostalCode Postal code
+	PostalCode *string `json:"postal_code,omitempty"`
+
+	// Region ISO 3166-2 2- or 3-character region code for the state, province, region, or district
+	Region *string `json:"region,omitempty"`
+}
+
+// Attendee defines model for Attendee.
+type Attendee struct {
+	// Affiliate The attendee's affiliate code
+	Affiliate *string `json:"affiliate,omitempty"`
+
+	// Answers The attendee’s answers to any custom questions
+	Answers      *[]interface{}         `json:"answers,omitempty"`
+	AssignedUnit *Attendee_AssignedUnit `json:"assigned_unit,omitempty"`
+
+	// Barcodes The attendee’s entry barcode information
+	Barcodes *[]interface{} `json:"barcodes,omitempty"`
+
+	// Cancelled If the attendee is cancelled
+	Cancelled *bool `json:"cancelled,omitempty"`
+
+	// Changed When the attendee was last changed
+	Changed *Datetime `json:"changed,omitempty"`
+
+	// CheckedIn If the attendee is checked in
+	CheckedIn *bool `json:"checked_in,omitempty"`
+
+	// ContactListPreferences Marketing communication preferences for the email address associated with this Attendee.
+	ContactListPreferences *struct {
+		UnderscoreType *string `json:"_type,omitempty"`
+
+		// HasContactList Email address is in at least one contact list for Organization that owns this Event.
+		HasContactList *bool `json:"has_contact_list,omitempty"`
+
+		// HasOptedIn Email address is opt-in to receive marketing communication from the Organization that owns this Event.
+		HasOptedIn *bool `json:"has_opted_in,omitempty"`
+	} `json:"contact_list_preferences,omitempty"`
+	Costs *CostSummary `json:"costs,omitempty"`
+
+	// Created When the attendee was created (order placed)
+	Created *Datetime `json:"created,omitempty"`
+
+	// DeliveryMethod The method of delivery that is to be used for the attendee.  This can be null.
+	DeliveryMethod *AttendeeDeliveryMethod `json:"delivery_method,omitempty"`
+	Event          *Event                  `json:"event,omitempty"`
+
+	// EventId The event id that this attendee is attending
+	EventId *string `json:"event_id,omitempty"`
+
+	// GuestlistId The guestlist id for this attendee. If this is null it means that this is not a guest.
+	GuestlistId *string `json:"guestlist_id,omitempty"`
+
+	// Id Attendee ID
+	Id *string `json:"id,omitempty"`
+
+	// InvitedBy The name of the person that invited the attendee. If this is null it means that this is not a guest.
+	InvitedBy *string `json:"invited_by,omitempty"`
+	Order     *Order  `json:"order,omitempty"`
+
+	// OrderId The order id this attendee is part of
+	OrderId *string          `json:"order_id,omitempty"`
+	Profile *AttendeeProfile `json:"profile,omitempty"`
+
+	// Questions The per-attendee custom questions
+	Questions *[]interface{} `json:"questions,omitempty"`
+
+	// Refunded If the attendee is refunded
+	Refunded *bool `json:"refunded,omitempty"`
+
+	// ResourceUri The resource URI
+	ResourceUri *string `json:"resource_uri,omitempty"`
+
+	// Status The status of the attendee (scheduled to be deprecated)
+	Status *string `json:"status,omitempty"`
+
+	// SurveyResponses Object representing survey responses associated with the attendee. Keys are `question_ids` and values are the answers to those questions. Available through the use of `survey_responses` expansion.
+	SurveyResponses *map[string]interface{} `json:"survey_responses,omitempty"`
+	Team            *Attendee_Team          `json:"team,omitempty"`
+
+	// TicketClassId The ticket_class that the attendee registered with
+	TicketClassId *string `json:"ticket_class_id,omitempty"`
+
+	// TicketClassName The name of the ticket_class at the time of registration
+	TicketClassName *string `json:"ticket_class_name,omitempty"`
+
+	// VariantId A composite id with the format T12345-D12345 where the T12345 is the ticket_class id and D12345 is the discount id applied to this attendee
+	VariantId *string `json:"variant_id,omitempty"`
+}
+
+// AttendeeAssignedUnit1 defines model for .
+type AttendeeAssignedUnit1 = interface{}
+
+// Attendee_AssignedUnit defines model for Attendee.AssignedUnit.
+type Attendee_AssignedUnit struct {
+	union json.RawMessage
+}
+
+// AttendeeDeliveryMethod The method of delivery that is to be used for the attendee.  This can be null.
+type AttendeeDeliveryMethod string
+
+// AttendeeTeam1 defines model for .
+type AttendeeTeam1 = interface{}
+
+// Attendee_Team defines model for Attendee.Team.
+type Attendee_Team struct {
+	union json.RawMessage
+}
+
+// AttendeeAddress defines model for Attendee_Address.
+type AttendeeAddress struct {
+	Bill *AttendeeAddress_Bill `json:"bill,omitempty"`
+	Home *AttendeeAddress_Home `json:"home,omitempty"`
+	Ship *AttendeeAddress_Ship `json:"ship,omitempty"`
+	Work *AttendeeAddress_Work `json:"work,omitempty"`
+}
+
+// AttendeeAddressBill1 defines model for .
+type AttendeeAddressBill1 = interface{}
+
+// AttendeeAddress_Bill defines model for AttendeeAddress.Bill.
+type AttendeeAddress_Bill struct {
+	union json.RawMessage
+}
+
+// AttendeeAddressHome1 defines model for .
+type AttendeeAddressHome1 = interface{}
+
+// AttendeeAddress_Home defines model for AttendeeAddress.Home.
+type AttendeeAddress_Home struct {
+	union json.RawMessage
+}
+
+// AttendeeAddressShip1 defines model for .
+type AttendeeAddressShip1 = interface{}
+
+// AttendeeAddress_Ship defines model for AttendeeAddress.Ship.
+type AttendeeAddress_Ship struct {
+	union json.RawMessage
+}
+
+// AttendeeAddressWork1 defines model for .
+type AttendeeAddressWork1 = interface{}
+
+// AttendeeAddress_Work defines model for AttendeeAddress.Work.
+type AttendeeAddress_Work struct {
+	union json.RawMessage
+}
+
+// AttendeeAssignedUnit defines model for Attendee_Assigned_Unit.
+type AttendeeAssignedUnit struct {
+	// Description Detailed description for the seating assignment. This is calculated from title and strings of this seating assignment. This value can never be null.
+	Description *string `json:"description,omitempty"`
+
+	// Labels List of label strings of this seating assignment. This value can never be null.
+	Labels        *[]interface{}     `json:"labels,omitempty"`
+	LocationImage *UnitLocationImage `json:"location_image,omitempty"`
+
+	// Titles List of title strings of this seating assignment. This value can never be null. Number of titles are always equal or more than number of labels. If seat locations are displayed in the grid view, api client is expected to group assigned locations by titles and use a separate grid for each unique titles.
+	Titles *[]interface{} `json:"titles,omitempty"`
+
+	// UnitId The seating assignment's ID. This value can never be null.
+	UnitId *string `json:"unit_id,omitempty"`
+}
+
+// AttendeeProfile defines model for Attendee_Profile.
+type AttendeeProfile struct {
+	Addresses *AttendeeAddress `json:"addresses,omitempty"`
+
+	// Age The attendee's age
+	Age *float32 `json:"age,omitempty"`
+
+	// BirthDate The attendee's birth date
+	BirthDate *string `json:"birth_date,omitempty"`
+
+	// Blog The attendee's blog address
+	Blog *string `json:"blog,omitempty"`
+
+	// CellPhone The attendee's cell/mobile phone number, as formatted by them
+	CellPhone *string `json:"cell_phone,omitempty"`
+
+	// Company The attendee's company name
+	Company *string `json:"company,omitempty"`
+
+	// Email The attendee's email address
+	Email *string `json:"email,omitempty"`
+
+	// FirstName The attendee's first name
+	FirstName *string `json:"first_name,omitempty"`
+
+	// Gender The attendee's gender
+	Gender *AttendeeProfileGender `json:"gender,omitempty"`
+
+	// JobTitle The attendee's job title
+	JobTitle *string `json:"job_title,omitempty"`
+
+	// LastName The attendee's last name
+	LastName *string `json:"last_name,omitempty"`
+
+	// Name The attendee's name. Use this in preference to first_name/last_name/etc. if possible for forward compatibility with non-Western names.
+	Name *string `json:"name,omitempty"`
+
+	// Prefix The title or honoraria used in front of the name (Mr., Mrs., etc.)
+	Prefix *string `json:"prefix,omitempty"`
+
+	// Suffix The suffix at the end of the name (e.g. Jr, Sr)
+	Suffix *string `json:"suffix,omitempty"`
+
+	// Website The attendee's website address
+	Website *string `json:"website,omitempty"`
+
+	// WorkPhone The attendee's cell/mobile work phone number, as formatted by them
+	WorkPhone *string `json:"work_phone,omitempty"`
+}
+
+// AttendeeProfileGender The attendee's gender
+type AttendeeProfileGender string
+
+// AttendeeTeam defines model for Attendee_Team.
+type AttendeeTeam struct {
+	// DateJoined When the attendee joined the team
+	DateJoined *Datetime `json:"date_joined,omitempty"`
+
+	// EventId The event the team is part of
+	EventId *string `json:"event_id,omitempty"`
+
+	// Id The team's ID
+	Id *string `json:"id,omitempty"`
+
+	// Name The team's name
+	Name *string `json:"name,omitempty"`
 }
 
 // BaseQuestionCreate defines model for Base_Question_Create.
@@ -1017,6 +1681,12 @@ type BaseQuestionCreateRespondent string
 // BaseQuestionCreateType Type of Question
 type BaseQuestionCreateType string
 
+// BookmarkInfo defines model for Bookmark_Info.
+type BookmarkInfo struct {
+	// Bookmarked User saved the event or not.
+	Bookmarked *bool `json:"bookmarked,omitempty"`
+}
+
 // CannedQuestionCreate defines model for Canned_Question_Create.
 type CannedQuestionCreate struct {
 	// CannedType String value of canned_type
@@ -1035,12 +1705,6 @@ type CannedQuestionCreate struct {
 	// Required Is an answer to this question required for registration?
 	Required *bool `json:"required,omitempty"`
 
-	// RespondentDEPRECATED (DEPRECATED: This param will be removed from June 1, 2021, Use: Ticket Buyer Settings - Update) Ask this question to the ticket buyer or each attendee. When this value is not sent, the survey_type value of the event will not be updated.
-	RespondentDEPRECATED *CannedQuestionCreateRespondentDEPRECATED `json:"respondent (DEPRECATED),omitempty"`
-
-	// TicketClassesDEPRECATED (DEPRECATED: This param will be removed from June 1, 2021, Use: Ticket Buyer Settings - Update) Tickets to which to limit this question. Format: [{“id”: “1234”}, {“id”: “4567”}]
-	TicketClassesDEPRECATED *[]interface{} `json:"ticket_classes (DEPRECATED),omitempty"`
-
 	// Type Type of Question
 	Type *CannedQuestionCreateType `json:"type,omitempty"`
 
@@ -1051,11 +1715,1065 @@ type CannedQuestionCreate struct {
 // CannedQuestionCreateCannedType String value of canned_type
 type CannedQuestionCreateCannedType string
 
-// CannedQuestionCreateRespondentDEPRECATED (DEPRECATED: This param will be removed from June 1, 2021, Use: Ticket Buyer Settings - Update) Ask this question to the ticket buyer or each attendee. When this value is not sent, the survey_type value of the event will not be updated.
-type CannedQuestionCreateRespondentDEPRECATED string
-
 // CannedQuestionCreateType Type of Question
 type CannedQuestionCreateType string
+
+// Category defines model for Category.
+type Category struct {
+	// Id Category ID
+	Id *string `json:"id,omitempty"`
+
+	// Name Category name
+	Name *string `json:"name,omitempty"`
+
+	// NameLocalized Translated category name
+	NameLocalized *string `json:"name_localized,omitempty"`
+	ResourceUri   *string `json:"resource_uri,omitempty"`
+
+	// ShortName Shorter category name for display in sidebars and other small spaces
+	ShortName *string `json:"short_name,omitempty"`
+
+	// ShortNameLocalized Translated short category name
+	ShortNameLocalized *string `json:"short_name_localized,omitempty"`
+
+	// Subcategories List of subcategories (only shown on some endpoints)
+	Subcategories *[]interface{} `json:"subcategories,omitempty"`
+}
+
+// CheckoutSettings defines model for Checkout_Settings.
+type CheckoutSettings struct {
+	// Changed When the checkout settings object was last changed
+	Changed *Datetime `json:"changed,omitempty"`
+
+	// CheckoutMethod The checkout method to use for completing consumer payment for tickets or other goods. Set of possible values [paypal, eventbrite, authnet, offline].
+	CheckoutMethod *CheckoutSettingsCheckoutMethod `json:"checkout_method,omitempty"`
+
+	// CountryCode The ISO 3166 alpha-2 code of the country within which these checkout settings can apply.
+	CountryCode *string `json:"country_code,omitempty"`
+
+	// Created When the checkout settings object was created
+	Created *Datetime `json:"created,omitempty"`
+
+	// CurrencyCode The ISO 4217 3-character code of the currency for which these checkout settings can apply.
+	CurrencyCode *string `json:"currency_code,omitempty"`
+
+	// OfflineSettings A container for representing additional offline payment method checkout settings.
+	OfflineSettings *[]interface{} `json:"offline_settings,omitempty"`
+
+	// UserInstrumentVaultId The merchant account user instrument ID for the checkout method. Only specify this value for PayPal and Authorize.net checkout settings.
+	UserInstrumentVaultId *string `json:"user_instrument_vault_id,omitempty"`
+}
+
+// CheckoutSettingsCheckoutMethod The checkout method to use for completing consumer payment for tickets or other goods. Set of possible values [paypal, eventbrite, authnet, offline].
+type CheckoutSettingsCheckoutMethod string
+
+// ContactListPreferences defines model for Contact_List_Preferences.
+type ContactListPreferences struct {
+	// HasContactList Email address is in at least one contact list for Organization that owns this Event.
+	HasContactList *bool `json:"has_contact_list,omitempty"`
+
+	// HasOptedIn Email address is opt-in to receive marketing communication from the Organization that owns this Event.
+	HasOptedIn *bool `json:"has_opted_in,omitempty"`
+}
+
+// Cost defines model for Cost.
+type Cost struct {
+	BasePrice      *CurrencyCost `json:"base_price,omitempty"`
+	DiscountAmount *CurrencyCost `json:"discount_amount,omitempty"`
+
+	// DiscountType Type of discount applied.
+	DiscountType  *CostDiscountType `json:"discount_type,omitempty"`
+	DisplayFee    *CurrencyCost     `json:"display_fee,omitempty"`
+	DisplayPrice  *CurrencyCost     `json:"display_price,omitempty"`
+	DisplayTax    *CurrencyCost     `json:"display_tax,omitempty"`
+	EventbriteFee *CurrencyCost     `json:"eventbrite_fee,omitempty"`
+
+	// FeeComponents List of price costs components that belong to the fee display group.
+	FeeComponents *[]interface{} `json:"fee_components,omitempty"`
+	Gross         *CurrencyCost  `json:"gross,omitempty"`
+
+	// HasGtsTax Indicates if any of the tax_components is a gts tax.
+	HasGtsTax           *bool         `json:"has_gts_tax,omitempty"`
+	PaymentFee          *CurrencyCost `json:"payment_fee,omitempty"`
+	PriceBeforeDiscount *CurrencyCost `json:"price_before_discount,omitempty"`
+
+	// ShippingComponents List of price costs components that belong to the shipping display group.
+	ShippingComponents *[]interface{} `json:"shipping_components,omitempty"`
+	Tax                *CurrencyCost  `json:"tax,omitempty"`
+
+	// TaxComponents List of price costs components that belong to the tax display group.
+	TaxComponents *[]interface{} `json:"tax_components,omitempty"`
+
+	// TaxName The name of the Organizer-to-Attendee tax that applies, if any.
+	TaxName *string `json:"tax_name,omitempty"`
+}
+
+// CostDiscountType Type of discount applied.
+type CostDiscountType string
+
+// CostSummary defines model for Cost_Summary.
+type CostSummary struct {
+	BasePrice     *CurrencyCost `json:"base_price,omitempty"`
+	EventbriteFee *CurrencyCost `json:"eventbrite_fee,omitempty"`
+	Gross         *CurrencyCost `json:"gross,omitempty"`
+	PaymentFee    *CurrencyCost `json:"payment_fee,omitempty"`
+	Tax           *CurrencyCost `json:"tax,omitempty"`
+}
+
+// CropMask defines model for Crop_Mask.
+type CropMask struct {
+	// Height Crop mask height
+	Height  *float32            `json:"height,omitempty"`
+	TopLeft *CropMaskCoordinate `json:"top_left,omitempty"`
+
+	// Width Crop mask width
+	Width *float32 `json:"width,omitempty"`
+}
+
+// CropMaskCoordinate defines model for Crop_Mask_Coordinate.
+type CropMaskCoordinate struct {
+	// X X coordinate for top-left corner of crop mask
+	X *float32 `json:"x,omitempty"`
+
+	// Y Y coordinate for top-left corner of crop mask
+	Y *float32 `json:"y,omitempty"`
+}
+
+// CurrencyCost defines model for Currency_Cost.
+type CurrencyCost struct {
+	// Currency The ISO 4217 3-character code of a currency
+	Currency string `json:"currency"`
+
+	// Display Provided for your convenience; its formatting may change depending on the locale you query the API with (for example, commas for decimal separators in European locales).
+	Display string `json:"display"`
+
+	// MajorValue You can get a value in the currency's major unit - for example, dollars or pound sterling - by taking the integer value provided and shifting the decimal point left by the exponent value for that currency as defined in ISO 4217
+	MajorValue string `json:"major_value"`
+
+	// Value The integer value of units of the minor unit of the currency (e.g. cents for US dollars)
+	Value float32 `json:"value"`
+}
+
+// Discount defines model for Discount.
+type Discount struct {
+	// AmountOff Fixed reduction amount. When creating access codes the default value is Null.
+	AmountOff *string `json:"amount_off,omitempty"`
+
+	// Code Code used to activate the discount
+	Code *string `json:"code,omitempty"`
+
+	// EndDate Allow use until this date. A datetime represented as a string in Naive Local ISO8601 date and time format, in the timezone of the event.
+	EndDate *string `json:"end_date,omitempty"`
+
+	// EndDateRelative Allow use until this number of seconds before the event starts. Greater than 59 and multiple of 60.
+	EndDateRelative *float32 `json:"end_date_relative,omitempty"`
+
+	// EventId ID of the event. Only used for single event discounts
+	EventId *string `json:"event_id,omitempty"`
+
+	// HoldIds List of hold IDs this discount can unlock. Null if this discount does not unlock a hold.
+	HoldIds *[]interface{} `json:"hold_ids,omitempty"`
+
+	// Id Discount ID
+	Id *string `json:"id,omitempty"`
+
+	// PercentOff Percentage reduction. When creating access codes the default value is Null.
+	PercentOff *string `json:"percent_off,omitempty"`
+
+	// QuantityAvailable Number of times the discount can be used
+	QuantityAvailable *float32 `json:"quantity_available,omitempty"`
+
+	// QuantitySold Number of discounts used during ticket sales
+	QuantitySold *float32 `json:"quantity_sold,omitempty"`
+
+	// StartDate Allow use from this date. A datetime represented as a string in Naive Local ISO8601 date and time format, in the timezone of the event.
+	StartDate *string `json:"start_date,omitempty"`
+
+	// StartDateRelative Allow use from this number of seconds before the event starts. Greater than 59 and multiple of 60.
+	StartDateRelative *float32 `json:"start_date_relative,omitempty"`
+
+	// TicketClassIds IDs of the ticket classes to limit discount to
+	TicketClassIds *[]interface{} `json:"ticket_class_ids,omitempty"`
+
+	// TicketGroupId ID of the ticket group
+	TicketGroupId *string `json:"ticket_group_id,omitempty"`
+
+	// Type The type of discount
+	Type *DiscountType `json:"type,omitempty"`
+}
+
+// DiscountType The type of discount
+type DiscountType string
+
+// DiscountBase defines model for Discount_Base.
+type DiscountBase struct {
+	// AmountOff Fixed reduction amount. When creating access codes the default value is Null.
+	AmountOff *string `json:"amount_off,omitempty"`
+
+	// Code Code used to activate the discount
+	Code *string `json:"code,omitempty"`
+
+	// EndDate Allow use until this date. A datetime represented as a string in Naive Local ISO8601 date and time format, in the timezone of the event.
+	EndDate *string `json:"end_date,omitempty"`
+
+	// EndDateRelative Allow use until this number of seconds before the event starts. Greater than 59 and multiple of 60.
+	EndDateRelative *float32 `json:"end_date_relative,omitempty"`
+
+	// EventId ID of the event. Only used for single event discounts
+	EventId *string `json:"event_id,omitempty"`
+
+	// HoldIds List of hold IDs this discount can unlock. Null if this discount does not unlock a hold.
+	HoldIds *[]interface{} `json:"hold_ids,omitempty"`
+
+	// PercentOff Percentage reduction. When creating access codes the default value is Null.
+	PercentOff *string `json:"percent_off,omitempty"`
+
+	// QuantityAvailable Number of times the discount can be used
+	QuantityAvailable *float32 `json:"quantity_available,omitempty"`
+
+	// StartDate Allow use from this date. A datetime represented as a string in Naive Local ISO8601 date and time format, in the timezone of the event.
+	StartDate *string `json:"start_date,omitempty"`
+
+	// StartDateRelative Allow use from this number of seconds before the event starts. Greater than 59 and multiple of 60.
+	StartDateRelative *float32 `json:"start_date_relative,omitempty"`
+
+	// TicketClassIds IDs of the ticket classes to limit discount to
+	TicketClassIds *[]interface{} `json:"ticket_class_ids,omitempty"`
+
+	// TicketGroupId ID of the ticket group
+	TicketGroupId *string `json:"ticket_group_id,omitempty"`
+
+	// Type The type of discount
+	Type *DiscountBaseType `json:"type,omitempty"`
+}
+
+// DiscountBaseType The type of discount
+type DiscountBaseType string
+
+// Event defines model for Event.
+type Event struct {
+	BookmarkInfo *BookmarkInfo `json:"bookmark_info,omitempty"`
+
+	// Capacity Maximum number of people who can attend.
+	Capacity *float32 `json:"capacity,omitempty"`
+
+	// CapacityIsCustom If True, the value of capacity is a custom-set value; if False, it's a calculated value of the total of all ticket capacities.
+	CapacityIsCustom *bool     `json:"capacity_is_custom,omitempty"`
+	Category         *Category `json:"category,omitempty"`
+
+	// CategoryId Event category (Expansion: `category`)
+	CategoryId *string `json:"category_id,omitempty"`
+
+	// Changed When the event was last changed
+	Changed          Datetime          `json:"changed"`
+	CheckoutSettings *CheckoutSettings `json:"checkout_settings,omitempty"`
+
+	// Created When the event was created
+	Created Datetime `json:"created"`
+
+	// Currency The ISO 4217 currency code for this event
+	Currency          *string            `json:"currency,omitempty"`
+	Description       *MultipartText     `json:"description,omitempty"`
+	End               *DatetimeTz        `json:"end,omitempty"`
+	EventSalesStatus  *EventSalesStatus  `json:"event_sales_status,omitempty"`
+	ExternalTicketing *ExternalTicketing `json:"external_ticketing,omitempty"`
+	Format            *Format            `json:"format,omitempty"`
+
+	// FormatId Event format (Expansion: `format`)
+	FormatId *string `json:"format_id,omitempty"`
+
+	// HideEndDate Hide when event starts
+	HideEndDate *bool `json:"hide_end_date,omitempty"`
+
+	// HideStartDate Shows when event starts
+	HideStartDate *bool `json:"hide_start_date,omitempty"`
+
+	// Id Event ID
+	Id *string `json:"id,omitempty"`
+
+	// InviteOnly Can only people with invites see the event page?
+	InviteOnly *bool `json:"invite_only,omitempty"`
+
+	// IsExternallyTicketed true, if the Event is externally ticketed
+	IsExternallyTicketed *bool `json:"is_externally_ticketed,omitempty"`
+
+	// IsFree Allows to set a free event
+	IsFree   *bool `json:"is_free,omitempty"`
+	IsLocked *bool `json:"is_locked,omitempty"`
+
+	// IsReservedSeating If the events has been set to have reserved seatings
+	IsReservedSeating *bool `json:"is_reserved_seating,omitempty"`
+
+	// IsSeries If the event is part of a series
+	IsSeries *bool `json:"is_series,omitempty"`
+
+	// IsSeriesParent If the event is part of a series and is the series parent
+	IsSeriesParent *bool `json:"is_series_parent,omitempty"`
+
+	// Listed Is this event publicly searchable on Eventbrite?
+	Listed *bool `json:"listed,omitempty"`
+
+	// Locale The event Locale
+	Locale *string     `json:"locale,omitempty"`
+	Logo   *Event_Logo `json:"logo,omitempty"`
+
+	// LogoId Image ID of the event logo
+	LogoId          *string          `json:"logo_id,omitempty"`
+	MusicProperties *MusicProperties `json:"music_properties,omitempty"`
+	Name            *MultipartText   `json:"name,omitempty"`
+
+	// OnlineEvent If this event doesn’t have a venue and is only held online
+	OnlineEvent *bool `json:"online_event,omitempty"`
+
+	// OrganizationId Organization owning the event
+	OrganizationId *string    `json:"organization_id,omitempty"`
+	Organizer      *Organizer `json:"organizer,omitempty"`
+
+	// OrganizerId ID of the event organizer
+	OrganizerId *string `json:"organizer_id,omitempty"`
+
+	// Password Event password
+	Password       *string `json:"password,omitempty"`
+	PrivacySetting *string `json:"privacy_setting,omitempty"`
+
+	// Published When the event was first published
+	Published *Datetime `json:"published,omitempty"`
+
+	// RefundPolicy (Expansion)
+	RefundPolicy *string `json:"refund_policy,omitempty"`
+
+	// ResourceUri Is an absolute URL to the API endpoint that will return you the canonical representation of the event.
+	ResourceUri *string `json:"resource_uri,omitempty"`
+
+	// SeriesId If the event is part of a series, this is the event id of the series parent. If the event is not part of a series, this field is omitted.
+	SeriesId *string `json:"series_id,omitempty"`
+
+	// Shareable Can this event show social sharing buttons?
+	Shareable *bool `json:"shareable,omitempty"`
+
+	// ShowColorsInSeatmapThumbnail For reserved seating event, if venue map thumbnail should have colors on the event page.
+	ShowColorsInSeatmapThumbnail *bool `json:"show_colors_in_seatmap_thumbnail,omitempty"`
+
+	// ShowPickASeat Enables to show pick a seat option
+	ShowPickASeat *bool `json:"show_pick_a_seat,omitempty"`
+
+	// ShowRemaining Should the event page show the number of tickets left?
+	ShowRemaining *bool `json:"show_remaining,omitempty"`
+
+	// ShowSeatmapThumbnail Enables to show seat map thumbnail
+	ShowSeatmapThumbnail *bool `json:"show_seatmap_thumbnail,omitempty"`
+
+	// Source Source of the event (defaults to API)
+	Source *string     `json:"source,omitempty"`
+	Start  *DatetimeTz `json:"start,omitempty"`
+
+	// Status Status of the event
+	Status      *EventStatus `json:"status,omitempty"`
+	Subcategory *Subcategory `json:"subcategory,omitempty"`
+
+	// SubcategoryId Event subcategory (Expansion: `subcategory`)
+	SubcategoryId *string `json:"subcategory_id,omitempty"`
+
+	// Summary Event summary. This is a plaintext field and will have any supplied HTML removed from it. Maximum of 140 characters, mutually exclusive with `description`.
+	Summary            *string             `json:"summary,omitempty"`
+	TicketAvailability *TicketAvailability `json:"ticket_availability,omitempty"`
+
+	// TxTimeLimit Maximum duration (in seconds) of a transaction
+	TxTimeLimit *string `json:"tx_time_limit,omitempty"`
+
+	// Url The URL to the event page for this event on Eventbrite
+	Url *string `json:"url,omitempty"`
+
+	// VanityUrl The vanity URL to the event page for this event on Eventbrite
+	VanityUrl *string        `json:"vanity_url,omitempty"`
+	Venue     *VenueResponse `json:"venue,omitempty"`
+
+	// VenueId Event venue ID
+	VenueId *string `json:"venue_id,omitempty"`
+	Version *string `json:"version,omitempty"`
+}
+
+// EventLogo1 defines model for .
+type EventLogo1 = interface{}
+
+// Event_Logo defines model for Event.Logo.
+type Event_Logo struct {
+	union json.RawMessage
+}
+
+// EventStatus Status of the event
+type EventStatus string
+
+// EventSalesStatus defines model for Event_Sales_Status.
+type EventSalesStatus struct {
+	// Message Custom message associated with the current event sales status.
+	Message *string `json:"message,omitempty"`
+
+	// MessageCode The message returned is overridden by the following event status message.
+	MessageCode *EventSalesStatusMessageCode `json:"message_code,omitempty"`
+	MessageType *EventSalesStatusMessageType `json:"message_type,omitempty"`
+
+	// SalesStatus Current sales status of the event.
+	SalesStatus    *EventSalesStatusSalesStatus `json:"sales_status,omitempty"`
+	StartSalesDate *DatetimeTz                  `json:"start_sales_date,omitempty"`
+}
+
+// EventSalesStatusMessageCode The message returned is overridden by the following event status message.
+type EventSalesStatusMessageCode string
+
+// EventSalesStatusMessageType defines model for EventSalesStatus.MessageType.
+type EventSalesStatusMessageType string
+
+// EventSalesStatusSalesStatus Current sales status of the event.
+type EventSalesStatusSalesStatus string
+
+// EventTeamResponse defines model for Event_Team_Response.
+type EventTeamResponse struct {
+	// AttendeeCount How many attendees the team have
+	AttendeeCount *float32 `json:"attendee_count,omitempty"`
+
+	// Changed Date when the team information was last changed
+	Changed *Datetime `json:"changed,omitempty"`
+
+	// Created Date when the team was created
+	Created *Datetime `json:"created,omitempty"`
+	Creator *struct {
+		// Emails Team creator email's information
+		Emails *[]interface{} `json:"emails,omitempty"`
+
+		// Id Team's creator ID
+		Id *string `json:"id,omitempty"`
+
+		// Name Team's creator name (or email if name is null)
+		Name *string `json:"name,omitempty"`
+	} `json:"creator,omitempty"`
+	DateJoined *Datetime `json:"date_joined,omitempty"`
+
+	// EventId The ID of the event this team is part of
+	EventId *string `json:"event_id,omitempty"`
+
+	// Id Team ID
+	Id *string `json:"id,omitempty"`
+
+	// Name Team name
+	Name *string `json:"name,omitempty"`
+
+	// Token Token
+	Token *string `json:"token,omitempty"`
+}
+
+// EventTicketBuyerSettings defines model for Event_Ticket_Buyer_Settings.
+type EventTicketBuyerSettings struct {
+	ConfirmationMessage *MultipartText `json:"confirmation_message,omitempty"`
+
+	// EventId Public id of the event these ticket buyer settings come from.
+	EventId      *string        `json:"event_id,omitempty"`
+	Instructions *MultipartText `json:"instructions,omitempty"`
+
+	// RedirectUrl URL to redirect the ticket buyer to for further purchase information.
+	RedirectUrl *string `json:"redirect_url,omitempty"`
+
+	// RefundRequestEnabled Are refund requests enabled for this event.
+	RefundRequestEnabled *bool `json:"refund_request_enabled,omitempty"`
+
+	// TicketClassConfirmationSettings List of confirmation messages per unique ticket class in the order.
+	TicketClassConfirmationSettings *[]interface{} `json:"ticket_class_confirmation_settings,omitempty"`
+}
+
+// ExternalTicketing defines model for External_Ticketing.
+type ExternalTicketing struct {
+	// ExternalUrl The URL clients can follow to purchase tickets.
+	ExternalUrl string `json:"external_url"`
+
+	// IsFree Whether this is a free event. Mutually exclusive with ticket price range.
+	IsFree             bool         `json:"is_free"`
+	MaximumTicketPrice CurrencyCost `json:"maximum_ticket_price"`
+	MinimumTicketPrice CurrencyCost `json:"minimum_ticket_price"`
+	SalesEnd           Datetime     `json:"sales_end"`
+	SalesStart         Datetime     `json:"sales_start"`
+
+	// TicketingProviderName The name of the ticketing provider.
+	TicketingProviderName string `json:"ticketing_provider_name"`
+}
+
+// Format defines model for Format.
+type Format struct {
+	// Id Format ID
+	Id *string `json:"id,omitempty"`
+
+	// Name Format name
+	Name *string `json:"name,omitempty"`
+
+	// NameLocalized Localized format name
+	NameLocalized *string `json:"name_localized,omitempty"`
+
+	// ResourceUri Is an absolute URL to the API endpoint that will return you the canonical representation of the format.
+	ResourceUri *string `json:"resource_uri,omitempty"`
+
+	// ShortName Short name for a format
+	ShortName *string `json:"short_name,omitempty"`
+
+	// ShortNameLocalized Localized short name for a format
+	ShortNameLocalized *string `json:"short_name_localized,omitempty"`
+}
+
+// Image defines model for Image.
+type Image struct {
+	// Id The image’s ID
+	Id string `json:"id"`
+
+	// Url The URL of the image
+	Url string `json:"url"`
+}
+
+// MusicProperties defines model for Music_Properties.
+type MusicProperties struct {
+	// AgeRestriction Minimum age requirement of event attendees.
+	AgeRestriction *MusicPropertiesAgeRestriction `json:"age_restriction,omitempty"`
+
+	// DoorTime Time relative to UTC that the doors are opened to allow people in the day of the event. When not set the event won't have any door time set.
+	DoorTime *Datetime `json:"door_time,omitempty"`
+
+	// PresentedBy Main music event sponsor.
+	PresentedBy *string `json:"presented_by,omitempty"`
+}
+
+// MusicPropertiesAgeRestriction Minimum age requirement of event attendees.
+type MusicPropertiesAgeRestriction string
+
+// Order defines model for Order.
+type Order struct {
+	// Attendees The list of attendees that belong to this order (requires the `attendees` expansion)
+	Attendees *[]interface{} `json:"attendees,omitempty"`
+
+	// Changed When the attendee was last changed
+	Changed *Datetime `json:"changed,omitempty"`
+
+	// ContactListPreferences Marketing communication preferences for the email address associated with this Order.
+	ContactListPreferences *struct {
+		UnderscoreType *string `json:"_type,omitempty"`
+
+		// HasContactList Email address is in at least one contact list for Organization that owns this Event.
+		HasContactList *bool `json:"has_contact_list,omitempty"`
+
+		// HasOptedIn Email address is opt-in to receive marketing communication from the Organization that owns this Event.
+		HasOptedIn *bool `json:"has_opted_in,omitempty"`
+	} `json:"contact_list_preferences,omitempty"`
+	Costs *Cost `json:"costs,omitempty"`
+
+	// Created When the attendee was created (order placed)
+	Created *Datetime `json:"created,omitempty"`
+
+	// Email The ticket buyer’s email address
+	Email *string `json:"email,omitempty"`
+	Event *Event  `json:"event,omitempty"`
+
+	// EventId The event id this order is against
+	EventId *string `json:"event_id,omitempty"`
+
+	// FirstName The ticket buyer’s first name
+	FirstName *string `json:"first_name,omitempty"`
+
+	// Id The Id of the order
+	Id string `json:"id"`
+
+	// LastName The ticket buyer’s last name
+	LastName *string `json:"last_name,omitempty"`
+
+	// Name The ticket buyer’s name. Use this in preference to first_name/last_name if possible for forward compatibility with non-Western names.
+	Name *string `json:"name,omitempty"`
+
+	// ResourceUri Is an absolute URL to the API endpoint that will return you the canonical representation of the order.
+	ResourceUri *string `json:"resource_uri,omitempty"`
+
+	// Status The status of the order
+	Status *OrderStatus `json:"status,omitempty"`
+
+	// SurveyResponses Object representing survey responses associated with the order. Keys are `question_ids` and values are the answers to those questions. Available through the use of `survey_responses` expansion.
+	SurveyResponses     *map[string]interface{}   `json:"survey_responses,omitempty"`
+	TicketBuyerSettings *EventTicketBuyerSettings `json:"ticket_buyer_settings,omitempty"`
+
+	// TimeRemaining The time remaining to complete this order (in seconds)
+	TimeRemaining *float32 `json:"time_remaining,omitempty"`
+}
+
+// OrderStatus The status of the order
+type OrderStatus string
+
+// Organization defines model for Organization.
+type Organization struct {
+	// Id The organization id
+	Id string `json:"id"`
+
+	// ImageId The organization image id
+	ImageId *string `json:"image_id"`
+
+	// Name The organization name
+	Name string `json:"name"`
+
+	// Vertical The organization vertical
+	Vertical string `json:"vertical"`
+}
+
+// Organizer defines model for Organizer.
+type Organizer struct {
+	Description *MultipartText `json:"description,omitempty"`
+
+	// Facebook Organizer's facebook page
+	Facebook *string `json:"facebook,omitempty"`
+
+	// Id Id of the organizer
+	Id   *string         `json:"id,omitempty"`
+	Logo *Organizer_Logo `json:"logo,omitempty"`
+
+	// LogoId Image ID of the organizer logo
+	LogoId          *string        `json:"logo_id,omitempty"`
+	LongDescription *MultipartText `json:"long_description,omitempty"`
+
+	// Name Organizer name.
+	Name *string `json:"name,omitempty"`
+
+	// NumFutureEvents Number of upcoming events the organizer has
+	NumFutureEvents *float32 `json:"num_future_events,omitempty"`
+
+	// NumPastEvents Number of past events the organizer has
+	NumPastEvents *float32 `json:"num_past_events,omitempty"`
+
+	// ResourceUri Is an absolute URL to the API endpoint that will return you the organizer.
+	ResourceUri *string `json:"resource_uri,omitempty"`
+
+	// Twitter Organizer's twitter handle
+	Twitter *string `json:"twitter,omitempty"`
+
+	// Url URL to the organizer's page on Eventbrite
+	Url *string `json:"url,omitempty"`
+}
+
+// OrganizerLogo1 defines model for .
+type OrganizerLogo1 = interface{}
+
+// Organizer_Logo defines model for Organizer.Logo.
+type Organizer_Logo struct {
+	union json.RawMessage
+}
+
+// Pagination defines model for Pagination.
+type Pagination struct {
+	// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
+	Continuation *string `json:"continuation,omitempty"`
+	HasMoreItems *bool   `json:"has_more_items,omitempty"`
+
+	// ObjectCount The total number of objects across all pages (optional)
+	ObjectCount *float32 `json:"object_count,omitempty"`
+
+	// PageCount The total number of pages (starting at 1) (optional)
+	PageCount *float32 `json:"page_count,omitempty"`
+
+	// PageNumber The current page number (starts at 1)
+	PageNumber *float32 `json:"page_number,omitempty"`
+
+	// PageSize The number of objects on each page (roughly)
+	PageSize *float32 `json:"page_size,omitempty"`
+}
+
+// PublicTicketClass defines model for Public_Ticket_Class.
+type PublicTicketClass struct {
+	Cost *PublicTicketClass_Cost `json:"cost,omitempty"`
+
+	// DeliveryMethods A list of the available delivery methods for this ticket class
+	DeliveryMethods *[]PublicTicketClass_DeliveryMethods_Item `json:"delivery_methods,omitempty"`
+
+	// Description Description of the ticket
+	Description *string `json:"description,omitempty"`
+
+	// Donation Is this a donation? (user-supplied cost)
+	Donation *bool `json:"donation,omitempty"`
+
+	// Free Is this a free ticket?
+	Free *bool `json:"free,omitempty"`
+
+	// ImageId Image ID for this ticket class. null if no image is set.
+	ImageId *string `json:"image_id,omitempty"`
+
+	// MaximumQuantity Maximum number per order (blank uses default value)
+	MaximumQuantity *float32 `json:"maximum_quantity,omitempty"`
+
+	// MinimumQuantity Minimum number per order
+	MinimumQuantity *float32 `json:"minimum_quantity,omitempty"`
+
+	// ResourceUri Is an absolute URL to the API endpoint that will return you ticket class.
+	ResourceUri *string `json:"resource_uri,omitempty"`
+}
+
+// PublicTicketClassCost1 defines model for .
+type PublicTicketClassCost1 = interface{}
+
+// PublicTicketClass_Cost defines model for PublicTicketClass.Cost.
+type PublicTicketClass_Cost struct {
+	union json.RawMessage
+}
+
+// PublicTicketClassDeliveryMethods0 defines model for .
+type PublicTicketClassDeliveryMethods0 = string
+
+// PublicTicketClassDeliveryMethods1 defines model for .
+type PublicTicketClassDeliveryMethods1 = string
+
+// PublicTicketClassDeliveryMethods2 defines model for .
+type PublicTicketClassDeliveryMethods2 = string
+
+// PublicTicketClassDeliveryMethods3 defines model for .
+type PublicTicketClassDeliveryMethods3 = string
+
+// PublicTicketClassDeliveryMethods4 defines model for .
+type PublicTicketClassDeliveryMethods4 = string
+
+// PublicTicketClass_DeliveryMethods_Item defines model for Public_Ticket_Class.delivery_methods.Item.
+type PublicTicketClass_DeliveryMethods_Item struct {
+	union json.RawMessage
+}
+
+// Role defines model for Role.
+type Role struct {
+	// Deletable boolean indicating whether the role can be deleted or not
+	Deletable *bool `json:"deletable,omitempty"`
+
+	// Description The role description
+	Description string `json:"description"`
+
+	// Grantable boolean indicating whether the role can be granted or not
+	Grantable *bool `json:"grantable,omitempty"`
+
+	// Id The role id
+	Id string `json:"id"`
+
+	// Immutable boolean indicating whether the role can be edited or not
+	Immutable *bool `json:"immutable,omitempty"`
+
+	// Name The role name
+	Name string `json:"name"`
+
+	// OrganizationId The owning organization id
+	OrganizationId string `json:"organization_id"`
+
+	// PermissionType the type of entity on which the role permissions act. If there's more than one, the smallest one will be returned (considering 'event'<'user').
+	PermissionType *RolePermissionType `json:"permission_type,omitempty"`
+	Permissions    *[]interface{}      `json:"permissions,omitempty"`
+}
+
+// RolePermissionType the type of entity on which the role permissions act. If there's more than one, the smallest one will be returned (considering 'event'<'user').
+type RolePermissionType string
+
+// Subcategory defines model for Subcategory.
+type Subcategory struct {
+	// Id Subcategory ID
+	Id *string `json:"id,omitempty"`
+
+	// Name Subcategory name
+	Name           *string   `json:"name,omitempty"`
+	ParentCategory *Category `json:"parent_category,omitempty"`
+	ResourceUri    *string   `json:"resource_uri,omitempty"`
+}
+
+// TicketAvailability defines model for Ticket_Availability.
+type TicketAvailability struct {
+	// HasAvailableTickets Whether this event has tickets available to purchase
+	HasAvailableTickets *bool `json:"has_available_tickets,omitempty"`
+
+	// IsSoldOut Whether there is at least one ticket with availability
+	IsSoldOut          *bool         `json:"is_sold_out,omitempty"`
+	MaximumTicketPrice *CurrencyCost `json:"maximum_ticket_price,omitempty"`
+	MinimumTicketPrice *CurrencyCost `json:"minimum_ticket_price,omitempty"`
+	StartSalesDate     *DatetimeTz   `json:"start_sales_date,omitempty"`
+	WaitlistAvailable  *bool         `json:"waitlist_available,omitempty"`
+}
+
+// TicketClass defines model for Ticket_Class.
+type TicketClass struct {
+	// AutoHide Hide this ticket when it is not on sale
+	AutoHide       *bool                       `json:"auto_hide,omitempty"`
+	AutoHideAfter  *TicketClass_AutoHideAfter  `json:"auto_hide_after,omitempty"`
+	AutoHideBefore *TicketClass_AutoHideBefore `json:"auto_hide_before,omitempty"`
+
+	// Capacity Total capacity of this ticket. For donation ticket, null means unlimited. For tiered inventory ticket, null means capacity is only limited by tier capacity and/or event capacity.
+	Capacity *float32          `json:"capacity,omitempty"`
+	Cost     *TicketClass_Cost `json:"cost,omitempty"`
+
+	// DeliveryMethods A list of the available delivery methods for this ticket class
+	DeliveryMethods *[]TicketClass_DeliveryMethods_Item `json:"delivery_methods,omitempty"`
+
+	// Description Description of the ticket
+	Description *string `json:"description,omitempty"`
+
+	// DisplayName Pretty long name of this ticket class. For tiered inventory tickets, this includes the tier name.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Donation Is this a donation? (user-supplied cost)
+	Donation *bool `json:"donation,omitempty"`
+
+	// Free Is this a free ticket?
+	Free *bool `json:"free,omitempty"`
+
+	// Hidden Hide this ticket
+	Hidden *bool `json:"hidden,omitempty"`
+
+	// HideDescription Hide the ticket description on the event page
+	HideDescription *bool `json:"hide_description,omitempty"`
+
+	// HideSaleDates Hide the sale dates on event landing and ticket selection page
+	HideSaleDates *bool `json:"hide_sale_dates,omitempty"`
+
+	// ImageId Image ID for this ticket class. null if no image is set.
+	ImageId *string `json:"image_id,omitempty"`
+
+	// IncludeFee Absorb the fee into the displayed cost
+	IncludeFee *bool `json:"include_fee,omitempty"`
+
+	// InventoryTierId Optional ID of Inventory Tier with which to associate the ticket class
+	InventoryTierId *string `json:"inventory_tier_id,omitempty"`
+
+	// MaximumQuantity Maximum number per order (blank uses default value)
+	MaximumQuantity *float32 `json:"maximum_quantity,omitempty"`
+
+	// MinimumQuantity Minimum number per order
+	MinimumQuantity *float32 `json:"minimum_quantity,omitempty"`
+
+	// Name Name of this ticket class.
+	Name *string `json:"name,omitempty"`
+
+	// OrderConfirmationMessage Order message per ticket type
+	OrderConfirmationMessage *string `json:"order_confirmation_message,omitempty"`
+
+	// QuantitySold The number of sold tickets.
+	QuantitySold *float32 `json:"quantity_sold,omitempty"`
+
+	// QuantityTotal Total available number of this ticket, limited by the the smallest of event capacity, inventory tier capacity, and ticket capacity. For donation ticket, 0 means unlimited.
+	QuantityTotal *float32 `json:"quantity_total,omitempty"`
+
+	// ResourceUri Is an absolute URL to the API endpoint that will return you ticket class.
+	ResourceUri *string `json:"resource_uri,omitempty"`
+
+	// SalesChannels A list of all supported sales channels
+	SalesChannels *[]TicketClass_SalesChannels_Item `json:"sales_channels,omitempty"`
+	SalesEnd      *TicketClass_SalesEnd             `json:"sales_end,omitempty"`
+	SalesStart    *TicketClass_SalesStart           `json:"sales_start,omitempty"`
+
+	// SalesStartAfter The ID of another ticket class - when it sells out, this class will go on sale.
+	SalesStartAfter *string `json:"sales_start_after,omitempty"`
+
+	// SecondaryAssignmentEnabled Has secondary barcode assignment enabled (for ex/ RFID)
+	SecondaryAssignmentEnabled *bool `json:"secondary_assignment_enabled,omitempty"`
+
+	// Sorting Sorting determines the order in which ticket classes are listed during purchase flow on the event listing page. Always populated when requested by a user with proper permissions. Defaults to 0 if not supplied on creation. Values are listed in ascending order; if ticket classes have the same sorting value, they are sorted by creation date.
+	Sorting *float32 `json:"sorting,omitempty"`
+
+	// SplitFee Absorb the payment fee, but show the eventbrite fee
+	SplitFee *bool `json:"split_fee,omitempty"`
+}
+
+// TicketClassAutoHideAfter1 defines model for .
+type TicketClassAutoHideAfter1 = interface{}
+
+// TicketClass_AutoHideAfter defines model for TicketClass.AutoHideAfter.
+type TicketClass_AutoHideAfter struct {
+	union json.RawMessage
+}
+
+// TicketClassAutoHideBefore1 defines model for .
+type TicketClassAutoHideBefore1 = interface{}
+
+// TicketClass_AutoHideBefore defines model for TicketClass.AutoHideBefore.
+type TicketClass_AutoHideBefore struct {
+	union json.RawMessage
+}
+
+// TicketClassCost1 defines model for .
+type TicketClassCost1 = interface{}
+
+// TicketClass_Cost defines model for TicketClass.Cost.
+type TicketClass_Cost struct {
+	union json.RawMessage
+}
+
+// TicketClassDeliveryMethods0 defines model for .
+type TicketClassDeliveryMethods0 = string
+
+// TicketClassDeliveryMethods1 defines model for .
+type TicketClassDeliveryMethods1 = string
+
+// TicketClassDeliveryMethods2 defines model for .
+type TicketClassDeliveryMethods2 = string
+
+// TicketClassDeliveryMethods3 defines model for .
+type TicketClassDeliveryMethods3 = string
+
+// TicketClassDeliveryMethods4 defines model for .
+type TicketClassDeliveryMethods4 = string
+
+// TicketClass_DeliveryMethods_Item defines model for Ticket_Class.delivery_methods.Item.
+type TicketClass_DeliveryMethods_Item struct {
+	union json.RawMessage
+}
+
+// TicketClassSalesChannels0 defines model for .
+type TicketClassSalesChannels0 = string
+
+// TicketClassSalesChannels1 defines model for .
+type TicketClassSalesChannels1 = string
+
+// TicketClassSalesChannels2 defines model for .
+type TicketClassSalesChannels2 = string
+
+// TicketClass_SalesChannels_Item defines model for Ticket_Class.sales_channels.Item.
+type TicketClass_SalesChannels_Item struct {
+	union json.RawMessage
+}
+
+// TicketClassSalesEnd1 defines model for .
+type TicketClassSalesEnd1 = interface{}
+
+// TicketClass_SalesEnd defines model for TicketClass.SalesEnd.
+type TicketClass_SalesEnd struct {
+	union json.RawMessage
+}
+
+// TicketClassSalesStart1 defines model for .
+type TicketClassSalesStart1 = interface{}
+
+// TicketClass_SalesStart defines model for TicketClass.SalesStart.
+type TicketClass_SalesStart struct {
+	union json.RawMessage
+}
+
+// TicketClassCost defines model for Ticket_Class_Cost.
+type TicketClassCost struct {
+	ActualCost *CurrencyCost `json:"actual_cost,omitempty"`
+	ActualFee  *CurrencyCost `json:"actual_fee,omitempty"`
+	Cost       *CurrencyCost `json:"cost,omitempty"`
+	Fee        *CurrencyCost `json:"fee,omitempty"`
+	Tax        *CurrencyCost `json:"tax,omitempty"`
+}
+
+// UnitLocationImage defines model for Unit_Location_Image.
+type UnitLocationImage struct {
+	// Url fully qualified url of the seat map image. Currently all seat map images are in 660x660 .png format. This value can never be null.
+	Url *string `json:"url,omitempty"`
+
+	// X x coordinate of this seat's location within this seat map measured in % from the left edge of seat map. The value ranges from 0.0 between 100.0. This value can never be null.
+	X *float32 `json:"x,omitempty"`
+
+	// Y y coordinate of this seat's location within this seat map measured in % from the top edge of seat map. The value ranges from 0.0 between 100.0. This value can never be null.
+	Y *float32 `json:"y,omitempty"`
+}
+
+// VenueBase defines model for Venue_Base.
+type VenueBase struct {
+	// AgeRestriction The age restrictions for the venue
+	AgeRestriction *VenueBaseAgeRestriction `json:"age_restriction,omitempty"`
+
+	// Capacity Set specific capacity (if omitted, sums ticket capacities)
+	Capacity *float32 `json:"capacity,omitempty"`
+
+	// Name Venue name
+	Name *string `json:"name,omitempty"`
+}
+
+// VenueBaseAgeRestriction The age restrictions for the venue
+type VenueBaseAgeRestriction string
+
+// VenueResponse defines model for Venue_Response.
+type VenueResponse struct {
+	Address *VenueResponse_Address `json:"address,omitempty"`
+
+	// AgeRestriction Age restriction of the venue
+	AgeRestriction *string `json:"age_restriction,omitempty"`
+
+	// Capacity Venue capacity
+	Capacity *float32 `json:"capacity,omitempty"`
+
+	// Id Venue ID
+	Id *string `json:"id,omitempty"`
+
+	// Latitude Latitude portion of the address coordinates of the venue
+	Latitude *string `json:"latitude,omitempty"`
+
+	// Longitude Longitude portion of the address coordinates of the venue
+	Longitude *string `json:"longitude,omitempty"`
+
+	// Name Venue name
+	Name string `json:"name"`
+
+	// ResourceUri Resource uri
+	ResourceUri *string `json:"resource_uri,omitempty"`
+}
+
+// VenueResponseAddress1 defines model for .
+type VenueResponseAddress1 = interface{}
+
+// VenueResponse_Address defines model for VenueResponse.Address.
+type VenueResponse_Address struct {
+	union json.RawMessage
+}
+
+// Datetime defines model for datetime.
+type Datetime = string
+
+// DatetimeTz defines model for datetime-tz.
+type DatetimeTz struct {
+	// Local The time in the timezone of the event
+	Local string `json:"local"`
+
+	// Timezone The timezone
+	Timezone string `json:"timezone"`
+
+	// Utc The time relative to UTC
+	Utc string `json:"utc"`
+}
+
+// EventbriteImage defines model for eventbrite-image.
+type EventbriteImage struct {
+	// AspectRatio The aspect ratio of the cropped image
+	AspectRatio *string                   `json:"aspect_ratio,omitempty"`
+	CropMask    *EventbriteImage_CropMask `json:"crop_mask,omitempty"`
+
+	// EdgeColor The edge color of the image in hexadecimal representation
+	EdgeColor *string `json:"edge_color,omitempty"`
+
+	// EdgeColorSet True if the edge color has been set
+	EdgeColorSet *bool `json:"edge_color_set,omitempty"`
+
+	// Id The image’s ID
+	Id string `json:"id"`
+
+	// Original The original image
+	Original *struct {
+		// Height The height of the image in pixels
+		Height *float32 `json:"height,omitempty"`
+
+		// Url The URL of the image
+		Url *string `json:"url,omitempty"`
+
+		// Width The width of the image in pixels
+		Width *float32 `json:"width,omitempty"`
+	} `json:"original,omitempty"`
+
+	// Url The URL of the image
+	Url string `json:"url"`
+}
+
+// EventbriteImageCropMask1 defines model for .
+type EventbriteImageCropMask1 = interface{}
+
+// EventbriteImage_CropMask defines model for EventbriteImage.CropMask.
+type EventbriteImage_CropMask struct {
+	union json.RawMessage
+}
+
+// MultipartText defines model for multipart-text.
+type MultipartText struct {
+	Html string `json:"html"`
+	Text string `json:"text"`
+}
 
 // CreateATicketGroupBody defines model for Create_a_Ticket_GroupBody.
 type CreateATicketGroupBody struct {
@@ -1643,8 +3361,7 @@ type UpdateATicketClassJSONBody struct {
 		Sorting float32 `json:"sorting"`
 
 		// SplitFee Absorb the payment fee, but show the eventbrite fee
-		SplitFee                                                                                                               bool           `json:"split_fee"`
-		TicketClassesArrayObjectOptionalInternalUseOnlyAListOfTicketTypesFormattedAsid1234nameTicketNamecostUSD25quantityTotal *[]interface{} `json:"ticket_classes (array[object], optional) - Internal use only.A list of ticket types formatted as: [{“id”: “1234”, “name”: “Ticket Name”, “cost”: “USD,25”, “quantity_total”,omitempty"`
+		SplitFee bool `json:"split_fee"`
 	} `json:"ticket_class,omitempty"`
 }
 
@@ -2257,6 +3974,1366 @@ type UpdateAVenueJSONRequestBody UpdateAVenueJSONBody
 
 // CreateWebhooksDeprecatedJSONRequestBody defines body for CreateWebhooksDeprecated for application/json ContentType.
 type CreateWebhooksDeprecatedJSONRequestBody = CreateWebhooksDeprecatedJSONBody
+
+// AsAttendeeAssignedUnit returns the union data inside the Attendee_AssignedUnit as a AttendeeAssignedUnit
+func (t Attendee_AssignedUnit) AsAttendeeAssignedUnit() (AttendeeAssignedUnit, error) {
+	var body AttendeeAssignedUnit
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAttendeeAssignedUnit overwrites any union data inside the Attendee_AssignedUnit as the provided AttendeeAssignedUnit
+func (t *Attendee_AssignedUnit) FromAttendeeAssignedUnit(v AttendeeAssignedUnit) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAttendeeAssignedUnit performs a merge with any union data inside the Attendee_AssignedUnit, using the provided AttendeeAssignedUnit
+func (t *Attendee_AssignedUnit) MergeAttendeeAssignedUnit(v AttendeeAssignedUnit) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAttendeeAssignedUnit1 returns the union data inside the Attendee_AssignedUnit as a AttendeeAssignedUnit1
+func (t Attendee_AssignedUnit) AsAttendeeAssignedUnit1() (AttendeeAssignedUnit1, error) {
+	var body AttendeeAssignedUnit1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAttendeeAssignedUnit1 overwrites any union data inside the Attendee_AssignedUnit as the provided AttendeeAssignedUnit1
+func (t *Attendee_AssignedUnit) FromAttendeeAssignedUnit1(v AttendeeAssignedUnit1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAttendeeAssignedUnit1 performs a merge with any union data inside the Attendee_AssignedUnit, using the provided AttendeeAssignedUnit1
+func (t *Attendee_AssignedUnit) MergeAttendeeAssignedUnit1(v AttendeeAssignedUnit1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t Attendee_AssignedUnit) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *Attendee_AssignedUnit) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAttendeeTeam returns the union data inside the Attendee_Team as a AttendeeTeam
+func (t Attendee_Team) AsAttendeeTeam() (AttendeeTeam, error) {
+	var body AttendeeTeam
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAttendeeTeam overwrites any union data inside the Attendee_Team as the provided AttendeeTeam
+func (t *Attendee_Team) FromAttendeeTeam(v AttendeeTeam) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAttendeeTeam performs a merge with any union data inside the Attendee_Team, using the provided AttendeeTeam
+func (t *Attendee_Team) MergeAttendeeTeam(v AttendeeTeam) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAttendeeTeam1 returns the union data inside the Attendee_Team as a AttendeeTeam1
+func (t Attendee_Team) AsAttendeeTeam1() (AttendeeTeam1, error) {
+	var body AttendeeTeam1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAttendeeTeam1 overwrites any union data inside the Attendee_Team as the provided AttendeeTeam1
+func (t *Attendee_Team) FromAttendeeTeam1(v AttendeeTeam1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAttendeeTeam1 performs a merge with any union data inside the Attendee_Team, using the provided AttendeeTeam1
+func (t *Attendee_Team) MergeAttendeeTeam1(v AttendeeTeam1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t Attendee_Team) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *Attendee_Team) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAddress returns the union data inside the AttendeeAddress_Bill as a Address
+func (t AttendeeAddress_Bill) AsAddress() (Address, error) {
+	var body Address
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAddress overwrites any union data inside the AttendeeAddress_Bill as the provided Address
+func (t *AttendeeAddress_Bill) FromAddress(v Address) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAddress performs a merge with any union data inside the AttendeeAddress_Bill, using the provided Address
+func (t *AttendeeAddress_Bill) MergeAddress(v Address) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAttendeeAddressBill1 returns the union data inside the AttendeeAddress_Bill as a AttendeeAddressBill1
+func (t AttendeeAddress_Bill) AsAttendeeAddressBill1() (AttendeeAddressBill1, error) {
+	var body AttendeeAddressBill1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAttendeeAddressBill1 overwrites any union data inside the AttendeeAddress_Bill as the provided AttendeeAddressBill1
+func (t *AttendeeAddress_Bill) FromAttendeeAddressBill1(v AttendeeAddressBill1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAttendeeAddressBill1 performs a merge with any union data inside the AttendeeAddress_Bill, using the provided AttendeeAddressBill1
+func (t *AttendeeAddress_Bill) MergeAttendeeAddressBill1(v AttendeeAddressBill1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AttendeeAddress_Bill) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AttendeeAddress_Bill) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAddress returns the union data inside the AttendeeAddress_Home as a Address
+func (t AttendeeAddress_Home) AsAddress() (Address, error) {
+	var body Address
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAddress overwrites any union data inside the AttendeeAddress_Home as the provided Address
+func (t *AttendeeAddress_Home) FromAddress(v Address) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAddress performs a merge with any union data inside the AttendeeAddress_Home, using the provided Address
+func (t *AttendeeAddress_Home) MergeAddress(v Address) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAttendeeAddressHome1 returns the union data inside the AttendeeAddress_Home as a AttendeeAddressHome1
+func (t AttendeeAddress_Home) AsAttendeeAddressHome1() (AttendeeAddressHome1, error) {
+	var body AttendeeAddressHome1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAttendeeAddressHome1 overwrites any union data inside the AttendeeAddress_Home as the provided AttendeeAddressHome1
+func (t *AttendeeAddress_Home) FromAttendeeAddressHome1(v AttendeeAddressHome1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAttendeeAddressHome1 performs a merge with any union data inside the AttendeeAddress_Home, using the provided AttendeeAddressHome1
+func (t *AttendeeAddress_Home) MergeAttendeeAddressHome1(v AttendeeAddressHome1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AttendeeAddress_Home) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AttendeeAddress_Home) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAddress returns the union data inside the AttendeeAddress_Ship as a Address
+func (t AttendeeAddress_Ship) AsAddress() (Address, error) {
+	var body Address
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAddress overwrites any union data inside the AttendeeAddress_Ship as the provided Address
+func (t *AttendeeAddress_Ship) FromAddress(v Address) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAddress performs a merge with any union data inside the AttendeeAddress_Ship, using the provided Address
+func (t *AttendeeAddress_Ship) MergeAddress(v Address) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAttendeeAddressShip1 returns the union data inside the AttendeeAddress_Ship as a AttendeeAddressShip1
+func (t AttendeeAddress_Ship) AsAttendeeAddressShip1() (AttendeeAddressShip1, error) {
+	var body AttendeeAddressShip1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAttendeeAddressShip1 overwrites any union data inside the AttendeeAddress_Ship as the provided AttendeeAddressShip1
+func (t *AttendeeAddress_Ship) FromAttendeeAddressShip1(v AttendeeAddressShip1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAttendeeAddressShip1 performs a merge with any union data inside the AttendeeAddress_Ship, using the provided AttendeeAddressShip1
+func (t *AttendeeAddress_Ship) MergeAttendeeAddressShip1(v AttendeeAddressShip1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AttendeeAddress_Ship) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AttendeeAddress_Ship) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAddress returns the union data inside the AttendeeAddress_Work as a Address
+func (t AttendeeAddress_Work) AsAddress() (Address, error) {
+	var body Address
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAddress overwrites any union data inside the AttendeeAddress_Work as the provided Address
+func (t *AttendeeAddress_Work) FromAddress(v Address) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAddress performs a merge with any union data inside the AttendeeAddress_Work, using the provided Address
+func (t *AttendeeAddress_Work) MergeAddress(v Address) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAttendeeAddressWork1 returns the union data inside the AttendeeAddress_Work as a AttendeeAddressWork1
+func (t AttendeeAddress_Work) AsAttendeeAddressWork1() (AttendeeAddressWork1, error) {
+	var body AttendeeAddressWork1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAttendeeAddressWork1 overwrites any union data inside the AttendeeAddress_Work as the provided AttendeeAddressWork1
+func (t *AttendeeAddress_Work) FromAttendeeAddressWork1(v AttendeeAddressWork1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAttendeeAddressWork1 performs a merge with any union data inside the AttendeeAddress_Work, using the provided AttendeeAddressWork1
+func (t *AttendeeAddress_Work) MergeAttendeeAddressWork1(v AttendeeAddressWork1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AttendeeAddress_Work) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AttendeeAddress_Work) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEventbriteImage returns the union data inside the Event_Logo as a EventbriteImage
+func (t Event_Logo) AsEventbriteImage() (EventbriteImage, error) {
+	var body EventbriteImage
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventbriteImage overwrites any union data inside the Event_Logo as the provided EventbriteImage
+func (t *Event_Logo) FromEventbriteImage(v EventbriteImage) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventbriteImage performs a merge with any union data inside the Event_Logo, using the provided EventbriteImage
+func (t *Event_Logo) MergeEventbriteImage(v EventbriteImage) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventLogo1 returns the union data inside the Event_Logo as a EventLogo1
+func (t Event_Logo) AsEventLogo1() (EventLogo1, error) {
+	var body EventLogo1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventLogo1 overwrites any union data inside the Event_Logo as the provided EventLogo1
+func (t *Event_Logo) FromEventLogo1(v EventLogo1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventLogo1 performs a merge with any union data inside the Event_Logo, using the provided EventLogo1
+func (t *Event_Logo) MergeEventLogo1(v EventLogo1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t Event_Logo) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *Event_Logo) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEventbriteImage returns the union data inside the Organizer_Logo as a EventbriteImage
+func (t Organizer_Logo) AsEventbriteImage() (EventbriteImage, error) {
+	var body EventbriteImage
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventbriteImage overwrites any union data inside the Organizer_Logo as the provided EventbriteImage
+func (t *Organizer_Logo) FromEventbriteImage(v EventbriteImage) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventbriteImage performs a merge with any union data inside the Organizer_Logo, using the provided EventbriteImage
+func (t *Organizer_Logo) MergeEventbriteImage(v EventbriteImage) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsOrganizerLogo1 returns the union data inside the Organizer_Logo as a OrganizerLogo1
+func (t Organizer_Logo) AsOrganizerLogo1() (OrganizerLogo1, error) {
+	var body OrganizerLogo1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromOrganizerLogo1 overwrites any union data inside the Organizer_Logo as the provided OrganizerLogo1
+func (t *Organizer_Logo) FromOrganizerLogo1(v OrganizerLogo1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeOrganizerLogo1 performs a merge with any union data inside the Organizer_Logo, using the provided OrganizerLogo1
+func (t *Organizer_Logo) MergeOrganizerLogo1(v OrganizerLogo1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t Organizer_Logo) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *Organizer_Logo) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsTicketClassCost returns the union data inside the PublicTicketClass_Cost as a TicketClassCost
+func (t PublicTicketClass_Cost) AsTicketClassCost() (TicketClassCost, error) {
+	var body TicketClassCost
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassCost overwrites any union data inside the PublicTicketClass_Cost as the provided TicketClassCost
+func (t *PublicTicketClass_Cost) FromTicketClassCost(v TicketClassCost) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassCost performs a merge with any union data inside the PublicTicketClass_Cost, using the provided TicketClassCost
+func (t *PublicTicketClass_Cost) MergeTicketClassCost(v TicketClassCost) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPublicTicketClassCost1 returns the union data inside the PublicTicketClass_Cost as a PublicTicketClassCost1
+func (t PublicTicketClass_Cost) AsPublicTicketClassCost1() (PublicTicketClassCost1, error) {
+	var body PublicTicketClassCost1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPublicTicketClassCost1 overwrites any union data inside the PublicTicketClass_Cost as the provided PublicTicketClassCost1
+func (t *PublicTicketClass_Cost) FromPublicTicketClassCost1(v PublicTicketClassCost1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePublicTicketClassCost1 performs a merge with any union data inside the PublicTicketClass_Cost, using the provided PublicTicketClassCost1
+func (t *PublicTicketClass_Cost) MergePublicTicketClassCost1(v PublicTicketClassCost1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t PublicTicketClass_Cost) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *PublicTicketClass_Cost) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsPublicTicketClassDeliveryMethods0 returns the union data inside the PublicTicketClass_DeliveryMethods_Item as a PublicTicketClassDeliveryMethods0
+func (t PublicTicketClass_DeliveryMethods_Item) AsPublicTicketClassDeliveryMethods0() (PublicTicketClassDeliveryMethods0, error) {
+	var body PublicTicketClassDeliveryMethods0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPublicTicketClassDeliveryMethods0 overwrites any union data inside the PublicTicketClass_DeliveryMethods_Item as the provided PublicTicketClassDeliveryMethods0
+func (t *PublicTicketClass_DeliveryMethods_Item) FromPublicTicketClassDeliveryMethods0(v PublicTicketClassDeliveryMethods0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePublicTicketClassDeliveryMethods0 performs a merge with any union data inside the PublicTicketClass_DeliveryMethods_Item, using the provided PublicTicketClassDeliveryMethods0
+func (t *PublicTicketClass_DeliveryMethods_Item) MergePublicTicketClassDeliveryMethods0(v PublicTicketClassDeliveryMethods0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPublicTicketClassDeliveryMethods1 returns the union data inside the PublicTicketClass_DeliveryMethods_Item as a PublicTicketClassDeliveryMethods1
+func (t PublicTicketClass_DeliveryMethods_Item) AsPublicTicketClassDeliveryMethods1() (PublicTicketClassDeliveryMethods1, error) {
+	var body PublicTicketClassDeliveryMethods1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPublicTicketClassDeliveryMethods1 overwrites any union data inside the PublicTicketClass_DeliveryMethods_Item as the provided PublicTicketClassDeliveryMethods1
+func (t *PublicTicketClass_DeliveryMethods_Item) FromPublicTicketClassDeliveryMethods1(v PublicTicketClassDeliveryMethods1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePublicTicketClassDeliveryMethods1 performs a merge with any union data inside the PublicTicketClass_DeliveryMethods_Item, using the provided PublicTicketClassDeliveryMethods1
+func (t *PublicTicketClass_DeliveryMethods_Item) MergePublicTicketClassDeliveryMethods1(v PublicTicketClassDeliveryMethods1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPublicTicketClassDeliveryMethods2 returns the union data inside the PublicTicketClass_DeliveryMethods_Item as a PublicTicketClassDeliveryMethods2
+func (t PublicTicketClass_DeliveryMethods_Item) AsPublicTicketClassDeliveryMethods2() (PublicTicketClassDeliveryMethods2, error) {
+	var body PublicTicketClassDeliveryMethods2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPublicTicketClassDeliveryMethods2 overwrites any union data inside the PublicTicketClass_DeliveryMethods_Item as the provided PublicTicketClassDeliveryMethods2
+func (t *PublicTicketClass_DeliveryMethods_Item) FromPublicTicketClassDeliveryMethods2(v PublicTicketClassDeliveryMethods2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePublicTicketClassDeliveryMethods2 performs a merge with any union data inside the PublicTicketClass_DeliveryMethods_Item, using the provided PublicTicketClassDeliveryMethods2
+func (t *PublicTicketClass_DeliveryMethods_Item) MergePublicTicketClassDeliveryMethods2(v PublicTicketClassDeliveryMethods2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPublicTicketClassDeliveryMethods3 returns the union data inside the PublicTicketClass_DeliveryMethods_Item as a PublicTicketClassDeliveryMethods3
+func (t PublicTicketClass_DeliveryMethods_Item) AsPublicTicketClassDeliveryMethods3() (PublicTicketClassDeliveryMethods3, error) {
+	var body PublicTicketClassDeliveryMethods3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPublicTicketClassDeliveryMethods3 overwrites any union data inside the PublicTicketClass_DeliveryMethods_Item as the provided PublicTicketClassDeliveryMethods3
+func (t *PublicTicketClass_DeliveryMethods_Item) FromPublicTicketClassDeliveryMethods3(v PublicTicketClassDeliveryMethods3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePublicTicketClassDeliveryMethods3 performs a merge with any union data inside the PublicTicketClass_DeliveryMethods_Item, using the provided PublicTicketClassDeliveryMethods3
+func (t *PublicTicketClass_DeliveryMethods_Item) MergePublicTicketClassDeliveryMethods3(v PublicTicketClassDeliveryMethods3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPublicTicketClassDeliveryMethods4 returns the union data inside the PublicTicketClass_DeliveryMethods_Item as a PublicTicketClassDeliveryMethods4
+func (t PublicTicketClass_DeliveryMethods_Item) AsPublicTicketClassDeliveryMethods4() (PublicTicketClassDeliveryMethods4, error) {
+	var body PublicTicketClassDeliveryMethods4
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPublicTicketClassDeliveryMethods4 overwrites any union data inside the PublicTicketClass_DeliveryMethods_Item as the provided PublicTicketClassDeliveryMethods4
+func (t *PublicTicketClass_DeliveryMethods_Item) FromPublicTicketClassDeliveryMethods4(v PublicTicketClassDeliveryMethods4) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePublicTicketClassDeliveryMethods4 performs a merge with any union data inside the PublicTicketClass_DeliveryMethods_Item, using the provided PublicTicketClassDeliveryMethods4
+func (t *PublicTicketClass_DeliveryMethods_Item) MergePublicTicketClassDeliveryMethods4(v PublicTicketClassDeliveryMethods4) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t PublicTicketClass_DeliveryMethods_Item) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *PublicTicketClass_DeliveryMethods_Item) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsDatetime returns the union data inside the TicketClass_AutoHideAfter as a Datetime
+func (t TicketClass_AutoHideAfter) AsDatetime() (Datetime, error) {
+	var body Datetime
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDatetime overwrites any union data inside the TicketClass_AutoHideAfter as the provided Datetime
+func (t *TicketClass_AutoHideAfter) FromDatetime(v Datetime) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDatetime performs a merge with any union data inside the TicketClass_AutoHideAfter, using the provided Datetime
+func (t *TicketClass_AutoHideAfter) MergeDatetime(v Datetime) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassAutoHideAfter1 returns the union data inside the TicketClass_AutoHideAfter as a TicketClassAutoHideAfter1
+func (t TicketClass_AutoHideAfter) AsTicketClassAutoHideAfter1() (TicketClassAutoHideAfter1, error) {
+	var body TicketClassAutoHideAfter1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassAutoHideAfter1 overwrites any union data inside the TicketClass_AutoHideAfter as the provided TicketClassAutoHideAfter1
+func (t *TicketClass_AutoHideAfter) FromTicketClassAutoHideAfter1(v TicketClassAutoHideAfter1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassAutoHideAfter1 performs a merge with any union data inside the TicketClass_AutoHideAfter, using the provided TicketClassAutoHideAfter1
+func (t *TicketClass_AutoHideAfter) MergeTicketClassAutoHideAfter1(v TicketClassAutoHideAfter1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t TicketClass_AutoHideAfter) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *TicketClass_AutoHideAfter) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsDatetime returns the union data inside the TicketClass_AutoHideBefore as a Datetime
+func (t TicketClass_AutoHideBefore) AsDatetime() (Datetime, error) {
+	var body Datetime
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDatetime overwrites any union data inside the TicketClass_AutoHideBefore as the provided Datetime
+func (t *TicketClass_AutoHideBefore) FromDatetime(v Datetime) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDatetime performs a merge with any union data inside the TicketClass_AutoHideBefore, using the provided Datetime
+func (t *TicketClass_AutoHideBefore) MergeDatetime(v Datetime) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassAutoHideBefore1 returns the union data inside the TicketClass_AutoHideBefore as a TicketClassAutoHideBefore1
+func (t TicketClass_AutoHideBefore) AsTicketClassAutoHideBefore1() (TicketClassAutoHideBefore1, error) {
+	var body TicketClassAutoHideBefore1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassAutoHideBefore1 overwrites any union data inside the TicketClass_AutoHideBefore as the provided TicketClassAutoHideBefore1
+func (t *TicketClass_AutoHideBefore) FromTicketClassAutoHideBefore1(v TicketClassAutoHideBefore1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassAutoHideBefore1 performs a merge with any union data inside the TicketClass_AutoHideBefore, using the provided TicketClassAutoHideBefore1
+func (t *TicketClass_AutoHideBefore) MergeTicketClassAutoHideBefore1(v TicketClassAutoHideBefore1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t TicketClass_AutoHideBefore) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *TicketClass_AutoHideBefore) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsTicketClassCost returns the union data inside the TicketClass_Cost as a TicketClassCost
+func (t TicketClass_Cost) AsTicketClassCost() (TicketClassCost, error) {
+	var body TicketClassCost
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassCost overwrites any union data inside the TicketClass_Cost as the provided TicketClassCost
+func (t *TicketClass_Cost) FromTicketClassCost(v TicketClassCost) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassCost performs a merge with any union data inside the TicketClass_Cost, using the provided TicketClassCost
+func (t *TicketClass_Cost) MergeTicketClassCost(v TicketClassCost) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassCost1 returns the union data inside the TicketClass_Cost as a TicketClassCost1
+func (t TicketClass_Cost) AsTicketClassCost1() (TicketClassCost1, error) {
+	var body TicketClassCost1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassCost1 overwrites any union data inside the TicketClass_Cost as the provided TicketClassCost1
+func (t *TicketClass_Cost) FromTicketClassCost1(v TicketClassCost1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassCost1 performs a merge with any union data inside the TicketClass_Cost, using the provided TicketClassCost1
+func (t *TicketClass_Cost) MergeTicketClassCost1(v TicketClassCost1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t TicketClass_Cost) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *TicketClass_Cost) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsTicketClassDeliveryMethods0 returns the union data inside the TicketClass_DeliveryMethods_Item as a TicketClassDeliveryMethods0
+func (t TicketClass_DeliveryMethods_Item) AsTicketClassDeliveryMethods0() (TicketClassDeliveryMethods0, error) {
+	var body TicketClassDeliveryMethods0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassDeliveryMethods0 overwrites any union data inside the TicketClass_DeliveryMethods_Item as the provided TicketClassDeliveryMethods0
+func (t *TicketClass_DeliveryMethods_Item) FromTicketClassDeliveryMethods0(v TicketClassDeliveryMethods0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassDeliveryMethods0 performs a merge with any union data inside the TicketClass_DeliveryMethods_Item, using the provided TicketClassDeliveryMethods0
+func (t *TicketClass_DeliveryMethods_Item) MergeTicketClassDeliveryMethods0(v TicketClassDeliveryMethods0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassDeliveryMethods1 returns the union data inside the TicketClass_DeliveryMethods_Item as a TicketClassDeliveryMethods1
+func (t TicketClass_DeliveryMethods_Item) AsTicketClassDeliveryMethods1() (TicketClassDeliveryMethods1, error) {
+	var body TicketClassDeliveryMethods1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassDeliveryMethods1 overwrites any union data inside the TicketClass_DeliveryMethods_Item as the provided TicketClassDeliveryMethods1
+func (t *TicketClass_DeliveryMethods_Item) FromTicketClassDeliveryMethods1(v TicketClassDeliveryMethods1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassDeliveryMethods1 performs a merge with any union data inside the TicketClass_DeliveryMethods_Item, using the provided TicketClassDeliveryMethods1
+func (t *TicketClass_DeliveryMethods_Item) MergeTicketClassDeliveryMethods1(v TicketClassDeliveryMethods1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassDeliveryMethods2 returns the union data inside the TicketClass_DeliveryMethods_Item as a TicketClassDeliveryMethods2
+func (t TicketClass_DeliveryMethods_Item) AsTicketClassDeliveryMethods2() (TicketClassDeliveryMethods2, error) {
+	var body TicketClassDeliveryMethods2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassDeliveryMethods2 overwrites any union data inside the TicketClass_DeliveryMethods_Item as the provided TicketClassDeliveryMethods2
+func (t *TicketClass_DeliveryMethods_Item) FromTicketClassDeliveryMethods2(v TicketClassDeliveryMethods2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassDeliveryMethods2 performs a merge with any union data inside the TicketClass_DeliveryMethods_Item, using the provided TicketClassDeliveryMethods2
+func (t *TicketClass_DeliveryMethods_Item) MergeTicketClassDeliveryMethods2(v TicketClassDeliveryMethods2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassDeliveryMethods3 returns the union data inside the TicketClass_DeliveryMethods_Item as a TicketClassDeliveryMethods3
+func (t TicketClass_DeliveryMethods_Item) AsTicketClassDeliveryMethods3() (TicketClassDeliveryMethods3, error) {
+	var body TicketClassDeliveryMethods3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassDeliveryMethods3 overwrites any union data inside the TicketClass_DeliveryMethods_Item as the provided TicketClassDeliveryMethods3
+func (t *TicketClass_DeliveryMethods_Item) FromTicketClassDeliveryMethods3(v TicketClassDeliveryMethods3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassDeliveryMethods3 performs a merge with any union data inside the TicketClass_DeliveryMethods_Item, using the provided TicketClassDeliveryMethods3
+func (t *TicketClass_DeliveryMethods_Item) MergeTicketClassDeliveryMethods3(v TicketClassDeliveryMethods3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassDeliveryMethods4 returns the union data inside the TicketClass_DeliveryMethods_Item as a TicketClassDeliveryMethods4
+func (t TicketClass_DeliveryMethods_Item) AsTicketClassDeliveryMethods4() (TicketClassDeliveryMethods4, error) {
+	var body TicketClassDeliveryMethods4
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassDeliveryMethods4 overwrites any union data inside the TicketClass_DeliveryMethods_Item as the provided TicketClassDeliveryMethods4
+func (t *TicketClass_DeliveryMethods_Item) FromTicketClassDeliveryMethods4(v TicketClassDeliveryMethods4) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassDeliveryMethods4 performs a merge with any union data inside the TicketClass_DeliveryMethods_Item, using the provided TicketClassDeliveryMethods4
+func (t *TicketClass_DeliveryMethods_Item) MergeTicketClassDeliveryMethods4(v TicketClassDeliveryMethods4) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t TicketClass_DeliveryMethods_Item) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *TicketClass_DeliveryMethods_Item) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsTicketClassSalesChannels0 returns the union data inside the TicketClass_SalesChannels_Item as a TicketClassSalesChannels0
+func (t TicketClass_SalesChannels_Item) AsTicketClassSalesChannels0() (TicketClassSalesChannels0, error) {
+	var body TicketClassSalesChannels0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassSalesChannels0 overwrites any union data inside the TicketClass_SalesChannels_Item as the provided TicketClassSalesChannels0
+func (t *TicketClass_SalesChannels_Item) FromTicketClassSalesChannels0(v TicketClassSalesChannels0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassSalesChannels0 performs a merge with any union data inside the TicketClass_SalesChannels_Item, using the provided TicketClassSalesChannels0
+func (t *TicketClass_SalesChannels_Item) MergeTicketClassSalesChannels0(v TicketClassSalesChannels0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassSalesChannels1 returns the union data inside the TicketClass_SalesChannels_Item as a TicketClassSalesChannels1
+func (t TicketClass_SalesChannels_Item) AsTicketClassSalesChannels1() (TicketClassSalesChannels1, error) {
+	var body TicketClassSalesChannels1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassSalesChannels1 overwrites any union data inside the TicketClass_SalesChannels_Item as the provided TicketClassSalesChannels1
+func (t *TicketClass_SalesChannels_Item) FromTicketClassSalesChannels1(v TicketClassSalesChannels1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassSalesChannels1 performs a merge with any union data inside the TicketClass_SalesChannels_Item, using the provided TicketClassSalesChannels1
+func (t *TicketClass_SalesChannels_Item) MergeTicketClassSalesChannels1(v TicketClassSalesChannels1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassSalesChannels2 returns the union data inside the TicketClass_SalesChannels_Item as a TicketClassSalesChannels2
+func (t TicketClass_SalesChannels_Item) AsTicketClassSalesChannels2() (TicketClassSalesChannels2, error) {
+	var body TicketClassSalesChannels2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassSalesChannels2 overwrites any union data inside the TicketClass_SalesChannels_Item as the provided TicketClassSalesChannels2
+func (t *TicketClass_SalesChannels_Item) FromTicketClassSalesChannels2(v TicketClassSalesChannels2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassSalesChannels2 performs a merge with any union data inside the TicketClass_SalesChannels_Item, using the provided TicketClassSalesChannels2
+func (t *TicketClass_SalesChannels_Item) MergeTicketClassSalesChannels2(v TicketClassSalesChannels2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t TicketClass_SalesChannels_Item) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *TicketClass_SalesChannels_Item) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsDatetime returns the union data inside the TicketClass_SalesEnd as a Datetime
+func (t TicketClass_SalesEnd) AsDatetime() (Datetime, error) {
+	var body Datetime
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDatetime overwrites any union data inside the TicketClass_SalesEnd as the provided Datetime
+func (t *TicketClass_SalesEnd) FromDatetime(v Datetime) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDatetime performs a merge with any union data inside the TicketClass_SalesEnd, using the provided Datetime
+func (t *TicketClass_SalesEnd) MergeDatetime(v Datetime) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassSalesEnd1 returns the union data inside the TicketClass_SalesEnd as a TicketClassSalesEnd1
+func (t TicketClass_SalesEnd) AsTicketClassSalesEnd1() (TicketClassSalesEnd1, error) {
+	var body TicketClassSalesEnd1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassSalesEnd1 overwrites any union data inside the TicketClass_SalesEnd as the provided TicketClassSalesEnd1
+func (t *TicketClass_SalesEnd) FromTicketClassSalesEnd1(v TicketClassSalesEnd1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassSalesEnd1 performs a merge with any union data inside the TicketClass_SalesEnd, using the provided TicketClassSalesEnd1
+func (t *TicketClass_SalesEnd) MergeTicketClassSalesEnd1(v TicketClassSalesEnd1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t TicketClass_SalesEnd) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *TicketClass_SalesEnd) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsDatetime returns the union data inside the TicketClass_SalesStart as a Datetime
+func (t TicketClass_SalesStart) AsDatetime() (Datetime, error) {
+	var body Datetime
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDatetime overwrites any union data inside the TicketClass_SalesStart as the provided Datetime
+func (t *TicketClass_SalesStart) FromDatetime(v Datetime) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDatetime performs a merge with any union data inside the TicketClass_SalesStart, using the provided Datetime
+func (t *TicketClass_SalesStart) MergeDatetime(v Datetime) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTicketClassSalesStart1 returns the union data inside the TicketClass_SalesStart as a TicketClassSalesStart1
+func (t TicketClass_SalesStart) AsTicketClassSalesStart1() (TicketClassSalesStart1, error) {
+	var body TicketClassSalesStart1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTicketClassSalesStart1 overwrites any union data inside the TicketClass_SalesStart as the provided TicketClassSalesStart1
+func (t *TicketClass_SalesStart) FromTicketClassSalesStart1(v TicketClassSalesStart1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTicketClassSalesStart1 performs a merge with any union data inside the TicketClass_SalesStart, using the provided TicketClassSalesStart1
+func (t *TicketClass_SalesStart) MergeTicketClassSalesStart1(v TicketClassSalesStart1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t TicketClass_SalesStart) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *TicketClass_SalesStart) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAddressResponse returns the union data inside the VenueResponse_Address as a AddressResponse
+func (t VenueResponse_Address) AsAddressResponse() (AddressResponse, error) {
+	var body AddressResponse
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAddressResponse overwrites any union data inside the VenueResponse_Address as the provided AddressResponse
+func (t *VenueResponse_Address) FromAddressResponse(v AddressResponse) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAddressResponse performs a merge with any union data inside the VenueResponse_Address, using the provided AddressResponse
+func (t *VenueResponse_Address) MergeAddressResponse(v AddressResponse) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVenueResponseAddress1 returns the union data inside the VenueResponse_Address as a VenueResponseAddress1
+func (t VenueResponse_Address) AsVenueResponseAddress1() (VenueResponseAddress1, error) {
+	var body VenueResponseAddress1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVenueResponseAddress1 overwrites any union data inside the VenueResponse_Address as the provided VenueResponseAddress1
+func (t *VenueResponse_Address) FromVenueResponseAddress1(v VenueResponseAddress1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVenueResponseAddress1 performs a merge with any union data inside the VenueResponse_Address, using the provided VenueResponseAddress1
+func (t *VenueResponse_Address) MergeVenueResponseAddress1(v VenueResponseAddress1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t VenueResponse_Address) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *VenueResponse_Address) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsCropMask returns the union data inside the EventbriteImage_CropMask as a CropMask
+func (t EventbriteImage_CropMask) AsCropMask() (CropMask, error) {
+	var body CropMask
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCropMask overwrites any union data inside the EventbriteImage_CropMask as the provided CropMask
+func (t *EventbriteImage_CropMask) FromCropMask(v CropMask) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCropMask performs a merge with any union data inside the EventbriteImage_CropMask, using the provided CropMask
+func (t *EventbriteImage_CropMask) MergeCropMask(v CropMask) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventbriteImageCropMask1 returns the union data inside the EventbriteImage_CropMask as a EventbriteImageCropMask1
+func (t EventbriteImage_CropMask) AsEventbriteImageCropMask1() (EventbriteImageCropMask1, error) {
+	var body EventbriteImageCropMask1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventbriteImageCropMask1 overwrites any union data inside the EventbriteImage_CropMask as the provided EventbriteImageCropMask1
+func (t *EventbriteImage_CropMask) FromEventbriteImageCropMask1(v EventbriteImageCropMask1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventbriteImageCropMask1 performs a merge with any union data inside the EventbriteImage_CropMask, using the provided EventbriteImageCropMask1
+func (t *EventbriteImage_CropMask) MergeEventbriteImageCropMask1(v EventbriteImageCropMask1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EventbriteImage_CropMask) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *EventbriteImage_CropMask) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
 
 // RequestEditorFn  is the function signature for the RequestEditor callback function
 type RequestEditorFn func(ctx context.Context, req *http.Request) error
@@ -8933,25 +12010,9 @@ type ListOfCategoriesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Categories *[]interface{} `json:"categories,omitempty"`
-		Locale     *string        `json:"locale,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Categories *[]Category `json:"categories,omitempty"`
+		Locale     *string     `json:"locale,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -9382,24 +12443,8 @@ type SearchEventsDeprecatedResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Events     *[]interface{} `json:"events,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Events     *[]Event    `json:"events,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -10702,24 +13747,8 @@ type ListAttendeesByEventResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Attendees  *[]interface{} `json:"attendees,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Attendees  *[]Attendee `json:"attendees,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -12640,24 +15669,8 @@ type ListDefaultQuestionsByEventResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Questions *[]interface{} `json:"questions,omitempty"`
+		Pagination *Pagination    `json:"pagination,omitempty"`
+		Questions  *[]interface{} `json:"questions,omitempty"`
 	}
 }
 
@@ -13651,23 +16664,7 @@ type ListInventoryTiersByEventResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		InventoryTiers *[]interface{} `json:"inventory_tiers,omitempty"`
-		Pagination     *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Pagination     *Pagination    `json:"pagination,omitempty"`
 	}
 	JSON403 *struct {
 		Error *ListInventoryTiersByEvent403Error `json:"error,omitempty"`
@@ -14029,24 +17026,8 @@ type ListOrdersByEventIDResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Orders     *[]interface{} `json:"orders,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Orders     *[]Order    `json:"orders,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -14105,24 +17086,8 @@ type ListCustomQuestionsByEventResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Questions *[]interface{} `json:"questions,omitempty"`
+		Pagination *Pagination    `json:"pagination,omitempty"`
+		Questions  *[]interface{} `json:"questions,omitempty"`
 	}
 	JSON404 *struct {
 		Error            *string  `json:"error,omitempty"`
@@ -14182,7 +17147,7 @@ type CreateACustomQuestionForAnEventResponse struct {
 		Sorting *float32 `json:"sorting,omitempty"`
 
 		// TicketClasses Tickets to which to limit this question. Format: [{“id”: “1234”}, {“id”: “4567”}]
-		TicketClasses *[]interface{} `json:"ticket_classes,omitempty"`
+		TicketClasses *[]TicketClass `json:"ticket_classes,omitempty"`
 
 		// Type Type of Question
 		Type *CreateACustomQuestionForAnEvent200Type `json:"type,omitempty"`
@@ -14295,7 +17260,7 @@ type GetCustomQuestionByIdResponse struct {
 		Sorting *float32 `json:"sorting,omitempty"`
 
 		// TicketClasses Tickets to which to limit this question. Format: [{“id”: “1234”}, {“id”: “4567”}]
-		TicketClasses *[]interface{} `json:"ticket_classes,omitempty"`
+		TicketClasses *[]TicketClass `json:"ticket_classes,omitempty"`
 
 		// Type Type of Question
 		Type *GetCustomQuestionById200Type `json:"type,omitempty"`
@@ -14436,24 +17401,8 @@ type ListByEventResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Teams *[]interface{} `json:"teams,omitempty"`
+		Pagination *Pagination          `json:"pagination,omitempty"`
+		Teams      *[]EventTeamResponse `json:"teams,omitempty"`
 	}
 }
 
@@ -14511,24 +17460,8 @@ type SearchTeamsByNameTeamResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Teams *[]interface{} `json:"teams,omitempty"`
+		Pagination *Pagination          `json:"pagination,omitempty"`
+		Teams      *[]EventTeamResponse `json:"teams,omitempty"`
 	}
 }
 
@@ -14608,24 +17541,8 @@ type ListAttendeesByTeamResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Attendees  *[]interface{} `json:"attendees,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Attendees  *[]Attendee `json:"attendees,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -14883,24 +17800,8 @@ type ListTicketClassesByEventResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		TicketClasses *[]interface{} `json:"ticket_classes,omitempty"`
+		Pagination    *Pagination    `json:"pagination,omitempty"`
+		TicketClasses *[]TicketClass `json:"ticket_classes,omitempty"`
 	}
 }
 
@@ -15126,24 +18027,8 @@ type ListTicketClassesAvailableForSaleByEventResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		TicketClasses *[]interface{} `json:"ticket_classes,omitempty"`
+		Pagination    *Pagination    `json:"pagination,omitempty"`
+		TicketClasses *[]TicketClass `json:"ticket_classes,omitempty"`
 	}
 	JSON400 *struct {
 		Error *ListTicketClassesAvailableForSaleByEvent400Error `json:"error,omitempty"`
@@ -15638,25 +18523,9 @@ type RetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse struct {
 		Modules *[]interface{} `json:"modules,omitempty"`
 
 		// PageVersionNumber the version of the page object (every time modules get updated, a new page object with the same id but new version gets created)
-		PageVersionNumber *string `json:"page_version_number,omitempty"`
-		Pagination        *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Purpose *RetrieveLatestPublishedVersionOfStructuredContentByEventId200Purpose `json:"purpose,omitempty"`
+		PageVersionNumber *string                                                               `json:"page_version_number,omitempty"`
+		Pagination        *Pagination                                                           `json:"pagination,omitempty"`
+		Purpose           *RetrieveLatestPublishedVersionOfStructuredContentByEventId200Purpose `json:"purpose,omitempty"`
 
 		// ResourceUris uris to help with creating, publishing, preview modules
 		ResourceUris *struct {
@@ -15711,25 +18580,9 @@ type RetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse struct {
 		Modules *[]interface{} `json:"modules,omitempty"`
 
 		// PageVersionNumber the version of the page object (every time modules get updated, a new page object with the same id but new version gets created)
-		PageVersionNumber *string `json:"page_version_number,omitempty"`
-		Pagination        *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Purpose *RetrieveLatestWorkingVersionOfStructuredContentByEventId200Purpose `json:"purpose,omitempty"`
+		PageVersionNumber *string                                                             `json:"page_version_number,omitempty"`
+		Pagination        *Pagination                                                         `json:"pagination,omitempty"`
+		Purpose           *RetrieveLatestWorkingVersionOfStructuredContentByEventId200Purpose `json:"purpose,omitempty"`
 
 		// ResourceUris uris to help with creating, publishing, preview modules
 		ResourceUris *struct {
@@ -15784,25 +18637,9 @@ type SetStructuredContentByEventIdAndVersionResponse struct {
 		Modules *[]interface{} `json:"modules,omitempty"`
 
 		// PageVersionNumber the version of the page object (every time modules get updated, a new page object with the same id but new version gets created)
-		PageVersionNumber *string `json:"page_version_number,omitempty"`
-		Pagination        *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Purpose *SetStructuredContentByEventIdAndVersion200Purpose `json:"purpose,omitempty"`
+		PageVersionNumber *string                                            `json:"page_version_number,omitempty"`
+		Pagination        *Pagination                                        `json:"pagination,omitempty"`
+		Purpose           *SetStructuredContentByEventIdAndVersion200Purpose `json:"purpose,omitempty"`
 
 		// ResourceUris uris to help with creating, publishing, preview modules
 		ResourceUris *struct {
@@ -15850,8 +18687,8 @@ type ListFormatsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Formats *[]interface{} `json:"formats,omitempty"`
-		Locale  *string        `json:"locale,omitempty"`
+		Formats *[]Format `json:"formats,omitempty"`
+		Locale  *string   `json:"locale,omitempty"`
 	}
 }
 
@@ -16023,7 +18860,7 @@ type RetrieveOrderByIDResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		// Attendees The list of attendees that belong to this order (requires the `attendees` expansion)
-		Attendees *[]interface{} `json:"attendees,omitempty"`
+		Attendees *[]Attendee `json:"attendees,omitempty"`
 
 		// Changed When the attendee was last changed
 		Changed *string `json:"changed,omitempty"`
@@ -16966,24 +19803,8 @@ type ListAttendeesByOrganizationResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Attendees  *[]interface{} `json:"attendees,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Attendees  *[]Attendee `json:"attendees,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -17007,7 +19828,7 @@ type SearchDiscountsByOrganizationResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Discounts *[]interface{} `json:"discounts,omitempty"`
+		Discounts *[]Discount `json:"discounts,omitempty"`
 	}
 	JSON400 *struct {
 		Error *SearchDiscountsByOrganization400Error `json:"error,omitempty"`
@@ -17121,24 +19942,8 @@ type ListEventsByOrganizationResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Events     *[]interface{} `json:"events,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Events     *[]Event    `json:"events,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 	JSON400 *struct {
 		Error *ListEventsByOrganization400Error `json:"error,omitempty"`
@@ -17853,24 +20658,8 @@ type ListOrdersByOrganizationIDResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Orders     *[]interface{} `json:"orders,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Orders     *[]Order    `json:"orders,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -17894,14 +20683,8 @@ type ListRolesByOrganizationResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation Link to the next page
-			Continuation *string `json:"continuation,omitempty"`
-
-			// HasMoreItems Is there another page of results
-			HasMoreItems *bool `json:"has_more_items,omitempty"`
-		} `json:"pagination,omitempty"`
-		Roles *[]interface{} `json:"roles,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
+		Roles      *[]Role     `json:"roles,omitempty"`
 	}
 }
 
@@ -18120,24 +20903,8 @@ type ListVenuesByOrganizationResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Venues *[]interface{} `json:"venues,omitempty"`
+		Pagination *Pagination      `json:"pagination,omitempty"`
+		Venues     *[]VenueResponse `json:"venues,omitempty"`
 	}
 }
 
@@ -18231,24 +20998,8 @@ type ListWebhookByOrganizationIDResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Webhooks *struct {
+		Pagination *Pagination `json:"pagination,omitempty"`
+		Webhooks   *struct {
 			// Actions One or any combination of actions that will cause this webhook to be triggered.
 			Actions *[]interface{} `json:"actions,omitempty"`
 			Created *string        `json:"created,omitempty"`
@@ -18436,23 +21187,7 @@ type ListPricingResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		FeeRates   *[]interface{} `json:"fee_rates,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Pagination *Pagination    `json:"pagination,omitempty"`
 	}
 	JSON400 *struct {
 		Error *ListPricing400Error `json:"error,omitempty"`
@@ -19188,24 +21923,8 @@ type ListEventsBySeriesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Events     *[]interface{} `json:"events,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Events     *[]Event    `json:"events,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -19229,25 +21948,9 @@ type ListOfSubcategoriesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Locale     *string `json:"locale,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Subcategories *[]interface{} `json:"subcategories,omitempty"`
+		Locale        *string        `json:"locale,omitempty"`
+		Pagination    *Pagination    `json:"pagination,omitempty"`
+		Subcategories *[]Subcategory `json:"subcategories,omitempty"`
 		Subcategory   *struct {
 			// Id Subcategory ID
 			Id *string `json:"id,omitempty"`
@@ -19487,24 +22190,8 @@ type ListYourOrganizationsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Organizations *[]interface{} `json:"organizations,omitempty"`
-		Pagination    *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Organizations *[]Organization `json:"organizations,omitempty"`
+		Pagination    *Pagination     `json:"pagination,omitempty"`
 	}
 }
 
@@ -19570,24 +22257,8 @@ type ListOrdersByUserIDResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Orders     *[]interface{} `json:"orders,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Orders     *[]Order    `json:"orders,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -19611,24 +22282,8 @@ type ListOrganizationsByUserResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Organizations *[]interface{} `json:"organizations,omitempty"`
-		Pagination    *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Organizations *[]Organization `json:"organizations,omitempty"`
+		Pagination    *Pagination     `json:"pagination,omitempty"`
 	}
 }
 
@@ -19792,24 +22447,8 @@ type ListEventsByVenueResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Events     *[]interface{} `json:"events,omitempty"`
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
+		Events     *[]Event    `json:"events,omitempty"`
+		Pagination *Pagination `json:"pagination,omitempty"`
 	}
 }
 
@@ -19833,24 +22472,8 @@ type ListOfWebhooksDeprecationResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Pagination *struct {
-			// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-			Continuation *string `json:"continuation,omitempty"`
-			HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-			// ObjectCount The total number of objects across all pages (optional)
-			ObjectCount *float32 `json:"object_count,omitempty"`
-
-			// PageCount The total number of pages (starting at 1) (optional)
-			PageCount *float32 `json:"page_count,omitempty"`
-
-			// PageNumber The current page number (starts at 1)
-			PageNumber *float32 `json:"page_number,omitempty"`
-
-			// PageSize The number of objects on each page (roughly)
-			PageSize *float32 `json:"page_size,omitempty"`
-		} `json:"pagination,omitempty"`
-		Webhooks *struct {
+		Pagination *Pagination `json:"pagination,omitempty"`
+		Webhooks   *struct {
 			// Actions One or any combination of actions that will cause this webhook to be triggered.
 			Actions *[]interface{} `json:"actions,omitempty"`
 			Created *string        `json:"created,omitempty"`
@@ -21255,25 +23878,9 @@ func ParseListOfCategoriesResponse(rsp *http.Response) (*ListOfCategoriesRespons
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Categories *[]interface{} `json:"categories,omitempty"`
-			Locale     *string        `json:"locale,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Categories *[]Category `json:"categories,omitempty"`
+			Locale     *string     `json:"locale,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -21767,24 +24374,8 @@ func ParseSearchEventsDeprecatedResponse(rsp *http.Response) (*SearchEventsDepre
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Events     *[]interface{} `json:"events,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Events     *[]Event    `json:"events,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -23101,24 +25692,8 @@ func ParseListAttendeesByEventResponse(rsp *http.Response) (*ListAttendeesByEven
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Attendees  *[]interface{} `json:"attendees,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Attendees  *[]Attendee `json:"attendees,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -25040,24 +27615,8 @@ func ParseListDefaultQuestionsByEventResponse(rsp *http.Response) (*ListDefaultQ
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Questions *[]interface{} `json:"questions,omitempty"`
+			Pagination *Pagination    `json:"pagination,omitempty"`
+			Questions  *[]interface{} `json:"questions,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -26115,23 +28674,7 @@ func ParseListInventoryTiersByEventResponse(rsp *http.Response) (*ListInventoryT
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			InventoryTiers *[]interface{} `json:"inventory_tiers,omitempty"`
-			Pagination     *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Pagination     *Pagination    `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -26576,24 +29119,8 @@ func ParseListOrdersByEventIDResponse(rsp *http.Response) (*ListOrdersByEventIDR
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Orders     *[]interface{} `json:"orders,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Orders     *[]Order    `json:"orders,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -26665,24 +29192,8 @@ func ParseListCustomQuestionsByEventResponse(rsp *http.Response) (*ListCustomQue
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Questions *[]interface{} `json:"questions,omitempty"`
+			Pagination *Pagination    `json:"pagination,omitempty"`
+			Questions  *[]interface{} `json:"questions,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -26752,7 +29263,7 @@ func ParseCreateACustomQuestionForAnEventResponse(rsp *http.Response) (*CreateAC
 			Sorting *float32 `json:"sorting,omitempty"`
 
 			// TicketClasses Tickets to which to limit this question. Format: [{“id”: “1234”}, {“id”: “4567”}]
-			TicketClasses *[]interface{} `json:"ticket_classes,omitempty"`
+			TicketClasses *[]TicketClass `json:"ticket_classes,omitempty"`
 
 			// Type Type of Question
 			Type *CreateACustomQuestionForAnEvent200Type `json:"type,omitempty"`
@@ -26894,7 +29405,7 @@ func ParseGetCustomQuestionByIdResponse(rsp *http.Response) (*GetCustomQuestionB
 			Sorting *float32 `json:"sorting,omitempty"`
 
 			// TicketClasses Tickets to which to limit this question. Format: [{“id”: “1234”}, {“id”: “4567”}]
-			TicketClasses *[]interface{} `json:"ticket_classes,omitempty"`
+			TicketClasses *[]TicketClass `json:"ticket_classes,omitempty"`
 
 			// Type Type of Question
 			Type *GetCustomQuestionById200Type `json:"type,omitempty"`
@@ -27066,24 +29577,8 @@ func ParseListByEventResponse(rsp *http.Response) (*ListByEventResponse, error) 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Teams *[]interface{} `json:"teams,omitempty"`
+			Pagination *Pagination          `json:"pagination,omitempty"`
+			Teams      *[]EventTeamResponse `json:"teams,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -27149,24 +29644,8 @@ func ParseSearchTeamsByNameTeamResponse(rsp *http.Response) (*SearchTeamsByNameT
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Teams *[]interface{} `json:"teams,omitempty"`
+			Pagination *Pagination          `json:"pagination,omitempty"`
+			Teams      *[]EventTeamResponse `json:"teams,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -27254,24 +29733,8 @@ func ParseListAttendeesByTeamResponse(rsp *http.Response) (*ListAttendeesByTeamR
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Attendees  *[]interface{} `json:"attendees,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Attendees  *[]Attendee `json:"attendees,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -27573,24 +30036,8 @@ func ParseListTicketClassesByEventResponse(rsp *http.Response) (*ListTicketClass
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			TicketClasses *[]interface{} `json:"ticket_classes,omitempty"`
+			Pagination    *Pagination    `json:"pagination,omitempty"`
+			TicketClasses *[]TicketClass `json:"ticket_classes,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -27828,24 +30275,8 @@ func ParseListTicketClassesAvailableForSaleByEventResponse(rsp *http.Response) (
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			TicketClasses *[]interface{} `json:"ticket_classes,omitempty"`
+			Pagination    *Pagination    `json:"pagination,omitempty"`
+			TicketClasses *[]TicketClass `json:"ticket_classes,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -28386,25 +30817,9 @@ func ParseRetrieveLatestPublishedVersionOfStructuredContentByEventIdResponse(rsp
 			Modules *[]interface{} `json:"modules,omitempty"`
 
 			// PageVersionNumber the version of the page object (every time modules get updated, a new page object with the same id but new version gets created)
-			PageVersionNumber *string `json:"page_version_number,omitempty"`
-			Pagination        *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Purpose *RetrieveLatestPublishedVersionOfStructuredContentByEventId200Purpose `json:"purpose,omitempty"`
+			PageVersionNumber *string                                                               `json:"page_version_number,omitempty"`
+			Pagination        *Pagination                                                           `json:"pagination,omitempty"`
+			Purpose           *RetrieveLatestPublishedVersionOfStructuredContentByEventId200Purpose `json:"purpose,omitempty"`
 
 			// ResourceUris uris to help with creating, publishing, preview modules
 			ResourceUris *struct {
@@ -28466,25 +30881,9 @@ func ParseRetrieveLatestWorkingVersionOfStructuredContentByEventIdResponse(rsp *
 			Modules *[]interface{} `json:"modules,omitempty"`
 
 			// PageVersionNumber the version of the page object (every time modules get updated, a new page object with the same id but new version gets created)
-			PageVersionNumber *string `json:"page_version_number,omitempty"`
-			Pagination        *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Purpose *RetrieveLatestWorkingVersionOfStructuredContentByEventId200Purpose `json:"purpose,omitempty"`
+			PageVersionNumber *string                                                             `json:"page_version_number,omitempty"`
+			Pagination        *Pagination                                                         `json:"pagination,omitempty"`
+			Purpose           *RetrieveLatestWorkingVersionOfStructuredContentByEventId200Purpose `json:"purpose,omitempty"`
 
 			// ResourceUris uris to help with creating, publishing, preview modules
 			ResourceUris *struct {
@@ -28546,25 +30945,9 @@ func ParseSetStructuredContentByEventIdAndVersionResponse(rsp *http.Response) (*
 			Modules *[]interface{} `json:"modules,omitempty"`
 
 			// PageVersionNumber the version of the page object (every time modules get updated, a new page object with the same id but new version gets created)
-			PageVersionNumber *string `json:"page_version_number,omitempty"`
-			Pagination        *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Purpose *SetStructuredContentByEventIdAndVersion200Purpose `json:"purpose,omitempty"`
+			PageVersionNumber *string                                            `json:"page_version_number,omitempty"`
+			Pagination        *Pagination                                        `json:"pagination,omitempty"`
+			Purpose           *SetStructuredContentByEventIdAndVersion200Purpose `json:"purpose,omitempty"`
 
 			// ResourceUris uris to help with creating, publishing, preview modules
 			ResourceUris *struct {
@@ -28619,8 +31002,8 @@ func ParseListFormatsResponse(rsp *http.Response) (*ListFormatsResponse, error) 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Formats *[]interface{} `json:"formats,omitempty"`
-			Locale  *string        `json:"locale,omitempty"`
+			Formats *[]Format `json:"formats,omitempty"`
+			Locale  *string   `json:"locale,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -28817,7 +31200,7 @@ func ParseRetrieveOrderByIDResponse(rsp *http.Response) (*RetrieveOrderByIDRespo
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			// Attendees The list of attendees that belong to this order (requires the `attendees` expansion)
-			Attendees *[]interface{} `json:"attendees,omitempty"`
+			Attendees *[]Attendee `json:"attendees,omitempty"`
 
 			// Changed When the attendee was last changed
 			Changed *string `json:"changed,omitempty"`
@@ -29767,24 +32150,8 @@ func ParseListAttendeesByOrganizationResponse(rsp *http.Response) (*ListAttendee
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Attendees  *[]interface{} `json:"attendees,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Attendees  *[]Attendee `json:"attendees,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -29812,7 +32179,7 @@ func ParseSearchDiscountsByOrganizationResponse(rsp *http.Response) (*SearchDisc
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Discounts *[]interface{} `json:"discounts,omitempty"`
+			Discounts *[]Discount `json:"discounts,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -29943,24 +32310,8 @@ func ParseListEventsByOrganizationResponse(rsp *http.Response) (*ListEventsByOrg
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Events     *[]interface{} `json:"events,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Events     *[]Event    `json:"events,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -30682,24 +33033,8 @@ func ParseListOrdersByOrganizationIDResponse(rsp *http.Response) (*ListOrdersByO
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Orders     *[]interface{} `json:"orders,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Orders     *[]Order    `json:"orders,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -30727,14 +33062,8 @@ func ParseListRolesByOrganizationResponse(rsp *http.Response) (*ListRolesByOrgan
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation Link to the next page
-				Continuation *string `json:"continuation,omitempty"`
-
-				// HasMoreItems Is there another page of results
-				HasMoreItems *bool `json:"has_more_items,omitempty"`
-			} `json:"pagination,omitempty"`
-			Roles *[]interface{} `json:"roles,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
+			Roles      *[]Role     `json:"roles,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -30986,24 +33315,8 @@ func ParseListVenuesByOrganizationResponse(rsp *http.Response) (*ListVenuesByOrg
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Venues *[]interface{} `json:"venues,omitempty"`
+			Pagination *Pagination      `json:"pagination,omitempty"`
+			Venues     *[]VenueResponse `json:"venues,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -31105,24 +33418,8 @@ func ParseListWebhookByOrganizationIDResponse(rsp *http.Response) (*ListWebhookB
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Webhooks *struct {
+			Pagination *Pagination `json:"pagination,omitempty"`
+			Webhooks   *struct {
 				// Actions One or any combination of actions that will cause this webhook to be triggered.
 				Actions *[]interface{} `json:"actions,omitempty"`
 				Created *string        `json:"created,omitempty"`
@@ -31333,23 +33630,7 @@ func ParseListPricingResponse(rsp *http.Response) (*ListPricingResponse, error) 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			FeeRates   *[]interface{} `json:"fee_rates,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Pagination *Pagination    `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -32110,24 +34391,8 @@ func ParseListEventsBySeriesResponse(rsp *http.Response) (*ListEventsBySeriesRes
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Events     *[]interface{} `json:"events,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Events     *[]Event    `json:"events,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -32155,25 +34420,9 @@ func ParseListOfSubcategoriesResponse(rsp *http.Response) (*ListOfSubcategoriesR
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Locale     *string `json:"locale,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Subcategories *[]interface{} `json:"subcategories,omitempty"`
+			Locale        *string        `json:"locale,omitempty"`
+			Pagination    *Pagination    `json:"pagination,omitempty"`
+			Subcategories *[]Subcategory `json:"subcategories,omitempty"`
 			Subcategory   *struct {
 				// Id Subcategory ID
 				Id *string `json:"id,omitempty"`
@@ -32437,24 +34686,8 @@ func ParseListYourOrganizationsResponse(rsp *http.Response) (*ListYourOrganizati
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Organizations *[]interface{} `json:"organizations,omitempty"`
-			Pagination    *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Organizations *[]Organization `json:"organizations,omitempty"`
+			Pagination    *Pagination     `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -32528,24 +34761,8 @@ func ParseListOrdersByUserIDResponse(rsp *http.Response) (*ListOrdersByUserIDRes
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Orders     *[]interface{} `json:"orders,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Orders     *[]Order    `json:"orders,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -32573,24 +34790,8 @@ func ParseListOrganizationsByUserResponse(rsp *http.Response) (*ListOrganization
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Organizations *[]interface{} `json:"organizations,omitempty"`
-			Pagination    *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Organizations *[]Organization `json:"organizations,omitempty"`
+			Pagination    *Pagination     `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -32766,24 +34967,8 @@ func ParseListEventsByVenueResponse(rsp *http.Response) (*ListEventsByVenueRespo
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Events     *[]interface{} `json:"events,omitempty"`
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
+			Events     *[]Event    `json:"events,omitempty"`
+			Pagination *Pagination `json:"pagination,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -32811,24 +34996,8 @@ func ParseListOfWebhooksDeprecationResponse(rsp *http.Response) (*ListOfWebhooks
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Pagination *struct {
-				// Continuation A token to return to the server to get the next set of results (see “Continuated Responses” below)
-				Continuation *string `json:"continuation,omitempty"`
-				HasMoreItems *bool   `json:"has_more_items,omitempty"`
-
-				// ObjectCount The total number of objects across all pages (optional)
-				ObjectCount *float32 `json:"object_count,omitempty"`
-
-				// PageCount The total number of pages (starting at 1) (optional)
-				PageCount *float32 `json:"page_count,omitempty"`
-
-				// PageNumber The current page number (starts at 1)
-				PageNumber *float32 `json:"page_number,omitempty"`
-
-				// PageSize The number of objects on each page (roughly)
-				PageSize *float32 `json:"page_size,omitempty"`
-			} `json:"pagination,omitempty"`
-			Webhooks *struct {
+			Pagination *Pagination `json:"pagination,omitempty"`
+			Webhooks   *struct {
 				// Actions One or any combination of actions that will cause this webhook to be triggered.
 				Actions *[]interface{} `json:"actions,omitempty"`
 				Created *string        `json:"created,omitempty"`
