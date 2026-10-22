@@ -2109,7 +2109,7 @@ type Event struct {
 	TicketAvailability *TicketAvailability `json:"ticket_availability,omitempty"`
 
 	// TxTimeLimit Maximum duration (in seconds) of a transaction
-	TxTimeLimit *string `json:"tx_time_limit,omitempty"`
+	TxTimeLimit *int `json:"tx_time_limit,omitempty"`
 
 	// Url The URL to the event page for this event on Eventbrite
 	Url *string `json:"url,omitempty"`

@@ -160,6 +160,16 @@ def fix_openapi3(path):
 
     drop_bogus_props(spec)
 
+    # Correct field types the apib source gets wrong, checked against live
+    # API responses.
+    type_fixes = {
+        ("Event", "tx_time_limit"): {"type": "integer", "example": 12345},
+    }
+    for (schema_name, prop), fixed in type_fixes.items():
+        props = spec["components"]["schemas"].get(schema_name, {}).get("properties", {})
+        if prop in props:
+            props[prop].update(fixed)
+
     with open(path, "w") as f:
         json.dump(spec, f, indent=2)
 
