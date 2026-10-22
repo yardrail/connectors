@@ -35863,8 +35863,8 @@
           },
           "tx_time_limit": {
             "description": "Maximum duration (in seconds) of a transaction",
-            "example": "12345",
-            "type": "string"
+            "example": 12345,
+            "type": "integer"
           },
           "url": {
             "description": "The URL to the event page for this event on Eventbrite",
