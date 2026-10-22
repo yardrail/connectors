@@ -21,6 +21,8 @@ interfaces:
     auth_method: api_key
     auth_scope: user
     security_scheme: bearer
+    cred_mapping:
+      access_token: token
     capabilities: [event.read, event.create, event.update, attendee.read, order.read, venue.read]
     source:
       openapi: spec/openapi.json

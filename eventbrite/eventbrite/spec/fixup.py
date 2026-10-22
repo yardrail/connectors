@@ -114,6 +114,52 @@ def fix_openapi3(path):
             if "pagination" in props and "$ref" not in props["pagination"]:
                 props["pagination"] = {"$ref": "#/components/schemas/Pagination"}
 
+    # Add query parameters the conversion dropped, for the endpoints we use.
+    # Descriptions come from the apib source.
+    extra_query_params = {
+        ("/organizations/{organization_id}/events/", "get"): [
+            {"name": "status", "in": "query", "required": False, "schema": {"type": "string"},
+             "description": "Filter Organization's Events by status. Specify multiple status values as a comma delimited string."},
+            {"name": "order_by", "in": "query", "required": False,
+             "schema": {"type": "string", "enum": ["start_asc", "start_desc", "created_asc", "created_desc", "name_asc", "name_desc"]},
+             "description": "Sort order for the list of Events."},
+            {"name": "page_size", "in": "query", "required": False, "schema": {"type": "integer"},
+             "description": "Number of records to display on each page of the list."},
+        ],
+    }
+    for (url, method), extra in extra_query_params.items():
+        op = spec.get("paths", {}).get(url, {}).get(method)
+        if op is None:
+            continue
+        params = op.setdefault("parameters", [])
+        declared = {p["name"] for p in params if isinstance(p, dict)}
+        params.extend(p for p in extra if p["name"] not in declared)
+
+    # Drop property names containing whitespace: apib description lines the
+    # conversion turned into keys (e.g. "fee_name: payment_fee"). They are not
+    # API fields and produce struct tags go vet rejects.
+    # Also drop empty-object allOf members ({"type": "object", "properties": {}})
+    # the conversion appends to $refs; oapi-codegen cannot merge them with a
+    # string $ref such as datetime.
+    def drop_bogus_props(node):
+        if isinstance(node, dict):
+            if isinstance(node.get("allOf"), list):
+                node["allOf"] = [m for m in node["allOf"] if m != {"type": "object", "properties": {}}]
+            props = node.get("properties")
+            if isinstance(props, dict):
+                bogus = [k for k in props if re.search(r"\s", k)]
+                for k in bogus:
+                    del props[k]
+                if bogus and isinstance(node.get("required"), list):
+                    node["required"] = [r for r in node["required"] if r not in bogus]
+            for v in node.values():
+                drop_bogus_props(v)
+        elif isinstance(node, list):
+            for v in node:
+                drop_bogus_props(v)
+
+    drop_bogus_props(spec)
+
     with open(path, "w") as f:
         json.dump(spec, f, indent=2)
 

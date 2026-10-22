@@ -19331,10 +19331,6 @@
                       "split_fee": {
                         "description": "Absorb the payment fee, but show the eventbrite fee",
                         "type": "boolean"
-                      },
-                      "ticket_classes (array[object], optional) - Internal use only.A list of ticket types formatted as: [{\u201cid\u201d: \u201c1234\u201d, \u201cname\u201d: \u201cTicket Name\u201d, \u201ccost\u201d: \u201cUSD,25\u201d, \u201cquantity_total\u201d": {
-                        "type": "array",
-                        "items": {}
                       }
                     },
                     "required": [
@@ -25198,6 +25194,41 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter Organization's Events by status. Specify multiple status values as a comma delimited string."
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "start_asc",
+                "start_desc",
+                "created_asc",
+                "created_desc",
+                "name_asc",
+                "name_desc"
+              ]
+            },
+            "description": "Sort order for the list of Events."
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of records to display on each page of the list."
           }
         ],
         "responses": {
@@ -35072,10 +35103,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the attendee was last changed"
@@ -35108,10 +35135,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the attendee was created (order placed)"
@@ -35223,10 +35246,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "Creation date of the campaign, datetime in ISO8601 UTC. Other offsets than UTC are not allowed."
@@ -35314,10 +35333,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "The time to send the campaign.",
@@ -35388,9 +35403,6 @@
             "description": "The absolute url that links to the collection page on Eventbrite.    Format is `{eventbrite-domain}/cc/{name-of-slug}-{id}`.",
             "example": "https://www.eventbrite.com/cc/name-of-slug-111",
             "type": "string"
-          },
-          "created  `2018-05-12T02:00:00Z`": {
-            "$ref": "#/components/schemas/datetime-tz-utc"
           },
           "id": {
             "description": "Collection ID",
@@ -35625,10 +35637,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the event was last changed"
@@ -35640,10 +35648,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the event was created"
@@ -35778,10 +35782,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the event was first published",
@@ -35931,9 +35931,6 @@
       },
       "Grant": {
         "properties": {
-          "entity_id: 789 (string, required) - The ID of the Entity on which the Role is granted (or NULL for \"global\"). DEPRECATED. Use specific `event_id` or `organization_id`": {
-            "type": "string"
-          },
           "entity_type": {
             "description": "Type of entities, that are objects which permissions can be granted ON",
             "enum": [
@@ -35946,9 +35943,6 @@
           "event_id": {
             "description": "The ID of the event on which the Role is granted if entity type is event",
             "example": "789",
-            "type": "string"
-          },
-          "grantee_id: 226753143335 (string, required) - The id of the object to which the role is granted. If grantee_type is \u2018user\u2019, then this field should have a user_id": {
             "type": "string"
           },
           "grantee_type": {
@@ -36065,10 +36059,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the attendee was last changed"
@@ -36097,10 +36087,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the attendee was created (order placed)"
@@ -36491,10 +36477,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the event ends"
@@ -36513,10 +36495,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the event starts"
@@ -36719,10 +36697,6 @@
                 "allOf": [
                   {
                     "$ref": "#/components/schemas/datetime"
-                  },
-                  {
-                    "properties": {},
-                    "type": "object"
                   }
                 ]
               },
@@ -37162,10 +37136,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the attendee barcode was changed"
@@ -37183,10 +37153,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the attendee barcode was created"
@@ -37316,10 +37282,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the attendee joined the team"
@@ -37589,10 +37551,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "Creation date of the campaign invoice, datetime in ISO8601 UTC."
@@ -37898,19 +37856,6 @@
             "example": true,
             "type": "boolean"
           },
-          "respondent (DEPRECATED)": {
-            "description": "(DEPRECATED: This param will be removed from June 1, 2021, Use: Ticket Buyer Settings - Update) Ask this question to the ticket buyer or each attendee. When this value is not sent, the survey_type value of the event will not be updated.",
-            "enum": [
-              "ticket_buyer",
-              "attendee"
-            ],
-            "type": "string"
-          },
-          "ticket_classes (DEPRECATED)": {
-            "description": "(DEPRECATED: This param will be removed from June 1, 2021, Use: Ticket Buyer Settings - Update) Tickets to which to limit this question. Format: [{\u201cid\u201d: \u201c1234\u201d}, {\u201cid\u201d: \u201c4567\u201d}]",
-            "items": {},
-            "type": "array"
-          },
           "type": {
             "description": "Type of Question",
             "enum": [
@@ -38025,10 +37970,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the checkout settings object was last changed"
@@ -38051,10 +37992,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the checkout settings object was created"
@@ -38211,10 +38148,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "The time the item has unsubscribed (null if the item hasn't unsubscribed).",
@@ -38474,11 +38407,7 @@
             "$ref": "#/components/schemas/Create_Structured_Content_Text_Module_Data"
           },
           "image": {
-            "properties": {
-              "image_id (string) - the image_id provided by uploading an image through Eventbrite media upload.": {
-                "type": "string"
-              }
-            },
+            "properties": {},
             "type": "object"
           }
         },
@@ -39106,10 +39035,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ]
           },
@@ -39256,10 +39181,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "Date when the team information was last changed"
@@ -39268,10 +39189,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "Date when the team was created"
@@ -39634,14 +39551,6 @@
           "currency": {
             "description": "The (ISO 4217 3-character code of the) currency.",
             "example": "USD",
-            "type": "string"
-          },
-          "fee_name: payment_fee": {
-            "description": "Name of the fee.",
-            "enum": [
-              "payment_fee",
-              "service_fee"
-            ],
             "type": "string"
           },
           "fixed": {
@@ -40127,10 +40036,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "Time relative to UTC that the doors are opened to allow people in the day of the event. When not set the event won't have any door time set.",
@@ -42485,10 +42390,6 @@
               "split_fee": {
                 "description": "Absorb the payment fee, but show the eventbrite fee",
                 "type": "boolean"
-              },
-              "ticket_classes (array[object], optional) - Internal use only.A list of ticket types formatted as: [{\u201cid\u201d: \u201c1234\u201d, \u201cname\u201d: \u201cTicket Name\u201d, \u201ccost\u201d: \u201cUSD,25\u201d, \u201cquantity_total\u201d": {
-                "items": {},
-                "type": "array"
               }
             },
             "type": "object"
@@ -42949,10 +42850,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the ticket class stops being on sale (leave empty for \"one hour before event start\")",
@@ -42962,10 +42859,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the ticket class is available for sale (leave empty for \u201cwhen event published\u201d)",
@@ -43071,10 +42964,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the ticket class stops being on sale (leave empty for \"one hour before event start\")"
@@ -43083,10 +42972,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/datetime"
-              },
-              {
-                "properties": {},
-                "type": "object"
               }
             ],
             "description": "When the ticket class is available for sale (leave empty for \u201cwhen event published\u201d)"
@@ -43343,13 +43228,6 @@
           "absolute_start_utc": {
             "description": "UTC ISO601 string format \"2019-11-30T19:00:00Z\".  Start time when a module is viewable.  Either absolute_start_utc/absolute_end_utc OR relative_start/relative_end should be provided - both sets cannot be.",
             "type": "string"
-          },
-          "relative_end (number) - Minutes to which a module is relatively hidden. Optional - if relative_end is provided, then relative_start must be provided with it.": {
-            "type": "string"
-          },
-          "relative_start (number) - Minutes to which a module is relatively shown. Either absolute_start_utc/absolute_end_utc OR relative_start/relative_end should be provided": {
-            "description": "both sets cannot be.",
-            "type": "string"
           }
         },
         "type": "object"
@@ -43439,20 +43317,6 @@
               "bill",
               "tax_invoice",
               "fulfillment"
-            ],
-            "type": "string"
-          },
-          "asset_type: user_event_holder": {
-            "description": "User type",
-            "enum": [
-              "user_event_holder",
-              "user_event_attendee",
-              "user_event_holder_and_attendee",
-              "user_event_attendee_and_holder",
-              "user_closed",
-              "user_prebuyer",
-              "user_organization",
-              "newsletter_subscriber"
             ],
             "type": "string"
           },

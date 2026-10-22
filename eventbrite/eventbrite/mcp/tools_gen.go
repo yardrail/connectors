@@ -144,6 +144,9 @@ func (h *Handler) RegisterEvent(s *server.MCPServer) {
 		mcp.NewTool("list-events-by-organization",
 			mcp.WithDescription("request returning *ListEventsByOrganizationResponse"),
 			mcp.WithString("organizationId", mcp.Required(), mcp.Description("organizationId")),
+			mcp.WithString("status", mcp.Description("Status")),
+			mcp.WithString("order_by", mcp.Description("OrderBy")),
+			mcp.WithInteger("page_size", mcp.Description("PageSize")),
 		),
 		h.handleListEventsByOrganizationWithResponse,
 	)
@@ -1517,8 +1520,24 @@ func (h *Handler) handleListEventsByOrganizationWithResponse(ctx context.Context
 	}
 
 	organizationId := request.GetString("organizationId", "")
+	params := &target.ListEventsByOrganizationParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["status"]; ok {
+			params.Status = ptrVal(request.GetString("status", ""))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["order_by"]; ok {
+			params.OrderBy = ptrVal(target.ListEventsByOrganizationParamsOrderBy(request.GetString("order_by", "")))
+		}
+	}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["page_size"]; ok {
+			params.PageSize = ptrVal(int(request.GetInt("page_size", 0)))
+		}
+	}
 
-	resp, err := client.ListEventsByOrganizationWithResponse(ctx, organizationId)
+	resp, err := client.ListEventsByOrganizationWithResponse(ctx, organizationId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
