@@ -1,0 +1,6 @@
+[settings]
+idiomatic_version_file_enable_tools = ["go"]
+
+[tools]
+node = "24"
+task = "3.54.0"
