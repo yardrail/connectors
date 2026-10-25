@@ -1,0 +1,3 @@
+# slack/slack/spec/openapi.json contains example Slack token values
+# in the API spec — not real credentials.
+slack-access-token
