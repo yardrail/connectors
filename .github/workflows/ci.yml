@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: jdx/mise-action@v2
+
+      - name: Read tool versions from mise
+        id: versions
+        run: |
+          echo "trivy=v$(mise current trivy)" >> "$GITHUB_OUTPUT"
+
+      - name: Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@v0.32.0
+        with:
+          version: ${{ steps.versions.outputs.trivy }}
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln
+          format: table
+          exit-code: 1
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+
+      - name: Trivy secret scan
+        uses: aquasecurity/trivy-action@v0.32.0
+        with:
+          version: ${{ steps.versions.outputs.trivy }}
+          scan-type: fs
+          scan-ref: .
+          scanners: secret
+          format: table
+          exit-code: 1
+          severity: HIGH,CRITICAL
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.work
+
+      - uses: jdx/mise-action@v2
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go build
+        run: go build ./...
+
+      - name: go mod tidy check
+        run: |
+          for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
+            dir=$(dirname "$mod")
+            echo "==> tidy $dir"
+            (cd "$dir" && go mod tidy)
+          done
+          git diff --exit-code
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.work
+
+      - run: go test ./...
