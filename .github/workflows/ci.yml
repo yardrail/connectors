@@ -53,18 +53,14 @@ jobs:
       - uses: jdx/mise-action@v2
 
       - name: go vet
-        run: go vet ./...
+        run: task vet
 
       - name: go build
-        run: go build ./...
+        run: task build
 
       - name: go mod tidy check
         run: |
-          for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
-            dir=$(dirname "$mod")
-            echo "==> tidy $dir"
-            (cd "$dir" && go mod tidy)
-          done
+          task tidy
           git diff --exit-code
 
   test:
@@ -76,4 +72,6 @@ jobs:
         with:
           go-version-file: go.work
 
-      - run: go test ./...
+      - uses: jdx/mise-action@v2
+
+      - run: task test
