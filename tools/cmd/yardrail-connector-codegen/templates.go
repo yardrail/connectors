@@ -330,7 +330,8 @@ type Connector struct {
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
-func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
+// When httpClient is non-nil it is used for all outbound HTTP calls.
+func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
 ` + openAPIClientsTemplate + `	return &Connector{clients: clients}, nil
 }
 
@@ -379,6 +380,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 {{- if needsUUID .Methods}}
 
 	"github.com/google/uuid"
@@ -399,11 +401,12 @@ var (
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
+	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
 	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
 	perIfaceConfig := map[string]map[string]string{interfaceID: config}
 
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig)
+	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
 	if err != nil {
 		return nil, err
 	}
@@ -433,7 +436,12 @@ const openAPIClientsTemplate = `	clients := make(map[string]*{{clientPkgName .Cl
 		baseURL := resolveBaseURL(config["{{.ID}}"])
 		authFn := authEditor{{goIdent .ID}}(ifaceCreds)
 
-		c, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn))
+		opts := []{{clientPkgName $.ClientPkgPath}}.ClientOption{ {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn)}
+		if httpClient != nil {
+			opts = append(opts, {{clientPkgName $.ClientPkgPath}}.WithHTTPClient(httpClient))
+		}
+
+		c, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating {{.ID}} client: %w", err)
 		}

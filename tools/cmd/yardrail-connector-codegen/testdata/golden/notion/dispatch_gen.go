@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 
 	"github.com/google/uuid"
 
@@ -54,11 +55,12 @@ var Dispatchers = map[string]Dispatcher{
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
+	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
 	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
 	perIfaceConfig := map[string]map[string]string{interfaceID: config}
 
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig)
+	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
 	if err != nil {
 		return nil, err
 	}

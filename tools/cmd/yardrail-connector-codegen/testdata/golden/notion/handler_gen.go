@@ -17,14 +17,20 @@ type Connector struct {
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
-func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
+// When httpClient is non-nil it is used for all outbound HTTP calls.
+func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
 	clients := make(map[string]*client.ClientWithResponses, 1)
 
 	if ifaceCreds, ok := creds["integration"]; ok {
 		baseURL := resolveBaseURL(config["integration"])
 		authFn := authEditorIntegration(ifaceCreds)
 
-		c, err := client.NewClientWithResponses(baseURL, client.WithRequestEditorFn(authFn))
+		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+		if httpClient != nil {
+			opts = append(opts, client.WithHTTPClient(httpClient))
+		}
+
+		c, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating integration client: %w", err)
 		}

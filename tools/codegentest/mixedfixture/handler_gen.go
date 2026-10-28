@@ -19,14 +19,20 @@ type Connector struct {
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
-func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
+// When httpClient is non-nil it is used for all outbound HTTP calls.
+func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
 	clients := make(map[string]*client.ClientWithResponses, 1)
 
 	if ifaceCreds, ok := creds["rest"]; ok {
 		baseURL := resolveBaseURL(config["rest"])
 		authFn := authEditorRest(ifaceCreds)
 
-		c, err := client.NewClientWithResponses(baseURL, client.WithRequestEditorFn(authFn))
+		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+		if httpClient != nil {
+			opts = append(opts, client.WithHTTPClient(httpClient))
+		}
+
+		c, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating rest client: %w", err)
 		}
@@ -34,7 +40,7 @@ func NewConnector(creds, config map[string]map[string]string) (*Connector, error
 		clients["rest"] = c
 	}
 
-	return &Connector{clients: clients, endpoints: newEndpoints(creds, config)}, nil
+	return &Connector{clients: clients, endpoints: newEndpoints(creds, config, httpClient)}, nil
 }
 
 // Client returns the typed oapi-codegen client for the given interface.
@@ -53,17 +59,19 @@ func resolveBaseURL(config map[string]string) string {
 
 // endpoint is a GraphQL interface's HTTP endpoint with its auth applied.
 type endpoint struct {
-	url  string
-	auth func(context.Context, *http.Request) error
+	url        string
+	auth       func(context.Context, *http.Request) error
+	httpClient *http.Client
 }
 
-func newEndpoints(creds, config map[string]map[string]string) map[string]*endpoint {
+func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
 	endpoints := make(map[string]*endpoint, 1)
 
 	if ifaceCreds, ok := creds["gql"]; ok {
 		endpoints["gql"] = &endpoint{
-			url:  resolveEndpoint(config["gql"], "https://mixed.invalid/graphql"),
-			auth: authEditorGql(ifaceCreds),
+			url:        resolveEndpoint(config["gql"], "https://mixed.invalid/graphql"),
+			auth:       authEditorGql(ifaceCreds),
+			httpClient: httpClient,
 		}
 	}
 

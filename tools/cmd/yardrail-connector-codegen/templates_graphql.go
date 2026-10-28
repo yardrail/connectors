@@ -19,17 +19,19 @@ func goStringLiteral(s string) string {
 // endpoint constructors and the auth editors. It expects .GraphQLIfaces.
 const graphqlEndpointsTemplate = `// endpoint is a GraphQL interface's HTTP endpoint with its auth applied.
 type endpoint struct {
-	url  string
-	auth func(context.Context, *http.Request) error
+	url        string
+	auth       func(context.Context, *http.Request) error
+	httpClient *http.Client
 }
 
-func newEndpoints(creds, config map[string]map[string]string) map[string]*endpoint {
+func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
 	endpoints := make(map[string]*endpoint, {{len .GraphQLIfaces}})
 {{range .GraphQLIfaces}}
 	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
 		endpoints["{{.ID}}"] = &endpoint{
-			url:  resolveEndpoint(config["{{.ID}}"], "{{.Source.Endpoint}}"),
-			auth: authEditor{{goIdent .ID}}(ifaceCreds),
+			url:        resolveEndpoint(config["{{.ID}}"], "{{.Source.Endpoint}}"),
+			auth:       authEditor{{goIdent .ID}}(ifaceCreds),
+			httpClient: httpClient,
 		}
 	}
 {{end}}
@@ -59,12 +61,14 @@ import (
 
 // Connector holds the GraphQL endpoint for each configured interface.
 type Connector struct {
-	endpoints map[string]*endpoint
+	endpoints  map[string]*endpoint
+	httpClient *http.Client
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
-func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
-	return &Connector{endpoints: newEndpoints(creds, config)}, nil
+// When httpClient is non-nil it is used for all outbound HTTP calls.
+func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
+	return &Connector{endpoints: newEndpoints(creds, config, httpClient), httpClient: httpClient}, nil
 }
 
 ` + graphqlEndpointsTemplate + authEditorsTemplate
@@ -120,7 +124,12 @@ func (e *endpoint) call(ctx context.Context, function, query string, inputs json
 		return nil, fmt.Errorf("{{.ConnectorID}}.%s: auth: %w", function, err)
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	cl := e.httpClient
+	if cl == nil {
+		cl = http.DefaultClient
+	}
+
+	resp, err := cl.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("{{.ConnectorID}}.%s: %w", function, err)
 	}
@@ -190,11 +199,12 @@ var (
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
+	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
 	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
 	perIfaceConfig := map[string]map[string]string{interfaceID: config}
 
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig)
+	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
 	if err != nil {
 		return nil, err
 	}
@@ -240,8 +250,9 @@ type Connector struct {
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
-func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
-` + openAPIClientsTemplate + `	return &Connector{clients: clients, endpoints: newEndpoints(creds, config)}, nil
+// When httpClient is non-nil it is used for all outbound HTTP calls.
+func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
+` + openAPIClientsTemplate + `	return &Connector{clients: clients, endpoints: newEndpoints(creds, config, httpClient)}, nil
 }
 
 ` + openAPIAccessorsTemplate + graphqlEndpointsTemplate + authEditorsTemplate
@@ -281,11 +292,12 @@ var (
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
+	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
 	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
 	perIfaceConfig := map[string]map[string]string{interfaceID: config}
 
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig)
+	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
 	if err != nil {
 		return nil, err
 	}

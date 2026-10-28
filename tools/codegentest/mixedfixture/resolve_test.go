@@ -70,7 +70,7 @@ func TestResolveGraphQLInterface(t *testing.T) {
 
 	srv, last := newServer(t, `{"data":{"widget":{"id":"7"}}}`)
 
-	fn, err := Resolve("gql", "get-widget", map[string]string{"token": "gql-token"}, map[string]string{"base_url": srv.URL})
+	fn, err := Resolve("gql", "get-widget", map[string]string{"token": "gql-token"}, map[string]string{"base_url": srv.URL}, nil)
 	if err != nil {
 		t.Fatalf("Resolve: %v", err)
 	}
@@ -99,7 +99,7 @@ func TestResolveRESTInterface(t *testing.T) {
 
 	srv, last := newServer(t, `{"object":"database","id":"db1"}`)
 
-	fn, err := Resolve("rest", "retrieve-a-database", map[string]string{"token": "rest-token"}, map[string]string{"base_url": srv.URL})
+	fn, err := Resolve("rest", "retrieve-a-database", map[string]string{"token": "rest-token"}, map[string]string{"base_url": srv.URL}, nil)
 	if err != nil {
 		t.Fatalf("Resolve: %v", err)
 	}
@@ -149,7 +149,7 @@ func TestResolveErrors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			_, err := Resolve(tt.interfaceID, tt.function, map[string]string{"token": "t"}, nil)
+			_, err := Resolve(tt.interfaceID, tt.function, map[string]string{"token": "t"}, nil, nil)
 			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("Resolve error = %v, want %v", err, tt.wantErr)
 			}
