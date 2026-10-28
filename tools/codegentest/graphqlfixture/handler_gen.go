@@ -9,27 +9,31 @@ import (
 
 // Connector holds the GraphQL endpoint for each configured interface.
 type Connector struct {
-	endpoints map[string]*endpoint
+	endpoints  map[string]*endpoint
+	httpClient *http.Client
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
-func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
-	return &Connector{endpoints: newEndpoints(creds, config)}, nil
+// When httpClient is non-nil it is used for all outbound HTTP calls.
+func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
+	return &Connector{endpoints: newEndpoints(creds, config, httpClient), httpClient: httpClient}, nil
 }
 
 // endpoint is a GraphQL interface's HTTP endpoint with its auth applied.
 type endpoint struct {
-	url  string
-	auth func(context.Context, *http.Request) error
+	url        string
+	auth       func(context.Context, *http.Request) error
+	httpClient *http.Client
 }
 
-func newEndpoints(creds, config map[string]map[string]string) map[string]*endpoint {
+func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
 	endpoints := make(map[string]*endpoint, 1)
 
 	if ifaceCreds, ok := creds["api"]; ok {
 		endpoints["api"] = &endpoint{
-			url:  resolveEndpoint(config["api"], "https://fixture.invalid/graphql"),
-			auth: authEditorApi(ifaceCreds),
+			url:        resolveEndpoint(config["api"], "https://fixture.invalid/graphql"),
+			auth:       authEditorApi(ifaceCreds),
+			httpClient: httpClient,
 		}
 	}
 

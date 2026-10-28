@@ -26,11 +26,12 @@ var (
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
+	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
 	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
 	perIfaceConfig := map[string]map[string]string{interfaceID: config}
 
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig)
+	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +115,12 @@ func (e *endpoint) call(ctx context.Context, function, query string, inputs json
 		return nil, fmt.Errorf("graphqlfixture.%s: auth: %w", function, err)
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	cl := e.httpClient
+	if cl == nil {
+		cl = http.DefaultClient
+	}
+
+	resp, err := cl.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("graphqlfixture.%s: %w", function, err)
 	}

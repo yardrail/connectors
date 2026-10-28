@@ -17,14 +17,20 @@ type Connector struct {
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
-func NewConnector(creds, config map[string]map[string]string) (*Connector, error) {
+// When httpClient is non-nil it is used for all outbound HTTP calls.
+func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
 	clients := make(map[string]*client.ClientWithResponses, 2)
 
 	if ifaceCreds, ok := creds["bot-api"]; ok {
 		baseURL := resolveBaseURL(config["bot-api"])
 		authFn := authEditorBotApi(ifaceCreds)
 
-		c, err := client.NewClientWithResponses(baseURL, client.WithRequestEditorFn(authFn))
+		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+		if httpClient != nil {
+			opts = append(opts, client.WithHTTPClient(httpClient))
+		}
+
+		c, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating bot-api client: %w", err)
 		}
@@ -36,7 +42,12 @@ func NewConnector(creds, config map[string]map[string]string) (*Connector, error
 		baseURL := resolveBaseURL(config["user-token"])
 		authFn := authEditorUserToken(ifaceCreds)
 
-		c, err := client.NewClientWithResponses(baseURL, client.WithRequestEditorFn(authFn))
+		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+		if httpClient != nil {
+			opts = append(opts, client.WithHTTPClient(httpClient))
+		}
+
+		c, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating user-token client: %w", err)
 		}
