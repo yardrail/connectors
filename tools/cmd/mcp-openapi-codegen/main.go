@@ -132,21 +132,22 @@ var tmplFuncs = template.FuncMap{
 			}
 			return inner
 		}
-		if !p.IsPtr {
-			if p.FullType != "" {
-				return fmt.Sprintf("%s(request.GetString(\"%s\", \"\"))", p.FullType, p.JSONName)
-			}
-			return base
-		}
 		if p.FullType != "" {
-			return fmt.Sprintf("ptrVal(%s(request.GetString(\"%s\", \"\")))", p.FullType, p.JSONName)
+			inner := fmt.Sprintf("%s(%s)", p.FullType, base)
+			if p.IsPtr {
+				return fmt.Sprintf("ptrVal(%s)", inner)
+			}
+			return inner
 		}
-		switch p.GoType {
-		case "float32":
-			return fmt.Sprintf("ptrVal(float32(request.GetFloat(\"%s\", 0)))", p.JSONName)
-		default:
-			return fmt.Sprintf("ptrVal(%s)", base)
+		if p.IsPtr {
+			switch p.GoType {
+			case "float32":
+				return fmt.Sprintf("ptrVal(float32(request.GetFloat(\"%s\", 0)))", p.JSONName)
+			default:
+				return fmt.Sprintf("ptrVal(%s)", base)
+			}
 		}
+		return base
 	},
 	"mcpPropFunc": func(p ToolParam) string {
 		if p.IsStruct {
