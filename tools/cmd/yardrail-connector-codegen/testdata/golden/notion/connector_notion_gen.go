@@ -2,135 +2,139 @@
 
 package workflows
 
-func init() {
-	registerConnectorClass("https://yardrail.com/cwl/notion#CreateADataSource", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "create-a-data-source",
-		ClassName:   "CreateADataSource",
-		Description: "Create a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "", Type: "object", Required: false, Description: ""},
-			{Name: "parent", Type: "object", Required: true, Description: ""},
-			{Name: "properties", Type: "object", Required: true, Description: "Property schema of data source"},
-			{Name: "title", Type: "array", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/notion#ListDataSourceTemplates", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "list-data-source-templates",
-		ClassName:   "ListDataSourceTemplates",
-		Description: "List templates in a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
-			{Name: "start_cursor", Type: "string", Required: false, Description: ""},
-			{Name: "page_size", Type: "integer", Required: false, Description: ""},
-			{Name: "", Type: "object", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/notion#MovePage", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "move-page",
-		ClassName:   "MovePage",
-		Description: "Move a page",
-		Inputs: []connectorFieldInfo{
-			{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-			{Name: "parent", Type: "object", Required: true, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/notion#QueryDataSource", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "query-data-source",
-		ClassName:   "QueryDataSource",
-		Description: "Query a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source (database)"},
-			{Name: "filter_properties", Type: "array", Required: false, Description: "A list of page property value IDs to limit the response"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-			{Name: "archived", Type: "boolean", Required: false, Description: ""},
-			{Name: "filter", Type: "object", Required: false, Description: "Filter conditions for querying the data source"},
-			{Name: "in_trash", Type: "boolean", Required: false, Description: ""},
-			{Name: "page_size", Type: "integer", Required: false, Description: ""},
-			{Name: "sorts", Type: "array", Required: false, Description: ""},
-			{Name: "start_cursor", Type: "string", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/notion#RetrieveADataSource", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "retrieve-a-data-source",
-		ClassName:   "RetrieveADataSource",
-		Description: "Retrieve a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/notion#RetrieveADatabase", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "retrieve-a-database",
-		ClassName:   "RetrieveADatabase",
-		Description: "Retrieve a database",
-		Inputs: []connectorFieldInfo{
-			{Name: "database_id", Type: "string", Required: true, Description: "Identifier for a Notion database"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/notion#RetrievePageMarkdown", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "retrieve-page-markdown",
-		ClassName:   "RetrievePageMarkdown",
-		Description: "Retrieve a page as Markdown",
-		Inputs: []connectorFieldInfo{
-			{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
-			{Name: "include_transcript", Type: "boolean", Required: false, Description: "Whether to include meeting note transcripts. When false (default), a placeholder with the meeting note URL is shown instead of the full transcript."},
-		},
-		Outputs: []connectorFieldInfo{
-			{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
-			{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
-			{Name: "object", Type: "string", Required: false, Description: ""},
-			{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
-			{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
-		},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/notion#UpdateADataSource", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "update-a-data-source",
-		ClassName:   "UpdateADataSource",
-		Description: "Update a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-			{Name: "description", Type: "array", Required: false, Description: ""},
-			{Name: "properties", Type: "object", Required: false, Description: "Property schema updates"},
-			{Name: "title", Type: "array", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/notion#UpdatePageMarkdown", connectorClassInfo{
-		ConnectorID: "notion",
-		Function:    "update-page-markdown",
-		ClassName:   "UpdatePageMarkdown",
-		Description: "Update a page's content as Markdown",
-		Inputs: []connectorFieldInfo{
-			{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
-			{Name: "insert_content", Type: "object", Required: false, Description: "Deprecated. Provide when type is `insert_content`. Inserts Markdown at a position."},
-			{Name: "replace_content", Type: "object", Required: false, Description: "Provide when type is `replace_content`. Replaces the entire page content."},
-			{Name: "replace_content_range", Type: "object", Required: false, Description: "Deprecated. Provide when type is `replace_content_range`. Replaces a selected range of Markdown."},
-			{Name: "type", Type: "string", Required: true, Description: "The kind of edit to apply. Prefer `replace_content` (overwrite the whole page) or `update_content` (targeted find-and-replace). `insert_content` and `replace_content_range` are deprecated."},
-			{Name: "update_content", Type: "object", Required: false, Description: "Provide when type is `update_content`. Applies targeted find-and-replace edits."},
-		},
-		Outputs: []connectorFieldInfo{
-			{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
-			{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
-			{Name: "object", Type: "string", Required: false, Description: ""},
-			{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
-			{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
-		},
-	})
+import "github.com/yardrail/yardrail/pkg/extensions"
+
+func NotionCWLClasses() []extensions.ConnectorClassEntry {
+	return []extensions.ConnectorClassEntry{
+		{ClassIRI: "https://yardrail.com/cwl/notion#CreateADataSource", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "create-a-data-source",
+			ClassName:   "CreateADataSource",
+			Description: "Create a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "", Type: "object", Required: false, Description: ""},
+				{Name: "parent", Type: "object", Required: true, Description: ""},
+				{Name: "properties", Type: "object", Required: true, Description: "Property schema of data source"},
+				{Name: "title", Type: "array", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/notion#ListDataSourceTemplates", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "list-data-source-templates",
+			ClassName:   "ListDataSourceTemplates",
+			Description: "List templates in a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
+				{Name: "start_cursor", Type: "string", Required: false, Description: ""},
+				{Name: "page_size", Type: "integer", Required: false, Description: ""},
+				{Name: "", Type: "object", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/notion#MovePage", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "move-page",
+			ClassName:   "MovePage",
+			Description: "Move a page",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+				{Name: "parent", Type: "object", Required: true, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/notion#QueryDataSource", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "query-data-source",
+			ClassName:   "QueryDataSource",
+			Description: "Query a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source (database)"},
+				{Name: "filter_properties", Type: "array", Required: false, Description: "A list of page property value IDs to limit the response"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+				{Name: "archived", Type: "boolean", Required: false, Description: ""},
+				{Name: "filter", Type: "object", Required: false, Description: "Filter conditions for querying the data source"},
+				{Name: "in_trash", Type: "boolean", Required: false, Description: ""},
+				{Name: "page_size", Type: "integer", Required: false, Description: ""},
+				{Name: "sorts", Type: "array", Required: false, Description: ""},
+				{Name: "start_cursor", Type: "string", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/notion#RetrieveADataSource", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "retrieve-a-data-source",
+			ClassName:   "RetrieveADataSource",
+			Description: "Retrieve a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/notion#RetrieveADatabase", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "retrieve-a-database",
+			ClassName:   "RetrieveADatabase",
+			Description: "Retrieve a database",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "database_id", Type: "string", Required: true, Description: "Identifier for a Notion database"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/notion#RetrievePageMarkdown", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "retrieve-page-markdown",
+			ClassName:   "RetrievePageMarkdown",
+			Description: "Retrieve a page as Markdown",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
+				{Name: "include_transcript", Type: "boolean", Required: false, Description: "Whether to include meeting note transcripts. When false (default), a placeholder with the meeting note URL is shown instead of the full transcript."},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{
+				{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
+				{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
+				{Name: "object", Type: "string", Required: false, Description: ""},
+				{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
+				{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
+			},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/notion#UpdateADataSource", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "update-a-data-source",
+			ClassName:   "UpdateADataSource",
+			Description: "Update a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+				{Name: "description", Type: "array", Required: false, Description: ""},
+				{Name: "properties", Type: "object", Required: false, Description: "Property schema updates"},
+				{Name: "title", Type: "array", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/notion#UpdatePageMarkdown", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "notion",
+			Function:    "update-page-markdown",
+			ClassName:   "UpdatePageMarkdown",
+			Description: "Update a page's content as Markdown",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
+				{Name: "insert_content", Type: "object", Required: false, Description: "Deprecated. Provide when type is `insert_content`. Inserts Markdown at a position."},
+				{Name: "replace_content", Type: "object", Required: false, Description: "Provide when type is `replace_content`. Replaces the entire page content."},
+				{Name: "replace_content_range", Type: "object", Required: false, Description: "Deprecated. Provide when type is `replace_content_range`. Replaces a selected range of Markdown."},
+				{Name: "type", Type: "string", Required: true, Description: "The kind of edit to apply. Prefer `replace_content` (overwrite the whole page) or `update_content` (targeted find-and-replace). `insert_content` and `replace_content_range` are deprecated."},
+				{Name: "update_content", Type: "object", Required: false, Description: "Provide when type is `update_content`. Applies targeted find-and-replace edits."},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{
+				{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
+				{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
+				{Name: "object", Type: "string", Required: false, Description: ""},
+				{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
+				{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
+			},
+		}},
+	}
 }

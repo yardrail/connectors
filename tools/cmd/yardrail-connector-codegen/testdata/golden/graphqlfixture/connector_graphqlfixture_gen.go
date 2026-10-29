@@ -2,34 +2,38 @@
 
 package workflows
 
-func init() {
-	registerConnectorClass("https://yardrail.com/cwl/graphqlfixture#GetWidget", connectorClassInfo{
-		ConnectorID: "graphqlfixture",
-		Function:    "get-widget",
-		ClassName:   "GetWidget",
-		Description: "Get one widget by ID.",
-		Inputs: []connectorFieldInfo{
-			{Name: "widgetId", Type: "string", Required: true, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{
-			{Name: "id", Type: "string", Required: false, Description: ""},
-			{Name: "name", Type: "string", Required: false, Description: ""},
-			{Name: "size", Type: "integer", Required: false, Description: ""},
-			{Name: "attributes", Type: "object", Required: false, Description: ""},
-		},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/graphqlfixture#RenameWidget", connectorClassInfo{
-		ConnectorID: "graphqlfixture",
-		Function:    "rename-widget",
-		ClassName:   "RenameWidget",
-		Description: "Rename a widget.",
-		Inputs: []connectorFieldInfo{
-			{Name: "widgetId", Type: "string", Required: true, Description: ""},
-			{Name: "name", Type: "string", Required: true, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{
-			{Name: "id", Type: "string", Required: false, Description: ""},
-			{Name: "name", Type: "string", Required: false, Description: ""},
-		},
-	})
+import "github.com/yardrail/yardrail/pkg/extensions"
+
+func GraphqlfixtureCWLClasses() []extensions.ConnectorClassEntry {
+	return []extensions.ConnectorClassEntry{
+		{ClassIRI: "https://yardrail.com/cwl/graphqlfixture#GetWidget", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "graphqlfixture",
+			Function:    "get-widget",
+			ClassName:   "GetWidget",
+			Description: "Get one widget by ID.",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "widgetId", Type: "string", Required: true, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{
+				{Name: "id", Type: "string", Required: false, Description: ""},
+				{Name: "name", Type: "string", Required: false, Description: ""},
+				{Name: "size", Type: "integer", Required: false, Description: ""},
+				{Name: "attributes", Type: "object", Required: false, Description: ""},
+			},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/graphqlfixture#RenameWidget", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "graphqlfixture",
+			Function:    "rename-widget",
+			ClassName:   "RenameWidget",
+			Description: "Rename a widget.",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "widgetId", Type: "string", Required: true, Description: ""},
+				{Name: "name", Type: "string", Required: true, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{
+				{Name: "id", Type: "string", Required: false, Description: ""},
+				{Name: "name", Type: "string", Required: false, Description: ""},
+			},
+		}},
+	}
 }
