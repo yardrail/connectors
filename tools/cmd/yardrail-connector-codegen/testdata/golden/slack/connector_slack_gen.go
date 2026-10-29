@@ -2,208 +2,210 @@
 
 package workflows
 
-func SlackCWLClasses() []connectorClassEntry {
-	return []connectorClassEntry{
-		{"https://yardrail.com/cwl/slack#AdminAppsApproveWithFormdataBody", connectorClassInfo{
+import "github.com/yardrail/yardrail/pkg/extensions"
+
+func SlackCWLClasses() []extensions.ConnectorClassEntry {
+	return []extensions.ConnectorClassEntry{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsApproveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-apps-approve-with-formdata-body",
 			ClassName:   "AdminAppsApproveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminAppsApprovedList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsApprovedList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-apps-approved-list",
 			ClassName:   "AdminAppsApprovedList",
 			Description: "List approved apps for an org or workspace.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.apps:read`"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"},
 				{Name: "team_id", Type: "string", Required: false, Description: ""},
 				{Name: "enterprise_id", Type: "string", Required: false, Description: ""},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminAppsRequestsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsRequestsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-apps-requests-list",
 			ClassName:   "AdminAppsRequestsList",
 			Description: "List app requests for a team/workspace.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.apps:read`"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"},
 				{Name: "team_id", Type: "string", Required: false, Description: ""},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminAppsRestrictWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsRestrictWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-apps-restrict-with-formdata-body",
 			ClassName:   "AdminAppsRestrictWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminAppsRestrictedList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsRestrictedList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-apps-restricted-list",
 			ClassName:   "AdminAppsRestrictedList",
 			Description: "List restricted apps for an org or workspace.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.apps:read`"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"},
 				{Name: "team_id", Type: "string", Required: false, Description: ""},
 				{Name: "enterprise_id", Type: "string", Required: false, Description: ""},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsArchiveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsArchiveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-archive-with-formdata-body",
 			ClassName:   "AdminConversationsArchiveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsConvertToPrivateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsConvertToPrivateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-convert-to-private-with-formdata-body",
 			ClassName:   "AdminConversationsConvertToPrivateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsCreateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsCreateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-create-with-formdata-body",
 			ClassName:   "AdminConversationsCreateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsDeleteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsDeleteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-delete-with-formdata-body",
 			ClassName:   "AdminConversationsDeleteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsDisconnectSharedWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsDisconnectSharedWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-disconnect-shared-with-formdata-body",
 			ClassName:   "AdminConversationsDisconnectSharedWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsEkmListOriginalConnectedChannelInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsEkmListOriginalConnectedChannelInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-ekm-list-original-connected-channel-info",
 			ClassName:   "AdminConversationsEkmListOriginalConnectedChannelInfo",
 			Description: "List all disconnected channels—i.e., channels that were once connected to other workspaces and then disconnected—and the corresponding original channel IDs for key revocation with EKM.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.conversations:read`"},
 				{Name: "channel_ids", Type: "string", Required: false, Description: "A comma-separated list of channels to filter to."},
 				{Name: "team_ids", Type: "string", Required: false, Description: "A comma-separated list of the workspaces to which the channels you would like returned belong."},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsGetConversationPrefs", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsGetConversationPrefs", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-get-conversation-prefs",
 			ClassName:   "AdminConversationsGetConversationPrefs",
 			Description: "Get conversation preferences for a public or private channel.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "channel_id", Type: "string", Required: true, Description: "The channel to get preferences for."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "prefs", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsGetTeams", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsGetTeams", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-get-teams",
 			ClassName:   "AdminConversationsGetTeams",
 			Description: "Get all the workspaces a given public or private channel is connected to within this Enterprise org.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "channel_id", Type: "string", Required: true, Description: "The channel to determine connected workspaces within the organization for."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 				{Name: "team_ids", Type: "array", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsInviteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsInviteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-invite-with-formdata-body",
 			ClassName:   "AdminConversationsInviteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsRenameWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRenameWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-rename-with-formdata-body",
 			ClassName:   "AdminConversationsRenameWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessAddGroupWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessAddGroupWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-restrict-access-add-group-with-formdata-body",
 			ClassName:   "AdminConversationsRestrictAccessAddGroupWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessListGroups", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessListGroups", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-restrict-access-list-groups",
 			ClassName:   "AdminConversationsRestrictAccessListGroups",
 			Description: "List all IDP Groups linked to a channel",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.conversations:read`"},
 				{Name: "channel_id", Type: "string", Required: true, Description: ""},
 				{Name: "team_id", Type: "string", Required: false, Description: "The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessRemoveGroupWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessRemoveGroupWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-restrict-access-remove-group-with-formdata-body",
 			ClassName:   "AdminConversationsRestrictAccessRemoveGroupWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsSearch", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsSearch", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-search",
 			ClassName:   "AdminConversationsSearch",
 			Description: "Search for public or private channels in an Enterprise organization.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "team_ids", Type: "string", Required: false, Description: "Comma separated string of team IDs, signifying the workspaces to search through."},
 				{Name: "query", Type: "string", Required: false, Description: "Name of the the channel to query by."},
 				{Name: "limit", Type: "integer", Required: false, Description: "Maximum number of items to be returned. Must be between 1 - 20 both inclusive. Default is 10."},
@@ -212,513 +214,513 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "sort", Type: "string", Required: false, Description: "Possible values are `relevant` (search ranking based on what we think is closest), `name` (alphabetical), `member_count` (number of users in the channel), and `created` (date channel was created). You can optionally pair this with the `sort_dir` arg to change how it is sorted "},
 				{Name: "sort_dir", Type: "string", Required: false, Description: "Sort direction. Possible values are `asc` for ascending order like (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2, 1) or (c, b, a)"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "channels", Type: "array", Required: true, Description: ""},
 				{Name: "next_cursor", Type: "string", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsSetConversationPrefsWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsSetConversationPrefsWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-set-conversation-prefs-with-formdata-body",
 			ClassName:   "AdminConversationsSetConversationPrefsWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsSetTeamsWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsSetTeamsWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-set-teams-with-formdata-body",
 			ClassName:   "AdminConversationsSetTeamsWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminConversationsUnarchiveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsUnarchiveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-conversations-unarchive-with-formdata-body",
 			ClassName:   "AdminConversationsUnarchiveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminEmojiAddAliasWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiAddAliasWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-emoji-add-alias-with-formdata-body",
 			ClassName:   "AdminEmojiAddAliasWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminEmojiAddWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiAddWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-emoji-add-with-formdata-body",
 			ClassName:   "AdminEmojiAddWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminEmojiList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-emoji-list",
 			ClassName:   "AdminEmojiList",
 			Description: "List emoji for an Enterprise Grid organization.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:read`"},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminEmojiRemoveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiRemoveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-emoji-remove-with-formdata-body",
 			ClassName:   "AdminEmojiRemoveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminEmojiRenameWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiRenameWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-emoji-rename-with-formdata-body",
 			ClassName:   "AdminEmojiRenameWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminInviteRequestsApproveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsApproveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-invite-requests-approve-with-formdata-body",
 			ClassName:   "AdminInviteRequestsApproveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminInviteRequestsApprovedList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsApprovedList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-invite-requests-approved-list",
 			ClassName:   "AdminInviteRequestsApprovedList",
 			Description: "List all approved workspace invite requests.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "team_id", Type: "string", Required: false, Description: "ID for the workspace where the invite requests were made."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Value of the `next_cursor` field sent as part of the previous API response"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The number of results that will be returned by the API on each invocation. Must be between 1 - 1000, both inclusive"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminInviteRequestsDeniedList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsDeniedList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-invite-requests-denied-list",
 			ClassName:   "AdminInviteRequestsDeniedList",
 			Description: "List all denied workspace invite requests.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "team_id", Type: "string", Required: false, Description: "ID for the workspace where the invite requests were made."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Value of the `next_cursor` field sent as part of the previous api response"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The number of results that will be returned by the API on each invocation. Must be between 1 - 1000 both inclusive"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminInviteRequestsDenyWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsDenyWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-invite-requests-deny-with-formdata-body",
 			ClassName:   "AdminInviteRequestsDenyWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminInviteRequestsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-invite-requests-list",
 			ClassName:   "AdminInviteRequestsList",
 			Description: "List all pending workspace invite requests.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "team_id", Type: "string", Required: false, Description: "ID for the workspace where the invite requests were made."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Value of the `next_cursor` field sent as part of the previous API response"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The number of results that will be returned by the API on each invocation. Must be between 1 - 1000, both inclusive"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsAdminsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsAdminsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-admins-list",
 			ClassName:   "AdminTeamsAdminsList",
 			Description: "List all of the admins on a given workspace.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:read`"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."},
 				{Name: "team_id", Type: "string", Required: true, Description: ""},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsCreateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsCreateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-create-with-formdata-body",
 			ClassName:   "AdminTeamsCreateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-list",
 			ClassName:   "AdminTeamsList",
 			Description: "List all teams on an Enterprise organization",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Must be between 1 - 100 both inclusive."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsOwnersList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsOwnersList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-owners-list",
 			ClassName:   "AdminTeamsOwnersList",
 			Description: "List all of the owners on a given workspace.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:read`"},
 				{Name: "team_id", Type: "string", Required: true, Description: ""},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsSettingsInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-settings-info",
 			ClassName:   "AdminTeamsSettingsInfo",
 			Description: "Fetch information about settings in a workspace",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "team_id", Type: "string", Required: true, Description: ""},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDefaultChannelsWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDefaultChannelsWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-settings-set-default-channels-with-formdata-body",
 			ClassName:   "AdminTeamsSettingsSetDefaultChannelsWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDescriptionWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDescriptionWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-settings-set-description-with-formdata-body",
 			ClassName:   "AdminTeamsSettingsSetDescriptionWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDiscoverabilityWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDiscoverabilityWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-settings-set-discoverability-with-formdata-body",
 			ClassName:   "AdminTeamsSettingsSetDiscoverabilityWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsSettingsSetIconWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetIconWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-settings-set-icon-with-formdata-body",
 			ClassName:   "AdminTeamsSettingsSetIconWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminTeamsSettingsSetNameWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetNameWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-teams-settings-set-name-with-formdata-body",
 			ClassName:   "AdminTeamsSettingsSetNameWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsergroupsAddChannelsWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsAddChannelsWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-usergroups-add-channels-with-formdata-body",
 			ClassName:   "AdminUsergroupsAddChannelsWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsergroupsAddTeamsWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsAddTeamsWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-usergroups-add-teams-with-formdata-body",
 			ClassName:   "AdminUsergroupsAddTeamsWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsergroupsListChannels", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsListChannels", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-usergroups-list-channels",
 			ClassName:   "AdminUsergroupsListChannels",
 			Description: "List the channels linked to an org-level IDP group (user group).",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "usergroup_id", Type: "string", Required: true, Description: "ID of the IDP group to list default channels for."},
 				{Name: "team_id", Type: "string", Required: false, Description: "ID of the the workspace."},
 				{Name: "include_num_members", Type: "boolean", Required: false, Description: "Flag to include or exclude the count of members per channel."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsergroupsRemoveChannelsWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsRemoveChannelsWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-usergroups-remove-channels-with-formdata-body",
 			ClassName:   "AdminUsergroupsRemoveChannelsWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersAssignWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersAssignWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-assign-with-formdata-body",
 			ClassName:   "AdminUsersAssignWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersInviteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersInviteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-invite-with-formdata-body",
 			ClassName:   "AdminUsersInviteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-list",
 			ClassName:   "AdminUsersList",
 			Description: "List users on a workspace",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "team_id", Type: "string", Required: true, Description: "The ID (`T1234`) of the workspace."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."},
 				{Name: "limit", Type: "integer", Required: false, Description: "Limit for how many users to be retrieved per page"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersRemoveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersRemoveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-remove-with-formdata-body",
 			ClassName:   "AdminUsersRemoveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersSessionInvalidateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSessionInvalidateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-session-invalidate-with-formdata-body",
 			ClassName:   "AdminUsersSessionInvalidateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersSessionResetWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSessionResetWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-session-reset-with-formdata-body",
 			ClassName:   "AdminUsersSessionResetWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersSetAdminWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetAdminWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-set-admin-with-formdata-body",
 			ClassName:   "AdminUsersSetAdminWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersSetExpirationWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetExpirationWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-set-expiration-with-formdata-body",
 			ClassName:   "AdminUsersSetExpirationWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersSetOwnerWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetOwnerWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-set-owner-with-formdata-body",
 			ClassName:   "AdminUsersSetOwnerWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#AdminUsersSetRegularWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetRegularWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "admin-users-set-regular-with-formdata-body",
 			ClassName:   "AdminUsersSetRegularWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ApiTest", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ApiTest", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "api-test",
 			ClassName:   "ApiTest",
 			Description: "Checks API calling code.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "error", Type: "string", Required: false, Description: "Error response to return"},
 				{Name: "foo", Type: "string", Required: false, Description: "example property to return"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AppsEventAuthorizationsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AppsEventAuthorizationsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "apps-event-authorizations-list",
 			ClassName:   "AppsEventAuthorizationsList",
 			Description: "Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "event_context", Type: "string", Required: true, Description: ""},
 				{Name: "cursor", Type: "string", Required: false, Description: ""},
 				{Name: "limit", Type: "integer", Required: false, Description: ""},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AppsPermissionsInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AppsPermissionsInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "apps-permissions-info",
 			ClassName:   "AppsPermissionsInfo",
 			Description: "Returns list of permissions this app has on a team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `none`"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "info", Type: "object", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AppsPermissionsRequest", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AppsPermissionsRequest", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "apps-permissions-request",
 			ClassName:   "AppsPermissionsRequest",
 			Description: "Allows an app to request additional scopes",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `none`"},
 				{Name: "scopes", Type: "string", Required: true, Description: "A comma separated list of scopes to request for"},
 				{Name: "trigger_id", Type: "string", Required: true, Description: "Token used to trigger the permissions API"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AppsPermissionsResourcesList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AppsPermissionsResourcesList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "apps-permissions-resources-list",
 			ClassName:   "AppsPermissionsResourcesList",
 			Description: "Returns list of resource grants this app has on a team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `none`"},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "resources", Type: "array", Required: true, Description: ""},
 				{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AppsPermissionsScopesList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AppsPermissionsScopesList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "apps-permissions-scopes-list",
 			ClassName:   "AppsPermissionsScopesList",
 			Description: "Returns list of scopes this app has on a team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `none`"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "scopes", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AppsPermissionsUsersList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AppsPermissionsUsersList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "apps-permissions-users-list",
 			ClassName:   "AppsPermissionsUsersList",
 			Description: "Returns list of user grants and corresponding scopes this app has on a team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `none`"},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AppsPermissionsUsersRequest", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AppsPermissionsUsersRequest", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "apps-permissions-users-request",
 			ClassName:   "AppsPermissionsUsersRequest",
 			Description: "Enables an app to trigger a permissions modal to grant an app access to a user access scope.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `none`"},
 				{Name: "scopes", Type: "string", Required: true, Description: "A comma separated list of user scopes to request for"},
 				{Name: "trigger_id", Type: "string", Required: true, Description: "Token used to trigger the request"},
 				{Name: "user", Type: "string", Required: true, Description: "The user this scope is being requested for"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AppsUninstall", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AppsUninstall", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "apps-uninstall",
 			ClassName:   "AppsUninstall",
 			Description: "Uninstalls your app from a workspace.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `none`"},
 				{Name: "client_id", Type: "string", Required: false, Description: "Issued when you created your application."},
 				{Name: "client_secret", Type: "string", Required: false, Description: "Issued when you created your application."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AuthRevoke", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AuthRevoke", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "auth-revoke",
 			ClassName:   "AuthRevoke",
 			Description: "Revokes a token.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `none`"},
 				{Name: "test", Type: "boolean", Required: false, Description: "Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "revoked", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#AuthTest", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#AuthTest", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "auth-test",
 			ClassName:   "AuthTest",
 			Description: "Checks authentication & identity.",
-			Inputs:      []connectorFieldInfo{},
-			Outputs: []connectorFieldInfo{
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "bot_id", Type: "string", Required: false, Description: ""},
 				{Name: "is_enterprise_install", Type: "boolean", Required: false, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
@@ -729,200 +731,200 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "user_id", Type: "string", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#BotsInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#BotsInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "bots-info",
 			ClassName:   "BotsInfo",
 			Description: "Gets information about a bot user.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `users:read`"},
 				{Name: "bot", Type: "string", Required: false, Description: "Bot user to get info on"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "bot", Type: "object", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#CallsAddWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#CallsAddWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "calls-add-with-formdata-body",
 			ClassName:   "CallsAddWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#CallsEndWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#CallsEndWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "calls-end-with-formdata-body",
 			ClassName:   "CallsEndWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#CallsInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#CallsInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "calls-info",
 			ClassName:   "CallsInfo",
 			Description: "Returns information about a Call.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "id", Type: "string", Required: true, Description: "`id` of the Call returned by the [`calls.add`](/methods/calls.add) method."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#CallsParticipantsAddWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#CallsParticipantsAddWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "calls-participants-add-with-formdata-body",
 			ClassName:   "CallsParticipantsAddWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#CallsParticipantsRemoveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#CallsParticipantsRemoveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "calls-participants-remove-with-formdata-body",
 			ClassName:   "CallsParticipantsRemoveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#CallsUpdateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#CallsUpdateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "calls-update-with-formdata-body",
 			ClassName:   "CallsUpdateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatDeleteScheduledMessageWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatDeleteScheduledMessageWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-delete-scheduled-message-with-formdata-body",
 			ClassName:   "ChatDeleteScheduledMessageWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatDeleteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatDeleteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-delete-with-formdata-body",
 			ClassName:   "ChatDeleteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatGetPermalink", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatGetPermalink", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-get-permalink",
 			ClassName:   "ChatGetPermalink",
 			Description: "Retrieve a permalink URL for a specific extant message",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `none`"},
 				{Name: "channel", Type: "string", Required: true, Description: "The ID of the conversation or channel containing the message"},
 				{Name: "message_ts", Type: "string", Required: true, Description: "A message's `ts` value, uniquely identifying it within a channel"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "channel", Type: "string", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "permalink", Type: "string", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatMeMessageWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatMeMessageWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-me-message-with-formdata-body",
 			ClassName:   "ChatMeMessageWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatPostEphemeralWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatPostEphemeralWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-post-ephemeral-with-formdata-body",
 			ClassName:   "ChatPostEphemeralWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatPostMessageWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatPostMessageWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-post-message-with-formdata-body",
 			ClassName:   "ChatPostMessageWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatScheduleMessageWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatScheduleMessageWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-schedule-message-with-formdata-body",
 			ClassName:   "ChatScheduleMessageWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatScheduledMessagesList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatScheduledMessagesList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-scheduled-messages-list",
 			ClassName:   "ChatScheduledMessagesList",
 			Description: "Returns a list of scheduled messages.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "channel", Type: "string", Required: false, Description: "The channel of the scheduled messages"},
 				{Name: "latest", Type: "number", Required: false, Description: "A UNIX timestamp of the latest value in the time range"},
 				{Name: "oldest", Type: "number", Required: false, Description: "A UNIX timestamp of the oldest value in the time range"},
 				{Name: "limit", Type: "integer", Required: false, Description: "Maximum number of original entries to return."},
 				{Name: "cursor", Type: "string", Required: false, Description: "For pagination purposes, this is the `cursor` value returned from a previous call to `chat.scheduledmessages.list` indicating where you want to start this call from."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "response_metadata", Type: "object", Required: true, Description: ""},
 				{Name: "scheduled_messages", Type: "array", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatUnfurlWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatUnfurlWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-unfurl-with-formdata-body",
 			ClassName:   "ChatUnfurlWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ChatUpdateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ChatUpdateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "chat-update-with-formdata-body",
 			ClassName:   "ChatUpdateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsArchiveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsArchiveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-archive-with-formdata-body",
 			ClassName:   "ConversationsArchiveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsCloseWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsCloseWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-close-with-formdata-body",
 			ClassName:   "ConversationsCloseWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsCreateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsCreateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-create-with-formdata-body",
 			ClassName:   "ConversationsCreateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsHistory", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsHistory", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-history",
 			ClassName:   "ConversationsHistory",
 			Description: "Fetches a conversation's history of messages and events.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `conversations:history`"},
 				{Name: "channel", Type: "string", Required: false, Description: "Conversation ID to fetch history for."},
 				{Name: "latest", Type: "number", Required: false, Description: "End of time range of messages to include in results."},
@@ -931,7 +933,7 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "channel_actions_count", Type: "integer", Required: true, Description: ""},
 				{Name: "channel_actions_ts", Type: "object", Required: true, Description: ""},
 				{Name: "has_more", Type: "boolean", Required: true, Description: ""},
@@ -940,119 +942,119 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "pin_count", Type: "integer", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-info",
 			ClassName:   "ConversationsInfo",
 			Description: "Retrieve information about a conversation.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `conversations:read`"},
 				{Name: "channel", Type: "string", Required: false, Description: "Conversation ID to learn more about"},
 				{Name: "include_locale", Type: "boolean", Required: false, Description: "Set this to `true` to receive the locale for this conversation. Defaults to `false`"},
 				{Name: "include_num_members", Type: "boolean", Required: false, Description: "Set to `true` to include the member count for the specified conversation. Defaults to `false`"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "channel", Type: "object", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsInviteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsInviteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-invite-with-formdata-body",
 			ClassName:   "ConversationsInviteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsJoinWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsJoinWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-join-with-formdata-body",
 			ClassName:   "ConversationsJoinWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsKickWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsKickWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-kick-with-formdata-body",
 			ClassName:   "ConversationsKickWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsLeaveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsLeaveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-leave-with-formdata-body",
 			ClassName:   "ConversationsLeaveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-list",
 			ClassName:   "ConversationsList",
 			Description: "Lists all channels in a Slack team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `conversations:read`"},
 				{Name: "exclude_archived", Type: "boolean", Required: false, Description: "Set to `true` to exclude archived channels from the list"},
 				{Name: "types", Type: "string", Required: false, Description: "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "channels", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsMarkWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsMarkWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-mark-with-formdata-body",
 			ClassName:   "ConversationsMarkWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsMembers", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsMembers", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-members",
 			ClassName:   "ConversationsMembers",
 			Description: "Retrieve members of a conversation.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `conversations:read`"},
 				{Name: "channel", Type: "string", Required: false, Description: "ID of the conversation to retrieve members for"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "members", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "response_metadata", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsOpenWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsOpenWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-open-with-formdata-body",
 			ClassName:   "ConversationsOpenWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsRenameWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsRenameWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-rename-with-formdata-body",
 			ClassName:   "ConversationsRenameWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsReplies", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsReplies", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-replies",
 			ClassName:   "ConversationsReplies",
 			Description: "Retrieve a thread of messages posted to a conversation",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `conversations:history`"},
 				{Name: "channel", Type: "string", Required: false, Description: "Conversation ID to fetch thread from."},
 				{Name: "ts", Type: "number", Required: false, Description: "Unique identifier of a thread's parent message. `ts` must be the timestamp of an existing message with 0 or more replies. If there are no replies then just the single message referenced by `ts` will return - it is just an ordinary, unthreaded message."},
@@ -1062,66 +1064,66 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "has_more", Type: "boolean", Required: false, Description: ""},
 				{Name: "messages", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsSetPurposeWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsSetPurposeWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-set-purpose-with-formdata-body",
 			ClassName:   "ConversationsSetPurposeWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsSetTopicWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsSetTopicWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-set-topic-with-formdata-body",
 			ClassName:   "ConversationsSetTopicWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ConversationsUnarchiveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsUnarchiveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "conversations-unarchive-with-formdata-body",
 			ClassName:   "ConversationsUnarchiveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#DialogOpen", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#DialogOpen", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "dialog-open",
 			ClassName:   "DialogOpen",
 			Description: "Open a dialog with a user",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "dialog", Type: "string", Required: true, Description: "The dialog definition. This must be a JSON-encoded string."},
 				{Name: "trigger_id", Type: "string", Required: true, Description: "Exchange a trigger to post to the user."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#DndEndDnd", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#DndEndDnd", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "dnd-end-dnd",
 			ClassName:   "DndEndDnd",
 			Description: "Ends the current user's Do Not Disturb session immediately.",
-			Inputs:      []connectorFieldInfo{},
-			Outputs: []connectorFieldInfo{
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#DndEndSnooze", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#DndEndSnooze", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "dnd-end-snooze",
 			ClassName:   "DndEndSnooze",
 			Description: "Ends the current user's snooze mode immediately.",
-			Inputs:      []connectorFieldInfo{},
-			Outputs: []connectorFieldInfo{
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "dnd_enabled", Type: "boolean", Required: true, Description: ""},
 				{Name: "next_dnd_end_ts", Type: "integer", Required: true, Description: ""},
 				{Name: "next_dnd_start_ts", Type: "integer", Required: true, Description: ""},
@@ -1129,16 +1131,16 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "snooze_enabled", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#DndInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#DndInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "dnd-info",
 			ClassName:   "DndInfo",
 			Description: "Retrieves a user's current Do Not Disturb status.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `dnd:read`"},
 				{Name: "user", Type: "string", Required: false, Description: "User to fetch status for (defaults to current user)"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "dnd_enabled", Type: "boolean", Required: true, Description: ""},
 				{Name: "next_dnd_end_ts", Type: "integer", Required: true, Description: ""},
 				{Name: "next_dnd_start_ts", Type: "integer", Required: true, Description: ""},
@@ -1148,61 +1150,61 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "snooze_remaining", Type: "integer", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#DndSetSnoozeWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#DndSetSnoozeWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "dnd-set-snooze-with-formdata-body",
 			ClassName:   "DndSetSnoozeWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#DndTeamInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#DndTeamInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "dnd-team-info",
 			ClassName:   "DndTeamInfo",
 			Description: "Retrieves the Do Not Disturb status for up to 50 users on a team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `dnd:read`"},
 				{Name: "users", Type: "string", Required: false, Description: "Comma-separated list of users to fetch Do Not Disturb status for"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#EmojiList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#EmojiList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "emoji-list",
 			ClassName:   "EmojiList",
 			Description: "Lists custom emoji for a team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `emoji:read`"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesCommentsDeleteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesCommentsDeleteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-comments-delete-with-formdata-body",
 			ClassName:   "FilesCommentsDeleteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesDeleteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesDeleteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-delete-with-formdata-body",
 			ClassName:   "FilesDeleteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-info",
 			ClassName:   "FilesInfo",
 			Description: "Gets information about a file.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `files:read`"},
 				{Name: "file", Type: "string", Required: false, Description: "Specify a file by providing its ID."},
 				{Name: "count", Type: "string", Required: false, Description: ""},
@@ -1210,7 +1212,7 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "comments", Type: "array", Required: true, Description: ""},
 				{Name: "content_html", Type: "object", Required: false, Description: ""},
 				{Name: "editor", Type: "string", Required: false, Description: ""},
@@ -1220,12 +1222,12 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-list",
 			ClassName:   "FilesList",
 			Description: "List for a team, in a channel, or from a user with applied filters.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `files:read`"},
 				{Name: "user", Type: "string", Required: false, Description: "Filter files created by a single user."},
 				{Name: "channel", Type: "string", Required: false, Description: "Filter files appearing in a specific channel, indicated by its ID."},
@@ -1236,40 +1238,40 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "page", Type: "string", Required: false, Description: ""},
 				{Name: "show_files_hidden_by_limit", Type: "boolean", Required: false, Description: "Show truncated file info for files hidden due to being too old, and the team who owns the file being over the file limit."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "files", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "paging", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesRemoteAddWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteAddWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-remote-add-with-formdata-body",
 			ClassName:   "FilesRemoteAddWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesRemoteInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-remote-info",
 			ClassName:   "FilesRemoteInfo",
 			Description: "Retrieve information about a remote file added to Slack",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `remote_files:read`"},
 				{Name: "file", Type: "string", Required: false, Description: "Specify a file by providing its ID."},
 				{Name: "external_id", Type: "string", Required: false, Description: "Creator defined GUID for the file."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesRemoteList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-remote-list",
 			ClassName:   "FilesRemoteList",
 			Description: "Retrieve information about a remote file added to Slack",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `remote_files:read`"},
 				{Name: "channel", Type: "string", Required: false, Description: "Filter files appearing in a specific channel, indicated by its ID."},
 				{Name: "ts_from", Type: "number", Required: false, Description: "Filter files created after this timestamp (inclusive)."},
@@ -1277,77 +1279,77 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesRemoteRemoveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteRemoveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-remote-remove-with-formdata-body",
 			ClassName:   "FilesRemoteRemoveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesRemoteShare", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteShare", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-remote-share",
 			ClassName:   "FilesRemoteShare",
 			Description: "Share a remote file into a channel.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `remote_files:share`"},
 				{Name: "file", Type: "string", Required: false, Description: "Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both are required."},
 				{Name: "external_id", Type: "string", Required: false, Description: "The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either this field or `file` or both are required."},
 				{Name: "channels", Type: "string", Required: false, Description: "Comma-separated list of channel IDs where the file will be shared."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesRemoteUpdateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteUpdateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-remote-update-with-formdata-body",
 			ClassName:   "FilesRemoteUpdateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesRevokePublicURLWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesRevokePublicURLWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-revoke-public-u-r-l-with-formdata-body",
 			ClassName:   "FilesRevokePublicURLWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesSharedPublicURLWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesSharedPublicURLWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-shared-public-u-r-l-with-formdata-body",
 			ClassName:   "FilesSharedPublicURLWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#FilesUploadWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#FilesUploadWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "files-upload-with-formdata-body",
 			ClassName:   "FilesUploadWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#MigrationExchange", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#MigrationExchange", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "migration-exchange",
 			ClassName:   "MigrationExchange",
 			Description: "For Enterprise Grid workspaces, map local user IDs to global user IDs",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `tokens.basic`"},
 				{Name: "users", Type: "string", Required: true, Description: "A comma-separated list of user ids, up to 400 per request"},
 				{Name: "team_id", Type: "string", Required: false, Description: "Specify team_id starts with `T` in case of Org Token"},
 				{Name: "to_old", Type: "boolean", Required: false, Description: "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "enterprise_id", Type: "string", Required: true, Description: ""},
 				{Name: "invalid_user_ids", Type: "array", Required: false, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
@@ -1355,94 +1357,94 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "user_id_map", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#OauthAccess", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#OauthAccess", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "oauth-access",
 			ClassName:   "OauthAccess",
 			Description: "Exchanges a temporary OAuth verifier code for an access token.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "client_id", Type: "string", Required: false, Description: "Issued when you created your application."},
 				{Name: "client_secret", Type: "string", Required: false, Description: "Issued when you created your application."},
 				{Name: "code", Type: "string", Required: false, Description: "The `code` param returned via the OAuth callback."},
 				{Name: "redirect_uri", Type: "string", Required: false, Description: "This must match the originally submitted URI (if one was sent)."},
 				{Name: "single_channel", Type: "boolean", Required: false, Description: "Request the user to add your app only to a single channel. Only valid with a [legacy workspace app](https://api.slack.com/legacy-workspace-apps)."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#OauthToken", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#OauthToken", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "oauth-token",
 			ClassName:   "OauthToken",
 			Description: "Exchanges a temporary OAuth verifier code for a workspace token.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "client_id", Type: "string", Required: false, Description: "Issued when you created your application."},
 				{Name: "client_secret", Type: "string", Required: false, Description: "Issued when you created your application."},
 				{Name: "code", Type: "string", Required: false, Description: "The `code` param returned via the OAuth callback."},
 				{Name: "redirect_uri", Type: "string", Required: false, Description: "This must match the originally submitted URI (if one was sent)."},
 				{Name: "single_channel", Type: "boolean", Required: false, Description: "Request the user to add your app only to a single channel."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#OauthV2Access", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#OauthV2Access", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "oauth-v2-access",
 			ClassName:   "OauthV2Access",
 			Description: "Exchanges a temporary OAuth verifier code for an access token.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "client_id", Type: "string", Required: false, Description: "Issued when you created your application."},
 				{Name: "client_secret", Type: "string", Required: false, Description: "Issued when you created your application."},
 				{Name: "code", Type: "string", Required: true, Description: "The `code` param returned via the OAuth callback."},
 				{Name: "redirect_uri", Type: "string", Required: false, Description: "This must match the originally submitted URI (if one was sent)."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#PinsAddWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#PinsAddWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "pins-add-with-formdata-body",
 			ClassName:   "PinsAddWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#PinsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#PinsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "pins-list",
 			ClassName:   "PinsList",
 			Description: "Lists items pinned to a channel.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `pins:read`"},
 				{Name: "channel", Type: "string", Required: true, Description: "Channel to get pinned items for."},
 			},
-			Outputs: []connectorFieldInfo{},
+			Outputs: []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#PinsRemoveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#PinsRemoveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "pins-remove-with-formdata-body",
 			ClassName:   "PinsRemoveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ReactionsAddWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsAddWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reactions-add-with-formdata-body",
 			ClassName:   "ReactionsAddWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ReactionsGet", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsGet", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reactions-get",
 			ClassName:   "ReactionsGet",
 			Description: "Gets reactions for an item.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `reactions:read`"},
 				{Name: "channel", Type: "string", Required: false, Description: "Channel where the message to get reactions for was posted."},
 				{Name: "file", Type: "string", Required: false, Description: "File to get reactions for."},
@@ -1450,14 +1452,14 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "full", Type: "boolean", Required: false, Description: "If true always return the complete reaction list."},
 				{Name: "timestamp", Type: "string", Required: false, Description: "Timestamp of the message to get reactions for."},
 			},
-			Outputs: []connectorFieldInfo{},
+			Outputs: []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ReactionsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reactions-list",
 			ClassName:   "ReactionsList",
 			Description: "Lists reactions made by a user.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `reactions:read`"},
 				{Name: "user", Type: "string", Required: false, Description: "Show reactions made by this user. Defaults to the authed user."},
 				{Name: "full", Type: "boolean", Required: false, Description: "If true always return the complete reaction list."},
@@ -1466,95 +1468,95 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "cursor", Type: "string", Required: false, Description: "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details."},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "items", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "paging", Type: "object", Required: false, Description: ""},
 				{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ReactionsRemoveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsRemoveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reactions-remove-with-formdata-body",
 			ClassName:   "ReactionsRemoveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#RemindersAddWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#RemindersAddWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reminders-add-with-formdata-body",
 			ClassName:   "RemindersAddWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#RemindersCompleteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#RemindersCompleteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reminders-complete-with-formdata-body",
 			ClassName:   "RemindersCompleteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#RemindersDeleteWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#RemindersDeleteWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reminders-delete-with-formdata-body",
 			ClassName:   "RemindersDeleteWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#RemindersInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#RemindersInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reminders-info",
 			ClassName:   "RemindersInfo",
 			Description: "Gets information about a reminder.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `reminders:read`"},
 				{Name: "reminder", Type: "string", Required: false, Description: "The ID of the reminder"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "reminder", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#RemindersList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#RemindersList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "reminders-list",
 			ClassName:   "RemindersList",
 			Description: "Lists all reminders created by or for a given user.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `reminders:read`"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "reminders", Type: "array", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#RtmConnect", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#RtmConnect", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "rtm-connect",
 			ClassName:   "RtmConnect",
 			Description: "Starts a Real Time Messaging session.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `rtm:stream`"},
 				{Name: "batch_presence_aware", Type: "boolean", Required: false, Description: "Batch presence deliveries via subscription. Enabling changes the shape of `presence_change` events. See [batch presence](/docs/presence-and-status#batching)."},
 				{Name: "presence_sub", Type: "boolean", Required: false, Description: "Only deliver presence events when requested by subscription. See [presence subscriptions](/docs/presence-and-status#subscriptions)."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "self", Type: "object", Required: true, Description: ""},
 				{Name: "team", Type: "object", Required: true, Description: ""},
 				{Name: "url", Type: "string", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#SearchMessages", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#SearchMessages", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "search-messages",
 			ClassName:   "SearchMessages",
 			Description: "Searches for messages matching a query.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `search:read`"},
 				{Name: "count", Type: "integer", Required: false, Description: "Pass the number of results you want per \"page\". Maximum of `100`."},
 				{Name: "highlight", Type: "boolean", Required: false, Description: "Pass a value of `true` to enable query highlight markers (see below)."},
@@ -1563,94 +1565,94 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "sort", Type: "string", Required: false, Description: "Return matches sorted by either `score` or `timestamp`."},
 				{Name: "sort_dir", Type: "string", Required: false, Description: "Change sort direction to ascending (`asc`) or descending (`desc`)."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#StarsAddWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#StarsAddWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "stars-add-with-formdata-body",
 			ClassName:   "StarsAddWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#StarsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#StarsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "stars-list",
 			ClassName:   "StarsList",
 			Description: "Lists stars for a user.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `stars:read`"},
 				{Name: "count", Type: "string", Required: false, Description: ""},
 				{Name: "page", Type: "string", Required: false, Description: ""},
 				{Name: "cursor", Type: "string", Required: false, Description: "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details."},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "items", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "paging", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#StarsRemoveWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#StarsRemoveWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "stars-remove-with-formdata-body",
 			ClassName:   "StarsRemoveWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#TeamAccessLogs", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#TeamAccessLogs", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "team-access-logs",
 			ClassName:   "TeamAccessLogs",
 			Description: "Gets the access logs for the current team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin`"},
 				{Name: "before", Type: "string", Required: false, Description: "End of time range of logs to include in results (inclusive)."},
 				{Name: "count", Type: "string", Required: false, Description: ""},
 				{Name: "page", Type: "string", Required: false, Description: ""},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "logins", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "paging", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#TeamBillableInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#TeamBillableInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "team-billable-info",
 			ClassName:   "TeamBillableInfo",
 			Description: "Gets billable users information for the current team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin`"},
 				{Name: "user", Type: "string", Required: false, Description: "A user to retrieve the billable information for. Defaults to all users."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#TeamInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#TeamInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "team-info",
 			ClassName:   "TeamInfo",
 			Description: "Gets information about the current team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `team:read`"},
 				{Name: "team", Type: "string", Required: false, Description: "Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "team", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#TeamIntegrationLogs", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#TeamIntegrationLogs", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "team-integration-logs",
 			ClassName:   "TeamIntegrationLogs",
 			Description: "Gets the integration logs for the current team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin`"},
 				{Name: "app_id", Type: "string", Required: false, Description: "Filter logs to this Slack app. Defaults to all logs."},
 				{Name: "change_type", Type: "string", Required: false, Description: "Filter logs with this change type. Defaults to all logs."},
@@ -1659,103 +1661,103 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "service_id", Type: "string", Required: false, Description: "Filter logs to this service. Defaults to all logs."},
 				{Name: "user", Type: "string", Required: false, Description: "Filter logs generated by this user’s actions. Defaults to all logs."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "logs", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "paging", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#TeamProfileGet", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#TeamProfileGet", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "team-profile-get",
 			ClassName:   "TeamProfileGet",
 			Description: "Retrieve a team's profile.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `users.profile:read`"},
 				{Name: "visibility", Type: "string", Required: false, Description: "Filter by visibility."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "profile", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsergroupsCreateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsCreateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "usergroups-create-with-formdata-body",
 			ClassName:   "UsergroupsCreateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsergroupsDisableWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsDisableWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "usergroups-disable-with-formdata-body",
 			ClassName:   "UsergroupsDisableWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsergroupsEnableWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsEnableWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "usergroups-enable-with-formdata-body",
 			ClassName:   "UsergroupsEnableWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsergroupsList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "usergroups-list",
 			ClassName:   "UsergroupsList",
 			Description: "List all User Groups for a team",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "include_users", Type: "boolean", Required: false, Description: "Include the list of users for each User Group."},
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `usergroups:read`"},
 				{Name: "include_count", Type: "boolean", Required: false, Description: "Include the number of users in each User Group."},
 				{Name: "include_disabled", Type: "boolean", Required: false, Description: "Include disabled User Groups."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "usergroups", Type: "array", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsergroupsUpdateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsUpdateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "usergroups-update-with-formdata-body",
 			ClassName:   "UsergroupsUpdateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsergroupsUsersList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsUsersList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "usergroups-users-list",
 			ClassName:   "UsergroupsUsersList",
 			Description: "List all users in a User Group",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `usergroups:read`"},
 				{Name: "include_disabled", Type: "boolean", Required: false, Description: "Allow results that involve disabled User Groups."},
 				{Name: "usergroup", Type: "string", Required: true, Description: "The encoded ID of the User Group to update."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "users", Type: "array", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsergroupsUsersUpdateWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsUsersUpdateWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "usergroups-users-update-with-formdata-body",
 			ClassName:   "UsergroupsUsersUpdateWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersConversations", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersConversations", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-conversations",
 			ClassName:   "UsersConversations",
 			Description: "List conversations the calling user may access.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `conversations:read`"},
 				{Name: "user", Type: "string", Required: false, Description: "Browse conversations by a specific user ID's membership. Non-public channels are restricted to those where the calling user shares membership."},
 				{Name: "types", Type: "string", Required: false, Description: "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`"},
@@ -1763,30 +1765,30 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "channels", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersDeletePhotoWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersDeletePhotoWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-delete-photo-with-formdata-body",
 			ClassName:   "UsersDeletePhotoWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersGetPresence", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersGetPresence", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-get-presence",
 			ClassName:   "UsersGetPresence",
 			Description: "Gets user presence information.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `users:read`"},
 				{Name: "user", Type: "string", Required: false, Description: "User to get presence info on. Defaults to the authed user."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "auto_away", Type: "boolean", Required: false, Description: ""},
 				{Name: "connection_count", Type: "integer", Required: false, Description: ""},
 				{Name: "last_activity", Type: "integer", Required: false, Description: ""},
@@ -1796,206 +1798,206 @@ func SlackCWLClasses() []connectorClassEntry {
 				{Name: "presence", Type: "string", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersIdentity", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersIdentity", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-identity",
 			ClassName:   "UsersIdentity",
 			Description: "Get a user's identity.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `identity.basic`"},
 			},
-			Outputs: []connectorFieldInfo{},
+			Outputs: []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersInfo", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersInfo", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-info",
 			ClassName:   "UsersInfo",
 			Description: "Gets information about a user.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `users:read`"},
 				{Name: "include_locale", Type: "boolean", Required: false, Description: "Set this to `true` to receive the locale for this user. Defaults to `false`"},
 				{Name: "user", Type: "string", Required: false, Description: "User to get info on"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "user", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersList", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersList", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-list",
 			ClassName:   "UsersList",
 			Description: "Lists all users in a Slack team.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `users:read`"},
 				{Name: "limit", Type: "integer", Required: false, Description: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached. Providing no `limit` value will result in Slack attempting to deliver you the entire result set. If the collection is too large you may experience `limit_required` or HTTP 500 errors."},
 				{Name: "cursor", Type: "string", Required: false, Description: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."},
 				{Name: "include_locale", Type: "boolean", Required: false, Description: "Set this to `true` to receive the locale for users. Defaults to `false`"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "cache_ts", Type: "integer", Required: true, Description: ""},
 				{Name: "members", Type: "array", Required: true, Description: ""},
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersLookupByEmail", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersLookupByEmail", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-lookup-by-email",
 			ClassName:   "UsersLookupByEmail",
 			Description: "Find a user with an email address.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `users:read.email`"},
 				{Name: "email", Type: "string", Required: true, Description: "An email address belonging to a user in the workspace"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "user", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersProfileGet", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersProfileGet", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-profile-get",
 			ClassName:   "UsersProfileGet",
 			Description: "Retrieves a user's profile information.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `users.profile:read`"},
 				{Name: "include_labels", Type: "boolean", Required: false, Description: "Include labels for each ID in custom profile fields"},
 				{Name: "user", Type: "string", Required: false, Description: "User to retrieve profile info for"},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				{Name: "profile", Type: "object", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersProfileSetWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersProfileSetWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-profile-set-with-formdata-body",
 			ClassName:   "UsersProfileSetWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersSetActive", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersSetActive", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-set-active",
 			ClassName:   "UsersSetActive",
 			Description: "Marked a user as active. Deprecated and non-functional.",
-			Inputs:      []connectorFieldInfo{},
-			Outputs: []connectorFieldInfo{
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersSetPhotoWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersSetPhotoWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-set-photo-with-formdata-body",
 			ClassName:   "UsersSetPhotoWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#UsersSetPresenceWithFormdataBody", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#UsersSetPresenceWithFormdataBody", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "users-set-presence-with-formdata-body",
 			ClassName:   "UsersSetPresenceWithFormdataBody",
 			Description: "",
-			Inputs:      []connectorFieldInfo{},
-			Outputs:     []connectorFieldInfo{},
+			Inputs:      []extensions.ConnectorFieldInfo{},
+			Outputs:     []extensions.ConnectorFieldInfo{},
 		}},
-		{"https://yardrail.com/cwl/slack#ViewsOpen", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ViewsOpen", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "views-open",
 			ClassName:   "ViewsOpen",
 			Description: "Open a view for a user.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "trigger_id", Type: "string", Required: true, Description: "Exchange a trigger to post to the user."},
 				{Name: "view", Type: "string", Required: true, Description: "A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ViewsPublish", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ViewsPublish", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "views-publish",
 			ClassName:   "ViewsPublish",
 			Description: "Publish a static view for a User.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "user_id", Type: "string", Required: true, Description: "`id` of the user you want publish a view to."},
 				{Name: "view", Type: "string", Required: true, Description: "A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."},
 				{Name: "hash", Type: "string", Required: false, Description: "A string that represents view state to protect against possible race conditions."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ViewsPush", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ViewsPush", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "views-push",
 			ClassName:   "ViewsPush",
 			Description: "Push a view onto the stack of a root view.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "trigger_id", Type: "string", Required: true, Description: "Exchange a trigger to post to the user."},
 				{Name: "view", Type: "string", Required: true, Description: "A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#ViewsUpdate", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#ViewsUpdate", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "views-update",
 			ClassName:   "ViewsUpdate",
 			Description: "Update an existing view.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "view_id", Type: "string", Required: false, Description: "A unique identifier of the view to be updated. Either `view_id` or `external_id` is required."},
 				{Name: "external_id", Type: "string", Required: false, Description: "A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either `view_id` or `external_id` is required."},
 				{Name: "view", Type: "string", Required: false, Description: "A [view object](/reference/surfaces/views). This must be a JSON-encoded string."},
 				{Name: "hash", Type: "string", Required: false, Description: "A string that represents view state to protect against possible race conditions."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#WorkflowsStepCompleted", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#WorkflowsStepCompleted", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "workflows-step-completed",
 			ClassName:   "WorkflowsStepCompleted",
 			Description: "Indicate that an app's step in a workflow completed execution.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "workflow_step_execute_id", Type: "string", Required: true, Description: "Context identifier that maps to the correct workflow step execution."},
 				{Name: "outputs", Type: "string", Required: false, Description: "Key-value object of outputs from your step. Keys of this object reflect the configured `key` properties of your [`outputs`](/reference/workflows/workflow_step#output) array from your `workflow_step` object."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#WorkflowsStepFailed", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#WorkflowsStepFailed", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "workflows-step-failed",
 			ClassName:   "WorkflowsStepFailed",
 			Description: "Indicate that an app's step in a workflow failed to execute.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "workflow_step_execute_id", Type: "string", Required: true, Description: "Context identifier that maps to the correct workflow step execution."},
 				{Name: "error", Type: "string", Required: true, Description: "A JSON-based object with a `message` property that should contain a human readable error message."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
-		{"https://yardrail.com/cwl/slack#WorkflowsUpdateStep", connectorClassInfo{
+		{ClassIRI: "https://yardrail.com/cwl/slack#WorkflowsUpdateStep", Info: extensions.ConnectorClassInfo{
 			ConnectorID: "slack",
 			Function:    "workflows-update-step",
 			ClassName:   "WorkflowsUpdateStep",
 			Description: "Update the configuration for a workflow extension step.",
-			Inputs: []connectorFieldInfo{
+			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "workflow_step_edit_id", Type: "string", Required: true, Description: "A context identifier provided with `view_submission` payloads used to call back to `workflows.updateStep`."},
 				{Name: "inputs", Type: "string", Required: false, Description: "A JSON key-value map of inputs required from a user during configuration. This is the data your app expects to receive when the workflow step starts. **Please note**: the embedded variable format is set and replaced by the workflow system. You cannot create custom variables that will be replaced at runtime. [Read more about variables in workflow steps here](/workflows/steps#variables)."},
 				{Name: "outputs", Type: "string", Required: false, Description: "An JSON array of output objects used during step execution. This is the data your app agrees to provide when your workflow step was executed."},
 				{Name: "step_name", Type: "string", Required: false, Description: "An optional field that can be used to override the step name that is shown in the Workflow Builder."},
 				{Name: "step_image_url", Type: "string", Required: false, Description: "An optional field that can be used to override app image that is shown in the Workflow Builder."},
 			},
-			Outputs: []connectorFieldInfo{
+			Outputs: []extensions.ConnectorFieldInfo{
 				{Name: "ok", Type: "boolean", Required: true, Description: ""},
 			},
 		}},
