@@ -23,65 +23,45 @@ func NewHandler(resolve ServiceResolver) *Handler {
 func (h *Handler) RegisterAccount(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("account-create",
-			mcp.WithDescription("AccountCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-account",
+			mcp.WithDescription("Create Account
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/account (the `CreateAccount` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.AccountCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateAccountJSONRequestBody)")),
 		),
-		h.handleAccountCreateWithResponse,
+		h.handleCreateAccountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("account-readbyid",
-			mcp.WithDescription("request returning *AccountReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleAccountReadbyidWithResponse,
-	)
+		mcp.NewTool("query-account",
+			mcp.WithDescription("Query Account
 
-}
+Returns a wrapper object for the known response body format(s).
 
-// RegisterVendorCredit adds VendorCredit tools to the given MCP server.
-func (h *Handler) RegisterVendorCredit(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("account-readall",
-			mcp.WithDescription("AccountReadall"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+Corresponds with GET /v3/company/{realmId}/query (the `QueryAccount` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithString("query", mcp.Description("Query")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.AccountReadallJSONRequestBody)")),
 		),
-		h.handleAccountReadallWithResponse,
+		h.handleQueryAccountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("vendorcredit-create",
-			mcp.WithDescription("VendorcreditCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.VendorcreditCreateJSONRequestBody)")),
-		),
-		h.handleVendorcreditCreateWithResponse,
-	)
+		mcp.NewTool("read-account",
+			mcp.WithDescription("Read Account
 
-	s.AddTool(
-		mcp.NewTool("vendorcredit-readbyid",
-			mcp.WithDescription("request returning *VendorcreditReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/account/{id} (the `ReadAccount` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleVendorcreditReadbyidWithResponse,
+		h.handleReadAccountWithResponse,
 	)
 
 }
@@ -90,80 +70,31 @@ func (h *Handler) RegisterVendorCredit(s *server.MCPServer) {
 func (h *Handler) RegisterAttachable(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("attachable-create",
-			mcp.WithDescription("AttachableCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-attachable",
+			mcp.WithDescription("Create Attachable
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/attachable (the `CreateAttachable` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.AttachableCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateAttachableJSONRequestBody)")),
 		),
-		h.handleAttachableCreateWithResponse,
+		h.handleCreateAttachableWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("attachable-readbyid",
-			mcp.WithDescription("request returning *AttachableReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-attachable",
+			mcp.WithDescription("Read Attachable
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/attachable/{id} (the `ReadAttachable` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleAttachableReadbyidWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("upload-attachments",
-			mcp.WithDescription("UploadAttachments"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UploadAttachmentsJSONRequestBody)")),
-		),
-		h.handleUploadAttachmentsWithResponse,
-	)
-
-}
-
-// RegisterBatch adds Batch tools to the given MCP server.
-func (h *Handler) RegisterBatch(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("batch",
-			mcp.WithDescription("Batch"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.BatchJSONRequestBody)")),
-		),
-		h.handleBatchWithResponse,
-	)
-
-}
-
-// RegisterBill adds Bill tools to the given MCP server.
-func (h *Handler) RegisterBill(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("bill-create",
-			mcp.WithDescription("BillCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.BillCreateJSONRequestBody)")),
-		),
-		h.handleBillCreateWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("bill-getbyid",
-			mcp.WithDescription("request returning *BillGetbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleBillGetbyidWithResponse,
+		h.handleReadAttachableWithResponse,
 	)
 
 }
@@ -172,26 +103,64 @@ func (h *Handler) RegisterBill(s *server.MCPServer) {
 func (h *Handler) RegisterBillPayment(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("billpayment-create",
-			mcp.WithDescription("BillpaymentCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-bill-payment",
+			mcp.WithDescription("Create BillPayment
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/billpayment (the `CreateBillPayment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.BillpaymentCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBillPaymentJSONRequestBody)")),
 		),
-		h.handleBillpaymentCreateWithResponse,
+		h.handleCreateBillPaymentWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("billpayment-readbyid",
-			mcp.WithDescription("request returning *BillpaymentReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-bill-payment",
+			mcp.WithDescription("Read BillPayment
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/billpayment/{id} (the `ReadBillPayment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleBillpaymentReadbyidWithResponse,
+		h.handleReadBillPaymentWithResponse,
+	)
+
+}
+
+// RegisterBill adds Bill tools to the given MCP server.
+func (h *Handler) RegisterBill(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("create-bill",
+			mcp.WithDescription("Create Bill
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/bill (the `CreateBill` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBillJSONRequestBody)")),
+		),
+		h.handleCreateBillWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-bill",
+			mcp.WithDescription("Read Bill
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/bill/{id} (the `ReadBill` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadBillWithResponse,
 	)
 
 }
@@ -200,42 +169,64 @@ func (h *Handler) RegisterBillPayment(s *server.MCPServer) {
 func (h *Handler) RegisterBudget(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("budget-create",
-			mcp.WithDescription("BudgetCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-budget",
+			mcp.WithDescription("Create Budget
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/budget (the `CreateBudget` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.BudgetCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBudgetJSONRequestBody)")),
 		),
-		h.handleBudgetCreateWithResponse,
+		h.handleCreateBudgetWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("budget-getbyid",
-			mcp.WithDescription("request returning *BudgetGetbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-budget",
+			mcp.WithDescription("Read Budget
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/budget/{id} (the `ReadBudget` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleBudgetGetbyidWithResponse,
+		h.handleReadBudgetWithResponse,
 	)
 
 }
 
-// RegisterChangeDataCapture adds ChangeDataCapture tools to the given MCP server.
-func (h *Handler) RegisterChangeDataCapture(s *server.MCPServer) {
+// RegisterChangeOrder adds ChangeOrder tools to the given MCP server.
+func (h *Handler) RegisterChangeOrder(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("cdc-read",
-			mcp.WithDescription("request returning *CdcReadResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("entities", mcp.Description("Entities")),
-			mcp.WithString("changedSince", mcp.Description("ChangedSince")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
+		mcp.NewTool("create-change-order",
+			mcp.WithDescription("Create ChangeOrder
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/changeorder (the `CreateChangeOrder` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateChangeOrderJSONRequestBody)")),
 		),
-		h.handleCdcReadWithResponse,
+		h.handleCreateChangeOrderWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-change-order",
+			mcp.WithDescription("Read ChangeOrder
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/changeorder/{id} (the `ReadChangeOrder` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadChangeOrderWithResponse,
 	)
 
 }
@@ -244,116 +235,97 @@ func (h *Handler) RegisterChangeDataCapture(s *server.MCPServer) {
 func (h *Handler) RegisterClass(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("class-create",
-			mcp.WithDescription("ClassCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-class",
+			mcp.WithDescription("Create Class
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/class (the `CreateClass` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.ClassCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateClassJSONRequestBody)")),
 		),
-		h.handleClassCreateWithResponse,
+		h.handleCreateClassWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("class-readbyid",
-			mcp.WithDescription("request returning *ClassReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-class",
+			mcp.WithDescription("Read Class
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/class/{id} (the `ReadClass` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleClassReadbyidWithResponse,
+		h.handleReadClassWithResponse,
 	)
 
 }
 
-// RegisterCompanyInfo adds CompanyInfo tools to the given MCP server.
-func (h *Handler) RegisterCompanyInfo(s *server.MCPServer) {
+// RegisterCompanyCurrency adds CompanyCurrency tools to the given MCP server.
+func (h *Handler) RegisterCompanyCurrency(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("companyinfo-readbyid",
-			mcp.WithDescription("request returning *CompanyinfoReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("companyInfoId", mcp.Required(), mcp.Description("companyInfoId")),
+		mcp.NewTool("create-company-currency",
+			mcp.WithDescription("Create CompanyCurrency
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/companycurrency (the `CreateCompanyCurrency` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCompanyCurrencyJSONRequestBody)")),
 		),
-		h.handleCompanyinfoReadbyidWithResponse,
-	)
-
-}
-
-// RegisterChangeOrderNew adds ChangeOrderNew tools to the given MCP server.
-func (h *Handler) RegisterChangeOrderNew(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("create-change-order",
-			mcp.WithDescription("CreateChangeOrder"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateChangeOrderJSONRequestBody)")),
-		),
-		h.handleCreateChangeOrderWithResponse,
+		h.handleCreateCompanyCurrencyWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("read-change-order",
-			mcp.WithDescription("ReadChangeOrder"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-company-currency",
+			mcp.WithDescription("Read CompanyCurrency
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/companycurrency/{id} (the `ReadCompanyCurrency` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.ReadChangeOrderJSONRequestBody)")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 		),
-		h.handleReadChangeOrderWithResponse,
+		h.handleReadCompanyCurrencyWithResponse,
 	)
 
 }
 
-// RegisterPreferences adds Preferences tools to the given MCP server.
-func (h *Handler) RegisterPreferences(s *server.MCPServer) {
+// RegisterCreditCardPaymentTxn adds CreditCardPaymentTxn tools to the given MCP server.
+func (h *Handler) RegisterCreditCardPaymentTxn(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("createinventoryadjustment-copy",
-			mcp.WithDescription("request returning *CreateinventoryadjustmentCopyResp"),
+		mcp.NewTool("create-credit-card-payment-txn",
+			mcp.WithDescription("Create CreditCardPaymentTxn
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/creditcardpayment (the `CreateCreditCardPaymentTxn` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCreditCardPaymentTxnJSONRequestBody)")),
 		),
-		h.handleCreateinventoryadjustmentCopyWithResponse,
+		h.handleCreateCreditCardPaymentTxnWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("preference-read",
-			mcp.WithDescription("request returning *PreferenceReadResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-credit-card-payment-txn",
+			mcp.WithDescription("Read CreditCardPaymentTxn
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/creditcardpayment/{id} (the `ReadCreditCardPaymentTxn` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handlePreferenceReadWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("preference-update",
-			mcp.WithDescription("PreferenceUpdate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.PreferenceUpdateJSONRequestBody)")),
-		),
-		h.handlePreferenceUpdateWithResponse,
-	)
-
-}
-
-// RegisterInventoryAdjustment adds InventoryAdjustment tools to the given MCP server.
-func (h *Handler) RegisterInventoryAdjustment(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("createinventoryadjustment",
-			mcp.WithDescription("Createinventoryadjustment"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateinventoryadjustmentJSONRequestBody)")),
-		),
-		h.handleCreateinventoryadjustmentWithResponse,
+		h.handleReadCreditCardPaymentTxnWithResponse,
 	)
 
 }
@@ -362,26 +334,46 @@ func (h *Handler) RegisterInventoryAdjustment(s *server.MCPServer) {
 func (h *Handler) RegisterCreditMemo(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("creditmemo-create",
-			mcp.WithDescription("CreditmemoCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-credit-memo",
+			mcp.WithDescription("Create CreditMemo
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/creditmemo (the `CreateCreditMemo` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreditmemoCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCreditMemoJSONRequestBody)")),
 		),
-		h.handleCreditmemoCreateWithResponse,
+		h.handleCreateCreditMemoWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("creditmemo-readbyid",
-			mcp.WithDescription("request returning *CreditmemoReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-credit-memo",
+			mcp.WithDescription("Read CreditMemo
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/creditmemo/{id} (the `ReadCreditMemo` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleCreditmemoReadbyidWithResponse,
+		h.handleReadCreditMemoWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("send-credit-memo",
+			mcp.WithDescription("Send CreditMemo
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/creditmemo/{id}/send (the `SendCreditMemo` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendCreditMemoJSONRequestBody)")),
+		),
+		h.handleSendCreditMemoWithResponse,
 	)
 
 }
@@ -390,25 +382,31 @@ func (h *Handler) RegisterCreditMemo(s *server.MCPServer) {
 func (h *Handler) RegisterCustomer(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("customer-create",
-			mcp.WithDescription("CustomerCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-customer",
+			mcp.WithDescription("Create Customer
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/customer (the `CreateCustomer` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CustomerCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCustomerJSONRequestBody)")),
 		),
-		h.handleCustomerCreateWithResponse,
+		h.handleCreateCustomerWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("customer-readbyid",
-			mcp.WithDescription("request returning *CustomerReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-customer",
+			mcp.WithDescription("Read Customer
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/customer/{id} (the `ReadCustomer` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleCustomerReadbyidWithResponse,
+		h.handleReadCustomerWithResponse,
 	)
 
 }
@@ -417,25 +415,31 @@ func (h *Handler) RegisterCustomer(s *server.MCPServer) {
 func (h *Handler) RegisterDepartment(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("department-create",
-			mcp.WithDescription("DepartmentCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-department",
+			mcp.WithDescription("Create Department
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/department (the `CreateDepartment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.DepartmentCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateDepartmentJSONRequestBody)")),
 		),
-		h.handleDepartmentCreateWithResponse,
+		h.handleCreateDepartmentWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("department-readbyid",
-			mcp.WithDescription("request returning *DepartmentReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-department",
+			mcp.WithDescription("Read Department
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/department/{id} (the `ReadDepartment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleDepartmentReadbyidWithResponse,
+		h.handleReadDepartmentWithResponse,
 	)
 
 }
@@ -444,26 +448,31 @@ func (h *Handler) RegisterDepartment(s *server.MCPServer) {
 func (h *Handler) RegisterDeposit(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("deposit-create",
-			mcp.WithDescription("DepositCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-deposit",
+			mcp.WithDescription("Create Deposit
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/deposit (the `CreateDeposit` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.DepositCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateDepositJSONRequestBody)")),
 		),
-		h.handleDepositCreateWithResponse,
+		h.handleCreateDepositWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("deposit-readbyid",
-			mcp.WithDescription("request returning *DepositReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-deposit",
+			mcp.WithDescription("Read Deposit
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/deposit/{id} (the `ReadDeposit` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleDepositReadbyidWithResponse,
+		h.handleReadDepositWithResponse,
 	)
 
 }
@@ -472,25 +481,31 @@ func (h *Handler) RegisterDeposit(s *server.MCPServer) {
 func (h *Handler) RegisterEmployee(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("employee-create",
-			mcp.WithDescription("EmployeeCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-employee",
+			mcp.WithDescription("Create Employee
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/employee (the `CreateEmployee` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.EmployeeCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateEmployeeJSONRequestBody)")),
 		),
-		h.handleEmployeeCreateWithResponse,
+		h.handleCreateEmployeeWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("employee-readbyid",
-			mcp.WithDescription("request returning *EmployeeReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-employee",
+			mcp.WithDescription("Read Employee
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/employee/{id} (the `ReadEmployee` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleEmployeeReadbyidWithResponse,
+		h.handleReadEmployeeWithResponse,
 	)
 
 }
@@ -499,43 +514,93 @@ func (h *Handler) RegisterEmployee(s *server.MCPServer) {
 func (h *Handler) RegisterEstimate(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("estimate-create",
-			mcp.WithDescription("EstimateCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-estimate",
+			mcp.WithDescription("Create Estimate
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/estimate (the `CreateEstimate` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.EstimateCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateEstimateJSONRequestBody)")),
 		),
-		h.handleEstimateCreateWithResponse,
+		h.handleCreateEstimateWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("estimate-readbyid",
-			mcp.WithDescription("request returning *EstimateReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("get-estimate-p-d-f",
+			mcp.WithDescription("Get Estimate as PDF
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/estimate/{id}/pdf (the `GetEstimatePDF` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleEstimateReadbyidWithResponse,
+		h.handleGetEstimatePDFWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-estimate",
+			mcp.WithDescription("Read Estimate
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/estimate/{id} (the `ReadEstimate` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadEstimateWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("send-estimate",
+			mcp.WithDescription("Send Estimate
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/estimate/{id}/send (the `SendEstimate` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendEstimateJSONRequestBody)")),
+		),
+		h.handleSendEstimateWithResponse,
 	)
 
 }
 
-// RegisterExchangeRate adds ExchangeRate tools to the given MCP server.
-func (h *Handler) RegisterExchangeRate(s *server.MCPServer) {
+// RegisterInventoryAdjustment adds InventoryAdjustment tools to the given MCP server.
+func (h *Handler) RegisterInventoryAdjustment(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("exchangerate-getdetails",
-			mcp.WithDescription("request returning *ExchangerateGetdetailsResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("sourcecurrencycode", mcp.Description("Sourcecurrencycode")),
-			mcp.WithString("asofdate", mcp.Description("Asofdate")),
+		mcp.NewTool("create-inventory-adjustment",
+			mcp.WithDescription("Create InventoryAdjustment
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/inventoryadjustment (the `CreateInventoryAdjustment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateInventoryAdjustmentJSONRequestBody)")),
 		),
-		h.handleExchangerateGetdetailsWithResponse,
+		h.handleCreateInventoryAdjustmentWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-inventory-adjustment",
+			mcp.WithDescription("Read InventoryAdjustment
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/inventoryadjustment/{id} (the `ReadInventoryAdjustment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadInventoryAdjustmentWithResponse,
 	)
 
 }
@@ -544,26 +609,60 @@ func (h *Handler) RegisterExchangeRate(s *server.MCPServer) {
 func (h *Handler) RegisterInvoice(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("invoice-create",
-			mcp.WithDescription("InvoiceCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-invoice",
+			mcp.WithDescription("Create Invoice
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/invoice (the `CreateInvoice` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.InvoiceCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateInvoiceJSONRequestBody)")),
 		),
-		h.handleInvoiceCreateWithResponse,
+		h.handleCreateInvoiceWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("invoice-readbyid",
-			mcp.WithDescription("request returning *InvoiceReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("get-invoice-p-d-f",
+			mcp.WithDescription("Get Invoice as PDF
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/invoice/{id}/pdf (the `GetInvoicePDF` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleInvoiceReadbyidWithResponse,
+		h.handleGetInvoicePDFWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-invoice",
+			mcp.WithDescription("Read Invoice
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/invoice/{id} (the `ReadInvoice` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadInvoiceWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("send-invoice",
+			mcp.WithDescription("Send Invoice
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/invoice/{id}/send (the `SendInvoice` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendInvoiceJSONRequestBody)")),
+		),
+		h.handleSendInvoiceWithResponse,
 	)
 
 }
@@ -572,24 +671,64 @@ func (h *Handler) RegisterInvoice(s *server.MCPServer) {
 func (h *Handler) RegisterItem(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("item-create",
-			mcp.WithDescription("ItemCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-item",
+			mcp.WithDescription("Create Item
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/item (the `CreateItem` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.ItemCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateItemJSONRequestBody)")),
 		),
-		h.handleItemCreateWithResponse,
+		h.handleCreateItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("item-readbyid",
-			mcp.WithDescription("request returning *ItemReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-item",
+			mcp.WithDescription("Read Item
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/item/{id} (the `ReadItem` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleItemReadbyidWithResponse,
+		h.handleReadItemWithResponse,
+	)
+
+}
+
+// RegisterJournalCode adds JournalCode tools to the given MCP server.
+func (h *Handler) RegisterJournalCode(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("create-journal-code",
+			mcp.WithDescription("Create JournalCode
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/journalcode (the `CreateJournalCode` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateJournalCodeJSONRequestBody)")),
+		),
+		h.handleCreateJournalCodeWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-journal-code",
+			mcp.WithDescription("Read JournalCode
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/journalcode/{id} (the `ReadJournalCode` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadJournalCodeWithResponse,
 	)
 
 }
@@ -598,54 +737,31 @@ func (h *Handler) RegisterItem(s *server.MCPServer) {
 func (h *Handler) RegisterJournalEntry(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("journalentry-create",
-			mcp.WithDescription("JournalentryCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-journal-entry",
+			mcp.WithDescription("Create JournalEntry
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/journalentry (the `CreateJournalEntry` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.JournalentryCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateJournalEntryJSONRequestBody)")),
 		),
-		h.handleJournalentryCreateWithResponse,
+		h.handleCreateJournalEntryWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("journalentry-readbyid",
-			mcp.WithDescription("request returning *JournalentryReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-journal-entry",
+			mcp.WithDescription("Read JournalEntry
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/journalentry/{id} (the `ReadJournalEntry` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleJournalentryReadbyidWithResponse,
-	)
-
-}
-
-// RegisterPayment adds Payment tools to the given MCP server.
-func (h *Handler) RegisterPayment(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("payment-create",
-			mcp.WithDescription("PaymentCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.PaymentCreateJSONRequestBody)")),
-		),
-		h.handlePaymentCreateWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("payment-readbyid",
-			mcp.WithDescription("request returning *PaymentReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handlePaymentReadbyidWithResponse,
+		h.handleReadJournalEntryWithResponse,
 	)
 
 }
@@ -654,53 +770,79 @@ func (h *Handler) RegisterPayment(s *server.MCPServer) {
 func (h *Handler) RegisterPaymentMethod(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("paymentmethod-create",
-			mcp.WithDescription("PaymentmethodCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-payment-method",
+			mcp.WithDescription("Create PaymentMethod
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/paymentmethod (the `CreatePaymentMethod` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.PaymentmethodCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePaymentMethodJSONRequestBody)")),
 		),
-		h.handlePaymentmethodCreateWithResponse,
+		h.handleCreatePaymentMethodWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("paymentmethod-readbyid",
-			mcp.WithDescription("request returning *PaymentmethodReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-payment-method",
+			mcp.WithDescription("Read PaymentMethod
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/paymentmethod/{id} (the `ReadPaymentMethod` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handlePaymentmethodReadbyidWithResponse,
+		h.handleReadPaymentMethodWithResponse,
 	)
 
 }
 
-// RegisterPurchase adds Purchase tools to the given MCP server.
-func (h *Handler) RegisterPurchase(s *server.MCPServer) {
+// RegisterPayment adds Payment tools to the given MCP server.
+func (h *Handler) RegisterPayment(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("purchase-create",
-			mcp.WithDescription("PurchaseCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-payment",
+			mcp.WithDescription("Create Payment
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/payment (the `CreatePayment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.PurchaseCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePaymentJSONRequestBody)")),
 		),
-		h.handlePurchaseCreateWithResponse,
+		h.handleCreatePaymentWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("purchase-readbyid",
-			mcp.WithDescription("request returning *PurchaseReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-payment",
+			mcp.WithDescription("Read Payment
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/payment/{id} (the `ReadPayment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handlePurchaseReadbyidWithResponse,
+		h.handleReadPaymentWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("send-payment",
+			mcp.WithDescription("Send Payment
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/payment/{id}/send (the `SendPayment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendPaymentJSONRequestBody)")),
+		),
+		h.handleSendPaymentWithResponse,
 	)
 
 }
@@ -709,26 +851,112 @@ func (h *Handler) RegisterPurchase(s *server.MCPServer) {
 func (h *Handler) RegisterPurchaseOrder(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("purchaseorder-create",
-			mcp.WithDescription("PurchaseorderCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-purchase-order",
+			mcp.WithDescription("Create PurchaseOrder
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/purchaseorder (the `CreatePurchaseOrder` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.PurchaseorderCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePurchaseOrderJSONRequestBody)")),
 		),
-		h.handlePurchaseorderCreateWithResponse,
+		h.handleCreatePurchaseOrderWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("purchaseorder-readbyid",
-			mcp.WithDescription("request returning *PurchaseorderReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-purchase-order",
+			mcp.WithDescription("Read PurchaseOrder
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/purchaseorder/{id} (the `ReadPurchaseOrder` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handlePurchaseorderReadbyidWithResponse,
+		h.handleReadPurchaseOrderWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("send-purchase-order",
+			mcp.WithDescription("Send PurchaseOrder
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/purchaseorder/{id}/send (the `SendPurchaseOrder` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendPurchaseOrderJSONRequestBody)")),
+		),
+		h.handleSendPurchaseOrderWithResponse,
+	)
+
+}
+
+// RegisterPurchase adds Purchase tools to the given MCP server.
+func (h *Handler) RegisterPurchase(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("create-purchase",
+			mcp.WithDescription("Create Purchase
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/purchase (the `CreatePurchase` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePurchaseJSONRequestBody)")),
+		),
+		h.handleCreatePurchaseWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-purchase",
+			mcp.WithDescription("Read Purchase
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/purchase/{id} (the `ReadPurchase` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadPurchaseWithResponse,
+	)
+
+}
+
+// RegisterRecurringTransaction adds RecurringTransaction tools to the given MCP server.
+func (h *Handler) RegisterRecurringTransaction(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("create-recurring-transaction",
+			mcp.WithDescription("Create RecurringTransaction
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/recurringtransaction (the `CreateRecurringTransaction` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateRecurringTransactionJSONRequestBody)")),
+		),
+		h.handleCreateRecurringTransactionWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-recurring-transaction",
+			mcp.WithDescription("Read RecurringTransaction
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/recurringtransaction/{id} (the `ReadRecurringTransaction` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadRecurringTransactionWithResponse,
 	)
 
 }
@@ -737,261 +965,46 @@ func (h *Handler) RegisterPurchaseOrder(s *server.MCPServer) {
 func (h *Handler) RegisterRefundReceipt(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("refundreceipt-create",
-			mcp.WithDescription("RefundreceiptCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-refund-receipt",
+			mcp.WithDescription("Create RefundReceipt
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/refundreceipt (the `CreateRefundReceipt` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.RefundreceiptCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateRefundReceiptJSONRequestBody)")),
 		),
-		h.handleRefundreceiptCreateWithResponse,
+		h.handleCreateRefundReceiptWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("refundreceipt-readbyid",
-			mcp.WithDescription("request returning *RefundreceiptReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-refund-receipt",
+			mcp.WithDescription("Read RefundReceipt
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/refundreceipt/{id} (the `ReadRefundReceipt` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleRefundreceiptReadbyidWithResponse,
-	)
-
-}
-
-// RegisterReports adds Reports tools to the given MCP server.
-func (h *Handler) RegisterReports(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("report-accountlist",
-			mcp.WithDescription("request returning *ReportAccountlistResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportAccountlistWithResponse,
+		h.handleReadRefundReceiptWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("report-agedpayabledetail",
-			mcp.WithDescription("request returning *ReportAgedpayabledetailResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportAgedpayabledetailWithResponse,
-	)
+		mcp.NewTool("send-refund-receipt",
+			mcp.WithDescription("Send RefundReceipt
 
-	s.AddTool(
-		mcp.NewTool("report-agedpayables",
-			mcp.WithDescription("request returning *ReportAgedpayablesResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportAgedpayablesWithResponse,
-	)
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 
-	s.AddTool(
-		mcp.NewTool("report-agedreceivabledetail",
-			mcp.WithDescription("request returning *ReportAgedreceivabledetailResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+Corresponds with POST /v3/company/{realmId}/refundreceipt/{id}/send (the `SendRefundReceipt` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendRefundReceiptJSONRequestBody)")),
 		),
-		h.handleReportAgedreceivabledetailWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-agedreceivables",
-			mcp.WithDescription("request returning *ReportAgedreceivablesResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportAgedreceivablesWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-balancesheet",
-			mcp.WithDescription("request returning *ReportBalancesheetResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportBalancesheetWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-cashflow",
-			mcp.WithDescription("request returning *ReportCashflowResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportCashflowWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-cashsales",
-			mcp.WithDescription("request returning *ReportCashsalesResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportCashsalesWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-customerbalance",
-			mcp.WithDescription("request returning *ReportCustomerbalanceResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportCustomerbalanceWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-customerbalancedetail",
-			mcp.WithDescription("request returning *ReportCustomerbalancedetailResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportCustomerbalancedetailWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-customerincome",
-			mcp.WithDescription("request returning *ReportCustomerincomeResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportCustomerincomeWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-customersales",
-			mcp.WithDescription("request returning *ReportCustomersalesResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportCustomersalesWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-departmentsales",
-			mcp.WithDescription("request returning *ReportDepartmentsalesResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportDepartmentsalesWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-generalledger",
-			mcp.WithDescription("request returning *ReportGeneralledgerResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportGeneralledgerWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-inventoryvaluationsummary",
-			mcp.WithDescription("request returning *ReportInventoryvaluationsummaryResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportInventoryvaluationsummaryWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-itemsales",
-			mcp.WithDescription("request returning *ReportItemsalesResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportItemsalesWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-profitandloss",
-			mcp.WithDescription("request returning *ReportProfitandlossResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportProfitandlossWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-profitandlossdetail",
-			mcp.WithDescription("request returning *ReportProfitandlossdetailResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportProfitandlossdetailWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-transactionlist",
-			mcp.WithDescription("request returning *ReportTransactionlistResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportTransactionlistWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-trialbalance",
-			mcp.WithDescription("request returning *ReportTrialbalanceResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportTrialbalanceWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-vendorbalance",
-			mcp.WithDescription("request returning *ReportVendorbalanceResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportVendorbalanceWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-vendorbalancedetail",
-			mcp.WithDescription("request returning *ReportVendorbalancedetailResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportVendorbalancedetailWithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("report-vendorexpense",
-			mcp.WithDescription("request returning *ReportVendorexpenseResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleReportVendorexpenseWithResponse,
+		h.handleSendRefundReceiptWithResponse,
 	)
 
 }
@@ -1000,27 +1013,60 @@ func (h *Handler) RegisterReports(s *server.MCPServer) {
 func (h *Handler) RegisterSalesReceipt(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("salesreceipt-create",
-			mcp.WithDescription("SalesreceiptCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-sales-receipt",
+			mcp.WithDescription("Create SalesReceipt
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/salesreceipt (the `CreateSalesReceipt` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("include", mcp.Description("Include")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SalesreceiptCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateSalesReceiptJSONRequestBody)")),
 		),
-		h.handleSalesreceiptCreateWithResponse,
+		h.handleCreateSalesReceiptWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("salesreceipt-readbyid",
-			mcp.WithDescription("request returning *SalesreceiptReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("get-sales-receipt-p-d-f",
+			mcp.WithDescription("Get SalesReceipt as PDF
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/salesreceipt/{id}/pdf (the `GetSalesReceiptPDF` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleSalesreceiptReadbyidWithResponse,
+		h.handleGetSalesReceiptPDFWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-sales-receipt",
+			mcp.WithDescription("Read SalesReceipt
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/salesreceipt/{id} (the `ReadSalesReceipt` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadSalesReceiptWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("send-sales-receipt",
+			mcp.WithDescription("Send SalesReceipt
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/salesreceipt/{id}/send (the `SendSalesReceipt` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendSalesReceiptJSONRequestBody)")),
+		),
+		h.handleSendSalesReceiptWithResponse,
 	)
 
 }
@@ -1029,73 +1075,50 @@ func (h *Handler) RegisterSalesReceipt(s *server.MCPServer) {
 func (h *Handler) RegisterTaxAgency(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("taxagency-create",
-			mcp.WithDescription("TaxagencyCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-tax-agency",
+			mcp.WithDescription("Create TaxAgency
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/taxagency (the `CreateTaxAgency` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.TaxagencyCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTaxAgencyJSONRequestBody)")),
 		),
-		h.handleTaxagencyCreateWithResponse,
+		h.handleCreateTaxAgencyWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("taxagency-readbyid",
-			mcp.WithDescription("request returning *TaxagencyReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-tax-agency",
+			mcp.WithDescription("Read TaxAgency
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/taxagency/{id} (the `ReadTaxAgency` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleTaxagencyReadbyidWithResponse,
+		h.handleReadTaxAgencyWithResponse,
 	)
 
 }
 
-// RegisterTaxCode adds TaxCode tools to the given MCP server.
-func (h *Handler) RegisterTaxCode(s *server.MCPServer) {
+// RegisterTaxservice adds Taxservice tools to the given MCP server.
+func (h *Handler) RegisterTaxservice(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("taxcode-readbyid",
-			mcp.WithDescription("request returning *TaxcodeReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+		mcp.NewTool("create-taxservice",
+			mcp.WithDescription("Create Taxservice
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/taxservice (the `CreateTaxservice` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTaxserviceJSONRequestBody)")),
 		),
-		h.handleTaxcodeReadbyidWithResponse,
-	)
-
-}
-
-// RegisterTaxRate adds TaxRate tools to the given MCP server.
-func (h *Handler) RegisterTaxRate(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("taxrate-readbyid",
-			mcp.WithDescription("request returning *TaxrateReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-		),
-		h.handleTaxrateReadbyidWithResponse,
-	)
-
-}
-
-// RegisterTaxService adds TaxService tools to the given MCP server.
-func (h *Handler) RegisterTaxService(s *server.MCPServer) {
-
-	s.AddTool(
-		mcp.NewTool("taxservice-create",
-			mcp.WithDescription("TaxserviceCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.TaxserviceCreateJSONRequestBody)")),
-		),
-		h.handleTaxserviceCreateWithResponse,
+		h.handleCreateTaxserviceWithResponse,
 	)
 
 }
@@ -1104,25 +1127,31 @@ func (h *Handler) RegisterTaxService(s *server.MCPServer) {
 func (h *Handler) RegisterTerm(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("term-create",
-			mcp.WithDescription("TermCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-term",
+			mcp.WithDescription("Create Term
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/term (the `CreateTerm` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.TermCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTermJSONRequestBody)")),
 		),
-		h.handleTermCreateWithResponse,
+		h.handleCreateTermWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("term-readbyid",
-			mcp.WithDescription("request returning *TermReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-term",
+			mcp.WithDescription("Read Term
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/term/{id} (the `ReadTerm` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleTermReadbyidWithResponse,
+		h.handleReadTermWithResponse,
 	)
 
 }
@@ -1131,15 +1160,31 @@ func (h *Handler) RegisterTerm(s *server.MCPServer) {
 func (h *Handler) RegisterTimeActivity(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("timeactivity-create",
-			mcp.WithDescription("TimeactivityCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-time-activity",
+			mcp.WithDescription("Create TimeActivity
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/timeactivity (the `CreateTimeActivity` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.TimeactivityCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTimeActivityJSONRequestBody)")),
 		),
-		h.handleTimeactivityCreateWithResponse,
+		h.handleCreateTimeActivityWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-time-activity",
+			mcp.WithDescription("Read TimeActivity
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/timeactivity/{id} (the `ReadTimeActivity` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadTimeActivityWithResponse,
 	)
 
 }
@@ -1148,26 +1193,64 @@ func (h *Handler) RegisterTimeActivity(s *server.MCPServer) {
 func (h *Handler) RegisterTransfer(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("transfer-create",
-			mcp.WithDescription("TransferCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-transfer",
+			mcp.WithDescription("Create Transfer
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/transfer (the `CreateTransfer` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("operation", mcp.Description("Operation")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.TransferCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTransferJSONRequestBody)")),
 		),
-		h.handleTransferCreateWithResponse,
+		h.handleCreateTransferWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("transfer-readbyid",
-			mcp.WithDescription("request returning *TransferReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-transfer",
+			mcp.WithDescription("Read Transfer
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/transfer/{id} (the `ReadTransfer` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleTransferReadbyidWithResponse,
+		h.handleReadTransferWithResponse,
+	)
+
+}
+
+// RegisterVendorCredit adds VendorCredit tools to the given MCP server.
+func (h *Handler) RegisterVendorCredit(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("create-vendor-credit",
+			mcp.WithDescription("Create VendorCredit
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/vendorcredit (the `CreateVendorCredit` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateVendorCreditJSONRequestBody)")),
+		),
+		h.handleCreateVendorCreditWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("read-vendor-credit",
+			mcp.WithDescription("Read VendorCredit
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/vendorcredit/{id} (the `ReadVendorCredit` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadVendorCreditWithResponse,
 	)
 
 }
@@ -1176,25 +1259,249 @@ func (h *Handler) RegisterTransfer(s *server.MCPServer) {
 func (h *Handler) RegisterVendor(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("vendor-create",
-			mcp.WithDescription("VendorCreate"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("create-vendor",
+			mcp.WithDescription("Create Vendor
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/vendor (the `CreateVendor` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.VendorCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateVendorJSONRequestBody)")),
 		),
-		h.handleVendorCreateWithResponse,
+		h.handleCreateVendorWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("vendor-readbyid",
-			mcp.WithDescription("request returning *VendorReadbyidResp"),
-			mcp.WithString("companyid", mcp.Required(), mcp.Description("companyid")),
+		mcp.NewTool("read-vendor",
+			mcp.WithDescription("Read Vendor
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/vendor/{id} (the `ReadVendor` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
-			mcp.WithString("user-agent", mcp.Description("UserAgent")),
 		),
-		h.handleVendorReadbyidWithResponse,
+		h.handleReadVendorWithResponse,
+	)
+
+}
+
+// RegisterCompanyInfo adds CompanyInfo tools to the given MCP server.
+func (h *Handler) RegisterCompanyInfo(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-company-info",
+			mcp.WithDescription("Read CompanyInfo
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/companyinfo/{id} (the `ReadCompanyInfo` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadCompanyInfoWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("update-company-info",
+			mcp.WithDescription("Update CompanyInfo
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/companyinfo (the `UpdateCompanyInfo` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdateCompanyInfoJSONRequestBody)")),
+		),
+		h.handleUpdateCompanyInfoWithResponse,
+	)
+
+}
+
+// RegisterCustomerType adds CustomerType tools to the given MCP server.
+func (h *Handler) RegisterCustomerType(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-customer-type",
+			mcp.WithDescription("Read CustomerType
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/customertype/{id} (the `ReadCustomerType` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadCustomerTypeWithResponse,
+	)
+
+}
+
+// RegisterEntitlements adds Entitlements tools to the given MCP server.
+func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-entitlements",
+			mcp.WithDescription("Read Entitlements
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/entitlements/{id} (the `ReadEntitlements` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadEntitlementsWithResponse,
+	)
+
+}
+
+// RegisterPreferences adds Preferences tools to the given MCP server.
+func (h *Handler) RegisterPreferences(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-preferences",
+			mcp.WithDescription("Read Preferences
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/preferences/{id} (the `ReadPreferences` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadPreferencesWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("update-preferences",
+			mcp.WithDescription("Update Preferences
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/preferences (the `UpdatePreferences` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdatePreferencesJSONRequestBody)")),
+		),
+		h.handleUpdatePreferencesWithResponse,
+	)
+
+}
+
+// RegisterReimburseCharge adds ReimburseCharge tools to the given MCP server.
+func (h *Handler) RegisterReimburseCharge(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-reimburse-charge",
+			mcp.WithDescription("Read ReimburseCharge
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/reimbursecharge/{id} (the `ReadReimburseCharge` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadReimburseChargeWithResponse,
+	)
+
+}
+
+// RegisterTaxClassification adds TaxClassification tools to the given MCP server.
+func (h *Handler) RegisterTaxClassification(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-tax-classification",
+			mcp.WithDescription("Read TaxClassification
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/taxclassification/{id} (the `ReadTaxClassification` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadTaxClassificationWithResponse,
+	)
+
+}
+
+// RegisterTaxCode adds TaxCode tools to the given MCP server.
+func (h *Handler) RegisterTaxCode(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-tax-code",
+			mcp.WithDescription("Read TaxCode
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/taxcode/{id} (the `ReadTaxCode` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadTaxCodeWithResponse,
+	)
+
+}
+
+// RegisterTaxPayment adds TaxPayment tools to the given MCP server.
+func (h *Handler) RegisterTaxPayment(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-tax-payment",
+			mcp.WithDescription("Read TaxPayment
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/taxpayment/{id} (the `ReadTaxPayment` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadTaxPaymentWithResponse,
+	)
+
+}
+
+// RegisterTaxRate adds TaxRate tools to the given MCP server.
+func (h *Handler) RegisterTaxRate(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("read-tax-rate",
+			mcp.WithDescription("Read TaxRate
+
+Returns a wrapper object for the known response body format(s).
+
+Corresponds with GET /v3/company/{realmId}/taxrate/{id} (the `ReadTaxRate` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+		),
+		h.handleReadTaxRateWithResponse,
+	)
+
+}
+
+// RegisterExchangeRate adds ExchangeRate tools to the given MCP server.
+func (h *Handler) RegisterExchangeRate(s *server.MCPServer) {
+
+	s.AddTool(
+		mcp.NewTool("update-exchange-rate",
+			mcp.WithDescription("Update ExchangeRate
+
+Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+
+Corresponds with POST /v3/company/{realmId}/exchangerate (the `UpdateExchangeRate` operationId)."),
+			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
+			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdateExchangeRateJSONRequestBody)")),
+		),
+		h.handleUpdateExchangeRateWithResponse,
 	)
 
 }
@@ -1202,43 +1509,49 @@ func (h *Handler) RegisterVendor(s *server.MCPServer) {
 // RegisterAll adds all tools to the given MCP server.
 func (h *Handler) RegisterAll(s *server.MCPServer) {
 	h.RegisterAccount(s)
-	h.RegisterVendorCredit(s)
 	h.RegisterAttachable(s)
-	h.RegisterBatch(s)
-	h.RegisterBill(s)
 	h.RegisterBillPayment(s)
+	h.RegisterBill(s)
 	h.RegisterBudget(s)
-	h.RegisterChangeDataCapture(s)
+	h.RegisterChangeOrder(s)
 	h.RegisterClass(s)
-	h.RegisterCompanyInfo(s)
-	h.RegisterChangeOrderNew(s)
-	h.RegisterPreferences(s)
-	h.RegisterInventoryAdjustment(s)
+	h.RegisterCompanyCurrency(s)
+	h.RegisterCreditCardPaymentTxn(s)
 	h.RegisterCreditMemo(s)
 	h.RegisterCustomer(s)
 	h.RegisterDepartment(s)
 	h.RegisterDeposit(s)
 	h.RegisterEmployee(s)
 	h.RegisterEstimate(s)
-	h.RegisterExchangeRate(s)
+	h.RegisterInventoryAdjustment(s)
 	h.RegisterInvoice(s)
 	h.RegisterItem(s)
+	h.RegisterJournalCode(s)
 	h.RegisterJournalEntry(s)
-	h.RegisterPayment(s)
 	h.RegisterPaymentMethod(s)
-	h.RegisterPurchase(s)
+	h.RegisterPayment(s)
 	h.RegisterPurchaseOrder(s)
+	h.RegisterPurchase(s)
+	h.RegisterRecurringTransaction(s)
 	h.RegisterRefundReceipt(s)
-	h.RegisterReports(s)
 	h.RegisterSalesReceipt(s)
 	h.RegisterTaxAgency(s)
-	h.RegisterTaxCode(s)
-	h.RegisterTaxRate(s)
-	h.RegisterTaxService(s)
+	h.RegisterTaxservice(s)
 	h.RegisterTerm(s)
 	h.RegisterTimeActivity(s)
 	h.RegisterTransfer(s)
+	h.RegisterVendorCredit(s)
 	h.RegisterVendor(s)
+	h.RegisterCompanyInfo(s)
+	h.RegisterCustomerType(s)
+	h.RegisterEntitlements(s)
+	h.RegisterPreferences(s)
+	h.RegisterReimburseCharge(s)
+	h.RegisterTaxClassification(s)
+	h.RegisterTaxCode(s)
+	h.RegisterTaxPayment(s)
+	h.RegisterTaxRate(s)
+	h.RegisterExchangeRate(s)
 }
 
 // Mounter can mount an MCPServer at a path. Implement this with your
@@ -1253,223 +1566,248 @@ func (h *Handler) MountAll(m Mounter, prefix string) {
 	{
 		s := server.NewMCPServer("quickbooks-account-Account", "0.1.0")
 		h.RegisterAccount(s)
-		m.Mount(prefix+"/account", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-VendorCredit", "0.1.0")
-		h.RegisterVendorCredit(s)
-		m.Mount(prefix+"/vendor-credit", s)
+		m.Mount(prefix + "/account", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Attachable", "0.1.0")
 		h.RegisterAttachable(s)
-		m.Mount(prefix+"/attachable", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-Batch", "0.1.0")
-		h.RegisterBatch(s)
-		m.Mount(prefix+"/batch", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-Bill", "0.1.0")
-		h.RegisterBill(s)
-		m.Mount(prefix+"/bill", s)
+		m.Mount(prefix + "/attachable", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-BillPayment", "0.1.0")
 		h.RegisterBillPayment(s)
-		m.Mount(prefix+"/bill-payment", s)
+		m.Mount(prefix + "/bill-payment", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-Bill", "0.1.0")
+		h.RegisterBill(s)
+		m.Mount(prefix + "/bill", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Budget", "0.1.0")
 		h.RegisterBudget(s)
-		m.Mount(prefix+"/budget", s)
+		m.Mount(prefix + "/budget", s)
 	}
 	{
-		s := server.NewMCPServer("quickbooks-account-ChangeDataCapture", "0.1.0")
-		h.RegisterChangeDataCapture(s)
-		m.Mount(prefix+"/change-data-capture", s)
+		s := server.NewMCPServer("quickbooks-account-ChangeOrder", "0.1.0")
+		h.RegisterChangeOrder(s)
+		m.Mount(prefix + "/change-order", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Class", "0.1.0")
 		h.RegisterClass(s)
-		m.Mount(prefix+"/class", s)
+		m.Mount(prefix + "/class", s)
 	}
 	{
-		s := server.NewMCPServer("quickbooks-account-CompanyInfo", "0.1.0")
-		h.RegisterCompanyInfo(s)
-		m.Mount(prefix+"/company-info", s)
+		s := server.NewMCPServer("quickbooks-account-CompanyCurrency", "0.1.0")
+		h.RegisterCompanyCurrency(s)
+		m.Mount(prefix + "/company-currency", s)
 	}
 	{
-		s := server.NewMCPServer("quickbooks-account-ChangeOrderNew", "0.1.0")
-		h.RegisterChangeOrderNew(s)
-		m.Mount(prefix+"/change-order-new", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-Preferences", "0.1.0")
-		h.RegisterPreferences(s)
-		m.Mount(prefix+"/preferences", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-InventoryAdjustment", "0.1.0")
-		h.RegisterInventoryAdjustment(s)
-		m.Mount(prefix+"/inventory-adjustment", s)
+		s := server.NewMCPServer("quickbooks-account-CreditCardPaymentTxn", "0.1.0")
+		h.RegisterCreditCardPaymentTxn(s)
+		m.Mount(prefix + "/credit-card-payment-txn", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-CreditMemo", "0.1.0")
 		h.RegisterCreditMemo(s)
-		m.Mount(prefix+"/credit-memo", s)
+		m.Mount(prefix + "/credit-memo", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Customer", "0.1.0")
 		h.RegisterCustomer(s)
-		m.Mount(prefix+"/customer", s)
+		m.Mount(prefix + "/customer", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Department", "0.1.0")
 		h.RegisterDepartment(s)
-		m.Mount(prefix+"/department", s)
+		m.Mount(prefix + "/department", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Deposit", "0.1.0")
 		h.RegisterDeposit(s)
-		m.Mount(prefix+"/deposit", s)
+		m.Mount(prefix + "/deposit", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Employee", "0.1.0")
 		h.RegisterEmployee(s)
-		m.Mount(prefix+"/employee", s)
+		m.Mount(prefix + "/employee", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Estimate", "0.1.0")
 		h.RegisterEstimate(s)
-		m.Mount(prefix+"/estimate", s)
+		m.Mount(prefix + "/estimate", s)
 	}
 	{
-		s := server.NewMCPServer("quickbooks-account-ExchangeRate", "0.1.0")
-		h.RegisterExchangeRate(s)
-		m.Mount(prefix+"/exchange-rate", s)
+		s := server.NewMCPServer("quickbooks-account-InventoryAdjustment", "0.1.0")
+		h.RegisterInventoryAdjustment(s)
+		m.Mount(prefix + "/inventory-adjustment", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Invoice", "0.1.0")
 		h.RegisterInvoice(s)
-		m.Mount(prefix+"/invoice", s)
+		m.Mount(prefix + "/invoice", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Item", "0.1.0")
 		h.RegisterItem(s)
-		m.Mount(prefix+"/item", s)
+		m.Mount(prefix + "/item", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-JournalCode", "0.1.0")
+		h.RegisterJournalCode(s)
+		m.Mount(prefix + "/journal-code", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-JournalEntry", "0.1.0")
 		h.RegisterJournalEntry(s)
-		m.Mount(prefix+"/journal-entry", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-Payment", "0.1.0")
-		h.RegisterPayment(s)
-		m.Mount(prefix+"/payment", s)
+		m.Mount(prefix + "/journal-entry", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-PaymentMethod", "0.1.0")
 		h.RegisterPaymentMethod(s)
-		m.Mount(prefix+"/payment-method", s)
+		m.Mount(prefix + "/payment-method", s)
 	}
 	{
-		s := server.NewMCPServer("quickbooks-account-Purchase", "0.1.0")
-		h.RegisterPurchase(s)
-		m.Mount(prefix+"/purchase", s)
+		s := server.NewMCPServer("quickbooks-account-Payment", "0.1.0")
+		h.RegisterPayment(s)
+		m.Mount(prefix + "/payment", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-PurchaseOrder", "0.1.0")
 		h.RegisterPurchaseOrder(s)
-		m.Mount(prefix+"/purchase-order", s)
+		m.Mount(prefix + "/purchase-order", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-Purchase", "0.1.0")
+		h.RegisterPurchase(s)
+		m.Mount(prefix + "/purchase", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-RecurringTransaction", "0.1.0")
+		h.RegisterRecurringTransaction(s)
+		m.Mount(prefix + "/recurring-transaction", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-RefundReceipt", "0.1.0")
 		h.RegisterRefundReceipt(s)
-		m.Mount(prefix+"/refund-receipt", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-Reports", "0.1.0")
-		h.RegisterReports(s)
-		m.Mount(prefix+"/reports", s)
+		m.Mount(prefix + "/refund-receipt", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-SalesReceipt", "0.1.0")
 		h.RegisterSalesReceipt(s)
-		m.Mount(prefix+"/sales-receipt", s)
+		m.Mount(prefix + "/sales-receipt", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-TaxAgency", "0.1.0")
 		h.RegisterTaxAgency(s)
-		m.Mount(prefix+"/tax-agency", s)
+		m.Mount(prefix + "/tax-agency", s)
 	}
 	{
-		s := server.NewMCPServer("quickbooks-account-TaxCode", "0.1.0")
-		h.RegisterTaxCode(s)
-		m.Mount(prefix+"/tax-code", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-TaxRate", "0.1.0")
-		h.RegisterTaxRate(s)
-		m.Mount(prefix+"/tax-rate", s)
-	}
-	{
-		s := server.NewMCPServer("quickbooks-account-TaxService", "0.1.0")
-		h.RegisterTaxService(s)
-		m.Mount(prefix+"/tax-service", s)
+		s := server.NewMCPServer("quickbooks-account-Taxservice", "0.1.0")
+		h.RegisterTaxservice(s)
+		m.Mount(prefix + "/taxservice", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Term", "0.1.0")
 		h.RegisterTerm(s)
-		m.Mount(prefix+"/term", s)
+		m.Mount(prefix + "/term", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-TimeActivity", "0.1.0")
 		h.RegisterTimeActivity(s)
-		m.Mount(prefix+"/time-activity", s)
+		m.Mount(prefix + "/time-activity", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Transfer", "0.1.0")
 		h.RegisterTransfer(s)
-		m.Mount(prefix+"/transfer", s)
+		m.Mount(prefix + "/transfer", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-VendorCredit", "0.1.0")
+		h.RegisterVendorCredit(s)
+		m.Mount(prefix + "/vendor-credit", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Vendor", "0.1.0")
 		h.RegisterVendor(s)
-		m.Mount(prefix+"/vendor", s)
+		m.Mount(prefix + "/vendor", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-CompanyInfo", "0.1.0")
+		h.RegisterCompanyInfo(s)
+		m.Mount(prefix + "/company-info", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-CustomerType", "0.1.0")
+		h.RegisterCustomerType(s)
+		m.Mount(prefix + "/customer-type", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-Entitlements", "0.1.0")
+		h.RegisterEntitlements(s)
+		m.Mount(prefix + "/entitlements", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-Preferences", "0.1.0")
+		h.RegisterPreferences(s)
+		m.Mount(prefix + "/preferences", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-ReimburseCharge", "0.1.0")
+		h.RegisterReimburseCharge(s)
+		m.Mount(prefix + "/reimburse-charge", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-TaxClassification", "0.1.0")
+		h.RegisterTaxClassification(s)
+		m.Mount(prefix + "/tax-classification", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-TaxCode", "0.1.0")
+		h.RegisterTaxCode(s)
+		m.Mount(prefix + "/tax-code", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-TaxPayment", "0.1.0")
+		h.RegisterTaxPayment(s)
+		m.Mount(prefix + "/tax-payment", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-TaxRate", "0.1.0")
+		h.RegisterTaxRate(s)
+		m.Mount(prefix + "/tax-rate", s)
+	}
+	{
+		s := server.NewMCPServer("quickbooks-account-ExchangeRate", "0.1.0")
+		h.RegisterExchangeRate(s)
+		m.Mount(prefix + "/exchange-rate", s)
 	}
 }
 func ptrVal[T any](v T) *T {
 	return &v
 }
 
-func (h *Handler) handleAccountCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateAccountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.AccountCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateAccountJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.AccountCreateParams{}
+	params := &target.CreateAccountParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.AccountCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateAccountWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1478,48 +1816,14 @@ func (h *Handler) handleAccountCreateWithResponse(ctx context.Context, request m
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAccountReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleQueryAccountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	id := request.GetString("id", "")
-	params := &target.AccountReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.AccountReadbyidWithResponse(ctx, companyid, id, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleAccountReadallWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.AccountReadallJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.AccountReadallParams{}
+	realmId := request.GetString("realmId", "")
+	params := &target.QueryAccountParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
@@ -1527,16 +1831,11 @@ func (h *Handler) handleAccountReadallWithResponse(ctx context.Context, request 
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["query"]; ok {
-			params.Query = ptrVal(request.GetString("query", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
+			params.Query = request.GetString("query", "")
 		}
 	}
 
-	resp, err := client.AccountReadallWithResponse(ctx, companyid, params, body)
+	resp, err := client.QueryAccountWithResponse(ctx, target.RealmId(realmId), params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1545,65 +1844,22 @@ func (h *Handler) handleAccountReadallWithResponse(ctx context.Context, request 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVendorcreditCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadAccountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.VendorcreditCreateJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.VendorcreditCreateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.VendorcreditCreateWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleVendorcreditReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.VendorcreditReadbyidParams{}
+	params := &target.ReadAccountParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.VendorcreditReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadAccountWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1612,36 +1868,26 @@ func (h *Handler) handleVendorcreditReadbyidWithResponse(ctx context.Context, re
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAttachableCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateAttachableWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.AttachableCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateAttachableJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.AttachableCreateParams{}
+	params := &target.CreateAttachableParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.AttachableCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateAttachableWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1650,27 +1896,22 @@ func (h *Handler) handleAttachableCreateWithResponse(ctx context.Context, reques
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAttachableReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadAttachableWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.AttachableReadbyidParams{}
+	params := &target.ReadAttachableParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.AttachableReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadAttachableWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1679,59 +1920,26 @@ func (h *Handler) handleAttachableReadbyidWithResponse(ctx context.Context, requ
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleUploadAttachmentsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateBillPaymentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.UploadAttachmentsJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateBillPaymentJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.UploadAttachmentsParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.UploadAttachmentsWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleBatchWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.BatchJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.BatchParams{}
+	params := &target.CreateBillPaymentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.BatchWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateBillPaymentWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1740,65 +1948,22 @@ func (h *Handler) handleBatchWithResponse(ctx context.Context, request mcp.CallT
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBillCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadBillPaymentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.BillCreateJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.BillCreateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.BillCreateWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleBillGetbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.BillGetbyidParams{}
+	params := &target.ReadBillPaymentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.BillGetbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadBillPaymentWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1807,36 +1972,26 @@ func (h *Handler) handleBillGetbyidWithResponse(ctx context.Context, request mcp
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBillpaymentCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateBillWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.BillpaymentCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateBillJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.BillpaymentCreateParams{}
+	params := &target.CreateBillParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.BillpaymentCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateBillWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1845,27 +2000,22 @@ func (h *Handler) handleBillpaymentCreateWithResponse(ctx context.Context, reque
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBillpaymentReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadBillWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.BillpaymentReadbyidParams{}
+	params := &target.ReadBillParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.BillpaymentReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadBillWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1874,36 +2024,26 @@ func (h *Handler) handleBillpaymentReadbyidWithResponse(ctx context.Context, req
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBudgetCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateBudgetWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.BudgetCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateBudgetJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.BudgetCreateParams{}
+	params := &target.CreateBudgetParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.BudgetCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateBudgetWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1912,156 +2052,22 @@ func (h *Handler) handleBudgetCreateWithResponse(ctx context.Context, request mc
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBudgetGetbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadBudgetWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.BudgetGetbyidParams{}
+	params := &target.ReadBudgetParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.BudgetGetbyidWithResponse(ctx, companyid, id, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleCdcReadWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.CdcReadParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["entities"]; ok {
-			params.Entities = ptrVal(request.GetString("entities", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["changedSince"]; ok {
-			params.ChangedSince = ptrVal(request.GetString("changedSince", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.CdcReadWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleClassCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.ClassCreateJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.ClassCreateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ClassCreateWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleClassReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	id := request.GetString("id", "")
-	params := &target.ClassReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ClassReadbyidWithResponse(ctx, companyid, id, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleCompanyinfoReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	companyInfoId := request.GetString("companyInfoId", "")
-	params := &target.CompanyinfoReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.CompanyinfoReadbyidWithResponse(ctx, companyid, companyInfoId, params)
+	resp, err := client.ReadBudgetWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2076,7 +2082,7 @@ func (h *Handler) handleCreateChangeOrderWithResponse(ctx context.Context, reque
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	var body target.CreateChangeOrderJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
@@ -2084,12 +2090,12 @@ func (h *Handler) handleCreateChangeOrderWithResponse(ctx context.Context, reque
 	}
 	params := &target.CreateChangeOrderParams{}
 	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
 
-	resp, err := client.CreateChangeOrderWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateChangeOrderWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2104,58 +2110,16 @@ func (h *Handler) handleReadChangeOrderWithResponse(ctx context.Context, request
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	var body target.ReadChangeOrderJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-
-	resp, err := client.ReadChangeOrderWithResponse(ctx, companyid, id, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleCreateinventoryadjustmentCopyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	resp, err := client.CreateinventoryadjustmentCopyWithResponse(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handlePreferenceReadWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.PreferenceReadParams{}
+	params := &target.ReadChangeOrderParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PreferenceReadWithResponse(ctx, companyid, params)
+	resp, err := client.ReadChangeOrderWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2164,31 +2128,26 @@ func (h *Handler) handlePreferenceReadWithResponse(ctx context.Context, request 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePreferenceUpdateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateClassWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.PreferenceUpdateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateClassJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.PreferenceUpdateParams{}
+	params := &target.CreateClassParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PreferenceUpdateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateClassWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2197,98 +2156,22 @@ func (h *Handler) handlePreferenceUpdateWithResponse(ctx context.Context, reques
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCreateinventoryadjustmentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadClassWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.CreateinventoryadjustmentJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.CreateinventoryadjustmentParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.CreateinventoryadjustmentWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleCreditmemoCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.CreditmemoCreateJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.CreditmemoCreateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.CreditmemoCreateWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleCreditmemoReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.CreditmemoReadbyidParams{}
+	params := &target.ReadClassParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.CreditmemoReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadClassWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2297,31 +2180,26 @@ func (h *Handler) handleCreditmemoReadbyidWithResponse(ctx context.Context, requ
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCustomerCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateCompanyCurrencyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.CustomerCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateCompanyCurrencyJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.CustomerCreateParams{}
+	params := &target.CreateCompanyCurrencyParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.CustomerCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateCompanyCurrencyWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2330,27 +2208,22 @@ func (h *Handler) handleCustomerCreateWithResponse(ctx context.Context, request 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCustomerReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadCompanyCurrencyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.CustomerReadbyidParams{}
+	params := &target.ReadCompanyCurrencyParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.CustomerReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadCompanyCurrencyWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2359,31 +2232,26 @@ func (h *Handler) handleCustomerReadbyidWithResponse(ctx context.Context, reques
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleDepartmentCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateCreditCardPaymentTxnWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.DepartmentCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateCreditCardPaymentTxnJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.DepartmentCreateParams{}
+	params := &target.CreateCreditCardPaymentTxnParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.DepartmentCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateCreditCardPaymentTxnWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2392,27 +2260,22 @@ func (h *Handler) handleDepartmentCreateWithResponse(ctx context.Context, reques
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleDepartmentReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadCreditCardPaymentTxnWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.DepartmentReadbyidParams{}
+	params := &target.ReadCreditCardPaymentTxnParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.DepartmentReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadCreditCardPaymentTxnWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2421,36 +2284,26 @@ func (h *Handler) handleDepartmentReadbyidWithResponse(ctx context.Context, requ
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleDepositCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateCreditMemoWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.DepositCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateCreditMemoJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.DepositCreateParams{}
+	params := &target.CreateCreditMemoParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.DepositCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateCreditMemoWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2459,27 +2312,22 @@ func (h *Handler) handleDepositCreateWithResponse(ctx context.Context, request m
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleDepositReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadCreditMemoWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.DepositReadbyidParams{}
+	params := &target.ReadCreditMemoParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.DepositReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadCreditMemoWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2488,98 +2336,27 @@ func (h *Handler) handleDepositReadbyidWithResponse(ctx context.Context, request
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleEmployeeCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleSendCreditMemoWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.EmployeeCreateJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.EmployeeCreateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.EmployeeCreateWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleEmployeeReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.EmployeeReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.EmployeeReadbyidWithResponse(ctx, companyid, id, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleEstimateCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.EstimateCreateJSONRequestBody
+	var body target.SendCreditMemoJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.EstimateCreateParams{}
+	params := &target.SendCreditMemoParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.EstimateCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.SendCreditMemoWithResponse(ctx, target.RealmId(realmId), id, params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2588,27 +2365,50 @@ func (h *Handler) handleEstimateCreateWithResponse(ctx context.Context, request 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleEstimateReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateCustomerWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
+	var body target.CreateCustomerJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateCustomerParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateCustomerWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadCustomerWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.EstimateReadbyidParams{}
+	params := &target.ReadCustomerParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.EstimateReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadCustomerWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2617,74 +2417,26 @@ func (h *Handler) handleEstimateReadbyidWithResponse(ctx context.Context, reques
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleExchangerateGetdetailsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateDepartmentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	params := &target.ExchangerateGetdetailsParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["sourcecurrencycode"]; ok {
-			params.Sourcecurrencycode = ptrVal(request.GetString("sourcecurrencycode", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["asofdate"]; ok {
-			params.Asofdate = ptrVal(request.GetString("asofdate", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ExchangerateGetdetailsWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleInvoiceCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.InvoiceCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateDepartmentJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.InvoiceCreateParams{}
+	params := &target.CreateDepartmentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.InvoiceCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateDepartmentWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2693,27 +2445,22 @@ func (h *Handler) handleInvoiceCreateWithResponse(ctx context.Context, request m
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleInvoiceReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadDepartmentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.InvoiceReadbyidParams{}
+	params := &target.ReadDepartmentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.InvoiceReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadDepartmentWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2722,31 +2469,26 @@ func (h *Handler) handleInvoiceReadbyidWithResponse(ctx context.Context, request
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleItemCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateDepositWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.ItemCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateDepositJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.ItemCreateParams{}
+	params := &target.CreateDepositParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.ItemCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateDepositWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2755,93 +2497,22 @@ func (h *Handler) handleItemCreateWithResponse(ctx context.Context, request mcp.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleItemReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadDepositWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	params := &target.ItemReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ItemReadbyidWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleJournalentryCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.JournalentryCreateJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.JournalentryCreateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.JournalentryCreateWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleJournalentryReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.JournalentryReadbyidParams{}
+	params := &target.ReadDepositParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.JournalentryReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadDepositWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2850,36 +2521,26 @@ func (h *Handler) handleJournalentryReadbyidWithResponse(ctx context.Context, re
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateEmployeeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.PaymentCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateEmployeeJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.PaymentCreateParams{}
+	params := &target.CreateEmployeeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PaymentCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateEmployeeWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2888,27 +2549,22 @@ func (h *Handler) handlePaymentCreateWithResponse(ctx context.Context, request m
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadEmployeeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.PaymentReadbyidParams{}
+	params := &target.ReadEmployeeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PaymentReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadEmployeeWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2917,31 +2573,26 @@ func (h *Handler) handlePaymentReadbyidWithResponse(ctx context.Context, request
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentmethodCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateEstimateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.PaymentmethodCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateEstimateJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.PaymentmethodCreateParams{}
+	params := &target.CreateEstimateParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PaymentmethodCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateEstimateWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2950,27 +2601,22 @@ func (h *Handler) handlePaymentmethodCreateWithResponse(ctx context.Context, req
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentmethodReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleGetEstimatePDFWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.PaymentmethodReadbyidParams{}
+	params := &target.GetEstimatePDFParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PaymentmethodReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.GetEstimatePDFWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2979,36 +2625,51 @@ func (h *Handler) handlePaymentmethodReadbyidWithResponse(ctx context.Context, r
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePurchaseCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadEstimateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.PurchaseCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadEstimateParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadEstimateWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleSendEstimateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	var body target.SendEstimateJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.PurchaseCreateParams{}
+	params := &target.SendEstimateParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PurchaseCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.SendEstimateWithResponse(ctx, target.RealmId(realmId), id, params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3017,65 +2678,26 @@ func (h *Handler) handlePurchaseCreateWithResponse(ctx context.Context, request 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePurchaseReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateInventoryAdjustmentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	id := request.GetString("id", "")
-	params := &target.PurchaseReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.PurchaseReadbyidWithResponse(ctx, companyid, id, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handlePurchaseorderCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.PurchaseorderCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateInventoryAdjustmentJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.PurchaseorderCreateParams{}
+	params := &target.CreateInventoryAdjustmentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PurchaseorderCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateInventoryAdjustmentWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3084,27 +2706,22 @@ func (h *Handler) handlePurchaseorderCreateWithResponse(ctx context.Context, req
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePurchaseorderReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadInventoryAdjustmentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.PurchaseorderReadbyidParams{}
+	params := &target.ReadInventoryAdjustmentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.PurchaseorderReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadInventoryAdjustmentWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3113,36 +2730,26 @@ func (h *Handler) handlePurchaseorderReadbyidWithResponse(ctx context.Context, r
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleRefundreceiptCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateInvoiceWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.RefundreceiptCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateInvoiceJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.RefundreceiptCreateParams{}
+	params := &target.CreateInvoiceParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.RefundreceiptCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateInvoiceWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3151,27 +2758,22 @@ func (h *Handler) handleRefundreceiptCreateWithResponse(ctx context.Context, req
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleRefundreceiptReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleGetInvoicePDFWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.RefundreceiptReadbyidParams{}
+	params := &target.GetInvoicePDFParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.RefundreceiptReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.GetInvoicePDFWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3180,26 +2782,22 @@ func (h *Handler) handleRefundreceiptReadbyidWithResponse(ctx context.Context, r
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleReportAccountlistWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadInvoiceWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportAccountlistParams{}
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadInvoiceParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.ReportAccountlistWithResponse(ctx, companyid, params)
+	resp, err := client.ReadInvoiceWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3208,657 +2806,27 @@ func (h *Handler) handleReportAccountlistWithResponse(ctx context.Context, reque
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleReportAgedpayabledetailWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleSendInvoiceWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportAgedpayabledetailParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportAgedpayabledetailWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportAgedpayablesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportAgedpayablesParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportAgedpayablesWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportAgedreceivabledetailWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportAgedreceivabledetailParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportAgedreceivabledetailWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportAgedreceivablesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportAgedreceivablesParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportAgedreceivablesWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportBalancesheetWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportBalancesheetParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportBalancesheetWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportCashflowWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportCashflowParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportCashflowWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportCashsalesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportCashsalesParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportCashsalesWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportCustomerbalanceWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportCustomerbalanceParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportCustomerbalanceWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportCustomerbalancedetailWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportCustomerbalancedetailParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportCustomerbalancedetailWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportCustomerincomeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportCustomerincomeParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportCustomerincomeWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportCustomersalesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportCustomersalesParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportCustomersalesWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportDepartmentsalesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportDepartmentsalesParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportDepartmentsalesWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportGeneralledgerWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportGeneralledgerParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportGeneralledgerWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportInventoryvaluationsummaryWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportInventoryvaluationsummaryParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportInventoryvaluationsummaryWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportItemsalesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportItemsalesParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportItemsalesWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportProfitandlossWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportProfitandlossParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportProfitandlossWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportProfitandlossdetailWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportProfitandlossdetailParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportProfitandlossdetailWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportTransactionlistWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportTransactionlistParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportTransactionlistWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportTrialbalanceWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportTrialbalanceParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportTrialbalanceWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportVendorbalanceWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportVendorbalanceParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportVendorbalanceWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportVendorbalancedetailWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportVendorbalancedetailParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportVendorbalancedetailWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleReportVendorexpenseWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	params := &target.ReportVendorexpenseParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.ReportVendorexpenseWithResponse(ctx, companyid, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleSalesreceiptCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.SalesreceiptCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	var body target.SendInvoiceJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.SalesreceiptCreateParams{}
+	params := &target.SendInvoiceParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["include"]; ok {
-			params.Include = ptrVal(request.GetString("include", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.SalesreceiptCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.SendInvoiceWithResponse(ctx, target.RealmId(realmId), id, params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3867,60 +2835,26 @@ func (h *Handler) handleSalesreceiptCreateWithResponse(ctx context.Context, requ
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleSalesreceiptReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	id := request.GetString("id", "")
-	params := &target.SalesreceiptReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.SalesreceiptReadbyidWithResponse(ctx, companyid, id, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleTaxagencyCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.TaxagencyCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.TaxagencyCreateParams{}
+	params := &target.CreateItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.TaxagencyCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateItemWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3929,27 +2863,22 @@ func (h *Handler) handleTaxagencyCreateWithResponse(ctx context.Context, request
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTaxagencyReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.TaxagencyReadbyidParams{}
+	params := &target.ReadItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.TaxagencyReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadItemWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3958,89 +2887,26 @@ func (h *Handler) handleTaxagencyReadbyidWithResponse(ctx context.Context, reque
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTaxcodeReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateJournalCodeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	id := request.GetString("id", "")
-	params := &target.TaxcodeReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.TaxcodeReadbyidWithResponse(ctx, companyid, id, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleTaxrateReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	id := request.GetString("id", "")
-	params := &target.TaxrateReadbyidParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.TaxrateReadbyidWithResponse(ctx, companyid, id, params)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleTaxserviceCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
-	var body target.TaxserviceCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateJournalCodeJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.TaxserviceCreateParams{}
+	params := &target.CreateJournalCodeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.TaxserviceCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateJournalCodeWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4049,60 +2915,22 @@ func (h *Handler) handleTaxserviceCreateWithResponse(ctx context.Context, reques
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTermCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadJournalCodeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.TermCreateJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.TermCreateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.TermCreateWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleTermReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.TermReadbyidParams{}
+	params := &target.ReadJournalCodeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.TermReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadJournalCodeWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4111,36 +2939,26 @@ func (h *Handler) handleTermReadbyidWithResponse(ctx context.Context, request mc
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTimeactivityCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreateJournalEntryWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.TimeactivityCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreateJournalEntryJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.TimeactivityCreateParams{}
+	params := &target.CreateJournalEntryParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.TimeactivityCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreateJournalEntryWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4149,65 +2967,22 @@ func (h *Handler) handleTimeactivityCreateWithResponse(ctx context.Context, requ
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTransferCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadJournalEntryWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.TransferCreateJSONRequestBody
-	if argData, ok := request.GetArguments()["body"]; ok {
-		b, _ := json.Marshal(argData)
-		json.Unmarshal(b, &body)
-	}
-	params := &target.TransferCreateParams{}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["operation"]; ok {
-			params.Operation = ptrVal(request.GetString("operation", ""))
-		}
-	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
-
-	resp, err := client.TransferCreateWithResponse(ctx, companyid, params, body)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleTransferReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.TransferReadbyidParams{}
+	params := &target.ReadJournalEntryParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.TransferReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.ReadJournalEntryWithResponse(ctx, target.RealmId(realmId), id, params, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4216,31 +2991,26 @@ func (h *Handler) handleTransferReadbyidWithResponse(ctx context.Context, reques
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVendorCreateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreatePaymentMethodWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
-	var body target.VendorCreateJSONRequestBody
+	realmId := request.GetString("realmId", "")
+	var body target.CreatePaymentMethodJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.VendorCreateParams{}
+	params := &target.CreatePaymentMethodParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
-	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
-		}
-	}
 
-	resp, err := client.VendorCreateWithResponse(ctx, companyid, params, body)
+	resp, err := client.CreatePaymentMethodWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4249,27 +3019,1114 @@ func (h *Handler) handleVendorCreateWithResponse(ctx context.Context, request mc
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVendorReadbyidWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReadPaymentMethodWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	companyid := request.GetString("companyid", "")
+	realmId := request.GetString("realmId", "")
 	id := request.GetString("id", "")
-	params := &target.VendorReadbyidParams{}
+	params := &target.ReadPaymentMethodParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
 			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
+
+	resp, err := client.ReadPaymentMethodWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreatePaymentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreatePaymentJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreatePaymentParams{}
 	if args := request.GetArguments(); args != nil {
-		if _, ok := args["user-agent"]; ok {
-			params.UserAgent = ptrVal(request.GetString("user-agent", ""))
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
 		}
 	}
 
-	resp, err := client.VendorReadbyidWithResponse(ctx, companyid, id, params)
+	resp, err := client.CreatePaymentWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadPaymentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadPaymentParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadPaymentWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleSendPaymentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	var body target.SendPaymentJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.SendPaymentParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.SendPaymentWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreatePurchaseOrderWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreatePurchaseOrderJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreatePurchaseOrderParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreatePurchaseOrderWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadPurchaseOrderWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadPurchaseOrderParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadPurchaseOrderWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleSendPurchaseOrderWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	var body target.SendPurchaseOrderJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.SendPurchaseOrderParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.SendPurchaseOrderWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreatePurchaseWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreatePurchaseJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreatePurchaseParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreatePurchaseWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadPurchaseWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadPurchaseParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadPurchaseWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateRecurringTransactionWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateRecurringTransactionJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateRecurringTransactionParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateRecurringTransactionWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadRecurringTransactionWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadRecurringTransactionParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadRecurringTransactionWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateRefundReceiptWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateRefundReceiptJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateRefundReceiptParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateRefundReceiptWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadRefundReceiptWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadRefundReceiptParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadRefundReceiptWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleSendRefundReceiptWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	var body target.SendRefundReceiptJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.SendRefundReceiptParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.SendRefundReceiptWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateSalesReceiptWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateSalesReceiptJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateSalesReceiptParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateSalesReceiptWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleGetSalesReceiptPDFWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.GetSalesReceiptPDFParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.GetSalesReceiptPDFWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadSalesReceiptWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadSalesReceiptParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadSalesReceiptWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleSendSalesReceiptWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	var body target.SendSalesReceiptJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.SendSalesReceiptParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.SendSalesReceiptWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateTaxAgencyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateTaxAgencyJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateTaxAgencyParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateTaxAgencyWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadTaxAgencyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadTaxAgencyParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadTaxAgencyWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateTaxserviceWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateTaxserviceJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateTaxserviceParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateTaxserviceWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateTermWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateTermJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateTermParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateTermWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadTermWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadTermParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadTermWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateTimeActivityWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateTimeActivityJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateTimeActivityParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateTimeActivityWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadTimeActivityWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadTimeActivityParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadTimeActivityWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateTransferWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateTransferJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateTransferParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateTransferWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadTransferWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadTransferParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadTransferWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateVendorCreditWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateVendorCreditJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateVendorCreditParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateVendorCreditWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadVendorCreditWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadVendorCreditParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadVendorCreditWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleCreateVendorWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.CreateVendorJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.CreateVendorParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.CreateVendorWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadVendorWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadVendorParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadVendorWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadCompanyInfoWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadCompanyInfoParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadCompanyInfoWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleUpdateCompanyInfoWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.UpdateCompanyInfoJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.UpdateCompanyInfoParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.UpdateCompanyInfoWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadCustomerTypeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadCustomerTypeParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadCustomerTypeWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadEntitlementsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadEntitlementsParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadEntitlementsWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadPreferencesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadPreferencesParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadPreferencesWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleUpdatePreferencesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.UpdatePreferencesJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.UpdatePreferencesParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.UpdatePreferencesWithResponse(ctx, target.RealmId(realmId), params, body, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadReimburseChargeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadReimburseChargeParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadReimburseChargeWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadTaxClassificationWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadTaxClassificationParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadTaxClassificationWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadTaxCodeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadTaxCodeParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadTaxCodeWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadTaxPaymentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadTaxPaymentParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadTaxPaymentWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleReadTaxRateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	id := request.GetString("id", "")
+	params := &target.ReadTaxRateParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.ReadTaxRateWithResponse(ctx, target.RealmId(realmId), id, params, )
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleUpdateExchangeRateWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	realmId := request.GetString("realmId", "")
+	var body target.UpdateExchangeRateJSONRequestBody
+	if argData, ok := request.GetArguments()["body"]; ok {
+		b, _ := json.Marshal(argData)
+		json.Unmarshal(b, &body)
+	}
+	params := &target.UpdateExchangeRateParams{}
+	if args := request.GetArguments(); args != nil {
+		if _, ok := args["minorversion"]; ok {
+			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+		}
+	}
+
+	resp, err := client.UpdateExchangeRateWithResponse(ctx, target.RealmId(realmId), params, body, )
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}

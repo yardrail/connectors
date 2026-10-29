@@ -1,0 +1,254 @@
+{
+  "components": {
+    "parameters": {
+      "minorversion": {
+        "description": "Minor version of the QBO API.",
+        "in": "query",
+        "name": "minorversion",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "realmId": {
+        "description": "The QuickBooks company ID (Realm ID).",
+        "in": "path",
+        "name": "realmId",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "Account": {
+        "properties": {
+          "Id": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "AccountCreateRequest": {
+        "properties": {
+          "AccountType": {
+            "$ref": "#/components/schemas/AccountTypeEnum"
+          },
+          "Name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Name",
+          "AccountType"
+        ],
+        "type": "object"
+      },
+      "AccountEnvelope": {
+        "properties": {
+          "Account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "time": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "AccountTypeEnum": {
+        "enum": [
+          "Bank",
+          "CreditCard",
+          "Expense"
+        ],
+        "type": "string"
+      },
+      "FaultEnvelope": {
+        "properties": {
+          "Fault": {
+            "properties": {
+              "Error": {
+                "items": {
+                  "properties": {
+                    "Detail": {
+                      "type": "string"
+                    },
+                    "Message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "time": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "QueryResponseEnvelope": {
+        "properties": {
+          "QueryResponse": {
+            "properties": {
+              "maxResults": {
+                "type": "integer"
+              },
+              "startPosition": {
+                "type": "integer"
+              },
+              "totalCount": {
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "time": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ReportEnvelope": {
+        "properties": {
+          "Columns": {
+            "type": "object"
+          },
+          "Header": {
+            "type": "object"
+          },
+          "Rows": {
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2": {
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://appcenter.intuit.com/connect/oauth2",
+            "scopes": {
+              "com.intuit.quickbooks.accounting": "Accounting scope"
+            },
+            "tokenUrl": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
+          }
+        },
+        "type": "oauth2"
+      }
+    }
+  },
+  "info": {
+    "description": "Generated from Intuit SDK XSD definitions and developer documentation.",
+    "title": "QuickBooks Online Accounting API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/v3/company/{realmId}/account": {
+      "post": {
+        "operationId": "createAccount",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/realmId"
+          },
+          {
+            "$ref": "#/components/parameters/minorversion"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountEnvelope"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "Create Account",
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/v3/company/{realmId}/account/{id}": {
+      "get": {
+        "operationId": "readAccount",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/realmId"
+          },
+          {
+            "$ref": "#/components/parameters/minorversion"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountEnvelope"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "Read Account",
+        "tags": [
+          "Account"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://quickbooks.api.intuit.com"
+    },
+    {
+      "url": "https://sandbox-quickbooks.api.intuit.com"
+    }
+  ]
+}
