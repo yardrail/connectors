@@ -2,150 +2,154 @@
 
 package workflows
 
-func init() {
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#CreateADataSource", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "create-a-data-source",
-		ClassName:   "CreateADataSource",
-		Description: "Create a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "", Type: "object", Required: false, Description: ""},
-			{Name: "parent", Type: "object", Required: true, Description: ""},
-			{Name: "properties", Type: "object", Required: true, Description: "Property schema of data source"},
-			{Name: "title", Type: "array", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#GetWidget", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "get-widget",
-		ClassName:   "GetWidget",
-		Description: "Get one widget by ID.",
-		Inputs: []connectorFieldInfo{
-			{Name: "widgetId", Type: "string", Required: true, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{
-			{Name: "id", Type: "string", Required: false, Description: ""},
-			{Name: "name", Type: "string", Required: false, Description: ""},
-			{Name: "size", Type: "integer", Required: false, Description: ""},
-			{Name: "attributes", Type: "object", Required: false, Description: ""},
-		},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#ListDataSourceTemplates", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "list-data-source-templates",
-		ClassName:   "ListDataSourceTemplates",
-		Description: "List templates in a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
-			{Name: "start_cursor", Type: "string", Required: false, Description: ""},
-			{Name: "page_size", Type: "integer", Required: false, Description: ""},
-			{Name: "", Type: "object", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#MovePage", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "move-page",
-		ClassName:   "MovePage",
-		Description: "Move a page",
-		Inputs: []connectorFieldInfo{
-			{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-			{Name: "parent", Type: "object", Required: true, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#QueryDataSource", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "query-data-source",
-		ClassName:   "QueryDataSource",
-		Description: "Query a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source (database)"},
-			{Name: "filter_properties", Type: "array", Required: false, Description: "A list of page property value IDs to limit the response"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-			{Name: "archived", Type: "boolean", Required: false, Description: ""},
-			{Name: "filter", Type: "object", Required: false, Description: "Filter conditions for querying the data source"},
-			{Name: "in_trash", Type: "boolean", Required: false, Description: ""},
-			{Name: "page_size", Type: "integer", Required: false, Description: ""},
-			{Name: "sorts", Type: "array", Required: false, Description: ""},
-			{Name: "start_cursor", Type: "string", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#RetrieveADataSource", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "retrieve-a-data-source",
-		ClassName:   "RetrieveADataSource",
-		Description: "Retrieve a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#RetrieveADatabase", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "retrieve-a-database",
-		ClassName:   "RetrieveADatabase",
-		Description: "Retrieve a database",
-		Inputs: []connectorFieldInfo{
-			{Name: "database_id", Type: "string", Required: true, Description: "Identifier for a Notion database"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#RetrievePageMarkdown", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "retrieve-page-markdown",
-		ClassName:   "RetrievePageMarkdown",
-		Description: "Retrieve a page as Markdown",
-		Inputs: []connectorFieldInfo{
-			{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
-			{Name: "include_transcript", Type: "boolean", Required: false, Description: "Whether to include meeting note transcripts. When false (default), a placeholder with the meeting note URL is shown instead of the full transcript."},
-		},
-		Outputs: []connectorFieldInfo{
-			{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
-			{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
-			{Name: "object", Type: "string", Required: false, Description: ""},
-			{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
-			{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
-		},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#UpdateADataSource", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "update-a-data-source",
-		ClassName:   "UpdateADataSource",
-		Description: "Update a data source",
-		Inputs: []connectorFieldInfo{
-			{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
-			{Name: "", Type: "object", Required: false, Description: ""},
-			{Name: "description", Type: "array", Required: false, Description: ""},
-			{Name: "properties", Type: "object", Required: false, Description: "Property schema updates"},
-			{Name: "title", Type: "array", Required: false, Description: ""},
-		},
-		Outputs: []connectorFieldInfo{},
-	})
-	registerConnectorClass("https://yardrail.com/cwl/mixedfixture#UpdatePageMarkdown", connectorClassInfo{
-		ConnectorID: "mixedfixture",
-		Function:    "update-page-markdown",
-		ClassName:   "UpdatePageMarkdown",
-		Description: "Update a page's content as Markdown",
-		Inputs: []connectorFieldInfo{
-			{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
-			{Name: "insert_content", Type: "object", Required: false, Description: "Deprecated. Provide when type is `insert_content`. Inserts Markdown at a position."},
-			{Name: "replace_content", Type: "object", Required: false, Description: "Provide when type is `replace_content`. Replaces the entire page content."},
-			{Name: "replace_content_range", Type: "object", Required: false, Description: "Deprecated. Provide when type is `replace_content_range`. Replaces a selected range of Markdown."},
-			{Name: "type", Type: "string", Required: true, Description: "The kind of edit to apply. Prefer `replace_content` (overwrite the whole page) or `update_content` (targeted find-and-replace). `insert_content` and `replace_content_range` are deprecated."},
-			{Name: "update_content", Type: "object", Required: false, Description: "Provide when type is `update_content`. Applies targeted find-and-replace edits."},
-		},
-		Outputs: []connectorFieldInfo{
-			{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
-			{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
-			{Name: "object", Type: "string", Required: false, Description: ""},
-			{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
-			{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
-		},
-	})
+import "github.com/yardrail/yardrail/pkg/extensions"
+
+func MixedfixtureCWLClasses() []extensions.ConnectorClassEntry {
+	return []extensions.ConnectorClassEntry{
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#CreateADataSource", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "create-a-data-source",
+			ClassName:   "CreateADataSource",
+			Description: "Create a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "", Type: "object", Required: false, Description: ""},
+				{Name: "parent", Type: "object", Required: true, Description: ""},
+				{Name: "properties", Type: "object", Required: true, Description: "Property schema of data source"},
+				{Name: "title", Type: "array", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#GetWidget", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "get-widget",
+			ClassName:   "GetWidget",
+			Description: "Get one widget by ID.",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "widgetId", Type: "string", Required: true, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{
+				{Name: "id", Type: "string", Required: false, Description: ""},
+				{Name: "name", Type: "string", Required: false, Description: ""},
+				{Name: "size", Type: "integer", Required: false, Description: ""},
+				{Name: "attributes", Type: "object", Required: false, Description: ""},
+			},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#ListDataSourceTemplates", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "list-data-source-templates",
+			ClassName:   "ListDataSourceTemplates",
+			Description: "List templates in a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
+				{Name: "start_cursor", Type: "string", Required: false, Description: ""},
+				{Name: "page_size", Type: "integer", Required: false, Description: ""},
+				{Name: "", Type: "object", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#MovePage", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "move-page",
+			ClassName:   "MovePage",
+			Description: "Move a page",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+				{Name: "parent", Type: "object", Required: true, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#QueryDataSource", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "query-data-source",
+			ClassName:   "QueryDataSource",
+			Description: "Query a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source (database)"},
+				{Name: "filter_properties", Type: "array", Required: false, Description: "A list of page property value IDs to limit the response"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+				{Name: "archived", Type: "boolean", Required: false, Description: ""},
+				{Name: "filter", Type: "object", Required: false, Description: "Filter conditions for querying the data source"},
+				{Name: "in_trash", Type: "boolean", Required: false, Description: ""},
+				{Name: "page_size", Type: "integer", Required: false, Description: ""},
+				{Name: "sorts", Type: "array", Required: false, Description: ""},
+				{Name: "start_cursor", Type: "string", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#RetrieveADataSource", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "retrieve-a-data-source",
+			ClassName:   "RetrieveADataSource",
+			Description: "Retrieve a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#RetrieveADatabase", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "retrieve-a-database",
+			ClassName:   "RetrieveADatabase",
+			Description: "Retrieve a database",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "database_id", Type: "string", Required: true, Description: "Identifier for a Notion database"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#RetrievePageMarkdown", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "retrieve-page-markdown",
+			ClassName:   "RetrievePageMarkdown",
+			Description: "Retrieve a page as Markdown",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
+				{Name: "include_transcript", Type: "boolean", Required: false, Description: "Whether to include meeting note transcripts. When false (default), a placeholder with the meeting note URL is shown instead of the full transcript."},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{
+				{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
+				{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
+				{Name: "object", Type: "string", Required: false, Description: ""},
+				{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
+				{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
+			},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#UpdateADataSource", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "update-a-data-source",
+			ClassName:   "UpdateADataSource",
+			Description: "Update a data source",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
+				{Name: "", Type: "object", Required: false, Description: ""},
+				{Name: "description", Type: "array", Required: false, Description: ""},
+				{Name: "properties", Type: "object", Required: false, Description: "Property schema updates"},
+				{Name: "title", Type: "array", Required: false, Description: ""},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{},
+		}},
+		{ClassIRI: "https://yardrail.com/cwl/mixedfixture#UpdatePageMarkdown", Info: extensions.ConnectorClassInfo{
+			ConnectorID: "mixedfixture",
+			Function:    "update-page-markdown",
+			ClassName:   "UpdatePageMarkdown",
+			Description: "Update a page's content as Markdown",
+			Inputs: []extensions.ConnectorFieldInfo{
+				{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page (or block) to read or update as markdown."},
+				{Name: "insert_content", Type: "object", Required: false, Description: "Deprecated. Provide when type is `insert_content`. Inserts Markdown at a position."},
+				{Name: "replace_content", Type: "object", Required: false, Description: "Provide when type is `replace_content`. Replaces the entire page content."},
+				{Name: "replace_content_range", Type: "object", Required: false, Description: "Deprecated. Provide when type is `replace_content_range`. Replaces a selected range of Markdown."},
+				{Name: "type", Type: "string", Required: true, Description: "The kind of edit to apply. Prefer `replace_content` (overwrite the whole page) or `update_content` (targeted find-and-replace). `insert_content` and `replace_content_range` are deprecated."},
+				{Name: "update_content", Type: "object", Required: false, Description: "Provide when type is `update_content`. Applies targeted find-and-replace edits."},
+			},
+			Outputs: []extensions.ConnectorFieldInfo{
+				{Name: "id", Type: "string", Required: false, Description: "ID of the page or block."},
+				{Name: "markdown", Type: "string", Required: false, Description: "Page content rendered as enhanced Markdown."},
+				{Name: "object", Type: "string", Required: false, Description: ""},
+				{Name: "truncated", Type: "boolean", Required: false, Description: "True if content was truncated because the page exceeds the block limit."},
+				{Name: "unknown_block_ids", Type: "array", Required: false, Description: "Block IDs that could not be rendered (e.g. due to permissions or truncation). Pass them back to this endpoint to fetch them individually."},
+			},
+		}},
+	}
 }
