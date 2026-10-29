@@ -269,7 +269,7 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 									ft = pt.Elem()
 								}
 								if n, ok := TypeObjName(ft); ok {
-									if _, isBasic := ft.Underlying().(*types.Basic); isBasic && goType == "string" {
+									if _, isBasic := ft.Underlying().(*types.Basic); isBasic {
 										fullType = "target." + n
 									}
 								}
@@ -314,7 +314,7 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 		fullType = ""
 		if conv == "" {
 			if name, ok := TypeObjName(paramType); ok {
-				if _, isBasic := paramType.Underlying().(*types.Basic); isBasic && goType == "string" {
+				if _, isBasic := paramType.Underlying().(*types.Basic); isBasic {
 					fullType = "target." + name
 				}
 			}
@@ -492,9 +492,9 @@ func GoTypeToJSON(t types.Type) (jsonType string, goType string) {
 		case u.Info()&types.IsString != 0:
 			return "string", "string"
 		case u.Info()&types.IsInteger != 0:
-			return "integer", t.String()
+			return "integer", u.Name()
 		case u.Info()&types.IsFloat != 0:
-			return "number", t.String()
+			return "number", u.Name()
 		case u.Info()&types.IsBoolean != 0:
 			return "boolean", "bool"
 		}

@@ -26,7 +26,7 @@ func (h *Handler) RegisterAccount(s *server.MCPServer) {
 		mcp.NewTool("create-account",
 			mcp.WithDescription("Create Account\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/account (the `CreateAccount` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateAccountJSONRequestBody)")),
 		),
 		h.handleCreateAccountWithResponse,
@@ -36,7 +36,7 @@ func (h *Handler) RegisterAccount(s *server.MCPServer) {
 		mcp.NewTool("query-account",
 			mcp.WithDescription("Query Account\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/query (the `QueryAccount` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithString("query", mcp.Description("Query")),
 		),
 		h.handleQueryAccountWithResponse,
@@ -47,7 +47,7 @@ func (h *Handler) RegisterAccount(s *server.MCPServer) {
 			mcp.WithDescription("Read Account\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/account/{id} (the `ReadAccount` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadAccountWithResponse,
 	)
@@ -61,7 +61,7 @@ func (h *Handler) RegisterAttachable(s *server.MCPServer) {
 		mcp.NewTool("create-attachable",
 			mcp.WithDescription("Create Attachable\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/attachable (the `CreateAttachable` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateAttachableJSONRequestBody)")),
 		),
 		h.handleCreateAttachableWithResponse,
@@ -72,7 +72,7 @@ func (h *Handler) RegisterAttachable(s *server.MCPServer) {
 			mcp.WithDescription("Read Attachable\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/attachable/{id} (the `ReadAttachable` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadAttachableWithResponse,
 	)
@@ -86,7 +86,7 @@ func (h *Handler) RegisterBillPayment(s *server.MCPServer) {
 		mcp.NewTool("create-bill-payment",
 			mcp.WithDescription("Create BillPayment\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/billpayment (the `CreateBillPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBillPaymentJSONRequestBody)")),
 		),
 		h.handleCreateBillPaymentWithResponse,
@@ -97,7 +97,7 @@ func (h *Handler) RegisterBillPayment(s *server.MCPServer) {
 			mcp.WithDescription("Read BillPayment\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/billpayment/{id} (the `ReadBillPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadBillPaymentWithResponse,
 	)
@@ -111,7 +111,7 @@ func (h *Handler) RegisterBill(s *server.MCPServer) {
 		mcp.NewTool("create-bill",
 			mcp.WithDescription("Create Bill\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/bill (the `CreateBill` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBillJSONRequestBody)")),
 		),
 		h.handleCreateBillWithResponse,
@@ -122,7 +122,7 @@ func (h *Handler) RegisterBill(s *server.MCPServer) {
 			mcp.WithDescription("Read Bill\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/bill/{id} (the `ReadBill` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadBillWithResponse,
 	)
@@ -136,7 +136,7 @@ func (h *Handler) RegisterBudget(s *server.MCPServer) {
 		mcp.NewTool("create-budget",
 			mcp.WithDescription("Create Budget\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/budget (the `CreateBudget` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBudgetJSONRequestBody)")),
 		),
 		h.handleCreateBudgetWithResponse,
@@ -147,7 +147,7 @@ func (h *Handler) RegisterBudget(s *server.MCPServer) {
 			mcp.WithDescription("Read Budget\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/budget/{id} (the `ReadBudget` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadBudgetWithResponse,
 	)
@@ -161,7 +161,7 @@ func (h *Handler) RegisterChangeOrder(s *server.MCPServer) {
 		mcp.NewTool("create-change-order",
 			mcp.WithDescription("Create ChangeOrder\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/changeorder (the `CreateChangeOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateChangeOrderJSONRequestBody)")),
 		),
 		h.handleCreateChangeOrderWithResponse,
@@ -172,7 +172,7 @@ func (h *Handler) RegisterChangeOrder(s *server.MCPServer) {
 			mcp.WithDescription("Read ChangeOrder\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/changeorder/{id} (the `ReadChangeOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadChangeOrderWithResponse,
 	)
@@ -186,7 +186,7 @@ func (h *Handler) RegisterClass(s *server.MCPServer) {
 		mcp.NewTool("create-class",
 			mcp.WithDescription("Create Class\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/class (the `CreateClass` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateClassJSONRequestBody)")),
 		),
 		h.handleCreateClassWithResponse,
@@ -197,7 +197,7 @@ func (h *Handler) RegisterClass(s *server.MCPServer) {
 			mcp.WithDescription("Read Class\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/class/{id} (the `ReadClass` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadClassWithResponse,
 	)
@@ -211,7 +211,7 @@ func (h *Handler) RegisterCompanyCurrency(s *server.MCPServer) {
 		mcp.NewTool("create-company-currency",
 			mcp.WithDescription("Create CompanyCurrency\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/companycurrency (the `CreateCompanyCurrency` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCompanyCurrencyJSONRequestBody)")),
 		),
 		h.handleCreateCompanyCurrencyWithResponse,
@@ -222,7 +222,7 @@ func (h *Handler) RegisterCompanyCurrency(s *server.MCPServer) {
 			mcp.WithDescription("Read CompanyCurrency\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/companycurrency/{id} (the `ReadCompanyCurrency` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadCompanyCurrencyWithResponse,
 	)
@@ -236,7 +236,7 @@ func (h *Handler) RegisterCreditCardPaymentTxn(s *server.MCPServer) {
 		mcp.NewTool("create-credit-card-payment-txn",
 			mcp.WithDescription("Create CreditCardPaymentTxn\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/creditcardpayment (the `CreateCreditCardPaymentTxn` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCreditCardPaymentTxnJSONRequestBody)")),
 		),
 		h.handleCreateCreditCardPaymentTxnWithResponse,
@@ -247,7 +247,7 @@ func (h *Handler) RegisterCreditCardPaymentTxn(s *server.MCPServer) {
 			mcp.WithDescription("Read CreditCardPaymentTxn\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/creditcardpayment/{id} (the `ReadCreditCardPaymentTxn` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadCreditCardPaymentTxnWithResponse,
 	)
@@ -261,7 +261,7 @@ func (h *Handler) RegisterCreditMemo(s *server.MCPServer) {
 		mcp.NewTool("create-credit-memo",
 			mcp.WithDescription("Create CreditMemo\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/creditmemo (the `CreateCreditMemo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCreditMemoJSONRequestBody)")),
 		),
 		h.handleCreateCreditMemoWithResponse,
@@ -272,7 +272,7 @@ func (h *Handler) RegisterCreditMemo(s *server.MCPServer) {
 			mcp.WithDescription("Read CreditMemo\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/creditmemo/{id} (the `ReadCreditMemo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadCreditMemoWithResponse,
 	)
@@ -282,7 +282,7 @@ func (h *Handler) RegisterCreditMemo(s *server.MCPServer) {
 			mcp.WithDescription("Send CreditMemo\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/creditmemo/{id}/send (the `SendCreditMemo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendCreditMemoJSONRequestBody)")),
 		),
 		h.handleSendCreditMemoWithResponse,
@@ -297,7 +297,7 @@ func (h *Handler) RegisterCustomer(s *server.MCPServer) {
 		mcp.NewTool("create-customer",
 			mcp.WithDescription("Create Customer\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/customer (the `CreateCustomer` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCustomerJSONRequestBody)")),
 		),
 		h.handleCreateCustomerWithResponse,
@@ -308,7 +308,7 @@ func (h *Handler) RegisterCustomer(s *server.MCPServer) {
 			mcp.WithDescription("Read Customer\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/customer/{id} (the `ReadCustomer` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadCustomerWithResponse,
 	)
@@ -322,7 +322,7 @@ func (h *Handler) RegisterDepartment(s *server.MCPServer) {
 		mcp.NewTool("create-department",
 			mcp.WithDescription("Create Department\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/department (the `CreateDepartment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateDepartmentJSONRequestBody)")),
 		),
 		h.handleCreateDepartmentWithResponse,
@@ -333,7 +333,7 @@ func (h *Handler) RegisterDepartment(s *server.MCPServer) {
 			mcp.WithDescription("Read Department\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/department/{id} (the `ReadDepartment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadDepartmentWithResponse,
 	)
@@ -347,7 +347,7 @@ func (h *Handler) RegisterDeposit(s *server.MCPServer) {
 		mcp.NewTool("create-deposit",
 			mcp.WithDescription("Create Deposit\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/deposit (the `CreateDeposit` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateDepositJSONRequestBody)")),
 		),
 		h.handleCreateDepositWithResponse,
@@ -358,7 +358,7 @@ func (h *Handler) RegisterDeposit(s *server.MCPServer) {
 			mcp.WithDescription("Read Deposit\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/deposit/{id} (the `ReadDeposit` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadDepositWithResponse,
 	)
@@ -372,7 +372,7 @@ func (h *Handler) RegisterEmployee(s *server.MCPServer) {
 		mcp.NewTool("create-employee",
 			mcp.WithDescription("Create Employee\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/employee (the `CreateEmployee` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateEmployeeJSONRequestBody)")),
 		),
 		h.handleCreateEmployeeWithResponse,
@@ -383,7 +383,7 @@ func (h *Handler) RegisterEmployee(s *server.MCPServer) {
 			mcp.WithDescription("Read Employee\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/employee/{id} (the `ReadEmployee` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadEmployeeWithResponse,
 	)
@@ -397,7 +397,7 @@ func (h *Handler) RegisterEstimate(s *server.MCPServer) {
 		mcp.NewTool("create-estimate",
 			mcp.WithDescription("Create Estimate\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/estimate (the `CreateEstimate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateEstimateJSONRequestBody)")),
 		),
 		h.handleCreateEstimateWithResponse,
@@ -408,7 +408,7 @@ func (h *Handler) RegisterEstimate(s *server.MCPServer) {
 			mcp.WithDescription("Get Estimate as PDF\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/estimate/{id}/pdf (the `GetEstimatePDF` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleGetEstimatePDFWithResponse,
 	)
@@ -418,7 +418,7 @@ func (h *Handler) RegisterEstimate(s *server.MCPServer) {
 			mcp.WithDescription("Read Estimate\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/estimate/{id} (the `ReadEstimate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadEstimateWithResponse,
 	)
@@ -428,7 +428,7 @@ func (h *Handler) RegisterEstimate(s *server.MCPServer) {
 			mcp.WithDescription("Send Estimate\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/estimate/{id}/send (the `SendEstimate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendEstimateJSONRequestBody)")),
 		),
 		h.handleSendEstimateWithResponse,
@@ -443,7 +443,7 @@ func (h *Handler) RegisterInventoryAdjustment(s *server.MCPServer) {
 		mcp.NewTool("create-inventory-adjustment",
 			mcp.WithDescription("Create InventoryAdjustment\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/inventoryadjustment (the `CreateInventoryAdjustment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateInventoryAdjustmentJSONRequestBody)")),
 		),
 		h.handleCreateInventoryAdjustmentWithResponse,
@@ -454,7 +454,7 @@ func (h *Handler) RegisterInventoryAdjustment(s *server.MCPServer) {
 			mcp.WithDescription("Read InventoryAdjustment\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/inventoryadjustment/{id} (the `ReadInventoryAdjustment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadInventoryAdjustmentWithResponse,
 	)
@@ -468,7 +468,7 @@ func (h *Handler) RegisterInvoice(s *server.MCPServer) {
 		mcp.NewTool("create-invoice",
 			mcp.WithDescription("Create Invoice\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/invoice (the `CreateInvoice` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateInvoiceJSONRequestBody)")),
 		),
 		h.handleCreateInvoiceWithResponse,
@@ -479,7 +479,7 @@ func (h *Handler) RegisterInvoice(s *server.MCPServer) {
 			mcp.WithDescription("Get Invoice as PDF\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/invoice/{id}/pdf (the `GetInvoicePDF` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleGetInvoicePDFWithResponse,
 	)
@@ -489,7 +489,7 @@ func (h *Handler) RegisterInvoice(s *server.MCPServer) {
 			mcp.WithDescription("Read Invoice\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/invoice/{id} (the `ReadInvoice` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadInvoiceWithResponse,
 	)
@@ -499,7 +499,7 @@ func (h *Handler) RegisterInvoice(s *server.MCPServer) {
 			mcp.WithDescription("Send Invoice\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/invoice/{id}/send (the `SendInvoice` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendInvoiceJSONRequestBody)")),
 		),
 		h.handleSendInvoiceWithResponse,
@@ -514,7 +514,7 @@ func (h *Handler) RegisterItem(s *server.MCPServer) {
 		mcp.NewTool("create-item",
 			mcp.WithDescription("Create Item\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/item (the `CreateItem` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateItemJSONRequestBody)")),
 		),
 		h.handleCreateItemWithResponse,
@@ -525,7 +525,7 @@ func (h *Handler) RegisterItem(s *server.MCPServer) {
 			mcp.WithDescription("Read Item\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/item/{id} (the `ReadItem` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadItemWithResponse,
 	)
@@ -539,7 +539,7 @@ func (h *Handler) RegisterJournalCode(s *server.MCPServer) {
 		mcp.NewTool("create-journal-code",
 			mcp.WithDescription("Create JournalCode\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/journalcode (the `CreateJournalCode` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateJournalCodeJSONRequestBody)")),
 		),
 		h.handleCreateJournalCodeWithResponse,
@@ -550,7 +550,7 @@ func (h *Handler) RegisterJournalCode(s *server.MCPServer) {
 			mcp.WithDescription("Read JournalCode\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/journalcode/{id} (the `ReadJournalCode` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadJournalCodeWithResponse,
 	)
@@ -564,7 +564,7 @@ func (h *Handler) RegisterJournalEntry(s *server.MCPServer) {
 		mcp.NewTool("create-journal-entry",
 			mcp.WithDescription("Create JournalEntry\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/journalentry (the `CreateJournalEntry` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateJournalEntryJSONRequestBody)")),
 		),
 		h.handleCreateJournalEntryWithResponse,
@@ -575,7 +575,7 @@ func (h *Handler) RegisterJournalEntry(s *server.MCPServer) {
 			mcp.WithDescription("Read JournalEntry\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/journalentry/{id} (the `ReadJournalEntry` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadJournalEntryWithResponse,
 	)
@@ -589,7 +589,7 @@ func (h *Handler) RegisterPaymentMethod(s *server.MCPServer) {
 		mcp.NewTool("create-payment-method",
 			mcp.WithDescription("Create PaymentMethod\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/paymentmethod (the `CreatePaymentMethod` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePaymentMethodJSONRequestBody)")),
 		),
 		h.handleCreatePaymentMethodWithResponse,
@@ -600,7 +600,7 @@ func (h *Handler) RegisterPaymentMethod(s *server.MCPServer) {
 			mcp.WithDescription("Read PaymentMethod\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/paymentmethod/{id} (the `ReadPaymentMethod` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadPaymentMethodWithResponse,
 	)
@@ -614,7 +614,7 @@ func (h *Handler) RegisterPayment(s *server.MCPServer) {
 		mcp.NewTool("create-payment",
 			mcp.WithDescription("Create Payment\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/payment (the `CreatePayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePaymentJSONRequestBody)")),
 		),
 		h.handleCreatePaymentWithResponse,
@@ -625,7 +625,7 @@ func (h *Handler) RegisterPayment(s *server.MCPServer) {
 			mcp.WithDescription("Read Payment\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/payment/{id} (the `ReadPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadPaymentWithResponse,
 	)
@@ -635,7 +635,7 @@ func (h *Handler) RegisterPayment(s *server.MCPServer) {
 			mcp.WithDescription("Send Payment\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/payment/{id}/send (the `SendPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendPaymentJSONRequestBody)")),
 		),
 		h.handleSendPaymentWithResponse,
@@ -650,7 +650,7 @@ func (h *Handler) RegisterPurchaseOrder(s *server.MCPServer) {
 		mcp.NewTool("create-purchase-order",
 			mcp.WithDescription("Create PurchaseOrder\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/purchaseorder (the `CreatePurchaseOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePurchaseOrderJSONRequestBody)")),
 		),
 		h.handleCreatePurchaseOrderWithResponse,
@@ -661,7 +661,7 @@ func (h *Handler) RegisterPurchaseOrder(s *server.MCPServer) {
 			mcp.WithDescription("Read PurchaseOrder\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/purchaseorder/{id} (the `ReadPurchaseOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadPurchaseOrderWithResponse,
 	)
@@ -671,7 +671,7 @@ func (h *Handler) RegisterPurchaseOrder(s *server.MCPServer) {
 			mcp.WithDescription("Send PurchaseOrder\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/purchaseorder/{id}/send (the `SendPurchaseOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendPurchaseOrderJSONRequestBody)")),
 		),
 		h.handleSendPurchaseOrderWithResponse,
@@ -686,7 +686,7 @@ func (h *Handler) RegisterPurchase(s *server.MCPServer) {
 		mcp.NewTool("create-purchase",
 			mcp.WithDescription("Create Purchase\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/purchase (the `CreatePurchase` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePurchaseJSONRequestBody)")),
 		),
 		h.handleCreatePurchaseWithResponse,
@@ -697,7 +697,7 @@ func (h *Handler) RegisterPurchase(s *server.MCPServer) {
 			mcp.WithDescription("Read Purchase\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/purchase/{id} (the `ReadPurchase` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadPurchaseWithResponse,
 	)
@@ -711,7 +711,7 @@ func (h *Handler) RegisterRecurringTransaction(s *server.MCPServer) {
 		mcp.NewTool("create-recurring-transaction",
 			mcp.WithDescription("Create RecurringTransaction\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/recurringtransaction (the `CreateRecurringTransaction` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateRecurringTransactionJSONRequestBody)")),
 		),
 		h.handleCreateRecurringTransactionWithResponse,
@@ -722,7 +722,7 @@ func (h *Handler) RegisterRecurringTransaction(s *server.MCPServer) {
 			mcp.WithDescription("Read RecurringTransaction\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/recurringtransaction/{id} (the `ReadRecurringTransaction` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadRecurringTransactionWithResponse,
 	)
@@ -736,7 +736,7 @@ func (h *Handler) RegisterRefundReceipt(s *server.MCPServer) {
 		mcp.NewTool("create-refund-receipt",
 			mcp.WithDescription("Create RefundReceipt\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/refundreceipt (the `CreateRefundReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateRefundReceiptJSONRequestBody)")),
 		),
 		h.handleCreateRefundReceiptWithResponse,
@@ -747,7 +747,7 @@ func (h *Handler) RegisterRefundReceipt(s *server.MCPServer) {
 			mcp.WithDescription("Read RefundReceipt\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/refundreceipt/{id} (the `ReadRefundReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadRefundReceiptWithResponse,
 	)
@@ -757,7 +757,7 @@ func (h *Handler) RegisterRefundReceipt(s *server.MCPServer) {
 			mcp.WithDescription("Send RefundReceipt\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/refundreceipt/{id}/send (the `SendRefundReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendRefundReceiptJSONRequestBody)")),
 		),
 		h.handleSendRefundReceiptWithResponse,
@@ -772,7 +772,7 @@ func (h *Handler) RegisterSalesReceipt(s *server.MCPServer) {
 		mcp.NewTool("create-sales-receipt",
 			mcp.WithDescription("Create SalesReceipt\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/salesreceipt (the `CreateSalesReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateSalesReceiptJSONRequestBody)")),
 		),
 		h.handleCreateSalesReceiptWithResponse,
@@ -783,7 +783,7 @@ func (h *Handler) RegisterSalesReceipt(s *server.MCPServer) {
 			mcp.WithDescription("Get SalesReceipt as PDF\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/salesreceipt/{id}/pdf (the `GetSalesReceiptPDF` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleGetSalesReceiptPDFWithResponse,
 	)
@@ -793,7 +793,7 @@ func (h *Handler) RegisterSalesReceipt(s *server.MCPServer) {
 			mcp.WithDescription("Read SalesReceipt\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/salesreceipt/{id} (the `ReadSalesReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadSalesReceiptWithResponse,
 	)
@@ -803,7 +803,7 @@ func (h *Handler) RegisterSalesReceipt(s *server.MCPServer) {
 			mcp.WithDescription("Send SalesReceipt\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/salesreceipt/{id}/send (the `SendSalesReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.SendSalesReceiptJSONRequestBody)")),
 		),
 		h.handleSendSalesReceiptWithResponse,
@@ -818,7 +818,7 @@ func (h *Handler) RegisterTaxAgency(s *server.MCPServer) {
 		mcp.NewTool("create-tax-agency",
 			mcp.WithDescription("Create TaxAgency\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/taxagency (the `CreateTaxAgency` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTaxAgencyJSONRequestBody)")),
 		),
 		h.handleCreateTaxAgencyWithResponse,
@@ -829,7 +829,7 @@ func (h *Handler) RegisterTaxAgency(s *server.MCPServer) {
 			mcp.WithDescription("Read TaxAgency\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxagency/{id} (the `ReadTaxAgency` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadTaxAgencyWithResponse,
 	)
@@ -843,7 +843,7 @@ func (h *Handler) RegisterTaxservice(s *server.MCPServer) {
 		mcp.NewTool("create-taxservice",
 			mcp.WithDescription("Create Taxservice\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/taxservice (the `CreateTaxservice` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTaxserviceJSONRequestBody)")),
 		),
 		h.handleCreateTaxserviceWithResponse,
@@ -858,7 +858,7 @@ func (h *Handler) RegisterTerm(s *server.MCPServer) {
 		mcp.NewTool("create-term",
 			mcp.WithDescription("Create Term\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/term (the `CreateTerm` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTermJSONRequestBody)")),
 		),
 		h.handleCreateTermWithResponse,
@@ -869,7 +869,7 @@ func (h *Handler) RegisterTerm(s *server.MCPServer) {
 			mcp.WithDescription("Read Term\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/term/{id} (the `ReadTerm` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadTermWithResponse,
 	)
@@ -883,7 +883,7 @@ func (h *Handler) RegisterTimeActivity(s *server.MCPServer) {
 		mcp.NewTool("create-time-activity",
 			mcp.WithDescription("Create TimeActivity\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/timeactivity (the `CreateTimeActivity` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTimeActivityJSONRequestBody)")),
 		),
 		h.handleCreateTimeActivityWithResponse,
@@ -894,7 +894,7 @@ func (h *Handler) RegisterTimeActivity(s *server.MCPServer) {
 			mcp.WithDescription("Read TimeActivity\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/timeactivity/{id} (the `ReadTimeActivity` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadTimeActivityWithResponse,
 	)
@@ -908,7 +908,7 @@ func (h *Handler) RegisterTransfer(s *server.MCPServer) {
 		mcp.NewTool("create-transfer",
 			mcp.WithDescription("Create Transfer\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/transfer (the `CreateTransfer` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTransferJSONRequestBody)")),
 		),
 		h.handleCreateTransferWithResponse,
@@ -919,7 +919,7 @@ func (h *Handler) RegisterTransfer(s *server.MCPServer) {
 			mcp.WithDescription("Read Transfer\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/transfer/{id} (the `ReadTransfer` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadTransferWithResponse,
 	)
@@ -933,7 +933,7 @@ func (h *Handler) RegisterVendorCredit(s *server.MCPServer) {
 		mcp.NewTool("create-vendor-credit",
 			mcp.WithDescription("Create VendorCredit\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/vendorcredit (the `CreateVendorCredit` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateVendorCreditJSONRequestBody)")),
 		),
 		h.handleCreateVendorCreditWithResponse,
@@ -944,7 +944,7 @@ func (h *Handler) RegisterVendorCredit(s *server.MCPServer) {
 			mcp.WithDescription("Read VendorCredit\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/vendorcredit/{id} (the `ReadVendorCredit` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadVendorCreditWithResponse,
 	)
@@ -958,7 +958,7 @@ func (h *Handler) RegisterVendor(s *server.MCPServer) {
 		mcp.NewTool("create-vendor",
 			mcp.WithDescription("Create Vendor\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/vendor (the `CreateVendor` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateVendorJSONRequestBody)")),
 		),
 		h.handleCreateVendorWithResponse,
@@ -969,7 +969,7 @@ func (h *Handler) RegisterVendor(s *server.MCPServer) {
 			mcp.WithDescription("Read Vendor\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/vendor/{id} (the `ReadVendor` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadVendorWithResponse,
 	)
@@ -984,7 +984,7 @@ func (h *Handler) RegisterCompanyInfo(s *server.MCPServer) {
 			mcp.WithDescription("Read CompanyInfo\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/companyinfo/{id} (the `ReadCompanyInfo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadCompanyInfoWithResponse,
 	)
@@ -993,7 +993,7 @@ func (h *Handler) RegisterCompanyInfo(s *server.MCPServer) {
 		mcp.NewTool("update-company-info",
 			mcp.WithDescription("Update CompanyInfo\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/companyinfo (the `UpdateCompanyInfo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdateCompanyInfoJSONRequestBody)")),
 		),
 		h.handleUpdateCompanyInfoWithResponse,
@@ -1009,7 +1009,7 @@ func (h *Handler) RegisterCustomerType(s *server.MCPServer) {
 			mcp.WithDescription("Read CustomerType\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/customertype/{id} (the `ReadCustomerType` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadCustomerTypeWithResponse,
 	)
@@ -1024,7 +1024,7 @@ func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
 			mcp.WithDescription("Read Entitlements\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/entitlements/{id} (the `ReadEntitlements` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadEntitlementsWithResponse,
 	)
@@ -1039,7 +1039,7 @@ func (h *Handler) RegisterPreferences(s *server.MCPServer) {
 			mcp.WithDescription("Read Preferences\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/preferences/{id} (the `ReadPreferences` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadPreferencesWithResponse,
 	)
@@ -1048,7 +1048,7 @@ func (h *Handler) RegisterPreferences(s *server.MCPServer) {
 		mcp.NewTool("update-preferences",
 			mcp.WithDescription("Update Preferences\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/preferences (the `UpdatePreferences` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdatePreferencesJSONRequestBody)")),
 		),
 		h.handleUpdatePreferencesWithResponse,
@@ -1064,7 +1064,7 @@ func (h *Handler) RegisterReimburseCharge(s *server.MCPServer) {
 			mcp.WithDescription("Read ReimburseCharge\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/reimbursecharge/{id} (the `ReadReimburseCharge` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadReimburseChargeWithResponse,
 	)
@@ -1079,7 +1079,7 @@ func (h *Handler) RegisterTaxClassification(s *server.MCPServer) {
 			mcp.WithDescription("Read TaxClassification\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxclassification/{id} (the `ReadTaxClassification` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadTaxClassificationWithResponse,
 	)
@@ -1094,7 +1094,7 @@ func (h *Handler) RegisterTaxCode(s *server.MCPServer) {
 			mcp.WithDescription("Read TaxCode\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxcode/{id} (the `ReadTaxCode` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadTaxCodeWithResponse,
 	)
@@ -1109,7 +1109,7 @@ func (h *Handler) RegisterTaxPayment(s *server.MCPServer) {
 			mcp.WithDescription("Read TaxPayment\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxpayment/{id} (the `ReadTaxPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadTaxPaymentWithResponse,
 	)
@@ -1124,7 +1124,7 @@ func (h *Handler) RegisterTaxRate(s *server.MCPServer) {
 			mcp.WithDescription("Read TaxRate\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxrate/{id} (the `ReadTaxRate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 		),
 		h.handleReadTaxRateWithResponse,
 	)
@@ -1138,7 +1138,7 @@ func (h *Handler) RegisterExchangeRate(s *server.MCPServer) {
 		mcp.NewTool("update-exchange-rate",
 			mcp.WithDescription("Update ExchangeRate\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/exchangerate (the `UpdateExchangeRate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
-			mcp.WithString("minorversion", mcp.Description("Minorversion")),
+			mcp.WithInteger("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdateExchangeRateJSONRequestBody)")),
 		),
 		h.handleUpdateExchangeRateWithResponse,
@@ -1443,7 +1443,7 @@ func (h *Handler) handleCreateAccountWithResponse(ctx context.Context, request m
 	params := &target.CreateAccountParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1466,7 +1466,7 @@ func (h *Handler) handleQueryAccountWithResponse(ctx context.Context, request mc
 	params := &target.QueryAccountParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -1495,7 +1495,7 @@ func (h *Handler) handleReadAccountWithResponse(ctx context.Context, request mcp
 	params := &target.ReadAccountParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1523,7 +1523,7 @@ func (h *Handler) handleCreateAttachableWithResponse(ctx context.Context, reques
 	params := &target.CreateAttachableParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1547,7 +1547,7 @@ func (h *Handler) handleReadAttachableWithResponse(ctx context.Context, request 
 	params := &target.ReadAttachableParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1575,7 +1575,7 @@ func (h *Handler) handleCreateBillPaymentWithResponse(ctx context.Context, reque
 	params := &target.CreateBillPaymentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1599,7 +1599,7 @@ func (h *Handler) handleReadBillPaymentWithResponse(ctx context.Context, request
 	params := &target.ReadBillPaymentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1627,7 +1627,7 @@ func (h *Handler) handleCreateBillWithResponse(ctx context.Context, request mcp.
 	params := &target.CreateBillParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1651,7 +1651,7 @@ func (h *Handler) handleReadBillWithResponse(ctx context.Context, request mcp.Ca
 	params := &target.ReadBillParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1679,7 +1679,7 @@ func (h *Handler) handleCreateBudgetWithResponse(ctx context.Context, request mc
 	params := &target.CreateBudgetParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1703,7 +1703,7 @@ func (h *Handler) handleReadBudgetWithResponse(ctx context.Context, request mcp.
 	params := &target.ReadBudgetParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1731,7 +1731,7 @@ func (h *Handler) handleCreateChangeOrderWithResponse(ctx context.Context, reque
 	params := &target.CreateChangeOrderParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1755,7 +1755,7 @@ func (h *Handler) handleReadChangeOrderWithResponse(ctx context.Context, request
 	params := &target.ReadChangeOrderParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1783,7 +1783,7 @@ func (h *Handler) handleCreateClassWithResponse(ctx context.Context, request mcp
 	params := &target.CreateClassParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1807,7 +1807,7 @@ func (h *Handler) handleReadClassWithResponse(ctx context.Context, request mcp.C
 	params := &target.ReadClassParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1835,7 +1835,7 @@ func (h *Handler) handleCreateCompanyCurrencyWithResponse(ctx context.Context, r
 	params := &target.CreateCompanyCurrencyParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1859,7 +1859,7 @@ func (h *Handler) handleReadCompanyCurrencyWithResponse(ctx context.Context, req
 	params := &target.ReadCompanyCurrencyParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1887,7 +1887,7 @@ func (h *Handler) handleCreateCreditCardPaymentTxnWithResponse(ctx context.Conte
 	params := &target.CreateCreditCardPaymentTxnParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1911,7 +1911,7 @@ func (h *Handler) handleReadCreditCardPaymentTxnWithResponse(ctx context.Context
 	params := &target.ReadCreditCardPaymentTxnParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1939,7 +1939,7 @@ func (h *Handler) handleCreateCreditMemoWithResponse(ctx context.Context, reques
 	params := &target.CreateCreditMemoParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1963,7 +1963,7 @@ func (h *Handler) handleReadCreditMemoWithResponse(ctx context.Context, request 
 	params := &target.ReadCreditMemoParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -1992,7 +1992,7 @@ func (h *Handler) handleSendCreditMemoWithResponse(ctx context.Context, request 
 	params := &target.SendCreditMemoParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2020,7 +2020,7 @@ func (h *Handler) handleCreateCustomerWithResponse(ctx context.Context, request 
 	params := &target.CreateCustomerParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2044,7 +2044,7 @@ func (h *Handler) handleReadCustomerWithResponse(ctx context.Context, request mc
 	params := &target.ReadCustomerParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2072,7 +2072,7 @@ func (h *Handler) handleCreateDepartmentWithResponse(ctx context.Context, reques
 	params := &target.CreateDepartmentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2096,7 +2096,7 @@ func (h *Handler) handleReadDepartmentWithResponse(ctx context.Context, request 
 	params := &target.ReadDepartmentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2124,7 +2124,7 @@ func (h *Handler) handleCreateDepositWithResponse(ctx context.Context, request m
 	params := &target.CreateDepositParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2148,7 +2148,7 @@ func (h *Handler) handleReadDepositWithResponse(ctx context.Context, request mcp
 	params := &target.ReadDepositParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2176,7 +2176,7 @@ func (h *Handler) handleCreateEmployeeWithResponse(ctx context.Context, request 
 	params := &target.CreateEmployeeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2200,7 +2200,7 @@ func (h *Handler) handleReadEmployeeWithResponse(ctx context.Context, request mc
 	params := &target.ReadEmployeeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2228,7 +2228,7 @@ func (h *Handler) handleCreateEstimateWithResponse(ctx context.Context, request 
 	params := &target.CreateEstimateParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2252,7 +2252,7 @@ func (h *Handler) handleGetEstimatePDFWithResponse(ctx context.Context, request 
 	params := &target.GetEstimatePDFParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2276,7 +2276,7 @@ func (h *Handler) handleReadEstimateWithResponse(ctx context.Context, request mc
 	params := &target.ReadEstimateParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2305,7 +2305,7 @@ func (h *Handler) handleSendEstimateWithResponse(ctx context.Context, request mc
 	params := &target.SendEstimateParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2333,7 +2333,7 @@ func (h *Handler) handleCreateInventoryAdjustmentWithResponse(ctx context.Contex
 	params := &target.CreateInventoryAdjustmentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2357,7 +2357,7 @@ func (h *Handler) handleReadInventoryAdjustmentWithResponse(ctx context.Context,
 	params := &target.ReadInventoryAdjustmentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2385,7 +2385,7 @@ func (h *Handler) handleCreateInvoiceWithResponse(ctx context.Context, request m
 	params := &target.CreateInvoiceParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2409,7 +2409,7 @@ func (h *Handler) handleGetInvoicePDFWithResponse(ctx context.Context, request m
 	params := &target.GetInvoicePDFParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2433,7 +2433,7 @@ func (h *Handler) handleReadInvoiceWithResponse(ctx context.Context, request mcp
 	params := &target.ReadInvoiceParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2462,7 +2462,7 @@ func (h *Handler) handleSendInvoiceWithResponse(ctx context.Context, request mcp
 	params := &target.SendInvoiceParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2490,7 +2490,7 @@ func (h *Handler) handleCreateItemWithResponse(ctx context.Context, request mcp.
 	params := &target.CreateItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2514,7 +2514,7 @@ func (h *Handler) handleReadItemWithResponse(ctx context.Context, request mcp.Ca
 	params := &target.ReadItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2542,7 +2542,7 @@ func (h *Handler) handleCreateJournalCodeWithResponse(ctx context.Context, reque
 	params := &target.CreateJournalCodeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2566,7 +2566,7 @@ func (h *Handler) handleReadJournalCodeWithResponse(ctx context.Context, request
 	params := &target.ReadJournalCodeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2594,7 +2594,7 @@ func (h *Handler) handleCreateJournalEntryWithResponse(ctx context.Context, requ
 	params := &target.CreateJournalEntryParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2618,7 +2618,7 @@ func (h *Handler) handleReadJournalEntryWithResponse(ctx context.Context, reques
 	params := &target.ReadJournalEntryParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2646,7 +2646,7 @@ func (h *Handler) handleCreatePaymentMethodWithResponse(ctx context.Context, req
 	params := &target.CreatePaymentMethodParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2670,7 +2670,7 @@ func (h *Handler) handleReadPaymentMethodWithResponse(ctx context.Context, reque
 	params := &target.ReadPaymentMethodParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2698,7 +2698,7 @@ func (h *Handler) handleCreatePaymentWithResponse(ctx context.Context, request m
 	params := &target.CreatePaymentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2722,7 +2722,7 @@ func (h *Handler) handleReadPaymentWithResponse(ctx context.Context, request mcp
 	params := &target.ReadPaymentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2751,7 +2751,7 @@ func (h *Handler) handleSendPaymentWithResponse(ctx context.Context, request mcp
 	params := &target.SendPaymentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2779,7 +2779,7 @@ func (h *Handler) handleCreatePurchaseOrderWithResponse(ctx context.Context, req
 	params := &target.CreatePurchaseOrderParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2803,7 +2803,7 @@ func (h *Handler) handleReadPurchaseOrderWithResponse(ctx context.Context, reque
 	params := &target.ReadPurchaseOrderParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2832,7 +2832,7 @@ func (h *Handler) handleSendPurchaseOrderWithResponse(ctx context.Context, reque
 	params := &target.SendPurchaseOrderParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2860,7 +2860,7 @@ func (h *Handler) handleCreatePurchaseWithResponse(ctx context.Context, request 
 	params := &target.CreatePurchaseParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2884,7 +2884,7 @@ func (h *Handler) handleReadPurchaseWithResponse(ctx context.Context, request mc
 	params := &target.ReadPurchaseParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2912,7 +2912,7 @@ func (h *Handler) handleCreateRecurringTransactionWithResponse(ctx context.Conte
 	params := &target.CreateRecurringTransactionParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2936,7 +2936,7 @@ func (h *Handler) handleReadRecurringTransactionWithResponse(ctx context.Context
 	params := &target.ReadRecurringTransactionParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2964,7 +2964,7 @@ func (h *Handler) handleCreateRefundReceiptWithResponse(ctx context.Context, req
 	params := &target.CreateRefundReceiptParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -2988,7 +2988,7 @@ func (h *Handler) handleReadRefundReceiptWithResponse(ctx context.Context, reque
 	params := &target.ReadRefundReceiptParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3017,7 +3017,7 @@ func (h *Handler) handleSendRefundReceiptWithResponse(ctx context.Context, reque
 	params := &target.SendRefundReceiptParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3045,7 +3045,7 @@ func (h *Handler) handleCreateSalesReceiptWithResponse(ctx context.Context, requ
 	params := &target.CreateSalesReceiptParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3069,7 +3069,7 @@ func (h *Handler) handleGetSalesReceiptPDFWithResponse(ctx context.Context, requ
 	params := &target.GetSalesReceiptPDFParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3093,7 +3093,7 @@ func (h *Handler) handleReadSalesReceiptWithResponse(ctx context.Context, reques
 	params := &target.ReadSalesReceiptParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3122,7 +3122,7 @@ func (h *Handler) handleSendSalesReceiptWithResponse(ctx context.Context, reques
 	params := &target.SendSalesReceiptParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3150,7 +3150,7 @@ func (h *Handler) handleCreateTaxAgencyWithResponse(ctx context.Context, request
 	params := &target.CreateTaxAgencyParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3174,7 +3174,7 @@ func (h *Handler) handleReadTaxAgencyWithResponse(ctx context.Context, request m
 	params := &target.ReadTaxAgencyParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3202,7 +3202,7 @@ func (h *Handler) handleCreateTaxserviceWithResponse(ctx context.Context, reques
 	params := &target.CreateTaxserviceParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3230,7 +3230,7 @@ func (h *Handler) handleCreateTermWithResponse(ctx context.Context, request mcp.
 	params := &target.CreateTermParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3254,7 +3254,7 @@ func (h *Handler) handleReadTermWithResponse(ctx context.Context, request mcp.Ca
 	params := &target.ReadTermParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3282,7 +3282,7 @@ func (h *Handler) handleCreateTimeActivityWithResponse(ctx context.Context, requ
 	params := &target.CreateTimeActivityParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3306,7 +3306,7 @@ func (h *Handler) handleReadTimeActivityWithResponse(ctx context.Context, reques
 	params := &target.ReadTimeActivityParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3334,7 +3334,7 @@ func (h *Handler) handleCreateTransferWithResponse(ctx context.Context, request 
 	params := &target.CreateTransferParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3358,7 +3358,7 @@ func (h *Handler) handleReadTransferWithResponse(ctx context.Context, request mc
 	params := &target.ReadTransferParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3386,7 +3386,7 @@ func (h *Handler) handleCreateVendorCreditWithResponse(ctx context.Context, requ
 	params := &target.CreateVendorCreditParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3410,7 +3410,7 @@ func (h *Handler) handleReadVendorCreditWithResponse(ctx context.Context, reques
 	params := &target.ReadVendorCreditParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3438,7 +3438,7 @@ func (h *Handler) handleCreateVendorWithResponse(ctx context.Context, request mc
 	params := &target.CreateVendorParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3462,7 +3462,7 @@ func (h *Handler) handleReadVendorWithResponse(ctx context.Context, request mcp.
 	params := &target.ReadVendorParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3486,7 +3486,7 @@ func (h *Handler) handleReadCompanyInfoWithResponse(ctx context.Context, request
 	params := &target.ReadCompanyInfoParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3514,7 +3514,7 @@ func (h *Handler) handleUpdateCompanyInfoWithResponse(ctx context.Context, reque
 	params := &target.UpdateCompanyInfoParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3538,7 +3538,7 @@ func (h *Handler) handleReadCustomerTypeWithResponse(ctx context.Context, reques
 	params := &target.ReadCustomerTypeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3562,7 +3562,7 @@ func (h *Handler) handleReadEntitlementsWithResponse(ctx context.Context, reques
 	params := &target.ReadEntitlementsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3586,7 +3586,7 @@ func (h *Handler) handleReadPreferencesWithResponse(ctx context.Context, request
 	params := &target.ReadPreferencesParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3614,7 +3614,7 @@ func (h *Handler) handleUpdatePreferencesWithResponse(ctx context.Context, reque
 	params := &target.UpdatePreferencesParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3638,7 +3638,7 @@ func (h *Handler) handleReadReimburseChargeWithResponse(ctx context.Context, req
 	params := &target.ReadReimburseChargeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3662,7 +3662,7 @@ func (h *Handler) handleReadTaxClassificationWithResponse(ctx context.Context, r
 	params := &target.ReadTaxClassificationParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3686,7 +3686,7 @@ func (h *Handler) handleReadTaxCodeWithResponse(ctx context.Context, request mcp
 	params := &target.ReadTaxCodeParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3710,7 +3710,7 @@ func (h *Handler) handleReadTaxPaymentWithResponse(ctx context.Context, request 
 	params := &target.ReadTaxPaymentParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3734,7 +3734,7 @@ func (h *Handler) handleReadTaxRateWithResponse(ctx context.Context, request mcp
 	params := &target.ReadTaxRateParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
@@ -3762,7 +3762,7 @@ func (h *Handler) handleUpdateExchangeRateWithResponse(ctx context.Context, requ
 	params := &target.UpdateExchangeRateParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["minorversion"]; ok {
-			params.Minorversion = ptrVal(request.GetString("minorversion", ""))
+			params.Minorversion = ptrVal(target.Minorversion(int(request.GetInt("minorversion", 0))))
 		}
 	}
 
