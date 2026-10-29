@@ -181,6 +181,7 @@
               }
             }
           },
+          "description": "JSON representation of the Account entity.",
           "required": true
         },
         "responses": {

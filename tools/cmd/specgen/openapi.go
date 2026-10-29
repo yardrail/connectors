@@ -548,27 +548,26 @@ func addEntityPaths(doc *openapi3.T, entity *CorrelatedEntity) {
 				}
 			}
 			if op.Type == OpDelete || op.Type == OpVoid {
-				// Delete/Void just need Id + SyncToken, use a minimal inline schema
-				operation.RequestBody = &openapi3.RequestBodyRef{
-					Value: openapi3.NewRequestBody().
-						WithRequired(true).
-						WithJSONSchemaRef(&openapi3.SchemaRef{Value: &openapi3.Schema{
-							Type: &openapi3.Types{"object"},
-							Properties: openapi3.Schemas{
-								"Id":        {Value: &openapi3.Schema{Type: &openapi3.Types{"string"}}},
-								"SyncToken": {Value: &openapi3.Schema{Type: &openapi3.Types{"string"}}},
-							},
-							Required: []string{"Id", "SyncToken"},
-						}}),
-					}
+				rb := openapi3.NewRequestBody().
+					WithRequired(true).
+					WithJSONSchemaRef(&openapi3.SchemaRef{Value: &openapi3.Schema{
+						Type: &openapi3.Types{"object"},
+						Properties: openapi3.Schemas{
+							"Id":        {Value: &openapi3.Schema{Type: &openapi3.Types{"string"}}},
+							"SyncToken": {Value: &openapi3.Schema{Type: &openapi3.Types{"string"}}},
+						},
+						Required: []string{"Id", "SyncToken"},
+					}})
+				rb.Description = fmt.Sprintf("Entity identifier for %s %s.", entity.Name, strings.ToLower(buildSummary(entity.Name, op.Type)))
+				operation.RequestBody = &openapi3.RequestBodyRef{Value: rb}
 			} else {
-				operation.RequestBody = &openapi3.RequestBodyRef{
-					Value: openapi3.NewRequestBody().
-						WithRequired(true).
-						WithJSONSchemaRef(&openapi3.SchemaRef{
-							Ref: "#/components/schemas/" + schemaName,
-						}),
-				}
+				rb := openapi3.NewRequestBody().
+					WithRequired(true).
+					WithJSONSchemaRef(&openapi3.SchemaRef{
+						Ref: "#/components/schemas/" + schemaName,
+					})
+				rb.Description = fmt.Sprintf("JSON representation of the %s entity.", entity.Name)
+				operation.RequestBody = &openapi3.RequestBodyRef{Value: rb}
 			}
 		}
 
