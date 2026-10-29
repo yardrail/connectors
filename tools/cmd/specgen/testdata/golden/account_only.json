@@ -250,5 +250,10 @@
     {
       "url": "https://sandbox-quickbooks.api.intuit.com"
     }
+  ],
+  "tags": [
+    {
+      "name": "Account"
+    }
   ]
 }

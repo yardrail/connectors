@@ -66,6 +66,9 @@ type CorrelatedSpec struct {
 	Enums       map[string]*XSDEnum
 	SharedTypes map[string]*SchemaInfo
 	XSDTypes    map[string]*XSDComplexType
+	// RefRewrites maps $ref display names from models JSON to canonical
+	// schema names (preferring XSD PascalCase). E.g. "CashbackInfo" -> "CashBackInfo".
+	RefRewrites map[string]string
 }
 
 // --- entity name normalization ---
@@ -207,16 +210,42 @@ func correlate(
 		}
 	}
 
-	// Pass 3: collect shared/reference models
+	// Build lowercase -> XSD type lookup for matching shared types to XSD.
+	xsdByLower := make(map[string]*XSDComplexType)
+	if xsdTypes != nil {
+		for name, ct := range xsdTypes {
+			xsdByLower[strings.ToLower(name)] = ct
+		}
+	}
+
+	// Pass 3: collect shared/reference models.
+	// When a shared model has an XSD counterpart, prefer the XSD PascalCase
+	// name to avoid duplicate schemas from casing mismatches.
 	for key, model := range mi.shared {
-		displayName := refDisplayNames[key]
+		xsdType := xsdByLower[key]
+		displayName := ""
+		if xsdType != nil {
+			displayName = xsdType.Name
+		}
+		if displayName == "" {
+			displayName = refDisplayNames[key]
+		}
 		if displayName == "" {
 			displayName = inferDisplayName(key)
 		}
 		spec.SharedTypes[key] = &SchemaInfo{
 			Model:       model,
-			XSDType:     xsdTypes[key],
+			XSDType:     xsdType,
 			DisplayName: displayName,
+		}
+	}
+
+	// Build ref rewrite map: models $ref DisplayName -> canonical schema name.
+	spec.RefRewrites = make(map[string]string)
+	for key, si := range spec.SharedTypes {
+		refName := refDisplayNames[key]
+		if refName != "" && refName != si.DisplayName {
+			spec.RefRewrites[refName] = si.DisplayName
 		}
 	}
 
