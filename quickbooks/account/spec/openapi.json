@@ -21,6 +21,7 @@
     },
     "schemas": {
       "APCreditCardOperationEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Credit Card\n\t\t\t\toperation type: Charge or Credit.",
         "enum": [
           "Charge",
           "Credit"
@@ -77,7 +78,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "User recognizable name for the Account. `Account.Name` attribute must not contain double quotes (\") or colon (:).",
@@ -182,6 +183,7 @@
         "type": "object"
       },
       "AccountClassificationEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of basic\n\t\t\t\tAccount types used generally in the accounting activities.",
         "enum": [
           "Asset",
           "Equity",
@@ -230,6 +232,7 @@
         "type": "object"
       },
       "AccountSubTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of Account\n\t\t\t\tsub-types used to specifically categorize account types in\n\t\t\t\tQuickBooks Online.",
         "enum": [
           "IncomeTaxPayable",
           "IntangibleAssetsOther",
@@ -532,6 +535,7 @@
         "type": "string"
       },
       "AccountTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Account\n\t\t\t\tsub-types(QBW) and Account types(QBO) used to specifically\n\t\t\t\tcategorize accounts. Note: QBO doesn't support the \"Non-Posting\"\n\t\t\t\tAccount type.",
         "enum": [
           "Bank",
           "Accounts Receivable",
@@ -651,6 +655,7 @@
         "type": "object"
       },
       "AcquiredAsEnum": {
+        "description": "enumeration of how the Fixed Asset has been\n\t\t\t\tacquired",
         "enum": [
           "New",
           "Used"
@@ -658,6 +663,7 @@
         "type": "string"
       },
       "AdvancedInventoryPrefs": {
+        "description": "QBW: only. Defines advance inventory Prefs details",
         "properties": {
           "BarcodeEnabled": {
             "description": "Product: QBW\n\t\t\t\t\t\tDescription: Indicates whether\n\t\t\t\t\t\tbarcoding is enabled",
@@ -931,6 +937,7 @@
         "type": "object"
       },
       "AgencyPaymentMethodEnum": {
+        "description": "Enumeration of payment methods that can be used to pay tax agency",
         "enum": [
           "ACH_CREDIT",
           "ACH_DEBIT",
@@ -993,7 +1000,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Note": {
             "description": "This note is either related to the attachment specified by `FileName` or is a standalone note. Required for standalone notes.",
@@ -1036,6 +1043,7 @@
         "type": "object"
       },
       "AttachableCategoryEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Category values for\n\t\t\t\tAttachable",
         "enum": [
           "Image",
           "Signature",
@@ -1268,7 +1276,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrivateNote": {
             "description": "User entered, organization-private note about the transaction. This note does not appear on the invoice to the customer. This field maps to the Memo field on the Invoice form.",
@@ -1378,7 +1386,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PayType": {
             "$ref": "#/components/schemas/BillPaymentTypeEnum"
@@ -1491,6 +1499,7 @@
         "type": "object"
       },
       "BillPaymentTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of bill\n\t\t\t\tpayment types.",
         "enum": [
           "Check",
           "CreditCard"
@@ -1498,6 +1507,7 @@
         "type": "string"
       },
       "BillableStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Billable\n\t\t\t\tStatus used when searching for reimbursable expenses.",
         "enum": [
           "Billable",
           "NotBillable",
@@ -1519,7 +1529,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: Provides for strong-typing of the BooleanType CustomField."
       },
       "Budget": {
         "properties": {
@@ -1551,7 +1562,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "User recognizable name for the Account. `Account.Name` attribute must not contain double quotes (\") or colon (:).",
@@ -1609,6 +1620,7 @@
         "type": "object"
       },
       "BudgetCustomExtensionAssociatedValue": {
+        "description": "Product: IES\n\t\t\t\tDescription: Key/value pair associated with a budget custom extension",
         "properties": {
           "Key": {
             "description": "Product: IES\n\t\t\t\t\t\tDescription: Dimension definition id for DIMENSION extension type",
@@ -1622,6 +1634,7 @@
         "type": "object"
       },
       "BudgetCustomExtensions": {
+        "description": "Product: IES\n\t\t\t\tDescription: Custom extensions for budget detail lines such as dimension subdivision",
         "properties": {
           "AssociatedValue": {
             "$ref": "#/components/schemas/BudgetCustomExtensionAssociatedValue"
@@ -1659,6 +1672,7 @@
         "type": "object"
       },
       "BudgetEntryTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of BudgetEntry Type",
         "enum": [
           "Yearly",
           "Quarterly",
@@ -1679,6 +1693,7 @@
         "type": "object"
       },
       "BudgetTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Budget Types",
         "enum": [
           "ProfitAndLoss",
           "BalanceSheet"
@@ -1686,6 +1701,7 @@
         "type": "string"
       },
       "CCAVSMatchEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of AVSStreet and AVSZip match used in Credit Card payment transactions.",
         "enum": [
           "Fail",
           "NotAvailable",
@@ -1694,6 +1710,7 @@
         "type": "string"
       },
       "CCPaymentStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of the status of the Credit Card payment transaction.",
         "enum": [
           "Completed",
           "Voided",
@@ -1702,6 +1719,7 @@
         "type": "string"
       },
       "CCSecurityCodeMatchEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Credit Card security code match used in Credit Card payment transactions.",
         "enum": [
           "Fail",
           "NotAvailable",
@@ -1710,6 +1728,7 @@
         "type": "string"
       },
       "CCTxnModeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Credit Card transaction modes used in Credit Card payment transactions.",
         "enum": [
           "CardNotPresent",
           "CardPresent"
@@ -1717,6 +1736,7 @@
         "type": "string"
       },
       "CCTxnTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Credit Card transaction types used in Credit Card payment transactions.",
         "enum": [
           "Authorization",
           "Capture",
@@ -1727,28 +1747,6 @@
         "type": "string"
       },
       "CashBackInfo": {
-        "properties": {
-          "AccountRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "Amount": {
-            "type": "string"
-          },
-          "Memo": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "CashPurchase": {
-        "properties": {
-          "AccountRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          }
-        },
-        "type": "object"
-      },
-      "CashbackInfo": {
         "properties": {
           "AccountRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -1766,6 +1764,15 @@
           "AccountRef",
           "Amount"
         ],
+        "type": "object"
+      },
+      "CashPurchase": {
+        "description": "Cash based expense type definition",
+        "properties": {
+          "AccountRef": {
+            "$ref": "#/components/schemas/ReferenceType"
+          }
+        },
         "type": "object"
       },
       "Cashflowquery": {
@@ -1887,7 +1894,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrintStatus": {
             "description": "Printing status of the change order. Valid values: `NotSet`, `NeedToPrint`, `PrintComplete`.",
@@ -2077,7 +2084,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Financial transaction representing a request for\n\t\t\t\tcredit on payment for\n\t\t\t\tgoods or services that have been sold."
       },
       "CheckPayment": {
         "properties": {
@@ -2105,6 +2113,7 @@
         "type": "object"
       },
       "CheckPurchase": {
+        "description": "Financial Transaction information that pertains to\n\t\t\t\tthe entire Check.",
         "properties": {
           "AccountRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -2139,7 +2148,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "User recognizable name for the Class.",
@@ -2377,9 +2386,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Describes Company information"
       },
       "CompanyAccountingPrefs": {
+        "description": "Defines Company Accounting Prefs details",
         "properties": {
           "AutoJournalEntryNumber": {
             "description": "QBW: ONLY. Enable auto journal entry number",
@@ -2461,7 +2472,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "The full name of the currency.",
@@ -2544,7 +2555,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "NameValue": {
             "items": {
@@ -2566,7 +2577,7 @@
             "type": "string"
           },
           "WebAddr": {
-            "$ref": "#/components/schemas/WebsiteAddress"
+            "$ref": "#/components/schemas/WebSiteAddress"
           }
         },
         "type": "object"
@@ -2596,6 +2607,7 @@
         "type": "object"
       },
       "ContactTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Types of ContactInfo entities.",
         "enum": [
           "TelephoneNumber",
           "EmailAddress",
@@ -2621,9 +2633,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBO\n\t\t\t\tDescription: Internal use only: Convenience Fee detail for the invoice"
       },
       "ConvenienceFeeTypeEnum": {
+        "description": "Enumeration of Convenience fee types applicable to Invoice",
         "enum": [
           "MANUAL",
           "AUTO",
@@ -2669,7 +2683,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrintStatus": {
             "description": "Printing status of the credit-card-payment. Valid values: `NotSet`, `NeedToPrint`, `PrintComplete `.",
@@ -2741,6 +2755,7 @@
         "type": "object"
       },
       "CreditCardPurchase": {
+        "description": "Financial Transaction information that pertains to\n\t\t\t\tthe entire Check.",
         "properties": {
           "AccountRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -2753,6 +2768,7 @@
         "type": "object"
       },
       "CreditCardTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Credit Card types used in Credit Card payment transactions.",
         "enum": [
           "AmEx",
           "DebitCard",
@@ -2802,6 +2818,7 @@
         "type": "object"
       },
       "CreditChargeResponse": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Holds credit-card transaction response information from a merchant account service, but not any credit card or payment request information - see CreditChargeInfo.",
         "properties": {
           "AuthCode": {
             "description": "Product: ALL\n\t\t\t\t\t\tDescription: Code returned from the credit card processor to indicate that the charge will be paid by the card issuer.",
@@ -2957,7 +2974,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PaymentMethodRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -3054,139 +3071,6 @@
         },
         "type": "object"
       },
-      "Creditmemo": {
-        "properties": {
-          "ApplyTaxAfterDiscount": {
-            "description": "If false or null, calculate the sales tax first, and then apply the discount. If true, subtract the discount first and then calculate the sales tax. Default Value: false Constraints: US versions of QuickBooks only.",
-            "type": "boolean"
-          },
-          "Balance": {
-            "description": "The balance reflecting any payments made against the transaction. Initially set to the value of `TotalAmt`. A Balance of 0 indicates the invoice is fully paid. Calculated by QuickBooks business logic; any value you supply is over-written by QuickBooks.",
-            "readOnly": true,
-            "type": "number"
-          },
-          "BillAddr": {
-            "$ref": "#/components/schemas/PhysicalAddress"
-          },
-          "BillEmail": {
-            "$ref": "#/components/schemas/EmailAddress"
-          },
-          "CurrencyRef": {
-            "description": "Reference to the currency in which all amounts on the associated transaction are expressed. If not set to the Customer or the Vendor currency, will default to the the home currency of the company as defined by `Preferences.CurrencyPrefs.HomeCurrency`.",
-            "type": "string"
-          },
-          "CustomField": {
-            "$ref": "#/components/schemas/CustomField"
-          },
-          "CustomerMemo": {
-            "$ref": "#/components/schemas/MemoRef"
-          },
-          "CustomerRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "DepartmentRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "Deposit": {
-            "description": "The deposit made towards this invoice.",
-            "type": "number"
-          },
-          "DepositToAccountRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "DocNumber": {
-            "description": "Reference number for the transaction. If not explicitly provided at create time, this field is populated based on the setting of `Preferences:CustomTxnNumber` as follows: If `Preferences:CustomTxnNumber` is true a custom value can be provided. If no value is supplied, the resulting DocNumber is null. If `Preferences:CustomTxnNumber` is false, resulting DocNumber is system generated by incrementing the last number by 1. If `Preferences:CustomTxnNumber` is false and a value is supplied, that value is stored even if it is a duplicate. Recommended best practice: check the setting of `Preferences:CustomTxnNumber` before setting DocNumber. Sort order is ASC by default.",
-            "type": "string"
-          },
-          "DueDate": {
-            "$ref": "#/components/schemas/Date"
-          },
-          "EmailStatus": {
-            "description": "Email status of the invoice. Valid values: `NotSet`, `NeedToSend`, `EmailSent `",
-            "type": "string"
-          },
-          "ExchangeRate": {
-            "description": "The number of home currency units it takes to equal one unit of currency specified by `CurrencyRef`. Applicable if multicurrency is enabled for the company.",
-            "type": "number"
-          },
-          "GlobalTaxCalculation": {
-            "$ref": "#/components/schemas/GlobalTaxCalculationEnum"
-          },
-          "HomeBalance": {
-            "description": "Convenience field containing the amount in `Balance` expressed in terms of the home currency. Calculated by QuickBooks business logic. Applicable if multicurrency is enabled for the company.",
-            "readOnly": true,
-            "type": "number"
-          },
-          "HomeTotalAmt": {
-            "description": "Total amount of the transaction in the home currency. Includes the total of all the charges, allowances and taxes. Calculated by QuickBooks business logic. Applicable if multicurrency is enabled for the company.",
-            "readOnly": true,
-            "type": "number"
-          },
-          "Id": {
-            "description": "Unique Identifier for an Intuit entity (object).",
-            "readOnly": true,
-            "type": "string"
-          },
-          "Line": {
-            "items": {
-              "$ref": "#/components/schemas/SalesItemLine"
-            },
-            "type": "array"
-          },
-          "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
-          },
-          "PrintStatus": {
-            "description": "`NotSet` Printing status of the invoice. Valid values: `NotSet`, `NeedToPrint`, `PrintComplete `. Printing status of the invoice.",
-            "type": "string"
-          },
-          "PrivateNote": {
-            "description": "User entered, organization-private note about the transaction. This note does not appear on the invoice to the customer. This field maps to the Memo field on the Invoice form.",
-            "type": "string"
-          },
-          "ProjectRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "SalesTermRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "ShipAddr": {
-            "$ref": "#/components/schemas/PhysicalAddress"
-          },
-          "ShipDate": {
-            "$ref": "#/components/schemas/Date"
-          },
-          "ShipMethodRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "SyncToken": {
-            "description": "Version number of the object. It is used to lock an object for use by one app at a time. As soon as an application modifies an object, its `SyncToken` is incremented. Attempts to modify an object specifying an older `SyncToken` fails. Only the latest version of the object is maintained by QuickBooks Online.",
-            "readOnly": true,
-            "type": "string"
-          },
-          "TaxExemptionRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "TotalAmt": {
-            "description": "Indicates the total amount of the transaction. This includes the total of all the charges, allowances, and taxes. Calculated by QuickBooks business logic; any value you supply is over-written by QuickBooks.",
-            "type": "number"
-          },
-          "TrackingNum": {
-            "description": "Shipping provider's tracking number for the delivery of the goods associated with the transaction.",
-            "type": "string"
-          },
-          "TxnDate": {
-            "$ref": "#/components/schemas/Date"
-          },
-          "TxnTaxDetail": {
-            "$ref": "#/components/schemas/TxnTaxDetail"
-          }
-        },
-        "required": [
-          "CustomerRef"
-        ],
-        "type": "object"
-      },
       "Currency": {
         "allOf": [
           {
@@ -3243,7 +3127,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Describes the properties of currencies defined in\n\t\t\t\tQuickBooks. QuickBooks supports the world's common currencies."
       },
       "CurrencyPrefs": {
         "properties": {
@@ -3275,6 +3160,7 @@
         "type": "object"
       },
       "CustomExtensionAssociatedValues": {
+        "description": "Product: IES\n\t\t\t\tDescription: Custom Extensions Values associated with entities like transactions",
         "properties": {
           "Key": {
             "description": "Product: IES\n\t\t\t\t\t\tDescription: Holds the key of the associated custom extension value. This key is a reference to the custom extension defined in Custom Extensions Service",
@@ -3350,9 +3236,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: The definition of a custom field for an Intuit type to add additional columns dynamically on a existing Intuit entities. This entity is not extended from IntuitEntity so that it can be manipulated by specifying the DefinitionId."
       },
       "CustomFieldTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Possible supported CustomFieldTypes.",
         "enum": [
           "StringType",
           "BooleanType",
@@ -3438,7 +3326,7 @@
             "type": "integer"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "MiddleName": {
             "description": "Middle name of the person. The person can have zero or more middle names. The `DisplayName` attribute or at least one of `Title`, `GivenName`, `MiddleName`, `FamilyName`, or `Suffix` attributes is required.",
@@ -3518,7 +3406,7 @@
             "type": "string"
           },
           "WebAddr": {
-            "$ref": "#/components/schemas/WebsiteAddress"
+            "$ref": "#/components/schemas/WebSiteAddress"
           }
         },
         "type": "object"
@@ -3585,7 +3473,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "A standard message to a customer that can be\n\t\t\t\tincluded at the bottom of a sales form."
       },
       "CustomerType": {
         "properties": {
@@ -3599,7 +3488,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "The full name of the customer type.",
@@ -3614,6 +3503,7 @@
         "type": "object"
       },
       "CustomerTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of customer\n\t\t\t\ttypes in QuickBooks.",
         "enum": [
           "Customer",
           "Job"
@@ -3879,9 +3769,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: Provides for strong-typing of the DateType CustomField."
       },
       "DayOfWeekEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of the days of\n\t\t\t\tthe week.",
         "enum": [
           "Monday",
           "Tuesday",
@@ -3894,6 +3786,7 @@
         "type": "string"
       },
       "DeliveryErrorTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enum of different delivery error types.",
         "enum": [
           "Missing Info",
           "Undeliverable",
@@ -3914,6 +3807,7 @@
         "type": "object"
       },
       "DeliveryTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enum of different delivery types. Supports Email and Tradeshift delivery.",
         "enum": [
           "Email",
           "Tradeshift"
@@ -3937,7 +3831,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "User recognizable name for the Department.",
@@ -4037,7 +3931,7 @@
       "Deposit": {
         "properties": {
           "CashBack": {
-            "$ref": "#/components/schemas/CashbackInfo"
+            "$ref": "#/components/schemas/CashBackInfo"
           },
           "CurrencyRef": {
             "$ref": "#/components/schemas/CurrencyRef"
@@ -4079,7 +3973,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrivateNote": {
             "description": "User entered, organization-private note about the transaction. This note does not appear on the invoice to the customer. This field maps to the Memo field on the Invoice form.",
@@ -4226,6 +4120,7 @@
         "type": "object"
       },
       "DescriptionLineDetail": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Information about\n\t\t\t\tDescription.",
         "properties": {
           "DescriptionLineDetailEx": {
             "$ref": "#/components/schemas/IntuitAnyType"
@@ -4285,6 +4180,7 @@
         "type": "object"
       },
       "DesktopEntityTypeEnum": {
+        "description": "Enumeration of Desktop Entity Type For\n\t\t\t\tThirdPartyAppId Migration",
         "enum": [
           "ANY",
           "CREDIT_CARD",
@@ -4462,6 +4358,7 @@
         "type": "object"
       },
       "DiscountTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of the different types of Discounts",
         "enum": [
           "Rate",
           "Amount"
@@ -4469,6 +4366,7 @@
         "type": "string"
       },
       "ETransactionEnabledStatusEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of\n\t\t\t\teTransaction prefs status.",
         "enum": [
           "Enabled",
           "NotApplicable"
@@ -4476,6 +4374,7 @@
         "type": "string"
       },
       "ETransactionStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of\n\t\t\t\teTransaction status values. The statuses (Sent, Viewed, Paid,\n\t\t\t\tDelivery Error, Updated, Sent With ICN Error) are used by QBO\n\t\t\t\teInvoicing. The rest statuses are to be used for Tradeshift\n\t\t\t\tIntegration",
         "enum": [
           "Sent",
           "Viewed",
@@ -4492,6 +4391,7 @@
         "type": "string"
       },
       "EffectiveTaxRate": {
+        "description": "Product: QBO\n\t\t\t\tDescription: EffectiveTaxRate detail",
         "properties": {
           "EffectiveDate": {
             "description": "Product: QBO\n\t\t\t\t\t\tDescription: Effective starting date\n\t\t\t\t\t\tfor which this taxrate is applicable",
@@ -4538,6 +4438,7 @@
         "type": "object"
       },
       "EmailAddressTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of type of email addresses that the data sync process understands.",
         "enum": [
           "Primary",
           "CC"
@@ -4590,9 +4491,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBO\n\t\t\t\tDescription: Specifies various fields\n\t\t\t\trequired for emailing different transaction"
       },
       "EmailMessage": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Base type holding default subject and message for transaction emails.",
         "properties": {
           "Message": {
             "description": "Product: QBO\n\t\t\t\t\t\tDescription: Message body for the email",
@@ -4636,6 +4539,7 @@
         "type": "object"
       },
       "EmailStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of email\n\t\t\t\tstatus values.",
         "enum": [
           "NotSet",
           "NeedToSend",
@@ -4776,6 +4680,7 @@
         "type": "object"
       },
       "EnabledSurchargeInfo": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Per-invoice surcharging settings",
         "properties": {
           "ACH": {
             "$ref": "#/components/schemas/SurchargePaymentMethodInfo"
@@ -4811,7 +4716,11 @@
             "type": "string"
           },
           "Entitlement": {
-            "$ref": "#/components/schemas/TelephoneNumber"
+            "items": {
+              "description": "`Entitlement.id`--Integer. Name of the entitlement. `Entitlement.name`--String. Name of the entitlement. `Entitlement.Term`--Boolean. Availability of entitlement: `On` or `Off`.",
+              "type": "string"
+            },
+            "type": "array"
           },
           "FiscalYearStartMonth": {
             "$ref": "#/components/schemas/MonthEnum"
@@ -4839,7 +4748,7 @@
             "type": "array"
           },
           "WebAddr": {
-            "$ref": "#/components/schemas/WebsiteAddress"
+            "$ref": "#/components/schemas/WebSiteAddress"
           }
         },
         "type": "object"
@@ -4857,6 +4766,7 @@
         "type": "object"
       },
       "EntityStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Possible Status of an Entity.",
         "enum": [
           "Deleted",
           "Voided",
@@ -4869,6 +4779,7 @@
         "type": "string"
       },
       "EntityTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Entity\n\t\t\t\ttypes.",
         "enum": [
           "Customer",
           "Employee",
@@ -4879,6 +4790,7 @@
         "type": "string"
       },
       "EntityTypeRef": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Reference information for\n\t\t\t\tan entity.",
         "properties": {
           "EntityRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -4992,7 +4904,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrintStatus": {
             "description": "Printing status of the invoice. Valid values: `NotSet`, `NeedToPrint`, `PrintComplete `.",
@@ -5095,6 +5007,7 @@
         "type": "object"
       },
       "EstimateStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of status for\n\t\t\t\tan estimate.",
         "enum": [
           "Active",
           "NotActive"
@@ -5112,7 +5025,7 @@
             "$ref": "#/components/schemas/CustomField"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Rate": {
             "description": "The exchange rate between `SourceCurrencyCode` and `TargetCurrencyCode` on the `AsOfDate` date.",
@@ -5200,6 +5113,7 @@
         "type": "object"
       },
       "FinancingProductTypeEnum": {
+        "description": "Enumeration of financing Product Type applicable to Invoice",
         "enum": [
           "GET_PAID_UPFRONT"
         ],
@@ -5304,12 +5218,14 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "An asset you do not expect to convert to cash\n\t\t\t\tduring one year of normal operations.\n\t\t\t\tA fixed asset is usually\n\t\t\t\tsomething that is necessary for the operation of your business, such\n\t\t\t\tas a truck, cash register, or computer."
       },
       "Frenchpcgaccountlist": {
         "type": "object"
       },
       "GTMConfigTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of\n\t\t\t\tConfigType taxCode taxRate taxAgency",
         "enum": [
           "SYSTEM_GENERATED",
           "USER_DEFINED",
@@ -5445,6 +5361,7 @@
         "type": "object"
       },
       "GenericContactType": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Contact type other than email, phone, address. Examples: \"Chat\", \"SkypeId\", \"FaceBook\" etc.",
         "properties": {
           "Default": {
             "description": "Product: ALL\n\t\t\t\t\t\tDescription: True if this is the default contact information.",
@@ -5474,6 +5391,7 @@
         "type": "object"
       },
       "GlobalTaxCalculationEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of tax model\n\t\t\t\ttypes.",
         "enum": [
           "TaxInclusive",
           "TaxExcluded",
@@ -5531,9 +5449,11 @@
         "type": "object"
       },
       "IntuitAnyType": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Definition of IntuitAnyType to add and extend new elements to the existing entities.",
         "type": "object"
       },
       "IntuitEntity": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Base type of any top level Intuit Entity of small business type.",
         "properties": {
           "AttachableRef": {
             "items": {
@@ -5582,7 +5502,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrivateNote": {
             "description": "User entered, organization-private note about the transaction. This note does not appear on the invoice to the customer. This field maps to the Statement Memo field on the Invoice form in the QuickBooks Online UI.",
@@ -5691,7 +5611,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBW\n\t\t\t\tDescription: The InventorySite resource\n\t\t\t\trepresents a location where inventory is stored.\n\t\t\t\tEndpoint:\n\t\t\t\tinventorysite\n\t\t\t\tBusiness Rules: [li]The site name must be unique.[/li]"
       },
       "Inventoryvaluationdetailquery": {
         "properties": {
@@ -5905,7 +5826,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrintStatus": {
             "description": "Printing status of the invoice. Valid values: `NotSet`, `NeedToPrint`, `PrintComplete `.",
@@ -6066,7 +5987,7 @@
             "type": "integer"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "Name of the item. This value is unique.",
@@ -6187,6 +6108,7 @@
         "type": "object"
       },
       "ItemAssemblyDetail": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Contains the details of an\n\t\t\t\tinventory assembly item.",
         "properties": {
           "ItemAssemblyLine": {
             "items": {
@@ -6278,6 +6200,7 @@
         "type": "object"
       },
       "ItemCategoryTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of Item Category Type for France",
         "enum": [
           "Product",
           "Service"
@@ -6285,6 +6208,7 @@
         "type": "string"
       },
       "ItemComponentLine": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Constituent line of a\n\t\t\t\tgroup item.",
         "properties": {
           "ItemRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -6370,6 +6294,7 @@
         "type": "object"
       },
       "ItemLineDetail": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Information about the\n\t\t\t\tgoods sold: what is sold, how much/many and for what price.",
         "properties": {
           "ClassRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -6403,6 +6328,7 @@
         "type": "object"
       },
       "ItemReceiptLineDetail": {
+        "description": "Product: ALL\n\t\t\t\tDescription: ItemReceipt detail for a\n\t\t\t\ttransaction line.",
         "properties": {
           "ItemReceiptLineDetailEx": {
             "$ref": "#/components/schemas/IntuitAnyType"
@@ -6431,6 +6357,7 @@
         "type": "object"
       },
       "ItemTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of types of\n\t\t\t\tItems in QuickBooks.",
         "enum": [
           "Assembly",
           "Category",
@@ -6585,12 +6512,14 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Journal Code is a compliance requirement in FR. A\n\t\t\t\tjournal code is assigned to each transaction and it depends on\n\t\t\t\twhether it is a income or a expense."
       },
       "JournalCodeEnvelope": {
         "type": "object"
       },
       "JournalCodeTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of the different types of Journal Codes applicable in\n\t\t\t\tFR",
         "enum": [
           "Expenses",
           "Sales",
@@ -6646,7 +6575,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrivateNote": {
             "description": "User entered, organization-private note about the transaction.",
@@ -6891,6 +6820,7 @@
         "type": "object"
       },
       "LineDetailTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration line detail\n\t\t\t\ttypes.",
         "enum": [
           "PaymentLineDetail",
           "DiscountLineDetail",
@@ -6975,6 +6905,7 @@
         "type": "object"
       },
       "MXGlobalInfo": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Global invoice data of a transaction which is required by CFDI4.0 in Mexico.\n\t\t\t\tVisit http://omawww.sat.gob.mx/tramitesyservicios/Paginas/anexo_20_version3-3.htm and find the catalogues that contain the accepted values of Exportation, Periodicity, and Year.",
         "properties": {
           "Month": {
             "description": "Product: QBO\n\t\t\t\t\t\tDescription: Month of global invoice data which is required by CFDI4.0 in Mexico.",
@@ -7020,7 +6951,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Master Account is the list of accounts in the\n\t\t\t\tmaster list. The master list is the complete list of accounts\n\t\t\t\tprescribed by the French Government. These accounts can be created\n\t\t\t\tin the company on a need basis. The account create API needs to be\n\t\t\t\tused to create an account."
       },
       "MemoRef": {
         "properties": {
@@ -7037,33 +6969,6 @@
       "ModificationMetaData": {
         "properties": {
           "CreateTime": {
-            "description": "Product: ALL\n\t\t\t\t\t\tDescription: Time the entity was created in the source domain (QBD or QBO). Read only property.\n\t\t\t\t\t\tFilterable: ALL\n\t\t\t\t\t\tSortable: ALL",
-            "type": "string"
-          },
-          "CreatedByRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "LastChangedInQB": {
-            "description": "Product: QBW\n\t\t\t\t\t\tDescription: Time the entity was last updated in QB. Read only property.",
-            "type": "string"
-          },
-          "LastModifiedByRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          },
-          "LastUpdatedTime": {
-            "description": "Product: ALL\n\t\t\t\t\t\tDescription: Time the entity was last updated in the source domain (QBD or QBO). Read only property.\n\t\t\t\t\t\tFilterable: ALL\n\t\t\t\t\t\tSortable: ALL",
-            "type": "string"
-          },
-          "Synchronized": {
-            "description": "Product: QBW\n\t\t\t\t\t\tDescription: If true, the data on the cloud has been synchronized with QuickBooks for Windows. If false, the data has been created or updated on the cloud but has not been synchronized with QuickBooks for Windows. Read-only field.\n\t\t\t\t\t\tFilterable: QBW",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "ModificationMetadata": {
-        "properties": {
-          "CreateTime": {
             "$ref": "#/components/schemas/DateTime"
           },
           "LastUpdatedTime": {
@@ -7073,6 +6978,7 @@
         "type": "object"
       },
       "Money": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Monetary value represented with as a currency code and decimal value. Moneyis always associated with another IntuitEntity and will not be manipulated as a standalone hence it is not extended from IntuitEntity.",
         "properties": {
           "Amount": {
             "description": "Product: ALL\n\t\t\t\t\t\tDescription: Monetary value.",
@@ -7086,6 +6992,7 @@
         "type": "object"
       },
       "MonthEnum": {
+        "description": "Month enumeration",
         "enum": [
           "January",
           "February",
@@ -7103,6 +7010,7 @@
         "type": "string"
       },
       "NameValue": {
+        "description": "Product: ALL\n\t\t\t\tDescription: A name/value pair that allows the client to include data that is meaningful in the domain of origin, outside of the Intuit domain.",
         "properties": {
           "Name": {
             "description": "Product: ALL\n\t\t\t\t\t\tDescription: Name of the element.",
@@ -7137,9 +7045,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: Provides for strong-typing of the NumberType CustomField."
       },
       "OLBAccount": {
+        "description": "Describes OLBAccount details",
         "properties": {
           "AccountDetails": {
             "description": "Account details that contains possibly credit\n\t\t\t\t\t\tcard number, last 5 digits",
@@ -7164,6 +7074,7 @@
         "type": "object"
       },
       "OLBStatus": {
+        "description": "Describes list of OLBAccounts that needs to be\n\t\t\t\tenabled or disabled",
         "properties": {
           "OLBAccount": {
             "items": {
@@ -7175,6 +7086,7 @@
         "type": "object"
       },
       "OLBTransaction": {
+        "description": "Describes OLBTransactions list that are downloaded",
         "properties": {
           "OLBDownloadTime": {
             "description": "Product: ALL\n\t\t\t\t\t\tDescription: Last time OLB transactions where downloaded from the bank",
@@ -7190,6 +7102,7 @@
         "type": "object"
       },
       "OLBTxn": {
+        "description": "Describes OLBTransactions list that are downloaded",
         "properties": {
           "AccountId": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -7212,6 +7125,7 @@
         "type": "object"
       },
       "OLBTxnDetail": {
+        "description": "Describes OLBTransaction instance - one per\n\t\t\t\ttransaction downloaded",
         "properties": {
           "Amount": {
             "description": "Amount of the transaction",
@@ -7237,6 +7151,7 @@
         "type": "object"
       },
       "OLBTxnStatusEnum": {
+        "description": "Product: All\n\t\t\t\tDescription: Enumeration of\n\t\t\t\tOLBTransactions Status",
         "enum": [
           "Pending",
           "Approved",
@@ -7245,6 +7160,7 @@
         "type": "string"
       },
       "OtherPrefs": {
+        "description": "Any other preference not covered in base is covered\n\t\t\t\tas name value pair, for detailed explanation look at the document",
         "properties": {
           "NameValue": {
             "items": {
@@ -7256,6 +7172,7 @@
         "type": "object"
       },
       "PaySalesTaxEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of sales tax\n\t\t\t\tpayment basis.",
         "enum": [
           "Annually",
           "Monthly",
@@ -7293,7 +7210,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PaymentMethodRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -7377,6 +7294,7 @@
         "type": "object"
       },
       "PaymentExtendedTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of extended\n\t\t\t\tpayment types.",
         "enum": [
           "Prepayment"
         ],
@@ -7413,7 +7331,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "User recognizable name for the payment method.",
@@ -7447,6 +7365,7 @@
         "type": "object"
       },
       "PaymentMethodEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of payment\n\t\t\t\tmethods when receiving a customer payment of paying for goods.",
         "enum": [
           "AmEx",
           "Cash",
@@ -7475,6 +7394,7 @@
         "type": "object"
       },
       "PaymentStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of payable\n\t\t\t\tstatus for an invoice, as follows: A pending invoice is not yet\n\t\t\t\tapproved/final/sent; not yet payable by customer. A payable invoice\n\t\t\t\tis now payable. Partial payments may have been received, but money\n\t\t\t\tstill remains to be paid. No claim is made about due vs. overdue,\n\t\t\t\tpast due etc... A paid invoice has been paid in full. No amount\n\t\t\t\tremains to be paid.",
         "enum": [
           "Draft",
           "Overdue",
@@ -7487,6 +7407,7 @@
         "type": "string"
       },
       "PaymentTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of payment\n\t\t\t\ttypes.",
         "enum": [
           "Cash",
           "Check",
@@ -7530,6 +7451,7 @@
         "type": "object"
       },
       "PerItemAdjustEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of per item\n\t\t\t\tadjustments.",
         "enum": [
           "Cost",
           "CurrentCustomPrice",
@@ -7584,6 +7506,7 @@
         "type": "object"
       },
       "PhysicalAddressTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of type of addresses that the data sync process understands.",
         "enum": [
           "Billing",
           "Shipping"
@@ -7591,6 +7514,7 @@
         "type": "string"
       },
       "PostingTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of QuickBooks\n\t\t\t\tposting types.",
         "enum": [
           "Credit",
           "Debit"
@@ -7614,7 +7538,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "OtherPrefs": {
             "description": "Specifies extension of Preference resource to allow extension of Name-Value pair based extension at the top level.",
@@ -7684,7 +7608,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBW\n\t\t\t\tDescription: You can use price levels\n\t\t\t\tto specify custom pricing for specific customers. Once you create a\n\t\t\t\tprice level for a customer, QuickBooks will automatically use the\n\t\t\t\tcustom price in new invoices, sales receipts, sales orders or credit\n\t\t\t\tmemos for that customer. You can override this automatic feature,\n\t\t\t\thowever, when you create the invoices, sales receipts, etc. The user\n\t\t\t\tcan now specify a price level on line items in the following\n\t\t\t\tsupported sales transactions: invoices, sales receipts, credit\n\t\t\t\tmemos, and sales orders. Notice that the response data for the\n\t\t\t\taffected sales transaction does not list the price level that was\n\t\t\t\tused. The response simply lists the Rate for the item, which was set\n\t\t\t\tusing the price level."
       },
       "PriceLevelPerItem": {
         "allOf": [
@@ -7702,9 +7627,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBW\n\t\t\t\tDescription: A custom price or\n\t\t\t\tpercentage change from the item's base price for a specific price\n\t\t\t\tlevel"
       },
       "PriceLevelTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of price level\n\t\t\t\ttypes.",
         "enum": [
           "FixedPercentage",
           "PerItem"
@@ -7712,6 +7639,7 @@
         "type": "string"
       },
       "PrintDocumentPrefs": {
+        "description": "Defines Messages Prefs details",
         "properties": {
           "NameValue": {
             "items": {
@@ -7723,6 +7651,7 @@
         "type": "object"
       },
       "PrintStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of print\n\t\t\t\tstatus values.",
         "enum": [
           "NotSet",
           "NeedToPrint",
@@ -7971,7 +7900,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PaymentMethodRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -8065,7 +7994,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Financial Transaction information that pertains to\n\t\t\t\tthe entire Bill."
       },
       "PurchaseCreateRequest": {
         "properties": {
@@ -8166,7 +8096,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "POEmail": {
             "$ref": "#/components/schemas/EmailAddress"
@@ -8288,9 +8218,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: PurchaseOrder item detail\n\t\t\t\tfor a transaction line."
       },
       "PurchaseOrderStatusEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of status for\n\t\t\t\tpurchase order",
         "enum": [
           "Open",
           "Closed"
@@ -8359,9 +8291,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Provides the mapping between ListId and TxnId in\n\t\t\t\tDesktop to the same Entity Id in QBO. These mappings are available\n\t\t\t\tfor only companies that have migrated from Desktop to QBO"
       },
       "QboEntityTypeEnum": {
+        "description": "Enumeration of Qbo Entity Type For AppId Migration",
         "enum": [
           "CUSTOMER",
           "VENDOR",
@@ -8455,6 +8389,7 @@
         "type": "string"
       },
       "QboEstimateStatusEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of status for\n\t\t\t\tan estimate in QuickBooks Online.",
         "enum": [
           "Accepted",
           "Closed",
@@ -8566,7 +8501,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "RecurDataRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -8720,7 +8655,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PaymentMethodRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -8832,6 +8767,7 @@
         "type": "object"
       },
       "ReimbursableTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of\n\t\t\t\treimbursable status for purchased items/services.",
         "enum": [
           "Billable",
           "BillableHasBeenBilled",
@@ -8882,7 +8818,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrivateNote": {
             "description": "User entered, organization-private note about the transaction. This note does not appear on the invoice to the customer. This field maps to the Statement Memo field on the Invoice form in the QuickBooks Online UI.",
@@ -8943,16 +8879,6 @@
         "type": "object"
       },
       "ReimburseLineDetail": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ItemLineDetail"
-          },
-          {
-            "type": "object"
-          }
-        ]
-      },
-      "Reimburselinedetail": {
         "properties": {
           "ClassRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -8973,6 +8899,7 @@
         "type": "object"
       },
       "ReportBasisEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of Summary Report basis.",
         "enum": [
           "Accrual",
           "Cash"
@@ -8993,6 +8920,14 @@
         "type": "object"
       },
       "ReportColumns": {
+        "properties": {
+          "Column": {
+            "items": {
+              "$ref": "#/components/schemas/ReportColumn"
+            },
+            "type": "array"
+          }
+        },
         "type": "object"
       },
       "ReportEnvelope": {
@@ -9188,6 +9123,7 @@
         "type": "object"
       },
       "RoundingMethodEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of rounding\n\t\t\t\tmethods.",
         "enum": [
           "Down",
           "Nearest",
@@ -9292,6 +9228,7 @@
         "type": "object"
       },
       "SalesFormsPrefs": {
+        "description": "Defines Sales Form Prefs details",
         "properties": {
           "AllowDeposit": {
             "description": "Product:QBO\n\t\t\t\t\t\tEnable Deposit on Invoice",
@@ -9521,7 +9458,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBW\n\t\t\t\tDescription: A sales order is a\n\t\t\t\tfinancial transaction that represents a request received from a\n\t\t\t\tcustomer to purchase products or services. Sales orders help you\n\t\t\t\tmanage the sale of products and services your customers order. For\n\t\t\t\texample, a sales order tracks inventory that is on back order for a\n\t\t\t\tcustomer. Sales Orders are supported only in QuickBooks Premier\n\t\t\t\t(desktop) and above. However, if you are accessing a company file\n\t\t\t\tcreated in Premier and above from a lesser edition of QuickBooks\n\t\t\t\t(such as Pro), you can do queries against SalesOrders. Using sales\n\t\t\t\torders is optional.\n\t\t\t\tEndpoint: services.intuit.com\n\t\t\t\tBusiness Rules:\n\t\t\t\t[li]A sales order must have at least one line that describes the\n\t\t\t\titem. [/li][li]A sales order must have a reference to a customer in\n\t\t\t\tthe [/li][li]If you submit a query with the filter\n\t\t\t\tIncludeDiscountLineDetails, the system retrieves either\n\t\t\t\tDiscountAmount or DiscountRatePercent with associated values[/li]"
       },
       "SalesOrderItemLineDetail": {
         "allOf": [
@@ -9537,7 +9475,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: SalesOrder item detail for\n\t\t\t\ta transaction line."
       },
       "SalesReceipt": {
         "properties": {
@@ -9646,7 +9585,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PaymentMethodRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -9777,9 +9716,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBW\n\t\t\t\tDescription: The SalesRep entity allows\n\t\t\t\tyou to identify sales representatives and track their transactions.\n\t\t\t\tA sales representative can be an employee, a vendor, or an\n\t\t\t\tindependent contractor. You can associate sales representatives with\n\t\t\t\tsales deals to track their transactions."
       },
       "SalesRepTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of sales rep\n\t\t\t\ttypes.",
         "enum": [
           "Employee",
           "Other",
@@ -9788,6 +9729,7 @@
         "type": "string"
       },
       "SalesTermTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of sales term\n\t\t\t\ttypes.",
         "enum": [
           "DateDriven",
           "Standard"
@@ -9951,9 +9893,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: Base class of all Sales\n\t\t\t\ttransaction entities."
       },
       "ServiceTypeEnum": {
+        "description": "Enumeration of item service type for India sales\n\t\t\t\ttax",
         "enum": [
           "ADVT",
           "AIRPORTSERVICES",
@@ -10087,9 +10031,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: Describes a method of\n\t\t\t\tshipping for the company"
       },
       "SpecialItemTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of special\n\t\t\t\titem types.",
         "enum": [
           "FinanceCharge",
           "ReimbursableExpenseGroup",
@@ -10098,6 +10044,7 @@
         "type": "string"
       },
       "SpecialTaxTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of\n\t\t\t\tSpecialTaxType",
         "enum": [
           "NONE",
           "ZERO_RATE",
@@ -10148,9 +10095,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Financial transaction representing a request for\n\t\t\t\tpayment for goods or services that have been sold."
       },
       "StatusInfo": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Log of Statuses for Transactions. Currently is used for Invoice. Can be extended to others.",
         "properties": {
           "callToAction": {
             "description": "Product: QBO\n\t\t\t\t\t\tDescription: call to action for this status",
@@ -10189,7 +10138,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: Provides for strong-typing of the StringType CustomField."
       },
       "SubTotalLine": {
         "properties": {
@@ -10233,12 +10183,14 @@
         "type": "object"
       },
       "SubscriptionPaymentsSettingEnum": {
+        "description": "Enumeration of subscription payment setting applicable to Invoice",
         "enum": [
           "SALE_TERM"
         ],
         "type": "string"
       },
       "SurchargePaymentMethodInfo": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Payment method-specific surcharge settings",
         "properties": {
           "Enabled": {
             "description": "Product: QBO\n\t\t\t\t\t\tDescription: Whether surcharging is enabled for this payment method",
@@ -10248,6 +10200,7 @@
         "type": "object"
       },
       "SymbolPositionEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of symbol\n\t\t\t\tpositions.",
         "enum": [
           "Leading",
           "Trailing"
@@ -10255,6 +10208,7 @@
         "type": "string"
       },
       "TDSLineDetail": {
+        "description": "Product: QBO\n\t\t\t\tDescription: TDS line detail for the\n\t\t\t\ttransaction.",
         "properties": {
           "TDSAccountRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -10291,7 +10245,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBO\n\t\t\t\tDescription: Describes metadata\n\t\t\t\tassociated with TDS entity."
       },
       "Tag": {
         "allOf": [
@@ -10307,7 +10262,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: A Tag applied to a transaction"
       },
       "Task": {
         "allOf": [
@@ -10342,7 +10298,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBW\n\t\t\t\tDescription: A specific task to be\n\t\t\t\tcompleted, maps to a ToDo record in QuickBooks."
       },
       "TaxAgency": {
         "properties": {
@@ -10362,7 +10319,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "SyncToken": {
             "description": "Version number of the object. It is used to lock an object for use by one app at a time. As soon as an application modifies an object, its `SyncToken` is incremented. Attempts to modify an object specifying an older `SyncToken` fails. Only the latest version of the object is maintained by QuickBooks Online.",
@@ -10420,6 +10377,7 @@
         "type": "object"
       },
       "TaxApplicableOnEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of tax\n\t\t\t\tapplicable on Journal Entry (Sales/Purchase)",
         "enum": [
           "Purchase",
           "Sales"
@@ -10427,37 +10385,35 @@
         "type": "string"
       },
       "TaxClassification": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/IntuitEntity"
+        "properties": {
+          "ApplicableTo": {
+            "$ref": "#/components/schemas/ItemTypeEnum"
           },
-          {
-            "properties": {
-              "ApplicableTo": {
-                "items": {
-                  "$ref": "#/components/schemas/ItemTypeEnum"
-                },
-                "type": "array"
-              },
-              "Code": {
-                "type": "string"
-              },
-              "Description": {
-                "type": "string"
-              },
-              "Level": {
-                "type": "string"
-              },
-              "Name": {
-                "type": "string"
-              },
-              "ParentRef": {
-                "$ref": "#/components/schemas/ReferenceType"
-              }
-            },
-            "type": "object"
+          "Code": {
+            "description": "Code",
+            "type": "string"
+          },
+          "Description": {
+            "description": "Description of the tax classification",
+            "type": "string"
+          },
+          "Level": {
+            "description": "Tax classification level (Numeric value 1, or 2. 1 specifies parent tax classification)",
+            "readOnly": true,
+            "type": "string"
+          },
+          "Name": {
+            "description": "Name of the tax classification",
+            "type": "string"
+          },
+          "ParentRef": {
+            "$ref": "#/components/schemas/ReferenceType"
           }
-        ]
+        },
+        "required": [
+          "ParentRef"
+        ],
+        "type": "object"
       },
       "TaxClassificationEnvelope": {
         "type": "object"
@@ -10483,7 +10439,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "User recognizable name for the tax sales code.",
@@ -10534,6 +10490,7 @@
         "type": "object"
       },
       "TaxFormTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Tax Form Type holds data related to Tax Information (Tax Form Type)\n\t\t\t\tbased on Regional compliance laws. Applicable for IN region\n\t\t\t\tcurrently. Can be used to extend for other Regions.",
         "enum": [
           "Form C",
           "Form F",
@@ -10607,7 +10564,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PaymentAccountRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -10696,7 +10653,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "User recognizable name for the tax rate.",
@@ -10777,6 +10734,7 @@
         "type": "object"
       },
       "TaxRateDisplayTypeEnum": {
+        "description": "Product: QBO Description: Enumeration of\n\t\t\t\tTaxRateDisplayType",
         "enum": [
           "ReadOnly",
           "HideInTransactionForms",
@@ -10875,9 +10833,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBO\n\t\t\t\tDescription: Represents a Tax Return\n\t\t\t\tthat is filed with a Tax Agency."
       },
       "TaxReturnStatusEnum": {
+        "description": "Enumeration of the filing status that a TaxReturn can have",
         "enum": [
           "FILED",
           "FILING_FAILED",
@@ -10888,6 +10848,7 @@
         "type": "string"
       },
       "TaxReviewStatusEnum": {
+        "description": "Enumeration of Reasons to review AST Taxes",
         "enum": [
           "NON_AST_TAX",
           "AST_TAX_OVERRIDE"
@@ -10895,43 +10856,13 @@
         "type": "string"
       },
       "TaxTypeApplicablityEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: TaxTypeApplicability\n\t\t\t\tenumeration",
         "enum": [
           "TaxOnAmount",
           "TaxOnAmountPlusTax",
           "TaxOnTax"
         ],
         "type": "string"
-      },
-      "Taxclassification": {
-        "properties": {
-          "ApplicableTo": {
-            "$ref": "#/components/schemas/ItemTypeEnum"
-          },
-          "Code": {
-            "description": "Code",
-            "type": "string"
-          },
-          "Description": {
-            "description": "Description of the tax classification",
-            "type": "string"
-          },
-          "Level": {
-            "description": "Tax classification level (Numeric value 1, or 2. 1 specifies parent tax classification)",
-            "readOnly": true,
-            "type": "string"
-          },
-          "Name": {
-            "description": "Name of the tax classification",
-            "type": "string"
-          },
-          "ParentRef": {
-            "$ref": "#/components/schemas/ReferenceType"
-          }
-        },
-        "required": [
-          "ParentRef"
-        ],
-        "type": "object"
       },
       "Taxservice": {
         "properties": {
@@ -11021,6 +10952,7 @@
         "type": "object"
       },
       "TelephoneDeviceTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Telephone device type enumeration.",
         "enum": [
           "LandLine",
           "Mobile",
@@ -11048,6 +10980,7 @@
         "type": "object"
       },
       "TelephoneNumberTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of type of phones that the data sync process understands.",
         "enum": [
           "Business",
           "Fax",
@@ -11081,9 +11014,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "The name of a template used for a specific form\n\t\t\t\tpresentation."
       },
       "TemplateTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of template\n\t\t\t\ttypes.",
         "enum": [
           "BuildAssembly",
           "CreditMemo",
@@ -11132,7 +11067,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "Name": {
             "description": "User recognizable name for the term. For example, `Net 30`.",
@@ -11234,7 +11169,7 @@
             "$ref": "#/components/schemas/ReferenceType"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "NameOf": {
             "description": "Enumeration of time activity types. Required in conjunction with either `EmployeeRef`or `VendorRef`attributes for create operations. Valid values: `Vendor`or `Employee`.",
@@ -11324,6 +11259,7 @@
         "type": "object"
       },
       "TimeActivityTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of time\n\t\t\t\tactivity types.",
         "enum": [
           "Employee",
           "Other",
@@ -11452,9 +11388,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: Transaction is the base\n\t\t\t\tclass of all transactions."
       },
       "TransactionDeliveryInfo": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Transaction delivery info like DeliveryType, DeliveryTime, DeliveryErrorType (if any)",
         "properties": {
           "DeliveryErrorType": {
             "$ref": "#/components/schemas/DeliveryErrorTypeEnum"
@@ -11470,6 +11408,7 @@
         "type": "object"
       },
       "TransactionLocationTypeEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of Purchase or Sale Location for France",
         "enum": [
           "WithinFrance",
           "FranceOverseas",
@@ -12007,7 +11946,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrivateNote": {
             "description": "User entered, organization-private note about the transaction. This note does not appear on the invoice to the customer. This field maps to the Memo field on the Invoice form.",
@@ -12122,6 +12061,7 @@
         "type": "object"
       },
       "TxnApprovalInfo": {
+        "description": "Details of approval status for the specific transaction.",
         "properties": {
           "ApprovalStatus": {
             "description": "Product: QBO\n                        Description: Overall Approval Status, collective of all user approvals.\n\t\t\t\t\t\tInputType: QBO: ReadOnly",
@@ -12143,6 +12083,7 @@
         "type": "object"
       },
       "TxnRetainageDetail": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Details of retainage on the\n\t\t\t\ttransaction as a whole.",
         "properties": {
           "RetainageAmount": {
             "description": "Product: QBO\n\t\t\t\t\t\tDescription: Total retainage amount\n\t\t\t\t\t\ton the transaction.",
@@ -12156,6 +12097,7 @@
         "type": "object"
       },
       "TxnSourceEnum": {
+        "description": "Product: QBO\n\t\t\t\tDescription: Enumeration of transaction\n\t\t\t\tsource.",
         "enum": [
           "QBMobile",
           "GoPayment",
@@ -12166,6 +12108,7 @@
         "type": "string"
       },
       "TxnSubTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of transaction\n\t\t\t\tsub-types.",
         "enum": [
           "InvoiceTax",
           "InvoiceRetail",
@@ -12196,6 +12139,7 @@
         "type": "object"
       },
       "TxnTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of transaction\n\t\t\t\ttypes.",
         "enum": [
           "APCreditCard",
           "ARRefundCreditCard",
@@ -12264,9 +12208,11 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "The UOM type defines the data used to represent a\n\t\t\t\tset of equivalent units and the conversion rates to other related\n\t\t\t\tunits. It allows showing what quantities, prices, rates, and costs\n\t\t\t\tare based on."
       },
       "UOMBaseTypeEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of measurement\n\t\t\t\ttypes.",
         "enum": [
           "Area",
           "Count",
@@ -12279,6 +12225,7 @@
         "type": "string"
       },
       "UOMConvUnit": {
+        "description": "Related UOM",
         "properties": {
           "Abbrv": {
             "description": "Abbreviation of the Unit of Measure.[br /]\n\t\t\t\t\t\t[br /]\n\t\t\t\t\t\tRequired for the create operation. [br /]\n\t\t\t\t\t\tMax Length: 31",
@@ -12295,6 +12242,7 @@
         "type": "object"
       },
       "UOMFeatureTypeEnum": {
+        "description": "enumeration of UOM support types",
         "enum": [
           "Disabled",
           "SinglePerItem",
@@ -12303,6 +12251,7 @@
         "type": "string"
       },
       "UOMRef": {
+        "description": "When a unit of measure is referenced, it must\n\t\t\t\tinclude the name of the specific unit used as well as the unit of\n\t\t\t\tmeasure set in which that unit is defined. This entity captures that\n\t\t\t\tconcept.",
         "properties": {
           "UOMSetRef": {
             "$ref": "#/components/schemas/ReferenceType"
@@ -12369,7 +12318,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: ALL\n\t\t\t\tDescription: A specific user alert to\n\t\t\t\tbe notified to Quickbooks user, maps to a ToDo record in QuickBooks."
       },
       "Vendor": {
         "properties": {
@@ -12432,7 +12382,7 @@
             "type": "string"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "MiddleName": {
             "description": "Middle name of the person. The person can have zero or more middle names. The `DisplayName` attribute or at least one of `Title`, `GivenName`, `MiddleName`, `FamilyName`, or `Suffix` attributes is required for object create.",
@@ -12494,7 +12444,7 @@
             "$ref": "#/components/schemas/VendorPaymentBankDetail"
           },
           "WebAddr": {
-            "$ref": "#/components/schemas/WebsiteAddress"
+            "$ref": "#/components/schemas/WebSiteAddress"
           }
         },
         "type": "object"
@@ -12531,6 +12481,7 @@
         "type": "object"
       },
       "VendorAndPurchasesPrefs": {
+        "description": "Defines VendorAndPurchase Prefs details",
         "properties": {
           "AutomaticBillPayment": {
             "description": "Product:All\n\t\t\t\t\t\tApply automatic bill payment",
@@ -12675,7 +12626,7 @@
             "type": "array"
           },
           "MetaData": {
-            "$ref": "#/components/schemas/ModificationMetadata"
+            "$ref": "#/components/schemas/ModificationMetaData"
           },
           "PrivateNote": {
             "description": "User entered, organization-private note about the transaction. This note does not appear on the transaction to the vendor. This field maps to the Memo field on the transaction form.",
@@ -12820,7 +12771,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Product: QBO\n\t\t\t\tDescription: An AP transaction representing a prepayment (advance\n\t\t\t\tpayment) made to a vendor that is not yet applied against a Bill.\n\t\t\t\tThis transaction has no lines; it records the vendor, the\n\t\t\t\taccount the payment was drawn from, the payment amount and its\n\t\t\t\tunapplied balance."
       },
       "Vendorbalancedetailquery": {
         "properties": {
@@ -12967,27 +12919,6 @@
       },
       "WebSiteAddress": {
         "properties": {
-          "Default": {
-            "description": "Product: ALL\n\t\t\t\t\t\tDescription: True if this is the default web site.",
-            "type": "string"
-          },
-          "Id": {
-            "description": "Product: ALL\n\t\t\t\t\t\tDescription: Unique identifier for an Intuit entity.",
-            "type": "string"
-          },
-          "Tag": {
-            "description": "Product: ALL\n\t\t\t\t\t\tDescription: Descriptive tag associated with the web site.",
-            "type": "string"
-          },
-          "URI": {
-            "description": "Product: ALL\n\t\t\t\t\t\tDescription: Uniform Resource Identifier for the web site.[br /]Max. length: 1000 characters.",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "WebsiteAddress": {
-        "properties": {
           "URI": {
             "description": "Uniform Resource Identifier for the web site.",
             "type": "string"
@@ -12996,6 +12927,7 @@
         "type": "object"
       },
       "WeekEnum": {
+        "description": "Week enumeration",
         "enum": [
           "Sunday",
           "Monday",
@@ -13041,6 +12973,7 @@
         "type": "object"
       },
       "currencyCode": {
+        "description": "Product: ALL\n\t\t\t\tDescription: ISO 4217 Currency Code enumeration.",
         "enum": [
           "AED",
           "AFA",
@@ -13249,6 +13182,7 @@
         "type": "object"
       },
       "gender": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Gender of a person enumeration.",
         "enum": [
           "Male",
           "Female"
@@ -13256,6 +13190,7 @@
         "type": "string"
       },
       "idDomainEnum": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Enumeration of possible Id Domains. NG- next gen (int); QB - Provisional DB id (string); QBO; BM (Billing Manager); QBSDK - ListID, TxnID, or TxnLineId.",
         "enum": [
           "BM",
           "NG",
@@ -13267,6 +13202,7 @@
         "type": "string"
       },
       "objectNameEnumType": {
+        "description": "Product: ALL\n\t\t\t\tDescription: Supported Intuit entity/object names.",
         "enum": [
           "Account",
           "All",
@@ -13344,17 +13280,58 @@
         "type": "object"
       },
       "reportcolumns": {
+        "type": "object"
+      },
+      "reportheader": {
+        "type": "object"
+      },
+      "reportrow": {
         "properties": {
-          "Column": {
-            "items": {
-              "$ref": "#/components/schemas/ReportColumn"
-            },
-            "type": "array"
+          "ColData": {
+            "description": "Information for each column of a leaf row `Row type=Data`. There must be a `ColData` definition for each column defined in the `Columns` section. Parameters: `id`—The reference id of the entity as returned in the Id entity field. Returned where applicable. `value`—The value for column. The type of value is based on the column type. `href`—The link to the quick zoom data for this cell, available when the report endpoint specifies the `qzurl` query parameter. The `qzurl` query parameter is supported on a report by report basis; check the list of query parameters for the specific report to determine support. The value of the parameter is localized.",
+            "type": "string"
+          },
+          "Header": {
+            "description": "Header row for the report section.",
+            "type": "string"
+          },
+          "Rows": {
+            "description": "Container for one or more leaf rows.",
+            "type": "string"
+          },
+          "Summary": {
+            "description": "Summary row for a report section. It is the cumulative total amount of money in the account, including the sub accounts.",
+            "type": "string"
           }
         },
         "type": "object"
       },
-      "reportheader": {
+      "threshold": {
+        "properties": {
+          "aboveThreshold": {
+            "description": "Indicate whether the current count of the attribute has reached its limit.",
+            "type": "string"
+          },
+          "currentCount": {
+            "description": "Indicates current value of attribute.",
+            "type": "string"
+          },
+          "enforced": {
+            "description": "Whether the threshold is enforced.",
+            "type": "string"
+          },
+          "limit": {
+            "description": "The upper limit for the threshold.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the threshold.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "transactionlistreportheader": {
         "properties": {
           "Class": {
             "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
@@ -13412,55 +13389,6 @@
             "type": "string"
           }
         },
-        "type": "object"
-      },
-      "reportrow": {
-        "properties": {
-          "ColData": {
-            "description": "Information for each column of a leaf row `Row type=Data`. There must be a `ColData` definition for each column defined in the `Columns` section. Parameters: `id`—The reference id of the entity as returned in the Id entity field. Returned where applicable. `value`—The value for column. The type of value is based on the column type. `href`—The link to the quick zoom data for this cell, available when the report endpoint specifies the `qzurl` query parameter. The `qzurl` query parameter is supported on a report by report basis; check the list of query parameters for the specific report to determine support. The value of the parameter is localized.",
-            "type": "string"
-          },
-          "Header": {
-            "description": "Header row for the report section.",
-            "type": "string"
-          },
-          "Rows": {
-            "description": "Container for one or more leaf rows.",
-            "type": "string"
-          },
-          "Summary": {
-            "description": "Summary row for a report section. It is the cumulative total amount of money in the account, including the sub accounts.",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "threshold": {
-        "properties": {
-          "aboveThreshold": {
-            "description": "Indicate whether the current count of the attribute has reached its limit.",
-            "type": "string"
-          },
-          "currentCount": {
-            "description": "Indicates current value of attribute.",
-            "type": "string"
-          },
-          "enforced": {
-            "description": "Whether the threshold is enforced.",
-            "type": "string"
-          },
-          "limit": {
-            "description": "The upper limit for the threshold.",
-            "type": "string"
-          },
-          "name": {
-            "description": "The name of the threshold.",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "transactionlistreportheader": {
         "type": "object"
       }
     },
@@ -16976,6 +16904,242 @@
     },
     {
       "url": "https://sandbox-quickbooks.api.intuit.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Account"
+    },
+    {
+      "name": "Accountlistdetail"
+    },
+    {
+      "name": "Apagingdetail"
+    },
+    {
+      "name": "Apagingsummary"
+    },
+    {
+      "name": "Aragingdetail"
+    },
+    {
+      "name": "Aragingsummary"
+    },
+    {
+      "name": "Attachable"
+    },
+    {
+      "name": "Balancesheet"
+    },
+    {
+      "name": "Batch"
+    },
+    {
+      "name": "Bill"
+    },
+    {
+      "name": "BillPayment"
+    },
+    {
+      "name": "Budget"
+    },
+    {
+      "name": "Cashflow"
+    },
+    {
+      "name": "ChangeOrder"
+    },
+    {
+      "name": "Changedatacapture"
+    },
+    {
+      "name": "Class"
+    },
+    {
+      "name": "CompanyCurrency"
+    },
+    {
+      "name": "CompanyInfo"
+    },
+    {
+      "name": "CreditCardPaymentTxn"
+    },
+    {
+      "name": "CreditMemo"
+    },
+    {
+      "name": "Customer"
+    },
+    {
+      "name": "CustomerType"
+    },
+    {
+      "name": "Customerbalance"
+    },
+    {
+      "name": "Customerbalancedetail"
+    },
+    {
+      "name": "Customerincome"
+    },
+    {
+      "name": "Department"
+    },
+    {
+      "name": "Deposit"
+    },
+    {
+      "name": "Employee"
+    },
+    {
+      "name": "Entitlements"
+    },
+    {
+      "name": "Estimate"
+    },
+    {
+      "name": "ExchangeRate"
+    },
+    {
+      "name": "Fecreport"
+    },
+    {
+      "name": "Generalledger"
+    },
+    {
+      "name": "Generalledgerfr"
+    },
+    {
+      "name": "InventoryAdjustment"
+    },
+    {
+      "name": "Inventoryvaluationdetail"
+    },
+    {
+      "name": "Inventoryvaluationsummary"
+    },
+    {
+      "name": "Invoice"
+    },
+    {
+      "name": "Item"
+    },
+    {
+      "name": "JournalCode"
+    },
+    {
+      "name": "JournalEntry"
+    },
+    {
+      "name": "Journalreport"
+    },
+    {
+      "name": "Journalreportfr"
+    },
+    {
+      "name": "Payment"
+    },
+    {
+      "name": "PaymentMethod"
+    },
+    {
+      "name": "Preferences"
+    },
+    {
+      "name": "Profitandloss"
+    },
+    {
+      "name": "Profitandlossdetail"
+    },
+    {
+      "name": "Purchase"
+    },
+    {
+      "name": "PurchaseOrder"
+    },
+    {
+      "name": "RecurringTransaction"
+    },
+    {
+      "name": "RefundReceipt"
+    },
+    {
+      "name": "ReimburseCharge"
+    },
+    {
+      "name": "SalesReceipt"
+    },
+    {
+      "name": "Salesbyclasssummary"
+    },
+    {
+      "name": "Salesbycustomer"
+    },
+    {
+      "name": "Salesbydepartment"
+    },
+    {
+      "name": "Salesbyproduct"
+    },
+    {
+      "name": "TaxAgency"
+    },
+    {
+      "name": "TaxClassification"
+    },
+    {
+      "name": "TaxCode"
+    },
+    {
+      "name": "TaxPayment"
+    },
+    {
+      "name": "TaxRate"
+    },
+    {
+      "name": "Taxservice"
+    },
+    {
+      "name": "Taxsummary"
+    },
+    {
+      "name": "Term"
+    },
+    {
+      "name": "TimeActivity"
+    },
+    {
+      "name": "Transactionlist"
+    },
+    {
+      "name": "Transactionlistbycustomer"
+    },
+    {
+      "name": "Transactionlistbyvendor"
+    },
+    {
+      "name": "Transactionlistwithsplits"
+    },
+    {
+      "name": "Transfer"
+    },
+    {
+      "name": "Trialbalance"
+    },
+    {
+      "name": "Vendor"
+    },
+    {
+      "name": "VendorCredit"
+    },
+    {
+      "name": "Vendorbalance"
+    },
+    {
+      "name": "Vendorbalancedetail"
+    },
+    {
+      "name": "Vendorexpenses"
     }
   ]
 }

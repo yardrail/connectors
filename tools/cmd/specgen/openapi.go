@@ -32,6 +32,7 @@ func buildOpenAPI(spec *CorrelatedSpec) (*openapi3.T, error) {
 
 	addSecurityScheme(doc)
 	addCommonParameters(doc)
+	addTags(doc, spec)
 
 	// Enum schemas from XSD — sorted for deterministic output
 	enumNames := make([]string, 0, len(spec.Enums))
@@ -45,12 +46,14 @@ func buildOpenAPI(spec *CorrelatedSpec) (*openapi3.T, error) {
 		for i, v := range enum.Values {
 			vals[i] = v
 		}
-		doc.Components.Schemas[name] = &openapi3.SchemaRef{
-			Value: &openapi3.Schema{
-				Type: &openapi3.Types{"string"},
-				Enum: vals,
-			},
+		s := &openapi3.Schema{
+			Type: &openapi3.Types{"string"},
+			Enum: vals,
 		}
+		if enum.Doc != "" {
+			s.Description = enum.Doc
+		}
+		doc.Components.Schemas[name] = &openapi3.SchemaRef{Value: s}
 	}
 
 	knownSchemas := buildKnownSchemas(spec)
@@ -82,13 +85,13 @@ func buildOpenAPI(spec *CorrelatedSpec) (*openapi3.T, error) {
 	for _, key := range sharedKeys {
 		si := spec.SharedTypes[key]
 		doc.Components.Schemas[si.DisplayName] = &openapi3.SchemaRef{
-			Value: buildModelSchema(si.Model, knownSchemas, spec.Enums),
+			Value: buildModelSchema(si.Model, knownSchemas, spec.Enums, spec.RefRewrites),
 		}
 	}
 
 	// Per-entity schemas + envelope schemas
 	for _, entity := range spec.Entities {
-		addEntitySchemas(doc, entity, knownSchemas, spec.Enums)
+		addEntitySchemas(doc, entity, knownSchemas, spec.Enums, spec.RefRewrites)
 	}
 
 	// Shared envelope schemas
@@ -148,6 +151,21 @@ func findAllRefs(v any) []string {
 		}
 	}
 	return refs
+}
+
+func addTags(doc *openapi3.T, spec *CorrelatedSpec) {
+	tagNames := make(map[string]bool)
+	for _, e := range spec.Entities {
+		tagNames[e.Name] = true
+	}
+	sorted := make([]string, 0, len(tagNames))
+	for name := range tagNames {
+		sorted = append(sorted, name)
+	}
+	sort.Strings(sorted)
+	for _, name := range sorted {
+		doc.Tags = append(doc.Tags, &openapi3.Tag{Name: name})
+	}
 }
 
 func addSecurityScheme(doc *openapi3.T) {
@@ -245,7 +263,7 @@ func buildXSDSchema(ct *XSDComplexType, knownSchemas map[string]bool, enums map[
 	}
 
 	if ct.BaseName != "" {
-		return &openapi3.Schema{
+		s := &openapi3.Schema{
 			AllOf: openapi3.SchemaRefs{
 				{Ref: "#/components/schemas/" + ct.BaseName},
 				{Value: &openapi3.Schema{
@@ -254,15 +272,30 @@ func buildXSDSchema(ct *XSDComplexType, knownSchemas map[string]bool, enums map[
 				}},
 			},
 		}
+		if ct.Doc != "" {
+			s.Description = ct.Doc
+		}
+		return s
 	}
 
-	return &openapi3.Schema{
+	s := &openapi3.Schema{
 		Type:       &openapi3.Types{"object"},
 		Properties: props,
 	}
+	if ct.Doc != "" {
+		s.Description = ct.Doc
+	}
+	return s
 }
 
-func buildModelSchema(model *Model, knownSchemas map[string]bool, enums map[string]*XSDEnum) *openapi3.Schema {
+func canonicalRef(displayName string, rewrites map[string]string) string {
+	if rewritten, ok := rewrites[displayName]; ok {
+		return rewritten
+	}
+	return displayName
+}
+
+func buildModelSchema(model *Model, knownSchemas map[string]bool, enums map[string]*XSDEnum, rewrites map[string]string) *openapi3.Schema {
 	schema := &openapi3.Schema{
 		Type:       &openapi3.Types{"object"},
 		Properties: make(openapi3.Schemas),
@@ -275,7 +308,7 @@ func buildModelSchema(model *Model, knownSchemas map[string]bool, enums map[stri
 	sort.Strings(propNames)
 	for _, name := range propNames {
 		prop := model.Properties[name]
-		schema.Properties[name] = buildPropertyRef(prop, knownSchemas, enums)
+		schema.Properties[name] = buildPropertyRef(prop, knownSchemas, enums, rewrites)
 	}
 
 	if len(model.Required) > 0 {
@@ -285,13 +318,13 @@ func buildModelSchema(model *Model, knownSchemas map[string]bool, enums map[stri
 	return schema
 }
 
-func buildPropertyRef(prop *ModelProperty, knownSchemas map[string]bool, enums map[string]*XSDEnum) *openapi3.SchemaRef {
+func buildPropertyRef(prop *ModelProperty, knownSchemas map[string]bool, enums map[string]*XSDEnum, rewrites map[string]string) *openapi3.SchemaRef {
 	// Polymorphic $ref (multiple distinct refs -> oneOf)
 	if len(prop.Refs) > 1 {
 		seen := make(map[string]bool)
 		var refs openapi3.SchemaRefs
 		for _, ref := range prop.Refs {
-			refPath := "#/components/schemas/" + ref.DisplayName
+			refPath := "#/components/schemas/" + canonicalRef(ref.DisplayName, rewrites)
 			if seen[refPath] {
 				continue
 			}
@@ -321,7 +354,7 @@ func buildPropertyRef(prop *ModelProperty, knownSchemas map[string]bool, enums m
 	// Single $ref
 	if len(prop.Refs) == 1 {
 		ref := &openapi3.SchemaRef{
-			Ref: "#/components/schemas/" + prop.Refs[0].DisplayName,
+			Ref: "#/components/schemas/" + canonicalRef(prop.Refs[0].DisplayName, rewrites),
 		}
 		if prop.IsArray {
 			return &openapi3.SchemaRef{Value: &openapi3.Schema{
@@ -366,18 +399,18 @@ func buildPropertyRef(prop *ModelProperty, knownSchemas map[string]bool, enums m
 	return &openapi3.SchemaRef{Value: s}
 }
 
-func addEntitySchemas(doc *openapi3.T, entity *CorrelatedEntity, knownSchemas map[string]bool, enums map[string]*XSDEnum) {
+func addEntitySchemas(doc *openapi3.T, entity *CorrelatedEntity, knownSchemas map[string]bool, enums map[string]*XSDEnum, rewrites map[string]string) {
 	// Request schema (for create)
 	if entity.RequestModel != nil {
 		doc.Components.Schemas[entity.Name+"CreateRequest"] = &openapi3.SchemaRef{
-			Value: buildModelSchema(entity.RequestModel, knownSchemas, enums),
+			Value: buildModelSchema(entity.RequestModel, knownSchemas, enums, rewrites),
 		}
 	}
 
 	// Response schema (full entity)
 	if entity.ResponseModel != nil {
 		doc.Components.Schemas[entity.Name] = &openapi3.SchemaRef{
-			Value: buildModelSchema(entity.ResponseModel, knownSchemas, enums),
+			Value: buildModelSchema(entity.ResponseModel, knownSchemas, enums, rewrites),
 		}
 	}
 

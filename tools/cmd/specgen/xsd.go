@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 // XSDEntity is a top-level entity from IntuitRestServiceDef.xsd.
@@ -17,6 +18,7 @@ type XSDEntity struct {
 type XSDComplexType struct {
 	Name       string
 	BaseName   string // from xs:extension base (empty if no base)
+	Doc        string
 	Properties []XSDProperty
 }
 
@@ -32,6 +34,7 @@ type XSDProperty struct {
 // XSDEnum is a simpleType with enumeration restriction.
 type XSDEnum struct {
 	Name   string
+	Doc    string
 	Values []string
 }
 
@@ -56,6 +59,7 @@ type xsdElement struct {
 
 type xsdComplexType struct {
 	Name           string             `xml:"name,attr"`
+	Annotation     *xsdAnnotation     `xml:"annotation"`
 	Sequence       *xsdSequence       `xml:"sequence"`
 	ComplexContent *xsdComplexContent `xml:"complexContent"`
 }
@@ -79,6 +83,7 @@ type xsdAnnotation struct {
 
 type xsdSimpleType struct {
 	Name        string          `xml:"name,attr"`
+	Annotation  *xsdAnnotation  `xml:"annotation"`
 	Restriction *xsdRestriction `xml:"restriction"`
 }
 
@@ -126,6 +131,9 @@ func parseFinanceXSD(financePath, baseTypesPath string) (map[string]*XSDComplexT
 
 		for _, ct := range schema.ComplexTypes {
 			parsed := &XSDComplexType{Name: ct.Name}
+			if ct.Annotation != nil {
+				parsed.Doc = strings.TrimSpace(ct.Annotation.Documentation)
+			}
 
 			var elems []xsdElement
 			if ct.ComplexContent != nil && ct.ComplexContent.Extension != nil {
@@ -163,6 +171,9 @@ func parseFinanceXSD(financePath, baseTypesPath string) (map[string]*XSDComplexT
 				continue
 			}
 			e := &XSDEnum{Name: st.Name}
+			if st.Annotation != nil {
+				e.Doc = strings.TrimSpace(st.Annotation.Documentation)
+			}
 			seen := make(map[string]bool)
 			for _, en := range st.Restriction.Enumerations {
 				if seen[en.Value] {
