@@ -498,6 +498,7 @@ func addEntityPaths(doc *openapi3.T, entity *CorrelatedEntity) {
 			Tags:        []string{entity.Name},
 			OperationID: buildOperationID(entity.Name, op.Type),
 			Summary:     buildSummary(entity.Name, op.Type),
+			Description: buildDescription(entity.Name, op.Type),
 			Parameters: openapi3.Parameters{
 				{Ref: "#/components/parameters/realmId"},
 				{Ref: "#/components/parameters/minorversion"},
@@ -576,9 +577,10 @@ func addEntityPaths(doc *openapi3.T, entity *CorrelatedEntity) {
 		if strings.Contains(op.Path, "{id}") {
 			operation.Parameters = append(operation.Parameters, &openapi3.ParameterRef{
 				Value: &openapi3.Parameter{
-					Name:     "id",
-					In:       "path",
-					Required: true,
+					Name:        "id",
+					In:          "path",
+					Required:    true,
+					Description: fmt.Sprintf("The %s entity ID.", entity.Name),
 					Schema: &openapi3.SchemaRef{Value: &openapi3.Schema{
 						Type: &openapi3.Types{"string"},
 					}},
@@ -680,6 +682,30 @@ func buildSummary(entity string, op OperationType) string {
 		return "Send " + entity
 	default:
 		return entity
+	}
+}
+
+func buildDescription(entity string, op OperationType) string {
+	lower := strings.ToLower(entity)
+	switch op {
+	case OpCreate:
+		return fmt.Sprintf("Creates a new %s entity. POST to /v3/company/{realmId}/%s without the Id or SyncToken fields.", entity, lower)
+	case OpRead:
+		return fmt.Sprintf("Retrieves a %s entity by its ID.", entity)
+	case OpUpdate:
+		return fmt.Sprintf("Updates an existing %s entity. POST the full entity with Id and SyncToken to /v3/company/{realmId}/%s.", entity, lower)
+	case OpDelete:
+		return fmt.Sprintf("Deletes a %s entity. POST with Id, SyncToken, and ?operation=delete.", entity)
+	case OpVoid:
+		return fmt.Sprintf("Voids a %s entity. POST with Id, SyncToken, and ?operation=void.", entity)
+	case OpQuery:
+		return fmt.Sprintf("Queries %s entities using a SQL-like query string. Example: SELECT * FROM %s WHERE Id = '123'.", entity, entity)
+	case OpPDF:
+		return fmt.Sprintf("Returns a PDF representation of the %s.", entity)
+	case OpSend:
+		return fmt.Sprintf("Sends the %s via email. Optionally specify a recipient with the sendTo query parameter.", entity)
+	default:
+		return ""
 	}
 }
 
