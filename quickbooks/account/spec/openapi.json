@@ -396,7 +396,6 @@
           "WithholdingAssetAmount",
           "WithholdingLiabilityAmount",
           "WithholdingTaxSuspense",
-          "DevelopmentCosts",
           "ProvisionsCurrentAssets",
           "OtherConsumables",
           "ExpenditureAuthorisationsAndLettersOfCredit",
@@ -8994,14 +8993,6 @@
         "type": "object"
       },
       "ReportColumns": {
-        "properties": {
-          "Column": {
-            "items": {
-              "$ref": "#/components/schemas/ReportColumn"
-            },
-            "type": "array"
-          }
-        },
         "type": "object"
       },
       "ReportEnvelope": {
@@ -9019,63 +9010,6 @@
         "type": "object"
       },
       "ReportHeader": {
-        "properties": {
-          "Class": {
-            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
-            "type": "string"
-          },
-          "Currency": {
-            "description": "A string containing the currency code associated with the report.",
-            "type": "string"
-          },
-          "Customer": {
-            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
-            "type": "string"
-          },
-          "Department": {
-            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
-            "type": "string"
-          },
-          "Employee": {
-            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
-            "type": "string"
-          },
-          "EndPeriod": {
-            "description": "The date specified by the end_date query parameter submitted with the request. Format is `yyyy-mm-dd`.",
-            "type": "string"
-          },
-          "Item": {
-            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
-            "type": "string"
-          },
-          "Option": {
-            "$ref": "#/components/schemas/ReportOption"
-          },
-          "ReportBasis": {
-            "$ref": "#/components/schemas/ReportBasisEnum"
-          },
-          "ReportName": {
-            "description": "Name of the report.",
-            "type": "string"
-          },
-          "StartPeriod": {
-            "description": "The date specified by the start_date query parameter submitted with the request. Format is `yyyy-mm-dd`.",
-            "type": "string"
-          },
-          "SummarizeColumnsBy": {
-            "description": "The method by which report columns are organized. This contains the value specified by the `summarize_column_by` query parameter submitted with the request.",
-            "type": "string"
-          },
-          "Time": {
-            "description": "Date and timestamp of the report.",
-            "format": "date-time",
-            "type": "string"
-          },
-          "Vendor": {
-            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
-            "type": "string"
-          }
-        },
         "type": "object"
       },
       "ReportOption": {
@@ -13410,9 +13344,74 @@
         "type": "object"
       },
       "reportcolumns": {
+        "properties": {
+          "Column": {
+            "items": {
+              "$ref": "#/components/schemas/ReportColumn"
+            },
+            "type": "array"
+          }
+        },
         "type": "object"
       },
       "reportheader": {
+        "properties": {
+          "Class": {
+            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
+            "type": "string"
+          },
+          "Currency": {
+            "description": "A string containing the currency code associated with the report.",
+            "type": "string"
+          },
+          "Customer": {
+            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
+            "type": "string"
+          },
+          "Department": {
+            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
+            "type": "string"
+          },
+          "Employee": {
+            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
+            "type": "string"
+          },
+          "EndPeriod": {
+            "description": "The date specified by the end_date query parameter submitted with the request. Format is `yyyy-mm-dd`.",
+            "type": "string"
+          },
+          "Item": {
+            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
+            "type": "string"
+          },
+          "Option": {
+            "$ref": "#/components/schemas/ReportOption"
+          },
+          "ReportBasis": {
+            "$ref": "#/components/schemas/ReportBasisEnum"
+          },
+          "ReportName": {
+            "description": "Name of the report.",
+            "type": "string"
+          },
+          "StartPeriod": {
+            "description": "The date specified by the start_date query parameter submitted with the request. Format is `yyyy-mm-dd`.",
+            "type": "string"
+          },
+          "SummarizeColumnsBy": {
+            "description": "The method by which report columns are organized. This contains the value specified by the `summarize_column_by` query parameter submitted with the request.",
+            "type": "string"
+          },
+          "Time": {
+            "description": "Date and timestamp of the report.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "Vendor": {
+            "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "reportrow": {
