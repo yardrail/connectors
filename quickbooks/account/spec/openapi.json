@@ -8920,14 +8920,6 @@
         "type": "object"
       },
       "ReportColumns": {
-        "properties": {
-          "Column": {
-            "items": {
-              "$ref": "#/components/schemas/ReportColumn"
-            },
-            "type": "array"
-          }
-        },
         "type": "object"
       },
       "ReportEnvelope": {
@@ -13280,58 +13272,17 @@
         "type": "object"
       },
       "reportcolumns": {
+        "properties": {
+          "Column": {
+            "items": {
+              "$ref": "#/components/schemas/ReportColumn"
+            },
+            "type": "array"
+          }
+        },
         "type": "object"
       },
       "reportheader": {
-        "type": "object"
-      },
-      "reportrow": {
-        "properties": {
-          "ColData": {
-            "description": "Information for each column of a leaf row `Row type=Data`. There must be a `ColData` definition for each column defined in the `Columns` section. Parameters: `id`—The reference id of the entity as returned in the Id entity field. Returned where applicable. `value`—The value for column. The type of value is based on the column type. `href`—The link to the quick zoom data for this cell, available when the report endpoint specifies the `qzurl` query parameter. The `qzurl` query parameter is supported on a report by report basis; check the list of query parameters for the specific report to determine support. The value of the parameter is localized.",
-            "type": "string"
-          },
-          "Header": {
-            "description": "Header row for the report section.",
-            "type": "string"
-          },
-          "Rows": {
-            "description": "Container for one or more leaf rows.",
-            "type": "string"
-          },
-          "Summary": {
-            "description": "Summary row for a report section. It is the cumulative total amount of money in the account, including the sub accounts.",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "threshold": {
-        "properties": {
-          "aboveThreshold": {
-            "description": "Indicate whether the current count of the attribute has reached its limit.",
-            "type": "string"
-          },
-          "currentCount": {
-            "description": "Indicates current value of attribute.",
-            "type": "string"
-          },
-          "enforced": {
-            "description": "Whether the threshold is enforced.",
-            "type": "string"
-          },
-          "limit": {
-            "description": "The upper limit for the threshold.",
-            "type": "string"
-          },
-          "name": {
-            "description": "The name of the threshold.",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "transactionlistreportheader": {
         "properties": {
           "Class": {
             "description": "A string containing the Ids as specified with the corresponding filter query parameter. Only those filter query parameters specified in the request are returned in the header.",
@@ -13390,6 +13341,55 @@
           }
         },
         "type": "object"
+      },
+      "reportrow": {
+        "properties": {
+          "ColData": {
+            "description": "Information for each column of a leaf row `Row type=Data`. There must be a `ColData` definition for each column defined in the `Columns` section. Parameters: `id`—The reference id of the entity as returned in the Id entity field. Returned where applicable. `value`—The value for column. The type of value is based on the column type. `href`—The link to the quick zoom data for this cell, available when the report endpoint specifies the `qzurl` query parameter. The `qzurl` query parameter is supported on a report by report basis; check the list of query parameters for the specific report to determine support. The value of the parameter is localized.",
+            "type": "string"
+          },
+          "Header": {
+            "description": "Header row for the report section.",
+            "type": "string"
+          },
+          "Rows": {
+            "description": "Container for one or more leaf rows.",
+            "type": "string"
+          },
+          "Summary": {
+            "description": "Summary row for a report section. It is the cumulative total amount of money in the account, including the sub accounts.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "threshold": {
+        "properties": {
+          "aboveThreshold": {
+            "description": "Indicate whether the current count of the attribute has reached its limit.",
+            "type": "string"
+          },
+          "currentCount": {
+            "description": "Indicates current value of attribute.",
+            "type": "string"
+          },
+          "enforced": {
+            "description": "Whether the threshold is enforced.",
+            "type": "string"
+          },
+          "limit": {
+            "description": "The upper limit for the threshold.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the threshold.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "transactionlistreportheader": {
+        "type": "object"
       }
     },
     "securitySchemes": {
@@ -13416,6 +13416,7 @@
   "paths": {
     "/v3/company/{realmId}/account": {
       "post": {
+        "description": "Creates a new Account entity. POST to /v3/company/{realmId}/account without the Id or SyncToken fields.",
         "operationId": "createAccount",
         "parameters": [
           {
@@ -13455,6 +13456,7 @@
     },
     "/v3/company/{realmId}/account/{id}": {
       "get": {
+        "description": "Retrieves a Account entity by its ID.",
         "operationId": "readAccount",
         "parameters": [
           {
@@ -13464,6 +13466,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Account entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13492,6 +13495,7 @@
     },
     "/v3/company/{realmId}/attachable": {
       "post": {
+        "description": "Creates a new Attachable entity. POST to /v3/company/{realmId}/attachable without the Id or SyncToken fields.",
         "operationId": "createAttachable",
         "parameters": [
           {
@@ -13531,6 +13535,7 @@
     },
     "/v3/company/{realmId}/attachable/{id}": {
       "get": {
+        "description": "Retrieves a Attachable entity by its ID.",
         "operationId": "readAttachable",
         "parameters": [
           {
@@ -13540,6 +13545,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Attachable entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13568,6 +13574,7 @@
     },
     "/v3/company/{realmId}/bill": {
       "post": {
+        "description": "Creates a new Bill entity. POST to /v3/company/{realmId}/bill without the Id or SyncToken fields.",
         "operationId": "createBill",
         "parameters": [
           {
@@ -13607,6 +13614,7 @@
     },
     "/v3/company/{realmId}/bill/{id}": {
       "get": {
+        "description": "Retrieves a Bill entity by its ID.",
         "operationId": "readBill",
         "parameters": [
           {
@@ -13616,6 +13624,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Bill entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13644,6 +13653,7 @@
     },
     "/v3/company/{realmId}/billpayment": {
       "post": {
+        "description": "Creates a new BillPayment entity. POST to /v3/company/{realmId}/billpayment without the Id or SyncToken fields.",
         "operationId": "createBillPayment",
         "parameters": [
           {
@@ -13683,6 +13693,7 @@
     },
     "/v3/company/{realmId}/billpayment/{id}": {
       "get": {
+        "description": "Retrieves a BillPayment entity by its ID.",
         "operationId": "readBillPayment",
         "parameters": [
           {
@@ -13692,6 +13703,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The BillPayment entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13720,6 +13732,7 @@
     },
     "/v3/company/{realmId}/budget": {
       "post": {
+        "description": "Creates a new Budget entity. POST to /v3/company/{realmId}/budget without the Id or SyncToken fields.",
         "operationId": "createBudget",
         "parameters": [
           {
@@ -13759,6 +13772,7 @@
     },
     "/v3/company/{realmId}/budget/{id}": {
       "get": {
+        "description": "Retrieves a Budget entity by its ID.",
         "operationId": "readBudget",
         "parameters": [
           {
@@ -13768,6 +13782,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Budget entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13796,6 +13811,7 @@
     },
     "/v3/company/{realmId}/changeorder": {
       "post": {
+        "description": "Creates a new ChangeOrder entity. POST to /v3/company/{realmId}/changeorder without the Id or SyncToken fields.",
         "operationId": "createChangeOrder",
         "parameters": [
           {
@@ -13835,6 +13851,7 @@
     },
     "/v3/company/{realmId}/changeorder/{id}": {
       "get": {
+        "description": "Retrieves a ChangeOrder entity by its ID.",
         "operationId": "readChangeOrder",
         "parameters": [
           {
@@ -13844,6 +13861,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The ChangeOrder entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13872,6 +13890,7 @@
     },
     "/v3/company/{realmId}/class": {
       "post": {
+        "description": "Creates a new Class entity. POST to /v3/company/{realmId}/class without the Id or SyncToken fields.",
         "operationId": "createClass",
         "parameters": [
           {
@@ -13911,6 +13930,7 @@
     },
     "/v3/company/{realmId}/class/{id}": {
       "get": {
+        "description": "Retrieves a Class entity by its ID.",
         "operationId": "readClass",
         "parameters": [
           {
@@ -13920,6 +13940,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Class entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13948,6 +13969,7 @@
     },
     "/v3/company/{realmId}/companycurrency": {
       "post": {
+        "description": "Creates a new CompanyCurrency entity. POST to /v3/company/{realmId}/companycurrency without the Id or SyncToken fields.",
         "operationId": "createCompanyCurrency",
         "parameters": [
           {
@@ -13987,6 +14009,7 @@
     },
     "/v3/company/{realmId}/companycurrency/{id}": {
       "get": {
+        "description": "Retrieves a CompanyCurrency entity by its ID.",
         "operationId": "readCompanyCurrency",
         "parameters": [
           {
@@ -13996,6 +14019,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The CompanyCurrency entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14024,6 +14048,7 @@
     },
     "/v3/company/{realmId}/companyinfo": {
       "post": {
+        "description": "Updates an existing CompanyInfo entity. POST the full entity with Id and SyncToken to /v3/company/{realmId}/companyinfo.",
         "operationId": "updateCompanyInfo",
         "parameters": [
           {
@@ -14063,6 +14088,7 @@
     },
     "/v3/company/{realmId}/companyinfo/{id}": {
       "get": {
+        "description": "Retrieves a CompanyInfo entity by its ID.",
         "operationId": "readCompanyInfo",
         "parameters": [
           {
@@ -14072,6 +14098,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The CompanyInfo entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14100,6 +14127,7 @@
     },
     "/v3/company/{realmId}/creditcardpayment": {
       "post": {
+        "description": "Creates a new CreditCardPaymentTxn entity. POST to /v3/company/{realmId}/creditcardpaymenttxn without the Id or SyncToken fields.",
         "operationId": "createCreditCardPaymentTxn",
         "parameters": [
           {
@@ -14139,6 +14167,7 @@
     },
     "/v3/company/{realmId}/creditcardpayment/{id}": {
       "get": {
+        "description": "Retrieves a CreditCardPaymentTxn entity by its ID.",
         "operationId": "readCreditCardPaymentTxn",
         "parameters": [
           {
@@ -14148,6 +14177,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The CreditCardPaymentTxn entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14176,6 +14206,7 @@
     },
     "/v3/company/{realmId}/creditmemo": {
       "post": {
+        "description": "Creates a new CreditMemo entity. POST to /v3/company/{realmId}/creditmemo without the Id or SyncToken fields.",
         "operationId": "createCreditMemo",
         "parameters": [
           {
@@ -14215,6 +14246,7 @@
     },
     "/v3/company/{realmId}/creditmemo/{id}": {
       "get": {
+        "description": "Retrieves a CreditMemo entity by its ID.",
         "operationId": "readCreditMemo",
         "parameters": [
           {
@@ -14224,6 +14256,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The CreditMemo entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14252,6 +14285,7 @@
     },
     "/v3/company/{realmId}/creditmemo/{id}/send": {
       "post": {
+        "description": "Sends the CreditMemo via email. Optionally specify a recipient with the sendTo query parameter.",
         "operationId": "sendCreditMemo",
         "parameters": [
           {
@@ -14261,6 +14295,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The CreditMemo entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14299,6 +14334,7 @@
     },
     "/v3/company/{realmId}/customer": {
       "post": {
+        "description": "Creates a new Customer entity. POST to /v3/company/{realmId}/customer without the Id or SyncToken fields.",
         "operationId": "createCustomer",
         "parameters": [
           {
@@ -14338,6 +14374,7 @@
     },
     "/v3/company/{realmId}/customer/{id}": {
       "get": {
+        "description": "Retrieves a Customer entity by its ID.",
         "operationId": "readCustomer",
         "parameters": [
           {
@@ -14347,6 +14384,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Customer entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14375,6 +14413,7 @@
     },
     "/v3/company/{realmId}/customertype/{id}": {
       "get": {
+        "description": "Retrieves a CustomerType entity by its ID.",
         "operationId": "readCustomerType",
         "parameters": [
           {
@@ -14384,6 +14423,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The CustomerType entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14412,6 +14452,7 @@
     },
     "/v3/company/{realmId}/department": {
       "post": {
+        "description": "Creates a new Department entity. POST to /v3/company/{realmId}/department without the Id or SyncToken fields.",
         "operationId": "createDepartment",
         "parameters": [
           {
@@ -14451,6 +14492,7 @@
     },
     "/v3/company/{realmId}/department/{id}": {
       "get": {
+        "description": "Retrieves a Department entity by its ID.",
         "operationId": "readDepartment",
         "parameters": [
           {
@@ -14460,6 +14502,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Department entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14488,6 +14531,7 @@
     },
     "/v3/company/{realmId}/deposit": {
       "post": {
+        "description": "Creates a new Deposit entity. POST to /v3/company/{realmId}/deposit without the Id or SyncToken fields.",
         "operationId": "createDeposit",
         "parameters": [
           {
@@ -14527,6 +14571,7 @@
     },
     "/v3/company/{realmId}/deposit/{id}": {
       "get": {
+        "description": "Retrieves a Deposit entity by its ID.",
         "operationId": "readDeposit",
         "parameters": [
           {
@@ -14536,6 +14581,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Deposit entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14564,6 +14610,7 @@
     },
     "/v3/company/{realmId}/employee": {
       "post": {
+        "description": "Creates a new Employee entity. POST to /v3/company/{realmId}/employee without the Id or SyncToken fields.",
         "operationId": "createEmployee",
         "parameters": [
           {
@@ -14603,6 +14650,7 @@
     },
     "/v3/company/{realmId}/employee/{id}": {
       "get": {
+        "description": "Retrieves a Employee entity by its ID.",
         "operationId": "readEmployee",
         "parameters": [
           {
@@ -14612,6 +14660,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Employee entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14640,6 +14689,7 @@
     },
     "/v3/company/{realmId}/entitlements/{id}": {
       "get": {
+        "description": "Retrieves a Entitlements entity by its ID.",
         "operationId": "readEntitlements",
         "parameters": [
           {
@@ -14649,6 +14699,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Entitlements entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14677,6 +14728,7 @@
     },
     "/v3/company/{realmId}/estimate": {
       "post": {
+        "description": "Creates a new Estimate entity. POST to /v3/company/{realmId}/estimate without the Id or SyncToken fields.",
         "operationId": "createEstimate",
         "parameters": [
           {
@@ -14716,6 +14768,7 @@
     },
     "/v3/company/{realmId}/estimate/{id}": {
       "get": {
+        "description": "Retrieves a Estimate entity by its ID.",
         "operationId": "readEstimate",
         "parameters": [
           {
@@ -14725,6 +14778,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Estimate entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14753,6 +14807,7 @@
     },
     "/v3/company/{realmId}/estimate/{id}/pdf": {
       "get": {
+        "description": "Returns a PDF representation of the Estimate.",
         "operationId": "getEstimatePDF",
         "parameters": [
           {
@@ -14762,6 +14817,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Estimate entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14791,6 +14847,7 @@
     },
     "/v3/company/{realmId}/estimate/{id}/send": {
       "post": {
+        "description": "Sends the Estimate via email. Optionally specify a recipient with the sendTo query parameter.",
         "operationId": "sendEstimate",
         "parameters": [
           {
@@ -14800,6 +14857,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Estimate entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14838,6 +14896,7 @@
     },
     "/v3/company/{realmId}/exchangerate": {
       "post": {
+        "description": "Updates an existing ExchangeRate entity. POST the full entity with Id and SyncToken to /v3/company/{realmId}/exchangerate.",
         "operationId": "updateExchangeRate",
         "parameters": [
           {
@@ -14877,6 +14936,7 @@
     },
     "/v3/company/{realmId}/inventoryadjustment": {
       "post": {
+        "description": "Creates a new InventoryAdjustment entity. POST to /v3/company/{realmId}/inventoryadjustment without the Id or SyncToken fields.",
         "operationId": "createInventoryAdjustment",
         "parameters": [
           {
@@ -14916,6 +14976,7 @@
     },
     "/v3/company/{realmId}/inventoryadjustment/{id}": {
       "get": {
+        "description": "Retrieves a InventoryAdjustment entity by its ID.",
         "operationId": "readInventoryAdjustment",
         "parameters": [
           {
@@ -14925,6 +14986,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The InventoryAdjustment entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14953,6 +15015,7 @@
     },
     "/v3/company/{realmId}/invoice": {
       "post": {
+        "description": "Creates a new Invoice entity. POST to /v3/company/{realmId}/invoice without the Id or SyncToken fields.",
         "operationId": "createInvoice",
         "parameters": [
           {
@@ -14992,6 +15055,7 @@
     },
     "/v3/company/{realmId}/invoice/{id}": {
       "get": {
+        "description": "Retrieves a Invoice entity by its ID.",
         "operationId": "readInvoice",
         "parameters": [
           {
@@ -15001,6 +15065,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Invoice entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15029,6 +15094,7 @@
     },
     "/v3/company/{realmId}/invoice/{id}/pdf": {
       "get": {
+        "description": "Returns a PDF representation of the Invoice.",
         "operationId": "getInvoicePDF",
         "parameters": [
           {
@@ -15038,6 +15104,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Invoice entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15067,6 +15134,7 @@
     },
     "/v3/company/{realmId}/invoice/{id}/send": {
       "post": {
+        "description": "Sends the Invoice via email. Optionally specify a recipient with the sendTo query parameter.",
         "operationId": "sendInvoice",
         "parameters": [
           {
@@ -15076,6 +15144,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Invoice entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15114,6 +15183,7 @@
     },
     "/v3/company/{realmId}/item": {
       "post": {
+        "description": "Creates a new Item entity. POST to /v3/company/{realmId}/item without the Id or SyncToken fields.",
         "operationId": "createItem",
         "parameters": [
           {
@@ -15153,6 +15223,7 @@
     },
     "/v3/company/{realmId}/item/{id}": {
       "get": {
+        "description": "Retrieves a Item entity by its ID.",
         "operationId": "readItem",
         "parameters": [
           {
@@ -15162,6 +15233,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Item entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15190,6 +15262,7 @@
     },
     "/v3/company/{realmId}/journalcode": {
       "post": {
+        "description": "Creates a new JournalCode entity. POST to /v3/company/{realmId}/journalcode without the Id or SyncToken fields.",
         "operationId": "createJournalCode",
         "parameters": [
           {
@@ -15229,6 +15302,7 @@
     },
     "/v3/company/{realmId}/journalcode/{id}": {
       "get": {
+        "description": "Retrieves a JournalCode entity by its ID.",
         "operationId": "readJournalCode",
         "parameters": [
           {
@@ -15238,6 +15312,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The JournalCode entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15266,6 +15341,7 @@
     },
     "/v3/company/{realmId}/journalentry": {
       "post": {
+        "description": "Creates a new JournalEntry entity. POST to /v3/company/{realmId}/journalentry without the Id or SyncToken fields.",
         "operationId": "createJournalEntry",
         "parameters": [
           {
@@ -15305,6 +15381,7 @@
     },
     "/v3/company/{realmId}/journalentry/{id}": {
       "get": {
+        "description": "Retrieves a JournalEntry entity by its ID.",
         "operationId": "readJournalEntry",
         "parameters": [
           {
@@ -15314,6 +15391,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The JournalEntry entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15342,6 +15420,7 @@
     },
     "/v3/company/{realmId}/payment": {
       "post": {
+        "description": "Creates a new Payment entity. POST to /v3/company/{realmId}/payment without the Id or SyncToken fields.",
         "operationId": "createPayment",
         "parameters": [
           {
@@ -15381,6 +15460,7 @@
     },
     "/v3/company/{realmId}/payment/{id}": {
       "get": {
+        "description": "Retrieves a Payment entity by its ID.",
         "operationId": "readPayment",
         "parameters": [
           {
@@ -15390,6 +15470,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Payment entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15418,6 +15499,7 @@
     },
     "/v3/company/{realmId}/payment/{id}/send": {
       "post": {
+        "description": "Sends the Payment via email. Optionally specify a recipient with the sendTo query parameter.",
         "operationId": "sendPayment",
         "parameters": [
           {
@@ -15427,6 +15509,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Payment entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15465,6 +15548,7 @@
     },
     "/v3/company/{realmId}/paymentmethod": {
       "post": {
+        "description": "Creates a new PaymentMethod entity. POST to /v3/company/{realmId}/paymentmethod without the Id or SyncToken fields.",
         "operationId": "createPaymentMethod",
         "parameters": [
           {
@@ -15504,6 +15588,7 @@
     },
     "/v3/company/{realmId}/paymentmethod/{id}": {
       "get": {
+        "description": "Retrieves a PaymentMethod entity by its ID.",
         "operationId": "readPaymentMethod",
         "parameters": [
           {
@@ -15513,6 +15598,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The PaymentMethod entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15541,6 +15627,7 @@
     },
     "/v3/company/{realmId}/preferences": {
       "post": {
+        "description": "Updates an existing Preferences entity. POST the full entity with Id and SyncToken to /v3/company/{realmId}/preferences.",
         "operationId": "updatePreferences",
         "parameters": [
           {
@@ -15580,6 +15667,7 @@
     },
     "/v3/company/{realmId}/preferences/{id}": {
       "get": {
+        "description": "Retrieves a Preferences entity by its ID.",
         "operationId": "readPreferences",
         "parameters": [
           {
@@ -15589,6 +15677,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Preferences entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15617,6 +15706,7 @@
     },
     "/v3/company/{realmId}/purchase": {
       "post": {
+        "description": "Creates a new Purchase entity. POST to /v3/company/{realmId}/purchase without the Id or SyncToken fields.",
         "operationId": "createPurchase",
         "parameters": [
           {
@@ -15656,6 +15746,7 @@
     },
     "/v3/company/{realmId}/purchase/{id}": {
       "get": {
+        "description": "Retrieves a Purchase entity by its ID.",
         "operationId": "readPurchase",
         "parameters": [
           {
@@ -15665,6 +15756,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Purchase entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15693,6 +15785,7 @@
     },
     "/v3/company/{realmId}/purchaseorder": {
       "post": {
+        "description": "Creates a new PurchaseOrder entity. POST to /v3/company/{realmId}/purchaseorder without the Id or SyncToken fields.",
         "operationId": "createPurchaseOrder",
         "parameters": [
           {
@@ -15732,6 +15825,7 @@
     },
     "/v3/company/{realmId}/purchaseorder/{id}": {
       "get": {
+        "description": "Retrieves a PurchaseOrder entity by its ID.",
         "operationId": "readPurchaseOrder",
         "parameters": [
           {
@@ -15741,6 +15835,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The PurchaseOrder entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15769,6 +15864,7 @@
     },
     "/v3/company/{realmId}/purchaseorder/{id}/send": {
       "post": {
+        "description": "Sends the PurchaseOrder via email. Optionally specify a recipient with the sendTo query parameter.",
         "operationId": "sendPurchaseOrder",
         "parameters": [
           {
@@ -15778,6 +15874,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The PurchaseOrder entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15816,6 +15913,7 @@
     },
     "/v3/company/{realmId}/query": {
       "get": {
+        "description": "Queries Account entities using a SQL-like query string. Example: SELECT * FROM Account WHERE Id = '123'.",
         "operationId": "queryAccount",
         "parameters": [
           {
@@ -15854,6 +15952,7 @@
     },
     "/v3/company/{realmId}/recurringtransaction": {
       "post": {
+        "description": "Creates a new RecurringTransaction entity. POST to /v3/company/{realmId}/recurringtransaction without the Id or SyncToken fields.",
         "operationId": "createRecurringTransaction",
         "parameters": [
           {
@@ -15893,6 +15992,7 @@
     },
     "/v3/company/{realmId}/recurringtransaction/{id}": {
       "get": {
+        "description": "Retrieves a RecurringTransaction entity by its ID.",
         "operationId": "readRecurringTransaction",
         "parameters": [
           {
@@ -15902,6 +16002,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The RecurringTransaction entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -15930,6 +16031,7 @@
     },
     "/v3/company/{realmId}/refundreceipt": {
       "post": {
+        "description": "Creates a new RefundReceipt entity. POST to /v3/company/{realmId}/refundreceipt without the Id or SyncToken fields.",
         "operationId": "createRefundReceipt",
         "parameters": [
           {
@@ -15969,6 +16071,7 @@
     },
     "/v3/company/{realmId}/refundreceipt/{id}": {
       "get": {
+        "description": "Retrieves a RefundReceipt entity by its ID.",
         "operationId": "readRefundReceipt",
         "parameters": [
           {
@@ -15978,6 +16081,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The RefundReceipt entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16006,6 +16110,7 @@
     },
     "/v3/company/{realmId}/refundreceipt/{id}/send": {
       "post": {
+        "description": "Sends the RefundReceipt via email. Optionally specify a recipient with the sendTo query parameter.",
         "operationId": "sendRefundReceipt",
         "parameters": [
           {
@@ -16015,6 +16120,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The RefundReceipt entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16053,6 +16159,7 @@
     },
     "/v3/company/{realmId}/reimbursecharge/{id}": {
       "get": {
+        "description": "Retrieves a ReimburseCharge entity by its ID.",
         "operationId": "readReimburseCharge",
         "parameters": [
           {
@@ -16062,6 +16169,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The ReimburseCharge entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16090,6 +16198,7 @@
     },
     "/v3/company/{realmId}/salesreceipt": {
       "post": {
+        "description": "Creates a new SalesReceipt entity. POST to /v3/company/{realmId}/salesreceipt without the Id or SyncToken fields.",
         "operationId": "createSalesReceipt",
         "parameters": [
           {
@@ -16129,6 +16238,7 @@
     },
     "/v3/company/{realmId}/salesreceipt/{id}": {
       "get": {
+        "description": "Retrieves a SalesReceipt entity by its ID.",
         "operationId": "readSalesReceipt",
         "parameters": [
           {
@@ -16138,6 +16248,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The SalesReceipt entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16166,6 +16277,7 @@
     },
     "/v3/company/{realmId}/salesreceipt/{id}/pdf": {
       "get": {
+        "description": "Returns a PDF representation of the SalesReceipt.",
         "operationId": "getSalesReceiptPDF",
         "parameters": [
           {
@@ -16175,6 +16287,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The SalesReceipt entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16204,6 +16317,7 @@
     },
     "/v3/company/{realmId}/salesreceipt/{id}/send": {
       "post": {
+        "description": "Sends the SalesReceipt via email. Optionally specify a recipient with the sendTo query parameter.",
         "operationId": "sendSalesReceipt",
         "parameters": [
           {
@@ -16213,6 +16327,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The SalesReceipt entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16251,6 +16366,7 @@
     },
     "/v3/company/{realmId}/taxagency": {
       "post": {
+        "description": "Creates a new TaxAgency entity. POST to /v3/company/{realmId}/taxagency without the Id or SyncToken fields.",
         "operationId": "createTaxAgency",
         "parameters": [
           {
@@ -16290,6 +16406,7 @@
     },
     "/v3/company/{realmId}/taxagency/{id}": {
       "get": {
+        "description": "Retrieves a TaxAgency entity by its ID.",
         "operationId": "readTaxAgency",
         "parameters": [
           {
@@ -16299,6 +16416,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The TaxAgency entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16327,6 +16445,7 @@
     },
     "/v3/company/{realmId}/taxclassification/{id}": {
       "get": {
+        "description": "Retrieves a TaxClassification entity by its ID.",
         "operationId": "readTaxClassification",
         "parameters": [
           {
@@ -16336,6 +16455,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The TaxClassification entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16364,6 +16484,7 @@
     },
     "/v3/company/{realmId}/taxcode/{id}": {
       "get": {
+        "description": "Retrieves a TaxCode entity by its ID.",
         "operationId": "readTaxCode",
         "parameters": [
           {
@@ -16373,6 +16494,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The TaxCode entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16401,6 +16523,7 @@
     },
     "/v3/company/{realmId}/taxpayment/{id}": {
       "get": {
+        "description": "Retrieves a TaxPayment entity by its ID.",
         "operationId": "readTaxPayment",
         "parameters": [
           {
@@ -16410,6 +16533,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The TaxPayment entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16438,6 +16562,7 @@
     },
     "/v3/company/{realmId}/taxrate/{id}": {
       "get": {
+        "description": "Retrieves a TaxRate entity by its ID.",
         "operationId": "readTaxRate",
         "parameters": [
           {
@@ -16447,6 +16572,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The TaxRate entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16475,6 +16601,7 @@
     },
     "/v3/company/{realmId}/taxservice": {
       "post": {
+        "description": "Creates a new Taxservice entity. POST to /v3/company/{realmId}/taxservice without the Id or SyncToken fields.",
         "operationId": "createTaxservice",
         "parameters": [
           {
@@ -16514,6 +16641,7 @@
     },
     "/v3/company/{realmId}/term": {
       "post": {
+        "description": "Creates a new Term entity. POST to /v3/company/{realmId}/term without the Id or SyncToken fields.",
         "operationId": "createTerm",
         "parameters": [
           {
@@ -16553,6 +16681,7 @@
     },
     "/v3/company/{realmId}/term/{id}": {
       "get": {
+        "description": "Retrieves a Term entity by its ID.",
         "operationId": "readTerm",
         "parameters": [
           {
@@ -16562,6 +16691,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Term entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16590,6 +16720,7 @@
     },
     "/v3/company/{realmId}/timeactivity": {
       "post": {
+        "description": "Creates a new TimeActivity entity. POST to /v3/company/{realmId}/timeactivity without the Id or SyncToken fields.",
         "operationId": "createTimeActivity",
         "parameters": [
           {
@@ -16629,6 +16760,7 @@
     },
     "/v3/company/{realmId}/timeactivity/{id}": {
       "get": {
+        "description": "Retrieves a TimeActivity entity by its ID.",
         "operationId": "readTimeActivity",
         "parameters": [
           {
@@ -16638,6 +16770,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The TimeActivity entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16666,6 +16799,7 @@
     },
     "/v3/company/{realmId}/transfer": {
       "post": {
+        "description": "Creates a new Transfer entity. POST to /v3/company/{realmId}/transfer without the Id or SyncToken fields.",
         "operationId": "createTransfer",
         "parameters": [
           {
@@ -16705,6 +16839,7 @@
     },
     "/v3/company/{realmId}/transfer/{id}": {
       "get": {
+        "description": "Retrieves a Transfer entity by its ID.",
         "operationId": "readTransfer",
         "parameters": [
           {
@@ -16714,6 +16849,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Transfer entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16742,6 +16878,7 @@
     },
     "/v3/company/{realmId}/vendor": {
       "post": {
+        "description": "Creates a new Vendor entity. POST to /v3/company/{realmId}/vendor without the Id or SyncToken fields.",
         "operationId": "createVendor",
         "parameters": [
           {
@@ -16781,6 +16918,7 @@
     },
     "/v3/company/{realmId}/vendor/{id}": {
       "get": {
+        "description": "Retrieves a Vendor entity by its ID.",
         "operationId": "readVendor",
         "parameters": [
           {
@@ -16790,6 +16928,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Vendor entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16818,6 +16957,7 @@
     },
     "/v3/company/{realmId}/vendorcredit": {
       "post": {
+        "description": "Creates a new VendorCredit entity. POST to /v3/company/{realmId}/vendorcredit without the Id or SyncToken fields.",
         "operationId": "createVendorCredit",
         "parameters": [
           {
@@ -16857,6 +16997,7 @@
     },
     "/v3/company/{realmId}/vendorcredit/{id}": {
       "get": {
+        "description": "Retrieves a VendorCredit entity by its ID.",
         "operationId": "readVendorCredit",
         "parameters": [
           {
@@ -16866,6 +17007,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The VendorCredit entity ID.",
             "in": "path",
             "name": "id",
             "required": true,

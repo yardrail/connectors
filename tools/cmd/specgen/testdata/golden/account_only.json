@@ -163,6 +163,7 @@
   "paths": {
     "/v3/company/{realmId}/account": {
       "post": {
+        "description": "Creates a new Account entity. POST to /v3/company/{realmId}/account without the Id or SyncToken fields.",
         "operationId": "createAccount",
         "parameters": [
           {
@@ -202,6 +203,7 @@
     },
     "/v3/company/{realmId}/account/{id}": {
       "get": {
+        "description": "Retrieves a Account entity by its ID.",
         "operationId": "readAccount",
         "parameters": [
           {
@@ -211,6 +213,7 @@
             "$ref": "#/components/parameters/minorversion"
           },
           {
+            "description": "The Account entity ID.",
             "in": "path",
             "name": "id",
             "required": true,
