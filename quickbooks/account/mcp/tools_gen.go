@@ -24,11 +24,7 @@ func (h *Handler) RegisterAccount(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-account",
-			mcp.WithDescription("Create Account
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/account (the `CreateAccount` operationId)."),
+			mcp.WithDescription("Create Account\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/account (the `CreateAccount` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateAccountJSONRequestBody)")),
@@ -38,11 +34,7 @@ Corresponds with POST /v3/company/{realmId}/account (the `CreateAccount` operati
 
 	s.AddTool(
 		mcp.NewTool("query-account",
-			mcp.WithDescription("Query Account
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/query (the `QueryAccount` operationId)."),
+			mcp.WithDescription("Query Account\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/query (the `QueryAccount` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithString("query", mcp.Description("Query")),
@@ -52,11 +44,7 @@ Corresponds with GET /v3/company/{realmId}/query (the `QueryAccount` operationId
 
 	s.AddTool(
 		mcp.NewTool("read-account",
-			mcp.WithDescription("Read Account
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/account/{id} (the `ReadAccount` operationId)."),
+			mcp.WithDescription("Read Account\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/account/{id} (the `ReadAccount` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -71,11 +59,7 @@ func (h *Handler) RegisterAttachable(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-attachable",
-			mcp.WithDescription("Create Attachable
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/attachable (the `CreateAttachable` operationId)."),
+			mcp.WithDescription("Create Attachable\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/attachable (the `CreateAttachable` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateAttachableJSONRequestBody)")),
@@ -85,11 +69,7 @@ Corresponds with POST /v3/company/{realmId}/attachable (the `CreateAttachable` o
 
 	s.AddTool(
 		mcp.NewTool("read-attachable",
-			mcp.WithDescription("Read Attachable
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/attachable/{id} (the `ReadAttachable` operationId)."),
+			mcp.WithDescription("Read Attachable\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/attachable/{id} (the `ReadAttachable` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -104,11 +84,7 @@ func (h *Handler) RegisterBillPayment(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-bill-payment",
-			mcp.WithDescription("Create BillPayment
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/billpayment (the `CreateBillPayment` operationId)."),
+			mcp.WithDescription("Create BillPayment\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/billpayment (the `CreateBillPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBillPaymentJSONRequestBody)")),
@@ -118,11 +94,7 @@ Corresponds with POST /v3/company/{realmId}/billpayment (the `CreateBillPayment`
 
 	s.AddTool(
 		mcp.NewTool("read-bill-payment",
-			mcp.WithDescription("Read BillPayment
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/billpayment/{id} (the `ReadBillPayment` operationId)."),
+			mcp.WithDescription("Read BillPayment\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/billpayment/{id} (the `ReadBillPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -137,11 +109,7 @@ func (h *Handler) RegisterBill(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-bill",
-			mcp.WithDescription("Create Bill
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/bill (the `CreateBill` operationId)."),
+			mcp.WithDescription("Create Bill\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/bill (the `CreateBill` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBillJSONRequestBody)")),
@@ -151,11 +119,7 @@ Corresponds with POST /v3/company/{realmId}/bill (the `CreateBill` operationId).
 
 	s.AddTool(
 		mcp.NewTool("read-bill",
-			mcp.WithDescription("Read Bill
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/bill/{id} (the `ReadBill` operationId)."),
+			mcp.WithDescription("Read Bill\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/bill/{id} (the `ReadBill` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -170,11 +134,7 @@ func (h *Handler) RegisterBudget(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-budget",
-			mcp.WithDescription("Create Budget
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/budget (the `CreateBudget` operationId)."),
+			mcp.WithDescription("Create Budget\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/budget (the `CreateBudget` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateBudgetJSONRequestBody)")),
@@ -184,11 +144,7 @@ Corresponds with POST /v3/company/{realmId}/budget (the `CreateBudget` operation
 
 	s.AddTool(
 		mcp.NewTool("read-budget",
-			mcp.WithDescription("Read Budget
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/budget/{id} (the `ReadBudget` operationId)."),
+			mcp.WithDescription("Read Budget\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/budget/{id} (the `ReadBudget` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -203,11 +159,7 @@ func (h *Handler) RegisterChangeOrder(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-change-order",
-			mcp.WithDescription("Create ChangeOrder
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/changeorder (the `CreateChangeOrder` operationId)."),
+			mcp.WithDescription("Create ChangeOrder\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/changeorder (the `CreateChangeOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateChangeOrderJSONRequestBody)")),
@@ -217,11 +169,7 @@ Corresponds with POST /v3/company/{realmId}/changeorder (the `CreateChangeOrder`
 
 	s.AddTool(
 		mcp.NewTool("read-change-order",
-			mcp.WithDescription("Read ChangeOrder
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/changeorder/{id} (the `ReadChangeOrder` operationId)."),
+			mcp.WithDescription("Read ChangeOrder\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/changeorder/{id} (the `ReadChangeOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -236,11 +184,7 @@ func (h *Handler) RegisterClass(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-class",
-			mcp.WithDescription("Create Class
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/class (the `CreateClass` operationId)."),
+			mcp.WithDescription("Create Class\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/class (the `CreateClass` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateClassJSONRequestBody)")),
@@ -250,11 +194,7 @@ Corresponds with POST /v3/company/{realmId}/class (the `CreateClass` operationId
 
 	s.AddTool(
 		mcp.NewTool("read-class",
-			mcp.WithDescription("Read Class
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/class/{id} (the `ReadClass` operationId)."),
+			mcp.WithDescription("Read Class\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/class/{id} (the `ReadClass` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -269,11 +209,7 @@ func (h *Handler) RegisterCompanyCurrency(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-company-currency",
-			mcp.WithDescription("Create CompanyCurrency
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/companycurrency (the `CreateCompanyCurrency` operationId)."),
+			mcp.WithDescription("Create CompanyCurrency\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/companycurrency (the `CreateCompanyCurrency` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCompanyCurrencyJSONRequestBody)")),
@@ -283,11 +219,7 @@ Corresponds with POST /v3/company/{realmId}/companycurrency (the `CreateCompanyC
 
 	s.AddTool(
 		mcp.NewTool("read-company-currency",
-			mcp.WithDescription("Read CompanyCurrency
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/companycurrency/{id} (the `ReadCompanyCurrency` operationId)."),
+			mcp.WithDescription("Read CompanyCurrency\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/companycurrency/{id} (the `ReadCompanyCurrency` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -302,11 +234,7 @@ func (h *Handler) RegisterCreditCardPaymentTxn(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-credit-card-payment-txn",
-			mcp.WithDescription("Create CreditCardPaymentTxn
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/creditcardpayment (the `CreateCreditCardPaymentTxn` operationId)."),
+			mcp.WithDescription("Create CreditCardPaymentTxn\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/creditcardpayment (the `CreateCreditCardPaymentTxn` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCreditCardPaymentTxnJSONRequestBody)")),
@@ -316,11 +244,7 @@ Corresponds with POST /v3/company/{realmId}/creditcardpayment (the `CreateCredit
 
 	s.AddTool(
 		mcp.NewTool("read-credit-card-payment-txn",
-			mcp.WithDescription("Read CreditCardPaymentTxn
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/creditcardpayment/{id} (the `ReadCreditCardPaymentTxn` operationId)."),
+			mcp.WithDescription("Read CreditCardPaymentTxn\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/creditcardpayment/{id} (the `ReadCreditCardPaymentTxn` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -335,11 +259,7 @@ func (h *Handler) RegisterCreditMemo(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-credit-memo",
-			mcp.WithDescription("Create CreditMemo
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/creditmemo (the `CreateCreditMemo` operationId)."),
+			mcp.WithDescription("Create CreditMemo\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/creditmemo (the `CreateCreditMemo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCreditMemoJSONRequestBody)")),
@@ -349,11 +269,7 @@ Corresponds with POST /v3/company/{realmId}/creditmemo (the `CreateCreditMemo` o
 
 	s.AddTool(
 		mcp.NewTool("read-credit-memo",
-			mcp.WithDescription("Read CreditMemo
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/creditmemo/{id} (the `ReadCreditMemo` operationId)."),
+			mcp.WithDescription("Read CreditMemo\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/creditmemo/{id} (the `ReadCreditMemo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -363,11 +279,7 @@ Corresponds with GET /v3/company/{realmId}/creditmemo/{id} (the `ReadCreditMemo`
 
 	s.AddTool(
 		mcp.NewTool("send-credit-memo",
-			mcp.WithDescription("Send CreditMemo
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/creditmemo/{id}/send (the `SendCreditMemo` operationId)."),
+			mcp.WithDescription("Send CreditMemo\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/creditmemo/{id}/send (the `SendCreditMemo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -383,11 +295,7 @@ func (h *Handler) RegisterCustomer(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-customer",
-			mcp.WithDescription("Create Customer
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/customer (the `CreateCustomer` operationId)."),
+			mcp.WithDescription("Create Customer\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/customer (the `CreateCustomer` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateCustomerJSONRequestBody)")),
@@ -397,11 +305,7 @@ Corresponds with POST /v3/company/{realmId}/customer (the `CreateCustomer` opera
 
 	s.AddTool(
 		mcp.NewTool("read-customer",
-			mcp.WithDescription("Read Customer
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/customer/{id} (the `ReadCustomer` operationId)."),
+			mcp.WithDescription("Read Customer\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/customer/{id} (the `ReadCustomer` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -416,11 +320,7 @@ func (h *Handler) RegisterDepartment(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-department",
-			mcp.WithDescription("Create Department
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/department (the `CreateDepartment` operationId)."),
+			mcp.WithDescription("Create Department\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/department (the `CreateDepartment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateDepartmentJSONRequestBody)")),
@@ -430,11 +330,7 @@ Corresponds with POST /v3/company/{realmId}/department (the `CreateDepartment` o
 
 	s.AddTool(
 		mcp.NewTool("read-department",
-			mcp.WithDescription("Read Department
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/department/{id} (the `ReadDepartment` operationId)."),
+			mcp.WithDescription("Read Department\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/department/{id} (the `ReadDepartment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -449,11 +345,7 @@ func (h *Handler) RegisterDeposit(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-deposit",
-			mcp.WithDescription("Create Deposit
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/deposit (the `CreateDeposit` operationId)."),
+			mcp.WithDescription("Create Deposit\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/deposit (the `CreateDeposit` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateDepositJSONRequestBody)")),
@@ -463,11 +355,7 @@ Corresponds with POST /v3/company/{realmId}/deposit (the `CreateDeposit` operati
 
 	s.AddTool(
 		mcp.NewTool("read-deposit",
-			mcp.WithDescription("Read Deposit
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/deposit/{id} (the `ReadDeposit` operationId)."),
+			mcp.WithDescription("Read Deposit\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/deposit/{id} (the `ReadDeposit` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -482,11 +370,7 @@ func (h *Handler) RegisterEmployee(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-employee",
-			mcp.WithDescription("Create Employee
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/employee (the `CreateEmployee` operationId)."),
+			mcp.WithDescription("Create Employee\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/employee (the `CreateEmployee` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateEmployeeJSONRequestBody)")),
@@ -496,11 +380,7 @@ Corresponds with POST /v3/company/{realmId}/employee (the `CreateEmployee` opera
 
 	s.AddTool(
 		mcp.NewTool("read-employee",
-			mcp.WithDescription("Read Employee
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/employee/{id} (the `ReadEmployee` operationId)."),
+			mcp.WithDescription("Read Employee\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/employee/{id} (the `ReadEmployee` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -515,11 +395,7 @@ func (h *Handler) RegisterEstimate(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-estimate",
-			mcp.WithDescription("Create Estimate
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/estimate (the `CreateEstimate` operationId)."),
+			mcp.WithDescription("Create Estimate\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/estimate (the `CreateEstimate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateEstimateJSONRequestBody)")),
@@ -529,11 +405,7 @@ Corresponds with POST /v3/company/{realmId}/estimate (the `CreateEstimate` opera
 
 	s.AddTool(
 		mcp.NewTool("get-estimate-p-d-f",
-			mcp.WithDescription("Get Estimate as PDF
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/estimate/{id}/pdf (the `GetEstimatePDF` operationId)."),
+			mcp.WithDescription("Get Estimate as PDF\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/estimate/{id}/pdf (the `GetEstimatePDF` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -543,11 +415,7 @@ Corresponds with GET /v3/company/{realmId}/estimate/{id}/pdf (the `GetEstimatePD
 
 	s.AddTool(
 		mcp.NewTool("read-estimate",
-			mcp.WithDescription("Read Estimate
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/estimate/{id} (the `ReadEstimate` operationId)."),
+			mcp.WithDescription("Read Estimate\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/estimate/{id} (the `ReadEstimate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -557,11 +425,7 @@ Corresponds with GET /v3/company/{realmId}/estimate/{id} (the `ReadEstimate` ope
 
 	s.AddTool(
 		mcp.NewTool("send-estimate",
-			mcp.WithDescription("Send Estimate
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/estimate/{id}/send (the `SendEstimate` operationId)."),
+			mcp.WithDescription("Send Estimate\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/estimate/{id}/send (the `SendEstimate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -577,11 +441,7 @@ func (h *Handler) RegisterInventoryAdjustment(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-inventory-adjustment",
-			mcp.WithDescription("Create InventoryAdjustment
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/inventoryadjustment (the `CreateInventoryAdjustment` operationId)."),
+			mcp.WithDescription("Create InventoryAdjustment\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/inventoryadjustment (the `CreateInventoryAdjustment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateInventoryAdjustmentJSONRequestBody)")),
@@ -591,11 +451,7 @@ Corresponds with POST /v3/company/{realmId}/inventoryadjustment (the `CreateInve
 
 	s.AddTool(
 		mcp.NewTool("read-inventory-adjustment",
-			mcp.WithDescription("Read InventoryAdjustment
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/inventoryadjustment/{id} (the `ReadInventoryAdjustment` operationId)."),
+			mcp.WithDescription("Read InventoryAdjustment\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/inventoryadjustment/{id} (the `ReadInventoryAdjustment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -610,11 +466,7 @@ func (h *Handler) RegisterInvoice(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-invoice",
-			mcp.WithDescription("Create Invoice
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/invoice (the `CreateInvoice` operationId)."),
+			mcp.WithDescription("Create Invoice\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/invoice (the `CreateInvoice` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateInvoiceJSONRequestBody)")),
@@ -624,11 +476,7 @@ Corresponds with POST /v3/company/{realmId}/invoice (the `CreateInvoice` operati
 
 	s.AddTool(
 		mcp.NewTool("get-invoice-p-d-f",
-			mcp.WithDescription("Get Invoice as PDF
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/invoice/{id}/pdf (the `GetInvoicePDF` operationId)."),
+			mcp.WithDescription("Get Invoice as PDF\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/invoice/{id}/pdf (the `GetInvoicePDF` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -638,11 +486,7 @@ Corresponds with GET /v3/company/{realmId}/invoice/{id}/pdf (the `GetInvoicePDF`
 
 	s.AddTool(
 		mcp.NewTool("read-invoice",
-			mcp.WithDescription("Read Invoice
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/invoice/{id} (the `ReadInvoice` operationId)."),
+			mcp.WithDescription("Read Invoice\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/invoice/{id} (the `ReadInvoice` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -652,11 +496,7 @@ Corresponds with GET /v3/company/{realmId}/invoice/{id} (the `ReadInvoice` opera
 
 	s.AddTool(
 		mcp.NewTool("send-invoice",
-			mcp.WithDescription("Send Invoice
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/invoice/{id}/send (the `SendInvoice` operationId)."),
+			mcp.WithDescription("Send Invoice\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/invoice/{id}/send (the `SendInvoice` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -672,11 +512,7 @@ func (h *Handler) RegisterItem(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-item",
-			mcp.WithDescription("Create Item
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/item (the `CreateItem` operationId)."),
+			mcp.WithDescription("Create Item\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/item (the `CreateItem` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateItemJSONRequestBody)")),
@@ -686,11 +522,7 @@ Corresponds with POST /v3/company/{realmId}/item (the `CreateItem` operationId).
 
 	s.AddTool(
 		mcp.NewTool("read-item",
-			mcp.WithDescription("Read Item
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/item/{id} (the `ReadItem` operationId)."),
+			mcp.WithDescription("Read Item\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/item/{id} (the `ReadItem` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -705,11 +537,7 @@ func (h *Handler) RegisterJournalCode(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-journal-code",
-			mcp.WithDescription("Create JournalCode
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/journalcode (the `CreateJournalCode` operationId)."),
+			mcp.WithDescription("Create JournalCode\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/journalcode (the `CreateJournalCode` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateJournalCodeJSONRequestBody)")),
@@ -719,11 +547,7 @@ Corresponds with POST /v3/company/{realmId}/journalcode (the `CreateJournalCode`
 
 	s.AddTool(
 		mcp.NewTool("read-journal-code",
-			mcp.WithDescription("Read JournalCode
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/journalcode/{id} (the `ReadJournalCode` operationId)."),
+			mcp.WithDescription("Read JournalCode\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/journalcode/{id} (the `ReadJournalCode` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -738,11 +562,7 @@ func (h *Handler) RegisterJournalEntry(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-journal-entry",
-			mcp.WithDescription("Create JournalEntry
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/journalentry (the `CreateJournalEntry` operationId)."),
+			mcp.WithDescription("Create JournalEntry\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/journalentry (the `CreateJournalEntry` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateJournalEntryJSONRequestBody)")),
@@ -752,11 +572,7 @@ Corresponds with POST /v3/company/{realmId}/journalentry (the `CreateJournalEntr
 
 	s.AddTool(
 		mcp.NewTool("read-journal-entry",
-			mcp.WithDescription("Read JournalEntry
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/journalentry/{id} (the `ReadJournalEntry` operationId)."),
+			mcp.WithDescription("Read JournalEntry\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/journalentry/{id} (the `ReadJournalEntry` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -771,11 +587,7 @@ func (h *Handler) RegisterPaymentMethod(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-payment-method",
-			mcp.WithDescription("Create PaymentMethod
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/paymentmethod (the `CreatePaymentMethod` operationId)."),
+			mcp.WithDescription("Create PaymentMethod\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/paymentmethod (the `CreatePaymentMethod` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePaymentMethodJSONRequestBody)")),
@@ -785,11 +597,7 @@ Corresponds with POST /v3/company/{realmId}/paymentmethod (the `CreatePaymentMet
 
 	s.AddTool(
 		mcp.NewTool("read-payment-method",
-			mcp.WithDescription("Read PaymentMethod
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/paymentmethod/{id} (the `ReadPaymentMethod` operationId)."),
+			mcp.WithDescription("Read PaymentMethod\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/paymentmethod/{id} (the `ReadPaymentMethod` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -804,11 +612,7 @@ func (h *Handler) RegisterPayment(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-payment",
-			mcp.WithDescription("Create Payment
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/payment (the `CreatePayment` operationId)."),
+			mcp.WithDescription("Create Payment\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/payment (the `CreatePayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePaymentJSONRequestBody)")),
@@ -818,11 +622,7 @@ Corresponds with POST /v3/company/{realmId}/payment (the `CreatePayment` operati
 
 	s.AddTool(
 		mcp.NewTool("read-payment",
-			mcp.WithDescription("Read Payment
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/payment/{id} (the `ReadPayment` operationId)."),
+			mcp.WithDescription("Read Payment\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/payment/{id} (the `ReadPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -832,11 +632,7 @@ Corresponds with GET /v3/company/{realmId}/payment/{id} (the `ReadPayment` opera
 
 	s.AddTool(
 		mcp.NewTool("send-payment",
-			mcp.WithDescription("Send Payment
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/payment/{id}/send (the `SendPayment` operationId)."),
+			mcp.WithDescription("Send Payment\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/payment/{id}/send (the `SendPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -852,11 +648,7 @@ func (h *Handler) RegisterPurchaseOrder(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-purchase-order",
-			mcp.WithDescription("Create PurchaseOrder
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/purchaseorder (the `CreatePurchaseOrder` operationId)."),
+			mcp.WithDescription("Create PurchaseOrder\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/purchaseorder (the `CreatePurchaseOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePurchaseOrderJSONRequestBody)")),
@@ -866,11 +658,7 @@ Corresponds with POST /v3/company/{realmId}/purchaseorder (the `CreatePurchaseOr
 
 	s.AddTool(
 		mcp.NewTool("read-purchase-order",
-			mcp.WithDescription("Read PurchaseOrder
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/purchaseorder/{id} (the `ReadPurchaseOrder` operationId)."),
+			mcp.WithDescription("Read PurchaseOrder\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/purchaseorder/{id} (the `ReadPurchaseOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -880,11 +668,7 @@ Corresponds with GET /v3/company/{realmId}/purchaseorder/{id} (the `ReadPurchase
 
 	s.AddTool(
 		mcp.NewTool("send-purchase-order",
-			mcp.WithDescription("Send PurchaseOrder
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/purchaseorder/{id}/send (the `SendPurchaseOrder` operationId)."),
+			mcp.WithDescription("Send PurchaseOrder\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/purchaseorder/{id}/send (the `SendPurchaseOrder` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -900,11 +684,7 @@ func (h *Handler) RegisterPurchase(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-purchase",
-			mcp.WithDescription("Create Purchase
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/purchase (the `CreatePurchase` operationId)."),
+			mcp.WithDescription("Create Purchase\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/purchase (the `CreatePurchase` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreatePurchaseJSONRequestBody)")),
@@ -914,11 +694,7 @@ Corresponds with POST /v3/company/{realmId}/purchase (the `CreatePurchase` opera
 
 	s.AddTool(
 		mcp.NewTool("read-purchase",
-			mcp.WithDescription("Read Purchase
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/purchase/{id} (the `ReadPurchase` operationId)."),
+			mcp.WithDescription("Read Purchase\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/purchase/{id} (the `ReadPurchase` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -933,11 +709,7 @@ func (h *Handler) RegisterRecurringTransaction(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-recurring-transaction",
-			mcp.WithDescription("Create RecurringTransaction
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/recurringtransaction (the `CreateRecurringTransaction` operationId)."),
+			mcp.WithDescription("Create RecurringTransaction\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/recurringtransaction (the `CreateRecurringTransaction` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateRecurringTransactionJSONRequestBody)")),
@@ -947,11 +719,7 @@ Corresponds with POST /v3/company/{realmId}/recurringtransaction (the `CreateRec
 
 	s.AddTool(
 		mcp.NewTool("read-recurring-transaction",
-			mcp.WithDescription("Read RecurringTransaction
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/recurringtransaction/{id} (the `ReadRecurringTransaction` operationId)."),
+			mcp.WithDescription("Read RecurringTransaction\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/recurringtransaction/{id} (the `ReadRecurringTransaction` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -966,11 +734,7 @@ func (h *Handler) RegisterRefundReceipt(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-refund-receipt",
-			mcp.WithDescription("Create RefundReceipt
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/refundreceipt (the `CreateRefundReceipt` operationId)."),
+			mcp.WithDescription("Create RefundReceipt\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/refundreceipt (the `CreateRefundReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateRefundReceiptJSONRequestBody)")),
@@ -980,11 +744,7 @@ Corresponds with POST /v3/company/{realmId}/refundreceipt (the `CreateRefundRece
 
 	s.AddTool(
 		mcp.NewTool("read-refund-receipt",
-			mcp.WithDescription("Read RefundReceipt
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/refundreceipt/{id} (the `ReadRefundReceipt` operationId)."),
+			mcp.WithDescription("Read RefundReceipt\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/refundreceipt/{id} (the `ReadRefundReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -994,11 +754,7 @@ Corresponds with GET /v3/company/{realmId}/refundreceipt/{id} (the `ReadRefundRe
 
 	s.AddTool(
 		mcp.NewTool("send-refund-receipt",
-			mcp.WithDescription("Send RefundReceipt
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/refundreceipt/{id}/send (the `SendRefundReceipt` operationId)."),
+			mcp.WithDescription("Send RefundReceipt\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/refundreceipt/{id}/send (the `SendRefundReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1014,11 +770,7 @@ func (h *Handler) RegisterSalesReceipt(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-sales-receipt",
-			mcp.WithDescription("Create SalesReceipt
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/salesreceipt (the `CreateSalesReceipt` operationId)."),
+			mcp.WithDescription("Create SalesReceipt\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/salesreceipt (the `CreateSalesReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateSalesReceiptJSONRequestBody)")),
@@ -1028,11 +780,7 @@ Corresponds with POST /v3/company/{realmId}/salesreceipt (the `CreateSalesReceip
 
 	s.AddTool(
 		mcp.NewTool("get-sales-receipt-p-d-f",
-			mcp.WithDescription("Get SalesReceipt as PDF
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/salesreceipt/{id}/pdf (the `GetSalesReceiptPDF` operationId)."),
+			mcp.WithDescription("Get SalesReceipt as PDF\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/salesreceipt/{id}/pdf (the `GetSalesReceiptPDF` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1042,11 +790,7 @@ Corresponds with GET /v3/company/{realmId}/salesreceipt/{id}/pdf (the `GetSalesR
 
 	s.AddTool(
 		mcp.NewTool("read-sales-receipt",
-			mcp.WithDescription("Read SalesReceipt
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/salesreceipt/{id} (the `ReadSalesReceipt` operationId)."),
+			mcp.WithDescription("Read SalesReceipt\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/salesreceipt/{id} (the `ReadSalesReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1056,11 +800,7 @@ Corresponds with GET /v3/company/{realmId}/salesreceipt/{id} (the `ReadSalesRece
 
 	s.AddTool(
 		mcp.NewTool("send-sales-receipt",
-			mcp.WithDescription("Send SalesReceipt
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/salesreceipt/{id}/send (the `SendSalesReceipt` operationId)."),
+			mcp.WithDescription("Send SalesReceipt\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/salesreceipt/{id}/send (the `SendSalesReceipt` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1076,11 +816,7 @@ func (h *Handler) RegisterTaxAgency(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-tax-agency",
-			mcp.WithDescription("Create TaxAgency
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/taxagency (the `CreateTaxAgency` operationId)."),
+			mcp.WithDescription("Create TaxAgency\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/taxagency (the `CreateTaxAgency` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTaxAgencyJSONRequestBody)")),
@@ -1090,11 +826,7 @@ Corresponds with POST /v3/company/{realmId}/taxagency (the `CreateTaxAgency` ope
 
 	s.AddTool(
 		mcp.NewTool("read-tax-agency",
-			mcp.WithDescription("Read TaxAgency
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/taxagency/{id} (the `ReadTaxAgency` operationId)."),
+			mcp.WithDescription("Read TaxAgency\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxagency/{id} (the `ReadTaxAgency` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1109,11 +841,7 @@ func (h *Handler) RegisterTaxservice(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-taxservice",
-			mcp.WithDescription("Create Taxservice
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/taxservice (the `CreateTaxservice` operationId)."),
+			mcp.WithDescription("Create Taxservice\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/taxservice (the `CreateTaxservice` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTaxserviceJSONRequestBody)")),
@@ -1128,11 +856,7 @@ func (h *Handler) RegisterTerm(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-term",
-			mcp.WithDescription("Create Term
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/term (the `CreateTerm` operationId)."),
+			mcp.WithDescription("Create Term\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/term (the `CreateTerm` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTermJSONRequestBody)")),
@@ -1142,11 +866,7 @@ Corresponds with POST /v3/company/{realmId}/term (the `CreateTerm` operationId).
 
 	s.AddTool(
 		mcp.NewTool("read-term",
-			mcp.WithDescription("Read Term
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/term/{id} (the `ReadTerm` operationId)."),
+			mcp.WithDescription("Read Term\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/term/{id} (the `ReadTerm` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1161,11 +881,7 @@ func (h *Handler) RegisterTimeActivity(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-time-activity",
-			mcp.WithDescription("Create TimeActivity
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/timeactivity (the `CreateTimeActivity` operationId)."),
+			mcp.WithDescription("Create TimeActivity\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/timeactivity (the `CreateTimeActivity` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTimeActivityJSONRequestBody)")),
@@ -1175,11 +891,7 @@ Corresponds with POST /v3/company/{realmId}/timeactivity (the `CreateTimeActivit
 
 	s.AddTool(
 		mcp.NewTool("read-time-activity",
-			mcp.WithDescription("Read TimeActivity
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/timeactivity/{id} (the `ReadTimeActivity` operationId)."),
+			mcp.WithDescription("Read TimeActivity\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/timeactivity/{id} (the `ReadTimeActivity` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1194,11 +906,7 @@ func (h *Handler) RegisterTransfer(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-transfer",
-			mcp.WithDescription("Create Transfer
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/transfer (the `CreateTransfer` operationId)."),
+			mcp.WithDescription("Create Transfer\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/transfer (the `CreateTransfer` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateTransferJSONRequestBody)")),
@@ -1208,11 +916,7 @@ Corresponds with POST /v3/company/{realmId}/transfer (the `CreateTransfer` opera
 
 	s.AddTool(
 		mcp.NewTool("read-transfer",
-			mcp.WithDescription("Read Transfer
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/transfer/{id} (the `ReadTransfer` operationId)."),
+			mcp.WithDescription("Read Transfer\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/transfer/{id} (the `ReadTransfer` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1227,11 +931,7 @@ func (h *Handler) RegisterVendorCredit(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-vendor-credit",
-			mcp.WithDescription("Create VendorCredit
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/vendorcredit (the `CreateVendorCredit` operationId)."),
+			mcp.WithDescription("Create VendorCredit\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/vendorcredit (the `CreateVendorCredit` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateVendorCreditJSONRequestBody)")),
@@ -1241,11 +941,7 @@ Corresponds with POST /v3/company/{realmId}/vendorcredit (the `CreateVendorCredi
 
 	s.AddTool(
 		mcp.NewTool("read-vendor-credit",
-			mcp.WithDescription("Read VendorCredit
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/vendorcredit/{id} (the `ReadVendorCredit` operationId)."),
+			mcp.WithDescription("Read VendorCredit\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/vendorcredit/{id} (the `ReadVendorCredit` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1260,11 +956,7 @@ func (h *Handler) RegisterVendor(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("create-vendor",
-			mcp.WithDescription("Create Vendor
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/vendor (the `CreateVendor` operationId)."),
+			mcp.WithDescription("Create Vendor\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/vendor (the `CreateVendor` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.CreateVendorJSONRequestBody)")),
@@ -1274,11 +966,7 @@ Corresponds with POST /v3/company/{realmId}/vendor (the `CreateVendor` operation
 
 	s.AddTool(
 		mcp.NewTool("read-vendor",
-			mcp.WithDescription("Read Vendor
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/vendor/{id} (the `ReadVendor` operationId)."),
+			mcp.WithDescription("Read Vendor\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/vendor/{id} (the `ReadVendor` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1293,11 +981,7 @@ func (h *Handler) RegisterCompanyInfo(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-company-info",
-			mcp.WithDescription("Read CompanyInfo
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/companyinfo/{id} (the `ReadCompanyInfo` operationId)."),
+			mcp.WithDescription("Read CompanyInfo\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/companyinfo/{id} (the `ReadCompanyInfo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1307,11 +991,7 @@ Corresponds with GET /v3/company/{realmId}/companyinfo/{id} (the `ReadCompanyInf
 
 	s.AddTool(
 		mcp.NewTool("update-company-info",
-			mcp.WithDescription("Update CompanyInfo
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/companyinfo (the `UpdateCompanyInfo` operationId)."),
+			mcp.WithDescription("Update CompanyInfo\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/companyinfo (the `UpdateCompanyInfo` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdateCompanyInfoJSONRequestBody)")),
@@ -1326,11 +1006,7 @@ func (h *Handler) RegisterCustomerType(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-customer-type",
-			mcp.WithDescription("Read CustomerType
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/customertype/{id} (the `ReadCustomerType` operationId)."),
+			mcp.WithDescription("Read CustomerType\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/customertype/{id} (the `ReadCustomerType` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1345,11 +1021,7 @@ func (h *Handler) RegisterEntitlements(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-entitlements",
-			mcp.WithDescription("Read Entitlements
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/entitlements/{id} (the `ReadEntitlements` operationId)."),
+			mcp.WithDescription("Read Entitlements\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/entitlements/{id} (the `ReadEntitlements` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1364,11 +1036,7 @@ func (h *Handler) RegisterPreferences(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-preferences",
-			mcp.WithDescription("Read Preferences
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/preferences/{id} (the `ReadPreferences` operationId)."),
+			mcp.WithDescription("Read Preferences\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/preferences/{id} (the `ReadPreferences` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1378,11 +1046,7 @@ Corresponds with GET /v3/company/{realmId}/preferences/{id} (the `ReadPreference
 
 	s.AddTool(
 		mcp.NewTool("update-preferences",
-			mcp.WithDescription("Update Preferences
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/preferences (the `UpdatePreferences` operationId)."),
+			mcp.WithDescription("Update Preferences\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/preferences (the `UpdatePreferences` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdatePreferencesJSONRequestBody)")),
@@ -1397,11 +1061,7 @@ func (h *Handler) RegisterReimburseCharge(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-reimburse-charge",
-			mcp.WithDescription("Read ReimburseCharge
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/reimbursecharge/{id} (the `ReadReimburseCharge` operationId)."),
+			mcp.WithDescription("Read ReimburseCharge\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/reimbursecharge/{id} (the `ReadReimburseCharge` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1416,11 +1076,7 @@ func (h *Handler) RegisterTaxClassification(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-tax-classification",
-			mcp.WithDescription("Read TaxClassification
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/taxclassification/{id} (the `ReadTaxClassification` operationId)."),
+			mcp.WithDescription("Read TaxClassification\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxclassification/{id} (the `ReadTaxClassification` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1435,11 +1091,7 @@ func (h *Handler) RegisterTaxCode(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-tax-code",
-			mcp.WithDescription("Read TaxCode
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/taxcode/{id} (the `ReadTaxCode` operationId)."),
+			mcp.WithDescription("Read TaxCode\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxcode/{id} (the `ReadTaxCode` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1454,11 +1106,7 @@ func (h *Handler) RegisterTaxPayment(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-tax-payment",
-			mcp.WithDescription("Read TaxPayment
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/taxpayment/{id} (the `ReadTaxPayment` operationId)."),
+			mcp.WithDescription("Read TaxPayment\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxpayment/{id} (the `ReadTaxPayment` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1473,11 +1121,7 @@ func (h *Handler) RegisterTaxRate(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("read-tax-rate",
-			mcp.WithDescription("Read TaxRate
-
-Returns a wrapper object for the known response body format(s).
-
-Corresponds with GET /v3/company/{realmId}/taxrate/{id} (the `ReadTaxRate` operationId)."),
+			mcp.WithDescription("Read TaxRate\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /v3/company/{realmId}/taxrate/{id} (the `ReadTaxRate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("id", mcp.Required(), mcp.Description("id")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
@@ -1492,11 +1136,7 @@ func (h *Handler) RegisterExchangeRate(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("update-exchange-rate",
-			mcp.WithDescription("Update ExchangeRate
-
-Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-
-Corresponds with POST /v3/company/{realmId}/exchangerate (the `UpdateExchangeRate` operationId)."),
+			mcp.WithDescription("Update ExchangeRate\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /v3/company/{realmId}/exchangerate (the `UpdateExchangeRate` operationId)."),
 			mcp.WithString("realmId", mcp.Required(), mcp.Description("realmId")),
 			mcp.WithString("minorversion", mcp.Description("Minorversion")),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/quickbooks/account/client.UpdateExchangeRateJSONRequestBody)")),
@@ -1566,222 +1206,222 @@ func (h *Handler) MountAll(m Mounter, prefix string) {
 	{
 		s := server.NewMCPServer("quickbooks-account-Account", "0.1.0")
 		h.RegisterAccount(s)
-		m.Mount(prefix + "/account", s)
+		m.Mount(prefix+"/account", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Attachable", "0.1.0")
 		h.RegisterAttachable(s)
-		m.Mount(prefix + "/attachable", s)
+		m.Mount(prefix+"/attachable", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-BillPayment", "0.1.0")
 		h.RegisterBillPayment(s)
-		m.Mount(prefix + "/bill-payment", s)
+		m.Mount(prefix+"/bill-payment", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Bill", "0.1.0")
 		h.RegisterBill(s)
-		m.Mount(prefix + "/bill", s)
+		m.Mount(prefix+"/bill", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Budget", "0.1.0")
 		h.RegisterBudget(s)
-		m.Mount(prefix + "/budget", s)
+		m.Mount(prefix+"/budget", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-ChangeOrder", "0.1.0")
 		h.RegisterChangeOrder(s)
-		m.Mount(prefix + "/change-order", s)
+		m.Mount(prefix+"/change-order", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Class", "0.1.0")
 		h.RegisterClass(s)
-		m.Mount(prefix + "/class", s)
+		m.Mount(prefix+"/class", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-CompanyCurrency", "0.1.0")
 		h.RegisterCompanyCurrency(s)
-		m.Mount(prefix + "/company-currency", s)
+		m.Mount(prefix+"/company-currency", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-CreditCardPaymentTxn", "0.1.0")
 		h.RegisterCreditCardPaymentTxn(s)
-		m.Mount(prefix + "/credit-card-payment-txn", s)
+		m.Mount(prefix+"/credit-card-payment-txn", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-CreditMemo", "0.1.0")
 		h.RegisterCreditMemo(s)
-		m.Mount(prefix + "/credit-memo", s)
+		m.Mount(prefix+"/credit-memo", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Customer", "0.1.0")
 		h.RegisterCustomer(s)
-		m.Mount(prefix + "/customer", s)
+		m.Mount(prefix+"/customer", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Department", "0.1.0")
 		h.RegisterDepartment(s)
-		m.Mount(prefix + "/department", s)
+		m.Mount(prefix+"/department", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Deposit", "0.1.0")
 		h.RegisterDeposit(s)
-		m.Mount(prefix + "/deposit", s)
+		m.Mount(prefix+"/deposit", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Employee", "0.1.0")
 		h.RegisterEmployee(s)
-		m.Mount(prefix + "/employee", s)
+		m.Mount(prefix+"/employee", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Estimate", "0.1.0")
 		h.RegisterEstimate(s)
-		m.Mount(prefix + "/estimate", s)
+		m.Mount(prefix+"/estimate", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-InventoryAdjustment", "0.1.0")
 		h.RegisterInventoryAdjustment(s)
-		m.Mount(prefix + "/inventory-adjustment", s)
+		m.Mount(prefix+"/inventory-adjustment", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Invoice", "0.1.0")
 		h.RegisterInvoice(s)
-		m.Mount(prefix + "/invoice", s)
+		m.Mount(prefix+"/invoice", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Item", "0.1.0")
 		h.RegisterItem(s)
-		m.Mount(prefix + "/item", s)
+		m.Mount(prefix+"/item", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-JournalCode", "0.1.0")
 		h.RegisterJournalCode(s)
-		m.Mount(prefix + "/journal-code", s)
+		m.Mount(prefix+"/journal-code", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-JournalEntry", "0.1.0")
 		h.RegisterJournalEntry(s)
-		m.Mount(prefix + "/journal-entry", s)
+		m.Mount(prefix+"/journal-entry", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-PaymentMethod", "0.1.0")
 		h.RegisterPaymentMethod(s)
-		m.Mount(prefix + "/payment-method", s)
+		m.Mount(prefix+"/payment-method", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Payment", "0.1.0")
 		h.RegisterPayment(s)
-		m.Mount(prefix + "/payment", s)
+		m.Mount(prefix+"/payment", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-PurchaseOrder", "0.1.0")
 		h.RegisterPurchaseOrder(s)
-		m.Mount(prefix + "/purchase-order", s)
+		m.Mount(prefix+"/purchase-order", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Purchase", "0.1.0")
 		h.RegisterPurchase(s)
-		m.Mount(prefix + "/purchase", s)
+		m.Mount(prefix+"/purchase", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-RecurringTransaction", "0.1.0")
 		h.RegisterRecurringTransaction(s)
-		m.Mount(prefix + "/recurring-transaction", s)
+		m.Mount(prefix+"/recurring-transaction", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-RefundReceipt", "0.1.0")
 		h.RegisterRefundReceipt(s)
-		m.Mount(prefix + "/refund-receipt", s)
+		m.Mount(prefix+"/refund-receipt", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-SalesReceipt", "0.1.0")
 		h.RegisterSalesReceipt(s)
-		m.Mount(prefix + "/sales-receipt", s)
+		m.Mount(prefix+"/sales-receipt", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-TaxAgency", "0.1.0")
 		h.RegisterTaxAgency(s)
-		m.Mount(prefix + "/tax-agency", s)
+		m.Mount(prefix+"/tax-agency", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Taxservice", "0.1.0")
 		h.RegisterTaxservice(s)
-		m.Mount(prefix + "/taxservice", s)
+		m.Mount(prefix+"/taxservice", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Term", "0.1.0")
 		h.RegisterTerm(s)
-		m.Mount(prefix + "/term", s)
+		m.Mount(prefix+"/term", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-TimeActivity", "0.1.0")
 		h.RegisterTimeActivity(s)
-		m.Mount(prefix + "/time-activity", s)
+		m.Mount(prefix+"/time-activity", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Transfer", "0.1.0")
 		h.RegisterTransfer(s)
-		m.Mount(prefix + "/transfer", s)
+		m.Mount(prefix+"/transfer", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-VendorCredit", "0.1.0")
 		h.RegisterVendorCredit(s)
-		m.Mount(prefix + "/vendor-credit", s)
+		m.Mount(prefix+"/vendor-credit", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Vendor", "0.1.0")
 		h.RegisterVendor(s)
-		m.Mount(prefix + "/vendor", s)
+		m.Mount(prefix+"/vendor", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-CompanyInfo", "0.1.0")
 		h.RegisterCompanyInfo(s)
-		m.Mount(prefix + "/company-info", s)
+		m.Mount(prefix+"/company-info", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-CustomerType", "0.1.0")
 		h.RegisterCustomerType(s)
-		m.Mount(prefix + "/customer-type", s)
+		m.Mount(prefix+"/customer-type", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Entitlements", "0.1.0")
 		h.RegisterEntitlements(s)
-		m.Mount(prefix + "/entitlements", s)
+		m.Mount(prefix+"/entitlements", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-Preferences", "0.1.0")
 		h.RegisterPreferences(s)
-		m.Mount(prefix + "/preferences", s)
+		m.Mount(prefix+"/preferences", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-ReimburseCharge", "0.1.0")
 		h.RegisterReimburseCharge(s)
-		m.Mount(prefix + "/reimburse-charge", s)
+		m.Mount(prefix+"/reimburse-charge", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-TaxClassification", "0.1.0")
 		h.RegisterTaxClassification(s)
-		m.Mount(prefix + "/tax-classification", s)
+		m.Mount(prefix+"/tax-classification", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-TaxCode", "0.1.0")
 		h.RegisterTaxCode(s)
-		m.Mount(prefix + "/tax-code", s)
+		m.Mount(prefix+"/tax-code", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-TaxPayment", "0.1.0")
 		h.RegisterTaxPayment(s)
-		m.Mount(prefix + "/tax-payment", s)
+		m.Mount(prefix+"/tax-payment", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-TaxRate", "0.1.0")
 		h.RegisterTaxRate(s)
-		m.Mount(prefix + "/tax-rate", s)
+		m.Mount(prefix+"/tax-rate", s)
 	}
 	{
 		s := server.NewMCPServer("quickbooks-account-ExchangeRate", "0.1.0")
 		h.RegisterExchangeRate(s)
-		m.Mount(prefix + "/exchange-rate", s)
+		m.Mount(prefix+"/exchange-rate", s)
 	}
 }
 func ptrVal[T any](v T) *T {
@@ -1807,7 +1447,7 @@ func (h *Handler) handleCreateAccountWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.CreateAccountWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateAccountWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1835,7 +1475,7 @@ func (h *Handler) handleQueryAccountWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.QueryAccountWithResponse(ctx, target.RealmId(realmId), params, )
+	resp, err := client.QueryAccountWithResponse(ctx, target.RealmId(realmId), params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1859,7 +1499,7 @@ func (h *Handler) handleReadAccountWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.ReadAccountWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadAccountWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1887,7 +1527,7 @@ func (h *Handler) handleCreateAttachableWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.CreateAttachableWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateAttachableWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1911,7 +1551,7 @@ func (h *Handler) handleReadAttachableWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.ReadAttachableWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadAttachableWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1939,7 +1579,7 @@ func (h *Handler) handleCreateBillPaymentWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.CreateBillPaymentWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateBillPaymentWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1963,7 +1603,7 @@ func (h *Handler) handleReadBillPaymentWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.ReadBillPaymentWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadBillPaymentWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -1991,7 +1631,7 @@ func (h *Handler) handleCreateBillWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.CreateBillWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateBillWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2015,7 +1655,7 @@ func (h *Handler) handleReadBillWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.ReadBillWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadBillWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2043,7 +1683,7 @@ func (h *Handler) handleCreateBudgetWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.CreateBudgetWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateBudgetWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2067,7 +1707,7 @@ func (h *Handler) handleReadBudgetWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.ReadBudgetWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadBudgetWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2095,7 +1735,7 @@ func (h *Handler) handleCreateChangeOrderWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.CreateChangeOrderWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateChangeOrderWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2119,7 +1759,7 @@ func (h *Handler) handleReadChangeOrderWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.ReadChangeOrderWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadChangeOrderWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2147,7 +1787,7 @@ func (h *Handler) handleCreateClassWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.CreateClassWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateClassWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2171,7 +1811,7 @@ func (h *Handler) handleReadClassWithResponse(ctx context.Context, request mcp.C
 		}
 	}
 
-	resp, err := client.ReadClassWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadClassWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2199,7 +1839,7 @@ func (h *Handler) handleCreateCompanyCurrencyWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.CreateCompanyCurrencyWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateCompanyCurrencyWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2223,7 +1863,7 @@ func (h *Handler) handleReadCompanyCurrencyWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.ReadCompanyCurrencyWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadCompanyCurrencyWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2251,7 +1891,7 @@ func (h *Handler) handleCreateCreditCardPaymentTxnWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, err := client.CreateCreditCardPaymentTxnWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateCreditCardPaymentTxnWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2275,7 +1915,7 @@ func (h *Handler) handleReadCreditCardPaymentTxnWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.ReadCreditCardPaymentTxnWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadCreditCardPaymentTxnWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2303,7 +1943,7 @@ func (h *Handler) handleCreateCreditMemoWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.CreateCreditMemoWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateCreditMemoWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2327,7 +1967,7 @@ func (h *Handler) handleReadCreditMemoWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.ReadCreditMemoWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadCreditMemoWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2356,7 +1996,7 @@ func (h *Handler) handleSendCreditMemoWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.SendCreditMemoWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	resp, err := client.SendCreditMemoWithResponse(ctx, target.RealmId(realmId), id, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2384,7 +2024,7 @@ func (h *Handler) handleCreateCustomerWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.CreateCustomerWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateCustomerWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2408,7 +2048,7 @@ func (h *Handler) handleReadCustomerWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.ReadCustomerWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadCustomerWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2436,7 +2076,7 @@ func (h *Handler) handleCreateDepartmentWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.CreateDepartmentWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateDepartmentWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2460,7 +2100,7 @@ func (h *Handler) handleReadDepartmentWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.ReadDepartmentWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadDepartmentWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2488,7 +2128,7 @@ func (h *Handler) handleCreateDepositWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.CreateDepositWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateDepositWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2512,7 +2152,7 @@ func (h *Handler) handleReadDepositWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.ReadDepositWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadDepositWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2540,7 +2180,7 @@ func (h *Handler) handleCreateEmployeeWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.CreateEmployeeWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateEmployeeWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2564,7 +2204,7 @@ func (h *Handler) handleReadEmployeeWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.ReadEmployeeWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadEmployeeWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2592,7 +2232,7 @@ func (h *Handler) handleCreateEstimateWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.CreateEstimateWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateEstimateWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2616,7 +2256,7 @@ func (h *Handler) handleGetEstimatePDFWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.GetEstimatePDFWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.GetEstimatePDFWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2640,7 +2280,7 @@ func (h *Handler) handleReadEstimateWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.ReadEstimateWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadEstimateWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2669,7 +2309,7 @@ func (h *Handler) handleSendEstimateWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.SendEstimateWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	resp, err := client.SendEstimateWithResponse(ctx, target.RealmId(realmId), id, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2697,7 +2337,7 @@ func (h *Handler) handleCreateInventoryAdjustmentWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, err := client.CreateInventoryAdjustmentWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateInventoryAdjustmentWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2721,7 +2361,7 @@ func (h *Handler) handleReadInventoryAdjustmentWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, err := client.ReadInventoryAdjustmentWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadInventoryAdjustmentWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2749,7 +2389,7 @@ func (h *Handler) handleCreateInvoiceWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.CreateInvoiceWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateInvoiceWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2773,7 +2413,7 @@ func (h *Handler) handleGetInvoicePDFWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.GetInvoicePDFWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.GetInvoicePDFWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2797,7 +2437,7 @@ func (h *Handler) handleReadInvoiceWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.ReadInvoiceWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadInvoiceWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2826,7 +2466,7 @@ func (h *Handler) handleSendInvoiceWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.SendInvoiceWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	resp, err := client.SendInvoiceWithResponse(ctx, target.RealmId(realmId), id, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2854,7 +2494,7 @@ func (h *Handler) handleCreateItemWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.CreateItemWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateItemWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2878,7 +2518,7 @@ func (h *Handler) handleReadItemWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.ReadItemWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadItemWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2906,7 +2546,7 @@ func (h *Handler) handleCreateJournalCodeWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.CreateJournalCodeWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateJournalCodeWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2930,7 +2570,7 @@ func (h *Handler) handleReadJournalCodeWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.ReadJournalCodeWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadJournalCodeWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2958,7 +2598,7 @@ func (h *Handler) handleCreateJournalEntryWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.CreateJournalEntryWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateJournalEntryWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2982,7 +2622,7 @@ func (h *Handler) handleReadJournalEntryWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.ReadJournalEntryWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadJournalEntryWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3010,7 +2650,7 @@ func (h *Handler) handleCreatePaymentMethodWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.CreatePaymentMethodWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreatePaymentMethodWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3034,7 +2674,7 @@ func (h *Handler) handleReadPaymentMethodWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.ReadPaymentMethodWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadPaymentMethodWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3062,7 +2702,7 @@ func (h *Handler) handleCreatePaymentWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.CreatePaymentWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreatePaymentWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3086,7 +2726,7 @@ func (h *Handler) handleReadPaymentWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.ReadPaymentWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadPaymentWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3115,7 +2755,7 @@ func (h *Handler) handleSendPaymentWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.SendPaymentWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	resp, err := client.SendPaymentWithResponse(ctx, target.RealmId(realmId), id, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3143,7 +2783,7 @@ func (h *Handler) handleCreatePurchaseOrderWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.CreatePurchaseOrderWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreatePurchaseOrderWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3167,7 +2807,7 @@ func (h *Handler) handleReadPurchaseOrderWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.ReadPurchaseOrderWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadPurchaseOrderWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3196,7 +2836,7 @@ func (h *Handler) handleSendPurchaseOrderWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.SendPurchaseOrderWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	resp, err := client.SendPurchaseOrderWithResponse(ctx, target.RealmId(realmId), id, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3224,7 +2864,7 @@ func (h *Handler) handleCreatePurchaseWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.CreatePurchaseWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreatePurchaseWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3248,7 +2888,7 @@ func (h *Handler) handleReadPurchaseWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.ReadPurchaseWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadPurchaseWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3276,7 +2916,7 @@ func (h *Handler) handleCreateRecurringTransactionWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, err := client.CreateRecurringTransactionWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateRecurringTransactionWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3300,7 +2940,7 @@ func (h *Handler) handleReadRecurringTransactionWithResponse(ctx context.Context
 		}
 	}
 
-	resp, err := client.ReadRecurringTransactionWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadRecurringTransactionWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3328,7 +2968,7 @@ func (h *Handler) handleCreateRefundReceiptWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.CreateRefundReceiptWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateRefundReceiptWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3352,7 +2992,7 @@ func (h *Handler) handleReadRefundReceiptWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.ReadRefundReceiptWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadRefundReceiptWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3381,7 +3021,7 @@ func (h *Handler) handleSendRefundReceiptWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.SendRefundReceiptWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	resp, err := client.SendRefundReceiptWithResponse(ctx, target.RealmId(realmId), id, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3409,7 +3049,7 @@ func (h *Handler) handleCreateSalesReceiptWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.CreateSalesReceiptWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateSalesReceiptWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3433,7 +3073,7 @@ func (h *Handler) handleGetSalesReceiptPDFWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.GetSalesReceiptPDFWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.GetSalesReceiptPDFWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3457,7 +3097,7 @@ func (h *Handler) handleReadSalesReceiptWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.ReadSalesReceiptWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadSalesReceiptWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3486,7 +3126,7 @@ func (h *Handler) handleSendSalesReceiptWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.SendSalesReceiptWithResponse(ctx, target.RealmId(realmId), id, params, body, )
+	resp, err := client.SendSalesReceiptWithResponse(ctx, target.RealmId(realmId), id, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3514,7 +3154,7 @@ func (h *Handler) handleCreateTaxAgencyWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.CreateTaxAgencyWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateTaxAgencyWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3538,7 +3178,7 @@ func (h *Handler) handleReadTaxAgencyWithResponse(ctx context.Context, request m
 		}
 	}
 
-	resp, err := client.ReadTaxAgencyWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadTaxAgencyWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3566,7 +3206,7 @@ func (h *Handler) handleCreateTaxserviceWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.CreateTaxserviceWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateTaxserviceWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3594,7 +3234,7 @@ func (h *Handler) handleCreateTermWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.CreateTermWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateTermWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3618,7 +3258,7 @@ func (h *Handler) handleReadTermWithResponse(ctx context.Context, request mcp.Ca
 		}
 	}
 
-	resp, err := client.ReadTermWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadTermWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3646,7 +3286,7 @@ func (h *Handler) handleCreateTimeActivityWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.CreateTimeActivityWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateTimeActivityWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3670,7 +3310,7 @@ func (h *Handler) handleReadTimeActivityWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.ReadTimeActivityWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadTimeActivityWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3698,7 +3338,7 @@ func (h *Handler) handleCreateTransferWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.CreateTransferWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateTransferWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3722,7 +3362,7 @@ func (h *Handler) handleReadTransferWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.ReadTransferWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadTransferWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3750,7 +3390,7 @@ func (h *Handler) handleCreateVendorCreditWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.CreateVendorCreditWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateVendorCreditWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3774,7 +3414,7 @@ func (h *Handler) handleReadVendorCreditWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.ReadVendorCreditWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadVendorCreditWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3802,7 +3442,7 @@ func (h *Handler) handleCreateVendorWithResponse(ctx context.Context, request mc
 		}
 	}
 
-	resp, err := client.CreateVendorWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.CreateVendorWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3826,7 +3466,7 @@ func (h *Handler) handleReadVendorWithResponse(ctx context.Context, request mcp.
 		}
 	}
 
-	resp, err := client.ReadVendorWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadVendorWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3850,7 +3490,7 @@ func (h *Handler) handleReadCompanyInfoWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.ReadCompanyInfoWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadCompanyInfoWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3878,7 +3518,7 @@ func (h *Handler) handleUpdateCompanyInfoWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.UpdateCompanyInfoWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.UpdateCompanyInfoWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3902,7 +3542,7 @@ func (h *Handler) handleReadCustomerTypeWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.ReadCustomerTypeWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadCustomerTypeWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3926,7 +3566,7 @@ func (h *Handler) handleReadEntitlementsWithResponse(ctx context.Context, reques
 		}
 	}
 
-	resp, err := client.ReadEntitlementsWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadEntitlementsWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3950,7 +3590,7 @@ func (h *Handler) handleReadPreferencesWithResponse(ctx context.Context, request
 		}
 	}
 
-	resp, err := client.ReadPreferencesWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadPreferencesWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3978,7 +3618,7 @@ func (h *Handler) handleUpdatePreferencesWithResponse(ctx context.Context, reque
 		}
 	}
 
-	resp, err := client.UpdatePreferencesWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.UpdatePreferencesWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4002,7 +3642,7 @@ func (h *Handler) handleReadReimburseChargeWithResponse(ctx context.Context, req
 		}
 	}
 
-	resp, err := client.ReadReimburseChargeWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadReimburseChargeWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4026,7 +3666,7 @@ func (h *Handler) handleReadTaxClassificationWithResponse(ctx context.Context, r
 		}
 	}
 
-	resp, err := client.ReadTaxClassificationWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadTaxClassificationWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4050,7 +3690,7 @@ func (h *Handler) handleReadTaxCodeWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.ReadTaxCodeWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadTaxCodeWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4074,7 +3714,7 @@ func (h *Handler) handleReadTaxPaymentWithResponse(ctx context.Context, request 
 		}
 	}
 
-	resp, err := client.ReadTaxPaymentWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadTaxPaymentWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4098,7 +3738,7 @@ func (h *Handler) handleReadTaxRateWithResponse(ctx context.Context, request mcp
 		}
 	}
 
-	resp, err := client.ReadTaxRateWithResponse(ctx, target.RealmId(realmId), id, params, )
+	resp, err := client.ReadTaxRateWithResponse(ctx, target.RealmId(realmId), id, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4126,7 +3766,7 @@ func (h *Handler) handleUpdateExchangeRateWithResponse(ctx context.Context, requ
 		}
 	}
 
-	resp, err := client.UpdateExchangeRateWithResponse(ctx, target.RealmId(realmId), params, body, )
+	resp, err := client.UpdateExchangeRateWithResponse(ctx, target.RealmId(realmId), params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}

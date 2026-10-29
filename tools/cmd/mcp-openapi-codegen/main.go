@@ -103,6 +103,9 @@ var tmplFuncs = template.FuncMap{
 	"escDesc": func(s string) string {
 		s = strings.ReplaceAll(s, `\`, `\\`)
 		s = strings.ReplaceAll(s, `"`, `\"`)
+		s = strings.ReplaceAll(s, "\n", `\n`)
+		s = strings.ReplaceAll(s, "\r", `\r`)
+		s = strings.ReplaceAll(s, "\t", `\t`)
 		return s
 	},
 	"requiredArgs": func(params []ToolParam) string {
