@@ -163,7 +163,12 @@ func parseFinanceXSD(financePath, baseTypesPath string) (map[string]*XSDComplexT
 				continue
 			}
 			e := &XSDEnum{Name: st.Name}
+			seen := make(map[string]bool)
 			for _, en := range st.Restriction.Enumerations {
+				if seen[en.Value] {
+					continue
+				}
+				seen[en.Value] = true
 				e.Values = append(e.Values, en.Value)
 			}
 			enums[st.Name] = e
