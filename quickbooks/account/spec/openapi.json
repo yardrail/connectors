@@ -13434,6 +13434,7 @@
               }
             }
           },
+          "description": "JSON representation of the Account entity.",
           "required": true
         },
         "responses": {
@@ -13513,6 +13514,7 @@
               }
             }
           },
+          "description": "JSON representation of the Attachable entity.",
           "required": true
         },
         "responses": {
@@ -13592,6 +13594,7 @@
               }
             }
           },
+          "description": "JSON representation of the Bill entity.",
           "required": true
         },
         "responses": {
@@ -13671,6 +13674,7 @@
               }
             }
           },
+          "description": "JSON representation of the BillPayment entity.",
           "required": true
         },
         "responses": {
@@ -13750,6 +13754,7 @@
               }
             }
           },
+          "description": "JSON representation of the Budget entity.",
           "required": true
         },
         "responses": {
@@ -13829,6 +13834,7 @@
               }
             }
           },
+          "description": "JSON representation of the ChangeOrder entity.",
           "required": true
         },
         "responses": {
@@ -13908,6 +13914,7 @@
               }
             }
           },
+          "description": "JSON representation of the Class entity.",
           "required": true
         },
         "responses": {
@@ -13987,6 +13994,7 @@
               }
             }
           },
+          "description": "JSON representation of the CompanyCurrency entity.",
           "required": true
         },
         "responses": {
@@ -14066,6 +14074,7 @@
               }
             }
           },
+          "description": "JSON representation of the CompanyInfo entity.",
           "required": true
         },
         "responses": {
@@ -14145,6 +14154,7 @@
               }
             }
           },
+          "description": "JSON representation of the CreditCardPaymentTxn entity.",
           "required": true
         },
         "responses": {
@@ -14224,6 +14234,7 @@
               }
             }
           },
+          "description": "JSON representation of the CreditMemo entity.",
           "required": true
         },
         "responses": {
@@ -14312,6 +14323,7 @@
               }
             }
           },
+          "description": "JSON representation of the CreditMemo entity.",
           "required": true
         },
         "responses": {
@@ -14352,6 +14364,7 @@
               }
             }
           },
+          "description": "JSON representation of the Customer entity.",
           "required": true
         },
         "responses": {
@@ -14470,6 +14483,7 @@
               }
             }
           },
+          "description": "JSON representation of the Department entity.",
           "required": true
         },
         "responses": {
@@ -14549,6 +14563,7 @@
               }
             }
           },
+          "description": "JSON representation of the Deposit entity.",
           "required": true
         },
         "responses": {
@@ -14628,6 +14643,7 @@
               }
             }
           },
+          "description": "JSON representation of the Employee entity.",
           "required": true
         },
         "responses": {
@@ -14746,6 +14762,7 @@
               }
             }
           },
+          "description": "JSON representation of the Estimate entity.",
           "required": true
         },
         "responses": {
@@ -14874,6 +14891,7 @@
               }
             }
           },
+          "description": "JSON representation of the Estimate entity.",
           "required": true
         },
         "responses": {
@@ -14914,6 +14932,7 @@
               }
             }
           },
+          "description": "JSON representation of the ExchangeRate entity.",
           "required": true
         },
         "responses": {
@@ -14954,6 +14973,7 @@
               }
             }
           },
+          "description": "JSON representation of the InventoryAdjustment entity.",
           "required": true
         },
         "responses": {
@@ -15033,6 +15053,7 @@
               }
             }
           },
+          "description": "JSON representation of the Invoice entity.",
           "required": true
         },
         "responses": {
@@ -15161,6 +15182,7 @@
               }
             }
           },
+          "description": "JSON representation of the Invoice entity.",
           "required": true
         },
         "responses": {
@@ -15201,6 +15223,7 @@
               }
             }
           },
+          "description": "JSON representation of the Item entity.",
           "required": true
         },
         "responses": {
@@ -15280,6 +15303,7 @@
               }
             }
           },
+          "description": "JSON representation of the JournalCode entity.",
           "required": true
         },
         "responses": {
@@ -15359,6 +15383,7 @@
               }
             }
           },
+          "description": "JSON representation of the JournalEntry entity.",
           "required": true
         },
         "responses": {
@@ -15438,6 +15463,7 @@
               }
             }
           },
+          "description": "JSON representation of the Payment entity.",
           "required": true
         },
         "responses": {
@@ -15526,6 +15552,7 @@
               }
             }
           },
+          "description": "JSON representation of the Payment entity.",
           "required": true
         },
         "responses": {
@@ -15566,6 +15593,7 @@
               }
             }
           },
+          "description": "JSON representation of the PaymentMethod entity.",
           "required": true
         },
         "responses": {
@@ -15645,6 +15673,7 @@
               }
             }
           },
+          "description": "JSON representation of the Preferences entity.",
           "required": true
         },
         "responses": {
@@ -15724,6 +15753,7 @@
               }
             }
           },
+          "description": "JSON representation of the Purchase entity.",
           "required": true
         },
         "responses": {
@@ -15803,6 +15833,7 @@
               }
             }
           },
+          "description": "JSON representation of the PurchaseOrder entity.",
           "required": true
         },
         "responses": {
@@ -15891,6 +15922,7 @@
               }
             }
           },
+          "description": "JSON representation of the PurchaseOrder entity.",
           "required": true
         },
         "responses": {
@@ -15970,6 +16002,7 @@
               }
             }
           },
+          "description": "JSON representation of the RecurringTransaction entity.",
           "required": true
         },
         "responses": {
@@ -16049,6 +16082,7 @@
               }
             }
           },
+          "description": "JSON representation of the RefundReceipt entity.",
           "required": true
         },
         "responses": {
@@ -16137,6 +16171,7 @@
               }
             }
           },
+          "description": "JSON representation of the RefundReceipt entity.",
           "required": true
         },
         "responses": {
@@ -16216,6 +16251,7 @@
               }
             }
           },
+          "description": "JSON representation of the SalesReceipt entity.",
           "required": true
         },
         "responses": {
@@ -16344,6 +16380,7 @@
               }
             }
           },
+          "description": "JSON representation of the SalesReceipt entity.",
           "required": true
         },
         "responses": {
@@ -16384,6 +16421,7 @@
               }
             }
           },
+          "description": "JSON representation of the TaxAgency entity.",
           "required": true
         },
         "responses": {
@@ -16619,6 +16657,7 @@
               }
             }
           },
+          "description": "JSON representation of the Taxservice entity.",
           "required": true
         },
         "responses": {
@@ -16659,6 +16698,7 @@
               }
             }
           },
+          "description": "JSON representation of the Term entity.",
           "required": true
         },
         "responses": {
@@ -16738,6 +16778,7 @@
               }
             }
           },
+          "description": "JSON representation of the TimeActivity entity.",
           "required": true
         },
         "responses": {
@@ -16817,6 +16858,7 @@
               }
             }
           },
+          "description": "JSON representation of the Transfer entity.",
           "required": true
         },
         "responses": {
@@ -16896,6 +16938,7 @@
               }
             }
           },
+          "description": "JSON representation of the Vendor entity.",
           "required": true
         },
         "responses": {
@@ -16975,6 +17018,7 @@
               }
             }
           },
+          "description": "JSON representation of the VendorCredit entity.",
           "required": true
         },
         "responses": {
