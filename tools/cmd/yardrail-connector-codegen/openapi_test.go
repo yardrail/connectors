@@ -204,7 +204,7 @@ func TestResolveType(t *testing.T) {
 	resolver := newRefResolver(map[string]rawSchema{
 		"StringId": {Type: "string"},
 		"Message":  {Type: "object", Properties: map[string]rawSchema{"text": {Type: "string"}}},
-	})
+	}, nil)
 
 	tests := []struct {
 		name   string

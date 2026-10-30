@@ -12,7 +12,6 @@ func NotionCWLClasses() []extensions.ConnectorClassEntry {
 			ClassName:   "CreateADataSource",
 			Description: "Create a data source",
 			Inputs: []extensions.ConnectorFieldInfo{
-				{Name: "", Type: "object", Required: false, Description: ""},
 				{Name: "parent", Type: "object", Required: true, Description: ""},
 				{Name: "properties", Type: "object", Required: true, Description: "Property schema of data source"},
 				{Name: "title", Type: "array", Required: false, Description: ""},
@@ -28,7 +27,6 @@ func NotionCWLClasses() []extensions.ConnectorClassEntry {
 				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
 				{Name: "start_cursor", Type: "string", Required: false, Description: ""},
 				{Name: "page_size", Type: "integer", Required: false, Description: ""},
-				{Name: "", Type: "object", Required: false, Description: ""},
 			},
 			Outputs: []extensions.ConnectorFieldInfo{},
 		}},
@@ -39,7 +37,6 @@ func NotionCWLClasses() []extensions.ConnectorClassEntry {
 			Description: "Move a page",
 			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "page_id", Type: "string", Required: true, Description: "Identifier for a Notion page"},
-				{Name: "", Type: "object", Required: false, Description: ""},
 				{Name: "parent", Type: "object", Required: true, Description: ""},
 			},
 			Outputs: []extensions.ConnectorFieldInfo{},
@@ -52,7 +49,6 @@ func NotionCWLClasses() []extensions.ConnectorClassEntry {
 			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source (database)"},
 				{Name: "filter_properties", Type: "array", Required: false, Description: "A list of page property value IDs to limit the response"},
-				{Name: "", Type: "object", Required: false, Description: ""},
 				{Name: "archived", Type: "boolean", Required: false, Description: ""},
 				{Name: "filter", Type: "object", Required: false, Description: "Filter conditions for querying the data source"},
 				{Name: "in_trash", Type: "boolean", Required: false, Description: ""},
@@ -69,7 +65,6 @@ func NotionCWLClasses() []extensions.ConnectorClassEntry {
 			Description: "Retrieve a data source",
 			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
-				{Name: "", Type: "object", Required: false, Description: ""},
 			},
 			Outputs: []extensions.ConnectorFieldInfo{},
 		}},
@@ -80,7 +75,6 @@ func NotionCWLClasses() []extensions.ConnectorClassEntry {
 			Description: "Retrieve a database",
 			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "database_id", Type: "string", Required: true, Description: "Identifier for a Notion database"},
-				{Name: "", Type: "object", Required: false, Description: ""},
 			},
 			Outputs: []extensions.ConnectorFieldInfo{},
 		}},
@@ -108,7 +102,6 @@ func NotionCWLClasses() []extensions.ConnectorClassEntry {
 			Description: "Update a data source",
 			Inputs: []extensions.ConnectorFieldInfo{
 				{Name: "data_source_id", Type: "string", Required: true, Description: "Identifier for a Notion data source"},
-				{Name: "", Type: "object", Required: false, Description: ""},
 				{Name: "description", Type: "array", Required: false, Description: ""},
 				{Name: "properties", Type: "object", Required: false, Description: "Property schema updates"},
 				{Name: "title", Type: "array", Required: false, Description: ""},

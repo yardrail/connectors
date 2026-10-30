@@ -37,7 +37,7 @@ func parseOperations(specPath string) (map[string]*OperationInfo, error) {
 		return nil, fmt.Errorf("parsing OpenAPI spec: %w", err)
 	}
 
-	resolver := newRefResolver(raw.Components.Schemas)
+	resolver := newRefResolver(raw.Components.Schemas, raw.Components.Parameters)
 	ops := make(map[string]*OperationInfo)
 
 	for _, methods := range raw.Paths {
@@ -69,6 +69,7 @@ func collectInputs(op rawOperation, resolver *refResolver) []FieldInfo {
 	var inputs []FieldInfo
 
 	for _, p := range op.Parameters {
+		p = resolver.resolveParam(p)
 		if p.In == "header" {
 			continue
 		}
@@ -83,7 +84,13 @@ func collectInputs(op rawOperation, resolver *refResolver) []FieldInfo {
 
 	reqSchema := firstContentSchema(op.RequestBody.Content)
 	if reqSchema != nil {
+		reqSchema = resolver.resolve(reqSchema)
 		requiredSet := toSet(reqSchema.Required)
+
+		seen := make(map[string]bool, len(inputs))
+		for _, f := range inputs {
+			seen[f.Name] = true
+		}
 
 		names := make([]string, 0, len(reqSchema.Properties))
 		for name := range reqSchema.Properties {
@@ -93,6 +100,9 @@ func collectInputs(op rawOperation, resolver *refResolver) []FieldInfo {
 		sort.Strings(names)
 
 		for _, name := range names {
+			if seen[name] {
+				continue
+			}
 			prop := reqSchema.Properties[name]
 			typ := resolveType(prop, resolver)
 			inputs = append(inputs, FieldInfo{
@@ -173,11 +183,31 @@ func resolveType(s rawSchema, resolver *refResolver) string {
 }
 
 type refResolver struct {
-	schemas map[string]rawSchema
+	schemas    map[string]rawSchema
+	parameters map[string]rawParameter
 }
 
-func newRefResolver(schemas map[string]rawSchema) *refResolver {
-	return &refResolver{schemas: schemas}
+func newRefResolver(schemas map[string]rawSchema, parameters map[string]rawParameter) *refResolver {
+	return &refResolver{schemas: schemas, parameters: parameters}
+}
+
+func (r *refResolver) resolveParam(p rawParameter) rawParameter {
+	if p.Ref == "" {
+		return p
+	}
+
+	const prefix = "#/components/parameters/"
+
+	name, ok := strings.CutPrefix(p.Ref, prefix)
+	if !ok {
+		return p
+	}
+
+	if resolved, found := r.parameters[name]; found {
+		return resolved
+	}
+
+	return p
 }
 
 func (r *refResolver) resolve(s *rawSchema) *rawSchema {
@@ -246,7 +276,8 @@ func normalizeOpID(id string) string {
 type rawOpenAPI struct {
 	Paths      map[string]map[string]rawOperation `json:"paths"`
 	Components struct {
-		Schemas map[string]rawSchema `json:"schemas"`
+		Schemas    map[string]rawSchema    `json:"schemas"`
+		Parameters map[string]rawParameter `json:"parameters"`
 	} `json:"components"`
 }
 
@@ -260,6 +291,7 @@ type rawOperation struct {
 }
 
 type rawParameter struct {
+	Ref         string    `json:"$ref"`
 	Name        string    `json:"name"`
 	In          string    `json:"in"`
 	Required    bool      `json:"required"`

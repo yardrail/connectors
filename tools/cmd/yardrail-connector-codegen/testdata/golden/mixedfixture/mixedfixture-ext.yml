@@ -27,6 +27,13 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: parent
+        type: Any
+      - name: properties
+        type: Any
+        doc: "Property schema of data source"
+      - name: title
+        type: ["null", "Any"]
 
   - name: GetWidget_class
     type: enum
@@ -50,6 +57,8 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: widgetId
+        type: string
 
   - name: ListDataSourceTemplates_class
     type: enum
@@ -73,6 +82,13 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: data_source_id
+        type: string
+        doc: "Identifier for a Notion data source"
+      - name: start_cursor
+        type: ["null", "string"]
+      - name: page_size
+        type: ["null", "int"]
 
   - name: MovePage_class
     type: enum
@@ -96,6 +112,11 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: page_id
+        type: string
+        doc: "Identifier for a Notion page"
+      - name: parent
+        type: Any
 
   - name: QueryDataSource_class
     type: enum
@@ -119,6 +140,25 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: data_source_id
+        type: string
+        doc: "Identifier for a Notion data source (database)"
+      - name: filter_properties
+        type: ["null", "Any"]
+        doc: "A list of page property value IDs to limit the response"
+      - name: archived
+        type: ["null", "boolean"]
+      - name: filter
+        type: ["null", "Any"]
+        doc: "Filter conditions for querying the data source"
+      - name: in_trash
+        type: ["null", "boolean"]
+      - name: page_size
+        type: ["null", "int"]
+      - name: sorts
+        type: ["null", "Any"]
+      - name: start_cursor
+        type: ["null", "string"]
 
   - name: RetrieveADataSource_class
     type: enum
@@ -142,6 +182,9 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: data_source_id
+        type: string
+        doc: "Identifier for a Notion data source"
 
   - name: RetrieveADatabase_class
     type: enum
@@ -165,6 +208,9 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: database_id
+        type: string
+        doc: "Identifier for a Notion database"
 
   - name: RetrievePageMarkdown_class
     type: enum
@@ -188,6 +234,12 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: page_id
+        type: string
+        doc: "Identifier for a Notion page (or block) to read or update as markdown."
+      - name: include_transcript
+        type: ["null", "boolean"]
+        doc: "Whether to include meeting note transcripts. When false (default), a placeholder with the meeting note URL is shown instead of the full transcript."
 
   - name: UpdateADataSource_class
     type: enum
@@ -211,6 +263,16 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: data_source_id
+        type: string
+        doc: "Identifier for a Notion data source"
+      - name: description
+        type: ["null", "Any"]
+      - name: properties
+        type: ["null", "Any"]
+        doc: "Property schema updates"
+      - name: title
+        type: ["null", "Any"]
 
   - name: UpdatePageMarkdown_class
     type: enum
@@ -234,3 +296,21 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: page_id
+        type: string
+        doc: "Identifier for a Notion page (or block) to read or update as markdown."
+      - name: insert_content
+        type: ["null", "Any"]
+        doc: "Deprecated. Provide when type is `insert_content`. Inserts Markdown at a position."
+      - name: replace_content
+        type: ["null", "Any"]
+        doc: "Provide when type is `replace_content`. Replaces the entire page content."
+      - name: replace_content_range
+        type: ["null", "Any"]
+        doc: "Deprecated. Provide when type is `replace_content_range`. Replaces a selected range of Markdown."
+      - name: type
+        type: string
+        doc: "The kind of edit to apply. Prefer `replace_content` (overwrite the whole page) or `update_content` (targeted find-and-replace). `insert_content` and `replace_content_range` are deprecated."
+      - name: update_content
+        type: ["null", "Any"]
+        doc: "Provide when type is `update_content`. Applies targeted find-and-replace edits."

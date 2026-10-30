@@ -27,6 +27,8 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: widgetId
+        type: string
 
   - name: RenameWidget_class
     type: enum
@@ -50,3 +52,7 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+      - name: widgetId
+        type: string
+      - name: name
+        type: string
