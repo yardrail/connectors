@@ -40,6 +40,14 @@ func writeClassEnum(buf *bytes.Buffer, connID, className string) {
 	fmt.Fprintf(buf, "    symbols: [\"%s:%s\"]\n", connID, className)
 }
 
+// cwlProcessFields are fields inherited from cwl:Process that must not be
+// redeclared by connector class records.
+var cwlProcessFields = map[string]bool{
+	"id": true, "label": true, "doc": true,
+	"inputs": true, "outputs": true, "requirements": true, "hints": true,
+	"cwlVersion": true, "intent": true, "class": true,
+}
+
 func writeClassRecord(buf *bytes.Buffer, connID, className string, op *OperationInfo) {
 	doc := ""
 	if op != nil {
@@ -65,6 +73,26 @@ func writeClassRecord(buf *bytes.Buffer, connID, className string, op *Operation
 	fmt.Fprintf(buf, "        jsonldPredicate:\n")
 	fmt.Fprintf(buf, "          _id: \"@type\"\n")
 	fmt.Fprintf(buf, "          _type: \"@vocab\"\n")
+
+	if op != nil {
+		for _, input := range op.Inputs {
+			if input.Name == "" || cwlProcessFields[input.Name] {
+				continue
+			}
+
+			cwlType := openAPIToCWLType(input.Type)
+
+			fmt.Fprintf(buf, "      - name: %s\n", input.Name)
+			if input.Required {
+				fmt.Fprintf(buf, "        type: %s\n", cwlType)
+			} else {
+				fmt.Fprintf(buf, "        type: [\"null\", %q]\n", cwlType)
+			}
+			if input.Doc != "" {
+				fmt.Fprintf(buf, "        doc: %q\n", input.Doc)
+			}
+		}
+	}
 }
 
 func openAPIToCWLType(t string) string {
