@@ -102,13 +102,17 @@ func buildOpenAPI(spec *CorrelatedSpec) (*openapi3.T, error) {
 		addEntityPaths(doc, entity)
 	}
 
-	// Emit placeholder schemas for any unresolved $ref targets
-	resolveUnresolvedRefs(doc)
+	// Prune schemas not reachable from any path operation, and emit
+	// placeholders for any remaining unresolved $ref targets.
+	pruneUnreachableSchemas(doc)
 
 	return doc, nil
 }
 
-func resolveUnresolvedRefs(doc *openapi3.T) {
+// pruneUnreachableSchemas removes schemas not transitively reachable from
+// any path operation. This drops desktop-only XSD types, unreferenced enums,
+// and other orphaned schemas.
+func pruneUnreachableSchemas(doc *openapi3.T) {
 	data, err := json.Marshal(doc)
 	if err != nil {
 		return
@@ -117,20 +121,53 @@ func resolveUnresolvedRefs(doc *openapi3.T) {
 	if err := json.Unmarshal(data, &raw); err != nil {
 		return
 	}
-	refs := findAllRefs(raw)
-	for _, ref := range refs {
-		const prefix = "#/components/schemas/"
-		if !strings.HasPrefix(ref, prefix) {
-			continue
+
+	const prefix = "#/components/schemas/"
+
+	// Collect refs from paths + parameters + securitySchemes (everything except schemas themselves).
+	seedRefs := make(map[string]bool)
+	if paths, ok := raw["paths"].(map[string]any); ok {
+		for _, ref := range findAllRefs(paths) {
+			if strings.HasPrefix(ref, prefix) {
+				seedRefs[strings.TrimPrefix(ref, prefix)] = true
+			}
 		}
-		name := strings.TrimPrefix(ref, prefix)
-		if doc.Components.Schemas[name] != nil {
-			continue
+	}
+
+	// Transitively walk schema refs to build the full reachable set.
+	schemas, _ := raw["components"].(map[string]any)["schemas"].(map[string]any)
+	reachable := make(map[string]bool)
+	var walk func(name string)
+	walk = func(name string) {
+		if reachable[name] {
+			return
 		}
-		doc.Components.Schemas[name] = &openapi3.SchemaRef{
-			Value: &openapi3.Schema{
-				Type: &openapi3.Types{"object"},
-			},
+		reachable[name] = true
+		s, ok := schemas[name]
+		if !ok {
+			return
+		}
+		for _, ref := range findAllRefs(s) {
+			if strings.HasPrefix(ref, prefix) {
+				walk(strings.TrimPrefix(ref, prefix))
+			}
+		}
+	}
+	for name := range seedRefs {
+		walk(name)
+	}
+
+	// Delete unreachable schemas; emit placeholders for missing refs.
+	for name := range doc.Components.Schemas {
+		if !reachable[name] {
+			delete(doc.Components.Schemas, name)
+		}
+	}
+	for name := range reachable {
+		if doc.Components.Schemas[name] == nil {
+			doc.Components.Schemas[name] = &openapi3.SchemaRef{
+				Value: &openapi3.Schema{Type: &openapi3.Types{"object"}},
+			}
 		}
 	}
 }
