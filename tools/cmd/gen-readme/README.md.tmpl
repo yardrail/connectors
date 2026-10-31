@@ -20,10 +20,9 @@ Missing description counts are from [vacuum](https://github.com/daveshanley/vacu
 connectors/
 ├── go.work                         # Go workspace — lists all modules
 ├── Taskfile.yml                    # Orchestrate codegen and validation across modules
-├── tools/                          # Codegen utilities (separate Go module)
+├── tools/                          # Shared codegen utilities (separate Go module)
 │   ├── cmd/
 │   │   ├── gen-readme/             # Generates this README from a template
-│   │   ├── mcp-google-codegen/     # Generate MCP server from a Google Go SDK package
 │   │   ├── mcp-openapi-codegen/    # Generate MCP server from an oapi-codegen client
 │   │   └── yardrail-connector-codegen/  # Generate yardrail connector code from a manifest
 │   └── codegentest/                # Connectors generated from codegen fixtures, with runtime tests
@@ -49,15 +48,19 @@ For services with an official Go SDK (e.g. Google Sheets via `google.golang.org/
 - No `spec/` or `client/` directories
 - `go.mod` depends on the official SDK, acting as a version pin
 - Root package re-exports key types from the SDK
-- `mcp/` is generated from the SDK package via `mcp-google-codegen`
+- `mcp/` is generated from the SDK package via `mcp-google-codegen` (in `google/tools/cmd/`)
 
 ```
-google/sheets/v4/
-├── go.mod              # depends on google.golang.org/api/sheets/v4
-├── doc.go              # re-exports SDK types
-└── mcp/
-    ├── generate.go     # //go:generate mcp-google-codegen ...
-    └── tools_gen.go
+google/
+├── tools/              # Google-specific codegen (separate Go module)
+│   └── cmd/
+│       └── mcp-google-codegen/
+└── sheets/v4/
+    ├── go.mod              # depends on google.golang.org/api/sheets/v4
+    ├── doc.go              # re-exports SDK types
+    └── mcp/
+        ├── generate.go     # //go:generate mcp-google-codegen ...
+        └── tools_gen.go
 ```
 
 ### Spec-generated
@@ -155,13 +158,14 @@ Prefer the fixup script when you need logic; prefer JSON Patch when a handful of
 
 ## Codegen tools
 
-All codegen commands live in `tools/`, which is its own Go module (`github.com/yardrail/connectors/tools`). This keeps codegen dependencies (template libraries, AST packages) out of service modules.
+Shared codegen commands live in `tools/`, which is its own Go module (`github.com/yardrail/connectors/tools`). Product-specific codegen lives under the company directory (e.g. `google/tools/`, `quickbooks/tools/`).
 
-| Command | Purpose |
-|---|---|
-| `mcp-google-codegen` | Generate MCP server package from a Google Go SDK |
-| `mcp-openapi-codegen` | Generate MCP server package from an oapi-codegen client |
-| `yardrail-connector-codegen` | Generate yardrail connector handler, dispatch, catalog entry, CWL schema and CWL class mapping (CWL outputs only when `-cwl-schema` / `-cwl-mapping` are given) from a manifest, for OpenAPI (oapi-codegen client) and GraphQL (operation files) interfaces |
+| Command | Location | Purpose |
+|---|---|---|
+| `mcp-openapi-codegen` | `tools/` | Generate MCP server package from an oapi-codegen client |
+| `yardrail-connector-codegen` | `tools/` | Generate yardrail connector handler, dispatch, catalog entry, CWL schema and CWL class mapping from a manifest |
+| `mcp-google-codegen` | `google/tools/` | Generate MCP server package from a Google Go SDK |
+| `specgen` | `quickbooks/tools/` | Generate OpenAPI spec from Intuit XSD schemas |
 
 Service packages invoke the MCP generators via `//go:generate` directives in `generate.go` files. `yardrail-connector-codegen` runs from the `generate:connector:*` tasks in this repo and, for the OpenAPI connectors only, from yardrail's `gen:connectors` task (pinned to `CODEGEN_VERSION`). Both write into the yardrail repo.
 

@@ -16,4 +16,6 @@ use (
 	./stripe/stripe
 	./tools
 	./tools/codegentest
+	./google/tools
+	./quickbooks/tools
 )
