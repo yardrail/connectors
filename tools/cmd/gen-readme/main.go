@@ -185,7 +185,7 @@ func discoverConnectors(root string) ([]connectorInfo, error) {
 		dir := filepath.Dir(modPath)
 		relPath, _ := filepath.Rel(root, dir)
 
-		if seen[relPath] || relPath == "tools" || strings.HasPrefix(relPath, "tools/") || strings.HasPrefix(relPath, "scripts/") {
+		if seen[relPath] || relPath == "tools" || strings.HasPrefix(relPath, "tools/") || strings.HasPrefix(relPath, "scripts/") || strings.HasSuffix(relPath, "/tools") || strings.Contains(relPath, "/tools/") {
 			continue
 		}
 		if _, err := os.Stat(filepath.Join(dir, "manifest.yaml")); err == nil {
