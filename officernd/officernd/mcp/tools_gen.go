@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	target "github.com/yardrail/connectors/officernd/officernd/v2/client"
+	target "github.com/yardrail/connectors/officernd/officernd/client"
 	"time"
 )
 
@@ -57,7 +57,7 @@ func (h *Handler) RegisterAssignments(s *server.MCPServer) {
 		mcp.NewTool("assignments-controller-add-item-apiv2",
 			mcp.WithDescription("AssignmentsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.AssignmentsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AssignmentsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleAssignmentsControllerAddItemApiv2WithResponse,
 	)
@@ -96,7 +96,7 @@ func (h *Handler) RegisterAuth(s *server.MCPServer) {
 		mcp.NewTool("auth-controller-impersonate-member-apiv2",
 			mcp.WithDescription("AuthControllerImpersonateMemberApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.AuthControllerImpersonateMemberApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthControllerImpersonateMemberApiv2JSONRequestBody)")),
 		),
 		h.handleAuthControllerImpersonateMemberApiv2WithResponse,
 	)
@@ -105,7 +105,7 @@ func (h *Handler) RegisterAuth(s *server.MCPServer) {
 		mcp.NewTool("auth-controller-signin-apiv2",
 			mcp.WithDescription("AuthControllerSigninApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.AuthControllerSigninApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthControllerSigninApiv2JSONRequestBody)")),
 		),
 		h.handleAuthControllerSigninApiv2WithResponse,
 	)
@@ -114,7 +114,7 @@ func (h *Handler) RegisterAuth(s *server.MCPServer) {
 		mcp.NewTool("auth-controller-signup-apiv2",
 			mcp.WithDescription("AuthControllerSignupApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.AuthControllerSignupApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthControllerSignupApiv2JSONRequestBody)")),
 		),
 		h.handleAuthControllerSignupApiv2WithResponse,
 	)
@@ -123,7 +123,7 @@ func (h *Handler) RegisterAuth(s *server.MCPServer) {
 		mcp.NewTool("auth-controller-verify-token-apiv2",
 			mcp.WithDescription("AuthControllerVerifyTokenApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.AuthControllerVerifyTokenApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthControllerVerifyTokenApiv2JSONRequestBody)")),
 		),
 		h.handleAuthControllerVerifyTokenApiv2WithResponse,
 	)
@@ -188,7 +188,7 @@ func (h *Handler) RegisterBookings(s *server.MCPServer) {
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithBoolean("isSilent", mcp.Description("IsSilent")),
 			mcp.WithBoolean("enforceBookingPolicy", mcp.Description("EnforceBookingPolicy")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.BookingsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleBookingsControllerAddItemApiv2WithResponse,
 	)
@@ -283,7 +283,7 @@ func (h *Handler) RegisterBookings(s *server.MCPServer) {
 			mcp.WithString("bookingId", mcp.Required(), mcp.Description("bookingId")),
 			mcp.WithBoolean("isSilent", mcp.Description("IsSilent")),
 			mcp.WithBoolean("enforceBookingPolicy", mcp.Description("EnforceBookingPolicy")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.BookingsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleBookingsControllerUpdateItemApiv2WithResponse,
 	)
@@ -292,7 +292,7 @@ func (h *Handler) RegisterBookings(s *server.MCPServer) {
 		mcp.NewTool("bookings-controller-validate-booking-apiv2",
 			mcp.WithDescription("BookingsControllerValidateBookingApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.BookingsControllerValidateBookingApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsControllerValidateBookingApiv2JSONRequestBody)")),
 		),
 		h.handleBookingsControllerValidateBookingApiv2WithResponse,
 	)
@@ -323,7 +323,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 		mcp.NewTool("charges-controller-add-item-apiv2",
 			mcp.WithDescription("ChargesControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.ChargesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ChargesControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleChargesControllerAddItemApiv2WithResponse,
 	)
@@ -362,7 +362,7 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithDescription("ChargesControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("chargeId", mcp.Required(), mcp.Description("chargeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.ChargesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ChargesControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleChargesControllerUpdateItemApiv2WithResponse,
 	)
@@ -377,7 +377,7 @@ func (h *Handler) RegisterCheckins(s *server.MCPServer) {
 			mcp.WithDescription("CheckinsControllerCheckinMemberApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.CheckinsControllerCheckinMemberApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckinsControllerCheckinMemberApiv2JSONRequestBody)")),
 		),
 		h.handleCheckinsControllerCheckinMemberApiv2WithResponse,
 	)
@@ -451,7 +451,7 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 			mcp.WithDescription("CheckoutControllerCheckoutApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithBoolean("enforceBookingPolicy", mcp.Description("EnforceBookingPolicy")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.CheckoutControllerCheckoutApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckoutControllerCheckoutApiv2JSONRequestBody)")),
 		),
 		h.handleCheckoutControllerCheckoutApiv2WithResponse,
 	)
@@ -461,7 +461,7 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 			mcp.WithDescription("CheckoutControllerGetCheckoutSummaryApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithBoolean("enforceBookingPolicy", mcp.Description("EnforceBookingPolicy")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.CheckoutControllerGetCheckoutSummaryApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckoutControllerGetCheckoutSummaryApiv2JSONRequestBody)")),
 		),
 		h.handleCheckoutControllerGetCheckoutSummaryApiv2WithResponse,
 	)
@@ -495,7 +495,7 @@ func (h *Handler) RegisterCompanies(s *server.MCPServer) {
 		mcp.NewTool("companies-controller-add-item-apiv2",
 			mcp.WithDescription("CompaniesControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.CompaniesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CompaniesControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleCompaniesControllerAddItemApiv2WithResponse,
 	)
@@ -543,7 +543,7 @@ func (h *Handler) RegisterCompanies(s *server.MCPServer) {
 			mcp.WithDescription("CompaniesControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("companyId", mcp.Required(), mcp.Description("companyId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.CompaniesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CompaniesControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleCompaniesControllerUpdateItemApiv2WithResponse,
 	)
@@ -557,7 +557,7 @@ func (h *Handler) RegisterContracts(s *server.MCPServer) {
 		mcp.NewTool("contracts-controller-add-item-apiv2",
 			mcp.WithDescription("ContractsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.ContractsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleContractsControllerAddItemApiv2WithResponse,
 	)
@@ -630,7 +630,7 @@ func (h *Handler) RegisterContracts(s *server.MCPServer) {
 			mcp.WithDescription("ContractsControllerTerminateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("contractId", mcp.Required(), mcp.Description("contractId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.ContractsControllerTerminateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsControllerTerminateItemApiv2JSONRequestBody)")),
 		),
 		h.handleContractsControllerTerminateItemApiv2WithResponse,
 	)
@@ -640,7 +640,7 @@ func (h *Handler) RegisterContracts(s *server.MCPServer) {
 			mcp.WithDescription("ContractsControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("contractId", mcp.Required(), mcp.Description("contractId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.ContractsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleContractsControllerUpdateItemApiv2WithResponse,
 	)
@@ -654,7 +654,7 @@ func (h *Handler) RegisterCredits(s *server.MCPServer) {
 		mcp.NewTool("credits-controller-add-item-apiv2",
 			mcp.WithDescription("CreditsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.CreditsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CreditsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleCreditsControllerAddItemApiv2WithResponse,
 	)
@@ -700,7 +700,7 @@ func (h *Handler) RegisterCredits(s *server.MCPServer) {
 			mcp.WithDescription("CreditsControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("creditsId", mcp.Required(), mcp.Description("creditsId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.CreditsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CreditsControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleCreditsControllerUpdateItemApiv2WithResponse,
 	)
@@ -731,7 +731,7 @@ func (h *Handler) RegisterEvents(s *server.MCPServer) {
 		mcp.NewTool("events-controller-add-item-apiv2",
 			mcp.WithDescription("EventsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.EventsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.EventsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleEventsControllerAddItemApiv2WithResponse,
 	)
@@ -784,7 +784,7 @@ func (h *Handler) RegisterEvents(s *server.MCPServer) {
 			mcp.WithDescription("EventsControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.EventsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.EventsControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleEventsControllerUpdateItemApiv2WithResponse,
 	)
@@ -799,7 +799,7 @@ func (h *Handler) RegisterFees(s *server.MCPServer) {
 			mcp.WithDescription("FeesControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithBoolean("shouldUseCoins", mcp.Description("ShouldUseCoins")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.FeesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.FeesControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleFeesControllerAddItemApiv2WithResponse,
 	)
@@ -857,7 +857,7 @@ func (h *Handler) RegisterFees(s *server.MCPServer) {
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("feeId", mcp.Required(), mcp.Description("feeId")),
 			mcp.WithBoolean("shouldUseCoins", mcp.Description("ShouldUseCoins")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.FeesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.FeesControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleFeesControllerUpdateItemApiv2WithResponse,
 	)
@@ -948,7 +948,7 @@ func (h *Handler) RegisterMembers(s *server.MCPServer) {
 		mcp.NewTool("members-controller-add-item-apiv2",
 			mcp.WithDescription("MembersControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.MembersControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleMembersControllerAddItemApiv2WithResponse,
 	)
@@ -1018,7 +1018,7 @@ func (h *Handler) RegisterMembers(s *server.MCPServer) {
 			mcp.WithDescription("MembersControllerManagePortalAccessApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.MembersControllerManagePortalAccessApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerManagePortalAccessApiv2JSONRequestBody)")),
 		),
 		h.handleMembersControllerManagePortalAccessApiv2WithResponse,
 	)
@@ -1028,7 +1028,7 @@ func (h *Handler) RegisterMembers(s *server.MCPServer) {
 			mcp.WithDescription("MembersControllerUpdateCompanyApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.MembersControllerUpdateCompanyApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerUpdateCompanyApiv2JSONRequestBody)")),
 		),
 		h.handleMembersControllerUpdateCompanyApiv2WithResponse,
 	)
@@ -1038,7 +1038,7 @@ func (h *Handler) RegisterMembers(s *server.MCPServer) {
 			mcp.WithDescription("MembersControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.MembersControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleMembersControllerUpdateItemApiv2WithResponse,
 	)
@@ -1048,7 +1048,7 @@ func (h *Handler) RegisterMembers(s *server.MCPServer) {
 			mcp.WithDescription("MembersControllerUpdateStatusApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.MembersControllerUpdateStatusApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerUpdateStatusApiv2JSONRequestBody)")),
 		),
 		h.handleMembersControllerUpdateStatusApiv2WithResponse,
 	)
@@ -1062,7 +1062,7 @@ func (h *Handler) RegisterMemberships(s *server.MCPServer) {
 		mcp.NewTool("memberships-controller-add-item-apiv2",
 			mcp.WithDescription("MembershipsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.MembershipsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembershipsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleMembershipsControllerAddItemApiv2WithResponse,
 	)
@@ -1119,7 +1119,7 @@ func (h *Handler) RegisterMemberships(s *server.MCPServer) {
 			mcp.WithDescription("MembershipsControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("membershipId", mcp.Required(), mcp.Description("membershipId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.MembershipsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembershipsControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleMembershipsControllerUpdateItemApiv2WithResponse,
 	)
@@ -1133,7 +1133,7 @@ func (h *Handler) RegisterOpportunities(s *server.MCPServer) {
 		mcp.NewTool("opportunities-controller-add-item-apiv2",
 			mcp.WithDescription("OpportunitiesControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.OpportunitiesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.OpportunitiesControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleOpportunitiesControllerAddItemApiv2WithResponse,
 	)
@@ -1186,7 +1186,7 @@ func (h *Handler) RegisterOpportunities(s *server.MCPServer) {
 			mcp.WithDescription("OpportunitiesControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("opportunityId", mcp.Required(), mcp.Description("opportunityId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.OpportunitiesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.OpportunitiesControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleOpportunitiesControllerUpdateItemApiv2WithResponse,
 	)
@@ -1229,7 +1229,7 @@ func (h *Handler) RegisterTokenGeneration(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("p-o-s-t-generate-token-with-formdata-body",
 			mcp.WithDescription("POSTGenerateTokenWithFormdataBody"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.POSTGenerateTokenFormdataRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.POSTGenerateTokenFormdataRequestBody)")),
 		),
 		h.handlePOSTGenerateTokenWithFormdataBodyWithResponse,
 	)
@@ -1243,7 +1243,7 @@ func (h *Handler) RegisterPasses(s *server.MCPServer) {
 		mcp.NewTool("passes-controller-add-item-apiv2",
 			mcp.WithDescription("PassesControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PassesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PassesControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handlePassesControllerAddItemApiv2WithResponse,
 	)
@@ -1288,7 +1288,7 @@ func (h *Handler) RegisterPasses(s *server.MCPServer) {
 			mcp.WithDescription("PassesControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("passesId", mcp.Required(), mcp.Description("passesId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PassesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PassesControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handlePassesControllerUpdateItemApiv2WithResponse,
 	)
@@ -1302,7 +1302,7 @@ func (h *Handler) RegisterPassword(s *server.MCPServer) {
 		mcp.NewTool("password-controller-change-password-apiv2",
 			mcp.WithDescription("PasswordControllerChangePasswordApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PasswordControllerChangePasswordApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PasswordControllerChangePasswordApiv2JSONRequestBody)")),
 		),
 		h.handlePasswordControllerChangePasswordApiv2WithResponse,
 	)
@@ -1311,7 +1311,7 @@ func (h *Handler) RegisterPassword(s *server.MCPServer) {
 		mcp.NewTool("password-controller-reset-password-apiv2",
 			mcp.WithDescription("PasswordControllerResetPasswordApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PasswordControllerResetPasswordApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PasswordControllerResetPasswordApiv2JSONRequestBody)")),
 		),
 		h.handlePasswordControllerResetPasswordApiv2WithResponse,
 	)
@@ -1325,7 +1325,7 @@ func (h *Handler) RegisterPaymentDetails(s *server.MCPServer) {
 		mcp.NewTool("payment-details-controller-add-item-apiv2",
 			mcp.WithDescription("PaymentDetailsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PaymentDetailsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handlePaymentDetailsControllerAddItemApiv2WithResponse,
 	)
@@ -1335,7 +1335,7 @@ func (h *Handler) RegisterPaymentDetails(s *server.MCPServer) {
 			mcp.WithDescription("PaymentDetailsControllerDeleteItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentDetailsId", mcp.Required(), mcp.Description("paymentDetailsId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PaymentDetailsControllerDeleteItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsControllerDeleteItemApiv2JSONRequestBody)")),
 		),
 		h.handlePaymentDetailsControllerDeleteItemApiv2WithResponse,
 	)
@@ -1358,7 +1358,7 @@ func (h *Handler) RegisterPaymentDetails(s *server.MCPServer) {
 		mcp.NewTool("payment-details-controller-register-item-apiv2",
 			mcp.WithDescription("PaymentDetailsControllerRegisterItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PaymentDetailsControllerRegisterItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsControllerRegisterItemApiv2JSONRequestBody)")),
 		),
 		h.handlePaymentDetailsControllerRegisterItemApiv2WithResponse,
 	)
@@ -1372,7 +1372,7 @@ func (h *Handler) RegisterPaymentGateways(s *server.MCPServer) {
 		mcp.NewTool("payment-gateways-controller-authorize-apiv2",
 			mcp.WithDescription("PaymentGatewaysControllerAuthorizeApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PaymentGatewaysControllerAuthorizeApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentGatewaysControllerAuthorizeApiv2JSONRequestBody)")),
 		),
 		h.handlePaymentGatewaysControllerAuthorizeApiv2WithResponse,
 	)
@@ -1387,7 +1387,7 @@ func (h *Handler) RegisterPayments(s *server.MCPServer) {
 			mcp.WithDescription("PaymentsControllerAddCreditAllocationApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentId", mcp.Required(), mcp.Description("paymentId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PaymentsControllerAddCreditAllocationApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsControllerAddCreditAllocationApiv2JSONRequestBody)")),
 		),
 		h.handlePaymentsControllerAddCreditAllocationApiv2WithResponse,
 	)
@@ -1396,7 +1396,7 @@ func (h *Handler) RegisterPayments(s *server.MCPServer) {
 		mcp.NewTool("payments-controller-add-overpayment-apiv2",
 			mcp.WithDescription("PaymentsControllerAddOverpaymentApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PaymentsControllerAddOverpaymentApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsControllerAddOverpaymentApiv2JSONRequestBody)")),
 		),
 		h.handlePaymentsControllerAddOverpaymentApiv2WithResponse,
 	)
@@ -1466,7 +1466,7 @@ func (h *Handler) RegisterPayments(s *server.MCPServer) {
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentId", mcp.Required(), mcp.Description("paymentId")),
 			mcp.WithString("allocationId", mcp.Required(), mcp.Description("allocationId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PaymentsControllerUpdateAllocationAccountingApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsControllerUpdateAllocationAccountingApiv2JSONRequestBody)")),
 		),
 		h.handlePaymentsControllerUpdateAllocationAccountingApiv2WithResponse,
 	)
@@ -1476,7 +1476,7 @@ func (h *Handler) RegisterPayments(s *server.MCPServer) {
 			mcp.WithDescription("PaymentsControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentId", mcp.Required(), mcp.Description("paymentId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PaymentsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handlePaymentsControllerUpdateItemApiv2WithResponse,
 	)
@@ -1530,7 +1530,7 @@ func (h *Handler) RegisterPosts(s *server.MCPServer) {
 		mcp.NewTool("posts-controller-add-item-apiv2",
 			mcp.WithDescription("PostsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.PostsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PostsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handlePostsControllerAddItemApiv2WithResponse,
 	)
@@ -1761,7 +1761,7 @@ func (h *Handler) RegisterSecondaryCurrencies(s *server.MCPServer) {
 			mcp.WithDescription("SecondaryCurrenciesControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("secondaryCurrencyId", mcp.Required(), mcp.Description("secondaryCurrencyId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.SecondaryCurrenciesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.SecondaryCurrenciesControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleSecondaryCurrenciesControllerUpdateItemApiv2WithResponse,
 	)
@@ -1802,7 +1802,7 @@ func (h *Handler) RegisterTicketComments(s *server.MCPServer) {
 			mcp.WithDescription("TicketCommentsControllerAddCommentApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("ticketId", mcp.Required(), mcp.Description("ticketId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.TicketCommentsControllerAddCommentApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketCommentsControllerAddCommentApiv2JSONRequestBody)")),
 		),
 		h.handleTicketCommentsControllerAddCommentApiv2WithResponse,
 	)
@@ -1846,7 +1846,7 @@ func (h *Handler) RegisterTickets(s *server.MCPServer) {
 		mcp.NewTool("tickets-controller-add-item-apiv2",
 			mcp.WithDescription("TicketsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.TicketsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleTicketsControllerAddItemApiv2WithResponse,
 	)
@@ -1885,7 +1885,7 @@ func (h *Handler) RegisterTickets(s *server.MCPServer) {
 			mcp.WithDescription("TicketsControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("ticketId", mcp.Required(), mcp.Description("ticketId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.TicketsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketsControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleTicketsControllerUpdateItemApiv2WithResponse,
 	)
@@ -1899,7 +1899,7 @@ func (h *Handler) RegisterVisitors(s *server.MCPServer) {
 		mcp.NewTool("visitors-controller-add-item-apiv2",
 			mcp.WithDescription("VisitorsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.VisitorsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.VisitorsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleVisitorsControllerAddItemApiv2WithResponse,
 	)
@@ -1947,7 +1947,7 @@ func (h *Handler) RegisterVisits(s *server.MCPServer) {
 		mcp.NewTool("visits-controller-add-item-apiv2",
 			mcp.WithDescription("VisitsControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.VisitsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.VisitsControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleVisitsControllerAddItemApiv2WithResponse,
 	)
@@ -1998,7 +1998,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 		mcp.NewTool("webhooks-controller-add-item-apiv2",
 			mcp.WithDescription("WebhooksControllerAddItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.WebhooksControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.WebhooksControllerAddItemApiv2JSONRequestBody)")),
 		),
 		h.handleWebhooksControllerAddItemApiv2WithResponse,
 	)
@@ -2038,7 +2038,7 @@ func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 			mcp.WithDescription("WebhooksControllerUpdateItemApiv2"),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/v2/client.WebhooksControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.WebhooksControllerUpdateItemApiv2JSONRequestBody)")),
 		),
 		h.handleWebhooksControllerUpdateItemApiv2WithResponse,
 	)

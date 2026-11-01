@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  notion:
+    taskfile: notion/Taskfile.yaml
+    dir: notion
+
+tasks:
+  spec:
+    cmds:
+      - task: notion:spec
+  client:
+    cmds:
+      - task: notion:client
+  connector:
+    cmds:
+      - task: notion:connector
+  build:
+    cmds:
+      - task: notion:build
+  test:
+    cmds:
+      - task: notion:test
+  vet:
+    cmds:
+      - task: notion:vet
+  lint:
+    cmds:
+      - task: notion:lint

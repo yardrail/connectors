@@ -53,14 +53,14 @@ jobs:
       - uses: jdx/mise-action@v2
 
       - name: go vet
-        run: task vet
+        run: task vet:all
 
       - name: go build
-        run: task build
+        run: task build:all
 
       - name: go mod tidy check
         run: |
-          task tidy
+          find . -name 'go.mod' -not -path './.claude/*' -execdir go mod tidy \;
           git diff --exit-code
 
   test:
@@ -74,4 +74,6 @@ jobs:
 
       - uses: jdx/mise-action@v2
 
-      - run: task test
+      - run: task test:all
+
+      - run: task test:tools

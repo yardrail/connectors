@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  outlook:
+    taskfile: outlook/Taskfile.yaml
+    dir: outlook
+
+tasks:
+  spec:
+    cmds:
+      - task: outlook:spec
+  client:
+    cmds:
+      - task: outlook:client
+  connector:
+    cmds:
+      - task: outlook:connector
+  build:
+    cmds:
+      - task: outlook:build
+  test:
+    cmds:
+      - task: outlook:test
+  vet:
+    cmds:
+      - task: outlook:vet
+  lint:
+    cmds:
+      - task: outlook:lint
