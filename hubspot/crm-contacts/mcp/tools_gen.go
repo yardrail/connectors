@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	target "github.com/yardrail/connectors/hubspot/crm-contacts/v3/client"
+	target "github.com/yardrail/connectors/hubspot/crm-contacts/client"
 )
 
 type ServiceResolver func(ctx context.Context) (*target.ClientWithResponses, error)
@@ -61,7 +61,7 @@ func (h *Handler) RegisterBasic(s *server.MCPServer) {
 			mcp.WithDescription("Patchcrmv3objectscontactsContactIdUpdate"),
 			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
 			mcp.WithString("idProperty", mcp.Description("IdProperty")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Patchcrmv3objectscontactsContactIdUpdateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Patchcrmv3objectscontactsContactIdUpdateJSONRequestBody)")),
 		),
 		h.handlePatchcrmv3objectscontactsContactIdUpdateWithResponse,
 	)
@@ -69,7 +69,7 @@ func (h *Handler) RegisterBasic(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("postcrmv3objectscontacts-create",
 			mcp.WithDescription("Postcrmv3objectscontactsCreate"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactsCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactsCreateJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactsCreateWithResponse,
 	)
@@ -82,7 +82,7 @@ func (h *Handler) RegisterBatch(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("postcrmv3objectscontactsbatcharchive-archive",
 			mcp.WithDescription("Postcrmv3objectscontactsbatcharchiveArchive"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactsbatcharchiveArchiveJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactsbatcharchiveArchiveJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactsbatcharchiveArchiveWithResponse,
 	)
@@ -90,7 +90,7 @@ func (h *Handler) RegisterBatch(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("postcrmv3objectscontactsbatchcreate-create",
 			mcp.WithDescription("Postcrmv3objectscontactsbatchcreateCreate"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactsbatchcreateCreateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactsbatchcreateCreateJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactsbatchcreateCreateWithResponse,
 	)
@@ -99,7 +99,7 @@ func (h *Handler) RegisterBatch(s *server.MCPServer) {
 		mcp.NewTool("postcrmv3objectscontactsbatchread-read",
 			mcp.WithDescription("Postcrmv3objectscontactsbatchreadRead"),
 			mcp.WithBoolean("archived", mcp.Description("Archived")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactsbatchreadReadJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactsbatchreadReadJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactsbatchreadReadWithResponse,
 	)
@@ -107,7 +107,7 @@ func (h *Handler) RegisterBatch(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("postcrmv3objectscontactsbatchupdate-update",
 			mcp.WithDescription("Postcrmv3objectscontactsbatchupdateUpdate"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactsbatchupdateUpdateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactsbatchupdateUpdateJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactsbatchupdateUpdateWithResponse,
 	)
@@ -115,7 +115,7 @@ func (h *Handler) RegisterBatch(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("postcrmv3objectscontactsbatchupsert-upsert",
 			mcp.WithDescription("Postcrmv3objectscontactsbatchupsertUpsert"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactsbatchupsertUpsertJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactsbatchupsertUpsertJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactsbatchupsertUpsertWithResponse,
 	)
@@ -128,7 +128,7 @@ func (h *Handler) RegisterAdvanced(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("postcrmv3objectscontactsgdpr-delete-purge",
 			mcp.WithDescription("Postcrmv3objectscontactsgdprDeletePurge"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactsgdprDeletePurgeJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactsgdprDeletePurgeJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactsgdprDeletePurgeWithResponse,
 	)
@@ -136,7 +136,7 @@ func (h *Handler) RegisterAdvanced(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("postcrmv3objectscontactsmerge-merge",
 			mcp.WithDescription("Postcrmv3objectscontactsmergeMerge"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactsmergeMergeJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactsmergeMergeJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactsmergeMergeWithResponse,
 	)
@@ -149,7 +149,7 @@ func (h *Handler) RegisterSearch(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("postcrmv3objectscontactssearch-do-search",
 			mcp.WithDescription("Postcrmv3objectscontactssearchDoSearch"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/v3/client.Postcrmv3objectscontactssearchDoSearchJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/hubspot/crm-contacts/client.Postcrmv3objectscontactssearchDoSearchJSONRequestBody)")),
 		),
 		h.handlePostcrmv3objectscontactssearchDoSearchWithResponse,
 	)

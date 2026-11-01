@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  canva:
+    taskfile: canva/Taskfile.yaml
+    dir: canva
+
+tasks:
+  spec:
+    cmds:
+      - task: canva:spec
+  client:
+    cmds:
+      - task: canva:client
+  connector:
+    cmds:
+      - task: canva:connector
+  build:
+    cmds:
+      - task: canva:build
+  test:
+    cmds:
+      - task: canva:test
+  vet:
+    cmds:
+      - task: canva:vet
+  lint:
+    cmds:
+      - task: canva:lint

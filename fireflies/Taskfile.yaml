@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  fireflies:
+    taskfile: fireflies/Taskfile.yaml
+    dir: fireflies
+
+tasks:
+  spec:
+    cmds:
+      - task: fireflies:spec
+  client:
+    cmds:
+      - task: fireflies:client
+  connector:
+    cmds:
+      - task: fireflies:connector
+  build:
+    cmds:
+      - task: fireflies:build
+  test:
+    cmds:
+      - task: fireflies:test
+  vet:
+    cmds:
+      - task: fireflies:vet
+  lint:
+    cmds:
+      - task: fireflies:lint

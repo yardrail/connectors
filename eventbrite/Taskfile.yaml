@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  eventbrite:
+    taskfile: eventbrite/Taskfile.yaml
+    dir: eventbrite
+
+tasks:
+  spec:
+    cmds:
+      - task: eventbrite:spec
+  client:
+    cmds:
+      - task: eventbrite:client
+  connector:
+    cmds:
+      - task: eventbrite:connector
+  build:
+    cmds:
+      - task: eventbrite:build
+  test:
+    cmds:
+      - task: eventbrite:test
+  vet:
+    cmds:
+      - task: eventbrite:vet
+  lint:
+    cmds:
+      - task: eventbrite:lint

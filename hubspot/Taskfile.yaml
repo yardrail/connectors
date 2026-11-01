@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  crm-contacts:
+    taskfile: crm-contacts/Taskfile.yaml
+    dir: crm-contacts
+
+tasks:
+  spec:
+    cmds:
+      - task: crm-contacts:spec
+  client:
+    cmds:
+      - task: crm-contacts:client
+  connector:
+    cmds:
+      - task: crm-contacts:connector
+  build:
+    cmds:
+      - task: crm-contacts:build
+  test:
+    cmds:
+      - task: crm-contacts:test
+  vet:
+    cmds:
+      - task: crm-contacts:vet
+  lint:
+    cmds:
+      - task: crm-contacts:lint

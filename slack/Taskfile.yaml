@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  slack:
+    taskfile: slack/Taskfile.yaml
+    dir: slack
+
+tasks:
+  spec:
+    cmds:
+      - task: slack:spec
+  client:
+    cmds:
+      - task: slack:client
+  connector:
+    cmds:
+      - task: slack:connector
+  build:
+    cmds:
+      - task: slack:build
+  test:
+    cmds:
+      - task: slack:test
+  vet:
+    cmds:
+      - task: slack:vet
+  lint:
+    cmds:
+      - task: slack:lint

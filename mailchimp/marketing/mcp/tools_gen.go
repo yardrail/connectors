@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	target "github.com/yardrail/connectors/mailchimp/marketing/v3/client"
+	target "github.com/yardrail/connectors/mailchimp/marketing/client"
 	"time"
 )
 
@@ -124,7 +124,7 @@ func (h *Handler) RegisterAutomations(s *server.MCPServer) {
 			mcp.WithDescription("PatchAutomationEmailWorkflowId"),
 			mcp.WithString("workflowId", mcp.Required(), mcp.Description("workflowId")),
 			mcp.WithString("workflowEmailId", mcp.Required(), mcp.Description("workflowEmailId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchAutomationEmailWorkflowIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchAutomationEmailWorkflowIdJSONRequestBody)")),
 		),
 		h.handlePatchAutomationEmailWorkflowIdWithResponse,
 	)
@@ -168,7 +168,7 @@ func (h *Handler) RegisterAutomations(s *server.MCPServer) {
 			mcp.WithDescription("PostAutomationsIdEmailsIdQueue"),
 			mcp.WithString("workflowId", mcp.Required(), mcp.Description("workflowId")),
 			mcp.WithString("workflowEmailId", mcp.Required(), mcp.Description("workflowEmailId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostAutomationsIdEmailsIdQueueJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostAutomationsIdEmailsIdQueueJSONRequestBody)")),
 		),
 		h.handlePostAutomationsIdEmailsIdQueueWithResponse,
 	)
@@ -177,7 +177,7 @@ func (h *Handler) RegisterAutomations(s *server.MCPServer) {
 		mcp.NewTool("post-automations-id-removed-subscribers",
 			mcp.WithDescription("PostAutomationsIdRemovedSubscribers"),
 			mcp.WithString("workflowId", mcp.Required(), mcp.Description("workflowId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostAutomationsIdRemovedSubscribersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostAutomationsIdRemovedSubscribersJSONRequestBody)")),
 		),
 		h.handlePostAutomationsIdRemovedSubscribersWithResponse,
 	)
@@ -185,7 +185,7 @@ func (h *Handler) RegisterAutomations(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-automations",
 			mcp.WithDescription("PostAutomations"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostAutomationsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostAutomationsJSONRequestBody)")),
 		),
 		h.handlePostAutomationsWithResponse,
 	)
@@ -201,7 +201,7 @@ func (h *Handler) RegisterAudiences(s *server.MCPServer) {
 			mcp.WithString("audienceId", mcp.Required(), mcp.Description("audienceId")),
 			mcp.WithString("merge_field_validation_mode", mcp.Description("MergeFieldValidationMode")),
 			mcp.WithString("data_mode", mcp.Description("DataMode")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.CreateAudienceContactJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.CreateAudienceContactJSONRequestBody)")),
 		),
 		h.handleCreateAudienceContactWithResponse,
 	)
@@ -242,7 +242,7 @@ func (h *Handler) RegisterAudiences(s *server.MCPServer) {
 			mcp.WithString("contactId", mcp.Required(), mcp.Description("contactId")),
 			mcp.WithString("merge_field_validation_mode", mcp.Description("MergeFieldValidationMode")),
 			mcp.WithString("data_mode", mcp.Description("DataMode")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchAudienceContactJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchAudienceContactJSONRequestBody)")),
 		),
 		h.handlePatchAudienceContactWithResponse,
 	)
@@ -255,7 +255,7 @@ func (h *Handler) RegisterVerifiedDomains(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("create-verified-domain",
 			mcp.WithDescription("CreateVerifiedDomain"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.CreateVerifiedDomainJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.CreateVerifiedDomainJSONRequestBody)")),
 		),
 		h.handleCreateVerifiedDomainWithResponse,
 	)
@@ -287,7 +287,7 @@ func (h *Handler) RegisterVerifiedDomains(s *server.MCPServer) {
 		mcp.NewTool("verify-domain",
 			mcp.WithDescription("VerifyDomain"),
 			mcp.WithString("domainName", mcp.Required(), mcp.Description("domainName")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.VerifyDomainJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.VerifyDomainJSONRequestBody)")),
 		),
 		h.handleVerifyDomainWithResponse,
 	)
@@ -330,7 +330,7 @@ func (h *Handler) RegisterBatchWebhooks(s *server.MCPServer) {
 		mcp.NewTool("patch-batch-webhooks",
 			mcp.WithDescription("PatchBatchWebhooks"),
 			mcp.WithString("batchWebhookId", mcp.Required(), mcp.Description("batchWebhookId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchBatchWebhooksJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchBatchWebhooksJSONRequestBody)")),
 		),
 		h.handlePatchBatchWebhooksWithResponse,
 	)
@@ -338,7 +338,7 @@ func (h *Handler) RegisterBatchWebhooks(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-batch-webhooks",
 			mcp.WithDescription("PostBatchWebhooks"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostBatchWebhooksJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostBatchWebhooksJSONRequestBody)")),
 		),
 		h.handlePostBatchWebhooksWithResponse,
 	)
@@ -380,7 +380,7 @@ func (h *Handler) RegisterBatches(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-batches",
 			mcp.WithDescription("PostBatches"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostBatchesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostBatchesJSONRequestBody)")),
 		),
 		h.handlePostBatchesWithResponse,
 	)
@@ -423,7 +423,7 @@ func (h *Handler) RegisterCampaignFolders(s *server.MCPServer) {
 		mcp.NewTool("patch-campaign-folders-id",
 			mcp.WithDescription("PatchCampaignFoldersId"),
 			mcp.WithString("folderId", mcp.Required(), mcp.Description("folderId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchCampaignFoldersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchCampaignFoldersIdJSONRequestBody)")),
 		),
 		h.handlePatchCampaignFoldersIdWithResponse,
 	)
@@ -431,7 +431,7 @@ func (h *Handler) RegisterCampaignFolders(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-campaign-folders",
 			mcp.WithDescription("PostCampaignFolders"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostCampaignFoldersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostCampaignFoldersJSONRequestBody)")),
 		),
 		h.handlePostCampaignFoldersWithResponse,
 	)
@@ -540,7 +540,7 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 			mcp.WithDescription("PatchCampaignsIdFeedbackId"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
 			mcp.WithString("feedbackId", mcp.Required(), mcp.Description("feedbackId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchCampaignsIdFeedbackIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchCampaignsIdFeedbackIdJSONRequestBody)")),
 		),
 		h.handlePatchCampaignsIdFeedbackIdWithResponse,
 	)
@@ -549,7 +549,7 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("patch-campaigns-id",
 			mcp.WithDescription("PatchCampaignsId"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchCampaignsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchCampaignsIdJSONRequestBody)")),
 		),
 		h.handlePatchCampaignsIdWithResponse,
 	)
@@ -566,7 +566,7 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("post-campaigns-id-actions-create-resend",
 			mcp.WithDescription("PostCampaignsIdActionsCreateResend"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostCampaignsIdActionsCreateResendJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostCampaignsIdActionsCreateResendJSONRequestBody)")),
 		),
 		h.handlePostCampaignsIdActionsCreateResendWithResponse,
 	)
@@ -599,7 +599,7 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("post-campaigns-id-actions-schedule",
 			mcp.WithDescription("PostCampaignsIdActionsSchedule"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostCampaignsIdActionsScheduleJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostCampaignsIdActionsScheduleJSONRequestBody)")),
 		),
 		h.handlePostCampaignsIdActionsScheduleWithResponse,
 	)
@@ -616,7 +616,7 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("post-campaigns-id-actions-test",
 			mcp.WithDescription("PostCampaignsIdActionsTest"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostCampaignsIdActionsTestJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostCampaignsIdActionsTestJSONRequestBody)")),
 		),
 		h.handlePostCampaignsIdActionsTestWithResponse,
 	)
@@ -633,7 +633,7 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("post-campaigns-id-feedback",
 			mcp.WithDescription("PostCampaignsIdFeedback"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostCampaignsIdFeedbackJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostCampaignsIdFeedbackJSONRequestBody)")),
 		),
 		h.handlePostCampaignsIdFeedbackWithResponse,
 	)
@@ -641,7 +641,7 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-campaigns",
 			mcp.WithDescription("PostCampaigns"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostCampaignsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostCampaignsJSONRequestBody)")),
 		),
 		h.handlePostCampaignsWithResponse,
 	)
@@ -650,7 +650,7 @@ func (h *Handler) RegisterCampaigns(s *server.MCPServer) {
 		mcp.NewTool("put-campaigns-id-content",
 			mcp.WithDescription("PutCampaignsIdContent"),
 			mcp.WithString("campaignId", mcp.Required(), mcp.Description("campaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PutCampaignsIdContentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PutCampaignsIdContentJSONRequestBody)")),
 		),
 		h.handlePutCampaignsIdContentWithResponse,
 	)
@@ -716,7 +716,7 @@ func (h *Handler) RegisterConnectedSites(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-connected-sites",
 			mcp.WithDescription("PostConnectedSites"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostConnectedSitesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostConnectedSitesJSONRequestBody)")),
 		),
 		h.handlePostConnectedSitesWithResponse,
 	)
@@ -1116,7 +1116,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("cartId", mcp.Required(), mcp.Description("cartId")),
 			mcp.WithString("lineId", mcp.Required(), mcp.Description("lineId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdCartsIdLinesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdCartsIdLinesIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdCartsIdLinesIdWithResponse,
 	)
@@ -1126,7 +1126,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PatchEcommerceStoresIdCartsId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("cartId", mcp.Required(), mcp.Description("cartId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdCartsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdCartsIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdCartsIdWithResponse,
 	)
@@ -1136,7 +1136,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PatchEcommerceStoresIdCustomersId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("customerId", mcp.Required(), mcp.Description("customerId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdCustomersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdCustomersIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdCustomersIdWithResponse,
 	)
@@ -1147,7 +1147,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("orderId", mcp.Required(), mcp.Description("orderId")),
 			mcp.WithString("lineId", mcp.Required(), mcp.Description("lineId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdOrdersIdLinesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdOrdersIdLinesIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdOrdersIdLinesIdWithResponse,
 	)
@@ -1157,7 +1157,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PatchEcommerceStoresIdOrdersId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("orderId", mcp.Required(), mcp.Description("orderId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdOrdersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdOrdersIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdOrdersIdWithResponse,
 	)
@@ -1168,7 +1168,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
 			mcp.WithString("imageId", mcp.Required(), mcp.Description("imageId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdProductsIdImagesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdProductsIdImagesIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdProductsIdImagesIdWithResponse,
 	)
@@ -1179,7 +1179,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
 			mcp.WithString("variantId", mcp.Required(), mcp.Description("variantId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdProductsIdVariantsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdProductsIdVariantsIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdProductsIdVariantsIdWithResponse,
 	)
@@ -1189,7 +1189,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PatchEcommerceStoresIdProductsId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdProductsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdProductsIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdProductsIdWithResponse,
 	)
@@ -1200,7 +1200,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("promoRuleId", mcp.Required(), mcp.Description("promoRuleId")),
 			mcp.WithString("promoCodeId", mcp.Required(), mcp.Description("promoCodeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdPromocodesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdPromocodesIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdPromocodesIdWithResponse,
 	)
@@ -1210,7 +1210,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PatchEcommerceStoresIdPromorulesId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("promoRuleId", mcp.Required(), mcp.Description("promoRuleId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdPromorulesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdPromorulesIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdPromorulesIdWithResponse,
 	)
@@ -1219,7 +1219,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("patch-ecommerce-stores-id",
 			mcp.WithDescription("PatchEcommerceStoresId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchEcommerceStoresIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchEcommerceStoresIdJSONRequestBody)")),
 		),
 		h.handlePatchEcommerceStoresIdWithResponse,
 	)
@@ -1229,7 +1229,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PostEcommerceStoresIdCartsIdLines"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("cartId", mcp.Required(), mcp.Description("cartId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdCartsIdLinesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdCartsIdLinesJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdCartsIdLinesWithResponse,
 	)
@@ -1238,7 +1238,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("post-ecommerce-stores-id-carts",
 			mcp.WithDescription("PostEcommerceStoresIdCarts"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdCartsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdCartsJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdCartsWithResponse,
 	)
@@ -1247,7 +1247,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("post-ecommerce-stores-id-customers",
 			mcp.WithDescription("PostEcommerceStoresIdCustomers"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdCustomersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdCustomersJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdCustomersWithResponse,
 	)
@@ -1257,7 +1257,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PostEcommerceStoresIdOrdersIdLines"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("orderId", mcp.Required(), mcp.Description("orderId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdOrdersIdLinesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdOrdersIdLinesJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdOrdersIdLinesWithResponse,
 	)
@@ -1266,7 +1266,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("post-ecommerce-stores-id-orders",
 			mcp.WithDescription("PostEcommerceStoresIdOrders"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdOrdersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdOrdersJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdOrdersWithResponse,
 	)
@@ -1276,7 +1276,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PostEcommerceStoresIdProductsIdImages"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdProductsIdImagesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdProductsIdImagesJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdProductsIdImagesWithResponse,
 	)
@@ -1286,7 +1286,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PostEcommerceStoresIdProductsIdVariants"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdProductsIdVariantsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdProductsIdVariantsJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdProductsIdVariantsWithResponse,
 	)
@@ -1295,7 +1295,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("post-ecommerce-stores-id-products",
 			mcp.WithDescription("PostEcommerceStoresIdProducts"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdProductsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdProductsJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdProductsWithResponse,
 	)
@@ -1305,7 +1305,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PostEcommerceStoresIdPromocodes"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("promoRuleId", mcp.Required(), mcp.Description("promoRuleId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdPromocodesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdPromocodesJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdPromocodesWithResponse,
 	)
@@ -1314,7 +1314,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 		mcp.NewTool("post-ecommerce-stores-id-promorules",
 			mcp.WithDescription("PostEcommerceStoresIdPromorules"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresIdPromorulesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresIdPromorulesJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresIdPromorulesWithResponse,
 	)
@@ -1322,7 +1322,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-ecommerce-stores",
 			mcp.WithDescription("PostEcommerceStores"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostEcommerceStoresJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostEcommerceStoresJSONRequestBody)")),
 		),
 		h.handlePostEcommerceStoresWithResponse,
 	)
@@ -1332,7 +1332,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PutEcommerceStoresIdCustomersId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("customerId", mcp.Required(), mcp.Description("customerId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PutEcommerceStoresIdCustomersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PutEcommerceStoresIdCustomersIdJSONRequestBody)")),
 		),
 		h.handlePutEcommerceStoresIdCustomersIdWithResponse,
 	)
@@ -1342,7 +1342,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PutEcommerceStoresIdOrdersId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("orderId", mcp.Required(), mcp.Description("orderId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PutEcommerceStoresIdOrdersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PutEcommerceStoresIdOrdersIdJSONRequestBody)")),
 		),
 		h.handlePutEcommerceStoresIdOrdersIdWithResponse,
 	)
@@ -1353,7 +1353,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
 			mcp.WithString("variantId", mcp.Required(), mcp.Description("variantId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PutEcommerceStoresIdProductsIdVariantsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PutEcommerceStoresIdProductsIdVariantsIdJSONRequestBody)")),
 		),
 		h.handlePutEcommerceStoresIdProductsIdVariantsIdWithResponse,
 	)
@@ -1363,7 +1363,7 @@ func (h *Handler) RegisterEcommerce(s *server.MCPServer) {
 			mcp.WithDescription("PutEcommerceStoresIdProductsId"),
 			mcp.WithString("storeId", mcp.Required(), mcp.Description("storeId")),
 			mcp.WithString("productId", mcp.Required(), mcp.Description("productId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PutEcommerceStoresIdProductsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PutEcommerceStoresIdProductsIdJSONRequestBody)")),
 		),
 		h.handlePutEcommerceStoresIdProductsIdWithResponse,
 	)
@@ -1462,7 +1462,7 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 		mcp.NewTool("patch-file-manager-files-id",
 			mcp.WithDescription("PatchFileManagerFilesId"),
 			mcp.WithString("fileId", mcp.Required(), mcp.Description("fileId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchFileManagerFilesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchFileManagerFilesIdJSONRequestBody)")),
 		),
 		h.handlePatchFileManagerFilesIdWithResponse,
 	)
@@ -1471,7 +1471,7 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 		mcp.NewTool("patch-file-manager-folders-id",
 			mcp.WithDescription("PatchFileManagerFoldersId"),
 			mcp.WithString("folderId", mcp.Required(), mcp.Description("folderId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchFileManagerFoldersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchFileManagerFoldersIdJSONRequestBody)")),
 		),
 		h.handlePatchFileManagerFoldersIdWithResponse,
 	)
@@ -1479,7 +1479,7 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-file-manager-files",
 			mcp.WithDescription("PostFileManagerFiles"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostFileManagerFilesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostFileManagerFilesJSONRequestBody)")),
 		),
 		h.handlePostFileManagerFilesWithResponse,
 	)
@@ -1487,7 +1487,7 @@ func (h *Handler) RegisterFileManager(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-file-manager-folders",
 			mcp.WithDescription("PostFileManagerFolders"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostFileManagerFoldersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostFileManagerFoldersJSONRequestBody)")),
 		),
 		h.handlePostFileManagerFoldersWithResponse,
 	)
@@ -1541,7 +1541,7 @@ func (h *Handler) RegisterLandingPages(s *server.MCPServer) {
 		mcp.NewTool("patch-landing-page-id",
 			mcp.WithDescription("PatchLandingPageId"),
 			mcp.WithString("pageId", mcp.Required(), mcp.Description("pageId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchLandingPageIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchLandingPageIdJSONRequestBody)")),
 		),
 		h.handlePatchLandingPageIdWithResponse,
 	)
@@ -1550,7 +1550,7 @@ func (h *Handler) RegisterLandingPages(s *server.MCPServer) {
 		mcp.NewTool("post-all-landing-pages",
 			mcp.WithDescription("PostAllLandingPages"),
 			mcp.WithBoolean("use_default_list", mcp.Description("UseDefaultList")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostAllLandingPagesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostAllLandingPagesJSONRequestBody)")),
 		),
 		h.handlePostAllLandingPagesWithResponse,
 	)
@@ -2061,7 +2061,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("interestCategoryId", mcp.Required(), mcp.Description("interestCategoryId")),
 			mcp.WithString("interestId", mcp.Required(), mcp.Description("interestId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdInterestCategoriesIdInterestsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdInterestCategoriesIdInterestsIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdInterestCategoriesIdInterestsIdWithResponse,
 	)
@@ -2071,7 +2071,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PatchListsIdInterestCategoriesId"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("interestCategoryId", mcp.Required(), mcp.Description("interestCategoryId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdInterestCategoriesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdInterestCategoriesIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdInterestCategoriesIdWithResponse,
 	)
@@ -2082,7 +2082,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
 			mcp.WithString("noteId", mcp.Required(), mcp.Description("noteId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdMembersIdNotesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdMembersIdNotesIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdMembersIdNotesIdWithResponse,
 	)
@@ -2093,7 +2093,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
 			mcp.WithBoolean("skip_merge_validation", mcp.Description("SkipMergeValidation")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdMembersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdMembersIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdMembersIdWithResponse,
 	)
@@ -2103,7 +2103,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PatchListsIdMergeFieldsId"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("mergeId", mcp.Required(), mcp.Description("mergeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdMergeFieldsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdMergeFieldsIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdMergeFieldsIdWithResponse,
 	)
@@ -2113,7 +2113,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PatchListsIdSegmentsId"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("segmentId", mcp.Required(), mcp.Description("segmentId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdSegmentsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdSegmentsIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdSegmentsIdWithResponse,
 	)
@@ -2123,7 +2123,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PatchListsIdSurveysId"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("surveyId", mcp.Required(), mcp.Description("surveyId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdSurveysIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdSurveysIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdSurveysIdWithResponse,
 	)
@@ -2133,7 +2133,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PatchListsIdWebhooksId"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdWebhooksIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdWebhooksIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdWebhooksIdWithResponse,
 	)
@@ -2142,7 +2142,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("patch-lists-id",
 			mcp.WithDescription("PatchListsId"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchListsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchListsIdJSONRequestBody)")),
 		),
 		h.handlePatchListsIdWithResponse,
 	)
@@ -2152,7 +2152,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PostListMemberEvents"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListMemberEventsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListMemberEventsJSONRequestBody)")),
 		),
 		h.handlePostListMemberEventsWithResponse,
 	)
@@ -2162,7 +2162,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PostListMemberTags"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListMemberTagsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListMemberTagsJSONRequestBody)")),
 		),
 		h.handlePostListMemberTagsWithResponse,
 	)
@@ -2172,7 +2172,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PostListsIdInterestCategoriesIdInterests"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("interestCategoryId", mcp.Required(), mcp.Description("interestCategoryId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdInterestCategoriesIdInterestsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdInterestCategoriesIdInterestsJSONRequestBody)")),
 		),
 		h.handlePostListsIdInterestCategoriesIdInterestsWithResponse,
 	)
@@ -2181,7 +2181,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("post-lists-id-interest-categories",
 			mcp.WithDescription("PostListsIdInterestCategories"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdInterestCategoriesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdInterestCategoriesJSONRequestBody)")),
 		),
 		h.handlePostListsIdInterestCategoriesWithResponse,
 	)
@@ -2200,7 +2200,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PostListsIdMembersIdNotes"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdMembersIdNotesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdMembersIdNotesJSONRequestBody)")),
 		),
 		h.handlePostListsIdMembersIdNotesWithResponse,
 	)
@@ -2210,7 +2210,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PostListsIdMembers"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithBoolean("skip_merge_validation", mcp.Description("SkipMergeValidation")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdMembersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdMembersJSONRequestBody)")),
 		),
 		h.handlePostListsIdMembersWithResponse,
 	)
@@ -2219,7 +2219,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("post-lists-id-merge-fields",
 			mcp.WithDescription("PostListsIdMergeFields"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdMergeFieldsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdMergeFieldsJSONRequestBody)")),
 		),
 		h.handlePostListsIdMergeFieldsWithResponse,
 	)
@@ -2229,7 +2229,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PostListsIdSegmentsIdMembers"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("segmentId", mcp.Required(), mcp.Description("segmentId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdSegmentsIdMembersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdSegmentsIdMembersJSONRequestBody)")),
 		),
 		h.handlePostListsIdSegmentsIdMembersWithResponse,
 	)
@@ -2239,7 +2239,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PostListsIdSegmentsId"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("segmentId", mcp.Required(), mcp.Description("segmentId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdSegmentsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdSegmentsIdJSONRequestBody)")),
 		),
 		h.handlePostListsIdSegmentsIdWithResponse,
 	)
@@ -2248,7 +2248,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("post-lists-id-segments",
 			mcp.WithDescription("PostListsIdSegments"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdSegmentsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdSegmentsJSONRequestBody)")),
 		),
 		h.handlePostListsIdSegmentsWithResponse,
 	)
@@ -2257,7 +2257,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("post-lists-id-signup-forms",
 			mcp.WithDescription("PostListsIdSignupForms"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdSignupFormsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdSignupFormsJSONRequestBody)")),
 		),
 		h.handlePostListsIdSignupFormsWithResponse,
 	)
@@ -2267,7 +2267,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithDescription("PostListsIdSurveysIdActionsReplicate"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("surveyId", mcp.Required(), mcp.Description("surveyId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdSurveysIdActionsReplicateJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdSurveysIdActionsReplicateJSONRequestBody)")),
 		),
 		h.handlePostListsIdSurveysIdActionsReplicateWithResponse,
 	)
@@ -2276,7 +2276,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("post-lists-id-surveys",
 			mcp.WithDescription("PostListsIdSurveys"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdSurveysJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdSurveysJSONRequestBody)")),
 		),
 		h.handlePostListsIdSurveysWithResponse,
 	)
@@ -2285,7 +2285,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 		mcp.NewTool("post-lists-id-webhooks",
 			mcp.WithDescription("PostListsIdWebhooks"),
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdWebhooksJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdWebhooksJSONRequestBody)")),
 		),
 		h.handlePostListsIdWebhooksWithResponse,
 	)
@@ -2296,7 +2296,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithBoolean("skip_merge_validation", mcp.Description("SkipMergeValidation")),
 			mcp.WithBoolean("skip_duplicate_check", mcp.Description("SkipDuplicateCheck")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsIdJSONRequestBody)")),
 		),
 		h.handlePostListsIdWithResponse,
 	)
@@ -2304,7 +2304,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-lists",
 			mcp.WithDescription("PostLists"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostListsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostListsJSONRequestBody)")),
 		),
 		h.handlePostListsWithResponse,
 	)
@@ -2336,7 +2336,7 @@ func (h *Handler) RegisterLists(s *server.MCPServer) {
 			mcp.WithString("listId", mcp.Required(), mcp.Description("listId")),
 			mcp.WithString("subscriberHash", mcp.Required(), mcp.Description("subscriberHash")),
 			mcp.WithBoolean("skip_merge_validation", mcp.Description("SkipMergeValidation")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PutListsIdMembersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PutListsIdMembersIdJSONRequestBody)")),
 		),
 		h.handlePutListsIdMembersIdWithResponse,
 	)
@@ -2398,7 +2398,7 @@ func (h *Handler) RegisterSmsCampaigns(s *server.MCPServer) {
 		mcp.NewTool("patch-sms-campaigns-id",
 			mcp.WithDescription("PatchSmsCampaignsId"),
 			mcp.WithString("smsCampaignId", mcp.Required(), mcp.Description("smsCampaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchSmsCampaignsIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchSmsCampaignsIdJSONRequestBody)")),
 		),
 		h.handlePatchSmsCampaignsIdWithResponse,
 	)
@@ -2415,7 +2415,7 @@ func (h *Handler) RegisterSmsCampaigns(s *server.MCPServer) {
 		mcp.NewTool("post-sms-campaigns-id-actions-schedule",
 			mcp.WithDescription("PostSmsCampaignsIdActionsSchedule"),
 			mcp.WithString("smsCampaignId", mcp.Required(), mcp.Description("smsCampaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostSmsCampaignsIdActionsScheduleJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostSmsCampaignsIdActionsScheduleJSONRequestBody)")),
 		),
 		h.handlePostSmsCampaignsIdActionsScheduleWithResponse,
 	)
@@ -2431,7 +2431,7 @@ func (h *Handler) RegisterSmsCampaigns(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-sms-campaigns",
 			mcp.WithDescription("PostSmsCampaigns"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostSmsCampaignsJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostSmsCampaignsJSONRequestBody)")),
 		),
 		h.handlePostSmsCampaignsWithResponse,
 	)
@@ -2440,7 +2440,7 @@ func (h *Handler) RegisterSmsCampaigns(s *server.MCPServer) {
 		mcp.NewTool("put-sms-campaigns-id-content",
 			mcp.WithDescription("PutSmsCampaignsIdContent"),
 			mcp.WithString("smsCampaignId", mcp.Required(), mcp.Description("smsCampaignId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PutSmsCampaignsIdContentJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PutSmsCampaignsIdContentJSONRequestBody)")),
 		),
 		h.handlePutSmsCampaignsIdContentWithResponse,
 	)
@@ -2483,7 +2483,7 @@ func (h *Handler) RegisterTemplateFolders(s *server.MCPServer) {
 		mcp.NewTool("patch-template-folders-id",
 			mcp.WithDescription("PatchTemplateFoldersId"),
 			mcp.WithString("folderId", mcp.Required(), mcp.Description("folderId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchTemplateFoldersIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchTemplateFoldersIdJSONRequestBody)")),
 		),
 		h.handlePatchTemplateFoldersIdWithResponse,
 	)
@@ -2491,7 +2491,7 @@ func (h *Handler) RegisterTemplateFolders(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-template-folders",
 			mcp.WithDescription("PostTemplateFolders"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostTemplateFoldersJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostTemplateFoldersJSONRequestBody)")),
 		),
 		h.handlePostTemplateFoldersWithResponse,
 	)
@@ -2553,7 +2553,7 @@ func (h *Handler) RegisterTemplates(s *server.MCPServer) {
 		mcp.NewTool("patch-templates-id",
 			mcp.WithDescription("PatchTemplatesId"),
 			mcp.WithString("templateId", mcp.Required(), mcp.Description("templateId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PatchTemplatesIdJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PatchTemplatesIdJSONRequestBody)")),
 		),
 		h.handlePatchTemplatesIdWithResponse,
 	)
@@ -2561,7 +2561,7 @@ func (h *Handler) RegisterTemplates(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-templates",
 			mcp.WithDescription("PostTemplates"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostTemplatesJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostTemplatesJSONRequestBody)")),
 		),
 		h.handlePostTemplatesWithResponse,
 	)
@@ -2600,7 +2600,7 @@ func (h *Handler) RegisterAccountExports(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("post-account-export",
 			mcp.WithDescription("PostAccountExport"),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostAccountExportJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostAccountExportJSONRequestBody)")),
 		),
 		h.handlePostAccountExportWithResponse,
 	)
@@ -3237,7 +3237,7 @@ func (h *Handler) RegisterCustomerJourneys(s *server.MCPServer) {
 			mcp.WithDescription("PostCustomerJourneysJourneysIdStepsIdActionsTrigger"),
 			mcp.WithInteger("journeyId", mcp.Required(), mcp.Description("journeyId")),
 			mcp.WithInteger("stepId", mcp.Required(), mcp.Description("stepId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/v3/client.PostCustomerJourneysJourneysIdStepsIdActionsTriggerJSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/mailchimp/marketing/client.PostCustomerJourneysJourneysIdStepsIdActionsTriggerJSONRequestBody)")),
 		),
 		h.handlePostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse,
 	)

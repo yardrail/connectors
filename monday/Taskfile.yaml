@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  monday:
+    taskfile: monday/Taskfile.yaml
+    dir: monday
+
+tasks:
+  spec:
+    cmds:
+      - task: monday:spec
+  client:
+    cmds:
+      - task: monday:client
+  connector:
+    cmds:
+      - task: monday:connector
+  build:
+    cmds:
+      - task: monday:build
+  test:
+    cmds:
+      - task: monday:test
+  vet:
+    cmds:
+      - task: monday:vet
+  lint:
+    cmds:
+      - task: monday:lint
