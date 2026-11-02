@@ -1,10 +1,5 @@
 version: "3"
 
-vars:
-  CONNECTOR_NAME: egnyte
-  YARDRAIL_ROOT:
-    sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
-
 tasks:
   spec:
     desc: "Egnyte API spec (committed, manually managed)"
@@ -16,22 +11,18 @@ tasks:
     deps: [spec]
     cmds:
       - mise exec -- go generate ./client/...
-      - mise exec -- go mod tidy
 
   connector:
-    desc: "Generate Egnyte yardrail connector code"
+    desc: "Generate connector code"
     deps: [client]
     dir: "{{.ROOT_DIR}}/tools"
     cmds:
       - >-
-        go run ./cmd/yardrail-connector-codegen
+        mise exec -- go run ./cmd/yardrail-connector-codegen
         -manifest {{.TASKFILE_DIR}}/manifest.yaml
-        -out {{.YARDRAIL_ROOT}}/internal/connectors/{{.CONNECTOR_NAME}}
-        -catalog {{.YARDRAIL_ROOT}}/internal/connector/catalog_{{.CONNECTOR_NAME}}_gen.go
-        -pkgname {{.CONNECTOR_NAME}}
-        -cwl-schema {{.YARDRAIL_ROOT}}/pkg/workflows/schema/{{.CONNECTOR_NAME}}-ext.yml
-        -cwl-mapping {{.YARDRAIL_ROOT}}/pkg/workflows/connector_{{.CONNECTOR_NAME}}_gen.go
-
+        -out {{.TASKFILE_DIR}}/connector/
+        -pkgname connector
+      - cd {{.TASKFILE_DIR}} && mise exec -- go mod tidy -e
   build:
     desc: "Build"
     cmds:

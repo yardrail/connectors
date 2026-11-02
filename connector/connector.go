@@ -45,11 +45,10 @@ type ConfigField struct {
 
 // Definition is the catalog metadata for a connector.
 type Definition struct {
-	ID           string
-	Name         string
-	Description  string
-	Interfaces   []Interface
-	AdminEnabled bool
+	ID          string
+	Name        string
+	Description string
+	Interfaces  []Interface
 }
 
 // Interface is a single communication surface within a connector.

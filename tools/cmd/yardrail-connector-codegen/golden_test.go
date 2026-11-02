@@ -19,9 +19,9 @@ func goldenFiles(id string) []string {
 	return []string{
 		"handler_gen.go",
 		"dispatch_gen.go",
-		"catalog_" + id + "_gen.go",
 		id + "-ext.yml",
-		"connector_" + id + "_gen.go",
+		"cwl_gen.go",
+		"registration_gen.go",
 	}
 }
 
@@ -33,9 +33,8 @@ func goldenConfig(dir, id, manifest, spec, pkg string) runConfig {
 		SpecPath:      filepath.Join(connectorsRoot, spec),
 		PkgPath:       pkg,
 		OutDir:        dir,
-		CatalogOut:    filepath.Join(dir, "catalog_"+id+"_gen.go"),
 		CWLSchemaOut:  filepath.Join(dir, id+"-ext.yml"),
-		CWLMappingOut: filepath.Join(dir, "connector_"+id+"_gen.go"),
+		CWLMappingOut: filepath.Join(dir, "cwl_gen.go"),
 		PkgName:       id,
 	}
 }
@@ -121,16 +120,15 @@ func fixtureConfig(dir, id, manifest string) runConfig {
 	return runConfig{
 		ManifestPath:  manifest,
 		OutDir:        dir,
-		CatalogOut:    filepath.Join(dir, "catalog_"+id+"_gen.go"),
 		CWLSchemaOut:  filepath.Join(dir, id+"-ext.yml"),
-		CWLMappingOut: filepath.Join(dir, "connector_"+id+"_gen.go"),
+		CWLMappingOut: filepath.Join(dir, "cwl_gen.go"),
 		PkgName:       id,
 	}
 }
 
 // checkFixture renders a fixture connector and compares handler and dispatch
-// with the committed package in codegentest, and the catalog and CWL
-// artifacts with testdata/golden/<id>/.
+// with the committed package in codegentest, and the remaining artifacts
+// with testdata/golden/<id>/.
 func checkFixture(t *testing.T, id, manifest string) {
 	t.Helper()
 
