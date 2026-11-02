@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  stripe:
+    taskfile: stripe/Taskfile.yaml
+    dir: stripe
+
+tasks:
+  spec:
+    cmds:
+      - task: stripe:spec
+  client:
+    cmds:
+      - task: stripe:client
+  connector:
+    cmds:
+      - task: stripe:connector
+  build:
+    cmds:
+      - task: stripe:build
+  test:
+    cmds:
+      - task: stripe:test
+  vet:
+    cmds:
+      - task: stripe:vet
+  lint:
+    cmds:
+      - task: stripe:lint

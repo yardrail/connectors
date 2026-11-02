@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  officernd:
+    taskfile: officernd/Taskfile.yaml
+    dir: officernd
+
+tasks:
+  spec:
+    cmds:
+      - task: officernd:spec
+  client:
+    cmds:
+      - task: officernd:client
+  connector:
+    cmds:
+      - task: officernd:connector
+  build:
+    cmds:
+      - task: officernd:build
+  test:
+    cmds:
+      - task: officernd:test
+  vet:
+    cmds:
+      - task: officernd:vet
+  lint:
+    cmds:
+      - task: officernd:lint

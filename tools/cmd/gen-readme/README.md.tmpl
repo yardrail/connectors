@@ -7,7 +7,8 @@ This repo also holds the API specs and codegen tools used to produce those packa
 ## Connectors
 
 | Connector | Path | Module | Tools | Missing Desc (Op / Param / Component) |
-|---|---|---|---|---|
+| --------- | ---- | ------ | ----- | ------------------------------------- |
+
 {{- range .Connectors}}
 | {{.Name}} | `{{.Path}}` | `{{.Module}}` | {{dash .Tools}} | {{descTriple .MissingOpDesc .MissingParamDesc .MissingCompDesc}} |
 {{- end}}
@@ -19,7 +20,7 @@ Missing description counts are from [vacuum](https://github.com/daveshanley/vacu
 ```
 connectors/
 ├── go.work                         # Go workspace — lists all modules
-├── Taskfile.yml                    # Orchestrate codegen and validation across modules
+├── Taskfile.yml                    # Root orchestration — includes all vendors
 ├── tools/                          # Shared codegen utilities (separate Go module)
 │   ├── cmd/
 │   │   ├── gen-readme/             # Generates this README from a template
@@ -27,49 +28,44 @@ connectors/
 │   │   └── yardrail-connector-codegen/  # Generate yardrail connector code from a manifest
 │   └── codegentest/                # Connectors generated from codegen fixtures, with runtime tests
 └── <company>/
+    ├── Taskfile.yaml               # Vendor-level — aggregates products
+    ├── tools/                      # Vendor-specific codegen (optional, e.g. quickbooks/tools/)
     └── <product>/
+        ├── Taskfile.yaml           # Product-level — standard entrypoints
         └── <version>/              # Each version is its own Go module
             ├── go.mod
-            ├── spec/               # API contract (OpenAPI, protobuf, graphql, etc.)
-            ├── client/             # Generated typed Go client
+            ├── Taskfile.yaml       # Version-level (if versioned) — standard entrypoints
+            ├── spec/               # API contract (OpenAPI, GraphQL SDL, etc.)
+            ├── client/             # Generated typed Go client (OpenAPI only)
             └── mcp/                # Generated MCP server package
 ```
 
-### Naming convention
-
-Services are nested `company/product/version`. Single-product companies repeat the name (`slack/slack/`, `canva/canva/`). This keeps the structure consistent and avoids restructuring if the company later exposes additional products. Each API version is a discrete Go module — importing one version does not pull in another's dependencies.
+Services are nested `company/product/version`. Single-product companies repeat the name (`slack/slack/`,
+`canva/canva/`). Each API version is a discrete Go module — importing one version does not pull in another's
+dependencies. The root `go.work` file lists all modules for local development, enabling cross-module IDE support.
 
 ## Service archetypes
 
+- sdk-backed
+- spec-generated
+- graphql
+
 ### SDK-backed
 
-For services with an official Go SDK (e.g. Google Sheets via `google.golang.org/api/sheets/v4`):
-
-- No `spec/` or `client/` directories
-- `go.mod` depends on the official SDK, acting as a version pin
-- Root package re-exports key types from the SDK
-- `mcp/` is generated from the SDK package via `mcp-google-codegen` (in `google/tools/cmd/`)
+Services with an official Go SDK (e.g. Google Sheets via `google.golang.org/api/sheets/v4`). No `spec/` or `client/` — `go.mod` depends on the SDK directly and `mcp/` is generated from it.
 
 ```
-google/
-├── tools/              # Google-specific codegen (separate Go module)
-│   └── cmd/
-│       └── mcp-google-codegen/
-└── sheets/v4/
-    ├── go.mod              # depends on google.golang.org/api/sheets/v4
-    ├── doc.go              # re-exports SDK types
-    └── mcp/
-        ├── generate.go     # //go:generate mcp-google-codegen ...
-        └── tools_gen.go
+google/sheets/v4/
+├── go.mod
+├── doc.go
+└── mcp/
+    ├── generate.go     # //go:generate mcp-google-codegen ...
+    └── tools_gen.go
 ```
 
 ### Spec-generated
 
-For services without a usable Go SDK — everything is generated from the API spec:
-
-- `spec/` holds the API contract (OpenAPI JSON/YAML)
-- `client/` holds the generated typed Go client (via oapi-codegen)
-- `mcp/` is generated from the client package via `mcp-openapi-codegen`
+Services without a usable Go SDK — client and MCP packages are generated from the API spec.
 
 ```
 officernd/officernd/v2/
@@ -87,34 +83,11 @@ officernd/officernd/v2/
 
 ### GraphQL
 
-For GraphQL APIs, yardrail connector code is generated from hand-written operations; no Go client or MCP package is generated:
-
-- `spec/schema.graphql` holds the vendor schema, committed as downloaded. Redeclared built-in scalars and directives (`Int`, `String`, `@deprecated`, …) that introspection dumps contain are dropped by `yardrail-connector-codegen` when it parses the schema; the file needs no edits.
-- `operations/` holds one named operation per `.graphql` file, and the file's base name equals the operation name (`GetItem.graphql` holds `query GetItem`). Each operation becomes one connector function: `GetItem` becomes function `get-item` and CWL class `GetItem`. The class is the function name converted back to PascalCase, which equals the operation name for plain PascalCase names. Operation names become CWL class IRIs that workflows reference, so do not rename one after it ships.
-- `source.descriptions` in `manifest.yaml` maps an operation name to the description shown to workflow authors, overriding the schema's root-field description (`descriptions: {GetMeeting: "Gets a meeting's metadata and AI summary."}`). Use it when an operation's name or scope differs from the provider's root field. A name that matches no operation fails generation, and REST interfaces reject the field.
-- `manifest.yaml` declares the interface with `protocol: graphql` and a `source` block. Paths are relative to the manifest. Excerpt from `monday/monday/v2/manifest.yaml` (the full file also has the top-level `connector:` block with `id`, `name` and `description`, and sets the interface's `name`, `auth_method`, `auth_scope`, `headers` and `capabilities`):
-
-```yaml
-security_schemes:
-  mondayToken: {type: apiKey, in: header, name: Authorization}
-
-interfaces:
-  - id: api
-    protocol: graphql
-    security_scheme: mondayToken
-    cred_mapping: {Authorization: token}
-    source:
-      schema: spec/schema.graphql   # optional; without it, outputs are untyped
-      operations: operations/
-      endpoint: https://api.monday.com/v2
-```
-
-`security_schemes` uses the OpenAPI `securitySchemes` shape and is merged with any schemes from an OpenAPI spec (the manifest wins on a name clash). Codegen fails when an interface's `security_scheme` matches neither.
+GraphQL APIs with hand-written operations. No typed Go client yet (planned). See each connector's README for manifest and operation conventions.
 
 ```
 monday/monday/v2/
 ├── go.mod
-├── doc.go
 ├── manifest.yaml
 ├── spec/
 │   └── schema.graphql
@@ -123,81 +96,100 @@ monday/monday/v2/
     └── ...
 ```
 
-## Spec preparation
+## Generation pipeline
 
-Many upstream specs need fixups before oapi-codegen and mcp-openapi-codegen can process them. Common issues and their fixes:
+Connector generation follows a three-stage pipeline:
 
-| Issue | Fix | Affected |
-|---|---|---|
-| Swagger 2.0 instead of OpenAPI 3.x | Convert with `npx swagger2openapi --patch` | Slack, Mailchimp |
-| OpenAPI 3.1 features (`type: [x, null]`, `const`) | Downconvert to 3.0 (`nullable: true`, `const` → single-value `enum`) | Notion |
-| No tags on operations | Add tags derived from URL path prefix | Stripe |
-| Response schema names collide with oapi-codegen response wrappers | Set `response-type-suffix: Resp` in `cfg.yaml` | Canva, Egnyte |
-| Duplicate type names (e.g. `EventType` enum vs `Event.type` property) | Add `x-go-name` override to one schema | Egnyte, Stripe |
-| Self-referencing type aliases (`type X = []X`) | Remove from generated output | Stripe |
-| Missing `components/headers` referenced by `$ref` | Add stub definitions | Egnyte |
-| Dotted or hyphenated tag names | Handled by `mcp-openapi-codegen` tag sanitization | Slack, Egnyte, Mailchimp |
+```
+  ┌─[ spec ]───────────────────────────────┐   ┌─[ client ]─────────────────┐   ┌─[ connector ]────────┐
+  │ acquire/generate the API defintion     │   │ generate typed Go client   │   │ generate yardrail    │
+  │                                        │   │ from spec                  │   │ connector + CWL code │
+  │                                        │   │                            │   │                      │
+  │                                        │   │                            │   │                      │
+  │ schema collection ──► openapi.json    ───────►  oapi-codegen ────┐      |   │                      │
+  |                                        │   │                     ▼      │   │                      │
+  | schema collection ──► schema.graphql  ───────►  (planned) ───► client  ───────► connector-codegen  │
+  |                                        │   │                     ▲      │   │                      │
+  │ sdk                                   ───────►  (planned) ───────┘      │   │                      │
+  │                                        │   │                            │   │                      │
+  └────────────────────────────────────────┘   └────────────────────────────┘   └──────────────────────┘
 
-### Applying post-generation fixups
-
-When a spec is generated or converted from another format, the output often needs fixes before codegen can consume it. Two approaches:
-
-**Python fixup script** — Use when fixes are dynamic or conditional (iterating all operations, regex-based key renaming, adding missing declarations based on URL patterns). Place a `fixup.py` in `spec/` and call it from a Taskfile step after conversion. See `eventbrite/eventbrite/spec/fixup.py` for an example that deduplicates body parameters, normalizes path parameter syntax, removes bogus `requestBody` from GET operations, injects missing path parameter declarations, fixes parameter types, and adds security schemes not present in the source spec.
-
-**JSON Patch file** — Use when fixes are static additions or replacements that don't depend on iterating the spec. Place a `patch.json` in `spec/` using [RFC 6902](https://datatracker.ietf.org/doc/html/rfc6902) format and apply it with `python3 -c "import json; ..."`  or a Taskfile step. Example adding a bearer security scheme:
-
-```json
-[
-  {"op": "add", "path": "/components/securitySchemes/bearer", "value": {"type": "http", "scheme": "bearer"}}
-]
 ```
 
-Apply with: `python3 -c "import json, jsonpatch; jsonpatch.apply_patch(...)"`  or inline in a Taskfile step using the stdlib `json` module.
+Run any stage for a single connector (`task slack:spec`) or everything (`task spec:all`). Each stage depends on the previous — running `task slack:connector` automatically runs `spec` then `client` first.
 
-Prefer the fixup script when you need logic; prefer JSON Patch when a handful of static operations suffice. Both can coexist — run the script first, then apply the patch.
+The variation is in the `spec` and `client` stages — the goal is for every archetype to produce a typed Go client so that `connector` always consumes the same artifact.
+
+For OpenAPI connectors, the spec stage varies by vendor:
+
+| Connector       | Spec source                          | `spec` task                                                              |
+| --------------- | ------------------------------------ | ------------------------------------------------------------------------ |
+| Most connectors | Committed `openapi.json` from vendor | No-op (manually updated)                                                 |
+| QuickBooks      | XSD + JSON proprietary schemas       | Runs `specgen` tool to produce OpenAPI                                   |
+| Eventbrite      | API Blueprint (`.apib`)              | Multi-step conversion: apib → swagger2 → fixup.py → openapi3 → fixup.py |
+
+Many upstream specs need fixups before codegen can process them. When a spec needs programmatic fixes, place a `fixup.py` in `spec/` and call it from the `spec` Taskfile target. See `eventbrite/eventbrite/spec/fixup.py` for an example.
 
 ## Codegen tools
 
 Shared codegen commands live in `tools/`, which is its own Go module (`github.com/yardrail/connectors/tools`). Product-specific codegen lives under the company directory (e.g. `google/tools/`, `quickbooks/tools/`).
 
-| Command | Location | Purpose |
-|---|---|---|
-| `mcp-openapi-codegen` | `tools/` | Generate MCP server package from an oapi-codegen client |
-| `yardrail-connector-codegen` | `tools/` | Generate yardrail connector handler, dispatch, catalog entry, CWL schema and CWL class mapping from a manifest |
-| `mcp-google-codegen` | `google/tools/` | Generate MCP server package from a Google Go SDK |
-| `specgen` | `quickbooks/tools/` | Generate OpenAPI spec from Intuit XSD schemas |
+| Command                      | Location            | Purpose                                                                                                        |
+| ---------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `mcp-openapi-codegen`        | `tools/`            | Generate MCP server package from an oapi-codegen client                                                        |
+| `yardrail-connector-codegen` | `tools/`            | Generate yardrail connector handler, dispatch, catalog entry, CWL schema and CWL class mapping from a manifest |
+| `mcp-google-codegen`         | `google/tools/`     | Generate MCP server package from a Google Go SDK                                                               |
+| `specgen`                    | `quickbooks/tools/` | Generate OpenAPI spec from Intuit XSD schemas                                                                  |
 
-Service packages invoke the MCP generators via `//go:generate` directives in `generate.go` files. `yardrail-connector-codegen` runs from the `generate:connector:*` tasks in this repo and, for the OpenAPI connectors only, from yardrail's `gen:connectors` task (pinned to `CODEGEN_VERSION`). Both write into the yardrail repo.
+Service packages invoke the MCP generators via `//go:generate` directives in `generate.go` files. `yardrail-connector-codegen` runs from each connector's `connector` Taskfile target.
 
-`mcp-openapi-codegen` handles type conversions for `uuid.UUID`, `types.Date`, `time.Time`, named string types, `[]string`, and `map[string]interface{}` params. It sanitizes tag names containing dots, hyphens, and underscores, and deduplicates operations that appear under multiple tags.
+## Taskfile reference
 
-## Taskfile
+### Per-connector tasks
 
-| Task | Description |
-|---|---|
-| `task build:tools` | Build codegen tool binaries |
-| `task generate` | Run `go generate` across all service modules |
-| `task build` | Build all modules |
-| `task test` | Run tests across all modules |
-| `task tidy` | Run `go mod tidy` across all modules |
-| `task vet` | Run `go vet` across all modules |
-| `task lint` | Run vet + build + test in sequence |
-| `task list:modules` | List all Go modules in the repo |
-| `task sync:workspace` | Regenerate `go.work` from all `go.mod` files |
-| `task docs:readme` | Regenerate README.md from template |
-| `task generate:connector:<name>` | Run `yardrail-connector-codegen` for one connector, writing into the yardrail repo (`YARDRAIL_DIR`, default `../yardrail`). `task --list` shows the names. Only `generate:connector:monday` writes the CWL schema and mapping |
+Every connector exposes standard entrypoints through hierarchical Taskfiles. Replace `<vendor>` with the vendor name (e.g. `slack`, `quickbooks`):
+
+| Task                      | Description                                            |
+| ------------------------- | ------------------------------------------------------ |
+| `task <vendor>:spec`      | Acquire or generate the API spec                       |
+| `task <vendor>:client`    | Generate the typed Go client (depends on `spec`)       |
+| `task <vendor>:connector` | Generate yardrail connector code (depends on `client`) |
+| `task <vendor>:build`     | `go build ./...`                                       |
+| `task <vendor>:test`      | `go test ./...`                                        |
+| `task <vendor>:vet`       | `go vet ./...`                                         |
+| `task <vendor>:lint`      | vet + build + test in sequence                         |
+
+### Aggregate tasks
+
+| Task                 | Description                                      |
+| -------------------- | ------------------------------------------------ |
+| `task spec:all`      | Run spec acquisition for all connectors          |
+| `task client:all`    | Generate clients for all connectors              |
+| `task connector:all` | Generate connector code for all connectors       |
+| `task build:all`     | Build all connector modules                      |
+| `task test:all`      | Run tests across all connector modules           |
+| `task vet:all`       | Run `go vet` across all connector modules        |
+| `task lint:all`      | Run vet + build + test for all connector modules |
+
+### Tool and utility tasks
+
+| Task                  | Description                                                                      |
+| --------------------- | -------------------------------------------------------------------------------- |
+| `task build:tools`    | Build all codegen tool binaries (`tools/`, `quickbooks/tools/`, `google/tools/`) |
+| `task test:tools`     | Run tests for all codegen tools                                                  |
+| `task docs:readme`    | Regenerate README.md from template                                               |
+| `task list:modules`   | List all Go modules in the repo                                                  |
+| `task sync:workspace` | Regenerate `go.work` from all `go.mod` files                                     |
 
 ## Adding a new service
 
 1. Create the directory: `mkdir -p <company>/<product>/<version>/{spec,client,mcp}`
 2. Initialize the module: `cd <company>/<product>/<version> && go mod init github.com/yardrail/connectors/<company>/<product>/<version>`
-3. Copy in the API spec to `spec/` — apply any necessary fixups (see Spec preparation above)
-4. Create `doc.go`, `client/generate.go`, `client/cfg.yaml`, `mcp/generate.go` (copy from an existing package of the same archetype)
-5. Run `task sync:workspace` to add the module to `go.work`
-6. Run `go generate ./client/` then `go mod tidy`
-7. Run `go generate ./mcp/` then `go mod tidy`
-8. Verify with `go build ./...`
-
-## Go workspace
-
-The root `go.work` file lists all modules for local development. This enables cross-module IDE support and `go build ./...` from the repo root. At scale, the `go.work` file itself may need to be generated from the directory tree.
+3. Copy in the API spec to `spec/` — apply any necessary fixups
+4. Create `doc.go`, `client/generate.go`, `client/cfg.yaml`, `mcp/generate.go` (copy from an existing connector of the same archetype)
+5. Create Taskfiles at the vendor, product, and version levels (copy from an existing connector of the same archetype)
+6. Wire the vendor Taskfile into the root `Taskfile.yml` includes block and add the vendor to each `*:all` aggregate task
+7. Run `task sync:workspace` to add the module to `go.work`
+8. Run `task <vendor>:client` to generate the client (runs `go mod tidy` automatically)
+9. Run `go generate ./mcp/` then `go mod tidy` (MCP generation is not yet wired into the Taskfile pipeline)
+10. Verify with `task <vendor>:build`

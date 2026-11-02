@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  marketing:
+    taskfile: marketing/Taskfile.yaml
+    dir: marketing
+
+tasks:
+  spec:
+    cmds:
+      - task: marketing:spec
+  client:
+    cmds:
+      - task: marketing:client
+  connector:
+    cmds:
+      - task: marketing:connector
+  build:
+    cmds:
+      - task: marketing:build
+  test:
+    cmds:
+      - task: marketing:test
+  vet:
+    cmds:
+      - task: marketing:vet
+  lint:
+    cmds:
+      - task: marketing:lint

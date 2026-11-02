@@ -1,0 +1,55 @@
+version: "3"
+
+vars:
+  CONNECTOR_NAME: canva
+  YARDRAIL_ROOT:
+    sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+
+tasks:
+  spec:
+    desc: "Canva API spec (committed, manually managed)"
+    cmds:
+      - echo "spec is committed — update manually"
+
+  client:
+    desc: "Generate Canva Go client from OpenAPI spec"
+    deps: [spec]
+    cmds:
+      - go generate ./client/...
+      - go mod tidy
+
+  connector:
+    desc: "Generate Canva yardrail connector code"
+    deps: [client]
+    dir: "{{.ROOT_DIR}}/tools"
+    cmds:
+      - >-
+        go run ./cmd/yardrail-connector-codegen
+        -manifest {{.TASKFILE_DIR}}/manifest.yaml
+        -out {{.YARDRAIL_ROOT}}/internal/connectors/{{.CONNECTOR_NAME}}
+        -catalog {{.YARDRAIL_ROOT}}/internal/connector/catalog_{{.CONNECTOR_NAME}}_gen.go
+        -pkgname {{.CONNECTOR_NAME}}
+        -cwl-schema {{.YARDRAIL_ROOT}}/pkg/workflows/schema/{{.CONNECTOR_NAME}}-ext.yml
+        -cwl-mapping {{.YARDRAIL_ROOT}}/pkg/workflows/connector_{{.CONNECTOR_NAME}}_gen.go
+
+  build:
+    desc: "Build"
+    cmds:
+      - go build ./...
+
+  test:
+    desc: "Run tests"
+    cmds:
+      - go test ./...
+
+  vet:
+    desc: "Run go vet"
+    cmds:
+      - go vet ./...
+
+  lint:
+    desc: "Run all checks"
+    cmds:
+      - task: vet
+      - task: build
+      - task: test

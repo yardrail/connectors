@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  v2:
+    taskfile: v2/Taskfile.yaml
+    dir: v2
+
+tasks:
+  spec:
+    cmds:
+      - task: v2:spec
+  client:
+    cmds:
+      - task: v2:client
+  connector:
+    cmds:
+      - task: v2:connector
+  build:
+    cmds:
+      - task: v2:build
+  test:
+    cmds:
+      - task: v2:test
+  vet:
+    cmds:
+      - task: v2:vet
+  lint:
+    cmds:
+      - task: v2:lint

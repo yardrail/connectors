@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  egnyte:
+    taskfile: egnyte/Taskfile.yaml
+    dir: egnyte
+
+tasks:
+  spec:
+    cmds:
+      - task: egnyte:spec
+  client:
+    cmds:
+      - task: egnyte:client
+  connector:
+    cmds:
+      - task: egnyte:connector
+  build:
+    cmds:
+      - task: egnyte:build
+  test:
+    cmds:
+      - task: egnyte:test
+  vet:
+    cmds:
+      - task: egnyte:vet
+  lint:
+    cmds:
+      - task: egnyte:lint
