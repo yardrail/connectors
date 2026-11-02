@@ -1,0 +1,29 @@
+$base: "https://yardrail.com/cwl/fireflies#"
+$namespaces:
+  fireflies: "https://yardrail.com/cwl/fireflies#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: GetMeeting_class
+    type: enum
+    inVocab: false
+    symbols: ["fireflies:GetMeeting"]
+
+  - name: GetMeeting
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Gets a meeting's metadata and AI summary. Does not return the full transcript text."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#GetMeeting_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

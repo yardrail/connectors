@@ -260,7 +260,7 @@ func inputType(t *testing.T, funcs []graphqlFunction, fn, name string) string {
 func TestLoadMondaySchema(t *testing.T) {
 	t.Parallel()
 
-	schema, err := loadGraphQLSchema(filepath.Join(connectorsRoot, "monday", "monday", "v2", "spec", "schema.graphql"))
+	schema, err := loadGraphQLSchema(filepath.Join(connectorsRoot, "monday", "monday", "spec", "schema.graphql"))
 	if err != nil {
 		t.Fatalf("loadGraphQLSchema: %v", err)
 	}
@@ -268,7 +268,7 @@ func TestLoadMondaySchema(t *testing.T) {
 	t.Run("columnValues type", func(t *testing.T) {
 		t.Parallel()
 
-		m, err := parseManifest(filepath.Join(connectorsRoot, "monday", "monday", "v2", "manifest.yaml"))
+		m, err := parseManifest(filepath.Join(connectorsRoot, "monday", "monday", "manifest.yaml"))
 		if err != nil {
 			t.Fatalf("parseManifest: %v", err)
 		}
