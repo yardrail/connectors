@@ -4,22 +4,53 @@ package notion
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
-// Connector wraps authenticated oapi-codegen clients per interface.
-// Use Client() for typed access to the full API surface.
+// InterfaceClient wraps an authenticated oapi-codegen client for one interface.
+type InterfaceClient struct {
+	cl *client.ClientWithResponses
+}
+
+// Dispatch calls the named function's typed client method.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch function {
+	case "create-a-data-source":
+		return ic.dispatchCreateADataSourceWithResponse(ctx, config, inputs)
+	case "list-data-source-templates":
+		return ic.dispatchListDataSourceTemplatesWithResponse(ctx, config, inputs)
+	case "move-page":
+		return ic.dispatchMovePageWithResponse(ctx, config, inputs)
+	case "query-data-source":
+		return ic.dispatchQueryDataSourceWithResponse(ctx, config, inputs)
+	case "retrieve-a-data-source":
+		return ic.dispatchRetrieveADataSourceWithResponse(ctx, config, inputs)
+	case "retrieve-a-database":
+		return ic.dispatchRetrieveADatabaseWithResponse(ctx, config, inputs)
+	case "retrieve-page-markdown":
+		return ic.dispatchRetrievePageMarkdownWithResponse(ctx, config, inputs)
+	case "update-a-data-source":
+		return ic.dispatchUpdateADataSourceWithResponse(ctx, config, inputs)
+	case "update-page-markdown":
+		return ic.dispatchUpdatePageMarkdownWithResponse(ctx, config, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	}
+}
+
+// Connector holds an authenticated client for each configured interface.
 type Connector struct {
-	clients map[string]*client.ClientWithResponses
+	clients map[string]*InterfaceClient
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
 // When httpClient is non-nil it is used for all outbound HTTP calls.
 func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*client.ClientWithResponses, 1)
+	clients := make(map[string]*InterfaceClient, 1)
 
 	if ifaceCreds, ok := creds["integration"]; ok {
 		baseURL := resolveBaseURL(config["integration"])
@@ -30,20 +61,20 @@ func NewConnector(creds, config map[string]map[string]string, httpClient *http.C
 			opts = append(opts, client.WithHTTPClient(httpClient))
 		}
 
-		c, err := client.NewClientWithResponses(baseURL, opts...)
+		cl, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating integration client: %w", err)
 		}
 
-		clients["integration"] = c
+		clients["integration"] = &InterfaceClient{cl: cl}
 	}
 
 	return &Connector{clients: clients}, nil
 }
 
-// Client returns the typed oapi-codegen client for the given interface.
+// Client returns the interface client for the given interface ID.
 // Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *client.ClientWithResponses {
+func (c *Connector) Client(interfaceID string) *InterfaceClient {
 	return c.clients[interfaceID]
 }
 

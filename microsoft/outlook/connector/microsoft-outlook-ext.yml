@@ -1,0 +1,41 @@
+$base: "https://yardrail.com/cwl/microsoft-outlook#"
+$namespaces:
+  microsoft-outlook: "https://yardrail.com/cwl/microsoft-outlook#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: ListEvents_class
+    type: enum
+    inVocab: false
+    symbols: ["microsoft-outlook:ListEvents"]
+
+  - name: ListEvents
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Lists events on a mailbox's calendar between two times, including attendees. Read-only; does not return event bodies."
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListEvents_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: userId
+        type: string
+        doc: "The mailbox's email address or user ID."
+      - name: startDateTime
+        type: string
+        doc: "Start of the time window, ISO 8601."
+      - name: endDateTime
+        type: string
+        doc: "End of the time window, ISO 8601."
+      - name: $top
+        type: ["null", "int"]
+        doc: "Maximum number of events to return."

@@ -115,9 +115,10 @@ func openAPIFunctions(methods []introspect.MethodInfo, ops map[string]*Operation
 	funcs := make([]connectorFunction, 0, len(methods))
 	for _, m := range methods {
 		funcs = append(funcs, connectorFunction{
-			Name:      m.Name,
-			ClassName: goIdent(m.Name),
-			Op:        ops[normalizeMethodToOpKey(m.Name)],
+			Name:       m.Name,
+			ClassName:  goIdent(m.Name),
+			MethodName: m.MethodName,
+			Op:         ops[normalizeMethodToOpKey(m.Name)],
 		})
 	}
 

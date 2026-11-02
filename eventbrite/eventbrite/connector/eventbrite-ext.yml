@@ -1,0 +1,2851 @@
+$base: "https://yardrail.com/cwl/eventbrite#"
+$namespaces:
+  eventbrite: "https://yardrail.com/cwl/eventbrite#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: AddATicketClassToTicketGroups_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:AddATicketClassToTicketGroups"]
+
+  - name: AddATicketClassToTicketGroups
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Add a Ticket Class to  Ticket Groups"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AddATicketClassToTicketGroups_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "ID of the Organization that owns the Ticket Group."
+      - name: event_id
+        type: string
+        doc: "ID of the Event that owns the Ticket Class."
+      - name: ticket_class_id
+        type: string
+        doc: "ID of the Ticket Class to add to the Ticket Group."
+      - name: ticket_group_ids
+        type: ["null", "Any"]
+        doc: "a list of ticket groups that will have the ticket class added to them"
+
+  - name: CalculateItems_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CalculateItems"]
+
+  - name: CalculateItems
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Calculate Items"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CalculateItems_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: absorb_fees
+        type: ["null", "boolean"]
+        doc: "If set to true, the Fees will be included in the base price provided instead of adding them on top of it. False by default."
+      - name: absorb_taxes
+        type: ["null", "boolean"]
+        doc: "If set to true, the Taxes will be included in the base price provided instead of adding them on top of it. False by default."
+      - name: base_price
+        type: string
+        doc: "The base price for the calculation."
+      - name: channel
+        type: ["null", "string"]
+        doc: "Sales channel used to calculate the price. If it’s not provided, web will be used by default."
+      - name: country
+        type: string
+        doc: "ISO 3166 2-letter country code where the event would be payed out."
+      - name: payment_type
+        type: ["null", "string"]
+        doc: "The payment type used to calculate the price. If it’s not provided, eventbrite will be used by default."
+      - name: scope
+        type: Any
+        doc: "The scope for which the item calculations will be made."
+
+  - name: CancelAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CancelAnEvent"]
+
+  - name: CancelAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Cancel an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CancelAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: CategoryByID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CategoryByID"]
+
+  - name: CategoryByID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Category by ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CategoryByID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CopyAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CopyAnEvent"]
+
+  - name: CopyAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Copy an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CopyAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: end_date
+        type: ["null", "string"]
+        doc: "01-31T13:00:00Z (datetime, optional) - The end time of the new event"
+      - name: name
+        type: ["null", "string"]
+        doc: "The name of the new event"
+      - name: start_date
+        type: ["null", "string"]
+        doc: "01-31T13:00:00Z (datetime, optional) - The start time of the new event"
+      - name: summary
+        type: ["null", "string"]
+        doc: "The summary of the new event"
+      - name: timezone
+        type: ["null", "string"]
+        doc: "Timezone for the new event (Olson format)"
+
+  - name: CreateACustomQuestionForAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateACustomQuestionForAnEvent"]
+
+  - name: CreateACustomQuestionForAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create a Custom question for an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateACustomQuestionForAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: Headers
+        type: ["null", "string"]
+        doc: "Authorization: Bearer PERSONAL_OAUTH_TOKEN\nContent-Type: application/json  "
+      - name: question
+        type: ["null", "Any"]
+
+  - name: CreateADefaultQuestionForAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateADefaultQuestionForAnEvent"]
+
+  - name: CreateADefaultQuestionForAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create a Default Question for an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateADefaultQuestionForAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: Headers
+        type: ["null", "string"]
+        doc: "Authorization: Bearer PERSONAL_OAUTH_TOKEN\nContent-Type: application/json"
+      - name: question
+        type: ["null", "Any"]
+
+  - name: CreateADiscount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateADiscount"]
+
+  - name: CreateADiscount
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create a Discount"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateADiscount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: CreateATeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateATeam"]
+
+  - name: CreateATeam
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create a Team"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateATeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "The event ID that the team will be created from."
+      - name: name
+        type: ["null", "string"]
+        doc: "Name of the team"
+      - name: password
+        type: ["null", "string"]
+        doc: "Password of the team"
+      - name: preferred_start_time
+        type: ["null", "string"]
+        doc: "Preferred start time the event"
+      - name: public_event_id
+        type: string
+        doc: "Public Event Id"
+
+  - name: CreateATicketClass_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateATicketClass"]
+
+  - name: CreateATicketClass
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create a Ticket Class"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateATicketClass_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID"
+
+  - name: CreateATicketGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateATicketGroup"]
+
+  - name: CreateATicketGroup
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create a Ticket Group"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateATicketGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: CreateAVenue_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateAVenue"]
+
+  - name: CreateAVenue
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create a Venue"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateAVenue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: CreateAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateAnEvent"]
+
+  - name: CreateAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "ID of the Organization that owns the Event."
+      - name: event
+        type: ["null", "Any"]
+
+  - name: CreateAnEventSchedule_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateAnEventSchedule"]
+
+  - name: CreateAnEventSchedule
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create an event schedule"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateAnEventSchedule_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID. Must be a valid series parent event."
+      - name: schedule
+        type: ["null", "Any"]
+
+  - name: CreateSeatMapForEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateSeatMapForEvent"]
+
+  - name: CreateSeatMapForEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create Seat Map For Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateSeatMapForEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event Id"
+      - name: source_seatmap_id
+        type: ["null", "string"]
+        doc: "m1 (string, required) - ID of source Seat Map to copy data from."
+
+  - name: CreateTextOverrides_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateTextOverrides"]
+
+  - name: CreateTextOverrides
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create Text Overrides"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateTextOverrides_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization Id"
+      - name: event_id
+        type: ["null", "string"]
+        doc: "Event ID."
+      - name: locale
+        type: ["null", "string"]
+        doc: "The locale for which you want to retrieve the strings.\n\nIf it is not provided, we will use the one from the context. If an event_id is specified, we will use the event's locale"
+      - name: strings
+        type: Any
+      - name: venue_id
+        type: ["null", "string"]
+        doc: "Venue ID."
+
+  - name: CreateWebhooksByOrganizationID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateWebhooksByOrganizationID"]
+
+  - name: CreateWebhooksByOrganizationID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create Webhooks by Organization ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateWebhooksByOrganizationID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID"
+      - name: actions
+        type: ["null", "string"]
+        doc: "One or any combination of actions that will cause this webhook to be triggered."
+      - name: endpoint_url
+        type: string
+        doc: "The URL that the webhook will send data to when triggered."
+      - name: event_id
+        type: ["null", "string"]
+        doc: "The Event ID that triggers this webhook. Leave blank for all events."
+
+  - name: CreateWebhooksDeprecated_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateWebhooksDeprecated"]
+
+  - name: CreateWebhooksDeprecated
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Create Webhooks - deprecated"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreateWebhooksDeprecated_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteACustomQuestionForAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteACustomQuestionForAnEvent"]
+
+  - name: DeleteACustomQuestionForAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Delete a Custom Question for an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DeleteACustomQuestionForAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: question_id
+        type: string
+        doc: "Custom Question ID."
+
+  - name: DeleteADiscount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteADiscount"]
+
+  - name: DeleteADiscount
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Delete a Discount"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DeleteADiscount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: discount_id
+        type: string
+        doc: "Discount ID."
+
+  - name: DeleteATicketGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteATicketGroup"]
+
+  - name: DeleteATicketGroup
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Delete a Ticket Group"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DeleteATicketGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: ticket_group_id
+        type: string
+        doc: "Ticket Group ID."
+
+  - name: DeleteAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteAnEvent"]
+
+  - name: DeleteAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Delete an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DeleteAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: DeleteAnInventoryTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteAnInventoryTier"]
+
+  - name: DeleteAnInventoryTier
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Delete an Inventory Tier"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DeleteAnInventoryTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID"
+      - name: inventory_tier_id
+        type: string
+        doc: "Inventory Tier ID"
+
+  - name: DeleteDefaultQuestionById_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteDefaultQuestionById"]
+
+  - name: DeleteDefaultQuestionById
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Delete Default Question by Id"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DeleteDefaultQuestionById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: question_id
+        type: string
+        doc: "Canned Question ID."
+
+  - name: DeleteWebhookByID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteWebhookByID"]
+
+  - name: DeleteWebhookByID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Delete Webhook by ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#DeleteWebhookByID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCustomQuestionById_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:GetCustomQuestionById"]
+
+  - name: GetCustomQuestionById
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Get Custom Question by Id"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#GetCustomQuestionById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: question_id
+        type: string
+        doc: "Custom Question ID."
+
+  - name: GetDefaultQuestionById_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:GetDefaultQuestionById"]
+
+  - name: GetDefaultQuestionById
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Get Default Question by Id"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#GetDefaultQuestionById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: question_id
+        type: string
+        doc: "Canned Question ID."
+
+  - name: GetRefundRetentionPolicy_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:GetRefundRetentionPolicy"]
+
+  - name: GetRefundRetentionPolicy
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Get refund retention policy"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#GetRefundRetentionPolicy_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: order_id
+        type: string
+        doc: "Order ID."
+
+  - name: ListAttendeesByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListAttendeesByEvent"]
+
+  - name: ListAttendeesByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Attendees by Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListAttendeesByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: ListAttendeesByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListAttendeesByOrganization"]
+
+  - name: ListAttendeesByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Attendees by Organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListAttendeesByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: ListAttendeesByTeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListAttendeesByTeam"]
+
+  - name: ListAttendeesByTeam
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Attendees by Team"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListAttendeesByTeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "The event ID that the team will be retrieved from."
+      - name: team_id
+        type: string
+        doc: "The team ID that will be retrieved."
+
+  - name: ListByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListByEvent"]
+
+  - name: ListByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List by Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "The event ID that the teams will be retrieved from."
+
+  - name: ListCustomQuestionsByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListCustomQuestionsByEvent"]
+
+  - name: ListCustomQuestionsByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Custom Questions by Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListCustomQuestionsByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: ListDefaultQuestionsByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListDefaultQuestionsByEvent"]
+
+  - name: ListDefaultQuestionsByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Default Questions by Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListDefaultQuestionsByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: ListEventsByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListEventsByOrganization"]
+
+  - name: ListEventsByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Events by Organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListEventsByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+      - name: status
+        type: ["null", "string"]
+        doc: "Filter Organization's Events by status. Specify multiple status values as a comma delimited string."
+      - name: order_by
+        type: ["null", "string"]
+        doc: "Sort order for the list of Events."
+      - name: page_size
+        type: ["null", "int"]
+        doc: "Number of records to display on each page of the list."
+
+  - name: ListEventsBySeries_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListEventsBySeries"]
+
+  - name: ListEventsBySeries
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Events by Series"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListEventsBySeries_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_series_id
+        type: string
+        doc: "Event Series ID."
+
+  - name: ListEventsByVenue_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListEventsByVenue"]
+
+  - name: ListEventsByVenue
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Events by Venue"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListEventsByVenue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: venue_id
+        type: string
+        doc: "Venue ID."
+
+  - name: ListFormats_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListFormats"]
+
+  - name: ListFormats
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Formats"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListFormats_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListInventoryTiersByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListInventoryTiersByEvent"]
+
+  - name: ListInventoryTiersByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Inventory Tiers by Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListInventoryTiersByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID"
+
+  - name: ListMembersOfAnOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListMembersOfAnOrganization"]
+
+  - name: ListMembersOfAnOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Members of an Organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListMembersOfAnOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: ListOfCategories_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOfCategories"]
+
+  - name: ListOfCategories
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List of Categories"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListOfCategories_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOfSubcategories_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOfSubcategories"]
+
+  - name: ListOfSubcategories
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List of Subcategories"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListOfSubcategories_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOfWebhooksDeprecation_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOfWebhooksDeprecation"]
+
+  - name: ListOfWebhooksDeprecation
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List of Webhooks - deprecation"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListOfWebhooksDeprecation_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOrdersByEventID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOrdersByEventID"]
+
+  - name: ListOrdersByEventID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Orders by Event ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListOrdersByEventID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: ListOrdersByOrganizationID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOrdersByOrganizationID"]
+
+  - name: ListOrdersByOrganizationID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Orders by Organization ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListOrdersByOrganizationID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: ListOrdersByUserID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOrdersByUserID"]
+
+  - name: ListOrdersByUserID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Orders by User ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListOrdersByUserID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: user_id
+        type: string
+        doc: "User ID."
+
+  - name: ListOrganizationsByUser_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOrganizationsByUser"]
+
+  - name: ListOrganizationsByUser
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Organizations by User"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListOrganizationsByUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: user_id
+        type: string
+        doc: "User ID."
+
+  - name: ListPricing_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListPricing"]
+
+  - name: ListPricing
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Pricing"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListPricing_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: country
+        type: string
+        doc: "Filter Fee Rates by country ISO 3166 alpha-2 code."
+      - name: currency
+        type: string
+        doc: "Filter Fee Rates by currency ISO 4217 3-character code."
+      - name: plan
+        type: ["null", "string"]
+        doc: "Filter Fee Rates by Assortment package name. If it’s not provided, or the value is ‘any’, all the existing variants will be returned."
+      - name: payment_type
+        type: ["null", "string"]
+        doc: "Filter Fee Rates by the payment type. If it’s not provided, or the value is ‘any’, all the existing variants will be returned."
+      - name: channel
+        type: ["null", "string"]
+        doc: "Filter Fee Rates by the sales channel. If it’s not provided, or the value is ‘any’, all the existing variants will be returned."
+      - name: item_type
+        type: ["null", "string"]
+        doc: "Filter Fee Rates by the item type. If it’s not provided, or the value is ‘any’, all the existing variants will be returned."
+
+  - name: ListRolesByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListRolesByOrganization"]
+
+  - name: ListRolesByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Roles by Organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListRolesByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: ListSeatMapsByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListSeatMapsByOrganization"]
+
+  - name: ListSeatMapsByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Seat Maps by Organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListSeatMapsByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+      - name: venue_id
+        type: ["null", "string"]
+        doc: "Filter Seat Maps by a venue."
+      - name: venue_name_filter
+        type: ["null", "string"]
+        doc: "Filter Seat Maps by sub-string match venue name."
+
+  - name: ListTicketClassesAvailableForSaleByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListTicketClassesAvailableForSaleByEvent"]
+
+  - name: ListTicketClassesAvailableForSaleByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Ticket Classes Available For Sale by Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListTicketClassesAvailableForSaleByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: ListTicketClassesByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListTicketClassesByEvent"]
+
+  - name: ListTicketClassesByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Ticket Classes by Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListTicketClassesByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: ListTicketGroupsByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListTicketGroupsByOrganization"]
+
+  - name: ListTicketGroupsByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Ticket Groups by Organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListTicketGroupsByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: ListVenuesByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListVenuesByOrganization"]
+
+  - name: ListVenuesByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Venues by Organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListVenuesByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+
+  - name: ListWebhookByOrganizationID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListWebhookByOrganizationID"]
+
+  - name: ListWebhookByOrganizationID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List Webhook by Organization ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListWebhookByOrganizationID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+
+  - name: ListYourOrganizations_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListYourOrganizations"]
+
+  - name: ListYourOrganizations
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "List your Organizations"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ListYourOrganizations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PublishAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:PublishAnEvent"]
+
+  - name: PublishAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Publish an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PublishAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: RefundOrder_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RefundOrder"]
+
+  - name: RefundOrder
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Refund Order"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RefundOrder_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: order_id
+        type: string
+        doc: "Order ID."
+      - name: credit_expiration_period
+        type: ["null", "string"]
+        doc: "Expiration period of credit issued for refund.  Defaults to the value configured by Event [Refund Policy](#refund_policy_object)."
+      - name: notes
+        type: ["null", "string"]
+        doc: "Refund notes"
+      - name: reason
+        type: ["null", "string"]
+        doc: "Refund reason."
+      - name: refund_method
+        type: ["null", "string"]
+        doc: "Refunding method.  Defaults to original_payment."
+      - name: refund_request_id
+        type: ["null", "string"]
+        doc: "Refund request to process"
+      - name: refund_retention_policy_strategy_code
+        type: ["null", "string"]
+        doc: "Who covers the Eventbrite service fee when the refund reason retains it. Omit to refund the Eventbrite fee (default behaviour). When provided, the refund follows the event's reason-based retention policy."
+      - name: send_refund_email
+        type: ["null", "boolean"]
+        doc: "Whether to send refund email. Defaults to true"
+
+  - name: RemainingBalance_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RemainingBalance"]
+
+  - name: RemainingBalance
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Remaining Balance"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RemainingBalance_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: public_organization_id
+        type: string
+      - name: public_event_id
+        type: string
+
+  - name: RetrieveAAttendeeReport_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAAttendeeReport"]
+
+  - name: RetrieveAAttendeeReport
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Attendee Report"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveAAttendeeReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveACapacityTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveACapacityTier"]
+
+  - name: RetrieveACapacityTier
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Capacity Tier"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveACapacityTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID"
+
+  - name: RetrieveADiscount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveADiscount"]
+
+  - name: RetrieveADiscount
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Discount"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveADiscount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: discount_id
+        type: string
+        doc: "Discount ID."
+
+  - name: RetrieveAFormat_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAFormat"]
+
+  - name: RetrieveAFormat
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Format"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveAFormat_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: format_id
+        type: string
+        doc: "Format ID."
+
+  - name: RetrieveAMediaUpload_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAMediaUpload"]
+
+  - name: RetrieveAMediaUpload
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Media Upload"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveAMediaUpload_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveASalesReport_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveASalesReport"]
+
+  - name: RetrieveASalesReport
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Sales Report"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveASalesReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveATicketClass_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveATicketClass"]
+
+  - name: RetrieveATicketClass
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Ticket Class"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveATicketClass_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: ticket_class_id
+        type: string
+        doc: "Ticket Class ID."
+
+  - name: RetrieveATicketGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveATicketGroup"]
+
+  - name: RetrieveATicketGroup
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Ticket Group"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveATicketGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: ticket_group_id
+        type: string
+        doc: "Ticket Group ID."
+
+  - name: RetrieveAVenue_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAVenue"]
+
+  - name: RetrieveAVenue
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve a Venue"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveAVenue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: venue_id
+        type: string
+        doc: "Venue ID."
+
+  - name: RetrieveAnAttendee_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAnAttendee"]
+
+  - name: RetrieveAnAttendee
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve an Attendee"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveAnAttendee_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: attendee_id
+        type: string
+        doc: "Attendee ID."
+
+  - name: RetrieveAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAnEvent"]
+
+  - name: RetrieveAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: RetrieveAnEventSeries_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAnEventSeries"]
+
+  - name: RetrieveAnEventSeries
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve an Event Series"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveAnEventSeries_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_series_id
+        type: string
+        doc: "Event Series ID."
+
+  - name: RetrieveAnInventoryTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAnInventoryTier"]
+
+  - name: RetrieveAnInventoryTier
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve an Inventory Tier"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveAnInventoryTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID"
+      - name: inventory_tier_id
+        type: string
+        doc: "Inventory Tier ID"
+
+  - name: RetrieveDisplaySettings_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveDisplaySettings"]
+
+  - name: RetrieveDisplaySettings
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Display Settings"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveDisplaySettings_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: RetrieveFullHTMLDescription_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveFullHTMLDescription"]
+
+  - name: RetrieveFullHTMLDescription
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Full HTML Description"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveFullHTMLDescription_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: RetrieveInformationAboutAUserAccount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveInformationAboutAUserAccount"]
+
+  - name: RetrieveInformationAboutAUserAccount
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Information about a User Account"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveInformationAboutAUserAccount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: user_id
+        type: string
+        doc: "User ID."
+
+  - name: RetrieveInformationAboutYourUserAccount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveInformationAboutYourUserAccount"]
+
+  - name: RetrieveInformationAboutYourUserAccount
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Information About Your User Account"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveInformationAboutYourUserAccount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveLatestPublishedVersionOfStructuredContentByEventId_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveLatestPublishedVersionOfStructuredContentByEventId"]
+
+  - name: RetrieveLatestPublishedVersionOfStructuredContentByEventId
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Latest Published Version of Structured Content by Event Id"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveLatestPublishedVersionOfStructuredContentByEventId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveLatestWorkingVersionOfStructuredContentByEventId_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveLatestWorkingVersionOfStructuredContentByEventId"]
+
+  - name: RetrieveLatestWorkingVersionOfStructuredContentByEventId
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Latest Working Version of Structured Content by Event Id"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveLatestWorkingVersionOfStructuredContentByEventId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveMedia_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveMedia"]
+
+  - name: RetrieveMedia
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Media"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveMedia_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: media_id
+        type: string
+        doc: "Media ID."
+      - name: width
+        type: ["null", "int"]
+        doc: "Thumbnail width."
+      - name: height
+        type: ["null", "int"]
+        doc: "Thumbnail height."
+
+  - name: RetrieveOrderByID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveOrderByID"]
+
+  - name: RetrieveOrderByID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Order by ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveOrderByID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: order_id
+        type: string
+        doc: "Order ID."
+
+  - name: RetrieveTeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveTeam"]
+
+  - name: RetrieveTeam
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Team"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveTeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "The event ID that the team will be retrieved from."
+      - name: team_id
+        type: string
+        doc: "The team ID that will be retrieved."
+
+  - name: RetrieveTextOverrides_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveTextOverrides"]
+
+  - name: RetrieveTextOverrides
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Text Overrides"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveTextOverrides_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization Id"
+      - name: locale
+        type: string
+        doc: "The Locale for which you want the strings."
+      - name: venue_id
+        type: ["null", "string"]
+        doc: "Venue ID."
+      - name: event_id
+        type: ["null", "string"]
+        doc: "Event ID."
+      - name: text_codes
+        type: string
+        doc: "List of text codes to retrieve"
+
+  - name: RetrieveTicketBuyerSettingsByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveTicketBuyerSettingsByEvent"]
+
+  - name: RetrieveTicketBuyerSettingsByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Retrieve Ticket Buyer Settings by Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RetrieveTicketBuyerSettingsByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: SearchDiscountsByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SearchDiscountsByOrganization"]
+
+  - name: SearchDiscountsByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Search Discounts by Organization"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SearchDiscountsByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: organization_id
+        type: string
+        doc: "Organization ID."
+      - name: scope
+        type: string
+        doc: "Discount scope."
+
+  - name: SearchEventsDeprecated_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SearchEventsDeprecated"]
+
+  - name: SearchEventsDeprecated
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Search Events - deprecated"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SearchEventsDeprecated_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SearchTeamsByNameTeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SearchTeamsByNameTeam"]
+
+  - name: SearchTeamsByNameTeam
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Search teams by name Team"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SearchTeamsByNameTeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "The event ID from which we want to search teams"
+      - name: term
+        type: string
+        doc: "Search term."
+
+  - name: SetStructuredContentByEventIdAndVersion_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SetStructuredContentByEventIdAndVersion"]
+
+  - name: SetStructuredContentByEventIdAndVersion
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Set Structured Content by Event Id and Version"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SetStructuredContentByEventIdAndVersion_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: version
+        type: string
+        doc: "Structured Content Version"
+      - name: access_type
+        type: ["null", "string"]
+      - name: modules
+        type: ["null", "Any"]
+        doc: "Structured content modules."
+      - name: publish
+        type: ["null", "boolean"]
+        doc: "Boolean indicating whether to publish contents after saving."
+      - name: purpose
+        type: ["null", "string"]
+
+  - name: SubcategoryByID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SubcategoryByID"]
+
+  - name: SubcategoryByID
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Subcategory by ID"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SubcategoryByID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: subcategory_id
+        type: string
+        doc: "Subcategory ID"
+
+  - name: UnpublishAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UnpublishAnEvent"]
+
+  - name: UnpublishAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Unpublish an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UnpublishAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+
+  - name: UpdateACapacityTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateACapacityTier"]
+
+  - name: UpdateACapacityTier
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update a Capacity Tier"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateACapacityTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID"
+      - name: capacity_tier
+        type: ["null", "Any"]
+
+  - name: UpdateADiscount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateADiscount"]
+
+  - name: UpdateADiscount
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update a Discount"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateADiscount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: discount_id
+        type: string
+        doc: "Discount ID."
+
+  - name: UpdateATicketClass_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateATicketClass"]
+
+  - name: UpdateATicketClass
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update a Ticket Class"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateATicketClass_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: ticket_class_id
+        type: string
+        doc: "Ticket Class ID."
+      - name: ticket_class
+        type: ["null", "Any"]
+
+  - name: UpdateATicketGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateATicketGroup"]
+
+  - name: UpdateATicketGroup
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update a Ticket Group"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateATicketGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: ticket_group_id
+        type: string
+        doc: "Ticket Group ID."
+
+  - name: UpdateAVenue_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateAVenue"]
+
+  - name: UpdateAVenue
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update a Venue"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateAVenue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: venue_id
+        type: string
+        doc: "Venue ID."
+
+  - name: UpdateAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateAnEvent"]
+
+  - name: UpdateAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: event
+        type: ["null", "Any"]
+
+  - name: UpdateAnInventoryTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateAnInventoryTier"]
+
+  - name: UpdateAnInventoryTier
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update an Inventory Tier"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateAnInventoryTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID"
+      - name: inventory_tier_id
+        type: string
+        doc: "Inventory Tier ID"
+      - name: inventory_tier
+        type: ["null", "Any"]
+
+  - name: UpdateDefaultQuestionById_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateDefaultQuestionById"]
+
+  - name: UpdateDefaultQuestionById
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update Default Question by Id"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateDefaultQuestionById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: question_id
+        type: string
+        doc: "Canned Question ID."
+
+  - name: UpdateDisplaySettings_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateDisplaySettings"]
+
+  - name: UpdateDisplaySettings
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update Display Settings"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateDisplaySettings_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: display_settings
+        type: ["null", "Any"]
+
+  - name: UpdateMultipleInventoryTiers_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateMultipleInventoryTiers"]
+
+  - name: UpdateMultipleInventoryTiers
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update Multiple Inventory Tiers"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateMultipleInventoryTiers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID"
+      - name: inventory_tiers
+        type: ["null", "Any"]
+
+  - name: UpdateTicketBuyerSettingsForAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateTicketBuyerSettingsForAnEvent"]
+
+  - name: UpdateTicketBuyerSettingsForAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Update Ticket Buyer Settings for an Event"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UpdateTicketBuyerSettingsForAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "Event ID."
+      - name: ticket_buyer_settings
+        type: ["null", "Any"]
+
+  - name: UploadAMediaFile_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UploadAMediaFile"]
+
+  - name: UploadAMediaFile
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Upload a Media File"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#UploadAMediaFile_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: crop_mask
+        type: ["null", "Any"]
+        doc: "A crop mask defines the window that will be used to crop the uploaded media"
+      - name: upload_token
+        type: string
+        doc: "The upload_token from the GET portion of the upload"
+
+  - name: VerifyPasswordForATeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:VerifyPasswordForATeam"]
+
+  - name: VerifyPasswordForATeam
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    doc: "Verify password for a team"
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VerifyPasswordForATeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+      - name: event_id
+        type: string
+        doc: "The event ID of the team which the password will be checked"
+      - name: team_id
+        type: string
+        doc: "The team ID which the password will be checked"
+      - name: password
+        type: string
+        doc: "Password to verify"

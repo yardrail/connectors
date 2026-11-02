@@ -185,9 +185,18 @@ func TestResolveErrors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			_, err := Resolve(tt.interfaceID, tt.function, map[string]string{"token": "t"}, nil, nil)
+			fn, err := Resolve(tt.interfaceID, tt.function, map[string]string{"token": "t"}, nil, nil)
+			if err != nil {
+				if !errors.Is(err, tt.wantErr) {
+					t.Errorf("Resolve error = %v, want %v", err, tt.wantErr)
+				}
+
+				return
+			}
+
+			_, err = fn(context.Background(), nil)
 			if !errors.Is(err, tt.wantErr) {
-				t.Errorf("Resolve error = %v, want %v", err, tt.wantErr)
+				t.Errorf("Dispatch error = %v, want %v", err, tt.wantErr)
 			}
 		})
 	}

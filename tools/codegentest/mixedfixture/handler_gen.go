@@ -4,24 +4,84 @@ package mixedfixture
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
-// Connector holds an authenticated oapi-codegen client for each configured
-// REST interface and an endpoint for each configured GraphQL interface.
-// Use Client() for typed access to the REST API surface.
-type Connector struct {
-	clients   map[string]*client.ClientWithResponses
-	endpoints map[string]*endpoint
+// InterfaceClient wraps an authenticated client for one interface (REST or GraphQL).
+type InterfaceClient struct {
+	cl *client.ClientWithResponses
+	ep *endpoint
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
+// Dispatch calls the named function using the appropriate protocol.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch function {
+	case "create-a-data-source":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchCreateADataSourceWithResponse(ctx, config, inputs)
+	case "get-widget":
+		if ic.ep == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.ep.call(ctx, function, queryGetWidget, inputs)
+	case "list-data-source-templates":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchListDataSourceTemplatesWithResponse(ctx, config, inputs)
+	case "move-page":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchMovePageWithResponse(ctx, config, inputs)
+	case "query-data-source":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchQueryDataSourceWithResponse(ctx, config, inputs)
+	case "retrieve-a-data-source":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchRetrieveADataSourceWithResponse(ctx, config, inputs)
+	case "retrieve-a-database":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchRetrieveADatabaseWithResponse(ctx, config, inputs)
+	case "retrieve-page-markdown":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchRetrievePageMarkdownWithResponse(ctx, config, inputs)
+	case "update-a-data-source":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchUpdateADataSourceWithResponse(ctx, config, inputs)
+	case "update-page-markdown":
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		}
+		return ic.dispatchUpdatePageMarkdownWithResponse(ctx, config, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	}
+}
+
+// Connector holds an authenticated client for each configured interface.
+type Connector struct {
+	clients map[string]*InterfaceClient
+}
+
 func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*client.ClientWithResponses, 1)
+	clients := make(map[string]*InterfaceClient, 1+1)
 
 	if ifaceCreds, ok := creds["rest"]; ok {
 		baseURL := resolveBaseURL(config["rest"])
@@ -32,20 +92,23 @@ func NewConnector(creds, config map[string]map[string]string, httpClient *http.C
 			opts = append(opts, client.WithHTTPClient(httpClient))
 		}
 
-		c, err := client.NewClientWithResponses(baseURL, opts...)
+		cl, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating rest client: %w", err)
 		}
 
-		clients["rest"] = c
+		clients["rest"] = &InterfaceClient{cl: cl}
 	}
 
-	return &Connector{clients: clients, endpoints: newEndpoints(creds, config, httpClient)}, nil
+	endpoints := newEndpoints(creds, config, httpClient)
+	for id, ep := range endpoints {
+		clients[id] = &InterfaceClient{ep: ep}
+	}
+
+	return &Connector{clients: clients}, nil
 }
 
-// Client returns the typed oapi-codegen client for the given interface.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *client.ClientWithResponses {
+func (c *Connector) Client(interfaceID string) *InterfaceClient {
 	return c.clients[interfaceID]
 }
 

@@ -18,7 +18,6 @@ tasks:
     deps: [client]
     cmds:
       - echo "no manifest.yaml — connector codegen not yet configured"
-
   build:
     desc: "Build"
     cmds:

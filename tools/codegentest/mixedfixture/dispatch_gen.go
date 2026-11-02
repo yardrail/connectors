@@ -30,71 +30,42 @@ var (
 	errGraphQL                = errors.New("mixedfixture: graphql errors")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"create-a-data-source":       dispatchCreateADataSourceWithResponse,
-	"list-data-source-templates": dispatchListDataSourceTemplatesWithResponse,
-	"move-page":                  dispatchMovePageWithResponse,
-	"query-data-source":          dispatchQueryDataSourceWithResponse,
-	"retrieve-a-data-source":     dispatchRetrieveADataSourceWithResponse,
-	"retrieve-a-database":        dispatchRetrieveADatabaseWithResponse,
-	"retrieve-page-markdown":     dispatchRetrievePageMarkdownWithResponse,
-	"update-a-data-source":       dispatchUpdateADataSourceWithResponse,
-	"update-page-markdown":       dispatchUpdatePageMarkdownWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. Only the requested interface's client or
-// endpoint is built, and the function must belong to that interface.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
 	if err != nil {
 		return nil, err
 	}
 
-	if cl := c.Client(interfaceID); cl != nil {
-		d, ok := Dispatchers[function]
-		if !ok {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-		}
-
-		return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-			return d(ctx, cl, config, inputs)
-		}, nil
+	cl := c.Client(interfaceID)
+	if cl == nil {
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	if ep := c.endpoints[interfaceID]; ep != nil {
-		op, ok := operations[function]
-		if !ok || op.interfaceID != interfaceID {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-		}
-
-		return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-			return ep.call(ctx, function, op.query, inputs)
-		}, nil
-	}
-
-	return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
+		return cl.Dispatch(ctx, function, config, inputs)
+	}, nil
 }
 
-func dispatchCreateADataSourceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+const queryGetWidget = `query GetWidget($widgetId: ID!) {
+  widget(id: $widgetId) {
+    id
+    name
+    size
+    attributes
+  }
+}
+`
+
+func (ic *InterfaceClient) dispatchCreateADataSourceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateADataSourceJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -109,7 +80,7 @@ func dispatchCreateADataSourceWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mixedfixture.create-a-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateADataSourceWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.CreateADataSourceWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -125,7 +96,7 @@ func dispatchCreateADataSourceWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListDataSourceTemplatesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListDataSourceTemplatesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -149,7 +120,7 @@ func dispatchListDataSourceTemplatesWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mixedfixture.list-data-source-templates: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListDataSourceTemplatesWithResponse(ctx, dataSourceId, &params)
+	resp, callErr := ic.cl.ListDataSourceTemplatesWithResponse(ctx, dataSourceId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -165,7 +136,7 @@ func dispatchListDataSourceTemplatesWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchMovePageWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -196,7 +167,7 @@ func dispatchMovePageWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("mixedfixture.move-page: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.MovePageWithResponse(ctx, parseUUID(pageId), &params, body)
+	resp, callErr := ic.cl.MovePageWithResponse(ctx, parseUUID(pageId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -212,7 +183,7 @@ func dispatchMovePageWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchQueryDataSourceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -243,7 +214,7 @@ func dispatchQueryDataSourceWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("mixedfixture.query-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.QueryDataSourceWithResponse(ctx, dataSourceId, &params, body)
+	resp, callErr := ic.cl.QueryDataSourceWithResponse(ctx, dataSourceId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -259,7 +230,7 @@ func dispatchQueryDataSourceWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveADataSourceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveADataSourceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -283,7 +254,7 @@ func dispatchRetrieveADataSourceWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mixedfixture.retrieve-a-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrieveADataSourceWithResponse(ctx, dataSourceId, &params)
+	resp, callErr := ic.cl.RetrieveADataSourceWithResponse(ctx, dataSourceId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -299,7 +270,7 @@ func dispatchRetrieveADataSourceWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveADatabaseWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -323,7 +294,7 @@ func dispatchRetrieveADatabaseWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mixedfixture.retrieve-a-database: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrieveADatabaseWithResponse(ctx, databaseId, &params)
+	resp, callErr := ic.cl.RetrieveADatabaseWithResponse(ctx, databaseId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -339,7 +310,7 @@ func dispatchRetrieveADatabaseWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrievePageMarkdownWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -363,7 +334,7 @@ func dispatchRetrievePageMarkdownWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mixedfixture.retrieve-page-markdown: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrievePageMarkdownWithResponse(ctx, parseUUID(pageId), &params)
+	resp, callErr := ic.cl.RetrievePageMarkdownWithResponse(ctx, parseUUID(pageId), &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -379,7 +350,7 @@ func dispatchRetrievePageMarkdownWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateADataSourceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateADataSourceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -410,7 +381,7 @@ func dispatchUpdateADataSourceWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mixedfixture.update-a-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UpdateADataSourceWithResponse(ctx, dataSourceId, &params, body)
+	resp, callErr := ic.cl.UpdateADataSourceWithResponse(ctx, dataSourceId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -426,7 +397,7 @@ func dispatchUpdateADataSourceWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdatePageMarkdownWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdatePageMarkdownWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -457,7 +428,7 @@ func dispatchUpdatePageMarkdownWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mixedfixture.update-page-markdown: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UpdatePageMarkdownWithResponse(ctx, parseUUID(pageId), &params, body)
+	resp, callErr := ic.cl.UpdatePageMarkdownWithResponse(ctx, parseUUID(pageId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -472,28 +443,6 @@ func dispatchUpdatePageMarkdownWithResponse(ctx context.Context, cl *client.Clie
 
 	return json.RawMessage(resp.Body), nil
 }
-
-// operation is a GraphQL function: the interface that serves it and the
-// operation text sent as the request's query.
-type operation struct {
-	interfaceID string
-	query       string
-}
-
-// operations maps function names to their GraphQL operations.
-var operations = map[string]operation{
-	"get-widget": {interfaceID: "gql", query: queryGetWidget},
-}
-
-const queryGetWidget = `query GetWidget($widgetId: ID!) {
-  widget(id: $widgetId) {
-    id
-    name
-    size
-    attributes
-  }
-}
-`
 
 type graphqlRequest struct {
 	Query     string          `json:"query"`
