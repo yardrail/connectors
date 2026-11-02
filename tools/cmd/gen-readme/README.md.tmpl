@@ -32,17 +32,15 @@ connectors/
     ├── tools/                      # Vendor-specific codegen (optional, e.g. quickbooks/tools/)
     └── <product>/
         ├── Taskfile.yaml           # Product-level — standard entrypoints
-        └── <version>/              # Each version is its own Go module
-            ├── go.mod
-            ├── Taskfile.yaml       # Version-level (if versioned) — standard entrypoints
-            ├── spec/               # API contract (OpenAPI, GraphQL SDL, etc.)
-            ├── client/             # Generated typed Go client (OpenAPI only)
-            └── mcp/                # Generated MCP server package
+        ├── go.mod
+        ├── spec/                   # API contract (OpenAPI, GraphQL SDL, etc.)
+        ├── client/                 # Generated typed Go client (OpenAPI only)
+        └── mcp/                    # Generated MCP server package
 ```
 
-Services are nested `company/product/version`. Single-product companies repeat the name (`slack/slack/`,
-`canva/canva/`). Each API version is a discrete Go module — importing one version does not pull in another's
-dependencies. The root `go.work` file lists all modules for local development, enabling cross-module IDE support.
+Services are nested `company/product`. Single-product companies repeat the name (`slack/slack/`,
+`canva/canva/`). Each product is its own Go module. The root `go.work` file lists all modules for local
+development, enabling cross-module IDE support.
 
 ## Service archetypes
 
@@ -68,7 +66,7 @@ google/sheets/v4/
 Services without a usable Go SDK — client and MCP packages are generated from the API spec.
 
 ```
-officernd/officernd/v2/
+officernd/officernd/
 ├── go.mod
 ├── spec/
 │   └── openapi.json
@@ -86,7 +84,7 @@ officernd/officernd/v2/
 GraphQL APIs with hand-written operations. No typed Go client yet (planned). See each connector's README for manifest and operation conventions.
 
 ```
-monday/monday/v2/
+monday/monday/
 ├── go.mod
 ├── manifest.yaml
 ├── spec/
@@ -183,8 +181,8 @@ Every connector exposes standard entrypoints through hierarchical Taskfiles. Rep
 
 ## Adding a new service
 
-1. Create the directory: `mkdir -p <company>/<product>/<version>/{spec,client,mcp}`
-2. Initialize the module: `cd <company>/<product>/<version> && go mod init github.com/yardrail/connectors/<company>/<product>/<version>`
+1. Create the directory: `mkdir -p <company>/<product>/{spec,client,mcp}`
+2. Initialize the module: `cd <company>/<product> && go mod init github.com/yardrail/connectors/<company>/<product>`
 3. Copy in the API spec to `spec/` — apply any necessary fixups
 4. Create `doc.go`, `client/generate.go`, `client/cfg.yaml`, `mcp/generate.go` (copy from an existing connector of the same archetype)
 5. Create Taskfiles at the vendor, product, and version levels (copy from an existing connector of the same archetype)

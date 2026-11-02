@@ -5,12 +5,12 @@ use (
 	./egnyte/egnyte
 	./eventbrite/eventbrite
 	./fireflies/fireflies
-	./hubspot/crm-contacts/v3
-	./mailchimp/marketing/v3
+	./hubspot/crm-contacts
+	./mailchimp/marketing
 	./microsoft/outlook
-	./monday/monday/v2
+	./monday/monday
 	./notion/notion
-	./officernd/officernd/v2
+	./officernd/officernd
 	./quickbooks/account
 	./slack/slack
 	./stripe/stripe

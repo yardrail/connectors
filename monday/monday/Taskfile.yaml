@@ -1,29 +1,54 @@
 version: "3"
 
-includes:
-  v2:
-    taskfile: v2/Taskfile.yaml
-    dir: v2
+vars:
+  CONNECTOR_NAME: monday
+  YARDRAIL_ROOT:
+    sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
 
 tasks:
   spec:
+    desc: "Monday.com GraphQL schema (committed, manually managed)"
     cmds:
-      - task: v2:spec
+      - echo "schema is committed — update manually"
+
   client:
+    desc: "Monday.com client generation (no-op for GraphQL)"
+    deps: [spec]
     cmds:
-      - task: v2:client
+      - echo "GraphQL connector — no client generation needed"
+
   connector:
+    desc: "Generate Monday.com yardrail connector code"
+    deps: [client]
+    dir: "{{.ROOT_DIR}}/tools"
     cmds:
-      - task: v2:connector
+      - >-
+        go run ./cmd/yardrail-connector-codegen
+        -manifest {{.TASKFILE_DIR}}/manifest.yaml
+        -out {{.YARDRAIL_ROOT}}/internal/connectors/{{.CONNECTOR_NAME}}
+        -catalog {{.YARDRAIL_ROOT}}/internal/connector/catalog_{{.CONNECTOR_NAME}}_gen.go
+        -pkgname {{.CONNECTOR_NAME}}
+        -cwl-schema {{.YARDRAIL_ROOT}}/pkg/workflows/schema/{{.CONNECTOR_NAME}}-ext.yml
+        -cwl-mapping {{.YARDRAIL_ROOT}}/pkg/workflows/connector_{{.CONNECTOR_NAME}}_gen.go
+
   build:
+    desc: "Build"
     cmds:
-      - task: v2:build
+      - go build ./...
+
   test:
+    desc: "Run tests"
     cmds:
-      - task: v2:test
+      - go test ./...
+
   vet:
+    desc: "Run go vet"
     cmds:
-      - task: v2:vet
+      - go vet ./...
+
   lint:
+    desc: "Run all checks"
     cmds:
-      - task: v2:lint
+      - task: vet
+      - task: build
+      - task: test

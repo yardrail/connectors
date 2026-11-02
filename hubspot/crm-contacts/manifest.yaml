@@ -13,7 +13,7 @@ interfaces:
     capabilities: [contact.read, contact.create, contact.update, contact.delete, contact.search]
     source:
       openapi: spec/openapi.json
-      client: github.com/yardrail/connectors/hubspot/crm-contacts/v3/client
+      client: github.com/yardrail/connectors/hubspot/crm-contacts/client
 
   - id: private-app
     name: Private App
@@ -24,4 +24,4 @@ interfaces:
     capabilities: [contact.read, contact.create, contact.update, contact.delete, contact.search]
     source:
       openapi: spec/openapi.json
-      client: github.com/yardrail/connectors/hubspot/crm-contacts/v3/client
+      client: github.com/yardrail/connectors/hubspot/crm-contacts/client

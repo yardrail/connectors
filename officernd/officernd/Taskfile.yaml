@@ -1,29 +1,42 @@
 version: "3"
 
-includes:
-  v2:
-    taskfile: v2/Taskfile.yaml
-    dir: v2
-
 tasks:
   spec:
+    desc: "OfficeRnD spec (committed, manually managed)"
     cmds:
-      - task: v2:spec
+      - echo "spec is committed — update manually"
+
   client:
+    desc: "Generate OfficeRnD Go client"
+    deps: [spec]
     cmds:
-      - task: v2:client
+      - go generate ./client/...
+      - go mod tidy
+
   connector:
+    desc: "OfficeRnD connector codegen (no manifest yet)"
+    deps: [client]
     cmds:
-      - task: v2:connector
+      - echo "no manifest.yaml — connector codegen not yet configured"
+
   build:
+    desc: "Build"
     cmds:
-      - task: v2:build
+      - go build ./...
+
   test:
+    desc: "Run tests"
     cmds:
-      - task: v2:test
+      - go test ./...
+
   vet:
+    desc: "Run go vet"
     cmds:
-      - task: v2:vet
+      - go vet ./...
+
   lint:
+    desc: "Run all checks"
     cmds:
-      - task: v2:lint
+      - task: vet
+      - task: build
+      - task: test

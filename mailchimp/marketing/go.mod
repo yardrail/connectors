@@ -1,4 +1,4 @@
-module github.com/yardrail/connectors/mailchimp/marketing/v3
+module github.com/yardrail/connectors/mailchimp/marketing
 
 go 1.27.1
 

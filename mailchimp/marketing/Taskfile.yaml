@@ -1,29 +1,55 @@
 version: "3"
 
-includes:
-  v3:
-    taskfile: v3/Taskfile.yaml
-    dir: v3
+vars:
+  CONNECTOR_NAME: mailchimp
+  YARDRAIL_ROOT:
+    sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
 
 tasks:
   spec:
+    desc: "Mailchimp Marketing spec (committed, manually managed)"
     cmds:
-      - task: v3:spec
+      - echo "spec is committed — update manually"
+
   client:
+    desc: "Generate Mailchimp Marketing Go client"
+    deps: [spec]
     cmds:
-      - task: v3:client
+      - go generate ./client/...
+      - go mod tidy
+
   connector:
+    desc: "Generate Mailchimp yardrail connector code"
+    deps: [client]
+    dir: "{{.ROOT_DIR}}/tools"
     cmds:
-      - task: v3:connector
+      - >-
+        go run ./cmd/yardrail-connector-codegen
+        -manifest {{.TASKFILE_DIR}}/manifest.yaml
+        -out {{.YARDRAIL_ROOT}}/internal/connectors/{{.CONNECTOR_NAME}}
+        -catalog {{.YARDRAIL_ROOT}}/internal/connector/catalog_{{.CONNECTOR_NAME}}_gen.go
+        -pkgname {{.CONNECTOR_NAME}}
+        -cwl-schema {{.YARDRAIL_ROOT}}/pkg/workflows/schema/{{.CONNECTOR_NAME}}-ext.yml
+        -cwl-mapping {{.YARDRAIL_ROOT}}/pkg/workflows/connector_{{.CONNECTOR_NAME}}_gen.go
+
   build:
+    desc: "Build"
     cmds:
-      - task: v3:build
+      - go build ./...
+
   test:
+    desc: "Run tests"
     cmds:
-      - task: v3:test
+      - go test ./...
+
   vet:
+    desc: "Run go vet"
     cmds:
-      - task: v3:vet
+      - go vet ./...
+
   lint:
+    desc: "Run all checks"
     cmds:
-      - task: v3:lint
+      - task: vet
+      - task: build
+      - task: test

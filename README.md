@@ -18,12 +18,12 @@ This repo also holds the API specs and codegen tools used to produce those packa
 | Egnyte | `egnyte/egnyte` | `github.com/yardrail/connectors/egnyte/egnyte` | 178 | 80 / 61 / 243 |
 | Eventbrite | `eventbrite/eventbrite` | `github.com/yardrail/connectors/eventbrite/eventbrite` | 102 | 28 / 3 / 278 |
 | Fireflies | `fireflies/fireflies` | `github.com/yardrail/connectors/fireflies/fireflies` | — | — |
-| HubSpot CRM Contacts | `hubspot/crm-contacts/v3` | `github.com/yardrail/connectors/hubspot/crm-contacts/v3` | 13 | 10 / 3 / 4 |
-| Mailchimp | `mailchimp/marketing/v3` | `github.com/yardrail/connectors/mailchimp/marketing/v3` | 298 | 297 / 0 / 11 |
+| HubSpot CRM Contacts | `hubspot/crm-contacts` | `github.com/yardrail/connectors/hubspot/crm-contacts` | 13 | 10 / 3 / 4 |
+| Mailchimp | `mailchimp/marketing` | `github.com/yardrail/connectors/mailchimp/marketing` | 298 | 297 / 0 / 11 |
 | Microsoft Outlook | `microsoft/outlook` | `github.com/yardrail/connectors/microsoft/outlook` | — | 0 / 0 / 1 |
-| monday.com | `monday/monday/v2` | `github.com/yardrail/connectors/monday/monday/v2` | — | — |
+| monday.com | `monday/monday` | `github.com/yardrail/connectors/monday/monday` | — | — |
 | Notion | `notion/notion` | `github.com/yardrail/connectors/notion/notion` | 9 | 11 / 3 / 11 |
-| officernd | `officernd/officernd/v2` | `github.com/yardrail/connectors/officernd/officernd/v2` | 161 | 206 / 120 / 179 |
+| officernd | `officernd/officernd` | `github.com/yardrail/connectors/officernd/officernd` | 161 | 206 / 120 / 179 |
 | QuickBooks Online Accounting | `quickbooks/account` | `github.com/yardrail/connectors/quickbooks/account` | 90 | 0 / 0 / 192 |
 | Slack | `slack/slack` | `github.com/yardrail/connectors/slack/slack` | 174 | 91 / 25 / 49 |
 | Stripe | `stripe/stripe` | `github.com/yardrail/connectors/stripe/stripe` | 611 | 617 / 422 / 1237 |
@@ -47,17 +47,15 @@ connectors/
     ├── tools/                      # Vendor-specific codegen (optional, e.g. quickbooks/tools/)
     └── <product>/
         ├── Taskfile.yaml           # Product-level — standard entrypoints
-        └── <version>/              # Each version is its own Go module
-            ├── go.mod
-            ├── Taskfile.yaml       # Version-level (if versioned) — standard entrypoints
-            ├── spec/               # API contract (OpenAPI, GraphQL SDL, etc.)
-            ├── client/             # Generated typed Go client (OpenAPI only)
-            └── mcp/                # Generated MCP server package
+        ├── go.mod
+        ├── spec/                   # API contract (OpenAPI, GraphQL SDL, etc.)
+        ├── client/                 # Generated typed Go client (OpenAPI only)
+        └── mcp/                    # Generated MCP server package
 ```
 
-Services are nested `company/product/version`. Single-product companies repeat the name (`slack/slack/`,
-`canva/canva/`). Each API version is a discrete Go module — importing one version does not pull in another's
-dependencies. The root `go.work` file lists all modules for local development, enabling cross-module IDE support.
+Services are nested `company/product`. Single-product companies repeat the name (`slack/slack/`,
+`canva/canva/`). Each product is its own Go module. The root `go.work` file lists all modules for local
+development, enabling cross-module IDE support.
 
 ## Service archetypes
 
@@ -83,7 +81,7 @@ google/sheets/v4/
 Services without a usable Go SDK — client and MCP packages are generated from the API spec.
 
 ```
-officernd/officernd/v2/
+officernd/officernd/
 ├── go.mod
 ├── spec/
 │   └── openapi.json
@@ -101,7 +99,7 @@ officernd/officernd/v2/
 GraphQL APIs with hand-written operations. No typed Go client yet (planned). See each connector's README for manifest and operation conventions.
 
 ```
-monday/monday/v2/
+monday/monday/
 ├── go.mod
 ├── manifest.yaml
 ├── spec/
@@ -198,8 +196,8 @@ Every connector exposes standard entrypoints through hierarchical Taskfiles. Rep
 
 ## Adding a new service
 
-1. Create the directory: `mkdir -p <company>/<product>/<version>/{spec,client,mcp}`
-2. Initialize the module: `cd <company>/<product>/<version> && go mod init github.com/yardrail/connectors/<company>/<product>/<version>`
+1. Create the directory: `mkdir -p <company>/<product>/{spec,client,mcp}`
+2. Initialize the module: `cd <company>/<product> && go mod init github.com/yardrail/connectors/<company>/<product>`
 3. Copy in the API spec to `spec/` — apply any necessary fixups
 4. Create `doc.go`, `client/generate.go`, `client/cfg.yaml`, `mcp/generate.go` (copy from an existing connector of the same archetype)
 5. Create Taskfiles at the vendor, product, and version levels (copy from an existing connector of the same archetype)

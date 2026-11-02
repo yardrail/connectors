@@ -1,4 +1,4 @@
-module github.com/yardrail/connectors/officernd/officernd/v2
+module github.com/yardrail/connectors/officernd/officernd
 
 go 1.27.1
 

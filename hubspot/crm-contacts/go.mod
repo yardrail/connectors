@@ -1,4 +1,4 @@
-module github.com/yardrail/connectors/hubspot/crm-contacts/v3
+module github.com/yardrail/connectors/hubspot/crm-contacts
 
 go 1.27.1
 
