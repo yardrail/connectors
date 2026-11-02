@@ -7,16 +7,16 @@ vars:
 
 tasks:
   spec:
-    desc: "Stripe API spec (committed, manually managed)"
+    desc: "Stripe API spec (committed, with jq fixup for oapi-codegen compatibility)"
     cmds:
-      - echo "spec is committed — update manually"
+      - jq -f spec/fixup.jq spec/openapi.json > spec/openapi.fixed.json
 
   client:
     desc: "Generate Stripe Go client from OpenAPI spec"
     deps: [spec]
     cmds:
-      - go generate ./client/...
-      - go mod tidy
+      - mise exec -- go generate ./client/...
+      - mise exec -- go mod tidy
 
   connector:
     desc: "Generate Stripe yardrail connector code"
@@ -35,17 +35,17 @@ tasks:
   build:
     desc: "Build"
     cmds:
-      - go build ./...
+      - mise exec -- go build ./...
 
   test:
     desc: "Run tests"
     cmds:
-      - go test ./...
+      - mise exec -- go test ./...
 
   vet:
     desc: "Run go vet"
     cmds:
-      - go vet ./...
+      - mise exec -- go vet ./...
 
   lint:
     desc: "Run all checks"

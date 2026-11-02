@@ -10,9 +10,9 @@ tasks:
     desc: "Convert Eventbrite API Blueprint to OpenAPI 3.0"
     dir: "{{.TASKFILE_DIR}}/spec"
     cmds:
-      - npx --yes api-spec-converter@2 --from api_blueprint --to swagger_2 eventbrite-api-v3-public.apib > swagger2.json
+      - mise exec -- npx --yes api-spec-converter@2 --from api_blueprint --to swagger_2 eventbrite-api-v3-public.apib > swagger2.json
       - python3 fixup.py swagger2 swagger2.json swagger2-fixed.json
-      - npx --yes swagger2openapi@7 --patch swagger2-fixed.json -o openapi.json
+      - mise exec -- npx --yes swagger2openapi@7 --patch swagger2-fixed.json -o openapi.json
       - python3 fixup.py openapi3 openapi.json
       - rm swagger2.json swagger2-fixed.json
 
@@ -20,8 +20,8 @@ tasks:
     desc: "Generate Eventbrite Go client from OpenAPI spec"
     deps: [spec]
     cmds:
-      - go generate ./client/...
-      - go mod tidy
+      - mise exec -- go generate ./client/...
+      - mise exec -- go mod tidy
 
   connector:
     desc: "Generate Eventbrite yardrail connector code"
@@ -40,17 +40,17 @@ tasks:
   build:
     desc: "Build"
     cmds:
-      - go build ./...
+      - mise exec -- go build ./...
 
   test:
     desc: "Run tests"
     cmds:
-      - go test ./...
+      - mise exec -- go test ./...
 
   vet:
     desc: "Run go vet"
     cmds:
-      - go vet ./...
+      - mise exec -- go vet ./...
 
   lint:
     desc: "Run all checks"

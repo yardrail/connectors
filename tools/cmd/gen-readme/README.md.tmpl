@@ -15,6 +15,19 @@ This repo also holds the API specs and codegen tools used to produce those packa
 
 Missing description counts are from [vacuum](https://github.com/daveshanley/vacuum) spectral reports run against each connector's OpenAPI spec. Lower is better — missing descriptions degrade MCP tool usability for LLMs.
 
+## Prerequisites
+
+This repo uses [mise](https://mise.jdx.dev/) to manage tool dependencies. Run `mise install` to set up the required tools:
+
+| Tool             | Purpose                              |
+| ---------------- | ------------------------------------ |
+| `node`           | npm tools for spec conversion        |
+| `oapi-codegen`   | Generate Go clients from OpenAPI     |
+| `task`           | Task runner for the build pipeline   |
+| `trivy`          | Security scanning                    |
+
+The Go toolchain version is pinned in `go.work`. All other tools are pinned in `.mise.toml`.
+
 ## Repository structure
 
 ```

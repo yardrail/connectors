@@ -34,17 +34,17 @@ tasks:
   build:
     desc: "Build"
     cmds:
-      - go build ./...
+      - mise exec -- go build ./...
 
   test:
     desc: "Run tests"
     cmds:
-      - go test ./...
+      - mise exec -- go test ./...
 
   vet:
     desc: "Run go vet"
     cmds:
-      - go vet ./...
+      - mise exec -- go vet ./...
 
   lint:
     desc: "Run all checks"
