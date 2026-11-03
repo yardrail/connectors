@@ -20,12 +20,6 @@ import (
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
-func parseUUID(s string) uuid.UUID {
-	id, _ := uuid.Parse(s)
-
-	return id
-}
-
 var (
 	errInterfaceNotConfigured = errors.New("mixedfixture: interface not configured")
 	errUnknownFunction        = errors.New("mixedfixture: unknown function")
@@ -96,22 +90,13 @@ func (ic *InterfaceClient) dispatchCreateADataSourceWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchListDataSourceTemplatesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("mixedfixture.list-data-source-templates: %w", pathErr)
+	var pathArgs struct {
+		DataSourceId string `json:"dataSourceId"`
 	}
 
-	var dataSourceId string
-
-	if raw, ok := pathArgs["dataSourceId"]; ok {
-		paramErr := json.Unmarshal(raw, &dataSourceId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("mixedfixture.list-data-source-templates: param dataSourceId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("mixedfixture.list-data-source-templates: %w", err)
 	}
-
 	var params client.ListDataSourceTemplatesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -119,7 +104,7 @@ func (ic *InterfaceClient) dispatchListDataSourceTemplatesWithResponse(ctx conte
 		return nil, fmt.Errorf("mixedfixture.list-data-source-templates: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ListDataSourceTemplatesWithResponse(ctx, dataSourceId, &params)
+	resp, callErr := ic.cl.ListDataSourceTemplatesWithResponse(ctx, pathArgs.DataSourceId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -136,22 +121,13 @@ func (ic *InterfaceClient) dispatchListDataSourceTemplatesWithResponse(ctx conte
 }
 
 func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("mixedfixture.move-page: %w", pathErr)
+	var pathArgs struct {
+		PageId uuid.UUID `json:"pageId"`
 	}
 
-	var pageId string
-
-	if raw, ok := pathArgs["pageId"]; ok {
-		paramErr := json.Unmarshal(raw, &pageId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("mixedfixture.move-page: param pageId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("mixedfixture.move-page: %w", err)
 	}
-
 	var body client.MovePageJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -166,7 +142,7 @@ func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, _ m
 		return nil, fmt.Errorf("mixedfixture.move-page: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.MovePageWithResponse(ctx, parseUUID(pageId), &params, body)
+	resp, callErr := ic.cl.MovePageWithResponse(ctx, pathArgs.PageId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -183,22 +159,13 @@ func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, _ m
 }
 
 func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("mixedfixture.query-data-source: %w", pathErr)
+	var pathArgs struct {
+		DataSourceId string `json:"dataSourceId"`
 	}
 
-	var dataSourceId string
-
-	if raw, ok := pathArgs["dataSourceId"]; ok {
-		paramErr := json.Unmarshal(raw, &dataSourceId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("mixedfixture.query-data-source: param dataSourceId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("mixedfixture.query-data-source: %w", err)
 	}
-
 	var body client.QueryDataSourceJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -213,7 +180,7 @@ func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("mixedfixture.query-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.QueryDataSourceWithResponse(ctx, dataSourceId, &params, body)
+	resp, callErr := ic.cl.QueryDataSourceWithResponse(ctx, pathArgs.DataSourceId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -230,22 +197,13 @@ func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchRetrieveADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("mixedfixture.retrieve-a-data-source: %w", pathErr)
+	var pathArgs struct {
+		DataSourceId string `json:"dataSourceId"`
 	}
 
-	var dataSourceId string
-
-	if raw, ok := pathArgs["dataSourceId"]; ok {
-		paramErr := json.Unmarshal(raw, &dataSourceId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("mixedfixture.retrieve-a-data-source: param dataSourceId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("mixedfixture.retrieve-a-data-source: %w", err)
 	}
-
 	var params client.RetrieveADataSourceParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -253,7 +211,7 @@ func (ic *InterfaceClient) dispatchRetrieveADataSourceWithResponse(ctx context.C
 		return nil, fmt.Errorf("mixedfixture.retrieve-a-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RetrieveADataSourceWithResponse(ctx, dataSourceId, &params)
+	resp, callErr := ic.cl.RetrieveADataSourceWithResponse(ctx, pathArgs.DataSourceId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -270,22 +228,13 @@ func (ic *InterfaceClient) dispatchRetrieveADataSourceWithResponse(ctx context.C
 }
 
 func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("mixedfixture.retrieve-a-database: %w", pathErr)
+	var pathArgs struct {
+		DatabaseId string `json:"databaseId"`
 	}
 
-	var databaseId string
-
-	if raw, ok := pathArgs["databaseId"]; ok {
-		paramErr := json.Unmarshal(raw, &databaseId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("mixedfixture.retrieve-a-database: param databaseId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("mixedfixture.retrieve-a-database: %w", err)
 	}
-
 	var params client.RetrieveADatabaseParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -293,7 +242,7 @@ func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Con
 		return nil, fmt.Errorf("mixedfixture.retrieve-a-database: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RetrieveADatabaseWithResponse(ctx, databaseId, &params)
+	resp, callErr := ic.cl.RetrieveADatabaseWithResponse(ctx, pathArgs.DatabaseId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -310,22 +259,13 @@ func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("mixedfixture.retrieve-page-markdown: %w", pathErr)
+	var pathArgs struct {
+		PageId uuid.UUID `json:"pageId"`
 	}
 
-	var pageId string
-
-	if raw, ok := pathArgs["pageId"]; ok {
-		paramErr := json.Unmarshal(raw, &pageId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("mixedfixture.retrieve-page-markdown: param pageId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("mixedfixture.retrieve-page-markdown: %w", err)
 	}
-
 	var params client.RetrievePageMarkdownParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -333,7 +273,7 @@ func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.
 		return nil, fmt.Errorf("mixedfixture.retrieve-page-markdown: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RetrievePageMarkdownWithResponse(ctx, parseUUID(pageId), &params)
+	resp, callErr := ic.cl.RetrievePageMarkdownWithResponse(ctx, pathArgs.PageId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -350,22 +290,13 @@ func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchUpdateADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("mixedfixture.update-a-data-source: %w", pathErr)
+	var pathArgs struct {
+		DataSourceId string `json:"dataSourceId"`
 	}
 
-	var dataSourceId string
-
-	if raw, ok := pathArgs["dataSourceId"]; ok {
-		paramErr := json.Unmarshal(raw, &dataSourceId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("mixedfixture.update-a-data-source: param dataSourceId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("mixedfixture.update-a-data-source: %w", err)
 	}
-
 	var body client.UpdateADataSourceJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -380,7 +311,7 @@ func (ic *InterfaceClient) dispatchUpdateADataSourceWithResponse(ctx context.Con
 		return nil, fmt.Errorf("mixedfixture.update-a-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.UpdateADataSourceWithResponse(ctx, dataSourceId, &params, body)
+	resp, callErr := ic.cl.UpdateADataSourceWithResponse(ctx, pathArgs.DataSourceId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -397,22 +328,13 @@ func (ic *InterfaceClient) dispatchUpdateADataSourceWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchUpdatePageMarkdownWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("mixedfixture.update-page-markdown: %w", pathErr)
+	var pathArgs struct {
+		PageId uuid.UUID `json:"pageId"`
 	}
 
-	var pageId string
-
-	if raw, ok := pathArgs["pageId"]; ok {
-		paramErr := json.Unmarshal(raw, &pageId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("mixedfixture.update-page-markdown: param pageId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("mixedfixture.update-page-markdown: %w", err)
 	}
-
 	var body client.UpdatePageMarkdownJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -427,7 +349,7 @@ func (ic *InterfaceClient) dispatchUpdatePageMarkdownWithResponse(ctx context.Co
 		return nil, fmt.Errorf("mixedfixture.update-page-markdown: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.UpdatePageMarkdownWithResponse(ctx, parseUUID(pageId), &params, body)
+	resp, callErr := ic.cl.UpdatePageMarkdownWithResponse(ctx, pathArgs.PageId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}

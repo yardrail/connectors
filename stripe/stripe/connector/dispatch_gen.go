@@ -43,31 +43,14 @@ func Resolve(
 }
 
 func (ic *InterfaceClient) dispatchDeleteAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-accounts-account-bank-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Id      string `json:"id"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-bank-accounts-id-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-accounts-account-bank-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-bank-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteAccountsAccountBankAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -75,7 +58,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountBankAccountsIdWithFormda
 		return nil, fmt.Errorf("stripe.delete-accounts-account-bank-accounts-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, account, id, body)
+	resp, callErr := ic.cl.DeleteAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -92,31 +75,14 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountBankAccountsIdWithFormda
 }
 
 func (ic *InterfaceClient) dispatchDeleteAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-accounts-account-external-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Id      string `json:"id"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-external-accounts-id-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-accounts-account-external-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-external-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteAccountsAccountExternalAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -124,7 +90,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountExternalAccountsIdWithFo
 		return nil, fmt.Errorf("stripe.delete-accounts-account-external-accounts-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, account, id, body)
+	resp, callErr := ic.cl.DeleteAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -141,31 +107,14 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountExternalAccountsIdWithFo
 }
 
 func (ic *InterfaceClient) dispatchDeleteAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-accounts-account-people-person-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Person  string `json:"person"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-people-person-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-accounts-account-people-person-with-formdata-body: %w", err)
 	}
-
-	var person string
-
-	if raw, ok := pathArgs["person"]; ok {
-		paramErr := json.Unmarshal(raw, &person)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-people-person-with-formdata-body: param person: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteAccountsAccountPeoplePersonFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -173,7 +122,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountPeoplePersonWithFormdata
 		return nil, fmt.Errorf("stripe.delete-accounts-account-people-person-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, account, person, body)
+	resp, callErr := ic.cl.DeleteAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Person, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -190,31 +139,14 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountPeoplePersonWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchDeleteAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-accounts-account-persons-person-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Person  string `json:"person"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-persons-person-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-accounts-account-persons-person-with-formdata-body: %w", err)
 	}
-
-	var person string
-
-	if raw, ok := pathArgs["person"]; ok {
-		paramErr := json.Unmarshal(raw, &person)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-persons-person-with-formdata-body: param person: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteAccountsAccountPersonsPersonFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -222,7 +154,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountPersonsPersonWithFormdat
 		return nil, fmt.Errorf("stripe.delete-accounts-account-persons-person-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, account, person, body)
+	resp, callErr := ic.cl.DeleteAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Person, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -239,22 +171,13 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountPersonsPersonWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchDeleteAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-accounts-account-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-accounts-account-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-accounts-account-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteAccountsAccountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -262,7 +185,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.delete-accounts-account-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteAccountsAccountWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.DeleteAccountsAccountWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -279,22 +202,13 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchDeleteApplePayDomainsDomainWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-apple-pay-domains-domain-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Domain string `json:"domain"`
 	}
 
-	var domain string
-
-	if raw, ok := pathArgs["domain"]; ok {
-		paramErr := json.Unmarshal(raw, &domain)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-apple-pay-domains-domain-with-formdata-body: param domain: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-apple-pay-domains-domain-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteApplePayDomainsDomainFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -302,7 +216,7 @@ func (ic *InterfaceClient) dispatchDeleteApplePayDomainsDomainWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.delete-apple-pay-domains-domain-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteApplePayDomainsDomainWithFormdataBodyWithResponse(ctx, domain, body)
+	resp, callErr := ic.cl.DeleteApplePayDomainsDomainWithFormdataBodyWithResponse(ctx, pathArgs.Domain, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -319,22 +233,13 @@ func (ic *InterfaceClient) dispatchDeleteApplePayDomainsDomainWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchDeleteCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-coupons-coupon-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Coupon string `json:"coupon"`
 	}
 
-	var coupon string
-
-	if raw, ok := pathArgs["coupon"]; ok {
-		paramErr := json.Unmarshal(raw, &coupon)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-coupons-coupon-with-formdata-body: param coupon: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-coupons-coupon-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteCouponsCouponFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -342,7 +247,7 @@ func (ic *InterfaceClient) dispatchDeleteCouponsCouponWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.delete-coupons-coupon-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCouponsCouponWithFormdataBodyWithResponse(ctx, coupon, body)
+	resp, callErr := ic.cl.DeleteCouponsCouponWithFormdataBodyWithResponse(ctx, pathArgs.Coupon, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -359,31 +264,14 @@ func (ic *InterfaceClient) dispatchDeleteCouponsCouponWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchDeleteCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-customers-customer-bank-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-bank-accounts-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-customers-customer-bank-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-bank-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteCustomersCustomerBankAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -391,7 +279,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerBankAccountsIdWithForm
 		return nil, fmt.Errorf("stripe.delete-customers-customer-bank-accounts-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.DeleteCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -408,31 +296,14 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerBankAccountsIdWithForm
 }
 
 func (ic *InterfaceClient) dispatchDeleteCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-customers-customer-cards-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-cards-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-customers-customer-cards-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-cards-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteCustomersCustomerCardsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -440,7 +311,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerCardsIdWithFormdataBod
 		return nil, fmt.Errorf("stripe.delete-customers-customer-cards-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.DeleteCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -457,22 +328,13 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerCardsIdWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchDeleteCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-customers-customer-discount-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-discount-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-customers-customer-discount-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteCustomersCustomerDiscountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -480,7 +342,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerDiscountWithFormdataBo
 		return nil, fmt.Errorf("stripe.delete-customers-customer-discount-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.DeleteCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -497,31 +359,14 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerDiscountWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-customers-customer-sources-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-sources-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-customers-customer-sources-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-sources-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteCustomersCustomerSourcesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -529,7 +374,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSourcesIdWithFormdataB
 		return nil, fmt.Errorf("stripe.delete-customers-customer-sources-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.DeleteCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -546,31 +391,14 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSourcesIdWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer              string `json:"customer"`
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: %w", err)
 	}
-
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -578,7 +406,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscript
 		return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, customer, subscriptionExposedId, body)
+	resp, callErr := ic.cl.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.SubscriptionExposedId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -595,31 +423,14 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscript
 }
 
 func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer              string `json:"customer"`
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: %w", err)
 	}
-
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -627,7 +438,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscript
 		return nil, fmt.Errorf("stripe.delete-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, customer, subscriptionExposedId, body)
+	resp, callErr := ic.cl.DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.SubscriptionExposedId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -644,31 +455,14 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscript
 }
 
 func (ic *InterfaceClient) dispatchDeleteCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-customers-customer-tax-ids-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-tax-ids-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-customers-customer-tax-ids-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-tax-ids-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteCustomersCustomerTaxIdsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -676,7 +470,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerTaxIdsIdWithFormdataBo
 		return nil, fmt.Errorf("stripe.delete-customers-customer-tax-ids-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.DeleteCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -693,22 +487,13 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerTaxIdsIdWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchDeleteCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-customers-customer-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-customers-customer-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-customers-customer-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteCustomersCustomerFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -716,7 +501,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.delete-customers-customer-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteCustomersCustomerWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.DeleteCustomersCustomerWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -733,22 +518,13 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchDeleteEphemeralKeysKeyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-ephemeral-keys-key-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Key string `json:"key"`
 	}
 
-	var key string
-
-	if raw, ok := pathArgs["key"]; ok {
-		paramErr := json.Unmarshal(raw, &key)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-ephemeral-keys-key-with-formdata-body: param key: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-ephemeral-keys-key-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteEphemeralKeysKeyFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -756,7 +532,7 @@ func (ic *InterfaceClient) dispatchDeleteEphemeralKeysKeyWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.delete-ephemeral-keys-key-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteEphemeralKeysKeyWithFormdataBodyWithResponse(ctx, key, body)
+	resp, callErr := ic.cl.DeleteEphemeralKeysKeyWithFormdataBodyWithResponse(ctx, pathArgs.Key, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -773,22 +549,13 @@ func (ic *InterfaceClient) dispatchDeleteEphemeralKeysKeyWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchDeleteInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-invoiceitems-invoiceitem-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoiceitem string `json:"invoiceitem"`
 	}
 
-	var invoiceitem string
-
-	if raw, ok := pathArgs["invoiceitem"]; ok {
-		paramErr := json.Unmarshal(raw, &invoiceitem)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-invoiceitems-invoiceitem-with-formdata-body: param invoiceitem: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-invoiceitems-invoiceitem-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteInvoiceitemsInvoiceitemFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -796,7 +563,7 @@ func (ic *InterfaceClient) dispatchDeleteInvoiceitemsInvoiceitemWithFormdataBody
 		return nil, fmt.Errorf("stripe.delete-invoiceitems-invoiceitem-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, invoiceitem, body)
+	resp, callErr := ic.cl.DeleteInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, pathArgs.Invoiceitem, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -813,22 +580,13 @@ func (ic *InterfaceClient) dispatchDeleteInvoiceitemsInvoiceitemWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchDeleteInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-invoices-invoice-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-invoices-invoice-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-invoices-invoice-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteInvoicesInvoiceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -836,7 +594,7 @@ func (ic *InterfaceClient) dispatchDeleteInvoicesInvoiceWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.delete-invoices-invoice-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteInvoicesInvoiceWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.DeleteInvoicesInvoiceWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -853,22 +611,13 @@ func (ic *InterfaceClient) dispatchDeleteInvoicesInvoiceWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchDeletePlansPlanWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-plans-plan-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Plan string `json:"plan"`
 	}
 
-	var plan string
-
-	if raw, ok := pathArgs["plan"]; ok {
-		paramErr := json.Unmarshal(raw, &plan)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-plans-plan-with-formdata-body: param plan: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-plans-plan-with-formdata-body: %w", err)
 	}
-
 	var body client.DeletePlansPlanFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -876,7 +625,7 @@ func (ic *InterfaceClient) dispatchDeletePlansPlanWithFormdataBodyWithResponse(c
 		return nil, fmt.Errorf("stripe.delete-plans-plan-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeletePlansPlanWithFormdataBodyWithResponse(ctx, plan, body)
+	resp, callErr := ic.cl.DeletePlansPlanWithFormdataBodyWithResponse(ctx, pathArgs.Plan, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -893,22 +642,13 @@ func (ic *InterfaceClient) dispatchDeletePlansPlanWithFormdataBodyWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchDeleteProductsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-products-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-products-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-products-id-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteProductsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -916,7 +656,7 @@ func (ic *InterfaceClient) dispatchDeleteProductsIdWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.delete-products-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteProductsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.DeleteProductsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -933,31 +673,14 @@ func (ic *InterfaceClient) dispatchDeleteProductsIdWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchDeleteProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-products-product-features-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Product string `json:"product"`
+		Id      string `json:"id"`
 	}
 
-	var product string
-
-	if raw, ok := pathArgs["product"]; ok {
-		paramErr := json.Unmarshal(raw, &product)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-products-product-features-id-with-formdata-body: param product: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-products-product-features-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-products-product-features-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.DeleteProductsProductFeaturesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -965,7 +688,7 @@ func (ic *InterfaceClient) dispatchDeleteProductsProductFeaturesIdWithFormdataBo
 		return nil, fmt.Errorf("stripe.delete-products-product-features-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx, product, id, body)
+	resp, callErr := ic.cl.DeleteProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx, pathArgs.Product, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -982,22 +705,13 @@ func (ic *InterfaceClient) dispatchDeleteProductsProductFeaturesIdWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchDeleteRadarValueListItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-radar-value-list-items-item-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Item string `json:"item"`
 	}
 
-	var item string
-
-	if raw, ok := pathArgs["item"]; ok {
-		paramErr := json.Unmarshal(raw, &item)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-radar-value-list-items-item-with-formdata-body: param item: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-radar-value-list-items-item-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteRadarValueListItemsItemFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1005,7 +719,7 @@ func (ic *InterfaceClient) dispatchDeleteRadarValueListItemsItemWithFormdataBody
 		return nil, fmt.Errorf("stripe.delete-radar-value-list-items-item-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteRadarValueListItemsItemWithFormdataBodyWithResponse(ctx, item, body)
+	resp, callErr := ic.cl.DeleteRadarValueListItemsItemWithFormdataBodyWithResponse(ctx, pathArgs.Item, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1022,22 +736,13 @@ func (ic *InterfaceClient) dispatchDeleteRadarValueListItemsItemWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchDeleteRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-radar-value-lists-value-list-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ValueList string `json:"valueList"`
 	}
 
-	var valueList string
-
-	if raw, ok := pathArgs["valueList"]; ok {
-		paramErr := json.Unmarshal(raw, &valueList)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-radar-value-lists-value-list-with-formdata-body: param valueList: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-radar-value-lists-value-list-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteRadarValueListsValueListFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1045,7 +750,7 @@ func (ic *InterfaceClient) dispatchDeleteRadarValueListsValueListWithFormdataBod
 		return nil, fmt.Errorf("stripe.delete-radar-value-lists-value-list-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteRadarValueListsValueListWithFormdataBodyWithResponse(ctx, valueList, body)
+	resp, callErr := ic.cl.DeleteRadarValueListsValueListWithFormdataBodyWithResponse(ctx, pathArgs.ValueList, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1062,22 +767,13 @@ func (ic *InterfaceClient) dispatchDeleteRadarValueListsValueListWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchDeleteSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-subscription-items-item-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Item string `json:"item"`
 	}
 
-	var item string
-
-	if raw, ok := pathArgs["item"]; ok {
-		paramErr := json.Unmarshal(raw, &item)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-subscription-items-item-with-formdata-body: param item: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-subscription-items-item-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteSubscriptionItemsItemFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1085,7 +781,7 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionItemsItemWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.delete-subscription-items-item-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, item, body)
+	resp, callErr := ic.cl.DeleteSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, pathArgs.Item, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1102,22 +798,13 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionItemsItemWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-subscriptions-subscription-exposed-id-discount-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-subscriptions-subscription-exposed-id-discount-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-subscriptions-subscription-exposed-id-discount-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1125,7 +812,7 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdDisco
 		return nil, fmt.Errorf("stripe.delete-subscriptions-subscription-exposed-id-discount-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, subscriptionExposedId, body)
+	resp, callErr := ic.cl.DeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, pathArgs.SubscriptionExposedId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1142,22 +829,13 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdDisco
 }
 
 func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-subscriptions-subscription-exposed-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-subscriptions-subscription-exposed-id-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-subscriptions-subscription-exposed-id-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteSubscriptionsSubscriptionExposedIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1165,7 +843,7 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdWithF
 		return nil, fmt.Errorf("stripe.delete-subscriptions-subscription-exposed-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, subscriptionExposedId, body)
+	resp, callErr := ic.cl.DeleteSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, pathArgs.SubscriptionExposedId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1182,22 +860,13 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdWithF
 }
 
 func (ic *InterfaceClient) dispatchDeleteTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-tax-ids-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-tax-ids-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-tax-ids-id-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteTaxIdsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1205,7 +874,7 @@ func (ic *InterfaceClient) dispatchDeleteTaxIdsIdWithFormdataBodyWithResponse(ct
 		return nil, fmt.Errorf("stripe.delete-tax-ids-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteTaxIdsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.DeleteTaxIdsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1222,22 +891,13 @@ func (ic *InterfaceClient) dispatchDeleteTaxIdsIdWithFormdataBodyWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchDeleteTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-terminal-configurations-configuration-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Configuration string `json:"configuration"`
 	}
 
-	var configuration string
-
-	if raw, ok := pathArgs["configuration"]; ok {
-		paramErr := json.Unmarshal(raw, &configuration)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-terminal-configurations-configuration-with-formdata-body: param configuration: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-terminal-configurations-configuration-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteTerminalConfigurationsConfigurationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1245,7 +905,7 @@ func (ic *InterfaceClient) dispatchDeleteTerminalConfigurationsConfigurationWith
 		return nil, fmt.Errorf("stripe.delete-terminal-configurations-configuration-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, configuration, body)
+	resp, callErr := ic.cl.DeleteTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, pathArgs.Configuration, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1262,22 +922,13 @@ func (ic *InterfaceClient) dispatchDeleteTerminalConfigurationsConfigurationWith
 }
 
 func (ic *InterfaceClient) dispatchDeleteTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-terminal-locations-location-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Location string `json:"location"`
 	}
 
-	var location string
-
-	if raw, ok := pathArgs["location"]; ok {
-		paramErr := json.Unmarshal(raw, &location)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-terminal-locations-location-with-formdata-body: param location: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-terminal-locations-location-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteTerminalLocationsLocationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1285,7 +936,7 @@ func (ic *InterfaceClient) dispatchDeleteTerminalLocationsLocationWithFormdataBo
 		return nil, fmt.Errorf("stripe.delete-terminal-locations-location-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, location, body)
+	resp, callErr := ic.cl.DeleteTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, pathArgs.Location, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1302,22 +953,13 @@ func (ic *InterfaceClient) dispatchDeleteTerminalLocationsLocationWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchDeleteTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-terminal-readers-reader-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-terminal-readers-reader-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-terminal-readers-reader-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteTerminalReadersReaderFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1325,7 +967,7 @@ func (ic *InterfaceClient) dispatchDeleteTerminalReadersReaderWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.delete-terminal-readers-reader-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteTerminalReadersReaderWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.DeleteTerminalReadersReaderWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1342,22 +984,13 @@ func (ic *InterfaceClient) dispatchDeleteTerminalReadersReaderWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchDeleteTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-test-helpers-test-clocks-test-clock-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		TestClock string `json:"testClock"`
 	}
 
-	var testClock string
-
-	if raw, ok := pathArgs["testClock"]; ok {
-		paramErr := json.Unmarshal(raw, &testClock)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-test-helpers-test-clocks-test-clock-with-formdata-body: param testClock: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-test-helpers-test-clocks-test-clock-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteTestHelpersTestClocksTestClockFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1365,7 +998,7 @@ func (ic *InterfaceClient) dispatchDeleteTestHelpersTestClocksTestClockWithFormd
 		return nil, fmt.Errorf("stripe.delete-test-helpers-test-clocks-test-clock-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx, testClock, body)
+	resp, callErr := ic.cl.DeleteTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx, pathArgs.TestClock, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1382,22 +1015,13 @@ func (ic *InterfaceClient) dispatchDeleteTestHelpersTestClocksTestClockWithFormd
 }
 
 func (ic *InterfaceClient) dispatchDeleteWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.delete-webhook-endpoints-webhook-endpoint-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		WebhookEndpoint string `json:"webhookEndpoint"`
 	}
 
-	var webhookEndpoint string
-
-	if raw, ok := pathArgs["webhookEndpoint"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookEndpoint)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.delete-webhook-endpoints-webhook-endpoint-with-formdata-body: param webhookEndpoint: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.delete-webhook-endpoints-webhook-endpoint-with-formdata-body: %w", err)
 	}
-
 	var body client.DeleteWebhookEndpointsWebhookEndpointFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1405,7 +1029,7 @@ func (ic *InterfaceClient) dispatchDeleteWebhookEndpointsWebhookEndpointWithForm
 		return nil, fmt.Errorf("stripe.delete-webhook-endpoints-webhook-endpoint-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.DeleteWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, webhookEndpoint, body)
+	resp, callErr := ic.cl.DeleteWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, pathArgs.WebhookEndpoint, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1453,31 +1077,14 @@ func (ic *InterfaceClient) dispatchGetAccountWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-bank-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Id      string `json:"id"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-bank-accounts-id-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-bank-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-bank-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetAccountsAccountBankAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1492,7 +1099,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountBankAccountsIdWithFormdataB
 		return nil, fmt.Errorf("stripe.get-accounts-account-bank-accounts-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, account, id, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1509,31 +1116,14 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountBankAccountsIdWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-capability-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account    string `json:"account"`
+		Capability string `json:"capability"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-capability-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-capability-with-formdata-body: %w", err)
 	}
-
-	var capability string
-
-	if raw, ok := pathArgs["capability"]; ok {
-		paramErr := json.Unmarshal(raw, &capability)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-capability-with-formdata-body: param capability: %w", paramErr)
-		}
-	}
-
 	var body client.GetAccountsAccountCapabilitiesCapabilityFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1548,7 +1138,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesCapabilityWithF
 		return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-capability-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx, account, capability, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Capability, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1565,22 +1155,13 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesCapabilityWithF
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-with-formdata-body: %w", err)
 	}
-
 	var body client.GetAccountsAccountCapabilitiesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1595,7 +1176,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesWithFormdataBod
 		return nil, fmt.Errorf("stripe.get-accounts-account-capabilities-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountCapabilitiesWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountCapabilitiesWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1612,31 +1193,14 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Id      string `json:"id"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-id-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetAccountsAccountExternalAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1651,7 +1215,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsIdWithFormd
 		return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, account, id, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1668,22 +1232,13 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsIdWithFormd
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-with-formdata-body: %w", err)
 	}
-
 	var body client.GetAccountsAccountExternalAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1698,7 +1253,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsWithFormdat
 		return nil, fmt.Errorf("stripe.get-accounts-account-external-accounts-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1715,31 +1270,14 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-people-person-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Person  string `json:"person"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-people-person-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-people-person-with-formdata-body: %w", err)
 	}
-
-	var person string
-
-	if raw, ok := pathArgs["person"]; ok {
-		paramErr := json.Unmarshal(raw, &person)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-people-person-with-formdata-body: param person: %w", paramErr)
-		}
-	}
-
 	var body client.GetAccountsAccountPeoplePersonFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1754,7 +1292,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPeoplePersonWithFormdataBod
 		return nil, fmt.Errorf("stripe.get-accounts-account-people-person-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, account, person, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Person, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1771,22 +1309,13 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPeoplePersonWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountPeopleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-people-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-people-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-people-with-formdata-body: %w", err)
 	}
-
 	var body client.GetAccountsAccountPeopleFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1801,7 +1330,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPeopleWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.get-accounts-account-people-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountPeopleWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountPeopleWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1818,31 +1347,14 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPeopleWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-persons-person-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Person  string `json:"person"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-persons-person-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-persons-person-with-formdata-body: %w", err)
 	}
-
-	var person string
-
-	if raw, ok := pathArgs["person"]; ok {
-		paramErr := json.Unmarshal(raw, &person)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-persons-person-with-formdata-body: param person: %w", paramErr)
-		}
-	}
-
 	var body client.GetAccountsAccountPersonsPersonFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1857,7 +1369,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsPersonWithFormdataBo
 		return nil, fmt.Errorf("stripe.get-accounts-account-persons-person-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, account, person, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Person, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1874,22 +1386,13 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsPersonWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-persons-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-persons-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-persons-with-formdata-body: %w", err)
 	}
-
 	var body client.GetAccountsAccountPersonsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1904,7 +1407,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.get-accounts-account-persons-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountPersonsWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountPersonsWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1921,22 +1424,13 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchGetAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-accounts-account-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-accounts-account-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-accounts-account-with-formdata-body: %w", err)
 	}
-
 	var body client.GetAccountsAccountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1951,7 +1445,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("stripe.get-accounts-account-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAccountsAccountWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetAccountsAccountWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1999,22 +1493,13 @@ func (ic *InterfaceClient) dispatchGetAccountsWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchGetApplePayDomainsDomainWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-apple-pay-domains-domain-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Domain string `json:"domain"`
 	}
 
-	var domain string
-
-	if raw, ok := pathArgs["domain"]; ok {
-		paramErr := json.Unmarshal(raw, &domain)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-apple-pay-domains-domain-with-formdata-body: param domain: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-apple-pay-domains-domain-with-formdata-body: %w", err)
 	}
-
 	var body client.GetApplePayDomainsDomainFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2029,7 +1514,7 @@ func (ic *InterfaceClient) dispatchGetApplePayDomainsDomainWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.get-apple-pay-domains-domain-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetApplePayDomainsDomainWithFormdataBodyWithResponse(ctx, domain, &params, body)
+	resp, callErr := ic.cl.GetApplePayDomainsDomainWithFormdataBodyWithResponse(ctx, pathArgs.Domain, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2077,31 +1562,14 @@ func (ic *InterfaceClient) dispatchGetApplePayDomainsWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-application-fees-fee-refunds-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Fee string `json:"fee"`
+		Id  string `json:"id"`
 	}
 
-	var fee string
-
-	if raw, ok := pathArgs["fee"]; ok {
-		paramErr := json.Unmarshal(raw, &fee)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-application-fees-fee-refunds-id-with-formdata-body: param fee: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-application-fees-fee-refunds-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-application-fees-fee-refunds-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetApplicationFeesFeeRefundsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2116,7 +1584,7 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesFeeRefundsIdWithFormdataBod
 		return nil, fmt.Errorf("stripe.get-application-fees-fee-refunds-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx, fee, id, &params, body)
+	resp, callErr := ic.cl.GetApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx, pathArgs.Fee, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2133,22 +1601,13 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesFeeRefundsIdWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-application-fees-id-refunds-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-application-fees-id-refunds-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-application-fees-id-refunds-with-formdata-body: %w", err)
 	}
-
 	var body client.GetApplicationFeesIdRefundsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2163,7 +1622,7 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesIdRefundsWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.get-application-fees-id-refunds-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2180,22 +1639,13 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesIdRefundsWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchGetApplicationFeesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-application-fees-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-application-fees-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-application-fees-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetApplicationFeesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2210,7 +1660,7 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesIdWithFormdataBodyWithRespo
 		return nil, fmt.Errorf("stripe.get-application-fees-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetApplicationFeesIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetApplicationFeesIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2258,22 +1708,13 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetAppsInstallsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-apps-installs-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-apps-installs-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-apps-installs-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetAppsInstallsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2288,7 +1729,7 @@ func (ic *InterfaceClient) dispatchGetAppsInstallsIdWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.get-apps-installs-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAppsInstallsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetAppsInstallsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2398,22 +1839,13 @@ func (ic *InterfaceClient) dispatchGetAppsSecretsWithFormdataBodyWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchGetBalanceHistoryIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-balance-history-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-balance-history-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-balance-history-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBalanceHistoryIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2428,7 +1860,7 @@ func (ic *InterfaceClient) dispatchGetBalanceHistoryIdWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.get-balance-history-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBalanceHistoryIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetBalanceHistoryIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2507,22 +1939,13 @@ func (ic *InterfaceClient) dispatchGetBalanceSettingsWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetBalanceTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-balance-transactions-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-balance-transactions-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-balance-transactions-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBalanceTransactionsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2537,7 +1960,7 @@ func (ic *InterfaceClient) dispatchGetBalanceTransactionsIdWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.get-balance-transactions-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBalanceTransactionsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetBalanceTransactionsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2616,22 +2039,13 @@ func (ic *InterfaceClient) dispatchGetBalanceWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchGetBillingAlertsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-billing-alerts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-billing-alerts-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-billing-alerts-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBillingAlertsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2646,7 +2060,7 @@ func (ic *InterfaceClient) dispatchGetBillingAlertsIdWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("stripe.get-billing-alerts-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBillingAlertsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetBillingAlertsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2725,22 +2139,13 @@ func (ic *InterfaceClient) dispatchGetBillingCreditBalanceSummaryWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-billing-credit-balance-transactions-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-billing-credit-balance-transactions-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-billing-credit-balance-transactions-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBillingCreditBalanceTransactionsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2755,7 +2160,7 @@ func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsIdWithForm
 		return nil, fmt.Errorf("stripe.get-billing-credit-balance-transactions-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBillingCreditBalanceTransactionsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetBillingCreditBalanceTransactionsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2803,22 +2208,13 @@ func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsWithFormda
 }
 
 func (ic *InterfaceClient) dispatchGetBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-billing-credit-grants-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-billing-credit-grants-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-billing-credit-grants-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBillingCreditGrantsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2833,7 +2229,7 @@ func (ic *InterfaceClient) dispatchGetBillingCreditGrantsIdWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.get-billing-credit-grants-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2881,22 +2277,13 @@ func (ic *InterfaceClient) dispatchGetBillingCreditGrantsWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-billing-feedback-options-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-billing-feedback-options-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-billing-feedback-options-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBillingFeedbackOptionsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2911,7 +2298,7 @@ func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsIdWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.get-billing-feedback-options-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2959,22 +2346,13 @@ func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchGetBillingMetersIdEventSummariesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-billing-meters-id-event-summaries-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-billing-meters-id-event-summaries-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-billing-meters-id-event-summaries-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBillingMetersIdEventSummariesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2989,7 +2367,7 @@ func (ic *InterfaceClient) dispatchGetBillingMetersIdEventSummariesWithFormdataB
 		return nil, fmt.Errorf("stripe.get-billing-meters-id-event-summaries-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBillingMetersIdEventSummariesWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetBillingMetersIdEventSummariesWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3006,22 +2384,13 @@ func (ic *InterfaceClient) dispatchGetBillingMetersIdEventSummariesWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchGetBillingMetersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-billing-meters-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-billing-meters-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-billing-meters-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBillingMetersIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3036,7 +2405,7 @@ func (ic *InterfaceClient) dispatchGetBillingMetersIdWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("stripe.get-billing-meters-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBillingMetersIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetBillingMetersIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3084,22 +2453,13 @@ func (ic *InterfaceClient) dispatchGetBillingMetersWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-billing-portal-configurations-configuration-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Configuration string `json:"configuration"`
 	}
 
-	var configuration string
-
-	if raw, ok := pathArgs["configuration"]; ok {
-		paramErr := json.Unmarshal(raw, &configuration)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-billing-portal-configurations-configuration-with-formdata-body: param configuration: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-billing-portal-configurations-configuration-with-formdata-body: %w", err)
 	}
-
 	var body client.GetBillingPortalConfigurationsConfigurationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3114,7 +2474,7 @@ func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsConfigurationWi
 		return nil, fmt.Errorf("stripe.get-billing-portal-configurations-configuration-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, configuration, &params, body)
+	resp, callErr := ic.cl.GetBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, pathArgs.Configuration, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3162,22 +2522,13 @@ func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetChargesChargeDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-charges-charge-dispute-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-charges-charge-dispute-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-charges-charge-dispute-with-formdata-body: %w", err)
 	}
-
 	var body client.GetChargesChargeDisputeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3192,7 +2543,7 @@ func (ic *InterfaceClient) dispatchGetChargesChargeDisputeWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.get-charges-charge-dispute-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetChargesChargeDisputeWithFormdataBodyWithResponse(ctx, charge, &params, body)
+	resp, callErr := ic.cl.GetChargesChargeDisputeWithFormdataBodyWithResponse(ctx, pathArgs.Charge, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3209,31 +2560,14 @@ func (ic *InterfaceClient) dispatchGetChargesChargeDisputeWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-charges-charge-refunds-refund-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
+		Refund string `json:"refund"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-charges-charge-refunds-refund-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-charges-charge-refunds-refund-with-formdata-body: %w", err)
 	}
-
-	var refund string
-
-	if raw, ok := pathArgs["refund"]; ok {
-		paramErr := json.Unmarshal(raw, &refund)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-charges-charge-refunds-refund-with-formdata-body: param refund: %w", paramErr)
-		}
-	}
-
 	var body client.GetChargesChargeRefundsRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3248,7 +2582,7 @@ func (ic *InterfaceClient) dispatchGetChargesChargeRefundsRefundWithFormdataBody
 		return nil, fmt.Errorf("stripe.get-charges-charge-refunds-refund-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx, charge, refund, &params, body)
+	resp, callErr := ic.cl.GetChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx, pathArgs.Charge, pathArgs.Refund, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3265,22 +2599,13 @@ func (ic *InterfaceClient) dispatchGetChargesChargeRefundsRefundWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchGetChargesChargeRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-charges-charge-refunds-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-charges-charge-refunds-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-charges-charge-refunds-with-formdata-body: %w", err)
 	}
-
 	var body client.GetChargesChargeRefundsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3295,7 +2620,7 @@ func (ic *InterfaceClient) dispatchGetChargesChargeRefundsWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.get-charges-charge-refunds-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetChargesChargeRefundsWithFormdataBodyWithResponse(ctx, charge, &params, body)
+	resp, callErr := ic.cl.GetChargesChargeRefundsWithFormdataBodyWithResponse(ctx, pathArgs.Charge, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3312,22 +2637,13 @@ func (ic *InterfaceClient) dispatchGetChargesChargeRefundsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetChargesChargeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-charges-charge-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-charges-charge-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-charges-charge-with-formdata-body: %w", err)
 	}
-
 	var body client.GetChargesChargeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3342,7 +2658,7 @@ func (ic *InterfaceClient) dispatchGetChargesChargeWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.get-charges-charge-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetChargesChargeWithFormdataBodyWithResponse(ctx, charge, &params, body)
+	resp, callErr := ic.cl.GetChargesChargeWithFormdataBodyWithResponse(ctx, pathArgs.Charge, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3421,22 +2737,13 @@ func (ic *InterfaceClient) dispatchGetChargesWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-checkout-sessions-session-line-items-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-checkout-sessions-session-line-items-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-checkout-sessions-session-line-items-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCheckoutSessionsSessionLineItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3451,7 +2758,7 @@ func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionLineItemsWithFormda
 		return nil, fmt.Errorf("stripe.get-checkout-sessions-session-line-items-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCheckoutSessionsSessionLineItemsWithFormdataBodyWithResponse(ctx, session, &params, body)
+	resp, callErr := ic.cl.GetCheckoutSessionsSessionLineItemsWithFormdataBodyWithResponse(ctx, pathArgs.Session, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3468,22 +2775,13 @@ func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionLineItemsWithFormda
 }
 
 func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-checkout-sessions-session-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-checkout-sessions-session-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-checkout-sessions-session-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCheckoutSessionsSessionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3498,7 +2796,7 @@ func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.get-checkout-sessions-session-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx, session, &params, body)
+	resp, callErr := ic.cl.GetCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx, pathArgs.Session, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3546,22 +2844,13 @@ func (ic *InterfaceClient) dispatchGetCheckoutSessionsWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchGetClimateOrdersOrderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-climate-orders-order-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Order string `json:"order"`
 	}
 
-	var order string
-
-	if raw, ok := pathArgs["order"]; ok {
-		paramErr := json.Unmarshal(raw, &order)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-climate-orders-order-with-formdata-body: param order: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-climate-orders-order-with-formdata-body: %w", err)
 	}
-
 	var body client.GetClimateOrdersOrderFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3576,7 +2865,7 @@ func (ic *InterfaceClient) dispatchGetClimateOrdersOrderWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.get-climate-orders-order-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetClimateOrdersOrderWithFormdataBodyWithResponse(ctx, order, &params, body)
+	resp, callErr := ic.cl.GetClimateOrdersOrderWithFormdataBodyWithResponse(ctx, pathArgs.Order, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3624,22 +2913,13 @@ func (ic *InterfaceClient) dispatchGetClimateOrdersWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchGetClimateProductsProductWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-climate-products-product-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Product string `json:"product"`
 	}
 
-	var product string
-
-	if raw, ok := pathArgs["product"]; ok {
-		paramErr := json.Unmarshal(raw, &product)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-climate-products-product-with-formdata-body: param product: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-climate-products-product-with-formdata-body: %w", err)
 	}
-
 	var body client.GetClimateProductsProductFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3654,7 +2934,7 @@ func (ic *InterfaceClient) dispatchGetClimateProductsProductWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.get-climate-products-product-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetClimateProductsProductWithFormdataBodyWithResponse(ctx, product, &params, body)
+	resp, callErr := ic.cl.GetClimateProductsProductWithFormdataBodyWithResponse(ctx, pathArgs.Product, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3702,22 +2982,13 @@ func (ic *InterfaceClient) dispatchGetClimateProductsWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetClimateSuppliersSupplierWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-climate-suppliers-supplier-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Supplier string `json:"supplier"`
 	}
 
-	var supplier string
-
-	if raw, ok := pathArgs["supplier"]; ok {
-		paramErr := json.Unmarshal(raw, &supplier)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-climate-suppliers-supplier-with-formdata-body: param supplier: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-climate-suppliers-supplier-with-formdata-body: %w", err)
 	}
-
 	var body client.GetClimateSuppliersSupplierFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3732,7 +3003,7 @@ func (ic *InterfaceClient) dispatchGetClimateSuppliersSupplierWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.get-climate-suppliers-supplier-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetClimateSuppliersSupplierWithFormdataBodyWithResponse(ctx, supplier, &params, body)
+	resp, callErr := ic.cl.GetClimateSuppliersSupplierWithFormdataBodyWithResponse(ctx, pathArgs.Supplier, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3780,22 +3051,13 @@ func (ic *InterfaceClient) dispatchGetClimateSuppliersWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchGetConfirmationTokensConfirmationTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-confirmation-tokens-confirmation-token-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ConfirmationToken string `json:"confirmationToken"`
 	}
 
-	var confirmationToken string
-
-	if raw, ok := pathArgs["confirmationToken"]; ok {
-		paramErr := json.Unmarshal(raw, &confirmationToken)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-confirmation-tokens-confirmation-token-with-formdata-body: param confirmationToken: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-confirmation-tokens-confirmation-token-with-formdata-body: %w", err)
 	}
-
 	var body client.GetConfirmationTokensConfirmationTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3810,7 +3072,7 @@ func (ic *InterfaceClient) dispatchGetConfirmationTokensConfirmationTokenWithFor
 		return nil, fmt.Errorf("stripe.get-confirmation-tokens-confirmation-token-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetConfirmationTokensConfirmationTokenWithFormdataBodyWithResponse(ctx, confirmationToken, &params, body)
+	resp, callErr := ic.cl.GetConfirmationTokensConfirmationTokenWithFormdataBodyWithResponse(ctx, pathArgs.ConfirmationToken, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3827,22 +3089,13 @@ func (ic *InterfaceClient) dispatchGetConfirmationTokensConfirmationTokenWithFor
 }
 
 func (ic *InterfaceClient) dispatchGetCountrySpecsCountryWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-country-specs-country-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Country string `json:"country"`
 	}
 
-	var country string
-
-	if raw, ok := pathArgs["country"]; ok {
-		paramErr := json.Unmarshal(raw, &country)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-country-specs-country-with-formdata-body: param country: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-country-specs-country-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCountrySpecsCountryFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3857,7 +3110,7 @@ func (ic *InterfaceClient) dispatchGetCountrySpecsCountryWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.get-country-specs-country-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCountrySpecsCountryWithFormdataBodyWithResponse(ctx, country, &params, body)
+	resp, callErr := ic.cl.GetCountrySpecsCountryWithFormdataBodyWithResponse(ctx, pathArgs.Country, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3905,22 +3158,13 @@ func (ic *InterfaceClient) dispatchGetCountrySpecsWithFormdataBodyWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchGetCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-coupons-coupon-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Coupon string `json:"coupon"`
 	}
 
-	var coupon string
-
-	if raw, ok := pathArgs["coupon"]; ok {
-		paramErr := json.Unmarshal(raw, &coupon)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-coupons-coupon-with-formdata-body: param coupon: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-coupons-coupon-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCouponsCouponFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3935,7 +3179,7 @@ func (ic *InterfaceClient) dispatchGetCouponsCouponWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.get-coupons-coupon-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCouponsCouponWithFormdataBodyWithResponse(ctx, coupon, &params, body)
+	resp, callErr := ic.cl.GetCouponsCouponWithFormdataBodyWithResponse(ctx, pathArgs.Coupon, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3983,22 +3227,13 @@ func (ic *InterfaceClient) dispatchGetCouponsWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchGetCreditNotesCreditNoteLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-credit-notes-credit-note-lines-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		CreditNote string `json:"creditNote"`
 	}
 
-	var creditNote string
-
-	if raw, ok := pathArgs["creditNote"]; ok {
-		paramErr := json.Unmarshal(raw, &creditNote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-credit-notes-credit-note-lines-with-formdata-body: param creditNote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-credit-notes-credit-note-lines-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCreditNotesCreditNoteLinesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4013,7 +3248,7 @@ func (ic *InterfaceClient) dispatchGetCreditNotesCreditNoteLinesWithFormdataBody
 		return nil, fmt.Errorf("stripe.get-credit-notes-credit-note-lines-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCreditNotesCreditNoteLinesWithFormdataBodyWithResponse(ctx, creditNote, &params, body)
+	resp, callErr := ic.cl.GetCreditNotesCreditNoteLinesWithFormdataBodyWithResponse(ctx, pathArgs.CreditNote, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4030,22 +3265,13 @@ func (ic *InterfaceClient) dispatchGetCreditNotesCreditNoteLinesWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchGetCreditNotesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-credit-notes-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-credit-notes-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-credit-notes-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCreditNotesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4060,7 +3286,7 @@ func (ic *InterfaceClient) dispatchGetCreditNotesIdWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.get-credit-notes-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCreditNotesIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetCreditNotesIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4170,31 +3396,14 @@ func (ic *InterfaceClient) dispatchGetCreditNotesWithFormdataBodyWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-transaction-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer    string `json:"customer"`
+		Transaction string `json:"transaction"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-transaction-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-transaction-with-formdata-body: %w", err)
 	}
-
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-transaction-with-formdata-body: param transaction: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerBalanceTransactionsTransactionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4209,7 +3418,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsTransa
 		return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-transaction-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, customer, transaction, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Transaction, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4226,22 +3435,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsTransa
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerBalanceTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4256,7 +3456,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsWithFo
 		return nil, fmt.Errorf("stripe.get-customers-customer-balance-transactions-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4273,31 +3473,14 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsWithFo
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerBankAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4312,7 +3495,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsIdWithFormdat
 		return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, customer, id, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4329,22 +3512,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsIdWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerBankAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4359,7 +3533,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsWithFormdataB
 		return nil, fmt.Errorf("stripe.get-customers-customer-bank-accounts-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4376,31 +3550,14 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-cards-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-cards-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-cards-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-cards-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerCardsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4415,7 +3572,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsIdWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.get-customers-customer-cards-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, customer, id, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4432,22 +3589,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsIdWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-cards-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-cards-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-cards-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerCardsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4462,7 +3610,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.get-customers-customer-cards-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerCardsWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerCardsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4479,31 +3627,14 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-transaction-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer    string `json:"customer"`
+		Transaction string `json:"transaction"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-transaction-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-transaction-with-formdata-body: %w", err)
 	}
-
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-transaction-with-formdata-body: param transaction: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerCashBalanceTransactionsTransactionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4518,7 +3649,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsTr
 		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-transaction-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, customer, transaction, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Transaction, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4535,22 +3666,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsTr
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerCashBalanceTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4565,7 +3687,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsWi
 		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-transactions-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerCashBalanceTransactionsWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerCashBalanceTransactionsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4582,22 +3704,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsWi
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerCashBalanceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4612,7 +3725,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceWithFormdataBo
 		return nil, fmt.Errorf("stripe.get-customers-customer-cash-balance-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4629,22 +3742,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-discount-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-discount-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-discount-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerDiscountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4659,7 +3763,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerDiscountWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.get-customers-customer-discount-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4676,31 +3780,14 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerDiscountWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-payment-method-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer      string `json:"customer"`
+		PaymentMethod string `json:"paymentMethod"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-payment-method-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-payment-method-with-formdata-body: %w", err)
 	}
-
-	var paymentMethod string
-
-	if raw, ok := pathArgs["paymentMethod"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentMethod)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-payment-method-with-formdata-body: param paymentMethod: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerPaymentMethodsPaymentMethodFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4715,7 +3802,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsPaymentMeth
 		return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-payment-method-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, customer, paymentMethod, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.PaymentMethod, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4732,22 +3819,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsPaymentMeth
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerPaymentMethodsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4762,7 +3840,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsWithFormdat
 		return nil, fmt.Errorf("stripe.get-customers-customer-payment-methods-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerPaymentMethodsWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerPaymentMethodsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4779,31 +3857,14 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-sources-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-sources-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-sources-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-sources-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerSourcesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4818,7 +3879,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesIdWithFormdataBody
 		return nil, fmt.Errorf("stripe.get-customers-customer-sources-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, customer, id, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4835,22 +3896,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesIdWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-sources-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-sources-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-sources-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerSourcesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4865,7 +3917,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.get-customers-customer-sources-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4882,31 +3934,14 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer              string `json:"customer"`
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: %w", err)
 	}
-
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4921,7 +3956,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscription
 		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, customer, subscriptionExposedId, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.SubscriptionExposedId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4938,31 +3973,14 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscription
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer              string `json:"customer"`
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: %w", err)
 	}
-
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4977,7 +3995,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscription
 		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, customer, subscriptionExposedId, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.SubscriptionExposedId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4994,22 +4012,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscription
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerSubscriptionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5024,7 +4033,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsWithFormdata
 		return nil, fmt.Errorf("stripe.get-customers-customer-subscriptions-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5041,31 +4050,14 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetCustomersCustomerTaxIdsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5080,7 +4072,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsIdWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx, customer, id, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5097,22 +4089,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsIdWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerTaxIdsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5127,7 +4110,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.get-customers-customer-tax-ids-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5144,22 +4127,13 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchGetCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-customers-customer-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-customers-customer-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-customers-customer-with-formdata-body: %w", err)
 	}
-
 	var body client.GetCustomersCustomerFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5174,7 +4148,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerWithFormdataBodyWithRespo
 		return nil, fmt.Errorf("stripe.get-customers-customer-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetCustomersCustomerWithFormdataBodyWithResponse(ctx, customer, &params, body)
+	resp, callErr := ic.cl.GetCustomersCustomerWithFormdataBodyWithResponse(ctx, pathArgs.Customer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5253,22 +4227,13 @@ func (ic *InterfaceClient) dispatchGetCustomersWithFormdataBodyWithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchGetDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-disputes-dispute-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Dispute string `json:"dispute"`
 	}
 
-	var dispute string
-
-	if raw, ok := pathArgs["dispute"]; ok {
-		paramErr := json.Unmarshal(raw, &dispute)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-disputes-dispute-with-formdata-body: param dispute: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-disputes-dispute-with-formdata-body: %w", err)
 	}
-
 	var body client.GetDisputesDisputeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5283,7 +4248,7 @@ func (ic *InterfaceClient) dispatchGetDisputesDisputeWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("stripe.get-disputes-dispute-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetDisputesDisputeWithFormdataBodyWithResponse(ctx, dispute, &params, body)
+	resp, callErr := ic.cl.GetDisputesDisputeWithFormdataBodyWithResponse(ctx, pathArgs.Dispute, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5331,22 +4296,13 @@ func (ic *InterfaceClient) dispatchGetDisputesWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-entitlements-active-entitlements-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-entitlements-active-entitlements-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-entitlements-active-entitlements-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetEntitlementsActiveEntitlementsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5361,7 +4317,7 @@ func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsIdWithFormda
 		return nil, fmt.Errorf("stripe.get-entitlements-active-entitlements-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetEntitlementsActiveEntitlementsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetEntitlementsActiveEntitlementsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5409,22 +4365,13 @@ func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-entitlements-features-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-entitlements-features-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-entitlements-features-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetEntitlementsFeaturesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5439,7 +4386,7 @@ func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesIdWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.get-entitlements-features-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5487,22 +4434,13 @@ func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetEventsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-events-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-events-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-events-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetEventsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5517,7 +4455,7 @@ func (ic *InterfaceClient) dispatchGetEventsIdWithFormdataBodyWithResponse(ctx c
 		return nil, fmt.Errorf("stripe.get-events-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetEventsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetEventsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5565,22 +4503,13 @@ func (ic *InterfaceClient) dispatchGetEventsWithFormdataBodyWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchGetExchangeRatesRateIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-exchange-rates-rate-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		RateId string `json:"rateId"`
 	}
 
-	var rateId string
-
-	if raw, ok := pathArgs["rateId"]; ok {
-		paramErr := json.Unmarshal(raw, &rateId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-exchange-rates-rate-id-with-formdata-body: param rateId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-exchange-rates-rate-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetExchangeRatesRateIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5595,7 +4524,7 @@ func (ic *InterfaceClient) dispatchGetExchangeRatesRateIdWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.get-exchange-rates-rate-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetExchangeRatesRateIdWithFormdataBodyWithResponse(ctx, rateId, &params, body)
+	resp, callErr := ic.cl.GetExchangeRatesRateIdWithFormdataBodyWithResponse(ctx, pathArgs.RateId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5643,22 +4572,13 @@ func (ic *InterfaceClient) dispatchGetExchangeRatesWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchGetFileLinksLinkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-file-links-link-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Link string `json:"link"`
 	}
 
-	var link string
-
-	if raw, ok := pathArgs["link"]; ok {
-		paramErr := json.Unmarshal(raw, &link)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-file-links-link-with-formdata-body: param link: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-file-links-link-with-formdata-body: %w", err)
 	}
-
 	var body client.GetFileLinksLinkFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5673,7 +4593,7 @@ func (ic *InterfaceClient) dispatchGetFileLinksLinkWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.get-file-links-link-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetFileLinksLinkWithFormdataBodyWithResponse(ctx, link, &params, body)
+	resp, callErr := ic.cl.GetFileLinksLinkWithFormdataBodyWithResponse(ctx, pathArgs.Link, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5721,22 +4641,13 @@ func (ic *InterfaceClient) dispatchGetFileLinksWithFormdataBodyWithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchGetFilesFileWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-files-file-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		File string `json:"file"`
 	}
 
-	var file string
-
-	if raw, ok := pathArgs["file"]; ok {
-		paramErr := json.Unmarshal(raw, &file)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-files-file-with-formdata-body: param file: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-files-file-with-formdata-body: %w", err)
 	}
-
 	var body client.GetFilesFileFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5751,7 +4662,7 @@ func (ic *InterfaceClient) dispatchGetFilesFileWithFormdataBodyWithResponse(ctx 
 		return nil, fmt.Errorf("stripe.get-files-file-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetFilesFileWithFormdataBodyWithResponse(ctx, file, &params, body)
+	resp, callErr := ic.cl.GetFilesFileWithFormdataBodyWithResponse(ctx, pathArgs.File, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5799,22 +4710,13 @@ func (ic *InterfaceClient) dispatchGetFilesWithFormdataBodyWithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountOwnersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-financial-connections-accounts-account-owners-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-financial-connections-accounts-account-owners-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-financial-connections-accounts-account-owners-with-formdata-body: %w", err)
 	}
-
 	var body client.GetFinancialConnectionsAccountsAccountOwnersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5829,7 +4731,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountOwnersW
 		return nil, fmt.Errorf("stripe.get-financial-connections-accounts-account-owners-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetFinancialConnectionsAccountsAccountOwnersWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetFinancialConnectionsAccountsAccountOwnersWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5846,22 +4748,13 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountOwnersW
 }
 
 func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-financial-connections-accounts-account-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-financial-connections-accounts-account-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-financial-connections-accounts-account-with-formdata-body: %w", err)
 	}
-
 	var body client.GetFinancialConnectionsAccountsAccountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5876,7 +4769,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountWithFor
 		return nil, fmt.Errorf("stripe.get-financial-connections-accounts-account-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetFinancialConnectionsAccountsAccountWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetFinancialConnectionsAccountsAccountWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5924,22 +4817,13 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchGetFinancialConnectionsSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-financial-connections-sessions-session-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-financial-connections-sessions-session-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-financial-connections-sessions-session-with-formdata-body: %w", err)
 	}
-
 	var body client.GetFinancialConnectionsSessionsSessionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5954,7 +4838,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsSessionsSessionWithFor
 		return nil, fmt.Errorf("stripe.get-financial-connections-sessions-session-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetFinancialConnectionsSessionsSessionWithFormdataBodyWithResponse(ctx, session, &params, body)
+	resp, callErr := ic.cl.GetFinancialConnectionsSessionsSessionWithFormdataBodyWithResponse(ctx, pathArgs.Session, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5971,22 +4855,13 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsSessionsSessionWithFor
 }
 
 func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-financial-connections-transactions-transaction-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transaction string `json:"transaction"`
 	}
 
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-financial-connections-transactions-transaction-with-formdata-body: param transaction: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-financial-connections-transactions-transaction-with-formdata-body: %w", err)
 	}
-
 	var body client.GetFinancialConnectionsTransactionsTransactionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6001,7 +4876,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsTransactio
 		return nil, fmt.Errorf("stripe.get-financial-connections-transactions-transaction-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetFinancialConnectionsTransactionsTransactionWithFormdataBodyWithResponse(ctx, transaction, &params, body)
+	resp, callErr := ic.cl.GetFinancialConnectionsTransactionsTransactionWithFormdataBodyWithResponse(ctx, pathArgs.Transaction, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6049,22 +4924,13 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsWithFormda
 }
 
 func (ic *InterfaceClient) dispatchGetForwardingRequestsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-forwarding-requests-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-forwarding-requests-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-forwarding-requests-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetForwardingRequestsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6079,7 +4945,7 @@ func (ic *InterfaceClient) dispatchGetForwardingRequestsIdWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.get-forwarding-requests-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetForwardingRequestsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetForwardingRequestsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6127,22 +4993,13 @@ func (ic *InterfaceClient) dispatchGetForwardingRequestsWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsReportWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-identity-verification-reports-report-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Report string `json:"report"`
 	}
 
-	var report string
-
-	if raw, ok := pathArgs["report"]; ok {
-		paramErr := json.Unmarshal(raw, &report)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-identity-verification-reports-report-with-formdata-body: param report: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-identity-verification-reports-report-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIdentityVerificationReportsReportFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6157,7 +5014,7 @@ func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsReportWithFormd
 		return nil, fmt.Errorf("stripe.get-identity-verification-reports-report-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIdentityVerificationReportsReportWithFormdataBodyWithResponse(ctx, report, &params, body)
+	resp, callErr := ic.cl.GetIdentityVerificationReportsReportWithFormdataBodyWithResponse(ctx, pathArgs.Report, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6205,22 +5062,13 @@ func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-identity-verification-sessions-session-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-identity-verification-sessions-session-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-identity-verification-sessions-session-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIdentityVerificationSessionsSessionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6235,7 +5083,7 @@ func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsSessionWithFor
 		return nil, fmt.Errorf("stripe.get-identity-verification-sessions-session-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx, session, &params, body)
+	resp, callErr := ic.cl.GetIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx, pathArgs.Session, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6283,22 +5131,13 @@ func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchGetInvoicePaymentsInvoicePaymentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-invoice-payments-invoice-payment-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		InvoicePayment string `json:"invoicePayment"`
 	}
 
-	var invoicePayment string
-
-	if raw, ok := pathArgs["invoicePayment"]; ok {
-		paramErr := json.Unmarshal(raw, &invoicePayment)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-invoice-payments-invoice-payment-with-formdata-body: param invoicePayment: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-invoice-payments-invoice-payment-with-formdata-body: %w", err)
 	}
-
 	var body client.GetInvoicePaymentsInvoicePaymentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6313,7 +5152,7 @@ func (ic *InterfaceClient) dispatchGetInvoicePaymentsInvoicePaymentWithFormdataB
 		return nil, fmt.Errorf("stripe.get-invoice-payments-invoice-payment-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetInvoicePaymentsInvoicePaymentWithFormdataBodyWithResponse(ctx, invoicePayment, &params, body)
+	resp, callErr := ic.cl.GetInvoicePaymentsInvoicePaymentWithFormdataBodyWithResponse(ctx, pathArgs.InvoicePayment, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6361,22 +5200,13 @@ func (ic *InterfaceClient) dispatchGetInvoicePaymentsWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesTemplateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-invoice-rendering-templates-template-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Template string `json:"template"`
 	}
 
-	var template string
-
-	if raw, ok := pathArgs["template"]; ok {
-		paramErr := json.Unmarshal(raw, &template)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-invoice-rendering-templates-template-with-formdata-body: param template: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-invoice-rendering-templates-template-with-formdata-body: %w", err)
 	}
-
 	var body client.GetInvoiceRenderingTemplatesTemplateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6391,7 +5221,7 @@ func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesTemplateWithFormd
 		return nil, fmt.Errorf("stripe.get-invoice-rendering-templates-template-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetInvoiceRenderingTemplatesTemplateWithFormdataBodyWithResponse(ctx, template, &params, body)
+	resp, callErr := ic.cl.GetInvoiceRenderingTemplatesTemplateWithFormdataBodyWithResponse(ctx, pathArgs.Template, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6439,22 +5269,13 @@ func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchGetInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-invoiceitems-invoiceitem-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoiceitem string `json:"invoiceitem"`
 	}
 
-	var invoiceitem string
-
-	if raw, ok := pathArgs["invoiceitem"]; ok {
-		paramErr := json.Unmarshal(raw, &invoiceitem)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-invoiceitems-invoiceitem-with-formdata-body: param invoiceitem: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-invoiceitems-invoiceitem-with-formdata-body: %w", err)
 	}
-
 	var body client.GetInvoiceitemsInvoiceitemFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6469,7 +5290,7 @@ func (ic *InterfaceClient) dispatchGetInvoiceitemsInvoiceitemWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.get-invoiceitems-invoiceitem-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, invoiceitem, &params, body)
+	resp, callErr := ic.cl.GetInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, pathArgs.Invoiceitem, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6517,22 +5338,13 @@ func (ic *InterfaceClient) dispatchGetInvoiceitemsWithFormdataBodyWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchGetInvoicesInvoiceLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-invoices-invoice-lines-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-invoices-invoice-lines-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-invoices-invoice-lines-with-formdata-body: %w", err)
 	}
-
 	var body client.GetInvoicesInvoiceLinesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6547,7 +5359,7 @@ func (ic *InterfaceClient) dispatchGetInvoicesInvoiceLinesWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.get-invoices-invoice-lines-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetInvoicesInvoiceLinesWithFormdataBodyWithResponse(ctx, invoice, &params, body)
+	resp, callErr := ic.cl.GetInvoicesInvoiceLinesWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6564,22 +5376,13 @@ func (ic *InterfaceClient) dispatchGetInvoicesInvoiceLinesWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-invoices-invoice-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-invoices-invoice-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-invoices-invoice-with-formdata-body: %w", err)
 	}
-
 	var body client.GetInvoicesInvoiceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6594,7 +5397,7 @@ func (ic *InterfaceClient) dispatchGetInvoicesInvoiceWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("stripe.get-invoices-invoice-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetInvoicesInvoiceWithFormdataBodyWithResponse(ctx, invoice, &params, body)
+	resp, callErr := ic.cl.GetInvoicesInvoiceWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6673,22 +5476,13 @@ func (ic *InterfaceClient) dispatchGetInvoicesWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-authorizations-authorization-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-authorizations-authorization-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-authorizations-authorization-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingAuthorizationsAuthorizationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6703,7 +5497,7 @@ func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsAuthorizationWithForm
 		return nil, fmt.Errorf("stripe.get-issuing-authorizations-authorization-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx, authorization, &params, body)
+	resp, callErr := ic.cl.GetIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6751,22 +5545,13 @@ func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-cardholders-cardholder-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Cardholder string `json:"cardholder"`
 	}
 
-	var cardholder string
-
-	if raw, ok := pathArgs["cardholder"]; ok {
-		paramErr := json.Unmarshal(raw, &cardholder)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-cardholders-cardholder-with-formdata-body: param cardholder: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-cardholders-cardholder-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingCardholdersCardholderFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6781,7 +5566,7 @@ func (ic *InterfaceClient) dispatchGetIssuingCardholdersCardholderWithFormdataBo
 		return nil, fmt.Errorf("stripe.get-issuing-cardholders-cardholder-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx, cardholder, &params, body)
+	resp, callErr := ic.cl.GetIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx, pathArgs.Cardholder, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6829,22 +5614,13 @@ func (ic *InterfaceClient) dispatchGetIssuingCardholdersWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingCardsCardWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-cards-card-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Card string `json:"card"`
 	}
 
-	var card string
-
-	if raw, ok := pathArgs["card"]; ok {
-		paramErr := json.Unmarshal(raw, &card)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-cards-card-with-formdata-body: param card: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-cards-card-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingCardsCardFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6859,7 +5635,7 @@ func (ic *InterfaceClient) dispatchGetIssuingCardsCardWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.get-issuing-cards-card-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingCardsCardWithFormdataBodyWithResponse(ctx, card, &params, body)
+	resp, callErr := ic.cl.GetIssuingCardsCardWithFormdataBodyWithResponse(ctx, pathArgs.Card, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6907,22 +5683,13 @@ func (ic *InterfaceClient) dispatchGetIssuingCardsWithFormdataBodyWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-disputes-dispute-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Dispute string `json:"dispute"`
 	}
 
-	var dispute string
-
-	if raw, ok := pathArgs["dispute"]; ok {
-		paramErr := json.Unmarshal(raw, &dispute)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-disputes-dispute-with-formdata-body: param dispute: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-disputes-dispute-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingDisputesDisputeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6937,7 +5704,7 @@ func (ic *InterfaceClient) dispatchGetIssuingDisputesDisputeWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.get-issuing-disputes-dispute-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx, dispute, &params, body)
+	resp, callErr := ic.cl.GetIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx, pathArgs.Dispute, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6985,22 +5752,13 @@ func (ic *InterfaceClient) dispatchGetIssuingDisputesWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-personalization-designs-personalization-design-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PersonalizationDesign string `json:"personalizationDesign"`
 	}
 
-	var personalizationDesign string
-
-	if raw, ok := pathArgs["personalizationDesign"]; ok {
-		paramErr := json.Unmarshal(raw, &personalizationDesign)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-personalization-designs-personalization-design-with-formdata-body: param personalizationDesign: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-personalization-designs-personalization-design-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingPersonalizationDesignsPersonalizationDesignFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7015,7 +5773,7 @@ func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsPersonalizati
 		return nil, fmt.Errorf("stripe.get-issuing-personalization-designs-personalization-design-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx, personalizationDesign, &params, body)
+	resp, callErr := ic.cl.GetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx, pathArgs.PersonalizationDesign, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7063,22 +5821,13 @@ func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-physical-bundles-physical-bundle-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PhysicalBundle string `json:"physicalBundle"`
 	}
 
-	var physicalBundle string
-
-	if raw, ok := pathArgs["physicalBundle"]; ok {
-		paramErr := json.Unmarshal(raw, &physicalBundle)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-physical-bundles-physical-bundle-with-formdata-body: param physicalBundle: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-physical-bundles-physical-bundle-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingPhysicalBundlesPhysicalBundleFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7093,7 +5842,7 @@ func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesPhysicalBundleWithFo
 		return nil, fmt.Errorf("stripe.get-issuing-physical-bundles-physical-bundle-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingPhysicalBundlesPhysicalBundleWithFormdataBodyWithResponse(ctx, physicalBundle, &params, body)
+	resp, callErr := ic.cl.GetIssuingPhysicalBundlesPhysicalBundleWithFormdataBodyWithResponse(ctx, pathArgs.PhysicalBundle, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7141,22 +5890,13 @@ func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-settlements-settlement-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Settlement string `json:"settlement"`
 	}
 
-	var settlement string
-
-	if raw, ok := pathArgs["settlement"]; ok {
-		paramErr := json.Unmarshal(raw, &settlement)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-settlements-settlement-with-formdata-body: param settlement: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-settlements-settlement-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingSettlementsSettlementFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7171,7 +5911,7 @@ func (ic *InterfaceClient) dispatchGetIssuingSettlementsSettlementWithFormdataBo
 		return nil, fmt.Errorf("stripe.get-issuing-settlements-settlement-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx, settlement, &params, body)
+	resp, callErr := ic.cl.GetIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx, pathArgs.Settlement, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7188,22 +5928,13 @@ func (ic *InterfaceClient) dispatchGetIssuingSettlementsSettlementWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingTokensTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-tokens-token-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Token string `json:"token"`
 	}
 
-	var token string
-
-	if raw, ok := pathArgs["token"]; ok {
-		paramErr := json.Unmarshal(raw, &token)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-tokens-token-with-formdata-body: param token: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-tokens-token-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingTokensTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7218,7 +5949,7 @@ func (ic *InterfaceClient) dispatchGetIssuingTokensTokenWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.get-issuing-tokens-token-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingTokensTokenWithFormdataBodyWithResponse(ctx, token, &params, body)
+	resp, callErr := ic.cl.GetIssuingTokensTokenWithFormdataBodyWithResponse(ctx, pathArgs.Token, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7266,22 +5997,13 @@ func (ic *InterfaceClient) dispatchGetIssuingTokensWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchGetIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-issuing-transactions-transaction-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transaction string `json:"transaction"`
 	}
 
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-issuing-transactions-transaction-with-formdata-body: param transaction: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-issuing-transactions-transaction-with-formdata-body: %w", err)
 	}
-
 	var body client.GetIssuingTransactionsTransactionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7296,7 +6018,7 @@ func (ic *InterfaceClient) dispatchGetIssuingTransactionsTransactionWithFormdata
 		return nil, fmt.Errorf("stripe.get-issuing-transactions-transaction-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx, transaction, &params, body)
+	resp, callErr := ic.cl.GetIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx, pathArgs.Transaction, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7344,22 +6066,13 @@ func (ic *InterfaceClient) dispatchGetIssuingTransactionsWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchGetLinkAccountSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-link-account-sessions-session-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-link-account-sessions-session-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-link-account-sessions-session-with-formdata-body: %w", err)
 	}
-
 	var body client.GetLinkAccountSessionsSessionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7374,7 +6087,7 @@ func (ic *InterfaceClient) dispatchGetLinkAccountSessionsSessionWithFormdataBody
 		return nil, fmt.Errorf("stripe.get-link-account-sessions-session-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetLinkAccountSessionsSessionWithFormdataBodyWithResponse(ctx, session, &params, body)
+	resp, callErr := ic.cl.GetLinkAccountSessionsSessionWithFormdataBodyWithResponse(ctx, pathArgs.Session, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7391,22 +6104,13 @@ func (ic *InterfaceClient) dispatchGetLinkAccountSessionsSessionWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountOwnersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-linked-accounts-account-owners-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-linked-accounts-account-owners-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-linked-accounts-account-owners-with-formdata-body: %w", err)
 	}
-
 	var body client.GetLinkedAccountsAccountOwnersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7421,7 +6125,7 @@ func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountOwnersWithFormdataBod
 		return nil, fmt.Errorf("stripe.get-linked-accounts-account-owners-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetLinkedAccountsAccountOwnersWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetLinkedAccountsAccountOwnersWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7438,22 +6142,13 @@ func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountOwnersWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-linked-accounts-account-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-linked-accounts-account-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-linked-accounts-account-with-formdata-body: %w", err)
 	}
-
 	var body client.GetLinkedAccountsAccountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7468,7 +6163,7 @@ func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.get-linked-accounts-account-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetLinkedAccountsAccountWithFormdataBodyWithResponse(ctx, account, &params, body)
+	resp, callErr := ic.cl.GetLinkedAccountsAccountWithFormdataBodyWithResponse(ctx, pathArgs.Account, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7516,22 +6211,13 @@ func (ic *InterfaceClient) dispatchGetLinkedAccountsWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchGetMandatesMandateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-mandates-mandate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Mandate string `json:"mandate"`
 	}
 
-	var mandate string
-
-	if raw, ok := pathArgs["mandate"]; ok {
-		paramErr := json.Unmarshal(raw, &mandate)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-mandates-mandate-with-formdata-body: param mandate: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-mandates-mandate-with-formdata-body: %w", err)
 	}
-
 	var body client.GetMandatesMandateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7546,7 +6232,7 @@ func (ic *InterfaceClient) dispatchGetMandatesMandateWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("stripe.get-mandates-mandate-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetMandatesMandateWithFormdataBodyWithResponse(ctx, mandate, &params, body)
+	resp, callErr := ic.cl.GetMandatesMandateWithFormdataBodyWithResponse(ctx, pathArgs.Mandate, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7563,22 +6249,13 @@ func (ic *InterfaceClient) dispatchGetMandatesMandateWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-attempt-records-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-attempt-records-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-attempt-records-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentAttemptRecordsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7593,7 +6270,7 @@ func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsIdWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.get-payment-attempt-records-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentAttemptRecordsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetPaymentAttemptRecordsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7641,22 +6318,13 @@ func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-intents-intent-amount-details-line-items-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-intents-intent-amount-details-line-items-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-intents-intent-amount-details-line-items-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentIntentsIntentAmountDetailsLineItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7671,7 +6339,7 @@ func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentAmountDetailsLineItems
 		return nil, fmt.Errorf("stripe.get-payment-intents-intent-amount-details-line-items-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBodyWithResponse(ctx, intent, &params, body)
+	resp, callErr := ic.cl.GetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBodyWithResponse(ctx, pathArgs.Intent, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7688,22 +6356,13 @@ func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentAmountDetailsLineItems
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-intents-intent-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-intents-intent-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-intents-intent-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentIntentsIntentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7718,7 +6377,7 @@ func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.get-payment-intents-intent-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentIntentsIntentWithFormdataBodyWithResponse(ctx, intent, &params, body)
+	resp, callErr := ic.cl.GetPaymentIntentsIntentWithFormdataBodyWithResponse(ctx, pathArgs.Intent, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7797,22 +6456,13 @@ func (ic *InterfaceClient) dispatchGetPaymentIntentsWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-links-payment-link-line-items-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentLink string `json:"paymentLink"`
 	}
 
-	var paymentLink string
-
-	if raw, ok := pathArgs["paymentLink"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentLink)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-links-payment-link-line-items-with-formdata-body: param paymentLink: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-links-payment-link-line-items-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentLinksPaymentLinkLineItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7827,7 +6477,7 @@ func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkLineItemsWithFormda
 		return nil, fmt.Errorf("stripe.get-payment-links-payment-link-line-items-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentLinksPaymentLinkLineItemsWithFormdataBodyWithResponse(ctx, paymentLink, &params, body)
+	resp, callErr := ic.cl.GetPaymentLinksPaymentLinkLineItemsWithFormdataBodyWithResponse(ctx, pathArgs.PaymentLink, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7844,22 +6494,13 @@ func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkLineItemsWithFormda
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-links-payment-link-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentLink string `json:"paymentLink"`
 	}
 
-	var paymentLink string
-
-	if raw, ok := pathArgs["paymentLink"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentLink)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-links-payment-link-with-formdata-body: param paymentLink: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-links-payment-link-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentLinksPaymentLinkFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7874,7 +6515,7 @@ func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.get-payment-links-payment-link-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx, paymentLink, &params, body)
+	resp, callErr := ic.cl.GetPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx, pathArgs.PaymentLink, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7922,22 +6563,13 @@ func (ic *InterfaceClient) dispatchGetPaymentLinksWithFormdataBodyWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-method-configurations-configuration-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Configuration string `json:"configuration"`
 	}
 
-	var configuration string
-
-	if raw, ok := pathArgs["configuration"]; ok {
-		paramErr := json.Unmarshal(raw, &configuration)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-method-configurations-configuration-with-formdata-body: param configuration: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-method-configurations-configuration-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentMethodConfigurationsConfigurationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7952,7 +6584,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsConfigurationWi
 		return nil, fmt.Errorf("stripe.get-payment-method-configurations-configuration-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, configuration, &params, body)
+	resp, callErr := ic.cl.GetPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, pathArgs.Configuration, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8000,22 +6632,13 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-method-domains-payment-method-domain-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentMethodDomain string `json:"paymentMethodDomain"`
 	}
 
-	var paymentMethodDomain string
-
-	if raw, ok := pathArgs["paymentMethodDomain"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentMethodDomain)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-method-domains-payment-method-domain-with-formdata-body: param paymentMethodDomain: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-method-domains-payment-method-domain-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentMethodDomainsPaymentMethodDomainFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8030,7 +6653,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsPaymentMethodDomainWit
 		return nil, fmt.Errorf("stripe.get-payment-method-domains-payment-method-domain-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx, paymentMethodDomain, &params, body)
+	resp, callErr := ic.cl.GetPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx, pathArgs.PaymentMethodDomain, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8078,22 +6701,13 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-methods-payment-method-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentMethod string `json:"paymentMethod"`
 	}
 
-	var paymentMethod string
-
-	if raw, ok := pathArgs["paymentMethod"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentMethod)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-methods-payment-method-with-formdata-body: param paymentMethod: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-methods-payment-method-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentMethodsPaymentMethodFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8108,7 +6722,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodsPaymentMethodWithFormdataBod
 		return nil, fmt.Errorf("stripe.get-payment-methods-payment-method-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, paymentMethod, &params, body)
+	resp, callErr := ic.cl.GetPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, pathArgs.PaymentMethod, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8156,22 +6770,13 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodsWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchGetPaymentRecordsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payment-records-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payment-records-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payment-records-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPaymentRecordsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8186,7 +6791,7 @@ func (ic *InterfaceClient) dispatchGetPaymentRecordsIdWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.get-payment-records-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPaymentRecordsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetPaymentRecordsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8234,22 +6839,13 @@ func (ic *InterfaceClient) dispatchGetPaymentRecordsWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchGetPayoutsPayoutWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-payouts-payout-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Payout string `json:"payout"`
 	}
 
-	var payout string
-
-	if raw, ok := pathArgs["payout"]; ok {
-		paramErr := json.Unmarshal(raw, &payout)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-payouts-payout-with-formdata-body: param payout: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-payouts-payout-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPayoutsPayoutFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8264,7 +6860,7 @@ func (ic *InterfaceClient) dispatchGetPayoutsPayoutWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.get-payouts-payout-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPayoutsPayoutWithFormdataBodyWithResponse(ctx, payout, &params, body)
+	resp, callErr := ic.cl.GetPayoutsPayoutWithFormdataBodyWithResponse(ctx, pathArgs.Payout, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8312,22 +6908,13 @@ func (ic *InterfaceClient) dispatchGetPayoutsWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchGetPlansPlanWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-plans-plan-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Plan string `json:"plan"`
 	}
 
-	var plan string
-
-	if raw, ok := pathArgs["plan"]; ok {
-		paramErr := json.Unmarshal(raw, &plan)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-plans-plan-with-formdata-body: param plan: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-plans-plan-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPlansPlanFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8342,7 +6929,7 @@ func (ic *InterfaceClient) dispatchGetPlansPlanWithFormdataBodyWithResponse(ctx 
 		return nil, fmt.Errorf("stripe.get-plans-plan-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPlansPlanWithFormdataBodyWithResponse(ctx, plan, &params, body)
+	resp, callErr := ic.cl.GetPlansPlanWithFormdataBodyWithResponse(ctx, pathArgs.Plan, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8390,22 +6977,13 @@ func (ic *InterfaceClient) dispatchGetPlansWithFormdataBodyWithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchGetPricesPriceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-prices-price-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Price string `json:"price"`
 	}
 
-	var price string
-
-	if raw, ok := pathArgs["price"]; ok {
-		paramErr := json.Unmarshal(raw, &price)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-prices-price-with-formdata-body: param price: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-prices-price-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPricesPriceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8420,7 +6998,7 @@ func (ic *InterfaceClient) dispatchGetPricesPriceWithFormdataBodyWithResponse(ct
 		return nil, fmt.Errorf("stripe.get-prices-price-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPricesPriceWithFormdataBodyWithResponse(ctx, price, &params, body)
+	resp, callErr := ic.cl.GetPricesPriceWithFormdataBodyWithResponse(ctx, pathArgs.Price, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8499,22 +7077,13 @@ func (ic *InterfaceClient) dispatchGetPricesWithFormdataBodyWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-product-catalog-trial-offers-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-product-catalog-trial-offers-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-product-catalog-trial-offers-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetProductCatalogTrialOffersIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8529,7 +7098,7 @@ func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersIdWithFormdataBod
 		return nil, fmt.Errorf("stripe.get-product-catalog-trial-offers-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8577,22 +7146,13 @@ func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchGetProductsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-products-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-products-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-products-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetProductsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8607,7 +7167,7 @@ func (ic *InterfaceClient) dispatchGetProductsIdWithFormdataBodyWithResponse(ctx
 		return nil, fmt.Errorf("stripe.get-products-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetProductsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetProductsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8624,31 +7184,14 @@ func (ic *InterfaceClient) dispatchGetProductsIdWithFormdataBodyWithResponse(ctx
 }
 
 func (ic *InterfaceClient) dispatchGetProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-products-product-features-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Product string `json:"product"`
+		Id      string `json:"id"`
 	}
 
-	var product string
-
-	if raw, ok := pathArgs["product"]; ok {
-		paramErr := json.Unmarshal(raw, &product)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-products-product-features-id-with-formdata-body: param product: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-products-product-features-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-products-product-features-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetProductsProductFeaturesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8663,7 +7206,7 @@ func (ic *InterfaceClient) dispatchGetProductsProductFeaturesIdWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.get-products-product-features-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx, product, id, &params, body)
+	resp, callErr := ic.cl.GetProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx, pathArgs.Product, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8680,22 +7223,13 @@ func (ic *InterfaceClient) dispatchGetProductsProductFeaturesIdWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchGetProductsProductFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-products-product-features-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Product string `json:"product"`
 	}
 
-	var product string
-
-	if raw, ok := pathArgs["product"]; ok {
-		paramErr := json.Unmarshal(raw, &product)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-products-product-features-with-formdata-body: param product: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-products-product-features-with-formdata-body: %w", err)
 	}
-
 	var body client.GetProductsProductFeaturesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8710,7 +7244,7 @@ func (ic *InterfaceClient) dispatchGetProductsProductFeaturesWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.get-products-product-features-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetProductsProductFeaturesWithFormdataBodyWithResponse(ctx, product, &params, body)
+	resp, callErr := ic.cl.GetProductsProductFeaturesWithFormdataBodyWithResponse(ctx, pathArgs.Product, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8789,22 +7323,13 @@ func (ic *InterfaceClient) dispatchGetProductsWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchGetPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-promotion-codes-promotion-code-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PromotionCode string `json:"promotionCode"`
 	}
 
-	var promotionCode string
-
-	if raw, ok := pathArgs["promotionCode"]; ok {
-		paramErr := json.Unmarshal(raw, &promotionCode)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-promotion-codes-promotion-code-with-formdata-body: param promotionCode: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-promotion-codes-promotion-code-with-formdata-body: %w", err)
 	}
-
 	var body client.GetPromotionCodesPromotionCodeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8819,7 +7344,7 @@ func (ic *InterfaceClient) dispatchGetPromotionCodesPromotionCodeWithFormdataBod
 		return nil, fmt.Errorf("stripe.get-promotion-codes-promotion-code-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx, promotionCode, &params, body)
+	resp, callErr := ic.cl.GetPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx, pathArgs.PromotionCode, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8867,22 +7392,13 @@ func (ic *InterfaceClient) dispatchGetPromotionCodesWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-quotes-quote-computed-upfront-line-items-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Quote string `json:"quote"`
 	}
 
-	var quote string
-
-	if raw, ok := pathArgs["quote"]; ok {
-		paramErr := json.Unmarshal(raw, &quote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-quotes-quote-computed-upfront-line-items-with-formdata-body: param quote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-quotes-quote-computed-upfront-line-items-with-formdata-body: %w", err)
 	}
-
 	var body client.GetQuotesQuoteComputedUpfrontLineItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8897,7 +7413,7 @@ func (ic *InterfaceClient) dispatchGetQuotesQuoteComputedUpfrontLineItemsWithFor
 		return nil, fmt.Errorf("stripe.get-quotes-quote-computed-upfront-line-items-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetQuotesQuoteComputedUpfrontLineItemsWithFormdataBodyWithResponse(ctx, quote, &params, body)
+	resp, callErr := ic.cl.GetQuotesQuoteComputedUpfrontLineItemsWithFormdataBodyWithResponse(ctx, pathArgs.Quote, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8914,22 +7430,13 @@ func (ic *InterfaceClient) dispatchGetQuotesQuoteComputedUpfrontLineItemsWithFor
 }
 
 func (ic *InterfaceClient) dispatchGetQuotesQuoteLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-quotes-quote-line-items-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Quote string `json:"quote"`
 	}
 
-	var quote string
-
-	if raw, ok := pathArgs["quote"]; ok {
-		paramErr := json.Unmarshal(raw, &quote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-quotes-quote-line-items-with-formdata-body: param quote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-quotes-quote-line-items-with-formdata-body: %w", err)
 	}
-
 	var body client.GetQuotesQuoteLineItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8944,7 +7451,7 @@ func (ic *InterfaceClient) dispatchGetQuotesQuoteLineItemsWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.get-quotes-quote-line-items-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetQuotesQuoteLineItemsWithFormdataBodyWithResponse(ctx, quote, &params, body)
+	resp, callErr := ic.cl.GetQuotesQuoteLineItemsWithFormdataBodyWithResponse(ctx, pathArgs.Quote, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8961,22 +7468,13 @@ func (ic *InterfaceClient) dispatchGetQuotesQuoteLineItemsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-quotes-quote-pdf-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Quote string `json:"quote"`
 	}
 
-	var quote string
-
-	if raw, ok := pathArgs["quote"]; ok {
-		paramErr := json.Unmarshal(raw, &quote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-quotes-quote-pdf-with-formdata-body: param quote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-quotes-quote-pdf-with-formdata-body: %w", err)
 	}
-
 	var body client.GetQuotesQuotePdfFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8991,7 +7489,7 @@ func (ic *InterfaceClient) dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.get-quotes-quote-pdf-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetQuotesQuotePdfWithFormdataBodyWithResponse(ctx, quote, &params, body)
+	resp, callErr := ic.cl.GetQuotesQuotePdfWithFormdataBodyWithResponse(ctx, pathArgs.Quote, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9008,22 +7506,13 @@ func (ic *InterfaceClient) dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchGetQuotesQuoteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-quotes-quote-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Quote string `json:"quote"`
 	}
 
-	var quote string
-
-	if raw, ok := pathArgs["quote"]; ok {
-		paramErr := json.Unmarshal(raw, &quote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-quotes-quote-with-formdata-body: param quote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-quotes-quote-with-formdata-body: %w", err)
 	}
-
 	var body client.GetQuotesQuoteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9038,7 +7527,7 @@ func (ic *InterfaceClient) dispatchGetQuotesQuoteWithFormdataBodyWithResponse(ct
 		return nil, fmt.Errorf("stripe.get-quotes-quote-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetQuotesQuoteWithFormdataBodyWithResponse(ctx, quote, &params, body)
+	resp, callErr := ic.cl.GetQuotesQuoteWithFormdataBodyWithResponse(ctx, pathArgs.Quote, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9086,22 +7575,13 @@ func (ic *InterfaceClient) dispatchGetQuotesWithFormdataBodyWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-radar-early-fraud-warnings-early-fraud-warning-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		EarlyFraudWarning string `json:"earlyFraudWarning"`
 	}
 
-	var earlyFraudWarning string
-
-	if raw, ok := pathArgs["earlyFraudWarning"]; ok {
-		paramErr := json.Unmarshal(raw, &earlyFraudWarning)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-radar-early-fraud-warnings-early-fraud-warning-with-formdata-body: param earlyFraudWarning: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-radar-early-fraud-warnings-early-fraud-warning-with-formdata-body: %w", err)
 	}
-
 	var body client.GetRadarEarlyFraudWarningsEarlyFraudWarningFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9116,7 +7596,7 @@ func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsEarlyFraudWarningWi
 		return nil, fmt.Errorf("stripe.get-radar-early-fraud-warnings-early-fraud-warning-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBodyWithResponse(ctx, earlyFraudWarning, &params, body)
+	resp, callErr := ic.cl.GetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBodyWithResponse(ctx, pathArgs.EarlyFraudWarning, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9164,22 +7644,13 @@ func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchGetRadarValueListItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-radar-value-list-items-item-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Item string `json:"item"`
 	}
 
-	var item string
-
-	if raw, ok := pathArgs["item"]; ok {
-		paramErr := json.Unmarshal(raw, &item)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-radar-value-list-items-item-with-formdata-body: param item: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-radar-value-list-items-item-with-formdata-body: %w", err)
 	}
-
 	var body client.GetRadarValueListItemsItemFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9194,7 +7665,7 @@ func (ic *InterfaceClient) dispatchGetRadarValueListItemsItemWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.get-radar-value-list-items-item-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetRadarValueListItemsItemWithFormdataBodyWithResponse(ctx, item, &params, body)
+	resp, callErr := ic.cl.GetRadarValueListItemsItemWithFormdataBodyWithResponse(ctx, pathArgs.Item, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9242,22 +7713,13 @@ func (ic *InterfaceClient) dispatchGetRadarValueListItemsWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchGetRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-radar-value-lists-value-list-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ValueList string `json:"valueList"`
 	}
 
-	var valueList string
-
-	if raw, ok := pathArgs["valueList"]; ok {
-		paramErr := json.Unmarshal(raw, &valueList)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-radar-value-lists-value-list-with-formdata-body: param valueList: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-radar-value-lists-value-list-with-formdata-body: %w", err)
 	}
-
 	var body client.GetRadarValueListsValueListFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9272,7 +7734,7 @@ func (ic *InterfaceClient) dispatchGetRadarValueListsValueListWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.get-radar-value-lists-value-list-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetRadarValueListsValueListWithFormdataBodyWithResponse(ctx, valueList, &params, body)
+	resp, callErr := ic.cl.GetRadarValueListsValueListWithFormdataBodyWithResponse(ctx, pathArgs.ValueList, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9320,22 +7782,13 @@ func (ic *InterfaceClient) dispatchGetRadarValueListsWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-refunds-refund-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Refund string `json:"refund"`
 	}
 
-	var refund string
-
-	if raw, ok := pathArgs["refund"]; ok {
-		paramErr := json.Unmarshal(raw, &refund)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-refunds-refund-with-formdata-body: param refund: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-refunds-refund-with-formdata-body: %w", err)
 	}
-
 	var body client.GetRefundsRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9350,7 +7803,7 @@ func (ic *InterfaceClient) dispatchGetRefundsRefundWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.get-refunds-refund-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetRefundsRefundWithFormdataBodyWithResponse(ctx, refund, &params, body)
+	resp, callErr := ic.cl.GetRefundsRefundWithFormdataBodyWithResponse(ctx, pathArgs.Refund, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9398,22 +7851,13 @@ func (ic *InterfaceClient) dispatchGetRefundsWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchGetReportingReportRunsReportRunWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-reporting-report-runs-report-run-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ReportRun string `json:"reportRun"`
 	}
 
-	var reportRun string
-
-	if raw, ok := pathArgs["reportRun"]; ok {
-		paramErr := json.Unmarshal(raw, &reportRun)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-reporting-report-runs-report-run-with-formdata-body: param reportRun: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-reporting-report-runs-report-run-with-formdata-body: %w", err)
 	}
-
 	var body client.GetReportingReportRunsReportRunFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9428,7 +7872,7 @@ func (ic *InterfaceClient) dispatchGetReportingReportRunsReportRunWithFormdataBo
 		return nil, fmt.Errorf("stripe.get-reporting-report-runs-report-run-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetReportingReportRunsReportRunWithFormdataBodyWithResponse(ctx, reportRun, &params, body)
+	resp, callErr := ic.cl.GetReportingReportRunsReportRunWithFormdataBodyWithResponse(ctx, pathArgs.ReportRun, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9476,22 +7920,13 @@ func (ic *InterfaceClient) dispatchGetReportingReportRunsWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchGetReportingReportTypesReportTypeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-reporting-report-types-report-type-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ReportType string `json:"reportType"`
 	}
 
-	var reportType string
-
-	if raw, ok := pathArgs["reportType"]; ok {
-		paramErr := json.Unmarshal(raw, &reportType)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-reporting-report-types-report-type-with-formdata-body: param reportType: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-reporting-report-types-report-type-with-formdata-body: %w", err)
 	}
-
 	var body client.GetReportingReportTypesReportTypeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9506,7 +7941,7 @@ func (ic *InterfaceClient) dispatchGetReportingReportTypesReportTypeWithFormdata
 		return nil, fmt.Errorf("stripe.get-reporting-report-types-report-type-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetReportingReportTypesReportTypeWithFormdataBodyWithResponse(ctx, reportType, &params, body)
+	resp, callErr := ic.cl.GetReportingReportTypesReportTypeWithFormdataBodyWithResponse(ctx, pathArgs.ReportType, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9554,22 +7989,13 @@ func (ic *InterfaceClient) dispatchGetReportingReportTypesWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetReviewsReviewWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-reviews-review-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Review string `json:"review"`
 	}
 
-	var review string
-
-	if raw, ok := pathArgs["review"]; ok {
-		paramErr := json.Unmarshal(raw, &review)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-reviews-review-with-formdata-body: param review: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-reviews-review-with-formdata-body: %w", err)
 	}
-
 	var body client.GetReviewsReviewFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9584,7 +8010,7 @@ func (ic *InterfaceClient) dispatchGetReviewsReviewWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.get-reviews-review-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetReviewsReviewWithFormdataBodyWithResponse(ctx, review, &params, body)
+	resp, callErr := ic.cl.GetReviewsReviewWithFormdataBodyWithResponse(ctx, pathArgs.Review, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9663,22 +8089,13 @@ func (ic *InterfaceClient) dispatchGetSetupAttemptsWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchGetSetupIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-setup-intents-intent-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-setup-intents-intent-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-setup-intents-intent-with-formdata-body: %w", err)
 	}
-
 	var body client.GetSetupIntentsIntentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9693,7 +8110,7 @@ func (ic *InterfaceClient) dispatchGetSetupIntentsIntentWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.get-setup-intents-intent-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSetupIntentsIntentWithFormdataBodyWithResponse(ctx, intent, &params, body)
+	resp, callErr := ic.cl.GetSetupIntentsIntentWithFormdataBodyWithResponse(ctx, pathArgs.Intent, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9741,22 +8158,13 @@ func (ic *InterfaceClient) dispatchGetSetupIntentsWithFormdataBodyWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchGetShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-shipping-rates-shipping-rate-token-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ShippingRateToken string `json:"shippingRateToken"`
 	}
 
-	var shippingRateToken string
-
-	if raw, ok := pathArgs["shippingRateToken"]; ok {
-		paramErr := json.Unmarshal(raw, &shippingRateToken)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-shipping-rates-shipping-rate-token-with-formdata-body: param shippingRateToken: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-shipping-rates-shipping-rate-token-with-formdata-body: %w", err)
 	}
-
 	var body client.GetShippingRatesShippingRateTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9771,7 +8179,7 @@ func (ic *InterfaceClient) dispatchGetShippingRatesShippingRateTokenWithFormdata
 		return nil, fmt.Errorf("stripe.get-shipping-rates-shipping-rate-token-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx, shippingRateToken, &params, body)
+	resp, callErr := ic.cl.GetShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx, pathArgs.ShippingRateToken, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9819,22 +8227,13 @@ func (ic *InterfaceClient) dispatchGetShippingRatesWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-sigma-scheduled-query-runs-scheduled-query-run-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ScheduledQueryRun string `json:"scheduledQueryRun"`
 	}
 
-	var scheduledQueryRun string
-
-	if raw, ok := pathArgs["scheduledQueryRun"]; ok {
-		paramErr := json.Unmarshal(raw, &scheduledQueryRun)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-sigma-scheduled-query-runs-scheduled-query-run-with-formdata-body: param scheduledQueryRun: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-sigma-scheduled-query-runs-scheduled-query-run-with-formdata-body: %w", err)
 	}
-
 	var body client.GetSigmaScheduledQueryRunsScheduledQueryRunFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9849,7 +8248,7 @@ func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsScheduledQueryRunWi
 		return nil, fmt.Errorf("stripe.get-sigma-scheduled-query-runs-scheduled-query-run-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBodyWithResponse(ctx, scheduledQueryRun, &params, body)
+	resp, callErr := ic.cl.GetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBodyWithResponse(ctx, pathArgs.ScheduledQueryRun, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9897,31 +8296,14 @@ func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-sources-source-mandate-notifications-mandate-notification-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Source              string `json:"source"`
+		MandateNotification string `json:"mandateNotification"`
 	}
 
-	var source string
-
-	if raw, ok := pathArgs["source"]; ok {
-		paramErr := json.Unmarshal(raw, &source)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-sources-source-mandate-notifications-mandate-notification-with-formdata-body: param source: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-sources-source-mandate-notifications-mandate-notification-with-formdata-body: %w", err)
 	}
-
-	var mandateNotification string
-
-	if raw, ok := pathArgs["mandateNotification"]; ok {
-		paramErr := json.Unmarshal(raw, &mandateNotification)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-sources-source-mandate-notifications-mandate-notification-with-formdata-body: param mandateNotification: %w", paramErr)
-		}
-	}
-
 	var body client.GetSourcesSourceMandateNotificationsMandateNotificationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9936,7 +8318,7 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceMandateNotificationsMandateNo
 		return nil, fmt.Errorf("stripe.get-sources-source-mandate-notifications-mandate-notification-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBodyWithResponse(ctx, source, mandateNotification, &params, body)
+	resp, callErr := ic.cl.GetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBodyWithResponse(ctx, pathArgs.Source, pathArgs.MandateNotification, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9953,31 +8335,14 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceMandateNotificationsMandateNo
 }
 
 func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-source-transaction-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Source            string `json:"source"`
+		SourceTransaction string `json:"sourceTransaction"`
 	}
 
-	var source string
-
-	if raw, ok := pathArgs["source"]; ok {
-		paramErr := json.Unmarshal(raw, &source)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-source-transaction-with-formdata-body: param source: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-source-transaction-with-formdata-body: %w", err)
 	}
-
-	var sourceTransaction string
-
-	if raw, ok := pathArgs["sourceTransaction"]; ok {
-		paramErr := json.Unmarshal(raw, &sourceTransaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-source-transaction-with-formdata-body: param sourceTransaction: %w", paramErr)
-		}
-	}
-
 	var body client.GetSourcesSourceSourceTransactionsSourceTransactionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9992,7 +8357,7 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsSourceTrans
 		return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-source-transaction-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBodyWithResponse(ctx, source, sourceTransaction, &params, body)
+	resp, callErr := ic.cl.GetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBodyWithResponse(ctx, pathArgs.Source, pathArgs.SourceTransaction, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10009,22 +8374,13 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsSourceTrans
 }
 
 func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Source string `json:"source"`
 	}
 
-	var source string
-
-	if raw, ok := pathArgs["source"]; ok {
-		paramErr := json.Unmarshal(raw, &source)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-with-formdata-body: param source: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-with-formdata-body: %w", err)
 	}
-
 	var body client.GetSourcesSourceSourceTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10039,7 +8395,7 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsWithFormdat
 		return nil, fmt.Errorf("stripe.get-sources-source-source-transactions-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSourcesSourceSourceTransactionsWithFormdataBodyWithResponse(ctx, source, &params, body)
+	resp, callErr := ic.cl.GetSourcesSourceSourceTransactionsWithFormdataBodyWithResponse(ctx, pathArgs.Source, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10056,22 +8412,13 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchGetSourcesSourceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-sources-source-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Source string `json:"source"`
 	}
 
-	var source string
-
-	if raw, ok := pathArgs["source"]; ok {
-		paramErr := json.Unmarshal(raw, &source)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-sources-source-with-formdata-body: param source: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-sources-source-with-formdata-body: %w", err)
 	}
-
 	var body client.GetSourcesSourceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10086,7 +8433,7 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("stripe.get-sources-source-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSourcesSourceWithFormdataBodyWithResponse(ctx, source, &params, body)
+	resp, callErr := ic.cl.GetSourcesSourceWithFormdataBodyWithResponse(ctx, pathArgs.Source, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10103,22 +8450,13 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchGetSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-subscription-items-item-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Item string `json:"item"`
 	}
 
-	var item string
-
-	if raw, ok := pathArgs["item"]; ok {
-		paramErr := json.Unmarshal(raw, &item)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-subscription-items-item-with-formdata-body: param item: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-subscription-items-item-with-formdata-body: %w", err)
 	}
-
 	var body client.GetSubscriptionItemsItemFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10133,7 +8471,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionItemsItemWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.get-subscription-items-item-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, item, &params, body)
+	resp, callErr := ic.cl.GetSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, pathArgs.Item, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10181,22 +8519,13 @@ func (ic *InterfaceClient) dispatchGetSubscriptionItemsWithFormdataBodyWithRespo
 }
 
 func (ic *InterfaceClient) dispatchGetSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-subscription-schedules-schedule-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Schedule string `json:"schedule"`
 	}
 
-	var schedule string
-
-	if raw, ok := pathArgs["schedule"]; ok {
-		paramErr := json.Unmarshal(raw, &schedule)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-subscription-schedules-schedule-with-formdata-body: param schedule: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-subscription-schedules-schedule-with-formdata-body: %w", err)
 	}
-
 	var body client.GetSubscriptionSchedulesScheduleFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10211,7 +8540,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionSchedulesScheduleWithFormdataB
 		return nil, fmt.Errorf("stripe.get-subscription-schedules-schedule-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx, schedule, &params, body)
+	resp, callErr := ic.cl.GetSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx, pathArgs.Schedule, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10290,22 +8619,13 @@ func (ic *InterfaceClient) dispatchGetSubscriptionsSearchWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchGetSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-subscriptions-subscription-exposed-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-subscriptions-subscription-exposed-id-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-subscriptions-subscription-exposed-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetSubscriptionsSubscriptionExposedIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10320,7 +8640,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionsSubscriptionExposedIdWithForm
 		return nil, fmt.Errorf("stripe.get-subscriptions-subscription-exposed-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, subscriptionExposedId, &params, body)
+	resp, callErr := ic.cl.GetSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, pathArgs.SubscriptionExposedId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10399,22 +8719,13 @@ func (ic *InterfaceClient) dispatchGetTaxAssociationsFindWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-calculations-calculation-line-items-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Calculation string `json:"calculation"`
 	}
 
-	var calculation string
-
-	if raw, ok := pathArgs["calculation"]; ok {
-		paramErr := json.Unmarshal(raw, &calculation)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-calculations-calculation-line-items-with-formdata-body: param calculation: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-calculations-calculation-line-items-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxCalculationsCalculationLineItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10429,7 +8740,7 @@ func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationLineItemsWithFor
 		return nil, fmt.Errorf("stripe.get-tax-calculations-calculation-line-items-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxCalculationsCalculationLineItemsWithFormdataBodyWithResponse(ctx, calculation, &params, body)
+	resp, callErr := ic.cl.GetTaxCalculationsCalculationLineItemsWithFormdataBodyWithResponse(ctx, pathArgs.Calculation, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10446,22 +8757,13 @@ func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationLineItemsWithFor
 }
 
 func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-calculations-calculation-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Calculation string `json:"calculation"`
 	}
 
-	var calculation string
-
-	if raw, ok := pathArgs["calculation"]; ok {
-		paramErr := json.Unmarshal(raw, &calculation)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-calculations-calculation-with-formdata-body: param calculation: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-calculations-calculation-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxCalculationsCalculationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10476,7 +8778,7 @@ func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationWithFormdataBody
 		return nil, fmt.Errorf("stripe.get-tax-calculations-calculation-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxCalculationsCalculationWithFormdataBodyWithResponse(ctx, calculation, &params, body)
+	resp, callErr := ic.cl.GetTaxCalculationsCalculationWithFormdataBodyWithResponse(ctx, pathArgs.Calculation, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10493,22 +8795,13 @@ func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchGetTaxCodesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-codes-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-codes-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-codes-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxCodesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10523,7 +8816,7 @@ func (ic *InterfaceClient) dispatchGetTaxCodesIdWithFormdataBodyWithResponse(ctx
 		return nil, fmt.Errorf("stripe.get-tax-codes-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxCodesIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTaxCodesIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10571,22 +8864,13 @@ func (ic *InterfaceClient) dispatchGetTaxCodesWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchGetTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-ids-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-ids-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-ids-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxIdsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10601,7 +8885,7 @@ func (ic *InterfaceClient) dispatchGetTaxIdsIdWithFormdataBodyWithResponse(ctx c
 		return nil, fmt.Errorf("stripe.get-tax-ids-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxIdsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTaxIdsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10649,22 +8933,13 @@ func (ic *InterfaceClient) dispatchGetTaxIdsWithFormdataBodyWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchGetTaxLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-locations-location-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Location string `json:"location"`
 	}
 
-	var location string
-
-	if raw, ok := pathArgs["location"]; ok {
-		paramErr := json.Unmarshal(raw, &location)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-locations-location-with-formdata-body: param location: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-locations-location-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxLocationsLocationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10679,7 +8954,7 @@ func (ic *InterfaceClient) dispatchGetTaxLocationsLocationWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.get-tax-locations-location-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxLocationsLocationWithFormdataBodyWithResponse(ctx, location, &params, body)
+	resp, callErr := ic.cl.GetTaxLocationsLocationWithFormdataBodyWithResponse(ctx, pathArgs.Location, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10727,22 +9002,13 @@ func (ic *InterfaceClient) dispatchGetTaxLocationsWithFormdataBodyWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchGetTaxRatesTaxRateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-rates-tax-rate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		TaxRate string `json:"taxRate"`
 	}
 
-	var taxRate string
-
-	if raw, ok := pathArgs["taxRate"]; ok {
-		paramErr := json.Unmarshal(raw, &taxRate)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-rates-tax-rate-with-formdata-body: param taxRate: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-rates-tax-rate-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxRatesTaxRateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10757,7 +9023,7 @@ func (ic *InterfaceClient) dispatchGetTaxRatesTaxRateWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("stripe.get-tax-rates-tax-rate-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxRatesTaxRateWithFormdataBodyWithResponse(ctx, taxRate, &params, body)
+	resp, callErr := ic.cl.GetTaxRatesTaxRateWithFormdataBodyWithResponse(ctx, pathArgs.TaxRate, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10805,22 +9071,13 @@ func (ic *InterfaceClient) dispatchGetTaxRatesWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchGetTaxRegistrationsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-registrations-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-registrations-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-registrations-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxRegistrationsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10835,7 +9092,7 @@ func (ic *InterfaceClient) dispatchGetTaxRegistrationsIdWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.get-tax-registrations-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxRegistrationsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTaxRegistrationsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10914,22 +9171,13 @@ func (ic *InterfaceClient) dispatchGetTaxSettingsWithFormdataBodyWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-transactions-transaction-line-items-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transaction string `json:"transaction"`
 	}
 
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-transactions-transaction-line-items-with-formdata-body: param transaction: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-transactions-transaction-line-items-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxTransactionsTransactionLineItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10944,7 +9192,7 @@ func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionLineItemsWithFor
 		return nil, fmt.Errorf("stripe.get-tax-transactions-transaction-line-items-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxTransactionsTransactionLineItemsWithFormdataBodyWithResponse(ctx, transaction, &params, body)
+	resp, callErr := ic.cl.GetTaxTransactionsTransactionLineItemsWithFormdataBodyWithResponse(ctx, pathArgs.Transaction, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10961,22 +9209,13 @@ func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionLineItemsWithFor
 }
 
 func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tax-transactions-transaction-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transaction string `json:"transaction"`
 	}
 
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tax-transactions-transaction-with-formdata-body: param transaction: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tax-transactions-transaction-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTaxTransactionsTransactionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10991,7 +9230,7 @@ func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionWithFormdataBody
 		return nil, fmt.Errorf("stripe.get-tax-transactions-transaction-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTaxTransactionsTransactionWithFormdataBodyWithResponse(ctx, transaction, &params, body)
+	resp, callErr := ic.cl.GetTaxTransactionsTransactionWithFormdataBodyWithResponse(ctx, pathArgs.Transaction, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11008,22 +9247,13 @@ func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchGetTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-terminal-configurations-configuration-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Configuration string `json:"configuration"`
 	}
 
-	var configuration string
-
-	if raw, ok := pathArgs["configuration"]; ok {
-		paramErr := json.Unmarshal(raw, &configuration)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-terminal-configurations-configuration-with-formdata-body: param configuration: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-terminal-configurations-configuration-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTerminalConfigurationsConfigurationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11038,7 +9268,7 @@ func (ic *InterfaceClient) dispatchGetTerminalConfigurationsConfigurationWithFor
 		return nil, fmt.Errorf("stripe.get-terminal-configurations-configuration-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, configuration, &params, body)
+	resp, callErr := ic.cl.GetTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, pathArgs.Configuration, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11086,22 +9316,13 @@ func (ic *InterfaceClient) dispatchGetTerminalConfigurationsWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchGetTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-terminal-locations-location-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Location string `json:"location"`
 	}
 
-	var location string
-
-	if raw, ok := pathArgs["location"]; ok {
-		paramErr := json.Unmarshal(raw, &location)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-terminal-locations-location-with-formdata-body: param location: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-terminal-locations-location-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTerminalLocationsLocationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11116,7 +9337,7 @@ func (ic *InterfaceClient) dispatchGetTerminalLocationsLocationWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.get-terminal-locations-location-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, location, &params, body)
+	resp, callErr := ic.cl.GetTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, pathArgs.Location, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11164,22 +9385,13 @@ func (ic *InterfaceClient) dispatchGetTerminalLocationsWithFormdataBodyWithRespo
 }
 
 func (ic *InterfaceClient) dispatchGetTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-terminal-readers-reader-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-terminal-readers-reader-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-terminal-readers-reader-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTerminalReadersReaderFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11194,7 +9406,7 @@ func (ic *InterfaceClient) dispatchGetTerminalReadersReaderWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.get-terminal-readers-reader-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTerminalReadersReaderWithFormdataBodyWithResponse(ctx, reader, &params, body)
+	resp, callErr := ic.cl.GetTerminalReadersReaderWithFormdataBodyWithResponse(ctx, pathArgs.Reader, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11242,22 +9454,13 @@ func (ic *InterfaceClient) dispatchGetTerminalReadersWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-test-helpers-test-clocks-test-clock-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		TestClock string `json:"testClock"`
 	}
 
-	var testClock string
-
-	if raw, ok := pathArgs["testClock"]; ok {
-		paramErr := json.Unmarshal(raw, &testClock)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-test-helpers-test-clocks-test-clock-with-formdata-body: param testClock: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-test-helpers-test-clocks-test-clock-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTestHelpersTestClocksTestClockFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11272,7 +9475,7 @@ func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksTestClockWithFormdata
 		return nil, fmt.Errorf("stripe.get-test-helpers-test-clocks-test-clock-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx, testClock, &params, body)
+	resp, callErr := ic.cl.GetTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx, pathArgs.TestClock, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11320,22 +9523,13 @@ func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsAuthenticationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-three-d-secure-authentications-authentication-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authentication string `json:"authentication"`
 	}
 
-	var authentication string
-
-	if raw, ok := pathArgs["authentication"]; ok {
-		paramErr := json.Unmarshal(raw, &authentication)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-three-d-secure-authentications-authentication-with-formdata-body: param authentication: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-three-d-secure-authentications-authentication-with-formdata-body: %w", err)
 	}
-
 	var body client.GetThreeDSecureAuthenticationsAuthenticationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11350,7 +9544,7 @@ func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsAuthenticationW
 		return nil, fmt.Errorf("stripe.get-three-d-secure-authentications-authentication-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetThreeDSecureAuthenticationsAuthenticationWithFormdataBodyWithResponse(ctx, authentication, &params, body)
+	resp, callErr := ic.cl.GetThreeDSecureAuthenticationsAuthenticationWithFormdataBodyWithResponse(ctx, pathArgs.Authentication, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11398,22 +9592,13 @@ func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchGetTokensTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-tokens-token-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Token string `json:"token"`
 	}
 
-	var token string
-
-	if raw, ok := pathArgs["token"]; ok {
-		paramErr := json.Unmarshal(raw, &token)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-tokens-token-with-formdata-body: param token: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-tokens-token-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTokensTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11428,7 +9613,7 @@ func (ic *InterfaceClient) dispatchGetTokensTokenWithFormdataBodyWithResponse(ct
 		return nil, fmt.Errorf("stripe.get-tokens-token-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTokensTokenWithFormdataBodyWithResponse(ctx, token, &params, body)
+	resp, callErr := ic.cl.GetTokensTokenWithFormdataBodyWithResponse(ctx, pathArgs.Token, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11445,22 +9630,13 @@ func (ic *InterfaceClient) dispatchGetTokensTokenWithFormdataBodyWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchGetTopupsTopupWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-topups-topup-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Topup string `json:"topup"`
 	}
 
-	var topup string
-
-	if raw, ok := pathArgs["topup"]; ok {
-		paramErr := json.Unmarshal(raw, &topup)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-topups-topup-with-formdata-body: param topup: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-topups-topup-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTopupsTopupFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11475,7 +9651,7 @@ func (ic *InterfaceClient) dispatchGetTopupsTopupWithFormdataBodyWithResponse(ct
 		return nil, fmt.Errorf("stripe.get-topups-topup-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTopupsTopupWithFormdataBodyWithResponse(ctx, topup, &params, body)
+	resp, callErr := ic.cl.GetTopupsTopupWithFormdataBodyWithResponse(ctx, pathArgs.Topup, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11523,22 +9699,13 @@ func (ic *InterfaceClient) dispatchGetTopupsWithFormdataBodyWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchGetTransfersIdReversalsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-transfers-id-reversals-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-transfers-id-reversals-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-transfers-id-reversals-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTransfersIdReversalsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11553,7 +9720,7 @@ func (ic *InterfaceClient) dispatchGetTransfersIdReversalsWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.get-transfers-id-reversals-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTransfersIdReversalsWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTransfersIdReversalsWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11570,31 +9737,14 @@ func (ic *InterfaceClient) dispatchGetTransfersIdReversalsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-transfers-transfer-reversals-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transfer string `json:"transfer"`
+		Id       string `json:"id"`
 	}
 
-	var transfer string
-
-	if raw, ok := pathArgs["transfer"]; ok {
-		paramErr := json.Unmarshal(raw, &transfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-transfers-transfer-reversals-id-with-formdata-body: param transfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-transfers-transfer-reversals-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-transfers-transfer-reversals-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.GetTransfersTransferReversalsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11609,7 +9759,7 @@ func (ic *InterfaceClient) dispatchGetTransfersTransferReversalsIdWithFormdataBo
 		return nil, fmt.Errorf("stripe.get-transfers-transfer-reversals-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx, transfer, id, &params, body)
+	resp, callErr := ic.cl.GetTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx, pathArgs.Transfer, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11626,22 +9776,13 @@ func (ic *InterfaceClient) dispatchGetTransfersTransferReversalsIdWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchGetTransfersTransferWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-transfers-transfer-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transfer string `json:"transfer"`
 	}
 
-	var transfer string
-
-	if raw, ok := pathArgs["transfer"]; ok {
-		paramErr := json.Unmarshal(raw, &transfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-transfers-transfer-with-formdata-body: param transfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-transfers-transfer-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTransfersTransferFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11656,7 +9797,7 @@ func (ic *InterfaceClient) dispatchGetTransfersTransferWithFormdataBodyWithRespo
 		return nil, fmt.Errorf("stripe.get-transfers-transfer-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTransfersTransferWithFormdataBodyWithResponse(ctx, transfer, &params, body)
+	resp, callErr := ic.cl.GetTransfersTransferWithFormdataBodyWithResponse(ctx, pathArgs.Transfer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11704,22 +9845,13 @@ func (ic *InterfaceClient) dispatchGetTransfersWithFormdataBodyWithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsCreditReversalWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-credit-reversals-credit-reversal-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		CreditReversal string `json:"creditReversal"`
 	}
 
-	var creditReversal string
-
-	if raw, ok := pathArgs["creditReversal"]; ok {
-		paramErr := json.Unmarshal(raw, &creditReversal)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-credit-reversals-credit-reversal-with-formdata-body: param creditReversal: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-credit-reversals-credit-reversal-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryCreditReversalsCreditReversalFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11734,7 +9866,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsCreditReversalWithF
 		return nil, fmt.Errorf("stripe.get-treasury-credit-reversals-credit-reversal-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryCreditReversalsCreditReversalWithFormdataBodyWithResponse(ctx, creditReversal, &params, body)
+	resp, callErr := ic.cl.GetTreasuryCreditReversalsCreditReversalWithFormdataBodyWithResponse(ctx, pathArgs.CreditReversal, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11782,22 +9914,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsDebitReversalWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-debit-reversals-debit-reversal-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		DebitReversal string `json:"debitReversal"`
 	}
 
-	var debitReversal string
-
-	if raw, ok := pathArgs["debitReversal"]; ok {
-		paramErr := json.Unmarshal(raw, &debitReversal)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-debit-reversals-debit-reversal-with-formdata-body: param debitReversal: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-debit-reversals-debit-reversal-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryDebitReversalsDebitReversalFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11812,7 +9935,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsDebitReversalWithFor
 		return nil, fmt.Errorf("stripe.get-treasury-debit-reversals-debit-reversal-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryDebitReversalsDebitReversalWithFormdataBodyWithResponse(ctx, debitReversal, &params, body)
+	resp, callErr := ic.cl.GetTreasuryDebitReversalsDebitReversalWithFormdataBodyWithResponse(ctx, pathArgs.DebitReversal, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11860,22 +9983,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-financial-accounts-financial-account-features-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		FinancialAccount string `json:"financialAccount"`
 	}
 
-	var financialAccount string
-
-	if raw, ok := pathArgs["financialAccount"]; ok {
-		paramErr := json.Unmarshal(raw, &financialAccount)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-financial-accounts-financial-account-features-with-formdata-body: param financialAccount: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-financial-accounts-financial-account-features-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryFinancialAccountsFinancialAccountFeaturesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11890,7 +10004,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountF
 		return nil, fmt.Errorf("stripe.get-treasury-financial-accounts-financial-account-features-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx, financialAccount, &params, body)
+	resp, callErr := ic.cl.GetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx, pathArgs.FinancialAccount, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11907,22 +10021,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountF
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-financial-accounts-financial-account-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		FinancialAccount string `json:"financialAccount"`
 	}
 
-	var financialAccount string
-
-	if raw, ok := pathArgs["financialAccount"]; ok {
-		paramErr := json.Unmarshal(raw, &financialAccount)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-financial-accounts-financial-account-with-formdata-body: param financialAccount: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-financial-accounts-financial-account-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryFinancialAccountsFinancialAccountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11937,7 +10042,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountW
 		return nil, fmt.Errorf("stripe.get-treasury-financial-accounts-financial-account-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx, financialAccount, &params, body)
+	resp, callErr := ic.cl.GetTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx, pathArgs.FinancialAccount, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11985,22 +10090,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-inbound-transfers-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-inbound-transfers-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-inbound-transfers-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryInboundTransfersIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12015,7 +10111,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersIdWithFormdataBody
 		return nil, fmt.Errorf("stripe.get-treasury-inbound-transfers-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryInboundTransfersIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTreasuryInboundTransfersIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12063,22 +10159,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-outbound-payments-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-outbound-payments-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-outbound-payments-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryOutboundPaymentsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12093,7 +10180,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsIdWithFormdataBody
 		return nil, fmt.Errorf("stripe.get-treasury-outbound-payments-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12141,22 +10228,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-outbound-transfers-outbound-transfer-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		OutboundTransfer string `json:"outboundTransfer"`
 	}
 
-	var outboundTransfer string
-
-	if raw, ok := pathArgs["outboundTransfer"]; ok {
-		paramErr := json.Unmarshal(raw, &outboundTransfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-outbound-transfers-outbound-transfer-with-formdata-body: param outboundTransfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-outbound-transfers-outbound-transfer-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryOutboundTransfersOutboundTransferFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12171,7 +10249,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersOutboundTransferW
 		return nil, fmt.Errorf("stripe.get-treasury-outbound-transfers-outbound-transfer-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx, outboundTransfer, &params, body)
+	resp, callErr := ic.cl.GetTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx, pathArgs.OutboundTransfer, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12219,22 +10297,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-received-credits-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-received-credits-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-received-credits-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryReceivedCreditsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12249,7 +10318,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsIdWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.get-treasury-received-credits-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryReceivedCreditsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTreasuryReceivedCreditsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12297,22 +10366,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-received-debits-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-received-debits-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-received-debits-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryReceivedDebitsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12327,7 +10387,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsIdWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.get-treasury-received-debits-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryReceivedDebitsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTreasuryReceivedDebitsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12375,22 +10435,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-transaction-entries-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-transaction-entries-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-transaction-entries-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryTransactionEntriesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12405,7 +10456,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesIdWithFormdataBo
 		return nil, fmt.Errorf("stripe.get-treasury-transaction-entries-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryTransactionEntriesIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTreasuryTransactionEntriesIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12453,22 +10504,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchGetTreasuryTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-treasury-transactions-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-treasury-transactions-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-treasury-transactions-id-with-formdata-body: %w", err)
 	}
-
 	var body client.GetTreasuryTransactionsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12483,7 +10525,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryTransactionsIdWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.get-treasury-transactions-id-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetTreasuryTransactionsIdWithFormdataBodyWithResponse(ctx, id, &params, body)
+	resp, callErr := ic.cl.GetTreasuryTransactionsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12531,22 +10573,13 @@ func (ic *InterfaceClient) dispatchGetTreasuryTransactionsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchGetWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.get-webhook-endpoints-webhook-endpoint-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		WebhookEndpoint string `json:"webhookEndpoint"`
 	}
 
-	var webhookEndpoint string
-
-	if raw, ok := pathArgs["webhookEndpoint"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookEndpoint)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.get-webhook-endpoints-webhook-endpoint-with-formdata-body: param webhookEndpoint: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.get-webhook-endpoints-webhook-endpoint-with-formdata-body: %w", err)
 	}
-
 	var body client.GetWebhookEndpointsWebhookEndpointFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12561,7 +10594,7 @@ func (ic *InterfaceClient) dispatchGetWebhookEndpointsWebhookEndpointWithFormdat
 		return nil, fmt.Errorf("stripe.get-webhook-endpoints-webhook-endpoint-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, webhookEndpoint, &params, body)
+	resp, callErr := ic.cl.GetWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, pathArgs.WebhookEndpoint, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12657,31 +10690,14 @@ func (ic *InterfaceClient) dispatchPostAccountSessionsWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Id      string `json:"id"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-id-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostAccountsAccountBankAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12689,7 +10705,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsIdWithFormdata
 		return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, account, id, body)
+	resp, callErr := ic.cl.PostAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12706,22 +10722,13 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsIdWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAccountsAccountBankAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12729,7 +10736,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-accounts-account-bank-accounts-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountBankAccountsWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostAccountsAccountBankAccountsWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12746,31 +10753,14 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-capabilities-capability-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account    string `json:"account"`
+		Capability string `json:"capability"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-capabilities-capability-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-capabilities-capability-with-formdata-body: %w", err)
 	}
-
-	var capability string
-
-	if raw, ok := pathArgs["capability"]; ok {
-		paramErr := json.Unmarshal(raw, &capability)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-capabilities-capability-with-formdata-body: param capability: %w", paramErr)
-		}
-	}
-
 	var body client.PostAccountsAccountCapabilitiesCapabilityFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12778,7 +10768,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountCapabilitiesCapabilityWith
 		return nil, fmt.Errorf("stripe.post-accounts-account-capabilities-capability-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx, account, capability, body)
+	resp, callErr := ic.cl.PostAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Capability, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12795,31 +10785,14 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountCapabilitiesCapabilityWith
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Id      string `json:"id"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-id-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostAccountsAccountExternalAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12827,7 +10800,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsIdWithForm
 		return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, account, id, body)
+	resp, callErr := ic.cl.PostAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12844,22 +10817,13 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsIdWithForm
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAccountsAccountExternalAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12867,7 +10831,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsWithFormda
 		return nil, fmt.Errorf("stripe.post-accounts-account-external-accounts-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12884,22 +10848,13 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsWithFormda
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountLoginLinksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-login-links-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-login-links-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-login-links-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAccountsAccountLoginLinksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12907,7 +10862,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountLoginLinksWithFormdataBody
 		return nil, fmt.Errorf("stripe.post-accounts-account-login-links-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountLoginLinksWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostAccountsAccountLoginLinksWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12924,31 +10879,14 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountLoginLinksWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-people-person-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Person  string `json:"person"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-people-person-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-people-person-with-formdata-body: %w", err)
 	}
-
-	var person string
-
-	if raw, ok := pathArgs["person"]; ok {
-		paramErr := json.Unmarshal(raw, &person)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-people-person-with-formdata-body: param person: %w", paramErr)
-		}
-	}
-
 	var body client.PostAccountsAccountPeoplePersonFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12956,7 +10894,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPeoplePersonWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-accounts-account-people-person-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, account, person, body)
+	resp, callErr := ic.cl.PostAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Person, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12973,22 +10911,13 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPeoplePersonWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountPeopleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-people-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-people-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-people-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAccountsAccountPeopleFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12996,7 +10925,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPeopleWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.post-accounts-account-people-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountPeopleWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostAccountsAccountPeopleWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13013,31 +10942,14 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPeopleWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-persons-person-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
+		Person  string `json:"person"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-persons-person-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-persons-person-with-formdata-body: %w", err)
 	}
-
-	var person string
-
-	if raw, ok := pathArgs["person"]; ok {
-		paramErr := json.Unmarshal(raw, &person)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-persons-person-with-formdata-body: param person: %w", paramErr)
-		}
-	}
-
 	var body client.PostAccountsAccountPersonsPersonFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13045,7 +10957,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsPersonWithFormdataB
 		return nil, fmt.Errorf("stripe.post-accounts-account-persons-person-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, account, person, body)
+	resp, callErr := ic.cl.PostAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, pathArgs.Account, pathArgs.Person, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13062,22 +10974,13 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsPersonWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-persons-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-persons-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-persons-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAccountsAccountPersonsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13085,7 +10988,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.post-accounts-account-persons-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountPersonsWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostAccountsAccountPersonsWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13102,22 +11005,13 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountRejectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-reject-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-reject-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-reject-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAccountsAccountRejectFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13125,7 +11019,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountRejectWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.post-accounts-account-reject-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountRejectWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostAccountsAccountRejectWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13142,22 +11036,13 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountRejectWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountUnrejectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-unreject-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-unreject-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-unreject-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAccountsAccountUnrejectFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13165,7 +11050,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountUnrejectWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-accounts-account-unreject-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountUnrejectWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostAccountsAccountUnrejectWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13182,22 +11067,13 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountUnrejectWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchPostAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-accounts-account-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-accounts-account-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-accounts-account-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAccountsAccountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13205,7 +11081,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.post-accounts-account-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAccountsAccountWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostAccountsAccountWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13270,31 +11146,14 @@ func (ic *InterfaceClient) dispatchPostApplePayDomainsWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchPostApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-application-fees-fee-refunds-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Fee string `json:"fee"`
+		Id  string `json:"id"`
 	}
 
-	var fee string
-
-	if raw, ok := pathArgs["fee"]; ok {
-		paramErr := json.Unmarshal(raw, &fee)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-application-fees-fee-refunds-id-with-formdata-body: param fee: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-application-fees-fee-refunds-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-application-fees-fee-refunds-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostApplicationFeesFeeRefundsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13302,7 +11161,7 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesFeeRefundsIdWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-application-fees-fee-refunds-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx, fee, id, body)
+	resp, callErr := ic.cl.PostApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx, pathArgs.Fee, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13319,22 +11178,13 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesFeeRefundsIdWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-application-fees-id-refund-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-application-fees-id-refund-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-application-fees-id-refund-with-formdata-body: %w", err)
 	}
-
 	var body client.PostApplicationFeesIdRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13342,7 +11192,7 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-application-fees-id-refund-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostApplicationFeesIdRefundWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostApplicationFeesIdRefundWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13359,22 +11209,13 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-application-fees-id-refunds-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-application-fees-id-refunds-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-application-fees-id-refunds-with-formdata-body: %w", err)
 	}
-
 	var body client.PostApplicationFeesIdRefundsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13382,7 +11223,7 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundsWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.post-application-fees-id-refunds-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13399,22 +11240,13 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundsWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchPostAppsInstallsIdUninstallWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-apps-installs-id-uninstall-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-apps-installs-id-uninstall-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-apps-installs-id-uninstall-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAppsInstallsIdUninstallFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13422,7 +11254,7 @@ func (ic *InterfaceClient) dispatchPostAppsInstallsIdUninstallWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-apps-installs-id-uninstall-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAppsInstallsIdUninstallWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostAppsInstallsIdUninstallWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13439,22 +11271,13 @@ func (ic *InterfaceClient) dispatchPostAppsInstallsIdUninstallWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchPostAppsInstallsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-apps-installs-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-apps-installs-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-apps-installs-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostAppsInstallsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13462,7 +11285,7 @@ func (ic *InterfaceClient) dispatchPostAppsInstallsIdWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("stripe.post-apps-installs-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostAppsInstallsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostAppsInstallsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13575,22 +11398,13 @@ func (ic *InterfaceClient) dispatchPostBalanceSettingsWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchPostBillingAlertsIdActivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-alerts-id-activate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-alerts-id-activate-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-alerts-id-activate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingAlertsIdActivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13598,7 +11412,7 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsIdActivateWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-billing-alerts-id-activate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingAlertsIdActivateWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingAlertsIdActivateWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13615,22 +11429,13 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsIdActivateWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchPostBillingAlertsIdArchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-alerts-id-archive-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-alerts-id-archive-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-alerts-id-archive-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingAlertsIdArchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13638,7 +11443,7 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsIdArchiveWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.post-billing-alerts-id-archive-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingAlertsIdArchiveWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingAlertsIdArchiveWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13655,22 +11460,13 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsIdArchiveWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchPostBillingAlertsIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-alerts-id-deactivate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-alerts-id-deactivate-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-alerts-id-deactivate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingAlertsIdDeactivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13678,7 +11474,7 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsIdDeactivateWithFormdataBody
 		return nil, fmt.Errorf("stripe.post-billing-alerts-id-deactivate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingAlertsIdDeactivateWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingAlertsIdDeactivateWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13719,22 +11515,13 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdExpireWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-expire-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-expire-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-expire-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingCreditGrantsIdExpireFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13742,7 +11529,7 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdExpireWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-expire-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingCreditGrantsIdExpireWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingCreditGrantsIdExpireWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13759,22 +11546,13 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdExpireWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdVoidWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-void-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-void-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-void-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingCreditGrantsIdVoidFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13782,7 +11560,7 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdVoidWithFormdataBody
 		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-void-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingCreditGrantsIdVoidWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingCreditGrantsIdVoidWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13799,22 +11577,13 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdVoidWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingCreditGrantsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13822,7 +11591,7 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.post-billing-credit-grants-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13863,22 +11632,13 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-feedback-options-id-deactivate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-feedback-options-id-deactivate-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-feedback-options-id-deactivate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingFeedbackOptionsIdDeactivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13886,7 +11646,7 @@ func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdDeactivateWithFor
 		return nil, fmt.Errorf("stripe.post-billing-feedback-options-id-deactivate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingFeedbackOptionsIdDeactivateWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingFeedbackOptionsIdDeactivateWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -13903,22 +11663,13 @@ func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdDeactivateWithFor
 }
 
 func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-feedback-options-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-feedback-options-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-feedback-options-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingFeedbackOptionsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13926,7 +11677,7 @@ func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.post-billing-feedback-options-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14015,22 +11766,13 @@ func (ic *InterfaceClient) dispatchPostBillingMeterEventsWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchPostBillingMetersIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-meters-id-deactivate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-meters-id-deactivate-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-meters-id-deactivate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingMetersIdDeactivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14038,7 +11780,7 @@ func (ic *InterfaceClient) dispatchPostBillingMetersIdDeactivateWithFormdataBody
 		return nil, fmt.Errorf("stripe.post-billing-meters-id-deactivate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingMetersIdDeactivateWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingMetersIdDeactivateWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14055,22 +11797,13 @@ func (ic *InterfaceClient) dispatchPostBillingMetersIdDeactivateWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostBillingMetersIdReactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-meters-id-reactivate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-meters-id-reactivate-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-meters-id-reactivate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingMetersIdReactivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14078,7 +11811,7 @@ func (ic *InterfaceClient) dispatchPostBillingMetersIdReactivateWithFormdataBody
 		return nil, fmt.Errorf("stripe.post-billing-meters-id-reactivate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingMetersIdReactivateWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingMetersIdReactivateWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14095,22 +11828,13 @@ func (ic *InterfaceClient) dispatchPostBillingMetersIdReactivateWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostBillingMetersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-meters-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-meters-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-meters-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingMetersIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14118,7 +11842,7 @@ func (ic *InterfaceClient) dispatchPostBillingMetersIdWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.post-billing-meters-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingMetersIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostBillingMetersIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14159,22 +11883,13 @@ func (ic *InterfaceClient) dispatchPostBillingMetersWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchPostBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-billing-portal-configurations-configuration-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Configuration string `json:"configuration"`
 	}
 
-	var configuration string
-
-	if raw, ok := pathArgs["configuration"]; ok {
-		paramErr := json.Unmarshal(raw, &configuration)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-billing-portal-configurations-configuration-with-formdata-body: param configuration: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-billing-portal-configurations-configuration-with-formdata-body: %w", err)
 	}
-
 	var body client.PostBillingPortalConfigurationsConfigurationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14182,7 +11897,7 @@ func (ic *InterfaceClient) dispatchPostBillingPortalConfigurationsConfigurationW
 		return nil, fmt.Errorf("stripe.post-billing-portal-configurations-configuration-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, configuration, body)
+	resp, callErr := ic.cl.PostBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, pathArgs.Configuration, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14247,22 +11962,13 @@ func (ic *InterfaceClient) dispatchPostBillingPortalSessionsWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchPostChargesChargeCaptureWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-charges-charge-capture-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-charges-charge-capture-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-charges-charge-capture-with-formdata-body: %w", err)
 	}
-
 	var body client.PostChargesChargeCaptureFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14270,7 +11976,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeCaptureWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.post-charges-charge-capture-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostChargesChargeCaptureWithFormdataBodyWithResponse(ctx, charge, body)
+	resp, callErr := ic.cl.PostChargesChargeCaptureWithFormdataBodyWithResponse(ctx, pathArgs.Charge, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14287,22 +11993,13 @@ func (ic *InterfaceClient) dispatchPostChargesChargeCaptureWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchPostChargesChargeDisputeCloseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-charges-charge-dispute-close-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-charges-charge-dispute-close-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-charges-charge-dispute-close-with-formdata-body: %w", err)
 	}
-
 	var body client.PostChargesChargeDisputeCloseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14310,7 +12007,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeDisputeCloseWithFormdataBody
 		return nil, fmt.Errorf("stripe.post-charges-charge-dispute-close-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostChargesChargeDisputeCloseWithFormdataBodyWithResponse(ctx, charge, body)
+	resp, callErr := ic.cl.PostChargesChargeDisputeCloseWithFormdataBodyWithResponse(ctx, pathArgs.Charge, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14327,22 +12024,13 @@ func (ic *InterfaceClient) dispatchPostChargesChargeDisputeCloseWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostChargesChargeDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-charges-charge-dispute-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-charges-charge-dispute-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-charges-charge-dispute-with-formdata-body: %w", err)
 	}
-
 	var body client.PostChargesChargeDisputeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14350,7 +12038,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeDisputeWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.post-charges-charge-dispute-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostChargesChargeDisputeWithFormdataBodyWithResponse(ctx, charge, body)
+	resp, callErr := ic.cl.PostChargesChargeDisputeWithFormdataBodyWithResponse(ctx, pathArgs.Charge, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14367,22 +12055,13 @@ func (ic *InterfaceClient) dispatchPostChargesChargeDisputeWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchPostChargesChargeRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-charges-charge-refund-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-charges-charge-refund-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-charges-charge-refund-with-formdata-body: %w", err)
 	}
-
 	var body client.PostChargesChargeRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14390,7 +12069,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.post-charges-charge-refund-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostChargesChargeRefundWithFormdataBodyWithResponse(ctx, charge, body)
+	resp, callErr := ic.cl.PostChargesChargeRefundWithFormdataBodyWithResponse(ctx, pathArgs.Charge, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14407,31 +12086,14 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-charges-charge-refunds-refund-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
+		Refund string `json:"refund"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-charges-charge-refunds-refund-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-charges-charge-refunds-refund-with-formdata-body: %w", err)
 	}
-
-	var refund string
-
-	if raw, ok := pathArgs["refund"]; ok {
-		paramErr := json.Unmarshal(raw, &refund)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-charges-charge-refunds-refund-with-formdata-body: param refund: %w", paramErr)
-		}
-	}
-
 	var body client.PostChargesChargeRefundsRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14439,7 +12101,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundsRefundWithFormdataBod
 		return nil, fmt.Errorf("stripe.post-charges-charge-refunds-refund-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx, charge, refund, body)
+	resp, callErr := ic.cl.PostChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx, pathArgs.Charge, pathArgs.Refund, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14456,22 +12118,13 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundsRefundWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchPostChargesChargeRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-charges-charge-refunds-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-charges-charge-refunds-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-charges-charge-refunds-with-formdata-body: %w", err)
 	}
-
 	var body client.PostChargesChargeRefundsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14479,7 +12132,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundsWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.post-charges-charge-refunds-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostChargesChargeRefundsWithFormdataBodyWithResponse(ctx, charge, body)
+	resp, callErr := ic.cl.PostChargesChargeRefundsWithFormdataBodyWithResponse(ctx, pathArgs.Charge, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14496,22 +12149,13 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundsWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchPostChargesChargeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-charges-charge-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Charge string `json:"charge"`
 	}
 
-	var charge string
-
-	if raw, ok := pathArgs["charge"]; ok {
-		paramErr := json.Unmarshal(raw, &charge)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-charges-charge-with-formdata-body: param charge: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-charges-charge-with-formdata-body: %w", err)
 	}
-
 	var body client.PostChargesChargeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14519,7 +12163,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.post-charges-charge-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostChargesChargeWithFormdataBodyWithResponse(ctx, charge, body)
+	resp, callErr := ic.cl.PostChargesChargeWithFormdataBodyWithResponse(ctx, pathArgs.Charge, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14560,22 +12204,13 @@ func (ic *InterfaceClient) dispatchPostChargesWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionExpireWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-checkout-sessions-session-expire-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-checkout-sessions-session-expire-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-checkout-sessions-session-expire-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCheckoutSessionsSessionExpireFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14583,7 +12218,7 @@ func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionExpireWithFormdata
 		return nil, fmt.Errorf("stripe.post-checkout-sessions-session-expire-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCheckoutSessionsSessionExpireWithFormdataBodyWithResponse(ctx, session, body)
+	resp, callErr := ic.cl.PostCheckoutSessionsSessionExpireWithFormdataBodyWithResponse(ctx, pathArgs.Session, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14600,22 +12235,13 @@ func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionExpireWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-checkout-sessions-session-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-checkout-sessions-session-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-checkout-sessions-session-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCheckoutSessionsSessionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14623,7 +12249,7 @@ func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-checkout-sessions-session-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx, session, body)
+	resp, callErr := ic.cl.PostCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx, pathArgs.Session, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14664,22 +12290,13 @@ func (ic *InterfaceClient) dispatchPostCheckoutSessionsWithFormdataBodyWithRespo
 }
 
 func (ic *InterfaceClient) dispatchPostClimateOrdersOrderCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-climate-orders-order-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Order string `json:"order"`
 	}
 
-	var order string
-
-	if raw, ok := pathArgs["order"]; ok {
-		paramErr := json.Unmarshal(raw, &order)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-climate-orders-order-cancel-with-formdata-body: param order: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-climate-orders-order-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostClimateOrdersOrderCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14687,7 +12304,7 @@ func (ic *InterfaceClient) dispatchPostClimateOrdersOrderCancelWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.post-climate-orders-order-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostClimateOrdersOrderCancelWithFormdataBodyWithResponse(ctx, order, body)
+	resp, callErr := ic.cl.PostClimateOrdersOrderCancelWithFormdataBodyWithResponse(ctx, pathArgs.Order, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14704,22 +12321,13 @@ func (ic *InterfaceClient) dispatchPostClimateOrdersOrderCancelWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchPostClimateOrdersOrderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-climate-orders-order-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Order string `json:"order"`
 	}
 
-	var order string
-
-	if raw, ok := pathArgs["order"]; ok {
-		paramErr := json.Unmarshal(raw, &order)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-climate-orders-order-with-formdata-body: param order: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-climate-orders-order-with-formdata-body: %w", err)
 	}
-
 	var body client.PostClimateOrdersOrderFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14727,7 +12335,7 @@ func (ic *InterfaceClient) dispatchPostClimateOrdersOrderWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.post-climate-orders-order-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostClimateOrdersOrderWithFormdataBodyWithResponse(ctx, order, body)
+	resp, callErr := ic.cl.PostClimateOrdersOrderWithFormdataBodyWithResponse(ctx, pathArgs.Order, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14768,22 +12376,13 @@ func (ic *InterfaceClient) dispatchPostClimateOrdersWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchPostCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-coupons-coupon-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Coupon string `json:"coupon"`
 	}
 
-	var coupon string
-
-	if raw, ok := pathArgs["coupon"]; ok {
-		paramErr := json.Unmarshal(raw, &coupon)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-coupons-coupon-with-formdata-body: param coupon: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-coupons-coupon-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCouponsCouponFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14791,7 +12390,7 @@ func (ic *InterfaceClient) dispatchPostCouponsCouponWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.post-coupons-coupon-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCouponsCouponWithFormdataBodyWithResponse(ctx, coupon, body)
+	resp, callErr := ic.cl.PostCouponsCouponWithFormdataBodyWithResponse(ctx, pathArgs.Coupon, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14832,22 +12431,13 @@ func (ic *InterfaceClient) dispatchPostCouponsWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPostCreditNotesIdVoidWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-credit-notes-id-void-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-credit-notes-id-void-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-credit-notes-id-void-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCreditNotesIdVoidFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14855,7 +12445,7 @@ func (ic *InterfaceClient) dispatchPostCreditNotesIdVoidWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.post-credit-notes-id-void-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCreditNotesIdVoidWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostCreditNotesIdVoidWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14872,22 +12462,13 @@ func (ic *InterfaceClient) dispatchPostCreditNotesIdVoidWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchPostCreditNotesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-credit-notes-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-credit-notes-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-credit-notes-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCreditNotesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14895,7 +12476,7 @@ func (ic *InterfaceClient) dispatchPostCreditNotesIdWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.post-credit-notes-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCreditNotesIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostCreditNotesIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -14960,31 +12541,14 @@ func (ic *InterfaceClient) dispatchPostCustomerSessionsWithFormdataBodyWithRespo
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-transaction-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer    string `json:"customer"`
+		Transaction string `json:"transaction"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-transaction-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-transaction-with-formdata-body: %w", err)
 	}
-
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-transaction-with-formdata-body: param transaction: %w", paramErr)
-		}
-	}
-
 	var body client.PostCustomersCustomerBalanceTransactionsTransactionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14992,7 +12556,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsTrans
 		return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-transaction-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, customer, transaction, body)
+	resp, callErr := ic.cl.PostCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Transaction, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15009,22 +12573,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsTrans
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerBalanceTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15032,7 +12587,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsWithF
 		return nil, fmt.Errorf("stripe.post-customers-customer-balance-transactions-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15049,31 +12604,14 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsWithF
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdVerifyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-verify-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-verify-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-verify-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-verify-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostCustomersCustomerBankAccountsIdVerifyFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15081,7 +12619,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdVerifyWith
 		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-verify-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerBankAccountsIdVerifyWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.PostCustomersCustomerBankAccountsIdVerifyWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15098,31 +12636,14 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdVerifyWith
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostCustomersCustomerBankAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15130,7 +12651,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdWithFormda
 		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.PostCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15147,22 +12668,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdWithFormda
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerBankAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15170,7 +12682,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsWithFormdata
 		return nil, fmt.Errorf("stripe.post-customers-customer-bank-accounts-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15187,31 +12699,14 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-cards-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-cards-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-cards-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-cards-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostCustomersCustomerCardsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15219,7 +12714,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsIdWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.post-customers-customer-cards-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.PostCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15236,22 +12731,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsIdWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-cards-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-cards-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-cards-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerCardsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15259,7 +12745,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.post-customers-customer-cards-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerCardsWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerCardsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15276,22 +12762,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-cash-balance-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-cash-balance-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-cash-balance-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerCashBalanceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15299,7 +12776,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCashBalanceWithFormdataB
 		return nil, fmt.Errorf("stripe.post-customers-customer-cash-balance-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15316,22 +12793,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCashBalanceWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerFundingInstructionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-funding-instructions-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-funding-instructions-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-funding-instructions-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerFundingInstructionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15339,7 +12807,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerFundingInstructionsWithF
 		return nil, fmt.Errorf("stripe.post-customers-customer-funding-instructions-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerFundingInstructionsWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerFundingInstructionsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15356,31 +12824,14 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerFundingInstructionsWithF
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdVerifyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-verify-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-verify-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-verify-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-verify-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostCustomersCustomerSourcesIdVerifyFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15388,7 +12839,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdVerifyWithFormd
 		return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-verify-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerSourcesIdVerifyWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.PostCustomersCustomerSourcesIdVerifyWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15405,31 +12856,14 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdVerifyWithFormd
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
+		Id       string `json:"id"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostCustomersCustomerSourcesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15437,7 +12871,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdWithFormdataBod
 		return nil, fmt.Errorf("stripe.post-customers-customer-sources-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, customer, id, body)
+	resp, callErr := ic.cl.PostCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15454,22 +12888,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-sources-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-sources-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-sources-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerSourcesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15477,7 +12902,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.post-customers-customer-sources-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15494,31 +12919,14 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer              string `json:"customer"`
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: %w", err)
 	}
-
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
-	}
-
 	var body client.PostCustomersCustomerSubscriptionsSubscriptionExposedIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15526,7 +12934,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsSubscriptio
 		return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, customer, subscriptionExposedId, body)
+	resp, callErr := ic.cl.PostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, pathArgs.Customer, pathArgs.SubscriptionExposedId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15543,22 +12951,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsSubscriptio
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerSubscriptionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15566,7 +12965,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsWithFormdat
 		return nil, fmt.Errorf("stripe.post-customers-customer-subscriptions-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15583,22 +12982,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-tax-ids-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-tax-ids-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-tax-ids-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerTaxIdsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15606,7 +12996,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerTaxIdsWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-customers-customer-tax-ids-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15623,22 +13013,13 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerTaxIdsWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchPostCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-customers-customer-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-customers-customer-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-customers-customer-with-formdata-body: %w", err)
 	}
-
 	var body client.PostCustomersCustomerFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15646,7 +13027,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.post-customers-customer-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostCustomersCustomerWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostCustomersCustomerWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15687,22 +13068,13 @@ func (ic *InterfaceClient) dispatchPostCustomersWithFormdataBodyWithResponse(ctx
 }
 
 func (ic *InterfaceClient) dispatchPostDisputesDisputeCloseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-disputes-dispute-close-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Dispute string `json:"dispute"`
 	}
 
-	var dispute string
-
-	if raw, ok := pathArgs["dispute"]; ok {
-		paramErr := json.Unmarshal(raw, &dispute)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-disputes-dispute-close-with-formdata-body: param dispute: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-disputes-dispute-close-with-formdata-body: %w", err)
 	}
-
 	var body client.PostDisputesDisputeCloseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15710,7 +13082,7 @@ func (ic *InterfaceClient) dispatchPostDisputesDisputeCloseWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.post-disputes-dispute-close-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostDisputesDisputeCloseWithFormdataBodyWithResponse(ctx, dispute, body)
+	resp, callErr := ic.cl.PostDisputesDisputeCloseWithFormdataBodyWithResponse(ctx, pathArgs.Dispute, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15727,22 +13099,13 @@ func (ic *InterfaceClient) dispatchPostDisputesDisputeCloseWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchPostDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-disputes-dispute-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Dispute string `json:"dispute"`
 	}
 
-	var dispute string
-
-	if raw, ok := pathArgs["dispute"]; ok {
-		paramErr := json.Unmarshal(raw, &dispute)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-disputes-dispute-with-formdata-body: param dispute: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-disputes-dispute-with-formdata-body: %w", err)
 	}
-
 	var body client.PostDisputesDisputeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15750,7 +13113,7 @@ func (ic *InterfaceClient) dispatchPostDisputesDisputeWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.post-disputes-dispute-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostDisputesDisputeWithFormdataBodyWithResponse(ctx, dispute, body)
+	resp, callErr := ic.cl.PostDisputesDisputeWithFormdataBodyWithResponse(ctx, pathArgs.Dispute, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15767,22 +13130,13 @@ func (ic *InterfaceClient) dispatchPostDisputesDisputeWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchPostEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-entitlements-features-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-entitlements-features-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-entitlements-features-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostEntitlementsFeaturesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15790,7 +13144,7 @@ func (ic *InterfaceClient) dispatchPostEntitlementsFeaturesIdWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.post-entitlements-features-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15855,22 +13209,13 @@ func (ic *InterfaceClient) dispatchPostEphemeralKeysWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchPostExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-external-accounts-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-external-accounts-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-external-accounts-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostExternalAccountsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15878,7 +13223,7 @@ func (ic *InterfaceClient) dispatchPostExternalAccountsIdWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.post-external-accounts-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostExternalAccountsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostExternalAccountsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15895,22 +13240,13 @@ func (ic *InterfaceClient) dispatchPostExternalAccountsIdWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchPostFileLinksLinkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-file-links-link-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Link string `json:"link"`
 	}
 
-	var link string
-
-	if raw, ok := pathArgs["link"]; ok {
-		paramErr := json.Unmarshal(raw, &link)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-file-links-link-with-formdata-body: param link: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-file-links-link-with-formdata-body: %w", err)
 	}
-
 	var body client.PostFileLinksLinkFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15918,7 +13254,7 @@ func (ic *InterfaceClient) dispatchPostFileLinksLinkWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.post-file-links-link-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostFileLinksLinkWithFormdataBodyWithResponse(ctx, link, body)
+	resp, callErr := ic.cl.PostFileLinksLinkWithFormdataBodyWithResponse(ctx, pathArgs.Link, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15959,22 +13295,13 @@ func (ic *InterfaceClient) dispatchPostFileLinksWithFormdataBodyWithResponse(ctx
 }
 
 func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-disconnect-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-disconnect-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-disconnect-with-formdata-body: %w", err)
 	}
-
 	var body client.PostFinancialConnectionsAccountsAccountDisconnectFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15982,7 +13309,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountDiscon
 		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-disconnect-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostFinancialConnectionsAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostFinancialConnectionsAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -15999,22 +13326,13 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountDiscon
 }
 
 func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountRefreshWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-refresh-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-refresh-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-refresh-with-formdata-body: %w", err)
 	}
-
 	var body client.PostFinancialConnectionsAccountsAccountRefreshFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16022,7 +13340,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountRefres
 		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-refresh-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostFinancialConnectionsAccountsAccountRefreshWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostFinancialConnectionsAccountsAccountRefreshWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16039,22 +13357,13 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountRefres
 }
 
 func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountSubscribeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-subscribe-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-subscribe-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-subscribe-with-formdata-body: %w", err)
 	}
-
 	var body client.PostFinancialConnectionsAccountsAccountSubscribeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16062,7 +13371,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountSubscr
 		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-subscribe-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostFinancialConnectionsAccountsAccountSubscribeWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostFinancialConnectionsAccountsAccountSubscribeWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16079,22 +13388,13 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountSubscr
 }
 
 func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-unsubscribe-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-unsubscribe-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-unsubscribe-with-formdata-body: %w", err)
 	}
-
 	var body client.PostFinancialConnectionsAccountsAccountUnsubscribeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16102,7 +13402,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountUnsubs
 		return nil, fmt.Errorf("stripe.post-financial-connections-accounts-account-unsubscribe-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16167,22 +13467,13 @@ func (ic *InterfaceClient) dispatchPostForwardingRequestsWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-cancel-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIdentityVerificationSessionsSessionCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16190,7 +13481,7 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionCancel
 		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIdentityVerificationSessionsSessionCancelWithFormdataBodyWithResponse(ctx, session, body)
+	resp, callErr := ic.cl.PostIdentityVerificationSessionsSessionCancelWithFormdataBodyWithResponse(ctx, pathArgs.Session, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16207,22 +13498,13 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionCancel
 }
 
 func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionRedactWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-redact-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-redact-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-redact-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIdentityVerificationSessionsSessionRedactFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16230,7 +13512,7 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionRedact
 		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-redact-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIdentityVerificationSessionsSessionRedactWithFormdataBodyWithResponse(ctx, session, body)
+	resp, callErr := ic.cl.PostIdentityVerificationSessionsSessionRedactWithFormdataBodyWithResponse(ctx, pathArgs.Session, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16247,22 +13529,13 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionRedact
 }
 
 func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Session string `json:"session"`
 	}
 
-	var session string
-
-	if raw, ok := pathArgs["session"]; ok {
-		paramErr := json.Unmarshal(raw, &session)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-with-formdata-body: param session: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIdentityVerificationSessionsSessionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16270,7 +13543,7 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionWithFo
 		return nil, fmt.Errorf("stripe.post-identity-verification-sessions-session-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx, session, body)
+	resp, callErr := ic.cl.PostIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx, pathArgs.Session, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16311,22 +13584,13 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoice-rendering-templates-template-archive-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Template string `json:"template"`
 	}
 
-	var template string
-
-	if raw, ok := pathArgs["template"]; ok {
-		paramErr := json.Unmarshal(raw, &template)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoice-rendering-templates-template-archive-with-formdata-body: param template: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoice-rendering-templates-template-archive-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoiceRenderingTemplatesTemplateArchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16334,7 +13598,7 @@ func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateArchiveW
 		return nil, fmt.Errorf("stripe.post-invoice-rendering-templates-template-archive-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBodyWithResponse(ctx, template, body)
+	resp, callErr := ic.cl.PostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBodyWithResponse(ctx, pathArgs.Template, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16351,22 +13615,13 @@ func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateArchiveW
 }
 
 func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoice-rendering-templates-template-unarchive-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Template string `json:"template"`
 	}
 
-	var template string
-
-	if raw, ok := pathArgs["template"]; ok {
-		paramErr := json.Unmarshal(raw, &template)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoice-rendering-templates-template-unarchive-with-formdata-body: param template: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoice-rendering-templates-template-unarchive-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoiceRenderingTemplatesTemplateUnarchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16374,7 +13629,7 @@ func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateUnarchiv
 		return nil, fmt.Errorf("stripe.post-invoice-rendering-templates-template-unarchive-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBodyWithResponse(ctx, template, body)
+	resp, callErr := ic.cl.PostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBodyWithResponse(ctx, pathArgs.Template, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16391,22 +13646,13 @@ func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateUnarchiv
 }
 
 func (ic *InterfaceClient) dispatchPostInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoiceitems-invoiceitem-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoiceitem string `json:"invoiceitem"`
 	}
 
-	var invoiceitem string
-
-	if raw, ok := pathArgs["invoiceitem"]; ok {
-		paramErr := json.Unmarshal(raw, &invoiceitem)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoiceitems-invoiceitem-with-formdata-body: param invoiceitem: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoiceitems-invoiceitem-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoiceitemsInvoiceitemFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16414,7 +13660,7 @@ func (ic *InterfaceClient) dispatchPostInvoiceitemsInvoiceitemWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-invoiceitems-invoiceitem-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, invoiceitem, body)
+	resp, callErr := ic.cl.PostInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, pathArgs.Invoiceitem, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16479,22 +13725,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesCreatePreviewWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAddLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-add-lines-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-add-lines-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-add-lines-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceAddLinesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16502,7 +13739,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAddLinesWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-add-lines-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceAddLinesWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceAddLinesWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16519,22 +13756,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAddLinesWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAttachPaymentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-attach-payment-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-attach-payment-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-attach-payment-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceAttachPaymentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16542,7 +13770,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAttachPaymentWithFormdataB
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-attach-payment-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceAttachPaymentWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceAttachPaymentWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16559,22 +13787,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAttachPaymentWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceFinalizeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-finalize-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-finalize-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-finalize-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceFinalizeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16582,7 +13801,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceFinalizeWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-finalize-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceFinalizeWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceFinalizeWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16599,31 +13818,14 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceFinalizeWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceLinesLineItemIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-lines-line-item-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice    string `json:"invoice"`
+		LineItemId string `json:"lineItemId"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-lines-line-item-id-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-lines-line-item-id-with-formdata-body: %w", err)
 	}
-
-	var lineItemId string
-
-	if raw, ok := pathArgs["lineItemId"]; ok {
-		paramErr := json.Unmarshal(raw, &lineItemId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-lines-line-item-id-with-formdata-body: param lineItemId: %w", paramErr)
-		}
-	}
-
 	var body client.PostInvoicesInvoiceLinesLineItemIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16631,7 +13833,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceLinesLineItemIdWithFormdat
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-lines-line-item-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceLinesLineItemIdWithFormdataBodyWithResponse(ctx, invoice, lineItemId, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceLinesLineItemIdWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, pathArgs.LineItemId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16648,22 +13850,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceLinesLineItemIdWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceMarkUncollectibleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-mark-uncollectible-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-mark-uncollectible-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-mark-uncollectible-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceMarkUncollectibleFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16671,7 +13864,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceMarkUncollectibleWithFormd
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-mark-uncollectible-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceMarkUncollectibleWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceMarkUncollectibleWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16688,22 +13881,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceMarkUncollectibleWithFormd
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoicePayWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-pay-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-pay-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-pay-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoicePayFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16711,7 +13895,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoicePayWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-pay-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoicePayWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoicePayWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16728,22 +13912,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoicePayWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceRemoveLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-remove-lines-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-remove-lines-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-remove-lines-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceRemoveLinesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16751,7 +13926,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceRemoveLinesWithFormdataBod
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-remove-lines-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceRemoveLinesWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceRemoveLinesWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16768,22 +13943,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceRemoveLinesWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceSendWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-send-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-send-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-send-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceSendFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16791,7 +13957,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceSendWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-send-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceSendWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceSendWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16808,22 +13974,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceSendWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceUpdateLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-update-lines-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-update-lines-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-update-lines-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceUpdateLinesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16831,7 +13988,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceUpdateLinesWithFormdataBod
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-update-lines-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceUpdateLinesWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceUpdateLinesWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16848,22 +14005,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceUpdateLinesWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceVoidWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-void-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-void-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-void-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceVoidFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16871,7 +14019,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceVoidWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-void-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceVoidWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceVoidWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16888,22 +14036,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceVoidWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-invoices-invoice-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Invoice string `json:"invoice"`
 	}
 
-	var invoice string
-
-	if raw, ok := pathArgs["invoice"]; ok {
-		paramErr := json.Unmarshal(raw, &invoice)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-invoices-invoice-with-formdata-body: param invoice: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-invoices-invoice-with-formdata-body: %w", err)
 	}
-
 	var body client.PostInvoicesInvoiceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16911,7 +14050,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.post-invoices-invoice-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostInvoicesInvoiceWithFormdataBodyWithResponse(ctx, invoice, body)
+	resp, callErr := ic.cl.PostInvoicesInvoiceWithFormdataBodyWithResponse(ctx, pathArgs.Invoice, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16952,22 +14091,13 @@ func (ic *InterfaceClient) dispatchPostInvoicesWithFormdataBodyWithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationApproveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-approve-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-approve-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-approve-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingAuthorizationsAuthorizationApproveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16975,7 +14105,7 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationApprove
 		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-approve-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingAuthorizationsAuthorizationApproveWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostIssuingAuthorizationsAuthorizationApproveWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -16992,22 +14122,13 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationApprove
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-decline-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-decline-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-decline-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingAuthorizationsAuthorizationDeclineFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17015,7 +14136,7 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationDecline
 		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-decline-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingAuthorizationsAuthorizationDeclineWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostIssuingAuthorizationsAuthorizationDeclineWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17032,22 +14153,13 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationDecline
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingAuthorizationsAuthorizationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17055,7 +14167,7 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationWithFor
 		return nil, fmt.Errorf("stripe.post-issuing-authorizations-authorization-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17072,22 +14184,13 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationWithFor
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-cardholders-cardholder-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Cardholder string `json:"cardholder"`
 	}
 
-	var cardholder string
-
-	if raw, ok := pathArgs["cardholder"]; ok {
-		paramErr := json.Unmarshal(raw, &cardholder)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-cardholders-cardholder-with-formdata-body: param cardholder: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-cardholders-cardholder-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingCardholdersCardholderFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17095,7 +14198,7 @@ func (ic *InterfaceClient) dispatchPostIssuingCardholdersCardholderWithFormdataB
 		return nil, fmt.Errorf("stripe.post-issuing-cardholders-cardholder-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx, cardholder, body)
+	resp, callErr := ic.cl.PostIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx, pathArgs.Cardholder, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17136,22 +14239,13 @@ func (ic *InterfaceClient) dispatchPostIssuingCardholdersWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingCardsCardWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-cards-card-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Card string `json:"card"`
 	}
 
-	var card string
-
-	if raw, ok := pathArgs["card"]; ok {
-		paramErr := json.Unmarshal(raw, &card)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-cards-card-with-formdata-body: param card: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-cards-card-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingCardsCardFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17159,7 +14253,7 @@ func (ic *InterfaceClient) dispatchPostIssuingCardsCardWithFormdataBodyWithRespo
 		return nil, fmt.Errorf("stripe.post-issuing-cards-card-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingCardsCardWithFormdataBodyWithResponse(ctx, card, body)
+	resp, callErr := ic.cl.PostIssuingCardsCardWithFormdataBodyWithResponse(ctx, pathArgs.Card, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17200,22 +14294,13 @@ func (ic *InterfaceClient) dispatchPostIssuingCardsWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeSubmitWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-disputes-dispute-submit-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Dispute string `json:"dispute"`
 	}
 
-	var dispute string
-
-	if raw, ok := pathArgs["dispute"]; ok {
-		paramErr := json.Unmarshal(raw, &dispute)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-disputes-dispute-submit-with-formdata-body: param dispute: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-disputes-dispute-submit-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingDisputesDisputeSubmitFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17223,7 +14308,7 @@ func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeSubmitWithFormdataB
 		return nil, fmt.Errorf("stripe.post-issuing-disputes-dispute-submit-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingDisputesDisputeSubmitWithFormdataBodyWithResponse(ctx, dispute, body)
+	resp, callErr := ic.cl.PostIssuingDisputesDisputeSubmitWithFormdataBodyWithResponse(ctx, pathArgs.Dispute, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17240,22 +14325,13 @@ func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeSubmitWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-disputes-dispute-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Dispute string `json:"dispute"`
 	}
 
-	var dispute string
-
-	if raw, ok := pathArgs["dispute"]; ok {
-		paramErr := json.Unmarshal(raw, &dispute)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-disputes-dispute-with-formdata-body: param dispute: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-disputes-dispute-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingDisputesDisputeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17263,7 +14339,7 @@ func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeWithFormdataBodyWit
 		return nil, fmt.Errorf("stripe.post-issuing-disputes-dispute-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx, dispute, body)
+	resp, callErr := ic.cl.PostIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx, pathArgs.Dispute, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17304,22 +14380,13 @@ func (ic *InterfaceClient) dispatchPostIssuingDisputesWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-personalization-designs-personalization-design-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PersonalizationDesign string `json:"personalizationDesign"`
 	}
 
-	var personalizationDesign string
-
-	if raw, ok := pathArgs["personalizationDesign"]; ok {
-		paramErr := json.Unmarshal(raw, &personalizationDesign)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-personalization-designs-personalization-design-with-formdata-body: param personalizationDesign: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-personalization-designs-personalization-design-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingPersonalizationDesignsPersonalizationDesignFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17327,7 +14394,7 @@ func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsPersonalizat
 		return nil, fmt.Errorf("stripe.post-issuing-personalization-designs-personalization-design-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx, personalizationDesign, body)
+	resp, callErr := ic.cl.PostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx, pathArgs.PersonalizationDesign, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17368,22 +14435,13 @@ func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-settlements-settlement-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Settlement string `json:"settlement"`
 	}
 
-	var settlement string
-
-	if raw, ok := pathArgs["settlement"]; ok {
-		paramErr := json.Unmarshal(raw, &settlement)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-settlements-settlement-with-formdata-body: param settlement: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-settlements-settlement-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingSettlementsSettlementFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17391,7 +14449,7 @@ func (ic *InterfaceClient) dispatchPostIssuingSettlementsSettlementWithFormdataB
 		return nil, fmt.Errorf("stripe.post-issuing-settlements-settlement-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx, settlement, body)
+	resp, callErr := ic.cl.PostIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx, pathArgs.Settlement, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17408,22 +14466,13 @@ func (ic *InterfaceClient) dispatchPostIssuingSettlementsSettlementWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingTokensTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-tokens-token-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Token string `json:"token"`
 	}
 
-	var token string
-
-	if raw, ok := pathArgs["token"]; ok {
-		paramErr := json.Unmarshal(raw, &token)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-tokens-token-with-formdata-body: param token: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-tokens-token-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingTokensTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17431,7 +14480,7 @@ func (ic *InterfaceClient) dispatchPostIssuingTokensTokenWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.post-issuing-tokens-token-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingTokensTokenWithFormdataBodyWithResponse(ctx, token, body)
+	resp, callErr := ic.cl.PostIssuingTokensTokenWithFormdataBodyWithResponse(ctx, pathArgs.Token, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17448,22 +14497,13 @@ func (ic *InterfaceClient) dispatchPostIssuingTokensTokenWithFormdataBodyWithRes
 }
 
 func (ic *InterfaceClient) dispatchPostIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-issuing-transactions-transaction-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transaction string `json:"transaction"`
 	}
 
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-issuing-transactions-transaction-with-formdata-body: param transaction: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-issuing-transactions-transaction-with-formdata-body: %w", err)
 	}
-
 	var body client.PostIssuingTransactionsTransactionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17471,7 +14511,7 @@ func (ic *InterfaceClient) dispatchPostIssuingTransactionsTransactionWithFormdat
 		return nil, fmt.Errorf("stripe.post-issuing-transactions-transaction-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx, transaction, body)
+	resp, callErr := ic.cl.PostIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx, pathArgs.Transaction, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17512,22 +14552,13 @@ func (ic *InterfaceClient) dispatchPostLinkAccountSessionsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-linked-accounts-account-disconnect-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-linked-accounts-account-disconnect-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-linked-accounts-account-disconnect-with-formdata-body: %w", err)
 	}
-
 	var body client.PostLinkedAccountsAccountDisconnectFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17535,7 +14566,7 @@ func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountDisconnectWithFormda
 		return nil, fmt.Errorf("stripe.post-linked-accounts-account-disconnect-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostLinkedAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostLinkedAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17552,22 +14583,13 @@ func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountDisconnectWithFormda
 }
 
 func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountRefreshWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-linked-accounts-account-refresh-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Account string `json:"account"`
 	}
 
-	var account string
-
-	if raw, ok := pathArgs["account"]; ok {
-		paramErr := json.Unmarshal(raw, &account)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-linked-accounts-account-refresh-with-formdata-body: param account: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-linked-accounts-account-refresh-with-formdata-body: %w", err)
 	}
-
 	var body client.PostLinkedAccountsAccountRefreshFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17575,7 +14597,7 @@ func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountRefreshWithFormdataB
 		return nil, fmt.Errorf("stripe.post-linked-accounts-account-refresh-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostLinkedAccountsAccountRefreshWithFormdataBodyWithResponse(ctx, account, body)
+	resp, callErr := ic.cl.PostLinkedAccountsAccountRefreshWithFormdataBodyWithResponse(ctx, pathArgs.Account, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17592,22 +14614,13 @@ func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountRefreshWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-intents-intent-apply-customer-balance-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-intents-intent-apply-customer-balance-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-intents-intent-apply-customer-balance-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentIntentsIntentApplyCustomerBalanceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17615,7 +14628,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentApplyCustomerBalanceW
 		return nil, fmt.Errorf("stripe.post-payment-intents-intent-apply-customer-balance-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17632,22 +14645,13 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentApplyCustomerBalanceW
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-intents-intent-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-intents-intent-cancel-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-intents-intent-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentIntentsIntentCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17655,7 +14659,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCancelWithFormdataBod
 		return nil, fmt.Errorf("stripe.post-payment-intents-intent-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentIntentsIntentCancelWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostPaymentIntentsIntentCancelWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17672,22 +14676,13 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCancelWithFormdataBod
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCaptureWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-intents-intent-capture-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-intents-intent-capture-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-intents-intent-capture-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentIntentsIntentCaptureFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17695,7 +14690,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCaptureWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-payment-intents-intent-capture-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentIntentsIntentCaptureWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostPaymentIntentsIntentCaptureWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17712,22 +14707,13 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCaptureWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentConfirmWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-intents-intent-confirm-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-intents-intent-confirm-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-intents-intent-confirm-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentIntentsIntentConfirmFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17735,7 +14721,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentConfirmWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-payment-intents-intent-confirm-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentIntentsIntentConfirmWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostPaymentIntentsIntentConfirmWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17752,22 +14738,13 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentConfirmWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-intents-intent-increment-authorization-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-intents-intent-increment-authorization-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-intents-intent-increment-authorization-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentIntentsIntentIncrementAuthorizationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17775,7 +14752,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentIncrementAuthorizatio
 		return nil, fmt.Errorf("stripe.post-payment-intents-intent-increment-authorization-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentIntentsIntentIncrementAuthorizationWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostPaymentIntentsIntentIncrementAuthorizationWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17792,22 +14769,13 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentIncrementAuthorizatio
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-intents-intent-verify-microdeposits-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-intents-intent-verify-microdeposits-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-intents-intent-verify-microdeposits-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentIntentsIntentVerifyMicrodepositsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17815,7 +14783,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentVerifyMicrodepositsWi
 		return nil, fmt.Errorf("stripe.post-payment-intents-intent-verify-microdeposits-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17832,22 +14800,13 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentVerifyMicrodepositsWi
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-intents-intent-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-intents-intent-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-intents-intent-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentIntentsIntentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17855,7 +14814,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.post-payment-intents-intent-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentIntentsIntentWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostPaymentIntentsIntentWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17896,22 +14855,13 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-links-payment-link-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentLink string `json:"paymentLink"`
 	}
 
-	var paymentLink string
-
-	if raw, ok := pathArgs["paymentLink"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentLink)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-links-payment-link-with-formdata-body: param paymentLink: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-links-payment-link-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentLinksPaymentLinkFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17919,7 +14869,7 @@ func (ic *InterfaceClient) dispatchPostPaymentLinksPaymentLinkWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-payment-links-payment-link-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx, paymentLink, body)
+	resp, callErr := ic.cl.PostPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx, pathArgs.PaymentLink, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -17960,22 +14910,13 @@ func (ic *InterfaceClient) dispatchPostPaymentLinksWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-method-configurations-configuration-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Configuration string `json:"configuration"`
 	}
 
-	var configuration string
-
-	if raw, ok := pathArgs["configuration"]; ok {
-		paramErr := json.Unmarshal(raw, &configuration)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-method-configurations-configuration-with-formdata-body: param configuration: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-method-configurations-configuration-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentMethodConfigurationsConfigurationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17983,7 +14924,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsConfigurationW
 		return nil, fmt.Errorf("stripe.post-payment-method-configurations-configuration-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, configuration, body)
+	resp, callErr := ic.cl.PostPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, pathArgs.Configuration, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18024,22 +14965,13 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-method-domains-payment-method-domain-validate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentMethodDomain string `json:"paymentMethodDomain"`
 	}
 
-	var paymentMethodDomain string
-
-	if raw, ok := pathArgs["paymentMethodDomain"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentMethodDomain)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-method-domains-payment-method-domain-validate-with-formdata-body: param paymentMethodDomain: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-method-domains-payment-method-domain-validate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentMethodDomainsPaymentMethodDomainValidateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18047,7 +14979,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainVa
 		return nil, fmt.Errorf("stripe.post-payment-method-domains-payment-method-domain-validate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBodyWithResponse(ctx, paymentMethodDomain, body)
+	resp, callErr := ic.cl.PostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBodyWithResponse(ctx, pathArgs.PaymentMethodDomain, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18064,22 +14996,13 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainVa
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-method-domains-payment-method-domain-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentMethodDomain string `json:"paymentMethodDomain"`
 	}
 
-	var paymentMethodDomain string
-
-	if raw, ok := pathArgs["paymentMethodDomain"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentMethodDomain)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-method-domains-payment-method-domain-with-formdata-body: param paymentMethodDomain: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-method-domains-payment-method-domain-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentMethodDomainsPaymentMethodDomainFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18087,7 +15010,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainWi
 		return nil, fmt.Errorf("stripe.post-payment-method-domains-payment-method-domain-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx, paymentMethodDomain, body)
+	resp, callErr := ic.cl.PostPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx, pathArgs.PaymentMethodDomain, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18128,22 +15051,13 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodAttachWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-attach-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentMethod string `json:"paymentMethod"`
 	}
 
-	var paymentMethod string
-
-	if raw, ok := pathArgs["paymentMethod"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentMethod)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-attach-with-formdata-body: param paymentMethod: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-attach-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentMethodsPaymentMethodAttachFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18151,7 +15065,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodAttachWithForm
 		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-attach-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentMethodsPaymentMethodAttachWithFormdataBodyWithResponse(ctx, paymentMethod, body)
+	resp, callErr := ic.cl.PostPaymentMethodsPaymentMethodAttachWithFormdataBodyWithResponse(ctx, pathArgs.PaymentMethod, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18168,22 +15082,13 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodAttachWithForm
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodDetachWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-detach-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentMethod string `json:"paymentMethod"`
 	}
 
-	var paymentMethod string
-
-	if raw, ok := pathArgs["paymentMethod"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentMethod)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-detach-with-formdata-body: param paymentMethod: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-detach-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentMethodsPaymentMethodDetachFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18191,7 +15096,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodDetachWithForm
 		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-detach-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentMethodsPaymentMethodDetachWithFormdataBodyWithResponse(ctx, paymentMethod, body)
+	resp, callErr := ic.cl.PostPaymentMethodsPaymentMethodDetachWithFormdataBodyWithResponse(ctx, pathArgs.PaymentMethod, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18208,22 +15113,13 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodDetachWithForm
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PaymentMethod string `json:"paymentMethod"`
 	}
 
-	var paymentMethod string
-
-	if raw, ok := pathArgs["paymentMethod"]; ok {
-		paramErr := json.Unmarshal(raw, &paymentMethod)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-with-formdata-body: param paymentMethod: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentMethodsPaymentMethodFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18231,7 +15127,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-payment-methods-payment-method-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, paymentMethod, body)
+	resp, callErr := ic.cl.PostPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, pathArgs.PaymentMethod, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18272,22 +15168,13 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-canceled-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-canceled-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-canceled-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentRecordsIdReportPaymentAttemptCanceledFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18295,7 +15182,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptCance
 		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-canceled-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18312,22 +15199,13 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptCance
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-failed-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-failed-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-failed-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentRecordsIdReportPaymentAttemptFailedFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18335,7 +15213,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptFaile
 		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-failed-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18352,22 +15230,13 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptFaile
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-guaranteed-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-guaranteed-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-guaranteed-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentRecordsIdReportPaymentAttemptGuaranteedFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18375,7 +15244,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptGuara
 		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-guaranteed-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18392,22 +15261,13 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptGuara
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-informational-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-informational-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-informational-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentRecordsIdReportPaymentAttemptInformationalFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18415,7 +15275,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptInfor
 		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-informational-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18432,22 +15292,13 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptInfor
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentRecordsIdReportPaymentAttemptFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18455,7 +15306,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptWithF
 		return nil, fmt.Errorf("stripe.post-payment-records-id-report-payment-attempt-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostPaymentRecordsIdReportPaymentAttemptWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18472,22 +15323,13 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptWithF
 }
 
 func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payment-records-id-report-refund-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payment-records-id-report-refund-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payment-records-id-report-refund-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPaymentRecordsIdReportRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18495,7 +15337,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportRefundWithFormdataB
 		return nil, fmt.Errorf("stripe.post-payment-records-id-report-refund-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPaymentRecordsIdReportRefundWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostPaymentRecordsIdReportRefundWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18536,22 +15378,13 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsReportPaymentWithFormdataBo
 }
 
 func (ic *InterfaceClient) dispatchPostPayoutsPayoutCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payouts-payout-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Payout string `json:"payout"`
 	}
 
-	var payout string
-
-	if raw, ok := pathArgs["payout"]; ok {
-		paramErr := json.Unmarshal(raw, &payout)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payouts-payout-cancel-with-formdata-body: param payout: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payouts-payout-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPayoutsPayoutCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18559,7 +15392,7 @@ func (ic *InterfaceClient) dispatchPostPayoutsPayoutCancelWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.post-payouts-payout-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPayoutsPayoutCancelWithFormdataBodyWithResponse(ctx, payout, body)
+	resp, callErr := ic.cl.PostPayoutsPayoutCancelWithFormdataBodyWithResponse(ctx, pathArgs.Payout, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18576,22 +15409,13 @@ func (ic *InterfaceClient) dispatchPostPayoutsPayoutCancelWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostPayoutsPayoutReverseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payouts-payout-reverse-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Payout string `json:"payout"`
 	}
 
-	var payout string
-
-	if raw, ok := pathArgs["payout"]; ok {
-		paramErr := json.Unmarshal(raw, &payout)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payouts-payout-reverse-with-formdata-body: param payout: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payouts-payout-reverse-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPayoutsPayoutReverseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18599,7 +15423,7 @@ func (ic *InterfaceClient) dispatchPostPayoutsPayoutReverseWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.post-payouts-payout-reverse-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPayoutsPayoutReverseWithFormdataBodyWithResponse(ctx, payout, body)
+	resp, callErr := ic.cl.PostPayoutsPayoutReverseWithFormdataBodyWithResponse(ctx, pathArgs.Payout, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18616,22 +15440,13 @@ func (ic *InterfaceClient) dispatchPostPayoutsPayoutReverseWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchPostPayoutsPayoutWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-payouts-payout-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Payout string `json:"payout"`
 	}
 
-	var payout string
-
-	if raw, ok := pathArgs["payout"]; ok {
-		paramErr := json.Unmarshal(raw, &payout)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-payouts-payout-with-formdata-body: param payout: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-payouts-payout-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPayoutsPayoutFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18639,7 +15454,7 @@ func (ic *InterfaceClient) dispatchPostPayoutsPayoutWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.post-payouts-payout-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPayoutsPayoutWithFormdataBodyWithResponse(ctx, payout, body)
+	resp, callErr := ic.cl.PostPayoutsPayoutWithFormdataBodyWithResponse(ctx, pathArgs.Payout, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18680,22 +15495,13 @@ func (ic *InterfaceClient) dispatchPostPayoutsWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPostPlansPlanWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-plans-plan-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Plan string `json:"plan"`
 	}
 
-	var plan string
-
-	if raw, ok := pathArgs["plan"]; ok {
-		paramErr := json.Unmarshal(raw, &plan)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-plans-plan-with-formdata-body: param plan: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-plans-plan-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPlansPlanFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18703,7 +15509,7 @@ func (ic *InterfaceClient) dispatchPostPlansPlanWithFormdataBodyWithResponse(ctx
 		return nil, fmt.Errorf("stripe.post-plans-plan-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPlansPlanWithFormdataBodyWithResponse(ctx, plan, body)
+	resp, callErr := ic.cl.PostPlansPlanWithFormdataBodyWithResponse(ctx, pathArgs.Plan, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18744,22 +15550,13 @@ func (ic *InterfaceClient) dispatchPostPlansWithFormdataBodyWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchPostPricesPriceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-prices-price-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Price string `json:"price"`
 	}
 
-	var price string
-
-	if raw, ok := pathArgs["price"]; ok {
-		paramErr := json.Unmarshal(raw, &price)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-prices-price-with-formdata-body: param price: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-prices-price-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPricesPriceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18767,7 +15564,7 @@ func (ic *InterfaceClient) dispatchPostPricesPriceWithFormdataBodyWithResponse(c
 		return nil, fmt.Errorf("stripe.post-prices-price-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPricesPriceWithFormdataBodyWithResponse(ctx, price, body)
+	resp, callErr := ic.cl.PostPricesPriceWithFormdataBodyWithResponse(ctx, pathArgs.Price, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18808,22 +15605,13 @@ func (ic *InterfaceClient) dispatchPostPricesWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-product-catalog-trial-offers-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-product-catalog-trial-offers-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-product-catalog-trial-offers-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostProductCatalogTrialOffersIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18831,7 +15619,7 @@ func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersIdWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-product-catalog-trial-offers-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18872,22 +15660,13 @@ func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostProductsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-products-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-products-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-products-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostProductsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18895,7 +15674,7 @@ func (ic *InterfaceClient) dispatchPostProductsIdWithFormdataBodyWithResponse(ct
 		return nil, fmt.Errorf("stripe.post-products-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostProductsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostProductsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18912,22 +15691,13 @@ func (ic *InterfaceClient) dispatchPostProductsIdWithFormdataBodyWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchPostProductsProductFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-products-product-features-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Product string `json:"product"`
 	}
 
-	var product string
-
-	if raw, ok := pathArgs["product"]; ok {
-		paramErr := json.Unmarshal(raw, &product)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-products-product-features-with-formdata-body: param product: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-products-product-features-with-formdata-body: %w", err)
 	}
-
 	var body client.PostProductsProductFeaturesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18935,7 +15705,7 @@ func (ic *InterfaceClient) dispatchPostProductsProductFeaturesWithFormdataBodyWi
 		return nil, fmt.Errorf("stripe.post-products-product-features-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostProductsProductFeaturesWithFormdataBodyWithResponse(ctx, product, body)
+	resp, callErr := ic.cl.PostProductsProductFeaturesWithFormdataBodyWithResponse(ctx, pathArgs.Product, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -18976,22 +15746,13 @@ func (ic *InterfaceClient) dispatchPostProductsWithFormdataBodyWithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchPostPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-promotion-codes-promotion-code-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PromotionCode string `json:"promotionCode"`
 	}
 
-	var promotionCode string
-
-	if raw, ok := pathArgs["promotionCode"]; ok {
-		paramErr := json.Unmarshal(raw, &promotionCode)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-promotion-codes-promotion-code-with-formdata-body: param promotionCode: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-promotion-codes-promotion-code-with-formdata-body: %w", err)
 	}
-
 	var body client.PostPromotionCodesPromotionCodeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18999,7 +15760,7 @@ func (ic *InterfaceClient) dispatchPostPromotionCodesPromotionCodeWithFormdataBo
 		return nil, fmt.Errorf("stripe.post-promotion-codes-promotion-code-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx, promotionCode, body)
+	resp, callErr := ic.cl.PostPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx, pathArgs.PromotionCode, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19040,22 +15801,13 @@ func (ic *InterfaceClient) dispatchPostPromotionCodesWithFormdataBodyWithRespons
 }
 
 func (ic *InterfaceClient) dispatchPostQuotesQuoteAcceptWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-quotes-quote-accept-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Quote string `json:"quote"`
 	}
 
-	var quote string
-
-	if raw, ok := pathArgs["quote"]; ok {
-		paramErr := json.Unmarshal(raw, &quote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-quotes-quote-accept-with-formdata-body: param quote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-quotes-quote-accept-with-formdata-body: %w", err)
 	}
-
 	var body client.PostQuotesQuoteAcceptFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19063,7 +15815,7 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteAcceptWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.post-quotes-quote-accept-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostQuotesQuoteAcceptWithFormdataBodyWithResponse(ctx, quote, body)
+	resp, callErr := ic.cl.PostQuotesQuoteAcceptWithFormdataBodyWithResponse(ctx, pathArgs.Quote, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19080,22 +15832,13 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteAcceptWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchPostQuotesQuoteCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-quotes-quote-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Quote string `json:"quote"`
 	}
 
-	var quote string
-
-	if raw, ok := pathArgs["quote"]; ok {
-		paramErr := json.Unmarshal(raw, &quote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-quotes-quote-cancel-with-formdata-body: param quote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-quotes-quote-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostQuotesQuoteCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19103,7 +15846,7 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteCancelWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.post-quotes-quote-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostQuotesQuoteCancelWithFormdataBodyWithResponse(ctx, quote, body)
+	resp, callErr := ic.cl.PostQuotesQuoteCancelWithFormdataBodyWithResponse(ctx, pathArgs.Quote, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19120,22 +15863,13 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteCancelWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchPostQuotesQuoteFinalizeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-quotes-quote-finalize-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Quote string `json:"quote"`
 	}
 
-	var quote string
-
-	if raw, ok := pathArgs["quote"]; ok {
-		paramErr := json.Unmarshal(raw, &quote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-quotes-quote-finalize-with-formdata-body: param quote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-quotes-quote-finalize-with-formdata-body: %w", err)
 	}
-
 	var body client.PostQuotesQuoteFinalizeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19143,7 +15877,7 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteFinalizeWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.post-quotes-quote-finalize-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostQuotesQuoteFinalizeWithFormdataBodyWithResponse(ctx, quote, body)
+	resp, callErr := ic.cl.PostQuotesQuoteFinalizeWithFormdataBodyWithResponse(ctx, pathArgs.Quote, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19160,22 +15894,13 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteFinalizeWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostQuotesQuoteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-quotes-quote-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Quote string `json:"quote"`
 	}
 
-	var quote string
-
-	if raw, ok := pathArgs["quote"]; ok {
-		paramErr := json.Unmarshal(raw, &quote)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-quotes-quote-with-formdata-body: param quote: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-quotes-quote-with-formdata-body: %w", err)
 	}
-
 	var body client.PostQuotesQuoteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19183,7 +15908,7 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteWithFormdataBodyWithResponse(c
 		return nil, fmt.Errorf("stripe.post-quotes-quote-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostQuotesQuoteWithFormdataBodyWithResponse(ctx, quote, body)
+	resp, callErr := ic.cl.PostQuotesQuoteWithFormdataBodyWithResponse(ctx, pathArgs.Quote, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19272,22 +15997,13 @@ func (ic *InterfaceClient) dispatchPostRadarValueListItemsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-radar-value-lists-value-list-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ValueList string `json:"valueList"`
 	}
 
-	var valueList string
-
-	if raw, ok := pathArgs["valueList"]; ok {
-		paramErr := json.Unmarshal(raw, &valueList)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-radar-value-lists-value-list-with-formdata-body: param valueList: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-radar-value-lists-value-list-with-formdata-body: %w", err)
 	}
-
 	var body client.PostRadarValueListsValueListFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19295,7 +16011,7 @@ func (ic *InterfaceClient) dispatchPostRadarValueListsValueListWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.post-radar-value-lists-value-list-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostRadarValueListsValueListWithFormdataBodyWithResponse(ctx, valueList, body)
+	resp, callErr := ic.cl.PostRadarValueListsValueListWithFormdataBodyWithResponse(ctx, pathArgs.ValueList, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19336,22 +16052,13 @@ func (ic *InterfaceClient) dispatchPostRadarValueListsWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchPostRefundsRefundCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-refunds-refund-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Refund string `json:"refund"`
 	}
 
-	var refund string
-
-	if raw, ok := pathArgs["refund"]; ok {
-		paramErr := json.Unmarshal(raw, &refund)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-refunds-refund-cancel-with-formdata-body: param refund: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-refunds-refund-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostRefundsRefundCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19359,7 +16066,7 @@ func (ic *InterfaceClient) dispatchPostRefundsRefundCancelWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.post-refunds-refund-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostRefundsRefundCancelWithFormdataBodyWithResponse(ctx, refund, body)
+	resp, callErr := ic.cl.PostRefundsRefundCancelWithFormdataBodyWithResponse(ctx, pathArgs.Refund, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19376,22 +16083,13 @@ func (ic *InterfaceClient) dispatchPostRefundsRefundCancelWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-refunds-refund-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Refund string `json:"refund"`
 	}
 
-	var refund string
-
-	if raw, ok := pathArgs["refund"]; ok {
-		paramErr := json.Unmarshal(raw, &refund)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-refunds-refund-with-formdata-body: param refund: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-refunds-refund-with-formdata-body: %w", err)
 	}
-
 	var body client.PostRefundsRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19399,7 +16097,7 @@ func (ic *InterfaceClient) dispatchPostRefundsRefundWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.post-refunds-refund-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostRefundsRefundWithFormdataBodyWithResponse(ctx, refund, body)
+	resp, callErr := ic.cl.PostRefundsRefundWithFormdataBodyWithResponse(ctx, pathArgs.Refund, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19464,22 +16162,13 @@ func (ic *InterfaceClient) dispatchPostReportingReportRunsWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostReviewsReviewApproveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-reviews-review-approve-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Review string `json:"review"`
 	}
 
-	var review string
-
-	if raw, ok := pathArgs["review"]; ok {
-		paramErr := json.Unmarshal(raw, &review)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-reviews-review-approve-with-formdata-body: param review: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-reviews-review-approve-with-formdata-body: %w", err)
 	}
-
 	var body client.PostReviewsReviewApproveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19487,7 +16176,7 @@ func (ic *InterfaceClient) dispatchPostReviewsReviewApproveWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.post-reviews-review-approve-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostReviewsReviewApproveWithFormdataBodyWithResponse(ctx, review, body)
+	resp, callErr := ic.cl.PostReviewsReviewApproveWithFormdataBodyWithResponse(ctx, pathArgs.Review, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19504,22 +16193,13 @@ func (ic *InterfaceClient) dispatchPostReviewsReviewApproveWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchPostSetupIntentsIntentCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-setup-intents-intent-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-setup-intents-intent-cancel-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-setup-intents-intent-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSetupIntentsIntentCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19527,7 +16207,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentCancelWithFormdataBodyW
 		return nil, fmt.Errorf("stripe.post-setup-intents-intent-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSetupIntentsIntentCancelWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostSetupIntentsIntentCancelWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19544,22 +16224,13 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentCancelWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchPostSetupIntentsIntentConfirmWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-setup-intents-intent-confirm-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-setup-intents-intent-confirm-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-setup-intents-intent-confirm-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSetupIntentsIntentConfirmFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19567,7 +16238,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentConfirmWithFormdataBody
 		return nil, fmt.Errorf("stripe.post-setup-intents-intent-confirm-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSetupIntentsIntentConfirmWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostSetupIntentsIntentConfirmWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19584,22 +16255,13 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentConfirmWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-setup-intents-intent-verify-microdeposits-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-setup-intents-intent-verify-microdeposits-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-setup-intents-intent-verify-microdeposits-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSetupIntentsIntentVerifyMicrodepositsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19607,7 +16269,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentVerifyMicrodepositsWith
 		return nil, fmt.Errorf("stripe.post-setup-intents-intent-verify-microdeposits-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSetupIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostSetupIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19624,22 +16286,13 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentVerifyMicrodepositsWith
 }
 
 func (ic *InterfaceClient) dispatchPostSetupIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-setup-intents-intent-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Intent string `json:"intent"`
 	}
 
-	var intent string
-
-	if raw, ok := pathArgs["intent"]; ok {
-		paramErr := json.Unmarshal(raw, &intent)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-setup-intents-intent-with-formdata-body: param intent: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-setup-intents-intent-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSetupIntentsIntentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19647,7 +16300,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.post-setup-intents-intent-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSetupIntentsIntentWithFormdataBodyWithResponse(ctx, intent, body)
+	resp, callErr := ic.cl.PostSetupIntentsIntentWithFormdataBodyWithResponse(ctx, pathArgs.Intent, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19688,22 +16341,13 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchPostShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-shipping-rates-shipping-rate-token-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		ShippingRateToken string `json:"shippingRateToken"`
 	}
 
-	var shippingRateToken string
-
-	if raw, ok := pathArgs["shippingRateToken"]; ok {
-		paramErr := json.Unmarshal(raw, &shippingRateToken)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-shipping-rates-shipping-rate-token-with-formdata-body: param shippingRateToken: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-shipping-rates-shipping-rate-token-with-formdata-body: %w", err)
 	}
-
 	var body client.PostShippingRatesShippingRateTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19711,7 +16355,7 @@ func (ic *InterfaceClient) dispatchPostShippingRatesShippingRateTokenWithFormdat
 		return nil, fmt.Errorf("stripe.post-shipping-rates-shipping-rate-token-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx, shippingRateToken, body)
+	resp, callErr := ic.cl.PostShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx, pathArgs.ShippingRateToken, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19752,22 +16396,13 @@ func (ic *InterfaceClient) dispatchPostShippingRatesWithFormdataBodyWithResponse
 }
 
 func (ic *InterfaceClient) dispatchPostSigmaSavedQueriesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-sigma-saved-queries-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-sigma-saved-queries-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-sigma-saved-queries-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSigmaSavedQueriesIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19775,7 +16410,7 @@ func (ic *InterfaceClient) dispatchPostSigmaSavedQueriesIdWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.post-sigma-saved-queries-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSigmaSavedQueriesIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostSigmaSavedQueriesIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19792,22 +16427,13 @@ func (ic *InterfaceClient) dispatchPostSigmaSavedQueriesIdWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostSourcesSourceVerifyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-sources-source-verify-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Source string `json:"source"`
 	}
 
-	var source string
-
-	if raw, ok := pathArgs["source"]; ok {
-		paramErr := json.Unmarshal(raw, &source)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-sources-source-verify-with-formdata-body: param source: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-sources-source-verify-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSourcesSourceVerifyFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19815,7 +16441,7 @@ func (ic *InterfaceClient) dispatchPostSourcesSourceVerifyWithFormdataBodyWithRe
 		return nil, fmt.Errorf("stripe.post-sources-source-verify-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSourcesSourceVerifyWithFormdataBodyWithResponse(ctx, source, body)
+	resp, callErr := ic.cl.PostSourcesSourceVerifyWithFormdataBodyWithResponse(ctx, pathArgs.Source, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19832,22 +16458,13 @@ func (ic *InterfaceClient) dispatchPostSourcesSourceVerifyWithFormdataBodyWithRe
 }
 
 func (ic *InterfaceClient) dispatchPostSourcesSourceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-sources-source-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Source string `json:"source"`
 	}
 
-	var source string
-
-	if raw, ok := pathArgs["source"]; ok {
-		paramErr := json.Unmarshal(raw, &source)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-sources-source-with-formdata-body: param source: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-sources-source-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSourcesSourceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19855,7 +16472,7 @@ func (ic *InterfaceClient) dispatchPostSourcesSourceWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.post-sources-source-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSourcesSourceWithFormdataBodyWithResponse(ctx, source, body)
+	resp, callErr := ic.cl.PostSourcesSourceWithFormdataBodyWithResponse(ctx, pathArgs.Source, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19896,22 +16513,13 @@ func (ic *InterfaceClient) dispatchPostSourcesWithFormdataBodyWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPostSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-subscription-items-item-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Item string `json:"item"`
 	}
 
-	var item string
-
-	if raw, ok := pathArgs["item"]; ok {
-		paramErr := json.Unmarshal(raw, &item)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-subscription-items-item-with-formdata-body: param item: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-subscription-items-item-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSubscriptionItemsItemFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19919,7 +16527,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionItemsItemWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.post-subscription-items-item-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, item, body)
+	resp, callErr := ic.cl.PostSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, pathArgs.Item, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -19960,22 +16568,13 @@ func (ic *InterfaceClient) dispatchPostSubscriptionItemsWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Schedule string `json:"schedule"`
 	}
 
-	var schedule string
-
-	if raw, ok := pathArgs["schedule"]; ok {
-		paramErr := json.Unmarshal(raw, &schedule)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-cancel-with-formdata-body: param schedule: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSubscriptionSchedulesScheduleCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19983,7 +16582,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleCancelWithFo
 		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSubscriptionSchedulesScheduleCancelWithFormdataBodyWithResponse(ctx, schedule, body)
+	resp, callErr := ic.cl.PostSubscriptionSchedulesScheduleCancelWithFormdataBodyWithResponse(ctx, pathArgs.Schedule, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20000,22 +16599,13 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleCancelWithFo
 }
 
 func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleReleaseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-release-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Schedule string `json:"schedule"`
 	}
 
-	var schedule string
-
-	if raw, ok := pathArgs["schedule"]; ok {
-		paramErr := json.Unmarshal(raw, &schedule)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-release-with-formdata-body: param schedule: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-release-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSubscriptionSchedulesScheduleReleaseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20023,7 +16613,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleReleaseWithF
 		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-release-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSubscriptionSchedulesScheduleReleaseWithFormdataBodyWithResponse(ctx, schedule, body)
+	resp, callErr := ic.cl.PostSubscriptionSchedulesScheduleReleaseWithFormdataBodyWithResponse(ctx, pathArgs.Schedule, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20040,22 +16630,13 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleReleaseWithF
 }
 
 func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Schedule string `json:"schedule"`
 	}
 
-	var schedule string
-
-	if raw, ok := pathArgs["schedule"]; ok {
-		paramErr := json.Unmarshal(raw, &schedule)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-with-formdata-body: param schedule: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSubscriptionSchedulesScheduleFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20063,7 +16644,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleWithFormdata
 		return nil, fmt.Errorf("stripe.post-subscription-schedules-schedule-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx, schedule, body)
+	resp, callErr := ic.cl.PostSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx, pathArgs.Schedule, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20104,22 +16685,13 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-exposed-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		SubscriptionExposedId string `json:"subscriptionExposedId"`
 	}
 
-	var subscriptionExposedId string
-
-	if raw, ok := pathArgs["subscriptionExposedId"]; ok {
-		paramErr := json.Unmarshal(raw, &subscriptionExposedId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-subscriptions-subscription-exposed-id-with-formdata-body: param subscriptionExposedId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-exposed-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSubscriptionsSubscriptionExposedIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20127,7 +16699,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionExposedIdWithFor
 		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-exposed-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, subscriptionExposedId, body)
+	resp, callErr := ic.cl.PostSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, pathArgs.SubscriptionExposedId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20144,22 +16716,13 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionExposedIdWithFor
 }
 
 func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionMigrateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-migrate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Subscription string `json:"subscription"`
 	}
 
-	var subscription string
-
-	if raw, ok := pathArgs["subscription"]; ok {
-		paramErr := json.Unmarshal(raw, &subscription)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-subscriptions-subscription-migrate-with-formdata-body: param subscription: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-migrate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSubscriptionsSubscriptionMigrateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20167,7 +16730,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionMigrateWithFormd
 		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-migrate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSubscriptionsSubscriptionMigrateWithFormdataBodyWithResponse(ctx, subscription, body)
+	resp, callErr := ic.cl.PostSubscriptionsSubscriptionMigrateWithFormdataBodyWithResponse(ctx, pathArgs.Subscription, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20184,22 +16747,13 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionMigrateWithFormd
 }
 
 func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionPauseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-pause-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Subscription string `json:"subscription"`
 	}
 
-	var subscription string
-
-	if raw, ok := pathArgs["subscription"]; ok {
-		paramErr := json.Unmarshal(raw, &subscription)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-subscriptions-subscription-pause-with-formdata-body: param subscription: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-pause-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSubscriptionsSubscriptionPauseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20207,7 +16761,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionPauseWithFormdat
 		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-pause-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSubscriptionsSubscriptionPauseWithFormdataBodyWithResponse(ctx, subscription, body)
+	resp, callErr := ic.cl.PostSubscriptionsSubscriptionPauseWithFormdataBodyWithResponse(ctx, pathArgs.Subscription, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20224,22 +16778,13 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionPauseWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionResumeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-resume-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Subscription string `json:"subscription"`
 	}
 
-	var subscription string
-
-	if raw, ok := pathArgs["subscription"]; ok {
-		paramErr := json.Unmarshal(raw, &subscription)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-subscriptions-subscription-resume-with-formdata-body: param subscription: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-resume-with-formdata-body: %w", err)
 	}
-
 	var body client.PostSubscriptionsSubscriptionResumeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20247,7 +16792,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionResumeWithFormda
 		return nil, fmt.Errorf("stripe.post-subscriptions-subscription-resume-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostSubscriptionsSubscriptionResumeWithFormdataBodyWithResponse(ctx, subscription, body)
+	resp, callErr := ic.cl.PostSubscriptionsSubscriptionResumeWithFormdataBodyWithResponse(ctx, pathArgs.Subscription, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20360,22 +16905,13 @@ func (ic *InterfaceClient) dispatchPostTaxLocationsWithFormdataBodyWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchPostTaxRatesTaxRateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-tax-rates-tax-rate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		TaxRate string `json:"taxRate"`
 	}
 
-	var taxRate string
-
-	if raw, ok := pathArgs["taxRate"]; ok {
-		paramErr := json.Unmarshal(raw, &taxRate)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-tax-rates-tax-rate-with-formdata-body: param taxRate: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-tax-rates-tax-rate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTaxRatesTaxRateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20383,7 +16919,7 @@ func (ic *InterfaceClient) dispatchPostTaxRatesTaxRateWithFormdataBodyWithRespon
 		return nil, fmt.Errorf("stripe.post-tax-rates-tax-rate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTaxRatesTaxRateWithFormdataBodyWithResponse(ctx, taxRate, body)
+	resp, callErr := ic.cl.PostTaxRatesTaxRateWithFormdataBodyWithResponse(ctx, pathArgs.TaxRate, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20424,22 +16960,13 @@ func (ic *InterfaceClient) dispatchPostTaxRatesWithFormdataBodyWithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchPostTaxRegistrationsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-tax-registrations-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-tax-registrations-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-tax-registrations-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTaxRegistrationsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20447,7 +16974,7 @@ func (ic *InterfaceClient) dispatchPostTaxRegistrationsIdWithFormdataBodyWithRes
 		return nil, fmt.Errorf("stripe.post-tax-registrations-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTaxRegistrationsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTaxRegistrationsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20560,22 +17087,13 @@ func (ic *InterfaceClient) dispatchPostTaxTransactionsCreateReversalWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-configurations-configuration-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Configuration string `json:"configuration"`
 	}
 
-	var configuration string
-
-	if raw, ok := pathArgs["configuration"]; ok {
-		paramErr := json.Unmarshal(raw, &configuration)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-configurations-configuration-with-formdata-body: param configuration: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-configurations-configuration-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalConfigurationsConfigurationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20583,7 +17101,7 @@ func (ic *InterfaceClient) dispatchPostTerminalConfigurationsConfigurationWithFo
 		return nil, fmt.Errorf("stripe.post-terminal-configurations-configuration-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, configuration, body)
+	resp, callErr := ic.cl.PostTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, pathArgs.Configuration, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20648,22 +17166,13 @@ func (ic *InterfaceClient) dispatchPostTerminalConnectionTokensWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-locations-location-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Location string `json:"location"`
 	}
 
-	var location string
-
-	if raw, ok := pathArgs["location"]; ok {
-		paramErr := json.Unmarshal(raw, &location)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-locations-location-with-formdata-body: param location: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-locations-location-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalLocationsLocationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20671,7 +17180,7 @@ func (ic *InterfaceClient) dispatchPostTerminalLocationsLocationWithFormdataBody
 		return nil, fmt.Errorf("stripe.post-terminal-locations-location-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, location, body)
+	resp, callErr := ic.cl.PostTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, pathArgs.Location, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20736,22 +17245,13 @@ func (ic *InterfaceClient) dispatchPostTerminalOnboardingLinksWithFormdataBodyWi
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCancelActionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-cancel-action-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-cancel-action-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-cancel-action-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderCancelActionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20759,7 +17259,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCancelActionWithForm
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-cancel-action-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderCancelActionWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderCancelActionWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20776,22 +17276,13 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCancelActionWithForm
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectInputsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-collect-inputs-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-collect-inputs-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-collect-inputs-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderCollectInputsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20799,7 +17290,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectInputsWithFor
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-collect-inputs-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderCollectInputsWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderCollectInputsWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20816,22 +17307,13 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectInputsWithFor
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-collect-payment-method-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-collect-payment-method-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-collect-payment-method-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderCollectPaymentMethodFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20839,7 +17321,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectPaymentMethod
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-collect-payment-method-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderCollectPaymentMethodWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderCollectPaymentMethodWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20856,22 +17338,13 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectPaymentMethod
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-confirm-payment-intent-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-confirm-payment-intent-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-confirm-payment-intent-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderConfirmPaymentIntentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20879,7 +17352,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderConfirmPaymentIntent
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-confirm-payment-intent-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderConfirmPaymentIntentWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderConfirmPaymentIntentWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20896,22 +17369,13 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderConfirmPaymentIntent
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessPaymentIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-process-payment-intent-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-process-payment-intent-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-process-payment-intent-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderProcessPaymentIntentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20919,7 +17383,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessPaymentIntent
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-process-payment-intent-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderProcessPaymentIntentWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderProcessPaymentIntentWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20936,22 +17400,13 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessPaymentIntent
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessSetupIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-process-setup-intent-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-process-setup-intent-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-process-setup-intent-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderProcessSetupIntentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20959,7 +17414,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessSetupIntentWi
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-process-setup-intent-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderProcessSetupIntentWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderProcessSetupIntentWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -20976,22 +17431,13 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessSetupIntentWi
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderRefundPaymentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-refund-payment-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-refund-payment-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-refund-payment-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderRefundPaymentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20999,7 +17445,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderRefundPaymentWithFor
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-refund-payment-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderRefundPaymentWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderRefundPaymentWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21016,22 +17462,13 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderRefundPaymentWithFor
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderSetReaderDisplayWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-set-reader-display-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-set-reader-display-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-set-reader-display-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderSetReaderDisplayFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21039,7 +17476,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderSetReaderDisplayWith
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-set-reader-display-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderSetReaderDisplayWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderSetReaderDisplayWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21056,22 +17493,13 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderSetReaderDisplayWith
 }
 
 func (ic *InterfaceClient) dispatchPostTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-terminal-readers-reader-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTerminalReadersReaderFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21079,7 +17507,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderWithFormdataBodyWith
 		return nil, fmt.Errorf("stripe.post-terminal-readers-reader-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTerminalReadersReaderWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTerminalReadersReaderWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21168,22 +17596,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersConfirmationTokensWithFormdata
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-customers-customer-fund-cash-balance-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Customer string `json:"customer"`
 	}
 
-	var customer string
-
-	if raw, ok := pathArgs["customer"]; ok {
-		paramErr := json.Unmarshal(raw, &customer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-customers-customer-fund-cash-balance-with-formdata-body: param customer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-customers-customer-fund-cash-balance-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersCustomersCustomerFundCashBalanceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21191,7 +17610,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersCustomersCustomerFundCashBalan
 		return nil, fmt.Errorf("stripe.post-test-helpers-customers-customer-fund-cash-balance-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBodyWithResponse(ctx, customer, body)
+	resp, callErr := ic.cl.PostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBodyWithResponse(ctx, pathArgs.Customer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21208,22 +17627,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersCustomersCustomerFundCashBalan
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-capture-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-capture-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-capture-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingAuthorizationsAuthorizationCaptureFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21231,7 +17641,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-capture-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21248,22 +17658,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-expire-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-expire-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-expire-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingAuthorizationsAuthorizationExpireFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21271,7 +17672,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-expire-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21288,22 +17689,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-finalize-amount-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-finalize-amount-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-finalize-amount-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21311,7 +17703,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-finalize-amount-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21328,22 +17720,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-fraud-challenges-respond-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-fraud-challenges-respond-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-fraud-challenges-respond-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21351,7 +17734,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-fraud-challenges-respond-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21368,22 +17751,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-increment-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-increment-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-increment-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingAuthorizationsAuthorizationIncrementFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21391,7 +17765,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-increment-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21408,22 +17782,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-reverse-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authorization string `json:"authorization"`
 	}
 
-	var authorization string
-
-	if raw, ok := pathArgs["authorization"]; ok {
-		paramErr := json.Unmarshal(raw, &authorization)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-reverse-with-formdata-body: param authorization: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-reverse-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingAuthorizationsAuthorizationReverseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21431,7 +17796,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-authorizations-authorization-reverse-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBodyWithResponse(ctx, authorization, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBodyWithResponse(ctx, pathArgs.Authorization, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21472,22 +17837,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsWithFormd
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-deliver-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Card string `json:"card"`
 	}
 
-	var card string
-
-	if raw, ok := pathArgs["card"]; ok {
-		paramErr := json.Unmarshal(raw, &card)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-deliver-with-formdata-body: param card: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-deliver-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingCardsCardShippingDeliverFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21495,7 +17851,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingDelive
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-deliver-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBodyWithResponse(ctx, card, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBodyWithResponse(ctx, pathArgs.Card, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21512,22 +17868,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingDelive
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingFailWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-fail-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Card string `json:"card"`
 	}
 
-	var card string
-
-	if raw, ok := pathArgs["card"]; ok {
-		paramErr := json.Unmarshal(raw, &card)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-fail-with-formdata-body: param card: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-fail-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingCardsCardShippingFailFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21535,7 +17882,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingFailWi
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-fail-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingFailWithFormdataBodyWithResponse(ctx, card, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingFailWithFormdataBodyWithResponse(ctx, pathArgs.Card, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21552,22 +17899,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingFailWi
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingReturnWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-return-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Card string `json:"card"`
 	}
 
-	var card string
-
-	if raw, ok := pathArgs["card"]; ok {
-		paramErr := json.Unmarshal(raw, &card)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-return-with-formdata-body: param card: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-return-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingCardsCardShippingReturnFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21575,7 +17913,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingReturn
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-return-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingReturnWithFormdataBodyWithResponse(ctx, card, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingReturnWithFormdataBodyWithResponse(ctx, pathArgs.Card, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21592,22 +17930,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingReturn
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingShipWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-ship-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Card string `json:"card"`
 	}
 
-	var card string
-
-	if raw, ok := pathArgs["card"]; ok {
-		paramErr := json.Unmarshal(raw, &card)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-ship-with-formdata-body: param card: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-ship-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingCardsCardShippingShipFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21615,7 +17944,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingShipWi
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-ship-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingShipWithFormdataBodyWithResponse(ctx, card, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingShipWithFormdataBodyWithResponse(ctx, pathArgs.Card, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21632,22 +17961,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingShipWi
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-submit-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Card string `json:"card"`
 	}
 
-	var card string
-
-	if raw, ok := pathArgs["card"]; ok {
-		paramErr := json.Unmarshal(raw, &card)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-submit-with-formdata-body: param card: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-submit-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingCardsCardShippingSubmitFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21655,7 +17975,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingSubmit
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-cards-card-shipping-submit-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBodyWithResponse(ctx, card, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBodyWithResponse(ctx, pathArgs.Card, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21672,22 +17992,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingSubmit
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-activate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PersonalizationDesign string `json:"personalizationDesign"`
 	}
 
-	var personalizationDesign string
-
-	if raw, ok := pathArgs["personalizationDesign"]; ok {
-		paramErr := json.Unmarshal(raw, &personalizationDesign)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-activate-with-formdata-body: param personalizationDesign: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-activate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21695,7 +18006,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-activate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBodyWithResponse(ctx, personalizationDesign, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBodyWithResponse(ctx, pathArgs.PersonalizationDesign, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21712,22 +18023,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-deactivate-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PersonalizationDesign string `json:"personalizationDesign"`
 	}
 
-	var personalizationDesign string
-
-	if raw, ok := pathArgs["personalizationDesign"]; ok {
-		paramErr := json.Unmarshal(raw, &personalizationDesign)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-deactivate-with-formdata-body: param personalizationDesign: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-deactivate-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21735,7 +18037,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-deactivate-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBodyWithResponse(ctx, personalizationDesign, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBodyWithResponse(ctx, pathArgs.PersonalizationDesign, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21752,22 +18054,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-reject-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		PersonalizationDesign string `json:"personalizationDesign"`
 	}
 
-	var personalizationDesign string
-
-	if raw, ok := pathArgs["personalizationDesign"]; ok {
-		paramErr := json.Unmarshal(raw, &personalizationDesign)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-reject-with-formdata-body: param personalizationDesign: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-reject-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21775,7 +18068,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-personalization-designs-personalization-design-reject-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBodyWithResponse(ctx, personalizationDesign, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBodyWithResponse(ctx, pathArgs.PersonalizationDesign, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21792,22 +18085,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-settlements-settlement-complete-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Settlement string `json:"settlement"`
 	}
 
-	var settlement string
-
-	if raw, ok := pathArgs["settlement"]; ok {
-		paramErr := json.Unmarshal(raw, &settlement)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-settlements-settlement-complete-with-formdata-body: param settlement: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-settlements-settlement-complete-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingSettlementsSettlementCompleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21815,7 +18099,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingSettlementsSettlementCo
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-settlements-settlement-complete-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBodyWithResponse(ctx, settlement, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBodyWithResponse(ctx, pathArgs.Settlement, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21904,22 +18188,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsCreateUnlin
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-transactions-transaction-refund-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transaction string `json:"transaction"`
 	}
 
-	var transaction string
-
-	if raw, ok := pathArgs["transaction"]; ok {
-		paramErr := json.Unmarshal(raw, &transaction)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-issuing-transactions-transaction-refund-with-formdata-body: param transaction: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-transactions-transaction-refund-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersIssuingTransactionsTransactionRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21927,7 +18202,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsTransaction
 		return nil, fmt.Errorf("stripe.post-test-helpers-issuing-transactions-transaction-refund-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBodyWithResponse(ctx, transaction, body)
+	resp, callErr := ic.cl.PostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBodyWithResponse(ctx, pathArgs.Transaction, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21944,22 +18219,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsTransaction
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersRefundsRefundExpireWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-refunds-refund-expire-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Refund string `json:"refund"`
 	}
 
-	var refund string
-
-	if raw, ok := pathArgs["refund"]; ok {
-		paramErr := json.Unmarshal(raw, &refund)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-refunds-refund-expire-with-formdata-body: param refund: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-refunds-refund-expire-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersRefundsRefundExpireFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21967,7 +18233,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersRefundsRefundExpireWithFormdat
 		return nil, fmt.Errorf("stripe.post-test-helpers-refunds-refund-expire-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersRefundsRefundExpireWithFormdataBodyWithResponse(ctx, refund, body)
+	resp, callErr := ic.cl.PostTestHelpersRefundsRefundExpireWithFormdataBodyWithResponse(ctx, pathArgs.Refund, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -21984,22 +18250,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersRefundsRefundExpireWithFormdat
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-present-payment-method-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-present-payment-method-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-present-payment-method-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTerminalReadersReaderPresentPaymentMethodFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22007,7 +18264,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderPresentPa
 		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-present-payment-method-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22024,22 +18281,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderPresentPa
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-succeed-input-collection-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-succeed-input-collection-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-succeed-input-collection-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTerminalReadersReaderSucceedInputCollectionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22047,7 +18295,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderSucceedIn
 		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-succeed-input-collection-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22064,22 +18312,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderSucceedIn
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-timeout-input-collection-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Reader string `json:"reader"`
 	}
 
-	var reader string
-
-	if raw, ok := pathArgs["reader"]; ok {
-		paramErr := json.Unmarshal(raw, &reader)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-timeout-input-collection-with-formdata-body: param reader: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-timeout-input-collection-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTerminalReadersReaderTimeoutInputCollectionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22087,7 +18326,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderTimeoutIn
 		return nil, fmt.Errorf("stripe.post-test-helpers-terminal-readers-reader-timeout-input-collection-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBodyWithResponse(ctx, reader, body)
+	resp, callErr := ic.cl.PostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBodyWithResponse(ctx, pathArgs.Reader, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22104,22 +18343,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderTimeoutIn
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksTestClockAdvanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-test-clocks-test-clock-advance-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		TestClock string `json:"testClock"`
 	}
 
-	var testClock string
-
-	if raw, ok := pathArgs["testClock"]; ok {
-		paramErr := json.Unmarshal(raw, &testClock)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-test-clocks-test-clock-advance-with-formdata-body: param testClock: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-test-clocks-test-clock-advance-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTestClocksTestClockAdvanceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22127,7 +18357,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksTestClockAdvanceWith
 		return nil, fmt.Errorf("stripe.post-test-helpers-test-clocks-test-clock-advance-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTestClocksTestClockAdvanceWithFormdataBodyWithResponse(ctx, testClock, body)
+	resp, callErr := ic.cl.PostTestHelpersTestClocksTestClockAdvanceWithFormdataBodyWithResponse(ctx, pathArgs.TestClock, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22168,22 +18398,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksWithFormdataBodyWith
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-fail-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-fail-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-fail-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryInboundTransfersIdFailFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22191,7 +18412,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdFail
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-fail-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22208,22 +18429,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdFail
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-return-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-return-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-return-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryInboundTransfersIdReturnFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22231,7 +18443,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdRetu
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-return-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22248,22 +18460,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdRetu
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-succeed-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-succeed-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-succeed-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryInboundTransfersIdSucceedFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22271,7 +18474,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdSucc
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-inbound-transfers-id-succeed-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22288,22 +18491,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdSucc
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-fail-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-fail-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-fail-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryOutboundPaymentsIdFailFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22311,7 +18505,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdFail
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-fail-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22328,22 +18522,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdFail
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-post-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-post-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-post-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryOutboundPaymentsIdPostFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22351,7 +18536,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdPost
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-post-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22368,22 +18553,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdPost
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-return-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-return-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-return-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryOutboundPaymentsIdReturnFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22391,7 +18567,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdRetu
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-return-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22408,22 +18584,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdRetu
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryOutboundPaymentsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22431,7 +18598,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdWith
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-payments-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22448,22 +18615,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdWith
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-fail-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		OutboundTransfer string `json:"outboundTransfer"`
 	}
 
-	var outboundTransfer string
-
-	if raw, ok := pathArgs["outboundTransfer"]; ok {
-		paramErr := json.Unmarshal(raw, &outboundTransfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-fail-with-formdata-body: param outboundTransfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-fail-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22471,7 +18629,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-fail-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBodyWithResponse(ctx, outboundTransfer, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBodyWithResponse(ctx, pathArgs.OutboundTransfer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22488,22 +18646,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-post-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		OutboundTransfer string `json:"outboundTransfer"`
 	}
 
-	var outboundTransfer string
-
-	if raw, ok := pathArgs["outboundTransfer"]; ok {
-		paramErr := json.Unmarshal(raw, &outboundTransfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-post-with-formdata-body: param outboundTransfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-post-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22511,7 +18660,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-post-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBodyWithResponse(ctx, outboundTransfer, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBodyWithResponse(ctx, pathArgs.OutboundTransfer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22528,22 +18677,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-return-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		OutboundTransfer string `json:"outboundTransfer"`
 	}
 
-	var outboundTransfer string
-
-	if raw, ok := pathArgs["outboundTransfer"]; ok {
-		paramErr := json.Unmarshal(raw, &outboundTransfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-return-with-formdata-body: param outboundTransfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-return-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22551,7 +18691,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-return-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBodyWithResponse(ctx, outboundTransfer, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBodyWithResponse(ctx, pathArgs.OutboundTransfer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22568,22 +18708,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 }
 
 func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		OutboundTransfer string `json:"outboundTransfer"`
 	}
 
-	var outboundTransfer string
-
-	if raw, ok := pathArgs["outboundTransfer"]; ok {
-		paramErr := json.Unmarshal(raw, &outboundTransfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-with-formdata-body: param outboundTransfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTestHelpersTreasuryOutboundTransfersOutboundTransferFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22591,7 +18722,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 		return nil, fmt.Errorf("stripe.post-test-helpers-treasury-outbound-transfers-outbound-transfer-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx, outboundTransfer, body)
+	resp, callErr := ic.cl.PostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx, pathArgs.OutboundTransfer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22656,22 +18787,13 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryReceivedDebitsWithForm
 }
 
 func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-three-d-secure-authentications-authentication-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authentication string `json:"authentication"`
 	}
 
-	var authentication string
-
-	if raw, ok := pathArgs["authentication"]; ok {
-		paramErr := json.Unmarshal(raw, &authentication)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-three-d-secure-authentications-authentication-cancel-with-formdata-body: param authentication: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-three-d-secure-authentications-authentication-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostThreeDSecureAuthenticationsAuthenticationCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22679,7 +18801,7 @@ func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthentication
 		return nil, fmt.Errorf("stripe.post-three-d-secure-authentications-authentication-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBodyWithResponse(ctx, authentication, body)
+	resp, callErr := ic.cl.PostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBodyWithResponse(ctx, pathArgs.Authentication, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22696,22 +18818,13 @@ func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthentication
 }
 
 func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-three-d-secure-authentications-authentication-submit-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Authentication string `json:"authentication"`
 	}
 
-	var authentication string
-
-	if raw, ok := pathArgs["authentication"]; ok {
-		paramErr := json.Unmarshal(raw, &authentication)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-three-d-secure-authentications-authentication-submit-with-formdata-body: param authentication: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-three-d-secure-authentications-authentication-submit-with-formdata-body: %w", err)
 	}
-
 	var body client.PostThreeDSecureAuthenticationsAuthenticationSubmitFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22719,7 +18832,7 @@ func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthentication
 		return nil, fmt.Errorf("stripe.post-three-d-secure-authentications-authentication-submit-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBodyWithResponse(ctx, authentication, body)
+	resp, callErr := ic.cl.PostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBodyWithResponse(ctx, pathArgs.Authentication, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22784,22 +18897,13 @@ func (ic *InterfaceClient) dispatchPostTokensWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchPostTopupsTopupCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-topups-topup-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Topup string `json:"topup"`
 	}
 
-	var topup string
-
-	if raw, ok := pathArgs["topup"]; ok {
-		paramErr := json.Unmarshal(raw, &topup)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-topups-topup-cancel-with-formdata-body: param topup: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-topups-topup-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTopupsTopupCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22807,7 +18911,7 @@ func (ic *InterfaceClient) dispatchPostTopupsTopupCancelWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.post-topups-topup-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTopupsTopupCancelWithFormdataBodyWithResponse(ctx, topup, body)
+	resp, callErr := ic.cl.PostTopupsTopupCancelWithFormdataBodyWithResponse(ctx, pathArgs.Topup, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22824,22 +18928,13 @@ func (ic *InterfaceClient) dispatchPostTopupsTopupCancelWithFormdataBodyWithResp
 }
 
 func (ic *InterfaceClient) dispatchPostTopupsTopupWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-topups-topup-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Topup string `json:"topup"`
 	}
 
-	var topup string
-
-	if raw, ok := pathArgs["topup"]; ok {
-		paramErr := json.Unmarshal(raw, &topup)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-topups-topup-with-formdata-body: param topup: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-topups-topup-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTopupsTopupFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22847,7 +18942,7 @@ func (ic *InterfaceClient) dispatchPostTopupsTopupWithFormdataBodyWithResponse(c
 		return nil, fmt.Errorf("stripe.post-topups-topup-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTopupsTopupWithFormdataBodyWithResponse(ctx, topup, body)
+	resp, callErr := ic.cl.PostTopupsTopupWithFormdataBodyWithResponse(ctx, pathArgs.Topup, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22888,22 +18983,13 @@ func (ic *InterfaceClient) dispatchPostTopupsWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchPostTransfersIdReversalsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-transfers-id-reversals-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-transfers-id-reversals-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-transfers-id-reversals-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTransfersIdReversalsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22911,7 +18997,7 @@ func (ic *InterfaceClient) dispatchPostTransfersIdReversalsWithFormdataBodyWithR
 		return nil, fmt.Errorf("stripe.post-transfers-id-reversals-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTransfersIdReversalsWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTransfersIdReversalsWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22928,31 +19014,14 @@ func (ic *InterfaceClient) dispatchPostTransfersIdReversalsWithFormdataBodyWithR
 }
 
 func (ic *InterfaceClient) dispatchPostTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-transfers-transfer-reversals-id-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transfer string `json:"transfer"`
+		Id       string `json:"id"`
 	}
 
-	var transfer string
-
-	if raw, ok := pathArgs["transfer"]; ok {
-		paramErr := json.Unmarshal(raw, &transfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-transfers-transfer-reversals-id-with-formdata-body: param transfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-transfers-transfer-reversals-id-with-formdata-body: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-transfers-transfer-reversals-id-with-formdata-body: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PostTransfersTransferReversalsIdFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22960,7 +19029,7 @@ func (ic *InterfaceClient) dispatchPostTransfersTransferReversalsIdWithFormdataB
 		return nil, fmt.Errorf("stripe.post-transfers-transfer-reversals-id-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx, transfer, id, body)
+	resp, callErr := ic.cl.PostTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx, pathArgs.Transfer, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -22977,22 +19046,13 @@ func (ic *InterfaceClient) dispatchPostTransfersTransferReversalsIdWithFormdataB
 }
 
 func (ic *InterfaceClient) dispatchPostTransfersTransferWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-transfers-transfer-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Transfer string `json:"transfer"`
 	}
 
-	var transfer string
-
-	if raw, ok := pathArgs["transfer"]; ok {
-		paramErr := json.Unmarshal(raw, &transfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-transfers-transfer-with-formdata-body: param transfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-transfers-transfer-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTransfersTransferFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23000,7 +19060,7 @@ func (ic *InterfaceClient) dispatchPostTransfersTransferWithFormdataBodyWithResp
 		return nil, fmt.Errorf("stripe.post-transfers-transfer-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTransfersTransferWithFormdataBodyWithResponse(ctx, transfer, body)
+	resp, callErr := ic.cl.PostTransfersTransferWithFormdataBodyWithResponse(ctx, pathArgs.Transfer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -23089,22 +19149,13 @@ func (ic *InterfaceClient) dispatchPostTreasuryDebitReversalsWithFormdataBodyWit
 }
 
 func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-close-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		FinancialAccount string `json:"financialAccount"`
 	}
 
-	var financialAccount string
-
-	if raw, ok := pathArgs["financialAccount"]; ok {
-		paramErr := json.Unmarshal(raw, &financialAccount)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-close-with-formdata-body: param financialAccount: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-close-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTreasuryFinancialAccountsFinancialAccountCloseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23112,7 +19163,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccount
 		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-close-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBodyWithResponse(ctx, financialAccount, body)
+	resp, callErr := ic.cl.PostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBodyWithResponse(ctx, pathArgs.FinancialAccount, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -23129,22 +19180,13 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccount
 }
 
 func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-features-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		FinancialAccount string `json:"financialAccount"`
 	}
 
-	var financialAccount string
-
-	if raw, ok := pathArgs["financialAccount"]; ok {
-		paramErr := json.Unmarshal(raw, &financialAccount)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-features-with-formdata-body: param financialAccount: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-features-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTreasuryFinancialAccountsFinancialAccountFeaturesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23152,7 +19194,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccount
 		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-features-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx, financialAccount, body)
+	resp, callErr := ic.cl.PostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx, pathArgs.FinancialAccount, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -23169,22 +19211,13 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccount
 }
 
 func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		FinancialAccount string `json:"financialAccount"`
 	}
 
-	var financialAccount string
-
-	if raw, ok := pathArgs["financialAccount"]; ok {
-		paramErr := json.Unmarshal(raw, &financialAccount)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-with-formdata-body: param financialAccount: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTreasuryFinancialAccountsFinancialAccountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23192,7 +19225,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccount
 		return nil, fmt.Errorf("stripe.post-treasury-financial-accounts-financial-account-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx, financialAccount, body)
+	resp, callErr := ic.cl.PostTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx, pathArgs.FinancialAccount, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -23233,22 +19266,13 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-treasury-inbound-transfers-inbound-transfer-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		InboundTransfer string `json:"inboundTransfer"`
 	}
 
-	var inboundTransfer string
-
-	if raw, ok := pathArgs["inboundTransfer"]; ok {
-		paramErr := json.Unmarshal(raw, &inboundTransfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-treasury-inbound-transfers-inbound-transfer-cancel-with-formdata-body: param inboundTransfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-treasury-inbound-transfers-inbound-transfer-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTreasuryInboundTransfersInboundTransferCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23256,7 +19280,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersInboundTransferCa
 		return nil, fmt.Errorf("stripe.post-treasury-inbound-transfers-inbound-transfer-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTreasuryInboundTransfersInboundTransferCancelWithFormdataBodyWithResponse(ctx, inboundTransfer, body)
+	resp, callErr := ic.cl.PostTreasuryInboundTransfersInboundTransferCancelWithFormdataBodyWithResponse(ctx, pathArgs.InboundTransfer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -23297,22 +19321,13 @@ func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsIdCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-treasury-outbound-payments-id-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-treasury-outbound-payments-id-cancel-with-formdata-body: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-treasury-outbound-payments-id-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTreasuryOutboundPaymentsIdCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23320,7 +19335,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsIdCancelWithFormd
 		return nil, fmt.Errorf("stripe.post-treasury-outbound-payments-id-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTreasuryOutboundPaymentsIdCancelWithFormdataBodyWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.PostTreasuryOutboundPaymentsIdCancelWithFormdataBodyWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -23361,22 +19376,13 @@ func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsWithFormdataBodyW
 }
 
 func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-treasury-outbound-transfers-outbound-transfer-cancel-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		OutboundTransfer string `json:"outboundTransfer"`
 	}
 
-	var outboundTransfer string
-
-	if raw, ok := pathArgs["outboundTransfer"]; ok {
-		paramErr := json.Unmarshal(raw, &outboundTransfer)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-treasury-outbound-transfers-outbound-transfer-cancel-with-formdata-body: param outboundTransfer: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-treasury-outbound-transfers-outbound-transfer-cancel-with-formdata-body: %w", err)
 	}
-
 	var body client.PostTreasuryOutboundTransfersOutboundTransferCancelFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23384,7 +19390,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersOutboundTransfer
 		return nil, fmt.Errorf("stripe.post-treasury-outbound-transfers-outbound-transfer-cancel-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBodyWithResponse(ctx, outboundTransfer, body)
+	resp, callErr := ic.cl.PostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBodyWithResponse(ctx, pathArgs.OutboundTransfer, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -23425,22 +19431,13 @@ func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersWithFormdataBody
 }
 
 func (ic *InterfaceClient) dispatchPostWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("stripe.post-webhook-endpoints-webhook-endpoint-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		WebhookEndpoint string `json:"webhookEndpoint"`
 	}
 
-	var webhookEndpoint string
-
-	if raw, ok := pathArgs["webhookEndpoint"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookEndpoint)
-		if paramErr != nil {
-			return nil, fmt.Errorf("stripe.post-webhook-endpoints-webhook-endpoint-with-formdata-body: param webhookEndpoint: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("stripe.post-webhook-endpoints-webhook-endpoint-with-formdata-body: %w", err)
 	}
-
 	var body client.PostWebhookEndpointsWebhookEndpointFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23448,7 +19445,7 @@ func (ic *InterfaceClient) dispatchPostWebhookEndpointsWebhookEndpointWithFormda
 		return nil, fmt.Errorf("stripe.post-webhook-endpoints-webhook-endpoint-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, webhookEndpoint, body)
+	resp, callErr := ic.cl.PostWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, pathArgs.WebhookEndpoint, body)
 	if callErr != nil {
 		return nil, callErr
 	}

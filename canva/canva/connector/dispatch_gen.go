@@ -307,31 +307,14 @@ func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignExportJobWithResponse
 }
 
 func (ic *InterfaceClient) dispatchCreateReplyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.create-reply: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
+		ThreadId string `json:"threadId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.create-reply: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.create-reply: %w", err)
 	}
-
-	var threadId string
-
-	if raw, ok := pathArgs["threadId"]; ok {
-		paramErr := json.Unmarshal(raw, &threadId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.create-reply: param threadId: %w", paramErr)
-		}
-	}
-
 	var body client.CreateReplyJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -339,7 +322,7 @@ func (ic *InterfaceClient) dispatchCreateReplyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("canva.create-reply: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateReplyWithResponse(ctx, designId, threadId, body)
+	resp, callErr := ic.cl.CreateReplyWithResponse(ctx, pathArgs.DesignId, pathArgs.ThreadId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -356,22 +339,13 @@ func (ic *InterfaceClient) dispatchCreateReplyWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchCreateThreadWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.create-thread: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.create-thread: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.create-thread: %w", err)
 	}
-
 	var body client.CreateThreadJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -379,7 +353,7 @@ func (ic *InterfaceClient) dispatchCreateThreadWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("canva.create-thread: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateThreadWithResponse(ctx, designId, body)
+	resp, callErr := ic.cl.CreateThreadWithResponse(ctx, pathArgs.DesignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -444,23 +418,14 @@ func (ic *InterfaceClient) dispatchCreateUrlImportJobWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchDeleteAssetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.delete-asset: %w", pathErr)
+	var pathArgs struct {
+		AssetId string `json:"assetId"`
 	}
 
-	var assetId string
-
-	if raw, ok := pathArgs["assetId"]; ok {
-		paramErr := json.Unmarshal(raw, &assetId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.delete-asset: param assetId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.delete-asset: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteAssetWithResponse(ctx, assetId)
+	resp, callErr := ic.cl.DeleteAssetWithResponse(ctx, pathArgs.AssetId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -477,23 +442,14 @@ func (ic *InterfaceClient) dispatchDeleteAssetWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchDeleteFolderWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.delete-folder: %w", pathErr)
+	var pathArgs struct {
+		FolderId string `json:"folderId"`
 	}
 
-	var folderId string
-
-	if raw, ok := pathArgs["folderId"]; ok {
-		paramErr := json.Unmarshal(raw, &folderId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.delete-folder: param folderId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.delete-folder: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteFolderWithResponse(ctx, folderId)
+	resp, callErr := ic.cl.DeleteFolderWithResponse(ctx, pathArgs.FolderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -534,23 +490,14 @@ func (ic *InterfaceClient) dispatchExchangeAccessTokenWithFormdataBodyWithRespon
 }
 
 func (ic *InterfaceClient) dispatchGetAppJwksWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-app-jwks: %w", pathErr)
+	var pathArgs struct {
+		AppId string `json:"appId"`
 	}
 
-	var appId string
-
-	if raw, ok := pathArgs["appId"]; ok {
-		paramErr := json.Unmarshal(raw, &appId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-app-jwks: param appId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-app-jwks: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetAppJwksWithResponse(ctx, appId)
+	resp, callErr := ic.cl.GetAppJwksWithResponse(ctx, pathArgs.AppId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -567,23 +514,14 @@ func (ic *InterfaceClient) dispatchGetAppJwksWithResponse(ctx context.Context, _
 }
 
 func (ic *InterfaceClient) dispatchGetAssetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-asset: %w", pathErr)
+	var pathArgs struct {
+		AssetId string `json:"assetId"`
 	}
 
-	var assetId string
-
-	if raw, ok := pathArgs["assetId"]; ok {
-		paramErr := json.Unmarshal(raw, &assetId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-asset: param assetId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-asset: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetAssetWithResponse(ctx, assetId)
+	resp, callErr := ic.cl.GetAssetWithResponse(ctx, pathArgs.AssetId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -600,23 +538,14 @@ func (ic *InterfaceClient) dispatchGetAssetWithResponse(ctx context.Context, _ m
 }
 
 func (ic *InterfaceClient) dispatchGetAssetUploadJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-asset-upload-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-asset-upload-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-asset-upload-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetAssetUploadJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetAssetUploadJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -633,23 +562,14 @@ func (ic *InterfaceClient) dispatchGetAssetUploadJobWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchGetBrandTemplateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-brand-template: %w", pathErr)
+	var pathArgs struct {
+		BrandTemplateId string `json:"brandTemplateId"`
 	}
 
-	var brandTemplateId string
-
-	if raw, ok := pathArgs["brandTemplateId"]; ok {
-		paramErr := json.Unmarshal(raw, &brandTemplateId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-brand-template: param brandTemplateId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-brand-template: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetBrandTemplateWithResponse(ctx, brandTemplateId)
+	resp, callErr := ic.cl.GetBrandTemplateWithResponse(ctx, pathArgs.BrandTemplateId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -666,23 +586,14 @@ func (ic *InterfaceClient) dispatchGetBrandTemplateWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchGetBrandTemplateDatasetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-brand-template-dataset: %w", pathErr)
+	var pathArgs struct {
+		BrandTemplateId string `json:"brandTemplateId"`
 	}
 
-	var brandTemplateId string
-
-	if raw, ok := pathArgs["brandTemplateId"]; ok {
-		paramErr := json.Unmarshal(raw, &brandTemplateId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-brand-template-dataset: param brandTemplateId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-brand-template-dataset: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetBrandTemplateDatasetWithResponse(ctx, brandTemplateId)
+	resp, callErr := ic.cl.GetBrandTemplateDatasetWithResponse(ctx, pathArgs.BrandTemplateId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -699,23 +610,14 @@ func (ic *InterfaceClient) dispatchGetBrandTemplateDatasetWithResponse(ctx conte
 }
 
 func (ic *InterfaceClient) dispatchGetDesignWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignWithResponse(ctx, designId)
+	resp, callErr := ic.cl.GetDesignWithResponse(ctx, pathArgs.DesignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -732,23 +634,14 @@ func (ic *InterfaceClient) dispatchGetDesignWithResponse(ctx context.Context, _ 
 }
 
 func (ic *InterfaceClient) dispatchGetDesignAnalyticsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-analytics: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-analytics: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-analytics: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignAnalyticsWithResponse(ctx, designId)
+	resp, callErr := ic.cl.GetDesignAnalyticsWithResponse(ctx, pathArgs.DesignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -765,22 +658,13 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchGetDesignAnalyticsLinksWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-analytics-links: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-analytics-links: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-analytics-links: %w", err)
 	}
-
 	var params client.GetDesignAnalyticsLinksParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -788,7 +672,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsLinksWithResponse(ctx conte
 		return nil, fmt.Errorf("canva.get-design-analytics-links: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetDesignAnalyticsLinksWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetDesignAnalyticsLinksWithResponse(ctx, pathArgs.DesignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -805,22 +689,13 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsLinksWithResponse(ctx conte
 }
 
 func (ic *InterfaceClient) dispatchGetDesignAnalyticsPageViewsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-analytics-page-views: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-analytics-page-views: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-analytics-page-views: %w", err)
 	}
-
 	var body client.GetDesignAnalyticsPageViewsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -828,7 +703,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsPageViewsWithResponse(ctx c
 		return nil, fmt.Errorf("canva.get-design-analytics-page-views: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.GetDesignAnalyticsPageViewsWithResponse(ctx, designId, body)
+	resp, callErr := ic.cl.GetDesignAnalyticsPageViewsWithResponse(ctx, pathArgs.DesignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -845,22 +720,13 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsPageViewsWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-analytics-viewers: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-analytics-viewers: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-analytics-viewers: %w", err)
 	}
-
 	var params client.GetDesignAnalyticsViewersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -868,7 +734,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewersWithResponse(ctx con
 		return nil, fmt.Errorf("canva.get-design-analytics-viewers: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetDesignAnalyticsViewersWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetDesignAnalyticsViewersWithResponse(ctx, pathArgs.DesignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -885,22 +751,13 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewersWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-analytics-views-over-time: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-analytics-views-over-time: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-analytics-views-over-time: %w", err)
 	}
-
 	var params client.GetDesignAnalyticsViewsOverTimeParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -908,7 +765,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewsOverTimeWithResponse(c
 		return nil, fmt.Errorf("canva.get-design-analytics-views-over-time: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetDesignAnalyticsViewsOverTimeWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetDesignAnalyticsViewsOverTimeWithResponse(ctx, pathArgs.DesignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -925,23 +782,14 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewsOverTimeWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchGetDesignAutofillJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-autofill-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-autofill-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-autofill-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignAutofillJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetDesignAutofillJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -958,23 +806,14 @@ func (ic *InterfaceClient) dispatchGetDesignAutofillJobWithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchGetDesignDatasetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-dataset: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-dataset: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-dataset: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignDatasetWithResponse(ctx, designId)
+	resp, callErr := ic.cl.GetDesignDatasetWithResponse(ctx, pathArgs.DesignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -991,23 +830,14 @@ func (ic *InterfaceClient) dispatchGetDesignDatasetWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchGetDesignExportFormatsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-export-formats: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-export-formats: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-export-formats: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignExportFormatsWithResponse(ctx, designId)
+	resp, callErr := ic.cl.GetDesignExportFormatsWithResponse(ctx, pathArgs.DesignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1024,23 +854,14 @@ func (ic *InterfaceClient) dispatchGetDesignExportFormatsWithResponse(ctx contex
 }
 
 func (ic *InterfaceClient) dispatchGetDesignExportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-export-job: %w", pathErr)
+	var pathArgs struct {
+		ExportId string `json:"exportId"`
 	}
 
-	var exportId string
-
-	if raw, ok := pathArgs["exportId"]; ok {
-		paramErr := json.Unmarshal(raw, &exportId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-export-job: param exportId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-export-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignExportJobWithResponse(ctx, exportId)
+	resp, callErr := ic.cl.GetDesignExportJobWithResponse(ctx, pathArgs.ExportId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1057,23 +878,14 @@ func (ic *InterfaceClient) dispatchGetDesignExportJobWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchGetDesignImportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-import-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-import-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-import-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignImportJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetDesignImportJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1090,23 +902,14 @@ func (ic *InterfaceClient) dispatchGetDesignImportJobWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchGetDesignMergeJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-merge-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-merge-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-merge-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignMergeJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetDesignMergeJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1123,22 +926,13 @@ func (ic *InterfaceClient) dispatchGetDesignMergeJobWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchGetDesignPagesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-pages: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-pages: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-pages: %w", err)
 	}
-
 	var params client.GetDesignPagesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1146,7 +940,7 @@ func (ic *InterfaceClient) dispatchGetDesignPagesWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("canva.get-design-pages: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetDesignPagesWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetDesignPagesWithResponse(ctx, pathArgs.DesignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1163,23 +957,14 @@ func (ic *InterfaceClient) dispatchGetDesignPagesWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchGetDesignResizeJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-design-resize-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-design-resize-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-design-resize-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetDesignResizeJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetDesignResizeJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1196,23 +981,14 @@ func (ic *InterfaceClient) dispatchGetDesignResizeJobWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchGetFolderWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-folder: %w", pathErr)
+	var pathArgs struct {
+		FolderId string `json:"folderId"`
 	}
 
-	var folderId string
-
-	if raw, ok := pathArgs["folderId"]; ok {
-		paramErr := json.Unmarshal(raw, &folderId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-folder: param folderId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-folder: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetFolderWithResponse(ctx, folderId)
+	resp, callErr := ic.cl.GetFolderWithResponse(ctx, pathArgs.FolderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1229,23 +1005,14 @@ func (ic *InterfaceClient) dispatchGetFolderWithResponse(ctx context.Context, _ 
 }
 
 func (ic *InterfaceClient) dispatchGetImageToDesignImportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-image-to-design-import-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-image-to-design-import-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-image-to-design-import-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetImageToDesignImportJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetImageToDesignImportJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1262,23 +1029,14 @@ func (ic *InterfaceClient) dispatchGetImageToDesignImportJobWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchGetImageTransformationJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-image-transformation-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-image-transformation-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-image-transformation-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetImageTransformationJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetImageTransformationJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1312,22 +1070,13 @@ func (ic *InterfaceClient) dispatchGetOidcJwksWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchGetPrintPartnerDesignWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-print-partner-design: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-print-partner-design: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-print-partner-design: %w", err)
 	}
-
 	var params client.GetPrintPartnerDesignParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1335,7 +1084,7 @@ func (ic *InterfaceClient) dispatchGetPrintPartnerDesignWithResponse(ctx context
 		return nil, fmt.Errorf("canva.get-print-partner-design: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetPrintPartnerDesignWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetPrintPartnerDesignWithResponse(ctx, pathArgs.DesignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1352,41 +1101,16 @@ func (ic *InterfaceClient) dispatchGetPrintPartnerDesignWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchGetReplyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-reply: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
+		ThreadId string `json:"threadId"`
+		ReplyId  string `json:"replyId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-reply: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-reply: %w", err)
 	}
-
-	var threadId string
-
-	if raw, ok := pathArgs["threadId"]; ok {
-		paramErr := json.Unmarshal(raw, &threadId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-reply: param threadId: %w", paramErr)
-		}
-	}
-
-	var replyId string
-
-	if raw, ok := pathArgs["replyId"]; ok {
-		paramErr := json.Unmarshal(raw, &replyId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-reply: param replyId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.GetReplyWithResponse(ctx, designId, threadId, replyId)
+	resp, callErr := ic.cl.GetReplyWithResponse(ctx, pathArgs.DesignId, pathArgs.ThreadId, pathArgs.ReplyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1420,32 +1144,15 @@ func (ic *InterfaceClient) dispatchGetSigningPublicKeysWithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchGetThreadWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-thread: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
+		ThreadId string `json:"threadId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-thread: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-thread: %w", err)
 	}
-
-	var threadId string
-
-	if raw, ok := pathArgs["threadId"]; ok {
-		paramErr := json.Unmarshal(raw, &threadId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-thread: param threadId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.GetThreadWithResponse(ctx, designId, threadId)
+	resp, callErr := ic.cl.GetThreadWithResponse(ctx, pathArgs.DesignId, pathArgs.ThreadId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1462,23 +1169,14 @@ func (ic *InterfaceClient) dispatchGetThreadWithResponse(ctx context.Context, _ 
 }
 
 func (ic *InterfaceClient) dispatchGetUrlAssetUploadJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-url-asset-upload-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-url-asset-upload-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-url-asset-upload-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetUrlAssetUploadJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetUrlAssetUploadJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1495,23 +1193,14 @@ func (ic *InterfaceClient) dispatchGetUrlAssetUploadJobWithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchGetUrlImportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.get-url-import-job: %w", pathErr)
+	var pathArgs struct {
+		JobId string `json:"jobId"`
 	}
 
-	var jobId string
-
-	if raw, ok := pathArgs["jobId"]; ok {
-		paramErr := json.Unmarshal(raw, &jobId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.get-url-import-job: param jobId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.get-url-import-job: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetUrlImportJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetUrlImportJobWithResponse(ctx, pathArgs.JobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1634,22 +1323,13 @@ func (ic *InterfaceClient) dispatchListDesignsWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchListFolderItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.list-folder-items: %w", pathErr)
+	var pathArgs struct {
+		FolderId string `json:"folderId"`
 	}
 
-	var folderId string
-
-	if raw, ok := pathArgs["folderId"]; ok {
-		paramErr := json.Unmarshal(raw, &folderId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.list-folder-items: param folderId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.list-folder-items: %w", err)
 	}
-
 	var params client.ListFolderItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1657,7 +1337,7 @@ func (ic *InterfaceClient) dispatchListFolderItemsWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("canva.list-folder-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ListFolderItemsWithResponse(ctx, folderId, &params)
+	resp, callErr := ic.cl.ListFolderItemsWithResponse(ctx, pathArgs.FolderId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1674,31 +1354,14 @@ func (ic *InterfaceClient) dispatchListFolderItemsWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchListRepliesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.list-replies: %w", pathErr)
+	var pathArgs struct {
+		DesignId string `json:"designId"`
+		ThreadId string `json:"threadId"`
 	}
 
-	var designId string
-
-	if raw, ok := pathArgs["designId"]; ok {
-		paramErr := json.Unmarshal(raw, &designId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.list-replies: param designId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.list-replies: %w", err)
 	}
-
-	var threadId string
-
-	if raw, ok := pathArgs["threadId"]; ok {
-		paramErr := json.Unmarshal(raw, &threadId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.list-replies: param threadId: %w", paramErr)
-		}
-	}
-
 	var params client.ListRepliesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1706,7 +1369,7 @@ func (ic *InterfaceClient) dispatchListRepliesWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("canva.list-replies: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ListRepliesWithResponse(ctx, designId, threadId, &params)
+	resp, callErr := ic.cl.ListRepliesWithResponse(ctx, pathArgs.DesignId, pathArgs.ThreadId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1795,22 +1458,13 @@ func (ic *InterfaceClient) dispatchRevokeTokensWithFormdataBodyWithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchUpdateAssetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.update-asset: %w", pathErr)
+	var pathArgs struct {
+		AssetId string `json:"assetId"`
 	}
 
-	var assetId string
-
-	if raw, ok := pathArgs["assetId"]; ok {
-		paramErr := json.Unmarshal(raw, &assetId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.update-asset: param assetId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.update-asset: %w", err)
 	}
-
 	var body client.UpdateAssetJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1818,7 +1472,7 @@ func (ic *InterfaceClient) dispatchUpdateAssetWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("canva.update-asset: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateAssetWithResponse(ctx, assetId, body)
+	resp, callErr := ic.cl.UpdateAssetWithResponse(ctx, pathArgs.AssetId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1835,22 +1489,13 @@ func (ic *InterfaceClient) dispatchUpdateAssetWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchUpdateFolderWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("canva.update-folder: %w", pathErr)
+	var pathArgs struct {
+		FolderId string `json:"folderId"`
 	}
 
-	var folderId string
-
-	if raw, ok := pathArgs["folderId"]; ok {
-		paramErr := json.Unmarshal(raw, &folderId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("canva.update-folder: param folderId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("canva.update-folder: %w", err)
 	}
-
 	var body client.UpdateFolderJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1858,7 +1503,7 @@ func (ic *InterfaceClient) dispatchUpdateFolderWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("canva.update-folder: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateFolderWithResponse(ctx, folderId, body)
+	resp, callErr := ic.cl.UpdateFolderWithResponse(ctx, pathArgs.FolderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}

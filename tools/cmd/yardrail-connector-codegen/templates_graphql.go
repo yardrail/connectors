@@ -321,7 +321,6 @@ import (
 	"{{.ClientPkgPath}}"
 )
 
-` + openAPIUUIDTemplate + `
 var (
 	errInterfaceNotConfigured = errors.New("{{.ConnectorID}}: interface not configured")
 	errUnknownFunction        = errors.New("{{.ConnectorID}}: unknown function")
