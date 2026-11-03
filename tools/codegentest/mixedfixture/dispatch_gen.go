@@ -15,6 +15,8 @@ import (
 
 	"github.com/google/uuid"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
@@ -33,25 +35,17 @@ var (
 // Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
-	creds, config map[string]string,
+	creds connector.Credentials,
+	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	c, err := NewConnector(
-		map[string]map[string]string{interfaceID: creds},
-		map[string]map[string]string{interfaceID: config},
-		httpClient,
-	)
+	c, err := NewConnector(interfaceID, creds, config, httpClient)
 	if err != nil {
 		return nil, err
 	}
 
-	cl := c.Client(interfaceID)
-	if cl == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
-	}
-
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return cl.Dispatch(ctx, function, config, inputs)
+		return c.Client().Dispatch(ctx, function, config, inputs)
 	}, nil
 }
 

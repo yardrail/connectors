@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
@@ -75,17 +77,20 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config
 	}
 }
 
-// Connector holds an authenticated client for each configured interface.
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*InterfaceClient, 1+1)
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
 
-	if ifaceCreds, ok := creds["rest"]; ok {
-		baseURL := resolveBaseURL(config["rest"])
-		authFn := authEditorRest(ifaceCreds)
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	switch interfaceID {
+	case "rest":
+		baseURL := resolveBaseURL(config)
+		authFn := authEditorRest(creds)
 
 		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
 		if httpClient != nil {
@@ -97,19 +102,18 @@ func NewConnector(creds, config map[string]map[string]string, httpClient *http.C
 			return nil, fmt.Errorf("creating rest client: %w", err)
 		}
 
-		clients["rest"] = &InterfaceClient{cl: cl}
+		return &Connector{client: &InterfaceClient{cl: cl}}, nil
+	case "gql":
+		ep := &endpoint{
+			url:        resolveEndpoint(config, "https://mixed.invalid/graphql"),
+			auth:       authEditorGql(creds),
+			httpClient: httpClient,
+		}
+
+		return &Connector{client: &InterfaceClient{ep: ep}}, nil
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
-
-	endpoints := newEndpoints(creds, config, httpClient)
-	for id, ep := range endpoints {
-		clients[id] = &InterfaceClient{ep: ep}
-	}
-
-	return &Connector{clients: clients}, nil
-}
-
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
 }
 
 func resolveBaseURL(config map[string]string) string {
@@ -127,20 +131,6 @@ type endpoint struct {
 	httpClient *http.Client
 }
 
-func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
-	endpoints := make(map[string]*endpoint, 1)
-
-	if ifaceCreds, ok := creds["gql"]; ok {
-		endpoints["gql"] = &endpoint{
-			url:        resolveEndpoint(config["gql"], "https://mixed.invalid/graphql"),
-			auth:       authEditorGql(ifaceCreds),
-			httpClient: httpClient,
-		}
-	}
-
-	return endpoints
-}
-
 // resolveEndpoint returns config["base_url"] when set, otherwise the
 // interface's endpoint from the manifest.
 func resolveEndpoint(config map[string]string, defaultURL string) string {
@@ -151,10 +141,11 @@ func resolveEndpoint(config map[string]string, defaultURL string) string {
 	return defaultURL
 }
 
-func authEditorRest(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorRest(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 		req.Header.Set("Notion-Version", "2022-06-28")
 
@@ -162,10 +153,11 @@ func authEditorRest(creds map[string]string) func(context.Context, *http.Request
 	}
 }
 
-func authEditorGql(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorGql(creds connector.Credentials) func(context.Context, *http.Request) error {
+	ac := creds.(connector.APIKeyCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if key := creds["token"]; key != "" {
-			req.Header.Set("Authorization", key)
+		if ac.Key != "" {
+			req.Header.Set("Authorization", ac.Key)
 		}
 
 		return nil

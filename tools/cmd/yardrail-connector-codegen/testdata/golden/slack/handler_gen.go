@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/slack/slack/client"
 )
 
@@ -372,57 +374,41 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config
 	}
 }
 
-// Connector holds an authenticated client for each configured interface.
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*InterfaceClient, 2)
-
-	if ifaceCreds, ok := creds["bot-api"]; ok {
-		baseURL := resolveBaseURL(config["bot-api"])
-		authFn := authEditorBotApi(ifaceCreds)
-
-		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
-		if httpClient != nil {
-			opts = append(opts, client.WithHTTPClient(httpClient))
-		}
-
-		cl, err := client.NewClientWithResponses(baseURL, opts...)
-		if err != nil {
-			return nil, fmt.Errorf("creating bot-api client: %w", err)
-		}
-
-		clients["bot-api"] = &InterfaceClient{cl: cl}
-	}
-
-	if ifaceCreds, ok := creds["user-token"]; ok {
-		baseURL := resolveBaseURL(config["user-token"])
-		authFn := authEditorUserToken(ifaceCreds)
-
-		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
-		if httpClient != nil {
-			opts = append(opts, client.WithHTTPClient(httpClient))
-		}
-
-		cl, err := client.NewClientWithResponses(baseURL, opts...)
-		if err != nil {
-			return nil, fmt.Errorf("creating user-token client: %w", err)
-		}
-
-		clients["user-token"] = &InterfaceClient{cl: cl}
-	}
-
-	return &Connector{clients: clients}, nil
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
 }
 
-// Client returns the interface client for the given interface ID.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
+// NewConnector constructs a Connector for the given interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	baseURL := resolveBaseURL(config)
+
+	var authFn func(context.Context, *http.Request) error
+	switch interfaceID {
+	case "bot-api":
+		authFn = authEditorBotApi(creds)
+	case "user-token":
+		authFn = authEditorUserToken(creds)
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+	if httpClient != nil {
+		opts = append(opts, client.WithHTTPClient(httpClient))
+	}
+
+	cl, err := client.NewClientWithResponses(baseURL, opts...)
+	if err != nil {
+		return nil, fmt.Errorf("creating %s client: %w", interfaceID, err)
+	}
+
+	return &Connector{client: &InterfaceClient{cl: cl}}, nil
 }
 
 func resolveBaseURL(config map[string]string) string {
@@ -433,20 +419,22 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://slack.com/api"
 }
 
-func authEditorBotApi(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorBotApi(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["access_token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 
 		return nil
 	}
 }
 
-func authEditorUserToken(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorUserToken(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["access_token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 
 		return nil

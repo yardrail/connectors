@@ -7,6 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 )
 
 // InterfaceClient wraps an authenticated GraphQL endpoint for one interface.
@@ -26,27 +28,36 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config
 	}
 }
 
-// Connector holds the GraphQL endpoint for each configured interface.
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	endpoints := newEndpoints(creds, config, httpClient)
-	clients := make(map[string]*InterfaceClient, len(endpoints))
-	for id, ep := range endpoints {
-		clients[id] = &InterfaceClient{ep: ep}
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
+
+// NewConnector constructs a Connector for the given GraphQL interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	var defaultURL string
+	var authFn func(context.Context, *http.Request) error
+
+	switch interfaceID {
+	case "api":
+		defaultURL = "https://fixture.invalid/graphql"
+		authFn = authEditorApi(creds)
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	return &Connector{clients: clients}, nil
-}
+	ep := &endpoint{
+		url:        resolveEndpoint(config, defaultURL),
+		auth:       authFn,
+		httpClient: httpClient,
+	}
 
-// Client returns the interface client for the given interface ID.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
+	return &Connector{client: &InterfaceClient{ep: ep}}, nil
 }
 
 // endpoint is a GraphQL interface's HTTP endpoint with its auth applied.
@@ -54,20 +65,6 @@ type endpoint struct {
 	url        string
 	auth       func(context.Context, *http.Request) error
 	httpClient *http.Client
-}
-
-func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
-	endpoints := make(map[string]*endpoint, 1)
-
-	if ifaceCreds, ok := creds["api"]; ok {
-		endpoints["api"] = &endpoint{
-			url:        resolveEndpoint(config["api"], "https://fixture.invalid/graphql"),
-			auth:       authEditorApi(ifaceCreds),
-			httpClient: httpClient,
-		}
-	}
-
-	return endpoints
 }
 
 // resolveEndpoint returns config["base_url"] when set, otherwise the
@@ -80,10 +77,11 @@ func resolveEndpoint(config map[string]string, defaultURL string) string {
 	return defaultURL
 }
 
-func authEditorApi(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorApi(creds connector.Credentials) func(context.Context, *http.Request) error {
+	ac := creds.(connector.APIKeyCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if key := creds["token"]; key != "" {
-			req.Header.Set("Authorization", key)
+		if ac.Key != "" {
+			req.Header.Set("Authorization", ac.Key)
 		}
 		req.Header.Set("API-Version", "2026-01")
 

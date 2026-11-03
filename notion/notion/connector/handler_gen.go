@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
@@ -42,40 +44,39 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config
 	}
 }
 
-// Connector holds an authenticated client for each configured interface.
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*InterfaceClient, 1)
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
 
-	if ifaceCreds, ok := creds["integration"]; ok {
-		baseURL := resolveBaseURL(config["integration"])
-		authFn := authEditorIntegration(ifaceCreds)
+// NewConnector constructs a Connector for the given interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	baseURL := resolveBaseURL(config)
 
-		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
-		if httpClient != nil {
-			opts = append(opts, client.WithHTTPClient(httpClient))
-		}
-
-		cl, err := client.NewClientWithResponses(baseURL, opts...)
-		if err != nil {
-			return nil, fmt.Errorf("creating integration client: %w", err)
-		}
-
-		clients["integration"] = &InterfaceClient{cl: cl}
+	var authFn func(context.Context, *http.Request) error
+	switch interfaceID {
+	case "integration":
+		authFn = authEditorIntegration(creds)
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	return &Connector{clients: clients}, nil
-}
+	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+	if httpClient != nil {
+		opts = append(opts, client.WithHTTPClient(httpClient))
+	}
 
-// Client returns the interface client for the given interface ID.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
+	cl, err := client.NewClientWithResponses(baseURL, opts...)
+	if err != nil {
+		return nil, fmt.Errorf("creating %s client: %w", interfaceID, err)
+	}
+
+	return &Connector{client: &InterfaceClient{cl: cl}}, nil
 }
 
 func resolveBaseURL(config map[string]string) string {
@@ -86,10 +87,11 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://api.notion.com"
 }
 
-func authEditorIntegration(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorIntegration(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 		req.Header.Set("Notion-Version", "2022-06-28")
 
