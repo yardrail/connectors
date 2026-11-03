@@ -125,13 +125,6 @@ var tmplFuncs = template.FuncMap{
 	},
 	"optionalPtrExpr": func(p ToolParam) string {
 		base := paramExtractExpr(p)
-		if p.TypeConv != "" {
-			inner := fmt.Sprintf("%s(request.GetString(\"%s\", \"\"))", p.TypeConv, p.JSONName)
-			if p.IsPtr {
-				return fmt.Sprintf("ptrVal(%s)", inner)
-			}
-			return inner
-		}
 		if p.FullType != "" {
 			inner := fmt.Sprintf("%s(%s)", p.FullType, base)
 			if p.IsPtr {
@@ -198,27 +191,16 @@ func render(groups []ControllerGroup, pkgName, serverName, pkgPath, tmplStr stri
 				if !p.Required {
 					hasOptional = true
 				}
-				switch p.TypeConv {
-				case "parseUUID":
+				switch p.GoType {
+				case "uuid.UUID":
 					needsUUID = true
-				case "parseTime":
+				case "time.Time":
 					needsTime = true
-				case "parseDate":
+				case "types.Date":
 					needsDate = true
 				}
 				if p.GoType == "[]string" {
 					hasSliceParams = true
-				}
-			}
-			for _, a := range t.CallArgs {
-				if strings.Contains(a.Expr, "parseUUID") {
-					needsUUID = true
-				}
-				if strings.Contains(a.Expr, "parseTime") {
-					needsTime = true
-				}
-				if strings.Contains(a.Expr, "parseDate") {
-					needsDate = true
 				}
 			}
 		}

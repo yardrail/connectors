@@ -58,7 +58,7 @@ func (ic *InterfaceClient) dispatchCreateAccountWithResponse(ctx context.Context
 		return nil, fmt.Errorf("quickbooks-account.create-account: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateAccountWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateAccountWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -90,7 +90,7 @@ func (ic *InterfaceClient) dispatchCreateAttachableWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.create-attachable: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateAttachableWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateAttachableWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -122,7 +122,7 @@ func (ic *InterfaceClient) dispatchCreateBillWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("quickbooks-account.create-bill: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateBillWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateBillWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -154,7 +154,7 @@ func (ic *InterfaceClient) dispatchCreateBillPaymentWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.create-bill-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateBillPaymentWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateBillPaymentWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -186,7 +186,7 @@ func (ic *InterfaceClient) dispatchCreateBudgetWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.create-budget: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateBudgetWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateBudgetWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -218,7 +218,7 @@ func (ic *InterfaceClient) dispatchCreateChangeOrderWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.create-change-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateChangeOrderWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateChangeOrderWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -250,7 +250,7 @@ func (ic *InterfaceClient) dispatchCreateClassWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.create-class: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateClassWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateClassWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -282,7 +282,7 @@ func (ic *InterfaceClient) dispatchCreateCompanyCurrencyWithResponse(ctx context
 		return nil, fmt.Errorf("quickbooks-account.create-company-currency: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateCompanyCurrencyWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateCompanyCurrencyWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -314,7 +314,7 @@ func (ic *InterfaceClient) dispatchCreateCreditCardPaymentTxnWithResponse(ctx co
 		return nil, fmt.Errorf("quickbooks-account.create-credit-card-payment-txn: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateCreditCardPaymentTxnWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateCreditCardPaymentTxnWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -346,7 +346,7 @@ func (ic *InterfaceClient) dispatchCreateCreditMemoWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.create-credit-memo: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateCreditMemoWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateCreditMemoWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -378,7 +378,7 @@ func (ic *InterfaceClient) dispatchCreateCustomerWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.create-customer: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateCustomerWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateCustomerWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -410,7 +410,7 @@ func (ic *InterfaceClient) dispatchCreateDepartmentWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.create-department: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateDepartmentWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateDepartmentWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -442,7 +442,7 @@ func (ic *InterfaceClient) dispatchCreateDepositWithResponse(ctx context.Context
 		return nil, fmt.Errorf("quickbooks-account.create-deposit: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateDepositWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateDepositWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -474,7 +474,7 @@ func (ic *InterfaceClient) dispatchCreateEmployeeWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.create-employee: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateEmployeeWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateEmployeeWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -506,7 +506,7 @@ func (ic *InterfaceClient) dispatchCreateEstimateWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.create-estimate: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateEstimateWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateEstimateWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -538,7 +538,7 @@ func (ic *InterfaceClient) dispatchCreateInventoryAdjustmentWithResponse(ctx con
 		return nil, fmt.Errorf("quickbooks-account.create-inventory-adjustment: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateInventoryAdjustmentWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateInventoryAdjustmentWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -570,7 +570,7 @@ func (ic *InterfaceClient) dispatchCreateInvoiceWithResponse(ctx context.Context
 		return nil, fmt.Errorf("quickbooks-account.create-invoice: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateInvoiceWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateInvoiceWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -602,7 +602,7 @@ func (ic *InterfaceClient) dispatchCreateItemWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("quickbooks-account.create-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateItemWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateItemWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -634,7 +634,7 @@ func (ic *InterfaceClient) dispatchCreateJournalCodeWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.create-journal-code: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateJournalCodeWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateJournalCodeWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -666,7 +666,7 @@ func (ic *InterfaceClient) dispatchCreateJournalEntryWithResponse(ctx context.Co
 		return nil, fmt.Errorf("quickbooks-account.create-journal-entry: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateJournalEntryWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateJournalEntryWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -698,7 +698,7 @@ func (ic *InterfaceClient) dispatchCreatePaymentWithResponse(ctx context.Context
 		return nil, fmt.Errorf("quickbooks-account.create-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreatePaymentWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreatePaymentWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -730,7 +730,7 @@ func (ic *InterfaceClient) dispatchCreatePaymentMethodWithResponse(ctx context.C
 		return nil, fmt.Errorf("quickbooks-account.create-payment-method: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreatePaymentMethodWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreatePaymentMethodWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -762,7 +762,7 @@ func (ic *InterfaceClient) dispatchCreatePurchaseWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.create-purchase: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreatePurchaseWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreatePurchaseWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -794,7 +794,7 @@ func (ic *InterfaceClient) dispatchCreatePurchaseOrderWithResponse(ctx context.C
 		return nil, fmt.Errorf("quickbooks-account.create-purchase-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreatePurchaseOrderWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreatePurchaseOrderWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -826,7 +826,7 @@ func (ic *InterfaceClient) dispatchCreateRecurringTransactionWithResponse(ctx co
 		return nil, fmt.Errorf("quickbooks-account.create-recurring-transaction: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateRecurringTransactionWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateRecurringTransactionWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -858,7 +858,7 @@ func (ic *InterfaceClient) dispatchCreateRefundReceiptWithResponse(ctx context.C
 		return nil, fmt.Errorf("quickbooks-account.create-refund-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateRefundReceiptWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateRefundReceiptWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -890,7 +890,7 @@ func (ic *InterfaceClient) dispatchCreateSalesReceiptWithResponse(ctx context.Co
 		return nil, fmt.Errorf("quickbooks-account.create-sales-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateSalesReceiptWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateSalesReceiptWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -922,7 +922,7 @@ func (ic *InterfaceClient) dispatchCreateTaxAgencyWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("quickbooks-account.create-tax-agency: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateTaxAgencyWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTaxAgencyWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -954,7 +954,7 @@ func (ic *InterfaceClient) dispatchCreateTaxserviceWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.create-taxservice: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateTaxserviceWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTaxserviceWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -986,7 +986,7 @@ func (ic *InterfaceClient) dispatchCreateTermWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("quickbooks-account.create-term: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateTermWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTermWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1018,7 +1018,7 @@ func (ic *InterfaceClient) dispatchCreateTimeActivityWithResponse(ctx context.Co
 		return nil, fmt.Errorf("quickbooks-account.create-time-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateTimeActivityWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTimeActivityWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1050,7 +1050,7 @@ func (ic *InterfaceClient) dispatchCreateTransferWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.create-transfer: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateTransferWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTransferWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1082,7 +1082,7 @@ func (ic *InterfaceClient) dispatchCreateVendorWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.create-vendor: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateVendorWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateVendorWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1114,7 +1114,7 @@ func (ic *InterfaceClient) dispatchCreateVendorCreditWithResponse(ctx context.Co
 		return nil, fmt.Errorf("quickbooks-account.create-vendor-credit: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreateVendorCreditWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateVendorCreditWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1146,7 +1146,7 @@ func (ic *InterfaceClient) dispatchGetEstimatePDFWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.get-estimate-p-d-f: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetEstimatePDFWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.GetEstimatePDFWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1178,7 +1178,7 @@ func (ic *InterfaceClient) dispatchGetInvoicePDFWithResponse(ctx context.Context
 		return nil, fmt.Errorf("quickbooks-account.get-invoice-p-d-f: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetInvoicePDFWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.GetInvoicePDFWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1210,7 +1210,7 @@ func (ic *InterfaceClient) dispatchGetSalesReceiptPDFWithResponse(ctx context.Co
 		return nil, fmt.Errorf("quickbooks-account.get-sales-receipt-p-d-f: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetSalesReceiptPDFWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.GetSalesReceiptPDFWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1235,7 +1235,7 @@ func (ic *InterfaceClient) dispatchQueryAccountWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.query-account: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.QueryAccountWithResponse(ctx, client.RealmId(realmId), &params)
+	resp, callErr := ic.cl.QueryAccountWithResponse(ctx, realmId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1267,7 +1267,7 @@ func (ic *InterfaceClient) dispatchReadAccountWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.read-account: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadAccountWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadAccountWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1299,7 +1299,7 @@ func (ic *InterfaceClient) dispatchReadAttachableWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.read-attachable: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadAttachableWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadAttachableWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1331,7 +1331,7 @@ func (ic *InterfaceClient) dispatchReadBillWithResponse(ctx context.Context, con
 		return nil, fmt.Errorf("quickbooks-account.read-bill: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadBillWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadBillWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1363,7 +1363,7 @@ func (ic *InterfaceClient) dispatchReadBillPaymentWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("quickbooks-account.read-bill-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadBillPaymentWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadBillPaymentWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1395,7 +1395,7 @@ func (ic *InterfaceClient) dispatchReadBudgetWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("quickbooks-account.read-budget: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadBudgetWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadBudgetWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1427,7 +1427,7 @@ func (ic *InterfaceClient) dispatchReadChangeOrderWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("quickbooks-account.read-change-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadChangeOrderWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadChangeOrderWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1459,7 +1459,7 @@ func (ic *InterfaceClient) dispatchReadClassWithResponse(ctx context.Context, co
 		return nil, fmt.Errorf("quickbooks-account.read-class: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadClassWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadClassWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1491,7 +1491,7 @@ func (ic *InterfaceClient) dispatchReadCompanyCurrencyWithResponse(ctx context.C
 		return nil, fmt.Errorf("quickbooks-account.read-company-currency: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadCompanyCurrencyWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadCompanyCurrencyWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1523,7 +1523,7 @@ func (ic *InterfaceClient) dispatchReadCompanyInfoWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("quickbooks-account.read-company-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadCompanyInfoWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadCompanyInfoWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1555,7 +1555,7 @@ func (ic *InterfaceClient) dispatchReadCreditCardPaymentTxnWithResponse(ctx cont
 		return nil, fmt.Errorf("quickbooks-account.read-credit-card-payment-txn: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadCreditCardPaymentTxnWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadCreditCardPaymentTxnWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1587,7 +1587,7 @@ func (ic *InterfaceClient) dispatchReadCreditMemoWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.read-credit-memo: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadCreditMemoWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadCreditMemoWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1619,7 +1619,7 @@ func (ic *InterfaceClient) dispatchReadCustomerWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.read-customer: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadCustomerWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadCustomerWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1651,7 +1651,7 @@ func (ic *InterfaceClient) dispatchReadCustomerTypeWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.read-customer-type: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadCustomerTypeWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadCustomerTypeWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1683,7 +1683,7 @@ func (ic *InterfaceClient) dispatchReadDepartmentWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.read-department: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadDepartmentWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadDepartmentWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1715,7 +1715,7 @@ func (ic *InterfaceClient) dispatchReadDepositWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.read-deposit: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadDepositWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadDepositWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1747,7 +1747,7 @@ func (ic *InterfaceClient) dispatchReadEmployeeWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.read-employee: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadEmployeeWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadEmployeeWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1779,7 +1779,7 @@ func (ic *InterfaceClient) dispatchReadEntitlementsWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.read-entitlements: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadEntitlementsWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadEntitlementsWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1811,7 +1811,7 @@ func (ic *InterfaceClient) dispatchReadEstimateWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.read-estimate: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadEstimateWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadEstimateWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1843,7 +1843,7 @@ func (ic *InterfaceClient) dispatchReadInventoryAdjustmentWithResponse(ctx conte
 		return nil, fmt.Errorf("quickbooks-account.read-inventory-adjustment: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadInventoryAdjustmentWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadInventoryAdjustmentWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1875,7 +1875,7 @@ func (ic *InterfaceClient) dispatchReadInvoiceWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.read-invoice: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadInvoiceWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadInvoiceWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1907,7 +1907,7 @@ func (ic *InterfaceClient) dispatchReadItemWithResponse(ctx context.Context, con
 		return nil, fmt.Errorf("quickbooks-account.read-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadItemWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadItemWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1939,7 +1939,7 @@ func (ic *InterfaceClient) dispatchReadJournalCodeWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("quickbooks-account.read-journal-code: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadJournalCodeWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadJournalCodeWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1971,7 +1971,7 @@ func (ic *InterfaceClient) dispatchReadJournalEntryWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.read-journal-entry: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadJournalEntryWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadJournalEntryWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2003,7 +2003,7 @@ func (ic *InterfaceClient) dispatchReadPaymentWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.read-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadPaymentWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadPaymentWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2035,7 +2035,7 @@ func (ic *InterfaceClient) dispatchReadPaymentMethodWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.read-payment-method: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadPaymentMethodWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadPaymentMethodWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2067,7 +2067,7 @@ func (ic *InterfaceClient) dispatchReadPreferencesWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("quickbooks-account.read-preferences: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadPreferencesWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadPreferencesWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2099,7 +2099,7 @@ func (ic *InterfaceClient) dispatchReadPurchaseWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.read-purchase: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadPurchaseWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadPurchaseWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2131,7 +2131,7 @@ func (ic *InterfaceClient) dispatchReadPurchaseOrderWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.read-purchase-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadPurchaseOrderWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadPurchaseOrderWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2163,7 +2163,7 @@ func (ic *InterfaceClient) dispatchReadRecurringTransactionWithResponse(ctx cont
 		return nil, fmt.Errorf("quickbooks-account.read-recurring-transaction: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadRecurringTransactionWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadRecurringTransactionWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2195,7 +2195,7 @@ func (ic *InterfaceClient) dispatchReadRefundReceiptWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.read-refund-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadRefundReceiptWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadRefundReceiptWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2227,7 +2227,7 @@ func (ic *InterfaceClient) dispatchReadReimburseChargeWithResponse(ctx context.C
 		return nil, fmt.Errorf("quickbooks-account.read-reimburse-charge: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadReimburseChargeWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadReimburseChargeWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2259,7 +2259,7 @@ func (ic *InterfaceClient) dispatchReadSalesReceiptWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.read-sales-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadSalesReceiptWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadSalesReceiptWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2291,7 +2291,7 @@ func (ic *InterfaceClient) dispatchReadTaxAgencyWithResponse(ctx context.Context
 		return nil, fmt.Errorf("quickbooks-account.read-tax-agency: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadTaxAgencyWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadTaxAgencyWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2323,7 +2323,7 @@ func (ic *InterfaceClient) dispatchReadTaxClassificationWithResponse(ctx context
 		return nil, fmt.Errorf("quickbooks-account.read-tax-classification: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadTaxClassificationWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadTaxClassificationWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2355,7 +2355,7 @@ func (ic *InterfaceClient) dispatchReadTaxCodeWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.read-tax-code: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadTaxCodeWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadTaxCodeWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2387,7 +2387,7 @@ func (ic *InterfaceClient) dispatchReadTaxPaymentWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.read-tax-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadTaxPaymentWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadTaxPaymentWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2419,7 +2419,7 @@ func (ic *InterfaceClient) dispatchReadTaxRateWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.read-tax-rate: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadTaxRateWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadTaxRateWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2451,7 +2451,7 @@ func (ic *InterfaceClient) dispatchReadTermWithResponse(ctx context.Context, con
 		return nil, fmt.Errorf("quickbooks-account.read-term: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadTermWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadTermWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2483,7 +2483,7 @@ func (ic *InterfaceClient) dispatchReadTimeActivityWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.read-time-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadTimeActivityWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadTimeActivityWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2515,7 +2515,7 @@ func (ic *InterfaceClient) dispatchReadTransferWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.read-transfer: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadTransferWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadTransferWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2547,7 +2547,7 @@ func (ic *InterfaceClient) dispatchReadVendorWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("quickbooks-account.read-vendor: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadVendorWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadVendorWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2579,7 +2579,7 @@ func (ic *InterfaceClient) dispatchReadVendorCreditWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.read-vendor-credit: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReadVendorCreditWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params)
+	resp, callErr := ic.cl.ReadVendorCreditWithResponse(ctx, realmId, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2618,7 +2618,7 @@ func (ic *InterfaceClient) dispatchSendCreditMemoWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.send-credit-memo: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SendCreditMemoWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params, body)
+	resp, callErr := ic.cl.SendCreditMemoWithResponse(ctx, realmId, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2657,7 +2657,7 @@ func (ic *InterfaceClient) dispatchSendEstimateWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("quickbooks-account.send-estimate: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SendEstimateWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params, body)
+	resp, callErr := ic.cl.SendEstimateWithResponse(ctx, realmId, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2696,7 +2696,7 @@ func (ic *InterfaceClient) dispatchSendInvoiceWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.send-invoice: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SendInvoiceWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params, body)
+	resp, callErr := ic.cl.SendInvoiceWithResponse(ctx, realmId, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2735,7 +2735,7 @@ func (ic *InterfaceClient) dispatchSendPaymentWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("quickbooks-account.send-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SendPaymentWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params, body)
+	resp, callErr := ic.cl.SendPaymentWithResponse(ctx, realmId, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2774,7 +2774,7 @@ func (ic *InterfaceClient) dispatchSendPurchaseOrderWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.send-purchase-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SendPurchaseOrderWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params, body)
+	resp, callErr := ic.cl.SendPurchaseOrderWithResponse(ctx, realmId, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2813,7 +2813,7 @@ func (ic *InterfaceClient) dispatchSendRefundReceiptWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.send-refund-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SendRefundReceiptWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params, body)
+	resp, callErr := ic.cl.SendRefundReceiptWithResponse(ctx, realmId, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2852,7 +2852,7 @@ func (ic *InterfaceClient) dispatchSendSalesReceiptWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("quickbooks-account.send-sales-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SendSalesReceiptWithResponse(ctx, client.RealmId(realmId), pathArgs.Id, &params, body)
+	resp, callErr := ic.cl.SendSalesReceiptWithResponse(ctx, realmId, pathArgs.Id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2884,7 +2884,7 @@ func (ic *InterfaceClient) dispatchUpdateCompanyInfoWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.update-company-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.UpdateCompanyInfoWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.UpdateCompanyInfoWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2916,7 +2916,7 @@ func (ic *InterfaceClient) dispatchUpdateExchangeRateWithResponse(ctx context.Co
 		return nil, fmt.Errorf("quickbooks-account.update-exchange-rate: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.UpdateExchangeRateWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.UpdateExchangeRateWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2948,7 +2948,7 @@ func (ic *InterfaceClient) dispatchUpdatePreferencesWithResponse(ctx context.Con
 		return nil, fmt.Errorf("quickbooks-account.update-preferences: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.UpdatePreferencesWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.UpdatePreferencesWithResponse(ctx, realmId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}

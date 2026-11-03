@@ -163,7 +163,7 @@ func (ic *InterfaceClient) dispatchAdvancedSearchV1WithResponse(ctx context.Cont
 
 func (ic *InterfaceClient) dispatchAllocateMspDomainPowerUsersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		Domain string `json:"domain"`
+		Domain client.Domain `json:"domain"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -176,7 +176,7 @@ func (ic *InterfaceClient) dispatchAllocateMspDomainPowerUsersWithResponse(ctx c
 		return nil, fmt.Errorf("egnyte.allocate-msp-domain-power-users: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AllocateMspDomainPowerUsersWithResponse(ctx, client.Domain(pathArgs.Domain), body)
+	resp, callErr := ic.cl.AllocateMspDomainPowerUsersWithResponse(ctx, pathArgs.Domain, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1087,7 +1087,7 @@ func (ic *InterfaceClient) dispatchDeleteCommentWithResponse(ctx context.Context
 
 func (ic *InterfaceClient) dispatchDeleteMspWebhookWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		WebhookId uuid.UUID `json:"webhookId"`
+		WebhookId client.WebhookId `json:"webhookId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -1335,7 +1335,7 @@ func (ic *InterfaceClient) dispatchGetMspDomainWithResponse(ctx context.Context,
 
 func (ic *InterfaceClient) dispatchGetMspPowerUsersQuoteWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		PlanId string `json:"planId"`
+		PlanId client.PlanId `json:"planId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -1348,7 +1348,7 @@ func (ic *InterfaceClient) dispatchGetMspPowerUsersQuoteWithResponse(ctx context
 		return nil, fmt.Errorf("egnyte.get-msp-power-users-quote: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.GetMspPowerUsersQuoteWithResponse(ctx, client.PlanId(pathArgs.PlanId), body)
+	resp, callErr := ic.cl.GetMspPowerUsersQuoteWithResponse(ctx, pathArgs.PlanId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1390,7 +1390,7 @@ func (ic *InterfaceClient) dispatchGetMspTenantWithResponse(ctx context.Context,
 
 func (ic *InterfaceClient) dispatchGetMspWebhookWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		WebhookId uuid.UUID `json:"webhookId"`
+		WebhookId client.WebhookId `json:"webhookId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -1592,7 +1592,7 @@ func (ic *InterfaceClient) dispatchGetUserWithResponse(ctx context.Context, _ ma
 
 func (ic *InterfaceClient) dispatchGetUserDetailsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		UserId uuid.UUID `json:"userId"`
+		UserId client.UserId `json:"userId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -1616,7 +1616,7 @@ func (ic *InterfaceClient) dispatchGetUserDetailsWithResponse(ctx context.Contex
 
 func (ic *InterfaceClient) dispatchGetUserLogsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		UserId uuid.UUID `json:"userId"`
+		UserId client.UserId `json:"userId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -2668,8 +2668,8 @@ func (ic *InterfaceClient) dispatchPatchScimUserWithResponse(ctx context.Context
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteFsByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		PType string `json:"pType"`
-		Id    string `json:"id"`
+		PType client.PortalProdDeleteFsByIdV1ParamsType `json:"pType"`
+		Id    string                                    `json:"id"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -2682,7 +2682,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteFsByIdV1WithResponse(ctx cont
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-by-id-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdDeleteFsByIdV1WithResponse(ctx, client.PortalProdDeleteFsByIdV1ParamsType(pathArgs.PType), pathArgs.Id, &params)
+	resp, callErr := ic.cl.PortalProdDeleteFsByIdV1WithResponse(ctx, pathArgs.PType, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2897,7 +2897,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteNamespaceV1WithResponse(ctx c
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteProjectCustomFieldV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		FieldName string `json:"fieldName"`
+		FieldName client.FieldName `json:"fieldName"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -2910,7 +2910,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteProjectCustomFieldV1WithRespo
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-project-custom-field-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdDeleteProjectCustomFieldV1WithResponse(ctx, client.FieldName(pathArgs.FieldName), &params)
+	resp, callErr := ic.cl.PortalProdDeleteProjectCustomFieldV1WithResponse(ctx, pathArgs.FieldName, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3043,8 +3043,8 @@ func (ic *InterfaceClient) dispatchPortalProdGetFolderMetadataV1WithResponse(ctx
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		PType string `json:"pType"`
-		Id    string `json:"id"`
+		PType client.PortalProdGetFsByIdV1ParamsType `json:"pType"`
+		Id    string                                 `json:"id"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -3057,7 +3057,7 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsByIdV1WithResponse(ctx context
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-by-id-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdGetFsByIdV1WithResponse(ctx, client.PortalProdGetFsByIdV1ParamsType(pathArgs.PType), pathArgs.Id, &params)
+	resp, callErr := ic.cl.PortalProdGetFsByIdV1WithResponse(ctx, pathArgs.PType, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3487,9 +3487,9 @@ func (ic *InterfaceClient) dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx c
 
 func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyDataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		NamespaceName string   `json:"namespaceName"`
-		KeyName       string   `json:"keyName"`
-		Body          []string `json:"body"`
+		NamespaceName string                                                 `json:"namespaceName"`
+		KeyName       string                                                 `json:"keyName"`
+		Body          client.PortalProdPatchMetadataKeyDataV1JSONRequestBody `json:"body"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -3621,8 +3621,8 @@ func (ic *InterfaceClient) dispatchPortalProdPatchNamespaceV1WithResponse(ctx co
 
 func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldDataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		FieldName string   `json:"fieldName"`
-		Body      []string `json:"body"`
+		FieldName client.FieldName                                              `json:"fieldName"`
+		Body      client.PortalProdPatchProjectCustomFieldDataV1JSONRequestBody `json:"body"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -3635,7 +3635,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldDataV1WithRe
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-data-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, client.FieldName(pathArgs.FieldName), &params, pathArgs.Body)
+	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, pathArgs.FieldName, &params, pathArgs.Body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3653,7 +3653,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldDataV1WithRe
 
 func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		FieldName string `json:"fieldName"`
+		FieldName client.FieldName `json:"fieldName"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -3666,7 +3666,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldV1WithRespon
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldV1WithResponse(ctx, client.FieldName(pathArgs.FieldName), body)
+	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldV1WithResponse(ctx, pathArgs.FieldName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3684,8 +3684,8 @@ func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldV1WithRespon
 
 func (ic *InterfaceClient) dispatchPortalProdPostFsByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		PType string `json:"pType"`
-		Id    string `json:"id"`
+		PType client.PortalProdPostFsByIdV1ParamsType `json:"pType"`
+		Id    string                                  `json:"id"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -3698,7 +3698,7 @@ func (ic *InterfaceClient) dispatchPortalProdPostFsByIdV1WithResponse(ctx contex
 		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-by-id-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPostFsByIdV1WithResponse(ctx, client.PortalProdPostFsByIdV1ParamsType(pathArgs.PType), pathArgs.Id, body)
+	resp, callErr := ic.cl.PortalProdPostFsByIdV1WithResponse(ctx, pathArgs.PType, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4048,7 +4048,7 @@ func (ic *InterfaceClient) dispatchPortalProdPutGroupsByIdV2WithResponse(ctx con
 
 func (ic *InterfaceClient) dispatchPurchaseMspPowerUsersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		PlanId string `json:"planId"`
+		PlanId client.PlanId `json:"planId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -4061,7 +4061,7 @@ func (ic *InterfaceClient) dispatchPurchaseMspPowerUsersWithResponse(ctx context
 		return nil, fmt.Errorf("egnyte.purchase-msp-power-users: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PurchaseMspPowerUsersWithResponse(ctx, client.PlanId(pathArgs.PlanId), body)
+	resp, callErr := ic.cl.PurchaseMspPowerUsersWithResponse(ctx, pathArgs.PlanId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4189,8 +4189,8 @@ func (ic *InterfaceClient) dispatchReplaceScimUserWithResponse(ctx context.Conte
 
 func (ic *InterfaceClient) dispatchRetrieveAuditReportWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		PType string `json:"pType"`
-		Id    string `json:"id"`
+		PType client.RetrieveAuditReportParamsType `json:"pType"`
+		Id    string                               `json:"id"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
@@ -4203,7 +4203,7 @@ func (ic *InterfaceClient) dispatchRetrieveAuditReportWithResponse(ctx context.C
 		return nil, fmt.Errorf("egnyte.retrieve-audit-report: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RetrieveAuditReportWithResponse(ctx, client.RetrieveAuditReportParamsType(pathArgs.PType), pathArgs.Id, &params)
+	resp, callErr := ic.cl.RetrieveAuditReportWithResponse(ctx, pathArgs.PType, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4451,7 +4451,7 @@ func (ic *InterfaceClient) dispatchTrashActionWithResponse(ctx context.Context, 
 
 func (ic *InterfaceClient) dispatchUpdateMspWebhookWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		WebhookId uuid.UUID `json:"webhookId"`
+		WebhookId client.WebhookId `json:"webhookId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {

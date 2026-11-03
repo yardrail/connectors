@@ -304,14 +304,14 @@ func (ic *InterfaceClient) dispatchCreateATeamWithResponse(ctx context.Context, 
 
 func (ic *InterfaceClient) dispatchCreateATicketClassWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		EventId string `json:"eventId"`
-		Body    string `json:"body"`
+		EventId string                                   `json:"eventId"`
+		Body    client.CreateATicketClassJSONRequestBody `json:"body"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
 		return nil, fmt.Errorf("eventbrite.create-a-ticket-class: %w", err)
 	}
-	resp, callErr := ic.cl.CreateATicketClassWithResponse(ctx, pathArgs.EventId, client.CreateATicketClassJSONRequestBody(pathArgs.Body))
+	resp, callErr := ic.cl.CreateATicketClassWithResponse(ctx, pathArgs.EventId, pathArgs.Body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -546,13 +546,13 @@ func (ic *InterfaceClient) dispatchCreateWebhooksByOrganizationIDWithResponse(ct
 
 func (ic *InterfaceClient) dispatchCreateWebhooksDeprecatedWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
-		Body string `json:"body"`
+		Body client.CreateWebhooksDeprecatedJSONRequestBody `json:"body"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
 		return nil, fmt.Errorf("eventbrite.create-webhooks-deprecated: %w", err)
 	}
-	resp, callErr := ic.cl.CreateWebhooksDeprecatedWithResponse(ctx, client.CreateWebhooksDeprecatedJSONRequestBody(pathArgs.Body))
+	resp, callErr := ic.cl.CreateWebhooksDeprecatedWithResponse(ctx, pathArgs.Body)
 	if callErr != nil {
 		return nil, callErr
 	}

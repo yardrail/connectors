@@ -20,7 +20,6 @@ type MethodParam struct {
 	JSONName string
 	GoType   string
 	FullType string
-	TypeConv string // conversion func: "parseUUID", "parseTime", or ""
 	IsStruct bool
 	IsPtr    bool // true if the Params struct field is a pointer
 	Required bool
@@ -261,17 +260,14 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 								jsonName = ToLowerCamel(f.Name())
 							}
 							fullType := ""
-							conv := TypeConversion(f.Type())
 							_, isPtr := f.Type().(*types.Pointer)
-							if conv == "" {
-								ft := f.Type()
-								if pt, ok := ft.(*types.Pointer); ok {
-									ft = pt.Elem()
-								}
-								if n, ok := TypeObjName(ft); ok {
-									if _, isBasic := ft.Underlying().(*types.Basic); isBasic {
-										fullType = "target." + n
-									}
+							ft := f.Type()
+							if pt, ok := ft.(*types.Pointer); ok {
+								ft = pt.Elem()
+							}
+							if n, ok := TypeObjName(ft); ok {
+								if isFromScope(ft, scope) {
+									fullType = "target." + n
 								}
 							}
 							params = append(params, MethodParam{
@@ -279,7 +275,6 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 								JSONName: jsonName,
 								GoType:   goType,
 								FullType: fullType,
-								TypeConv: conv,
 								IsPtr:    isPtr,
 								Required: false,
 								Desc:     f.Name(),
@@ -310,13 +305,10 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 		if jsonType == "" {
 			continue
 		}
-		conv := TypeConversion(paramType)
 		fullType = ""
-		if conv == "" {
-			if name, ok := TypeObjName(paramType); ok {
-				if _, isBasic := paramType.Underlying().(*types.Basic); isBasic {
-					fullType = "target." + name
-				}
+		if name, ok := TypeObjName(paramType); ok {
+			if isFromScope(paramType, scope) {
+				fullType = "target." + name
 			}
 		}
 		params = append(params, MethodParam{
@@ -324,18 +316,10 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 			JSONName: ToLowerCamel(paramName),
 			GoType:   goType,
 			FullType: fullType,
-			TypeConv: conv,
 			Required: true,
 			Desc:     paramName,
 		})
-		expr := paramName
-		switch {
-		case conv != "":
-			expr = fmt.Sprintf("%s(%s)", conv, paramName)
-		case fullType != "":
-			expr = fmt.Sprintf("%s(%s)", fullType, paramName)
-		}
-		callArgs = append(callArgs, CallArg{Expr: expr})
+		callArgs = append(callArgs, CallArg{Expr: paramName})
 	}
 
 	return &MethodInfo{
@@ -415,14 +399,16 @@ func TypeObjName(t types.Type) (string, bool) {
 	return "", false
 }
 
-// TypeConversion returns the conversion function name for special types.
-// Returns "" for types that implement json.Unmarshaler or encoding.TextUnmarshaler
-// (UUID, Date, Time) since json.Unmarshal handles them directly.
-func TypeConversion(t types.Type) string {
-	if pt, ok := t.(*types.Pointer); ok {
-		return TypeConversion(pt.Elem())
+// isFromScope reports whether t is a Named or Alias type defined in scope.
+func isFromScope(t types.Type, scope *types.Scope) bool {
+	switch v := t.(type) {
+	case *types.Named:
+		return v.Obj().Parent() == scope
+	case *types.Alias:
+		return v.Obj().Parent() == scope
 	}
-	return ""
+
+	return false
 }
 
 // IsUUIDLike reports whether t is a [16]byte array (UUID representation).

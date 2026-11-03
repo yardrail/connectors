@@ -253,7 +253,7 @@ var tmplFuncs = template.FuncMap{
 	"needsUUID": func(methods []introspect.MethodInfo) bool {
 		for _, m := range methods {
 			for _, p := range m.Params {
-				if p.GoType == "uuid.UUID" {
+				if p.GoType == "uuid.UUID" && p.FullType == "" {
 					return true
 				}
 			}
@@ -503,7 +503,7 @@ func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if use
 	var pathArgs struct {
 {{- range .Params}}{{if and .Required (not .IsStruct)}}
 {{- if eq (configParam $.ConfigParams .JSONName) ""}}
-		{{goIdent .JSONName}} {{.GoType}} ` + "`" + `json:"{{.JSONName}}"` + "`" + `
+		{{goIdent .JSONName}} {{if .FullType}}{{fixTargetRef $.ClientPkgPath .FullType}}{{else}}{{.GoType}}{{end}} ` + "`" + `json:"{{.JSONName}}"` + "`" + `
 {{- end}}
 {{- end}}{{end}}
 	}
