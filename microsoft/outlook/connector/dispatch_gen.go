@@ -43,22 +43,13 @@ func Resolve(
 }
 
 func (ic *InterfaceClient) dispatchListEventsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("microsoft-outlook.list-events: %w", pathErr)
+	var pathArgs struct {
+		UserId string `json:"userId"`
 	}
 
-	var userId string
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("microsoft-outlook.list-events: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("microsoft-outlook.list-events: %w", err)
 	}
-
 	var params client.ListEventsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -66,7 +57,7 @@ func (ic *InterfaceClient) dispatchListEventsWithResponse(ctx context.Context, _
 		return nil, fmt.Errorf("microsoft-outlook.list-events: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ListEventsWithResponse(ctx, userId, &params)
+	resp, callErr := ic.cl.ListEventsWithResponse(ctx, pathArgs.UserId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}

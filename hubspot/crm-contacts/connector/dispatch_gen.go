@@ -43,23 +43,14 @@ func Resolve(
 }
 
 func (ic *InterfaceClient) dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("hubspot-crm-contacts.deletecrmv3objectscontacts-contact-id-archive: %w", pathErr)
+	var pathArgs struct {
+		ContactId string `json:"contactId"`
 	}
 
-	var contactId string
-
-	if raw, ok := pathArgs["contactId"]; ok {
-		paramErr := json.Unmarshal(raw, &contactId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("hubspot-crm-contacts.deletecrmv3objectscontacts-contact-id-archive: param contactId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("hubspot-crm-contacts.deletecrmv3objectscontacts-contact-id-archive: %w", err)
 	}
-
-	resp, callErr := ic.cl.Deletecrmv3objectscontactsContactIdArchiveWithResponse(ctx, contactId)
+	resp, callErr := ic.cl.Deletecrmv3objectscontactsContactIdArchiveWithResponse(ctx, pathArgs.ContactId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -76,22 +67,13 @@ func (ic *InterfaceClient) dispatchDeletecrmv3objectscontactsContactIdArchiveWit
 }
 
 func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("hubspot-crm-contacts.getcrmv3objectscontacts-contact-id-get-by-id: %w", pathErr)
+	var pathArgs struct {
+		ContactId string `json:"contactId"`
 	}
 
-	var contactId string
-
-	if raw, ok := pathArgs["contactId"]; ok {
-		paramErr := json.Unmarshal(raw, &contactId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("hubspot-crm-contacts.getcrmv3objectscontacts-contact-id-get-by-id: param contactId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("hubspot-crm-contacts.getcrmv3objectscontacts-contact-id-get-by-id: %w", err)
 	}
-
 	var params client.Getcrmv3objectscontactsContactIdGetByIdParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -99,7 +81,7 @@ func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsContactIdGetByIdWithRe
 		return nil, fmt.Errorf("hubspot-crm-contacts.getcrmv3objectscontacts-contact-id-get-by-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.Getcrmv3objectscontactsContactIdGetByIdWithResponse(ctx, contactId, &params)
+	resp, callErr := ic.cl.Getcrmv3objectscontactsContactIdGetByIdWithResponse(ctx, pathArgs.ContactId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -140,22 +122,13 @@ func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsGetPageWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("hubspot-crm-contacts.patchcrmv3objectscontacts-contact-id-update: %w", pathErr)
+	var pathArgs struct {
+		ContactId string `json:"contactId"`
 	}
 
-	var contactId string
-
-	if raw, ok := pathArgs["contactId"]; ok {
-		paramErr := json.Unmarshal(raw, &contactId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("hubspot-crm-contacts.patchcrmv3objectscontacts-contact-id-update: param contactId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("hubspot-crm-contacts.patchcrmv3objectscontacts-contact-id-update: %w", err)
 	}
-
 	var body client.Patchcrmv3objectscontactsContactIdUpdateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -170,7 +143,7 @@ func (ic *InterfaceClient) dispatchPatchcrmv3objectscontactsContactIdUpdateWithR
 		return nil, fmt.Errorf("hubspot-crm-contacts.patchcrmv3objectscontacts-contact-id-update: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.Patchcrmv3objectscontactsContactIdUpdateWithResponse(ctx, contactId, &params, body)
+	resp, callErr := ic.cl.Patchcrmv3objectscontactsContactIdUpdateWithResponse(ctx, pathArgs.ContactId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}

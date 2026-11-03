@@ -43,40 +43,15 @@ func Resolve(
 }
 
 func (ic *InterfaceClient) dispatchAddATicketClassToTicketGroupsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.add-a-ticket-class-to-ticket-groups: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
+		EventId        string `json:"eventId"`
+		TicketClassId  string `json:"ticketClassId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.add-a-ticket-class-to-ticket-groups: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.add-a-ticket-class-to-ticket-groups: %w", err)
 	}
-
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.add-a-ticket-class-to-ticket-groups: param eventId: %w", paramErr)
-		}
-	}
-
-	var ticketClassId string
-
-	if raw, ok := pathArgs["ticketClassId"]; ok {
-		paramErr := json.Unmarshal(raw, &ticketClassId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.add-a-ticket-class-to-ticket-groups: param ticketClassId: %w", paramErr)
-		}
-	}
-
 	var body client.AddATicketClassToTicketGroupsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -84,7 +59,7 @@ func (ic *InterfaceClient) dispatchAddATicketClassToTicketGroupsWithResponse(ctx
 		return nil, fmt.Errorf("eventbrite.add-a-ticket-class-to-ticket-groups: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AddATicketClassToTicketGroupsWithResponse(ctx, organizationId, eventId, ticketClassId, body)
+	resp, callErr := ic.cl.AddATicketClassToTicketGroupsWithResponse(ctx, pathArgs.OrganizationId, pathArgs.EventId, pathArgs.TicketClassId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -125,23 +100,14 @@ func (ic *InterfaceClient) dispatchCalculateItemsWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchCancelAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.cancel-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.cancel-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.cancel-an-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.CancelAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.CancelAnEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -158,23 +124,14 @@ func (ic *InterfaceClient) dispatchCancelAnEventWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchCategoryByIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.category-by-i-d: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.category-by-i-d: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.category-by-i-d: %w", err)
 	}
-
-	resp, callErr := ic.cl.CategoryByIDWithResponse(ctx, id)
+	resp, callErr := ic.cl.CategoryByIDWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -191,22 +148,13 @@ func (ic *InterfaceClient) dispatchCategoryByIDWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchCopyAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.copy-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.copy-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.copy-an-event: %w", err)
 	}
-
 	var body client.CopyAnEventJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -214,7 +162,7 @@ func (ic *InterfaceClient) dispatchCopyAnEventWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("eventbrite.copy-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CopyAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CopyAnEventWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -231,22 +179,13 @@ func (ic *InterfaceClient) dispatchCopyAnEventWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchCreateACustomQuestionForAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-a-custom-question-for-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-a-custom-question-for-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-a-custom-question-for-an-event: %w", err)
 	}
-
 	var body client.CreateACustomQuestionForAnEventJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -254,7 +193,7 @@ func (ic *InterfaceClient) dispatchCreateACustomQuestionForAnEventWithResponse(c
 		return nil, fmt.Errorf("eventbrite.create-a-custom-question-for-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateACustomQuestionForAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateACustomQuestionForAnEventWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -271,22 +210,13 @@ func (ic *InterfaceClient) dispatchCreateACustomQuestionForAnEventWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchCreateADefaultQuestionForAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-a-default-question-for-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-a-default-question-for-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-a-default-question-for-an-event: %w", err)
 	}
-
 	var body client.CreateADefaultQuestionForAnEventJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -294,7 +224,7 @@ func (ic *InterfaceClient) dispatchCreateADefaultQuestionForAnEventWithResponse(
 		return nil, fmt.Errorf("eventbrite.create-a-default-question-for-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateADefaultQuestionForAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateADefaultQuestionForAnEventWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -311,22 +241,13 @@ func (ic *InterfaceClient) dispatchCreateADefaultQuestionForAnEventWithResponse(
 }
 
 func (ic *InterfaceClient) dispatchCreateADiscountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-a-discount: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-a-discount: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-a-discount: %w", err)
 	}
-
 	var body client.CreateADiscountJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -334,7 +255,7 @@ func (ic *InterfaceClient) dispatchCreateADiscountWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("eventbrite.create-a-discount: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateADiscountWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateADiscountWithResponse(ctx, pathArgs.OrganizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -351,22 +272,13 @@ func (ic *InterfaceClient) dispatchCreateADiscountWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchCreateATeamWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-a-team: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-a-team: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-a-team: %w", err)
 	}
-
 	var body client.CreateATeamJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -374,7 +286,7 @@ func (ic *InterfaceClient) dispatchCreateATeamWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("eventbrite.create-a-team: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateATeamWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateATeamWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -391,32 +303,15 @@ func (ic *InterfaceClient) dispatchCreateATeamWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchCreateATicketClassWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-a-ticket-class: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
+		Body    string `json:"body"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-a-ticket-class: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-a-ticket-class: %w", err)
 	}
-
-	var body string
-
-	if raw, ok := pathArgs["body"]; ok {
-		paramErr := json.Unmarshal(raw, &body)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-a-ticket-class: param body: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.CreateATicketClassWithResponse(ctx, eventId, client.CreateATicketClassJSONRequestBody(body))
+	resp, callErr := ic.cl.CreateATicketClassWithResponse(ctx, pathArgs.EventId, client.CreateATicketClassJSONRequestBody(pathArgs.Body))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -433,22 +328,13 @@ func (ic *InterfaceClient) dispatchCreateATicketClassWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchCreateATicketGroupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-a-ticket-group: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-a-ticket-group: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-a-ticket-group: %w", err)
 	}
-
 	var body client.CreateATicketGroupJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -456,7 +342,7 @@ func (ic *InterfaceClient) dispatchCreateATicketGroupWithResponse(ctx context.Co
 		return nil, fmt.Errorf("eventbrite.create-a-ticket-group: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateATicketGroupWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateATicketGroupWithResponse(ctx, pathArgs.OrganizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -473,22 +359,13 @@ func (ic *InterfaceClient) dispatchCreateATicketGroupWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchCreateAVenueWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-a-venue: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-a-venue: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-a-venue: %w", err)
 	}
-
 	var body client.CreateAVenueJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -496,7 +373,7 @@ func (ic *InterfaceClient) dispatchCreateAVenueWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("eventbrite.create-a-venue: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateAVenueWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateAVenueWithResponse(ctx, pathArgs.OrganizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -513,22 +390,13 @@ func (ic *InterfaceClient) dispatchCreateAVenueWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchCreateAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-an-event: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-an-event: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-an-event: %w", err)
 	}
-
 	var body client.CreateAnEventJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -536,7 +404,7 @@ func (ic *InterfaceClient) dispatchCreateAnEventWithResponse(ctx context.Context
 		return nil, fmt.Errorf("eventbrite.create-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateAnEventWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateAnEventWithResponse(ctx, pathArgs.OrganizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -553,22 +421,13 @@ func (ic *InterfaceClient) dispatchCreateAnEventWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchCreateAnEventScheduleWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-an-event-schedule: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-an-event-schedule: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-an-event-schedule: %w", err)
 	}
-
 	var body client.CreateAnEventScheduleJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -576,7 +435,7 @@ func (ic *InterfaceClient) dispatchCreateAnEventScheduleWithResponse(ctx context
 		return nil, fmt.Errorf("eventbrite.create-an-event-schedule: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateAnEventScheduleWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateAnEventScheduleWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -593,22 +452,13 @@ func (ic *InterfaceClient) dispatchCreateAnEventScheduleWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchCreateSeatMapForEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-seat-map-for-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-seat-map-for-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-seat-map-for-event: %w", err)
 	}
-
 	var body client.CreateSeatMapForEventJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -616,7 +466,7 @@ func (ic *InterfaceClient) dispatchCreateSeatMapForEventWithResponse(ctx context
 		return nil, fmt.Errorf("eventbrite.create-seat-map-for-event: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateSeatMapForEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateSeatMapForEventWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -633,22 +483,13 @@ func (ic *InterfaceClient) dispatchCreateSeatMapForEventWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchCreateTextOverridesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-text-overrides: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-text-overrides: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-text-overrides: %w", err)
 	}
-
 	var body client.CreateTextOverridesJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -656,7 +497,7 @@ func (ic *InterfaceClient) dispatchCreateTextOverridesWithResponse(ctx context.C
 		return nil, fmt.Errorf("eventbrite.create-text-overrides: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateTextOverridesWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateTextOverridesWithResponse(ctx, pathArgs.OrganizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -673,22 +514,13 @@ func (ic *InterfaceClient) dispatchCreateTextOverridesWithResponse(ctx context.C
 }
 
 func (ic *InterfaceClient) dispatchCreateWebhooksByOrganizationIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-webhooks-by-organization-i-d: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-webhooks-by-organization-i-d: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-webhooks-by-organization-i-d: %w", err)
 	}
-
 	var body client.CreateWebhooksByOrganizationIDJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -696,7 +528,7 @@ func (ic *InterfaceClient) dispatchCreateWebhooksByOrganizationIDWithResponse(ct
 		return nil, fmt.Errorf("eventbrite.create-webhooks-by-organization-i-d: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreateWebhooksByOrganizationIDWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateWebhooksByOrganizationIDWithResponse(ctx, pathArgs.OrganizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -713,23 +545,14 @@ func (ic *InterfaceClient) dispatchCreateWebhooksByOrganizationIDWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchCreateWebhooksDeprecatedWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.create-webhooks-deprecated: %w", pathErr)
+	var pathArgs struct {
+		Body string `json:"body"`
 	}
 
-	var body string
-
-	if raw, ok := pathArgs["body"]; ok {
-		paramErr := json.Unmarshal(raw, &body)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.create-webhooks-deprecated: param body: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.create-webhooks-deprecated: %w", err)
 	}
-
-	resp, callErr := ic.cl.CreateWebhooksDeprecatedWithResponse(ctx, client.CreateWebhooksDeprecatedJSONRequestBody(body))
+	resp, callErr := ic.cl.CreateWebhooksDeprecatedWithResponse(ctx, client.CreateWebhooksDeprecatedJSONRequestBody(pathArgs.Body))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -746,32 +569,15 @@ func (ic *InterfaceClient) dispatchCreateWebhooksDeprecatedWithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchDeleteACustomQuestionForAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.delete-a-custom-question-for-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId    string `json:"eventId"`
+		QuestionId string `json:"questionId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-a-custom-question-for-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.delete-a-custom-question-for-an-event: %w", err)
 	}
-
-	var questionId string
-
-	if raw, ok := pathArgs["questionId"]; ok {
-		paramErr := json.Unmarshal(raw, &questionId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-a-custom-question-for-an-event: param questionId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.DeleteACustomQuestionForAnEventWithResponse(ctx, eventId, questionId)
+	resp, callErr := ic.cl.DeleteACustomQuestionForAnEventWithResponse(ctx, pathArgs.EventId, pathArgs.QuestionId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -788,23 +594,14 @@ func (ic *InterfaceClient) dispatchDeleteACustomQuestionForAnEventWithResponse(c
 }
 
 func (ic *InterfaceClient) dispatchDeleteADiscountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.delete-a-discount: %w", pathErr)
+	var pathArgs struct {
+		DiscountId string `json:"discountId"`
 	}
 
-	var discountId string
-
-	if raw, ok := pathArgs["discountId"]; ok {
-		paramErr := json.Unmarshal(raw, &discountId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-a-discount: param discountId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.delete-a-discount: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteADiscountWithResponse(ctx, discountId)
+	resp, callErr := ic.cl.DeleteADiscountWithResponse(ctx, pathArgs.DiscountId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -821,23 +618,14 @@ func (ic *InterfaceClient) dispatchDeleteADiscountWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchDeleteATicketGroupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.delete-a-ticket-group: %w", pathErr)
+	var pathArgs struct {
+		TicketGroupId string `json:"ticketGroupId"`
 	}
 
-	var ticketGroupId string
-
-	if raw, ok := pathArgs["ticketGroupId"]; ok {
-		paramErr := json.Unmarshal(raw, &ticketGroupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-a-ticket-group: param ticketGroupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.delete-a-ticket-group: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteATicketGroupWithResponse(ctx, ticketGroupId)
+	resp, callErr := ic.cl.DeleteATicketGroupWithResponse(ctx, pathArgs.TicketGroupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -854,23 +642,14 @@ func (ic *InterfaceClient) dispatchDeleteATicketGroupWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchDeleteAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.delete-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.delete-an-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.DeleteAnEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -887,32 +666,15 @@ func (ic *InterfaceClient) dispatchDeleteAnEventWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchDeleteAnInventoryTierWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.delete-an-inventory-tier: %w", pathErr)
+	var pathArgs struct {
+		EventId         string `json:"eventId"`
+		InventoryTierId string `json:"inventoryTierId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-an-inventory-tier: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.delete-an-inventory-tier: %w", err)
 	}
-
-	var inventoryTierId string
-
-	if raw, ok := pathArgs["inventoryTierId"]; ok {
-		paramErr := json.Unmarshal(raw, &inventoryTierId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-an-inventory-tier: param inventoryTierId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.DeleteAnInventoryTierWithResponse(ctx, eventId, inventoryTierId)
+	resp, callErr := ic.cl.DeleteAnInventoryTierWithResponse(ctx, pathArgs.EventId, pathArgs.InventoryTierId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -929,32 +691,15 @@ func (ic *InterfaceClient) dispatchDeleteAnInventoryTierWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchDeleteDefaultQuestionByIdWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.delete-default-question-by-id: %w", pathErr)
+	var pathArgs struct {
+		EventId    string `json:"eventId"`
+		QuestionId string `json:"questionId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-default-question-by-id: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.delete-default-question-by-id: %w", err)
 	}
-
-	var questionId string
-
-	if raw, ok := pathArgs["questionId"]; ok {
-		paramErr := json.Unmarshal(raw, &questionId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-default-question-by-id: param questionId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.DeleteDefaultQuestionByIdWithResponse(ctx, eventId, questionId)
+	resp, callErr := ic.cl.DeleteDefaultQuestionByIdWithResponse(ctx, pathArgs.EventId, pathArgs.QuestionId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -971,23 +716,14 @@ func (ic *InterfaceClient) dispatchDeleteDefaultQuestionByIdWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchDeleteWebhookByIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.delete-webhook-by-i-d: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.delete-webhook-by-i-d: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.delete-webhook-by-i-d: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteWebhookByIDWithResponse(ctx, id)
+	resp, callErr := ic.cl.DeleteWebhookByIDWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1004,32 +740,15 @@ func (ic *InterfaceClient) dispatchDeleteWebhookByIDWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchGetCustomQuestionByIdWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.get-custom-question-by-id: %w", pathErr)
+	var pathArgs struct {
+		EventId    string `json:"eventId"`
+		QuestionId string `json:"questionId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.get-custom-question-by-id: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.get-custom-question-by-id: %w", err)
 	}
-
-	var questionId string
-
-	if raw, ok := pathArgs["questionId"]; ok {
-		paramErr := json.Unmarshal(raw, &questionId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.get-custom-question-by-id: param questionId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.GetCustomQuestionByIdWithResponse(ctx, eventId, questionId)
+	resp, callErr := ic.cl.GetCustomQuestionByIdWithResponse(ctx, pathArgs.EventId, pathArgs.QuestionId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1046,32 +765,15 @@ func (ic *InterfaceClient) dispatchGetCustomQuestionByIdWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchGetDefaultQuestionByIdWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.get-default-question-by-id: %w", pathErr)
+	var pathArgs struct {
+		EventId    string `json:"eventId"`
+		QuestionId string `json:"questionId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.get-default-question-by-id: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.get-default-question-by-id: %w", err)
 	}
-
-	var questionId string
-
-	if raw, ok := pathArgs["questionId"]; ok {
-		paramErr := json.Unmarshal(raw, &questionId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.get-default-question-by-id: param questionId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.GetDefaultQuestionByIdWithResponse(ctx, eventId, questionId)
+	resp, callErr := ic.cl.GetDefaultQuestionByIdWithResponse(ctx, pathArgs.EventId, pathArgs.QuestionId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1088,23 +790,14 @@ func (ic *InterfaceClient) dispatchGetDefaultQuestionByIdWithResponse(ctx contex
 }
 
 func (ic *InterfaceClient) dispatchGetRefundRetentionPolicyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.get-refund-retention-policy: %w", pathErr)
+	var pathArgs struct {
+		OrderId string `json:"orderId"`
 	}
 
-	var orderId string
-
-	if raw, ok := pathArgs["orderId"]; ok {
-		paramErr := json.Unmarshal(raw, &orderId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.get-refund-retention-policy: param orderId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.get-refund-retention-policy: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetRefundRetentionPolicyWithResponse(ctx, orderId)
+	resp, callErr := ic.cl.GetRefundRetentionPolicyWithResponse(ctx, pathArgs.OrderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1121,23 +814,14 @@ func (ic *InterfaceClient) dispatchGetRefundRetentionPolicyWithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchListAttendeesByEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-attendees-by-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-attendees-by-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-attendees-by-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListAttendeesByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListAttendeesByEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1154,23 +838,14 @@ func (ic *InterfaceClient) dispatchListAttendeesByEventWithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchListAttendeesByOrganizationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-attendees-by-organization: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-attendees-by-organization: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-attendees-by-organization: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListAttendeesByOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListAttendeesByOrganizationWithResponse(ctx, pathArgs.OrganizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1187,32 +862,15 @@ func (ic *InterfaceClient) dispatchListAttendeesByOrganizationWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchListAttendeesByTeamWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-attendees-by-team: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
+		TeamId  string `json:"teamId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-attendees-by-team: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-attendees-by-team: %w", err)
 	}
-
-	var teamId string
-
-	if raw, ok := pathArgs["teamId"]; ok {
-		paramErr := json.Unmarshal(raw, &teamId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-attendees-by-team: param teamId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.ListAttendeesByTeamWithResponse(ctx, eventId, teamId)
+	resp, callErr := ic.cl.ListAttendeesByTeamWithResponse(ctx, pathArgs.EventId, pathArgs.TeamId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1229,23 +887,14 @@ func (ic *InterfaceClient) dispatchListAttendeesByTeamWithResponse(ctx context.C
 }
 
 func (ic *InterfaceClient) dispatchListByEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-by-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-by-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-by-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListByEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1262,23 +911,14 @@ func (ic *InterfaceClient) dispatchListByEventWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchListCustomQuestionsByEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-custom-questions-by-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-custom-questions-by-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-custom-questions-by-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListCustomQuestionsByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListCustomQuestionsByEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1295,23 +935,14 @@ func (ic *InterfaceClient) dispatchListCustomQuestionsByEventWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchListDefaultQuestionsByEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-default-questions-by-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-default-questions-by-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-default-questions-by-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListDefaultQuestionsByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListDefaultQuestionsByEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1328,22 +959,13 @@ func (ic *InterfaceClient) dispatchListDefaultQuestionsByEventWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchListEventsByOrganizationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-events-by-organization: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-events-by-organization: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-events-by-organization: %w", err)
 	}
-
 	var params client.ListEventsByOrganizationParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1351,7 +973,7 @@ func (ic *InterfaceClient) dispatchListEventsByOrganizationWithResponse(ctx cont
 		return nil, fmt.Errorf("eventbrite.list-events-by-organization: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ListEventsByOrganizationWithResponse(ctx, organizationId, &params)
+	resp, callErr := ic.cl.ListEventsByOrganizationWithResponse(ctx, pathArgs.OrganizationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1368,23 +990,14 @@ func (ic *InterfaceClient) dispatchListEventsByOrganizationWithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchListEventsBySeriesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-events-by-series: %w", pathErr)
+	var pathArgs struct {
+		EventSeriesId string `json:"eventSeriesId"`
 	}
 
-	var eventSeriesId string
-
-	if raw, ok := pathArgs["eventSeriesId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventSeriesId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-events-by-series: param eventSeriesId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-events-by-series: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListEventsBySeriesWithResponse(ctx, eventSeriesId)
+	resp, callErr := ic.cl.ListEventsBySeriesWithResponse(ctx, pathArgs.EventSeriesId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1401,23 +1014,14 @@ func (ic *InterfaceClient) dispatchListEventsBySeriesWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchListEventsByVenueWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-events-by-venue: %w", pathErr)
+	var pathArgs struct {
+		VenueId string `json:"venueId"`
 	}
 
-	var venueId string
-
-	if raw, ok := pathArgs["venueId"]; ok {
-		paramErr := json.Unmarshal(raw, &venueId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-events-by-venue: param venueId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-events-by-venue: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListEventsByVenueWithResponse(ctx, venueId)
+	resp, callErr := ic.cl.ListEventsByVenueWithResponse(ctx, pathArgs.VenueId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1451,23 +1055,14 @@ func (ic *InterfaceClient) dispatchListFormatsWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchListInventoryTiersByEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-inventory-tiers-by-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-inventory-tiers-by-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-inventory-tiers-by-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListInventoryTiersByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListInventoryTiersByEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1484,23 +1079,14 @@ func (ic *InterfaceClient) dispatchListInventoryTiersByEventWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchListMembersOfAnOrganizationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-members-of-an-organization: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-members-of-an-organization: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-members-of-an-organization: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListMembersOfAnOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListMembersOfAnOrganizationWithResponse(ctx, pathArgs.OrganizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1568,23 +1154,14 @@ func (ic *InterfaceClient) dispatchListOfWebhooksDeprecationWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchListOrdersByEventIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-orders-by-event-i-d: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-orders-by-event-i-d: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-orders-by-event-i-d: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListOrdersByEventIDWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListOrdersByEventIDWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1601,23 +1178,14 @@ func (ic *InterfaceClient) dispatchListOrdersByEventIDWithResponse(ctx context.C
 }
 
 func (ic *InterfaceClient) dispatchListOrdersByOrganizationIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-orders-by-organization-i-d: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-orders-by-organization-i-d: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-orders-by-organization-i-d: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListOrdersByOrganizationIDWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListOrdersByOrganizationIDWithResponse(ctx, pathArgs.OrganizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1634,23 +1202,14 @@ func (ic *InterfaceClient) dispatchListOrdersByOrganizationIDWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchListOrdersByUserIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-orders-by-user-i-d: %w", pathErr)
+	var pathArgs struct {
+		UserId string `json:"userId"`
 	}
 
-	var userId string
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-orders-by-user-i-d: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-orders-by-user-i-d: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListOrdersByUserIDWithResponse(ctx, userId)
+	resp, callErr := ic.cl.ListOrdersByUserIDWithResponse(ctx, pathArgs.UserId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1667,23 +1226,14 @@ func (ic *InterfaceClient) dispatchListOrdersByUserIDWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchListOrganizationsByUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-organizations-by-user: %w", pathErr)
+	var pathArgs struct {
+		UserId string `json:"userId"`
 	}
 
-	var userId string
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-organizations-by-user: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-organizations-by-user: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListOrganizationsByUserWithResponse(ctx, userId)
+	resp, callErr := ic.cl.ListOrganizationsByUserWithResponse(ctx, pathArgs.UserId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1724,23 +1274,14 @@ func (ic *InterfaceClient) dispatchListPricingWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchListRolesByOrganizationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-roles-by-organization: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-roles-by-organization: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-roles-by-organization: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListRolesByOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListRolesByOrganizationWithResponse(ctx, pathArgs.OrganizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1757,22 +1298,13 @@ func (ic *InterfaceClient) dispatchListRolesByOrganizationWithResponse(ctx conte
 }
 
 func (ic *InterfaceClient) dispatchListSeatMapsByOrganizationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-seat-maps-by-organization: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-seat-maps-by-organization: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-seat-maps-by-organization: %w", err)
 	}
-
 	var params client.ListSeatMapsByOrganizationParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1780,7 +1312,7 @@ func (ic *InterfaceClient) dispatchListSeatMapsByOrganizationWithResponse(ctx co
 		return nil, fmt.Errorf("eventbrite.list-seat-maps-by-organization: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ListSeatMapsByOrganizationWithResponse(ctx, organizationId, &params)
+	resp, callErr := ic.cl.ListSeatMapsByOrganizationWithResponse(ctx, pathArgs.OrganizationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1797,23 +1329,14 @@ func (ic *InterfaceClient) dispatchListSeatMapsByOrganizationWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-ticket-classes-available-for-sale-by-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-ticket-classes-available-for-sale-by-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-ticket-classes-available-for-sale-by-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListTicketClassesAvailableForSaleByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListTicketClassesAvailableForSaleByEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1830,23 +1353,14 @@ func (ic *InterfaceClient) dispatchListTicketClassesAvailableForSaleByEventWithR
 }
 
 func (ic *InterfaceClient) dispatchListTicketClassesByEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-ticket-classes-by-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-ticket-classes-by-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-ticket-classes-by-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListTicketClassesByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListTicketClassesByEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1863,23 +1377,14 @@ func (ic *InterfaceClient) dispatchListTicketClassesByEventWithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchListTicketGroupsByOrganizationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-ticket-groups-by-organization: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-ticket-groups-by-organization: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-ticket-groups-by-organization: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListTicketGroupsByOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListTicketGroupsByOrganizationWithResponse(ctx, pathArgs.OrganizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1896,23 +1401,14 @@ func (ic *InterfaceClient) dispatchListTicketGroupsByOrganizationWithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchListVenuesByOrganizationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-venues-by-organization: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-venues-by-organization: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-venues-by-organization: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListVenuesByOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListVenuesByOrganizationWithResponse(ctx, pathArgs.OrganizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1929,23 +1425,14 @@ func (ic *InterfaceClient) dispatchListVenuesByOrganizationWithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchListWebhookByOrganizationIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.list-webhook-by-organization-i-d: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.list-webhook-by-organization-i-d: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.list-webhook-by-organization-i-d: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListWebhookByOrganizationIDWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListWebhookByOrganizationIDWithResponse(ctx, pathArgs.OrganizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1979,23 +1466,14 @@ func (ic *InterfaceClient) dispatchListYourOrganizationsWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchPublishAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.publish-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.publish-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.publish-an-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.PublishAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.PublishAnEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2012,22 +1490,13 @@ func (ic *InterfaceClient) dispatchPublishAnEventWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchRefundOrderWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.refund-order: %w", pathErr)
+	var pathArgs struct {
+		OrderId string `json:"orderId"`
 	}
 
-	var orderId string
-
-	if raw, ok := pathArgs["orderId"]; ok {
-		paramErr := json.Unmarshal(raw, &orderId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.refund-order: param orderId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.refund-order: %w", err)
 	}
-
 	var body client.RefundOrderJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2035,7 +1504,7 @@ func (ic *InterfaceClient) dispatchRefundOrderWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("eventbrite.refund-order: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.RefundOrderWithResponse(ctx, orderId, body)
+	resp, callErr := ic.cl.RefundOrderWithResponse(ctx, pathArgs.OrderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2052,32 +1521,15 @@ func (ic *InterfaceClient) dispatchRefundOrderWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchRemainingBalanceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.remaining-balance: %w", pathErr)
+	var pathArgs struct {
+		PublicOrganizationId string `json:"publicOrganizationId"`
+		PublicEventId        string `json:"publicEventId"`
 	}
 
-	var publicOrganizationId string
-
-	if raw, ok := pathArgs["publicOrganizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &publicOrganizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.remaining-balance: param publicOrganizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.remaining-balance: %w", err)
 	}
-
-	var publicEventId string
-
-	if raw, ok := pathArgs["publicEventId"]; ok {
-		paramErr := json.Unmarshal(raw, &publicEventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.remaining-balance: param publicEventId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.RemainingBalanceWithResponse(ctx, publicOrganizationId, publicEventId)
+	resp, callErr := ic.cl.RemainingBalanceWithResponse(ctx, pathArgs.PublicOrganizationId, pathArgs.PublicEventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2111,23 +1563,14 @@ func (ic *InterfaceClient) dispatchRetrieveAAttendeeReportWithResponse(ctx conte
 }
 
 func (ic *InterfaceClient) dispatchRetrieveACapacityTierWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-a-capacity-tier: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-a-capacity-tier: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-a-capacity-tier: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveACapacityTierWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveACapacityTierWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2144,23 +1587,14 @@ func (ic *InterfaceClient) dispatchRetrieveACapacityTierWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchRetrieveADiscountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-a-discount: %w", pathErr)
+	var pathArgs struct {
+		DiscountId string `json:"discountId"`
 	}
 
-	var discountId string
-
-	if raw, ok := pathArgs["discountId"]; ok {
-		paramErr := json.Unmarshal(raw, &discountId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-a-discount: param discountId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-a-discount: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveADiscountWithResponse(ctx, discountId)
+	resp, callErr := ic.cl.RetrieveADiscountWithResponse(ctx, pathArgs.DiscountId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2177,23 +1611,14 @@ func (ic *InterfaceClient) dispatchRetrieveADiscountWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchRetrieveAFormatWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-a-format: %w", pathErr)
+	var pathArgs struct {
+		FormatId string `json:"formatId"`
 	}
 
-	var formatId string
-
-	if raw, ok := pathArgs["formatId"]; ok {
-		paramErr := json.Unmarshal(raw, &formatId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-a-format: param formatId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-a-format: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveAFormatWithResponse(ctx, formatId)
+	resp, callErr := ic.cl.RetrieveAFormatWithResponse(ctx, pathArgs.FormatId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2244,32 +1669,15 @@ func (ic *InterfaceClient) dispatchRetrieveASalesReportWithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchRetrieveATicketClassWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-a-ticket-class: %w", pathErr)
+	var pathArgs struct {
+		EventId       string `json:"eventId"`
+		TicketClassId string `json:"ticketClassId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-a-ticket-class: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-a-ticket-class: %w", err)
 	}
-
-	var ticketClassId string
-
-	if raw, ok := pathArgs["ticketClassId"]; ok {
-		paramErr := json.Unmarshal(raw, &ticketClassId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-a-ticket-class: param ticketClassId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.RetrieveATicketClassWithResponse(ctx, eventId, ticketClassId)
+	resp, callErr := ic.cl.RetrieveATicketClassWithResponse(ctx, pathArgs.EventId, pathArgs.TicketClassId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2286,23 +1694,14 @@ func (ic *InterfaceClient) dispatchRetrieveATicketClassWithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchRetrieveATicketGroupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-a-ticket-group: %w", pathErr)
+	var pathArgs struct {
+		TicketGroupId string `json:"ticketGroupId"`
 	}
 
-	var ticketGroupId string
-
-	if raw, ok := pathArgs["ticketGroupId"]; ok {
-		paramErr := json.Unmarshal(raw, &ticketGroupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-a-ticket-group: param ticketGroupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-a-ticket-group: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveATicketGroupWithResponse(ctx, ticketGroupId)
+	resp, callErr := ic.cl.RetrieveATicketGroupWithResponse(ctx, pathArgs.TicketGroupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2319,23 +1718,14 @@ func (ic *InterfaceClient) dispatchRetrieveATicketGroupWithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchRetrieveAVenueWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-a-venue: %w", pathErr)
+	var pathArgs struct {
+		VenueId string `json:"venueId"`
 	}
 
-	var venueId string
-
-	if raw, ok := pathArgs["venueId"]; ok {
-		paramErr := json.Unmarshal(raw, &venueId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-a-venue: param venueId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-a-venue: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveAVenueWithResponse(ctx, venueId)
+	resp, callErr := ic.cl.RetrieveAVenueWithResponse(ctx, pathArgs.VenueId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2352,32 +1742,15 @@ func (ic *InterfaceClient) dispatchRetrieveAVenueWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchRetrieveAnAttendeeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-an-attendee: %w", pathErr)
+	var pathArgs struct {
+		EventId    string `json:"eventId"`
+		AttendeeId string `json:"attendeeId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-an-attendee: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-an-attendee: %w", err)
 	}
-
-	var attendeeId string
-
-	if raw, ok := pathArgs["attendeeId"]; ok {
-		paramErr := json.Unmarshal(raw, &attendeeId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-an-attendee: param attendeeId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.RetrieveAnAttendeeWithResponse(ctx, eventId, attendeeId)
+	resp, callErr := ic.cl.RetrieveAnAttendeeWithResponse(ctx, pathArgs.EventId, pathArgs.AttendeeId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2394,23 +1767,14 @@ func (ic *InterfaceClient) dispatchRetrieveAnAttendeeWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchRetrieveAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-an-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveAnEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2427,23 +1791,14 @@ func (ic *InterfaceClient) dispatchRetrieveAnEventWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchRetrieveAnEventSeriesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-an-event-series: %w", pathErr)
+	var pathArgs struct {
+		EventSeriesId string `json:"eventSeriesId"`
 	}
 
-	var eventSeriesId string
-
-	if raw, ok := pathArgs["eventSeriesId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventSeriesId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-an-event-series: param eventSeriesId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-an-event-series: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveAnEventSeriesWithResponse(ctx, eventSeriesId)
+	resp, callErr := ic.cl.RetrieveAnEventSeriesWithResponse(ctx, pathArgs.EventSeriesId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2460,32 +1815,15 @@ func (ic *InterfaceClient) dispatchRetrieveAnEventSeriesWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchRetrieveAnInventoryTierWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-an-inventory-tier: %w", pathErr)
+	var pathArgs struct {
+		EventId         string `json:"eventId"`
+		InventoryTierId string `json:"inventoryTierId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-an-inventory-tier: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-an-inventory-tier: %w", err)
 	}
-
-	var inventoryTierId string
-
-	if raw, ok := pathArgs["inventoryTierId"]; ok {
-		paramErr := json.Unmarshal(raw, &inventoryTierId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-an-inventory-tier: param inventoryTierId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.RetrieveAnInventoryTierWithResponse(ctx, eventId, inventoryTierId)
+	resp, callErr := ic.cl.RetrieveAnInventoryTierWithResponse(ctx, pathArgs.EventId, pathArgs.InventoryTierId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2502,23 +1840,14 @@ func (ic *InterfaceClient) dispatchRetrieveAnInventoryTierWithResponse(ctx conte
 }
 
 func (ic *InterfaceClient) dispatchRetrieveDisplaySettingsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-display-settings: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-display-settings: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-display-settings: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveDisplaySettingsWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveDisplaySettingsWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2535,23 +1864,14 @@ func (ic *InterfaceClient) dispatchRetrieveDisplaySettingsWithResponse(ctx conte
 }
 
 func (ic *InterfaceClient) dispatchRetrieveFullHTMLDescriptionWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-full-h-t-m-l-description: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-full-h-t-m-l-description: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-full-h-t-m-l-description: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveFullHTMLDescriptionWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveFullHTMLDescriptionWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2568,23 +1888,14 @@ func (ic *InterfaceClient) dispatchRetrieveFullHTMLDescriptionWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchRetrieveInformationAboutAUserAccountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-information-about-a-user-account: %w", pathErr)
+	var pathArgs struct {
+		UserId string `json:"userId"`
 	}
 
-	var userId string
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-information-about-a-user-account: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-information-about-a-user-account: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveInformationAboutAUserAccountWithResponse(ctx, userId)
+	resp, callErr := ic.cl.RetrieveInformationAboutAUserAccountWithResponse(ctx, pathArgs.UserId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2618,23 +1929,14 @@ func (ic *InterfaceClient) dispatchRetrieveInformationAboutYourUserAccountWithRe
 }
 
 func (ic *InterfaceClient) dispatchRetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-latest-published-version-of-structured-content-by-event-id: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-latest-published-version-of-structured-content-by-event-id: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-latest-published-version-of-structured-content-by-event-id: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx, id)
+	resp, callErr := ic.cl.RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2651,23 +1953,14 @@ func (ic *InterfaceClient) dispatchRetrieveLatestPublishedVersionOfStructuredCon
 }
 
 func (ic *InterfaceClient) dispatchRetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-latest-working-version-of-structured-content-by-event-id: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-latest-working-version-of-structured-content-by-event-id: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-latest-working-version-of-structured-content-by-event-id: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx, id)
+	resp, callErr := ic.cl.RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2684,22 +1977,13 @@ func (ic *InterfaceClient) dispatchRetrieveLatestWorkingVersionOfStructuredConte
 }
 
 func (ic *InterfaceClient) dispatchRetrieveMediaWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-media: %w", pathErr)
+	var pathArgs struct {
+		MediaId string `json:"mediaId"`
 	}
 
-	var mediaId string
-
-	if raw, ok := pathArgs["mediaId"]; ok {
-		paramErr := json.Unmarshal(raw, &mediaId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-media: param mediaId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-media: %w", err)
 	}
-
 	var params client.RetrieveMediaParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2707,7 +1991,7 @@ func (ic *InterfaceClient) dispatchRetrieveMediaWithResponse(ctx context.Context
 		return nil, fmt.Errorf("eventbrite.retrieve-media: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RetrieveMediaWithResponse(ctx, mediaId, &params)
+	resp, callErr := ic.cl.RetrieveMediaWithResponse(ctx, pathArgs.MediaId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2724,23 +2008,14 @@ func (ic *InterfaceClient) dispatchRetrieveMediaWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchRetrieveOrderByIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-order-by-i-d: %w", pathErr)
+	var pathArgs struct {
+		OrderId string `json:"orderId"`
 	}
 
-	var orderId string
-
-	if raw, ok := pathArgs["orderId"]; ok {
-		paramErr := json.Unmarshal(raw, &orderId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-order-by-i-d: param orderId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-order-by-i-d: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveOrderByIDWithResponse(ctx, orderId)
+	resp, callErr := ic.cl.RetrieveOrderByIDWithResponse(ctx, pathArgs.OrderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2757,32 +2032,15 @@ func (ic *InterfaceClient) dispatchRetrieveOrderByIDWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchRetrieveTeamWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-team: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
+		TeamId  string `json:"teamId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-team: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-team: %w", err)
 	}
-
-	var teamId string
-
-	if raw, ok := pathArgs["teamId"]; ok {
-		paramErr := json.Unmarshal(raw, &teamId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-team: param teamId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.RetrieveTeamWithResponse(ctx, eventId, teamId)
+	resp, callErr := ic.cl.RetrieveTeamWithResponse(ctx, pathArgs.EventId, pathArgs.TeamId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2799,22 +2057,13 @@ func (ic *InterfaceClient) dispatchRetrieveTeamWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchRetrieveTextOverridesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-text-overrides: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-text-overrides: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-text-overrides: %w", err)
 	}
-
 	var params client.RetrieveTextOverridesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2822,7 +2071,7 @@ func (ic *InterfaceClient) dispatchRetrieveTextOverridesWithResponse(ctx context
 		return nil, fmt.Errorf("eventbrite.retrieve-text-overrides: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RetrieveTextOverridesWithResponse(ctx, organizationId, &params)
+	resp, callErr := ic.cl.RetrieveTextOverridesWithResponse(ctx, pathArgs.OrganizationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2839,23 +2088,14 @@ func (ic *InterfaceClient) dispatchRetrieveTextOverridesWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchRetrieveTicketBuyerSettingsByEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.retrieve-ticket-buyer-settings-by-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.retrieve-ticket-buyer-settings-by-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.retrieve-ticket-buyer-settings-by-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.RetrieveTicketBuyerSettingsByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveTicketBuyerSettingsByEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2872,22 +2112,13 @@ func (ic *InterfaceClient) dispatchRetrieveTicketBuyerSettingsByEventWithRespons
 }
 
 func (ic *InterfaceClient) dispatchSearchDiscountsByOrganizationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.search-discounts-by-organization: %w", pathErr)
+	var pathArgs struct {
+		OrganizationId string `json:"organizationId"`
 	}
 
-	var organizationId string
-
-	if raw, ok := pathArgs["organizationId"]; ok {
-		paramErr := json.Unmarshal(raw, &organizationId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.search-discounts-by-organization: param organizationId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.search-discounts-by-organization: %w", err)
 	}
-
 	var params client.SearchDiscountsByOrganizationParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2895,7 +2126,7 @@ func (ic *InterfaceClient) dispatchSearchDiscountsByOrganizationWithResponse(ctx
 		return nil, fmt.Errorf("eventbrite.search-discounts-by-organization: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SearchDiscountsByOrganizationWithResponse(ctx, organizationId, &params)
+	resp, callErr := ic.cl.SearchDiscountsByOrganizationWithResponse(ctx, pathArgs.OrganizationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2929,32 +2160,15 @@ func (ic *InterfaceClient) dispatchSearchEventsDeprecatedWithResponse(ctx contex
 }
 
 func (ic *InterfaceClient) dispatchSearchTeamsByNameTeamWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.search-teams-by-name-team: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
+		Term    string `json:"term"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.search-teams-by-name-team: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.search-teams-by-name-team: %w", err)
 	}
-
-	var term string
-
-	if raw, ok := pathArgs["term"]; ok {
-		paramErr := json.Unmarshal(raw, &term)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.search-teams-by-name-team: param term: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.SearchTeamsByNameTeamWithResponse(ctx, eventId, term)
+	resp, callErr := ic.cl.SearchTeamsByNameTeamWithResponse(ctx, pathArgs.EventId, pathArgs.Term)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2971,31 +2185,14 @@ func (ic *InterfaceClient) dispatchSearchTeamsByNameTeamWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchSetStructuredContentByEventIdAndVersionWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.set-structured-content-by-event-id-and-version: %w", pathErr)
+	var pathArgs struct {
+		Id      string `json:"id"`
+		Version string `json:"version"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.set-structured-content-by-event-id-and-version: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.set-structured-content-by-event-id-and-version: %w", err)
 	}
-
-	var version string
-
-	if raw, ok := pathArgs["version"]; ok {
-		paramErr := json.Unmarshal(raw, &version)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.set-structured-content-by-event-id-and-version: param version: %w", paramErr)
-		}
-	}
-
 	var body client.SetStructuredContentByEventIdAndVersionJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3003,7 +2200,7 @@ func (ic *InterfaceClient) dispatchSetStructuredContentByEventIdAndVersionWithRe
 		return nil, fmt.Errorf("eventbrite.set-structured-content-by-event-id-and-version: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.SetStructuredContentByEventIdAndVersionWithResponse(ctx, id, version, body)
+	resp, callErr := ic.cl.SetStructuredContentByEventIdAndVersionWithResponse(ctx, pathArgs.Id, pathArgs.Version, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3020,23 +2217,14 @@ func (ic *InterfaceClient) dispatchSetStructuredContentByEventIdAndVersionWithRe
 }
 
 func (ic *InterfaceClient) dispatchSubcategoryByIDWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.subcategory-by-i-d: %w", pathErr)
+	var pathArgs struct {
+		SubcategoryId string `json:"subcategoryId"`
 	}
 
-	var subcategoryId string
-
-	if raw, ok := pathArgs["subcategoryId"]; ok {
-		paramErr := json.Unmarshal(raw, &subcategoryId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.subcategory-by-i-d: param subcategoryId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.subcategory-by-i-d: %w", err)
 	}
-
-	resp, callErr := ic.cl.SubcategoryByIDWithResponse(ctx, subcategoryId)
+	resp, callErr := ic.cl.SubcategoryByIDWithResponse(ctx, pathArgs.SubcategoryId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3053,23 +2241,14 @@ func (ic *InterfaceClient) dispatchSubcategoryByIDWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchUnpublishAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.unpublish-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.unpublish-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.unpublish-an-event: %w", err)
 	}
-
-	resp, callErr := ic.cl.UnpublishAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.UnpublishAnEventWithResponse(ctx, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3086,22 +2265,13 @@ func (ic *InterfaceClient) dispatchUnpublishAnEventWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchUpdateACapacityTierWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-a-capacity-tier: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-a-capacity-tier: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-a-capacity-tier: %w", err)
 	}
-
 	var body client.UpdateACapacityTierJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3109,7 +2279,7 @@ func (ic *InterfaceClient) dispatchUpdateACapacityTierWithResponse(ctx context.C
 		return nil, fmt.Errorf("eventbrite.update-a-capacity-tier: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateACapacityTierWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateACapacityTierWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3126,22 +2296,13 @@ func (ic *InterfaceClient) dispatchUpdateACapacityTierWithResponse(ctx context.C
 }
 
 func (ic *InterfaceClient) dispatchUpdateADiscountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-a-discount: %w", pathErr)
+	var pathArgs struct {
+		DiscountId string `json:"discountId"`
 	}
 
-	var discountId string
-
-	if raw, ok := pathArgs["discountId"]; ok {
-		paramErr := json.Unmarshal(raw, &discountId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-a-discount: param discountId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-a-discount: %w", err)
 	}
-
 	var body client.UpdateADiscountJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3149,7 +2310,7 @@ func (ic *InterfaceClient) dispatchUpdateADiscountWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("eventbrite.update-a-discount: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateADiscountWithResponse(ctx, discountId, body)
+	resp, callErr := ic.cl.UpdateADiscountWithResponse(ctx, pathArgs.DiscountId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3166,31 +2327,14 @@ func (ic *InterfaceClient) dispatchUpdateADiscountWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchUpdateATicketClassWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-a-ticket-class: %w", pathErr)
+	var pathArgs struct {
+		EventId       string `json:"eventId"`
+		TicketClassId string `json:"ticketClassId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-a-ticket-class: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-a-ticket-class: %w", err)
 	}
-
-	var ticketClassId string
-
-	if raw, ok := pathArgs["ticketClassId"]; ok {
-		paramErr := json.Unmarshal(raw, &ticketClassId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-a-ticket-class: param ticketClassId: %w", paramErr)
-		}
-	}
-
 	var body client.UpdateATicketClassJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3198,7 +2342,7 @@ func (ic *InterfaceClient) dispatchUpdateATicketClassWithResponse(ctx context.Co
 		return nil, fmt.Errorf("eventbrite.update-a-ticket-class: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateATicketClassWithResponse(ctx, eventId, ticketClassId, body)
+	resp, callErr := ic.cl.UpdateATicketClassWithResponse(ctx, pathArgs.EventId, pathArgs.TicketClassId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3215,22 +2359,13 @@ func (ic *InterfaceClient) dispatchUpdateATicketClassWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchUpdateATicketGroupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-a-ticket-group: %w", pathErr)
+	var pathArgs struct {
+		TicketGroupId string `json:"ticketGroupId"`
 	}
 
-	var ticketGroupId string
-
-	if raw, ok := pathArgs["ticketGroupId"]; ok {
-		paramErr := json.Unmarshal(raw, &ticketGroupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-a-ticket-group: param ticketGroupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-a-ticket-group: %w", err)
 	}
-
 	var body client.UpdateATicketGroupJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3238,7 +2373,7 @@ func (ic *InterfaceClient) dispatchUpdateATicketGroupWithResponse(ctx context.Co
 		return nil, fmt.Errorf("eventbrite.update-a-ticket-group: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateATicketGroupWithResponse(ctx, ticketGroupId, body)
+	resp, callErr := ic.cl.UpdateATicketGroupWithResponse(ctx, pathArgs.TicketGroupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3255,22 +2390,13 @@ func (ic *InterfaceClient) dispatchUpdateATicketGroupWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchUpdateAVenueWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-a-venue: %w", pathErr)
+	var pathArgs struct {
+		VenueId string `json:"venueId"`
 	}
 
-	var venueId string
-
-	if raw, ok := pathArgs["venueId"]; ok {
-		paramErr := json.Unmarshal(raw, &venueId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-a-venue: param venueId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-a-venue: %w", err)
 	}
-
 	var body client.UpdateAVenueJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3278,7 +2404,7 @@ func (ic *InterfaceClient) dispatchUpdateAVenueWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("eventbrite.update-a-venue: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateAVenueWithResponse(ctx, venueId, body)
+	resp, callErr := ic.cl.UpdateAVenueWithResponse(ctx, pathArgs.VenueId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3295,22 +2421,13 @@ func (ic *InterfaceClient) dispatchUpdateAVenueWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchUpdateAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-an-event: %w", err)
 	}
-
 	var body client.UpdateAnEventJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3318,7 +2435,7 @@ func (ic *InterfaceClient) dispatchUpdateAnEventWithResponse(ctx context.Context
 		return nil, fmt.Errorf("eventbrite.update-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateAnEventWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3335,31 +2452,14 @@ func (ic *InterfaceClient) dispatchUpdateAnEventWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchUpdateAnInventoryTierWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-an-inventory-tier: %w", pathErr)
+	var pathArgs struct {
+		EventId         string `json:"eventId"`
+		InventoryTierId string `json:"inventoryTierId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-an-inventory-tier: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-an-inventory-tier: %w", err)
 	}
-
-	var inventoryTierId string
-
-	if raw, ok := pathArgs["inventoryTierId"]; ok {
-		paramErr := json.Unmarshal(raw, &inventoryTierId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-an-inventory-tier: param inventoryTierId: %w", paramErr)
-		}
-	}
-
 	var body client.UpdateAnInventoryTierJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3367,7 +2467,7 @@ func (ic *InterfaceClient) dispatchUpdateAnInventoryTierWithResponse(ctx context
 		return nil, fmt.Errorf("eventbrite.update-an-inventory-tier: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateAnInventoryTierWithResponse(ctx, eventId, inventoryTierId, body)
+	resp, callErr := ic.cl.UpdateAnInventoryTierWithResponse(ctx, pathArgs.EventId, pathArgs.InventoryTierId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3384,31 +2484,14 @@ func (ic *InterfaceClient) dispatchUpdateAnInventoryTierWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchUpdateDefaultQuestionByIdWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-default-question-by-id: %w", pathErr)
+	var pathArgs struct {
+		EventId    string `json:"eventId"`
+		QuestionId string `json:"questionId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-default-question-by-id: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-default-question-by-id: %w", err)
 	}
-
-	var questionId string
-
-	if raw, ok := pathArgs["questionId"]; ok {
-		paramErr := json.Unmarshal(raw, &questionId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-default-question-by-id: param questionId: %w", paramErr)
-		}
-	}
-
 	var params client.UpdateDefaultQuestionByIdParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3416,7 +2499,7 @@ func (ic *InterfaceClient) dispatchUpdateDefaultQuestionByIdWithResponse(ctx con
 		return nil, fmt.Errorf("eventbrite.update-default-question-by-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.UpdateDefaultQuestionByIdWithResponse(ctx, eventId, questionId, &params)
+	resp, callErr := ic.cl.UpdateDefaultQuestionByIdWithResponse(ctx, pathArgs.EventId, pathArgs.QuestionId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3433,22 +2516,13 @@ func (ic *InterfaceClient) dispatchUpdateDefaultQuestionByIdWithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchUpdateDisplaySettingsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-display-settings: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-display-settings: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-display-settings: %w", err)
 	}
-
 	var body client.UpdateDisplaySettingsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3456,7 +2530,7 @@ func (ic *InterfaceClient) dispatchUpdateDisplaySettingsWithResponse(ctx context
 		return nil, fmt.Errorf("eventbrite.update-display-settings: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateDisplaySettingsWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateDisplaySettingsWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3473,22 +2547,13 @@ func (ic *InterfaceClient) dispatchUpdateDisplaySettingsWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchUpdateMultipleInventoryTiersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-multiple-inventory-tiers: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-multiple-inventory-tiers: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-multiple-inventory-tiers: %w", err)
 	}
-
 	var body client.UpdateMultipleInventoryTiersJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3496,7 +2561,7 @@ func (ic *InterfaceClient) dispatchUpdateMultipleInventoryTiersWithResponse(ctx 
 		return nil, fmt.Errorf("eventbrite.update-multiple-inventory-tiers: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateMultipleInventoryTiersWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateMultipleInventoryTiersWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3513,22 +2578,13 @@ func (ic *InterfaceClient) dispatchUpdateMultipleInventoryTiersWithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchUpdateTicketBuyerSettingsForAnEventWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.update-ticket-buyer-settings-for-an-event: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.update-ticket-buyer-settings-for-an-event: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.update-ticket-buyer-settings-for-an-event: %w", err)
 	}
-
 	var body client.UpdateTicketBuyerSettingsForAnEventJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3536,7 +2592,7 @@ func (ic *InterfaceClient) dispatchUpdateTicketBuyerSettingsForAnEventWithRespon
 		return nil, fmt.Errorf("eventbrite.update-ticket-buyer-settings-for-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateTicketBuyerSettingsForAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateTicketBuyerSettingsForAnEventWithResponse(ctx, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3577,31 +2633,14 @@ func (ic *InterfaceClient) dispatchUploadAMediaFileWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchVerifyPasswordForATeamWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("eventbrite.verify-password-for-a-team: %w", pathErr)
+	var pathArgs struct {
+		EventId string `json:"eventId"`
+		TeamId  string `json:"teamId"`
 	}
 
-	var eventId string
-
-	if raw, ok := pathArgs["eventId"]; ok {
-		paramErr := json.Unmarshal(raw, &eventId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.verify-password-for-a-team: param eventId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("eventbrite.verify-password-for-a-team: %w", err)
 	}
-
-	var teamId string
-
-	if raw, ok := pathArgs["teamId"]; ok {
-		paramErr := json.Unmarshal(raw, &teamId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("eventbrite.verify-password-for-a-team: param teamId: %w", paramErr)
-		}
-	}
-
 	var body client.VerifyPasswordForATeamJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3609,7 +2648,7 @@ func (ic *InterfaceClient) dispatchVerifyPasswordForATeamWithResponse(ctx contex
 		return nil, fmt.Errorf("eventbrite.verify-password-for-a-team: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.VerifyPasswordForATeamWithResponse(ctx, eventId, teamId, body)
+	resp, callErr := ic.cl.VerifyPasswordForATeamWithResponse(ctx, pathArgs.EventId, pathArgs.TeamId, body)
 	if callErr != nil {
 		return nil, callErr
 	}

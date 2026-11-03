@@ -45,22 +45,13 @@ func Resolve(
 }
 
 func (ic *InterfaceClient) dispatchActivateMspTrialWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.activate-msp-trial: %w", pathErr)
+	var pathArgs struct {
+		Domain string `json:"domain"`
 	}
 
-	var domain string
-
-	if raw, ok := pathArgs["domain"]; ok {
-		paramErr := json.Unmarshal(raw, &domain)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.activate-msp-trial: param domain: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.activate-msp-trial: %w", err)
 	}
-
 	var body client.ActivateMspTrialJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -68,7 +59,7 @@ func (ic *InterfaceClient) dispatchActivateMspTrialWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.activate-msp-trial: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.ActivateMspTrialWithResponse(ctx, domain, body)
+	resp, callErr := ic.cl.ActivateMspTrialWithResponse(ctx, pathArgs.Domain, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -109,22 +100,13 @@ func (ic *InterfaceClient) dispatchAddCommentWithResponse(ctx context.Context, _
 }
 
 func (ic *InterfaceClient) dispatchAddDocumentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.add-document: %w", pathErr)
+	var pathArgs struct {
+		StudyId string `json:"studyId"`
 	}
 
-	var studyId string
-
-	if raw, ok := pathArgs["studyId"]; ok {
-		paramErr := json.Unmarshal(raw, &studyId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.add-document: param studyId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.add-document: %w", err)
 	}
-
 	var body client.AddDocumentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -139,7 +121,7 @@ func (ic *InterfaceClient) dispatchAddDocumentWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("egnyte.add-document: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.AddDocumentWithResponse(ctx, studyId, &params, body)
+	resp, callErr := ic.cl.AddDocumentWithResponse(ctx, pathArgs.StudyId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -180,22 +162,13 @@ func (ic *InterfaceClient) dispatchAdvancedSearchV1WithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchAllocateMspDomainPowerUsersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.allocate-msp-domain-power-users: %w", pathErr)
+	var pathArgs struct {
+		Domain string `json:"domain"`
 	}
 
-	var domain string
-
-	if raw, ok := pathArgs["domain"]; ok {
-		paramErr := json.Unmarshal(raw, &domain)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.allocate-msp-domain-power-users: param domain: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.allocate-msp-domain-power-users: %w", err)
 	}
-
 	var body client.AllocateMspDomainPowerUsersJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -203,7 +176,7 @@ func (ic *InterfaceClient) dispatchAllocateMspDomainPowerUsersWithResponse(ctx c
 		return nil, fmt.Errorf("egnyte.allocate-msp-domain-power-users: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AllocateMspDomainPowerUsersWithResponse(ctx, client.Domain(domain), body)
+	resp, callErr := ic.cl.AllocateMspDomainPowerUsersWithResponse(ctx, client.Domain(pathArgs.Domain), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -220,22 +193,13 @@ func (ic *InterfaceClient) dispatchAllocateMspDomainPowerUsersWithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchAskAgentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.ask-agent: %w", pathErr)
+	var pathArgs struct {
+		AgentId string `json:"agentId"`
 	}
 
-	var agentId string
-
-	if raw, ok := pathArgs["agentId"]; ok {
-		paramErr := json.Unmarshal(raw, &agentId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.ask-agent: param agentId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.ask-agent: %w", err)
 	}
-
 	var body client.AskAgentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -243,7 +207,7 @@ func (ic *InterfaceClient) dispatchAskAgentWithResponse(ctx context.Context, _ m
 		return nil, fmt.Errorf("egnyte.ask-agent: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AskAgentWithResponse(ctx, agentId, body)
+	resp, callErr := ic.cl.AskAgentWithResponse(ctx, pathArgs.AgentId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -308,22 +272,13 @@ func (ic *InterfaceClient) dispatchAskCopilotWithResponse(ctx context.Context, _
 }
 
 func (ic *InterfaceClient) dispatchAskDocumentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.ask-document: %w", pathErr)
+	var pathArgs struct {
+		EntryId string `json:"entryId"`
 	}
 
-	var entryId string
-
-	if raw, ok := pathArgs["entryId"]; ok {
-		paramErr := json.Unmarshal(raw, &entryId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.ask-document: param entryId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.ask-document: %w", err)
 	}
-
 	var body client.AskDocumentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -331,7 +286,7 @@ func (ic *InterfaceClient) dispatchAskDocumentWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("egnyte.ask-document: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AskDocumentWithResponse(ctx, entryId, body)
+	resp, callErr := ic.cl.AskDocumentWithResponse(ctx, pathArgs.EntryId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -348,22 +303,13 @@ func (ic *InterfaceClient) dispatchAskDocumentWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchAskKbWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.ask-kb: %w", pathErr)
+	var pathArgs struct {
+		KbId string `json:"kbId"`
 	}
 
-	var kbId string
-
-	if raw, ok := pathArgs["kbId"]; ok {
-		paramErr := json.Unmarshal(raw, &kbId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.ask-kb: param kbId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.ask-kb: %w", err)
 	}
-
 	var body client.AskKbJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -371,7 +317,7 @@ func (ic *InterfaceClient) dispatchAskKbWithResponse(ctx context.Context, _ map[
 		return nil, fmt.Errorf("egnyte.ask-kb: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AskKbWithResponse(ctx, kbId, body)
+	resp, callErr := ic.cl.AskKbWithResponse(ctx, pathArgs.KbId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -388,22 +334,13 @@ func (ic *InterfaceClient) dispatchAskKbWithResponse(ctx context.Context, _ map[
 }
 
 func (ic *InterfaceClient) dispatchCancelSignatureRequestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.cancel-signature-request: %w", pathErr)
+	var pathArgs struct {
+		AgreementId string `json:"agreementId"`
 	}
 
-	var agreementId string
-
-	if raw, ok := pathArgs["agreementId"]; ok {
-		paramErr := json.Unmarshal(raw, &agreementId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.cancel-signature-request: param agreementId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.cancel-signature-request: %w", err)
 	}
-
 	var body client.CancelSignatureRequestJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -411,7 +348,7 @@ func (ic *InterfaceClient) dispatchCancelSignatureRequestWithResponse(ctx contex
 		return nil, fmt.Errorf("egnyte.cancel-signature-request: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CancelSignatureRequestWithResponse(ctx, agreementId, body)
+	resp, callErr := ic.cl.CancelSignatureRequestWithResponse(ctx, pathArgs.AgreementId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -428,23 +365,14 @@ func (ic *InterfaceClient) dispatchCancelSignatureRequestWithResponse(ctx contex
 }
 
 func (ic *InterfaceClient) dispatchCancelWorkflowWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.cancel-workflow: %w", pathErr)
+	var pathArgs struct {
+		WorkflowId string `json:"workflowId"`
 	}
 
-	var workflowId string
-
-	if raw, ok := pathArgs["workflowId"]; ok {
-		paramErr := json.Unmarshal(raw, &workflowId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.cancel-workflow: param workflowId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.cancel-workflow: %w", err)
 	}
-
-	resp, callErr := ic.cl.CancelWorkflowWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.CancelWorkflowWithResponse(ctx, pathArgs.WorkflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -461,23 +389,14 @@ func (ic *InterfaceClient) dispatchCancelWorkflowWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchCheckAuditReportStatusWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.check-audit-report-status: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.check-audit-report-status: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.check-audit-report-status: %w", err)
 	}
-
-	resp, callErr := ic.cl.CheckAuditReportStatusWithResponse(ctx, id)
+	resp, callErr := ic.cl.CheckAuditReportStatusWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -494,32 +413,15 @@ func (ic *InterfaceClient) dispatchCheckAuditReportStatusWithResponse(ctx contex
 }
 
 func (ic *InterfaceClient) dispatchCompleteWebhookTaskWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.complete-webhook-task: %w", pathErr)
+	var pathArgs struct {
+		WorkflowId string `json:"workflowId"`
+		TaskId     string `json:"taskId"`
 	}
 
-	var workflowId string
-
-	if raw, ok := pathArgs["workflowId"]; ok {
-		paramErr := json.Unmarshal(raw, &workflowId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.complete-webhook-task: param workflowId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.complete-webhook-task: %w", err)
 	}
-
-	var taskId string
-
-	if raw, ok := pathArgs["taskId"]; ok {
-		paramErr := json.Unmarshal(raw, &taskId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.complete-webhook-task: param taskId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.CompleteWebhookTaskWithResponse(ctx, workflowId, taskId)
+	resp, callErr := ic.cl.CompleteWebhookTaskWithResponse(ctx, pathArgs.WorkflowId, pathArgs.TaskId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1136,23 +1038,14 @@ func (ic *InterfaceClient) dispatchCreateWorkspaceWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchDeleteBookmarkWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.delete-bookmark: %w", pathErr)
+	var pathArgs struct {
+		Id int `json:"id"`
 	}
 
-	var id int
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.delete-bookmark: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.delete-bookmark: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteBookmarkWithResponse(ctx, id)
+	resp, callErr := ic.cl.DeleteBookmarkWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1169,23 +1062,14 @@ func (ic *InterfaceClient) dispatchDeleteBookmarkWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchDeleteCommentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.delete-comment: %w", pathErr)
+	var pathArgs struct {
+		Uuid string `json:"uuid"`
 	}
 
-	var uuid string
-
-	if raw, ok := pathArgs["uuid"]; ok {
-		paramErr := json.Unmarshal(raw, &uuid)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.delete-comment: param uuid: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.delete-comment: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteCommentWithResponse(ctx, uuid)
+	resp, callErr := ic.cl.DeleteCommentWithResponse(ctx, pathArgs.Uuid)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1202,23 +1086,14 @@ func (ic *InterfaceClient) dispatchDeleteCommentWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchDeleteMspWebhookWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.delete-msp-webhook: %w", pathErr)
+	var pathArgs struct {
+		WebhookId uuid.UUID `json:"webhookId"`
 	}
 
-	var webhookId uuid.UUID
-
-	if raw, ok := pathArgs["webhookId"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.delete-msp-webhook: param webhookId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.delete-msp-webhook: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteMspWebhookWithResponse(ctx, webhookId)
+	resp, callErr := ic.cl.DeleteMspWebhookWithResponse(ctx, pathArgs.WebhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1235,23 +1110,14 @@ func (ic *InterfaceClient) dispatchDeleteMspWebhookWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchDeleteScimGroupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.delete-scim-group: %w", pathErr)
+	var pathArgs struct {
+		GroupId string `json:"groupId"`
 	}
 
-	var groupId string
-
-	if raw, ok := pathArgs["groupId"]; ok {
-		paramErr := json.Unmarshal(raw, &groupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.delete-scim-group: param groupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.delete-scim-group: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteScimGroupWithResponse(ctx, groupId)
+	resp, callErr := ic.cl.DeleteScimGroupWithResponse(ctx, pathArgs.GroupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1268,23 +1134,14 @@ func (ic *InterfaceClient) dispatchDeleteScimGroupWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchDeleteScimUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.delete-scim-user: %w", pathErr)
+	var pathArgs struct {
+		UserId string `json:"userId"`
 	}
 
-	var userId string
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.delete-scim-user: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.delete-scim-user: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteScimUserWithResponse(ctx, userId)
+	resp, callErr := ic.cl.DeleteScimUserWithResponse(ctx, pathArgs.UserId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1301,23 +1158,14 @@ func (ic *InterfaceClient) dispatchDeleteScimUserWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchDeleteUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.delete-user: %w", pathErr)
+	var pathArgs struct {
+		Id int `json:"id"`
 	}
 
-	var id int
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.delete-user: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.delete-user: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteUserWithResponse(ctx, id)
+	resp, callErr := ic.cl.DeleteUserWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1334,23 +1182,14 @@ func (ic *InterfaceClient) dispatchDeleteUserWithResponse(ctx context.Context, _
 }
 
 func (ic *InterfaceClient) dispatchDeleteWebhookWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.delete-webhook: %w", pathErr)
+	var pathArgs struct {
+		WebhookId uuid.UUID `json:"webhookId"`
 	}
 
-	var webhookId uuid.UUID
-
-	if raw, ok := pathArgs["webhookId"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.delete-webhook: param webhookId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.delete-webhook: %w", err)
 	}
-
-	resp, callErr := ic.cl.DeleteWebhookWithResponse(ctx, webhookId)
+	resp, callErr := ic.cl.DeleteWebhookWithResponse(ctx, pathArgs.WebhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1367,32 +1206,15 @@ func (ic *InterfaceClient) dispatchDeleteWebhookWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchGetAgentAskStatusWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-agent-ask-status: %w", pathErr)
+	var pathArgs struct {
+		AgentId   string `json:"agentId"`
+		RequestId string `json:"requestId"`
 	}
 
-	var agentId string
-
-	if raw, ok := pathArgs["agentId"]; ok {
-		paramErr := json.Unmarshal(raw, &agentId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-agent-ask-status: param agentId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-agent-ask-status: %w", err)
 	}
-
-	var requestId string
-
-	if raw, ok := pathArgs["requestId"]; ok {
-		paramErr := json.Unmarshal(raw, &requestId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-agent-ask-status: param requestId: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.GetAgentAskStatusWithResponse(ctx, agentId, requestId)
+	resp, callErr := ic.cl.GetAgentAskStatusWithResponse(ctx, pathArgs.AgentId, pathArgs.RequestId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1409,22 +1231,13 @@ func (ic *InterfaceClient) dispatchGetAgentAskStatusWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchGetAssistantStatusWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-assistant-status: %w", pathErr)
+	var pathArgs struct {
+		ExecutionId string `json:"executionId"`
 	}
 
-	var executionId string
-
-	if raw, ok := pathArgs["executionId"]; ok {
-		paramErr := json.Unmarshal(raw, &executionId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-assistant-status: param executionId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-assistant-status: %w", err)
 	}
-
 	var params client.GetAssistantStatusParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1432,7 +1245,7 @@ func (ic *InterfaceClient) dispatchGetAssistantStatusWithResponse(ctx context.Co
 		return nil, fmt.Errorf("egnyte.get-assistant-status: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetAssistantStatusWithResponse(ctx, executionId, &params)
+	resp, callErr := ic.cl.GetAssistantStatusWithResponse(ctx, pathArgs.ExecutionId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1449,23 +1262,14 @@ func (ic *InterfaceClient) dispatchGetAssistantStatusWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchGetBookmarkWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-bookmark: %w", pathErr)
+	var pathArgs struct {
+		Id int `json:"id"`
 	}
 
-	var id int
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-bookmark: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-bookmark: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetBookmarkWithResponse(ctx, id)
+	resp, callErr := ic.cl.GetBookmarkWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1482,23 +1286,14 @@ func (ic *InterfaceClient) dispatchGetBookmarkWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchGetCommentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-comment: %w", pathErr)
+	var pathArgs struct {
+		Uuid string `json:"uuid"`
 	}
 
-	var uuid string
-
-	if raw, ok := pathArgs["uuid"]; ok {
-		paramErr := json.Unmarshal(raw, &uuid)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-comment: param uuid: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-comment: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetCommentWithResponse(ctx, uuid)
+	resp, callErr := ic.cl.GetCommentWithResponse(ctx, pathArgs.Uuid)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1515,23 +1310,14 @@ func (ic *InterfaceClient) dispatchGetCommentWithResponse(ctx context.Context, _
 }
 
 func (ic *InterfaceClient) dispatchGetMspDomainWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-msp-domain: %w", pathErr)
+	var pathArgs struct {
+		Domain string `json:"domain"`
 	}
 
-	var domain string
-
-	if raw, ok := pathArgs["domain"]; ok {
-		paramErr := json.Unmarshal(raw, &domain)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-msp-domain: param domain: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-msp-domain: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetMspDomainWithResponse(ctx, domain)
+	resp, callErr := ic.cl.GetMspDomainWithResponse(ctx, pathArgs.Domain)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1548,22 +1334,13 @@ func (ic *InterfaceClient) dispatchGetMspDomainWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchGetMspPowerUsersQuoteWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-msp-power-users-quote: %w", pathErr)
+	var pathArgs struct {
+		PlanId string `json:"planId"`
 	}
 
-	var planId string
-
-	if raw, ok := pathArgs["planId"]; ok {
-		paramErr := json.Unmarshal(raw, &planId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-msp-power-users-quote: param planId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-msp-power-users-quote: %w", err)
 	}
-
 	var body client.GetMspPowerUsersQuoteJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1571,7 +1348,7 @@ func (ic *InterfaceClient) dispatchGetMspPowerUsersQuoteWithResponse(ctx context
 		return nil, fmt.Errorf("egnyte.get-msp-power-users-quote: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.GetMspPowerUsersQuoteWithResponse(ctx, client.PlanId(planId), body)
+	resp, callErr := ic.cl.GetMspPowerUsersQuoteWithResponse(ctx, client.PlanId(pathArgs.PlanId), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1588,23 +1365,14 @@ func (ic *InterfaceClient) dispatchGetMspPowerUsersQuoteWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchGetMspTenantWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-msp-tenant: %w", pathErr)
+	var pathArgs struct {
+		TenantName string `json:"tenantName"`
 	}
 
-	var tenantName string
-
-	if raw, ok := pathArgs["tenantName"]; ok {
-		paramErr := json.Unmarshal(raw, &tenantName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-msp-tenant: param tenantName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-msp-tenant: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetMspTenantWithResponse(ctx, tenantName)
+	resp, callErr := ic.cl.GetMspTenantWithResponse(ctx, pathArgs.TenantName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1621,23 +1389,14 @@ func (ic *InterfaceClient) dispatchGetMspTenantWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchGetMspWebhookWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-msp-webhook: %w", pathErr)
+	var pathArgs struct {
+		WebhookId uuid.UUID `json:"webhookId"`
 	}
 
-	var webhookId uuid.UUID
-
-	if raw, ok := pathArgs["webhookId"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-msp-webhook: param webhookId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-msp-webhook: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetMspWebhookWithResponse(ctx, webhookId)
+	resp, callErr := ic.cl.GetMspWebhookWithResponse(ctx, pathArgs.WebhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1654,23 +1413,14 @@ func (ic *InterfaceClient) dispatchGetMspWebhookWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchGetProjectDetailsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-project-details: %w", pathErr)
+	var pathArgs struct {
+		ProjectId string `json:"projectId"`
 	}
 
-	var projectId string
-
-	if raw, ok := pathArgs["projectId"]; ok {
-		paramErr := json.Unmarshal(raw, &projectId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-project-details: param projectId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-project-details: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetProjectDetailsWithResponse(ctx, projectId)
+	resp, callErr := ic.cl.GetProjectDetailsWithResponse(ctx, pathArgs.ProjectId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1687,23 +1437,14 @@ func (ic *InterfaceClient) dispatchGetProjectDetailsWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchGetScimGroupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-scim-group: %w", pathErr)
+	var pathArgs struct {
+		GroupId string `json:"groupId"`
 	}
 
-	var groupId string
-
-	if raw, ok := pathArgs["groupId"]; ok {
-		paramErr := json.Unmarshal(raw, &groupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-scim-group: param groupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-scim-group: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetScimGroupWithResponse(ctx, groupId)
+	resp, callErr := ic.cl.GetScimGroupWithResponse(ctx, pathArgs.GroupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1720,23 +1461,14 @@ func (ic *InterfaceClient) dispatchGetScimGroupWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchGetScimUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-scim-user: %w", pathErr)
+	var pathArgs struct {
+		UserId string `json:"userId"`
 	}
 
-	var userId string
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-scim-user: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-scim-user: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetScimUserWithResponse(ctx, userId)
+	resp, callErr := ic.cl.GetScimUserWithResponse(ctx, pathArgs.UserId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1770,23 +1502,14 @@ func (ic *InterfaceClient) dispatchGetSettingsWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchGetSfdcFolderMapWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-sfdc-folder-map: %w", pathErr)
+	var pathArgs struct {
+		RecordId string `json:"recordId"`
 	}
 
-	var recordId string
-
-	if raw, ok := pathArgs["recordId"]; ok {
-		paramErr := json.Unmarshal(raw, &recordId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-sfdc-folder-map: param recordId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-sfdc-folder-map: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetSfdcFolderMapWithResponse(ctx, recordId)
+	resp, callErr := ic.cl.GetSfdcFolderMapWithResponse(ctx, pathArgs.RecordId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1803,23 +1526,14 @@ func (ic *InterfaceClient) dispatchGetSfdcFolderMapWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchGetSignTemplateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-sign-template: %w", pathErr)
+	var pathArgs struct {
+		TemplateId string `json:"templateId"`
 	}
 
-	var templateId string
-
-	if raw, ok := pathArgs["templateId"]; ok {
-		paramErr := json.Unmarshal(raw, &templateId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-sign-template: param templateId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-sign-template: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetSignTemplateWithResponse(ctx, templateId)
+	resp, callErr := ic.cl.GetSignTemplateWithResponse(ctx, pathArgs.TemplateId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1853,23 +1567,14 @@ func (ic *InterfaceClient) dispatchGetTrashTotalCountWithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchGetUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-user: %w", pathErr)
+	var pathArgs struct {
+		Id int `json:"id"`
 	}
 
-	var id int
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-user: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-user: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetUserWithResponse(ctx, id)
+	resp, callErr := ic.cl.GetUserWithResponse(ctx, pathArgs.Id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1886,23 +1591,14 @@ func (ic *InterfaceClient) dispatchGetUserWithResponse(ctx context.Context, _ ma
 }
 
 func (ic *InterfaceClient) dispatchGetUserDetailsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-user-details: %w", pathErr)
+	var pathArgs struct {
+		UserId uuid.UUID `json:"userId"`
 	}
 
-	var userId uuid.UUID
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-user-details: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-user-details: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetUserDetailsWithResponse(ctx, userId)
+	resp, callErr := ic.cl.GetUserDetailsWithResponse(ctx, pathArgs.UserId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1919,22 +1615,13 @@ func (ic *InterfaceClient) dispatchGetUserDetailsWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchGetUserLogsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-user-logs: %w", pathErr)
+	var pathArgs struct {
+		UserId uuid.UUID `json:"userId"`
 	}
 
-	var userId uuid.UUID
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-user-logs: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-user-logs: %w", err)
 	}
-
 	var params client.GetUserLogsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1942,7 +1629,7 @@ func (ic *InterfaceClient) dispatchGetUserLogsWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("egnyte.get-user-logs: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetUserLogsWithResponse(ctx, userId, &params)
+	resp, callErr := ic.cl.GetUserLogsWithResponse(ctx, pathArgs.UserId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1993,23 +1680,14 @@ func (ic *InterfaceClient) dispatchGetUsersListWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchGetWebhookDetailsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-webhook-details: %w", pathErr)
+	var pathArgs struct {
+		WebhookId uuid.UUID `json:"webhookId"`
 	}
 
-	var webhookId uuid.UUID
-
-	if raw, ok := pathArgs["webhookId"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-webhook-details: param webhookId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-webhook-details: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetWebhookDetailsWithResponse(ctx, webhookId)
+	resp, callErr := ic.cl.GetWebhookDetailsWithResponse(ctx, pathArgs.WebhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2026,23 +1704,14 @@ func (ic *InterfaceClient) dispatchGetWebhookDetailsWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchGetWebhookStatusWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-webhook-status: %w", pathErr)
+	var pathArgs struct {
+		WebhookId uuid.UUID `json:"webhookId"`
 	}
 
-	var webhookId uuid.UUID
-
-	if raw, ok := pathArgs["webhookId"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-webhook-status: param webhookId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-webhook-status: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetWebhookStatusWithResponse(ctx, webhookId)
+	resp, callErr := ic.cl.GetWebhookStatusWithResponse(ctx, pathArgs.WebhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2059,23 +1728,14 @@ func (ic *InterfaceClient) dispatchGetWebhookStatusWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchGetWorkflowWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.get-workflow: %w", pathErr)
+	var pathArgs struct {
+		WorkflowId string `json:"workflowId"`
 	}
 
-	var workflowId string
-
-	if raw, ok := pathArgs["workflowId"]; ok {
-		paramErr := json.Unmarshal(raw, &workflowId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.get-workflow: param workflowId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-workflow: %w", err)
 	}
-
-	resp, callErr := ic.cl.GetWorkflowWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.GetWorkflowWithResponse(ctx, pathArgs.WorkflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2188,22 +1848,13 @@ func (ic *InterfaceClient) dispatchListAgentsWithResponse(ctx context.Context, _
 }
 
 func (ic *InterfaceClient) dispatchListArtifactsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.list-artifacts: %w", pathErr)
+	var pathArgs struct {
+		StudyId string `json:"studyId"`
 	}
 
-	var studyId string
-
-	if raw, ok := pathArgs["studyId"]; ok {
-		paramErr := json.Unmarshal(raw, &studyId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.list-artifacts: param studyId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.list-artifacts: %w", err)
 	}
-
 	var params client.ListArtifactsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2211,7 +1862,7 @@ func (ic *InterfaceClient) dispatchListArtifactsWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.list-artifacts: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ListArtifactsWithResponse(ctx, studyId, &params)
+	resp, callErr := ic.cl.ListArtifactsWithResponse(ctx, pathArgs.StudyId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2276,22 +1927,13 @@ func (ic *InterfaceClient) dispatchListCommentsWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchListDocumentsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.list-documents: %w", pathErr)
+	var pathArgs struct {
+		StudyId string `json:"studyId"`
 	}
 
-	var studyId string
-
-	if raw, ok := pathArgs["studyId"]; ok {
-		paramErr := json.Unmarshal(raw, &studyId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.list-documents: param studyId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.list-documents: %w", err)
 	}
-
 	var body client.ListDocumentsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2306,7 +1948,7 @@ func (ic *InterfaceClient) dispatchListDocumentsWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.list-documents: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ListDocumentsWithResponse(ctx, studyId, &params, body)
+	resp, callErr := ic.cl.ListDocumentsWithResponse(ctx, pathArgs.StudyId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2323,23 +1965,14 @@ func (ic *InterfaceClient) dispatchListDocumentsWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchListFilingLevelsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.list-filing-levels: %w", pathErr)
+	var pathArgs struct {
+		StudyId string `json:"studyId"`
 	}
 
-	var studyId string
-
-	if raw, ok := pathArgs["studyId"]; ok {
-		paramErr := json.Unmarshal(raw, &studyId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.list-filing-levels: param studyId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.list-filing-levels: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListFilingLevelsWithResponse(ctx, studyId)
+	resp, callErr := ic.cl.ListFilingLevelsWithResponse(ctx, pathArgs.StudyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2486,23 +2119,14 @@ func (ic *InterfaceClient) dispatchListMySignatureRequestsWithResponse(ctx conte
 }
 
 func (ic *InterfaceClient) dispatchListProcoreProjectsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.list-procore-projects: %w", pathErr)
+	var pathArgs struct {
+		CompanyId string `json:"companyId"`
 	}
 
-	var companyId string
-
-	if raw, ok := pathArgs["companyId"]; ok {
-		paramErr := json.Unmarshal(raw, &companyId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.list-procore-projects: param companyId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.list-procore-projects: %w", err)
 	}
-
-	resp, callErr := ic.cl.ListProcoreProjectsWithResponse(ctx, companyId)
+	resp, callErr := ic.cl.ListProcoreProjectsWithResponse(ctx, pathArgs.CompanyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2885,23 +2509,14 @@ func (ic *InterfaceClient) dispatchMarkFolderAsProjectWithResponse(ctx context.C
 }
 
 func (ic *InterfaceClient) dispatchNavigatePostV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.navigate-post-v1: %w", pathErr)
+	var pathArgs struct {
+		Scope string `json:"scope"`
 	}
 
-	var scope string
-
-	if raw, ok := pathArgs["scope"]; ok {
-		paramErr := json.Unmarshal(raw, &scope)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.navigate-post-v1: param scope: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.navigate-post-v1: %w", err)
 	}
-
-	resp, callErr := ic.cl.NavigatePostV1WithResponse(ctx, scope)
+	resp, callErr := ic.cl.NavigatePostV1WithResponse(ctx, pathArgs.Scope)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2942,23 +2557,14 @@ func (ic *InterfaceClient) dispatchNavigatePostV2WithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchNotesDeleteByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.notes-delete-by-id-v1: %w", pathErr)
+	var pathArgs struct {
+		NoteId string `json:"noteId"`
 	}
 
-	var noteId string
-
-	if raw, ok := pathArgs["noteId"]; ok {
-		paramErr := json.Unmarshal(raw, &noteId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.notes-delete-by-id-v1: param noteId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.notes-delete-by-id-v1: %w", err)
 	}
-
-	resp, callErr := ic.cl.NotesDeleteByIdV1WithResponse(ctx, noteId)
+	resp, callErr := ic.cl.NotesDeleteByIdV1WithResponse(ctx, pathArgs.NoteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2975,23 +2581,14 @@ func (ic *InterfaceClient) dispatchNotesDeleteByIdV1WithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchNotesGetByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.notes-get-by-id-v1: %w", pathErr)
+	var pathArgs struct {
+		NoteId string `json:"noteId"`
 	}
 
-	var noteId string
-
-	if raw, ok := pathArgs["noteId"]; ok {
-		paramErr := json.Unmarshal(raw, &noteId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.notes-get-by-id-v1: param noteId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.notes-get-by-id-v1: %w", err)
 	}
-
-	resp, callErr := ic.cl.NotesGetByIdV1WithResponse(ctx, noteId)
+	resp, callErr := ic.cl.NotesGetByIdV1WithResponse(ctx, pathArgs.NoteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3008,22 +2605,13 @@ func (ic *InterfaceClient) dispatchNotesGetByIdV1WithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchPatchScimGroupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.patch-scim-group: %w", pathErr)
+	var pathArgs struct {
+		GroupId string `json:"groupId"`
 	}
 
-	var groupId string
-
-	if raw, ok := pathArgs["groupId"]; ok {
-		paramErr := json.Unmarshal(raw, &groupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.patch-scim-group: param groupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.patch-scim-group: %w", err)
 	}
-
 	var body client.PatchScimGroupJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3031,7 +2619,7 @@ func (ic *InterfaceClient) dispatchPatchScimGroupWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("egnyte.patch-scim-group: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PatchScimGroupWithResponse(ctx, groupId, body)
+	resp, callErr := ic.cl.PatchScimGroupWithResponse(ctx, pathArgs.GroupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3048,22 +2636,13 @@ func (ic *InterfaceClient) dispatchPatchScimGroupWithResponse(ctx context.Contex
 }
 
 func (ic *InterfaceClient) dispatchPatchScimUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.patch-scim-user: %w", pathErr)
+	var pathArgs struct {
+		UserId string `json:"userId"`
 	}
 
-	var userId string
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.patch-scim-user: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.patch-scim-user: %w", err)
 	}
-
 	var body client.PatchScimUserJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3071,7 +2650,7 @@ func (ic *InterfaceClient) dispatchPatchScimUserWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.patch-scim-user: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PatchScimUserWithResponse(ctx, userId, body)
+	resp, callErr := ic.cl.PatchScimUserWithResponse(ctx, pathArgs.UserId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3088,31 +2667,14 @@ func (ic *InterfaceClient) dispatchPatchScimUserWithResponse(ctx context.Context
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteFsByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-by-id-v1: %w", pathErr)
+	var pathArgs struct {
+		PType string `json:"pType"`
+		Id    string `json:"id"`
 	}
 
-	var pType string
-
-	if raw, ok := pathArgs["pType"]; ok {
-		paramErr := json.Unmarshal(raw, &pType)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-by-id-v1: param pType: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-by-id-v1: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-by-id-v1: param id: %w", paramErr)
-		}
-	}
-
 	var params client.PortalProdDeleteFsByIdV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3120,7 +2682,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteFsByIdV1WithResponse(ctx cont
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-by-id-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdDeleteFsByIdV1WithResponse(ctx, client.PortalProdDeleteFsByIdV1ParamsType(pType), id, &params)
+	resp, callErr := ic.cl.PortalProdDeleteFsByIdV1WithResponse(ctx, client.PortalProdDeleteFsByIdV1ParamsType(pathArgs.PType), pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3137,22 +2699,13 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteFsByIdV1WithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteFsV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v1: %w", pathErr)
+	var pathArgs struct {
+		Path string `json:"path"`
 	}
 
-	var path string
-
-	if raw, ok := pathArgs["path"]; ok {
-		paramErr := json.Unmarshal(raw, &path)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v1: param path: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v1: %w", err)
 	}
-
 	var params client.PortalProdDeleteFsV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3160,7 +2713,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteFsV1WithResponse(ctx context.
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdDeleteFsV1WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdDeleteFsV1WithResponse(ctx, pathArgs.Path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3177,22 +2730,13 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteFsV1WithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteFsV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v2: %w", pathErr)
+	var pathArgs struct {
+		Path string `json:"path"`
 	}
 
-	var path string
-
-	if raw, ok := pathArgs["path"]; ok {
-		paramErr := json.Unmarshal(raw, &path)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v2: param path: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v2: %w", err)
 	}
-
 	var params client.PortalProdDeleteFsV2Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3200,7 +2744,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteFsV2WithResponse(ctx context.
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v2: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdDeleteFsV2WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdDeleteFsV2WithResponse(ctx, pathArgs.Path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3217,23 +2761,14 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteFsV2WithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteGroupsByIdV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-groups-by-id-v2: %w", pathErr)
+	var pathArgs struct {
+		GroupId string `json:"groupId"`
 	}
 
-	var groupId string
-
-	if raw, ok := pathArgs["groupId"]; ok {
-		paramErr := json.Unmarshal(raw, &groupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-groups-by-id-v2: param groupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-groups-by-id-v2: %w", err)
 	}
-
-	resp, callErr := ic.cl.PortalProdDeleteGroupsByIdV2WithResponse(ctx, groupId)
+	resp, callErr := ic.cl.PortalProdDeleteGroupsByIdV2WithResponse(ctx, pathArgs.GroupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3250,23 +2785,14 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteGroupsByIdV2WithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteLinksByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-links-by-id-v1: %w", pathErr)
+	var pathArgs struct {
+		LinkId string `json:"linkId"`
 	}
 
-	var linkId string
-
-	if raw, ok := pathArgs["linkId"]; ok {
-		paramErr := json.Unmarshal(raw, &linkId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-links-by-id-v1: param linkId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-links-by-id-v1: %w", err)
 	}
-
-	resp, callErr := ic.cl.PortalProdDeleteLinksByIdV1WithResponse(ctx, linkId)
+	resp, callErr := ic.cl.PortalProdDeleteLinksByIdV1WithResponse(ctx, pathArgs.LinkId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3283,23 +2809,14 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteLinksByIdV1WithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteLinksByIdV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-links-by-id-v2: %w", pathErr)
+	var pathArgs struct {
+		LinkId string `json:"linkId"`
 	}
 
-	var linkId string
-
-	if raw, ok := pathArgs["linkId"]; ok {
-		paramErr := json.Unmarshal(raw, &linkId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-links-by-id-v2: param linkId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-links-by-id-v2: %w", err)
 	}
-
-	resp, callErr := ic.cl.PortalProdDeleteLinksByIdV2WithResponse(ctx, linkId)
+	resp, callErr := ic.cl.PortalProdDeleteLinksByIdV2WithResponse(ctx, pathArgs.LinkId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3316,31 +2833,14 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteLinksByIdV2WithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteMetadataKeyV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-metadata-key-v1: %w", pathErr)
+	var pathArgs struct {
+		NamespaceName string `json:"namespaceName"`
+		KeyName       string `json:"keyName"`
 	}
 
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-metadata-key-v1: param namespaceName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-metadata-key-v1: %w", err)
 	}
-
-	var keyName string
-
-	if raw, ok := pathArgs["keyName"]; ok {
-		paramErr := json.Unmarshal(raw, &keyName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-metadata-key-v1: param keyName: %w", paramErr)
-		}
-	}
-
 	var params client.PortalProdDeleteMetadataKeyV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3348,7 +2848,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteMetadataKeyV1WithResponse(ctx
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-metadata-key-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdDeleteMetadataKeyV1WithResponse(ctx, namespaceName, keyName, &params)
+	resp, callErr := ic.cl.PortalProdDeleteMetadataKeyV1WithResponse(ctx, pathArgs.NamespaceName, pathArgs.KeyName, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3365,22 +2865,13 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteMetadataKeyV1WithResponse(ctx
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteNamespaceV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-namespace-v1: %w", pathErr)
+	var pathArgs struct {
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-namespace-v1: param namespaceName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-namespace-v1: %w", err)
 	}
-
 	var params client.PortalProdDeleteNamespaceV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3388,7 +2879,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteNamespaceV1WithResponse(ctx c
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-namespace-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdDeleteNamespaceV1WithResponse(ctx, namespaceName, &params)
+	resp, callErr := ic.cl.PortalProdDeleteNamespaceV1WithResponse(ctx, pathArgs.NamespaceName, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3405,22 +2896,13 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteNamespaceV1WithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPortalProdDeleteProjectCustomFieldV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-delete-project-custom-field-v1: %w", pathErr)
+	var pathArgs struct {
+		FieldName string `json:"fieldName"`
 	}
 
-	var fieldName string
-
-	if raw, ok := pathArgs["fieldName"]; ok {
-		paramErr := json.Unmarshal(raw, &fieldName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-delete-project-custom-field-v1: param fieldName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-delete-project-custom-field-v1: %w", err)
 	}
-
 	var params client.PortalProdDeleteProjectCustomFieldV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3428,7 +2910,7 @@ func (ic *InterfaceClient) dispatchPortalProdDeleteProjectCustomFieldV1WithRespo
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-project-custom-field-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdDeleteProjectCustomFieldV1WithResponse(ctx, client.FieldName(fieldName), &params)
+	resp, callErr := ic.cl.PortalProdDeleteProjectCustomFieldV1WithResponse(ctx, client.FieldName(pathArgs.FieldName), &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3510,32 +2992,15 @@ func (ic *InterfaceClient) dispatchPortalProdGetEventsV2WithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFileMetadataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-file-metadata-v1: %w", pathErr)
+	var pathArgs struct {
+		Id            string `json:"id"`
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-file-metadata-v1: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-file-metadata-v1: %w", err)
 	}
-
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-file-metadata-v1: param namespaceName: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.PortalProdGetFileMetadataV1WithResponse(ctx, id, namespaceName)
+	resp, callErr := ic.cl.PortalProdGetFileMetadataV1WithResponse(ctx, pathArgs.Id, pathArgs.NamespaceName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3552,32 +3017,15 @@ func (ic *InterfaceClient) dispatchPortalProdGetFileMetadataV1WithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFolderMetadataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-folder-metadata-v1: %w", pathErr)
+	var pathArgs struct {
+		Id            string `json:"id"`
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-folder-metadata-v1: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-folder-metadata-v1: %w", err)
 	}
-
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-folder-metadata-v1: param namespaceName: %w", paramErr)
-		}
-	}
-
-	resp, callErr := ic.cl.PortalProdGetFolderMetadataV1WithResponse(ctx, id, namespaceName)
+	resp, callErr := ic.cl.PortalProdGetFolderMetadataV1WithResponse(ctx, pathArgs.Id, pathArgs.NamespaceName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3594,31 +3042,14 @@ func (ic *InterfaceClient) dispatchPortalProdGetFolderMetadataV1WithResponse(ctx
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-by-id-v1: %w", pathErr)
+	var pathArgs struct {
+		PType string `json:"pType"`
+		Id    string `json:"id"`
 	}
 
-	var pType string
-
-	if raw, ok := pathArgs["pType"]; ok {
-		paramErr := json.Unmarshal(raw, &pType)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-fs-by-id-v1: param pType: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-by-id-v1: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-fs-by-id-v1: param id: %w", paramErr)
-		}
-	}
-
 	var params client.PortalProdGetFsByIdV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3626,7 +3057,7 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsByIdV1WithResponse(ctx context
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-by-id-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdGetFsByIdV1WithResponse(ctx, client.PortalProdGetFsByIdV1ParamsType(pType), id, &params)
+	resp, callErr := ic.cl.PortalProdGetFsByIdV1WithResponse(ctx, client.PortalProdGetFsByIdV1ParamsType(pathArgs.PType), pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3643,22 +3074,13 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsByIdV1WithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsContentByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-id-v1: %w", pathErr)
+	var pathArgs struct {
+		Id string `json:"id"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-id-v1: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-id-v1: %w", err)
 	}
-
 	var params client.PortalProdGetFsContentByIdV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3666,7 +3088,7 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsContentByIdV1WithResponse(ctx 
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-id-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdGetFsContentByIdV1WithResponse(ctx, id, &params)
+	resp, callErr := ic.cl.PortalProdGetFsContentByIdV1WithResponse(ctx, pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3683,22 +3105,13 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsContentByIdV1WithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsContentByPathV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-path-v1: %w", pathErr)
+	var pathArgs struct {
+		Path string `json:"path"`
 	}
 
-	var path string
-
-	if raw, ok := pathArgs["path"]; ok {
-		paramErr := json.Unmarshal(raw, &path)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-path-v1: param path: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-path-v1: %w", err)
 	}
-
 	var params client.PortalProdGetFsContentByPathV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3706,7 +3119,7 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsContentByPathV1WithResponse(ct
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-path-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdGetFsContentByPathV1WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdGetFsContentByPathV1WithResponse(ctx, pathArgs.Path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3723,23 +3136,14 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsContentByPathV1WithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsFolderStatsV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-folder-stats-v1: %w", pathErr)
+	var pathArgs struct {
+		FolderId string `json:"folderId"`
 	}
 
-	var folderId string
-
-	if raw, ok := pathArgs["folderId"]; ok {
-		paramErr := json.Unmarshal(raw, &folderId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-fs-folder-stats-v1: param folderId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-folder-stats-v1: %w", err)
 	}
-
-	resp, callErr := ic.cl.PortalProdGetFsFolderStatsV1WithResponse(ctx, folderId)
+	resp, callErr := ic.cl.PortalProdGetFsFolderStatsV1WithResponse(ctx, pathArgs.FolderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3756,22 +3160,13 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsFolderStatsV1WithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v1: %w", pathErr)
+	var pathArgs struct {
+		Path string `json:"path"`
 	}
 
-	var path string
-
-	if raw, ok := pathArgs["path"]; ok {
-		paramErr := json.Unmarshal(raw, &path)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v1: param path: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v1: %w", err)
 	}
-
 	var params client.PortalProdGetFsV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3779,7 +3174,7 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsV1WithResponse(ctx context.Con
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdGetFsV1WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdGetFsV1WithResponse(ctx, pathArgs.Path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3796,22 +3191,13 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsV1WithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v2: %w", pathErr)
+	var pathArgs struct {
+		Path string `json:"path"`
 	}
 
-	var path string
-
-	if raw, ok := pathArgs["path"]; ok {
-		paramErr := json.Unmarshal(raw, &path)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v2: param path: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v2: %w", err)
 	}
-
 	var params client.PortalProdGetFsV2Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3819,7 +3205,7 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsV2WithResponse(ctx context.Con
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v2: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdGetFsV2WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdGetFsV2WithResponse(ctx, pathArgs.Path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3836,23 +3222,14 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsV2WithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetGroupsByIdV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-groups-by-id-v2: %w", pathErr)
+	var pathArgs struct {
+		GroupId string `json:"groupId"`
 	}
 
-	var groupId string
-
-	if raw, ok := pathArgs["groupId"]; ok {
-		paramErr := json.Unmarshal(raw, &groupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-groups-by-id-v2: param groupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-groups-by-id-v2: %w", err)
 	}
-
-	resp, callErr := ic.cl.PortalProdGetGroupsByIdV2WithResponse(ctx, groupId)
+	resp, callErr := ic.cl.PortalProdGetGroupsByIdV2WithResponse(ctx, pathArgs.GroupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3917,23 +3294,14 @@ func (ic *InterfaceClient) dispatchPortalProdGetInsightsFilesV1WithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetLinksByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-links-by-id-v1: %w", pathErr)
+	var pathArgs struct {
+		LinkId string `json:"linkId"`
 	}
 
-	var linkId string
-
-	if raw, ok := pathArgs["linkId"]; ok {
-		paramErr := json.Unmarshal(raw, &linkId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-links-by-id-v1: param linkId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-links-by-id-v1: %w", err)
 	}
-
-	resp, callErr := ic.cl.PortalProdGetLinksByIdV1WithResponse(ctx, linkId)
+	resp, callErr := ic.cl.PortalProdGetLinksByIdV1WithResponse(ctx, pathArgs.LinkId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3950,23 +3318,14 @@ func (ic *InterfaceClient) dispatchPortalProdGetLinksByIdV1WithResponse(ctx cont
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetLinksByIdV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-links-by-id-v2: %w", pathErr)
+	var pathArgs struct {
+		LinkId string `json:"linkId"`
 	}
 
-	var linkId string
-
-	if raw, ok := pathArgs["linkId"]; ok {
-		paramErr := json.Unmarshal(raw, &linkId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-links-by-id-v2: param linkId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-links-by-id-v2: %w", err)
 	}
-
-	resp, callErr := ic.cl.PortalProdGetLinksByIdV2WithResponse(ctx, linkId)
+	resp, callErr := ic.cl.PortalProdGetLinksByIdV2WithResponse(ctx, pathArgs.LinkId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4031,23 +3390,14 @@ func (ic *InterfaceClient) dispatchPortalProdGetLinksV2WithResponse(ctx context.
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetNamespaceV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-get-namespace-v1: %w", pathErr)
+	var pathArgs struct {
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-get-namespace-v1: param namespaceName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-get-namespace-v1: %w", err)
 	}
-
-	resp, callErr := ic.cl.PortalProdGetNamespaceV1WithResponse(ctx, namespaceName)
+	resp, callErr := ic.cl.PortalProdGetNamespaceV1WithResponse(ctx, pathArgs.NamespaceName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4105,22 +3455,13 @@ func (ic *InterfaceClient) dispatchPortalProdGetProjectCustomFieldsV1WithRespons
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-patch-groups-by-id-v2: %w", pathErr)
+	var pathArgs struct {
+		GroupId string `json:"groupId"`
 	}
 
-	var groupId string
-
-	if raw, ok := pathArgs["groupId"]; ok {
-		paramErr := json.Unmarshal(raw, &groupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-groups-by-id-v2: param groupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-groups-by-id-v2: %w", err)
 	}
-
 	var body client.PortalProdPatchGroupsByIdV2JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4128,7 +3469,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx c
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-groups-by-id-v2: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchGroupsByIdV2WithResponse(ctx, groupId, body)
+	resp, callErr := ic.cl.PortalProdPatchGroupsByIdV2WithResponse(ctx, pathArgs.GroupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4145,40 +3486,15 @@ func (ic *InterfaceClient) dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyDataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-data-v1: %w", pathErr)
+	var pathArgs struct {
+		NamespaceName string   `json:"namespaceName"`
+		KeyName       string   `json:"keyName"`
+		Body          []string `json:"body"`
 	}
 
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-data-v1: param namespaceName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-data-v1: %w", err)
 	}
-
-	var keyName string
-
-	if raw, ok := pathArgs["keyName"]; ok {
-		paramErr := json.Unmarshal(raw, &keyName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-data-v1: param keyName: %w", paramErr)
-		}
-	}
-
-	var body []string
-
-	if raw, ok := pathArgs["body"]; ok {
-		paramErr := json.Unmarshal(raw, &body)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-data-v1: param body: %w", paramErr)
-		}
-	}
-
 	var params client.PortalProdPatchMetadataKeyDataV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4186,7 +3502,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyDataV1WithResponse(
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-data-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchMetadataKeyDataV1WithResponse(ctx, namespaceName, keyName, &params, body)
+	resp, callErr := ic.cl.PortalProdPatchMetadataKeyDataV1WithResponse(ctx, pathArgs.NamespaceName, pathArgs.KeyName, &params, pathArgs.Body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4203,31 +3519,14 @@ func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyDataV1WithResponse(
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-v1: %w", pathErr)
+	var pathArgs struct {
+		NamespaceName string `json:"namespaceName"`
+		KeyName       string `json:"keyName"`
 	}
 
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-v1: param namespaceName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-v1: %w", err)
 	}
-
-	var keyName string
-
-	if raw, ok := pathArgs["keyName"]; ok {
-		paramErr := json.Unmarshal(raw, &keyName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-v1: param keyName: %w", paramErr)
-		}
-	}
-
 	var body client.PortalProdPatchMetadataKeyV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4235,7 +3534,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyV1WithResponse(ctx 
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchMetadataKeyV1WithResponse(ctx, namespaceName, keyName, body)
+	resp, callErr := ic.cl.PortalProdPatchMetadataKeyV1WithResponse(ctx, pathArgs.NamespaceName, pathArgs.KeyName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4252,22 +3551,13 @@ func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyV1WithResponse(ctx 
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeysDataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-keys-data-v1: %w", pathErr)
+	var pathArgs struct {
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-keys-data-v1: param namespaceName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-keys-data-v1: %w", err)
 	}
-
 	var body client.PortalProdPatchMetadataKeysDataV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4282,7 +3572,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeysDataV1WithResponse
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-keys-data-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchMetadataKeysDataV1WithResponse(ctx, namespaceName, &params, body)
+	resp, callErr := ic.cl.PortalProdPatchMetadataKeysDataV1WithResponse(ctx, pathArgs.NamespaceName, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4299,22 +3589,13 @@ func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeysDataV1WithResponse
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPatchNamespaceV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-patch-namespace-v1: %w", pathErr)
+	var pathArgs struct {
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-namespace-v1: param namespaceName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-namespace-v1: %w", err)
 	}
-
 	var body client.PortalProdPatchNamespaceV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4322,7 +3603,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchNamespaceV1WithResponse(ctx co
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-namespace-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchNamespaceV1WithResponse(ctx, namespaceName, body)
+	resp, callErr := ic.cl.PortalProdPatchNamespaceV1WithResponse(ctx, pathArgs.NamespaceName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4339,31 +3620,14 @@ func (ic *InterfaceClient) dispatchPortalProdPatchNamespaceV1WithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldDataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-data-v1: %w", pathErr)
+	var pathArgs struct {
+		FieldName string   `json:"fieldName"`
+		Body      []string `json:"body"`
 	}
 
-	var fieldName string
-
-	if raw, ok := pathArgs["fieldName"]; ok {
-		paramErr := json.Unmarshal(raw, &fieldName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-data-v1: param fieldName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-data-v1: %w", err)
 	}
-
-	var body []string
-
-	if raw, ok := pathArgs["body"]; ok {
-		paramErr := json.Unmarshal(raw, &body)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-data-v1: param body: %w", paramErr)
-		}
-	}
-
 	var params client.PortalProdPatchProjectCustomFieldDataV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4371,7 +3635,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldDataV1WithRe
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-data-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, client.FieldName(fieldName), &params, body)
+	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, client.FieldName(pathArgs.FieldName), &params, pathArgs.Body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4388,22 +3652,13 @@ func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldDataV1WithRe
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-v1: %w", pathErr)
+	var pathArgs struct {
+		FieldName string `json:"fieldName"`
 	}
 
-	var fieldName string
-
-	if raw, ok := pathArgs["fieldName"]; ok {
-		paramErr := json.Unmarshal(raw, &fieldName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-v1: param fieldName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-v1: %w", err)
 	}
-
 	var body client.PortalProdPatchProjectCustomFieldV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4411,7 +3666,7 @@ func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldV1WithRespon
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldV1WithResponse(ctx, client.FieldName(fieldName), body)
+	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldV1WithResponse(ctx, client.FieldName(pathArgs.FieldName), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4428,31 +3683,14 @@ func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldV1WithRespon
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPostFsByIdV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-by-id-v1: %w", pathErr)
+	var pathArgs struct {
+		PType string `json:"pType"`
+		Id    string `json:"id"`
 	}
 
-	var pType string
-
-	if raw, ok := pathArgs["pType"]; ok {
-		paramErr := json.Unmarshal(raw, &pType)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-post-fs-by-id-v1: param pType: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-by-id-v1: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-post-fs-by-id-v1: param id: %w", paramErr)
-		}
-	}
-
 	var body client.PortalProdPostFsByIdV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4460,7 +3698,7 @@ func (ic *InterfaceClient) dispatchPortalProdPostFsByIdV1WithResponse(ctx contex
 		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-by-id-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPostFsByIdV1WithResponse(ctx, client.PortalProdPostFsByIdV1ParamsType(pType), id, body)
+	resp, callErr := ic.cl.PortalProdPostFsByIdV1WithResponse(ctx, client.PortalProdPostFsByIdV1ParamsType(pathArgs.PType), pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4477,22 +3715,13 @@ func (ic *InterfaceClient) dispatchPortalProdPostFsByIdV1WithResponse(ctx contex
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPostFsV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v1: %w", pathErr)
+	var pathArgs struct {
+		Path string `json:"path"`
 	}
 
-	var path string
-
-	if raw, ok := pathArgs["path"]; ok {
-		paramErr := json.Unmarshal(raw, &path)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v1: param path: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v1: %w", err)
 	}
-
 	var body client.PortalProdPostFsV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4500,7 +3729,7 @@ func (ic *InterfaceClient) dispatchPortalProdPostFsV1WithResponse(ctx context.Co
 		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPostFsV1WithResponse(ctx, path, body)
+	resp, callErr := ic.cl.PortalProdPostFsV1WithResponse(ctx, pathArgs.Path, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4517,22 +3746,13 @@ func (ic *InterfaceClient) dispatchPortalProdPostFsV1WithResponse(ctx context.Co
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPostFsV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v2: %w", pathErr)
+	var pathArgs struct {
+		Path string `json:"path"`
 	}
 
-	var path string
-
-	if raw, ok := pathArgs["path"]; ok {
-		paramErr := json.Unmarshal(raw, &path)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v2: param path: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v2: %w", err)
 	}
-
 	var body client.PortalProdPostFsV2JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4540,7 +3760,7 @@ func (ic *InterfaceClient) dispatchPortalProdPostFsV2WithResponse(ctx context.Co
 		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v2: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPostFsV2WithResponse(ctx, path, body)
+	resp, callErr := ic.cl.PortalProdPostFsV2WithResponse(ctx, pathArgs.Path, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4629,22 +3849,13 @@ func (ic *InterfaceClient) dispatchPortalProdPostLinksV2WithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPostMetadataKeyV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-post-metadata-key-v1: %w", pathErr)
+	var pathArgs struct {
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-post-metadata-key-v1: param namespaceName: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-metadata-key-v1: %w", err)
 	}
-
 	var body client.PortalProdPostMetadataKeyV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4652,7 +3863,7 @@ func (ic *InterfaceClient) dispatchPortalProdPostMetadataKeyV1WithResponse(ctx c
 		return nil, fmt.Errorf("egnyte.portal-prod-post-metadata-key-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPostMetadataKeyV1WithResponse(ctx, namespaceName, body)
+	resp, callErr := ic.cl.PortalProdPostMetadataKeyV1WithResponse(ctx, pathArgs.NamespaceName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4741,31 +3952,14 @@ func (ic *InterfaceClient) dispatchPortalProdPostSearchMetadataV1WithResponse(ct
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPutFileMetadataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-put-file-metadata-v1: %w", pathErr)
+	var pathArgs struct {
+		Id            string `json:"id"`
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-put-file-metadata-v1: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-put-file-metadata-v1: %w", err)
 	}
-
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-put-file-metadata-v1: param namespaceName: %w", paramErr)
-		}
-	}
-
 	var body client.PortalProdPutFileMetadataV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4773,7 +3967,7 @@ func (ic *InterfaceClient) dispatchPortalProdPutFileMetadataV1WithResponse(ctx c
 		return nil, fmt.Errorf("egnyte.portal-prod-put-file-metadata-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPutFileMetadataV1WithResponse(ctx, id, namespaceName, body)
+	resp, callErr := ic.cl.PortalProdPutFileMetadataV1WithResponse(ctx, pathArgs.Id, pathArgs.NamespaceName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4790,31 +3984,14 @@ func (ic *InterfaceClient) dispatchPortalProdPutFileMetadataV1WithResponse(ctx c
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPutFolderMetadataV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-put-folder-metadata-v1: %w", pathErr)
+	var pathArgs struct {
+		Id            string `json:"id"`
+		NamespaceName string `json:"namespaceName"`
 	}
 
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-put-folder-metadata-v1: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-put-folder-metadata-v1: %w", err)
 	}
-
-	var namespaceName string
-
-	if raw, ok := pathArgs["namespaceName"]; ok {
-		paramErr := json.Unmarshal(raw, &namespaceName)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-put-folder-metadata-v1: param namespaceName: %w", paramErr)
-		}
-	}
-
 	var body client.PortalProdPutFolderMetadataV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4822,7 +3999,7 @@ func (ic *InterfaceClient) dispatchPortalProdPutFolderMetadataV1WithResponse(ctx
 		return nil, fmt.Errorf("egnyte.portal-prod-put-folder-metadata-v1: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPutFolderMetadataV1WithResponse(ctx, id, namespaceName, body)
+	resp, callErr := ic.cl.PortalProdPutFolderMetadataV1WithResponse(ctx, pathArgs.Id, pathArgs.NamespaceName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4839,22 +4016,13 @@ func (ic *InterfaceClient) dispatchPortalProdPutFolderMetadataV1WithResponse(ctx
 }
 
 func (ic *InterfaceClient) dispatchPortalProdPutGroupsByIdV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.portal-prod-put-groups-by-id-v2: %w", pathErr)
+	var pathArgs struct {
+		GroupId string `json:"groupId"`
 	}
 
-	var groupId string
-
-	if raw, ok := pathArgs["groupId"]; ok {
-		paramErr := json.Unmarshal(raw, &groupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.portal-prod-put-groups-by-id-v2: param groupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-put-groups-by-id-v2: %w", err)
 	}
-
 	var body client.PortalProdPutGroupsByIdV2JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4862,7 +4030,7 @@ func (ic *InterfaceClient) dispatchPortalProdPutGroupsByIdV2WithResponse(ctx con
 		return nil, fmt.Errorf("egnyte.portal-prod-put-groups-by-id-v2: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PortalProdPutGroupsByIdV2WithResponse(ctx, groupId, body)
+	resp, callErr := ic.cl.PortalProdPutGroupsByIdV2WithResponse(ctx, pathArgs.GroupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4879,22 +4047,13 @@ func (ic *InterfaceClient) dispatchPortalProdPutGroupsByIdV2WithResponse(ctx con
 }
 
 func (ic *InterfaceClient) dispatchPurchaseMspPowerUsersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.purchase-msp-power-users: %w", pathErr)
+	var pathArgs struct {
+		PlanId string `json:"planId"`
 	}
 
-	var planId string
-
-	if raw, ok := pathArgs["planId"]; ok {
-		paramErr := json.Unmarshal(raw, &planId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.purchase-msp-power-users: param planId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.purchase-msp-power-users: %w", err)
 	}
-
 	var body client.PurchaseMspPowerUsersJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4902,7 +4061,7 @@ func (ic *InterfaceClient) dispatchPurchaseMspPowerUsersWithResponse(ctx context
 		return nil, fmt.Errorf("egnyte.purchase-msp-power-users: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PurchaseMspPowerUsersWithResponse(ctx, client.PlanId(planId), body)
+	resp, callErr := ic.cl.PurchaseMspPowerUsersWithResponse(ctx, client.PlanId(pathArgs.PlanId), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4943,23 +4102,14 @@ func (ic *InterfaceClient) dispatchRegisterWebhookWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchRemoveSyncWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.remove-sync: %w", pathErr)
+	var pathArgs struct {
+		SyncId string `json:"syncId"`
 	}
 
-	var syncId string
-
-	if raw, ok := pathArgs["syncId"]; ok {
-		paramErr := json.Unmarshal(raw, &syncId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.remove-sync: param syncId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.remove-sync: %w", err)
 	}
-
-	resp, callErr := ic.cl.RemoveSyncWithResponse(ctx, syncId)
+	resp, callErr := ic.cl.RemoveSyncWithResponse(ctx, pathArgs.SyncId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4976,22 +4126,13 @@ func (ic *InterfaceClient) dispatchRemoveSyncWithResponse(ctx context.Context, _
 }
 
 func (ic *InterfaceClient) dispatchReplaceScimGroupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.replace-scim-group: %w", pathErr)
+	var pathArgs struct {
+		GroupId string `json:"groupId"`
 	}
 
-	var groupId string
-
-	if raw, ok := pathArgs["groupId"]; ok {
-		paramErr := json.Unmarshal(raw, &groupId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.replace-scim-group: param groupId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.replace-scim-group: %w", err)
 	}
-
 	var body client.ReplaceScimGroupJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4999,7 +4140,7 @@ func (ic *InterfaceClient) dispatchReplaceScimGroupWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.replace-scim-group: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.ReplaceScimGroupWithResponse(ctx, groupId, body)
+	resp, callErr := ic.cl.ReplaceScimGroupWithResponse(ctx, pathArgs.GroupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5016,22 +4157,13 @@ func (ic *InterfaceClient) dispatchReplaceScimGroupWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchReplaceScimUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.replace-scim-user: %w", pathErr)
+	var pathArgs struct {
+		UserId string `json:"userId"`
 	}
 
-	var userId string
-
-	if raw, ok := pathArgs["userId"]; ok {
-		paramErr := json.Unmarshal(raw, &userId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.replace-scim-user: param userId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.replace-scim-user: %w", err)
 	}
-
 	var body client.ReplaceScimUserJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5039,7 +4171,7 @@ func (ic *InterfaceClient) dispatchReplaceScimUserWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("egnyte.replace-scim-user: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.ReplaceScimUserWithResponse(ctx, userId, body)
+	resp, callErr := ic.cl.ReplaceScimUserWithResponse(ctx, pathArgs.UserId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5056,31 +4188,14 @@ func (ic *InterfaceClient) dispatchReplaceScimUserWithResponse(ctx context.Conte
 }
 
 func (ic *InterfaceClient) dispatchRetrieveAuditReportWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.retrieve-audit-report: %w", pathErr)
+	var pathArgs struct {
+		PType string `json:"pType"`
+		Id    string `json:"id"`
 	}
 
-	var pType string
-
-	if raw, ok := pathArgs["pType"]; ok {
-		paramErr := json.Unmarshal(raw, &pType)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.retrieve-audit-report: param pType: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.retrieve-audit-report: %w", err)
 	}
-
-	var id string
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.retrieve-audit-report: param id: %w", paramErr)
-		}
-	}
-
 	var params client.RetrieveAuditReportParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -5088,7 +4203,7 @@ func (ic *InterfaceClient) dispatchRetrieveAuditReportWithResponse(ctx context.C
 		return nil, fmt.Errorf("egnyte.retrieve-audit-report: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RetrieveAuditReportWithResponse(ctx, client.RetrieveAuditReportParamsType(pType), id, &params)
+	resp, callErr := ic.cl.RetrieveAuditReportWithResponse(ctx, client.RetrieveAuditReportParamsType(pathArgs.PType), pathArgs.Id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5177,22 +4292,13 @@ func (ic *InterfaceClient) dispatchSearchV2PostWithResponse(ctx context.Context,
 }
 
 func (ic *InterfaceClient) dispatchSetWebhookStatusWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.set-webhook-status: %w", pathErr)
+	var pathArgs struct {
+		WebhookId uuid.UUID `json:"webhookId"`
 	}
 
-	var webhookId uuid.UUID
-
-	if raw, ok := pathArgs["webhookId"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.set-webhook-status: param webhookId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.set-webhook-status: %w", err)
 	}
-
 	var body client.SetWebhookStatusJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5200,7 +4306,7 @@ func (ic *InterfaceClient) dispatchSetWebhookStatusWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.set-webhook-status: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.SetWebhookStatusWithResponse(ctx, webhookId, body)
+	resp, callErr := ic.cl.SetWebhookStatusWithResponse(ctx, pathArgs.WebhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5265,22 +4371,13 @@ func (ic *InterfaceClient) dispatchStreamAuditEventsPostWithResponse(ctx context
 }
 
 func (ic *InterfaceClient) dispatchSummarizeDocumentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.summarize-document: %w", pathErr)
+	var pathArgs struct {
+		EntryId string `json:"entryId"`
 	}
 
-	var entryId string
-
-	if raw, ok := pathArgs["entryId"]; ok {
-		paramErr := json.Unmarshal(raw, &entryId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.summarize-document: param entryId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.summarize-document: %w", err)
 	}
-
 	var body client.SummarizeDocumentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5288,7 +4385,7 @@ func (ic *InterfaceClient) dispatchSummarizeDocumentWithResponse(ctx context.Con
 		return nil, fmt.Errorf("egnyte.summarize-document: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.SummarizeDocumentWithResponse(ctx, entryId, body)
+	resp, callErr := ic.cl.SummarizeDocumentWithResponse(ctx, pathArgs.EntryId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5305,23 +4402,14 @@ func (ic *InterfaceClient) dispatchSummarizeDocumentWithResponse(ctx context.Con
 }
 
 func (ic *InterfaceClient) dispatchSyncedProjectsDetailsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.synced-projects-details: %w", pathErr)
+	var pathArgs struct {
+		SyncId string `json:"syncId"`
 	}
 
-	var syncId string
-
-	if raw, ok := pathArgs["syncId"]; ok {
-		paramErr := json.Unmarshal(raw, &syncId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.synced-projects-details: param syncId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.synced-projects-details: %w", err)
 	}
-
-	resp, callErr := ic.cl.SyncedProjectsDetailsWithResponse(ctx, syncId)
+	resp, callErr := ic.cl.SyncedProjectsDetailsWithResponse(ctx, pathArgs.SyncId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5362,22 +4450,13 @@ func (ic *InterfaceClient) dispatchTrashActionWithResponse(ctx context.Context, 
 }
 
 func (ic *InterfaceClient) dispatchUpdateMspWebhookWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.update-msp-webhook: %w", pathErr)
+	var pathArgs struct {
+		WebhookId uuid.UUID `json:"webhookId"`
 	}
 
-	var webhookId uuid.UUID
-
-	if raw, ok := pathArgs["webhookId"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.update-msp-webhook: param webhookId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.update-msp-webhook: %w", err)
 	}
-
 	var body client.UpdateMspWebhookJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5385,7 +4464,7 @@ func (ic *InterfaceClient) dispatchUpdateMspWebhookWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.update-msp-webhook: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateMspWebhookWithResponse(ctx, webhookId, body)
+	resp, callErr := ic.cl.UpdateMspWebhookWithResponse(ctx, pathArgs.WebhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5402,22 +4481,13 @@ func (ic *InterfaceClient) dispatchUpdateMspWebhookWithResponse(ctx context.Cont
 }
 
 func (ic *InterfaceClient) dispatchUpdateSyncWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: %w", pathErr)
+	var pathArgs struct {
+		SyncId string `json:"syncId"`
 	}
 
-	var syncId string
-
-	if raw, ok := pathArgs["syncId"]; ok {
-		paramErr := json.Unmarshal(raw, &syncId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: param syncId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: %w", err)
 	}
-
 	var body client.UpdateSyncFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5425,7 +4495,7 @@ func (ic *InterfaceClient) dispatchUpdateSyncWithFormdataBodyWithResponse(ctx co
 		return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateSyncWithFormdataBodyWithResponse(ctx, syncId, body)
+	resp, callErr := ic.cl.UpdateSyncWithFormdataBodyWithResponse(ctx, pathArgs.SyncId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5442,22 +4512,13 @@ func (ic *InterfaceClient) dispatchUpdateSyncWithFormdataBodyWithResponse(ctx co
 }
 
 func (ic *InterfaceClient) dispatchUpdateUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.update-user: %w", pathErr)
+	var pathArgs struct {
+		Id int `json:"id"`
 	}
 
-	var id int
-
-	if raw, ok := pathArgs["id"]; ok {
-		paramErr := json.Unmarshal(raw, &id)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.update-user: param id: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.update-user: %w", err)
 	}
-
 	var body client.UpdateUserJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5465,7 +4526,7 @@ func (ic *InterfaceClient) dispatchUpdateUserWithResponse(ctx context.Context, _
 		return nil, fmt.Errorf("egnyte.update-user: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateUserWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.UpdateUserWithResponse(ctx, pathArgs.Id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5482,22 +4543,13 @@ func (ic *InterfaceClient) dispatchUpdateUserWithResponse(ctx context.Context, _
 }
 
 func (ic *InterfaceClient) dispatchUpdateWebhookWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("egnyte.update-webhook: %w", pathErr)
+	var pathArgs struct {
+		WebhookId uuid.UUID `json:"webhookId"`
 	}
 
-	var webhookId uuid.UUID
-
-	if raw, ok := pathArgs["webhookId"]; ok {
-		paramErr := json.Unmarshal(raw, &webhookId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("egnyte.update-webhook: param webhookId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.update-webhook: %w", err)
 	}
-
 	var body client.UpdateWebhookJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5505,7 +4557,7 @@ func (ic *InterfaceClient) dispatchUpdateWebhookWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.update-webhook: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateWebhookWithResponse(ctx, webhookId, body)
+	resp, callErr := ic.cl.UpdateWebhookWithResponse(ctx, pathArgs.WebhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}

@@ -267,6 +267,15 @@ var tmplFuncs = template.FuncMap{
 	"configParam": func(configParams map[string]string, jsonName string) string {
 		return configParams[jsonName]
 	},
+	"pathArgRef": func(configParams map[string]string, params []introspect.MethodParam, expr string) string {
+		for _, p := range params {
+			if p.Required && !p.IsStruct && configParams[p.JSONName] == "" {
+				expr = strings.ReplaceAll(expr, p.JSONName, "pathArgs."+goIdent(p.JSONName))
+			}
+		}
+
+		return expr
+	},
 	"usesConfig": func(configParams map[string]string, m introspect.MethodInfo) bool {
 		for _, p := range m.Params {
 			if p.Required && !p.IsStruct && configParams[p.JSONName] != "" {
@@ -491,24 +500,17 @@ func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if use
 {{- end}}
 {{- end}}{{end}}
 {{- if $hasInputPathParams}}
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: %w", pathErr)
-	}
-{{range .Params}}{{if and .Required (not .IsStruct)}}
+	var pathArgs struct {
+{{- range .Params}}{{if and .Required (not .IsStruct)}}
 {{- if eq (configParam $.ConfigParams .JSONName) ""}}
-	var {{.JSONName}} {{.GoType}}
-
-	if raw, ok := pathArgs["{{.JSONName}}"]; ok {
-		paramErr := json.Unmarshal(raw, &{{.JSONName}})
-		if paramErr != nil {
-			return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: param {{.JSONName}}: %w", paramErr)
-		}
-	}
+		{{goIdent .JSONName}} {{.GoType}} ` + "`" + `json:"{{.JSONName}}"` + "`" + `
 {{- end}}
-{{end}}{{end}}
+{{- end}}{{end}}
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: %w", err)
+	}
 {{- end}}
 {{- if $hasBody}}
 	var body {{clientPkgName $.ClientPkgPath}}.{{$bodyType}}
@@ -526,7 +528,7 @@ func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if use
 		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: params: %w", paramsErr)
 	}
 {{end}}
-	resp, callErr := ic.cl.{{$m.MethodName}}(ctx, {{range .CallArgs}}{{if .IsParams}}&params{{else if eq .Expr "params"}}&params{{else if eq .Expr "body"}}body{{else}}{{fixTargetRef $.ClientPkgPath .Expr}}{{end}}, {{end}})
+	resp, callErr := ic.cl.{{$m.MethodName}}(ctx, {{range .CallArgs}}{{if .IsParams}}&params{{else if eq .Expr "params"}}&params{{else if and $hasBody (eq .Expr "body")}}body{{else}}{{pathArgRef $.ConfigParams $m.Params (fixTargetRef $.ClientPkgPath .Expr)}}{{end}}, {{end}})
 	if callErr != nil {
 		return nil, callErr
 	}
