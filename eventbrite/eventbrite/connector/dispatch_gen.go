@@ -18,134 +18,17 @@ var (
 	errUnknownFunction        = errors.New("eventbrite: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"add-a-ticket-class-to-ticket-groups":             dispatchAddATicketClassToTicketGroupsWithResponse,
-	"calculate-items":                                 dispatchCalculateItemsWithResponse,
-	"cancel-an-event":                                 dispatchCancelAnEventWithResponse,
-	"category-by-i-d":                                 dispatchCategoryByIDWithResponse,
-	"copy-an-event":                                   dispatchCopyAnEventWithResponse,
-	"create-a-custom-question-for-an-event":           dispatchCreateACustomQuestionForAnEventWithResponse,
-	"create-a-default-question-for-an-event":          dispatchCreateADefaultQuestionForAnEventWithResponse,
-	"create-a-discount":                               dispatchCreateADiscountWithResponse,
-	"create-a-team":                                   dispatchCreateATeamWithResponse,
-	"create-a-ticket-class":                           dispatchCreateATicketClassWithResponse,
-	"create-a-ticket-group":                           dispatchCreateATicketGroupWithResponse,
-	"create-a-venue":                                  dispatchCreateAVenueWithResponse,
-	"create-an-event":                                 dispatchCreateAnEventWithResponse,
-	"create-an-event-schedule":                        dispatchCreateAnEventScheduleWithResponse,
-	"create-seat-map-for-event":                       dispatchCreateSeatMapForEventWithResponse,
-	"create-text-overrides":                           dispatchCreateTextOverridesWithResponse,
-	"create-webhooks-by-organization-i-d":             dispatchCreateWebhooksByOrganizationIDWithResponse,
-	"create-webhooks-deprecated":                      dispatchCreateWebhooksDeprecatedWithResponse,
-	"delete-a-custom-question-for-an-event":           dispatchDeleteACustomQuestionForAnEventWithResponse,
-	"delete-a-discount":                               dispatchDeleteADiscountWithResponse,
-	"delete-a-ticket-group":                           dispatchDeleteATicketGroupWithResponse,
-	"delete-an-event":                                 dispatchDeleteAnEventWithResponse,
-	"delete-an-inventory-tier":                        dispatchDeleteAnInventoryTierWithResponse,
-	"delete-default-question-by-id":                   dispatchDeleteDefaultQuestionByIdWithResponse,
-	"delete-webhook-by-i-d":                           dispatchDeleteWebhookByIDWithResponse,
-	"get-custom-question-by-id":                       dispatchGetCustomQuestionByIdWithResponse,
-	"get-default-question-by-id":                      dispatchGetDefaultQuestionByIdWithResponse,
-	"get-refund-retention-policy":                     dispatchGetRefundRetentionPolicyWithResponse,
-	"list-attendees-by-event":                         dispatchListAttendeesByEventWithResponse,
-	"list-attendees-by-organization":                  dispatchListAttendeesByOrganizationWithResponse,
-	"list-attendees-by-team":                          dispatchListAttendeesByTeamWithResponse,
-	"list-by-event":                                   dispatchListByEventWithResponse,
-	"list-custom-questions-by-event":                  dispatchListCustomQuestionsByEventWithResponse,
-	"list-default-questions-by-event":                 dispatchListDefaultQuestionsByEventWithResponse,
-	"list-events-by-organization":                     dispatchListEventsByOrganizationWithResponse,
-	"list-events-by-series":                           dispatchListEventsBySeriesWithResponse,
-	"list-events-by-venue":                            dispatchListEventsByVenueWithResponse,
-	"list-formats":                                    dispatchListFormatsWithResponse,
-	"list-inventory-tiers-by-event":                   dispatchListInventoryTiersByEventWithResponse,
-	"list-members-of-an-organization":                 dispatchListMembersOfAnOrganizationWithResponse,
-	"list-of-categories":                              dispatchListOfCategoriesWithResponse,
-	"list-of-subcategories":                           dispatchListOfSubcategoriesWithResponse,
-	"list-of-webhooks-deprecation":                    dispatchListOfWebhooksDeprecationWithResponse,
-	"list-orders-by-event-i-d":                        dispatchListOrdersByEventIDWithResponse,
-	"list-orders-by-organization-i-d":                 dispatchListOrdersByOrganizationIDWithResponse,
-	"list-orders-by-user-i-d":                         dispatchListOrdersByUserIDWithResponse,
-	"list-organizations-by-user":                      dispatchListOrganizationsByUserWithResponse,
-	"list-pricing":                                    dispatchListPricingWithResponse,
-	"list-roles-by-organization":                      dispatchListRolesByOrganizationWithResponse,
-	"list-seat-maps-by-organization":                  dispatchListSeatMapsByOrganizationWithResponse,
-	"list-ticket-classes-available-for-sale-by-event": dispatchListTicketClassesAvailableForSaleByEventWithResponse,
-	"list-ticket-classes-by-event":                    dispatchListTicketClassesByEventWithResponse,
-	"list-ticket-groups-by-organization":              dispatchListTicketGroupsByOrganizationWithResponse,
-	"list-venues-by-organization":                     dispatchListVenuesByOrganizationWithResponse,
-	"list-webhook-by-organization-i-d":                dispatchListWebhookByOrganizationIDWithResponse,
-	"list-your-organizations":                         dispatchListYourOrganizationsWithResponse,
-	"publish-an-event":                                dispatchPublishAnEventWithResponse,
-	"refund-order":                                    dispatchRefundOrderWithResponse,
-	"remaining-balance":                               dispatchRemainingBalanceWithResponse,
-	"retrieve-a-attendee-report":                      dispatchRetrieveAAttendeeReportWithResponse,
-	"retrieve-a-capacity-tier":                        dispatchRetrieveACapacityTierWithResponse,
-	"retrieve-a-discount":                             dispatchRetrieveADiscountWithResponse,
-	"retrieve-a-format":                               dispatchRetrieveAFormatWithResponse,
-	"retrieve-a-media-upload":                         dispatchRetrieveAMediaUploadWithResponse,
-	"retrieve-a-sales-report":                         dispatchRetrieveASalesReportWithResponse,
-	"retrieve-a-ticket-class":                         dispatchRetrieveATicketClassWithResponse,
-	"retrieve-a-ticket-group":                         dispatchRetrieveATicketGroupWithResponse,
-	"retrieve-a-venue":                                dispatchRetrieveAVenueWithResponse,
-	"retrieve-an-attendee":                            dispatchRetrieveAnAttendeeWithResponse,
-	"retrieve-an-event":                               dispatchRetrieveAnEventWithResponse,
-	"retrieve-an-event-series":                        dispatchRetrieveAnEventSeriesWithResponse,
-	"retrieve-an-inventory-tier":                      dispatchRetrieveAnInventoryTierWithResponse,
-	"retrieve-display-settings":                       dispatchRetrieveDisplaySettingsWithResponse,
-	"retrieve-full-h-t-m-l-description":               dispatchRetrieveFullHTMLDescriptionWithResponse,
-	"retrieve-information-about-a-user-account":       dispatchRetrieveInformationAboutAUserAccountWithResponse,
-	"retrieve-information-about-your-user-account":    dispatchRetrieveInformationAboutYourUserAccountWithResponse,
-	"retrieve-latest-published-version-of-structured-content-by-event-id": dispatchRetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse,
-	"retrieve-latest-working-version-of-structured-content-by-event-id":   dispatchRetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse,
-	"retrieve-media":                                 dispatchRetrieveMediaWithResponse,
-	"retrieve-order-by-i-d":                          dispatchRetrieveOrderByIDWithResponse,
-	"retrieve-team":                                  dispatchRetrieveTeamWithResponse,
-	"retrieve-text-overrides":                        dispatchRetrieveTextOverridesWithResponse,
-	"retrieve-ticket-buyer-settings-by-event":        dispatchRetrieveTicketBuyerSettingsByEventWithResponse,
-	"search-discounts-by-organization":               dispatchSearchDiscountsByOrganizationWithResponse,
-	"search-events-deprecated":                       dispatchSearchEventsDeprecatedWithResponse,
-	"search-teams-by-name-team":                      dispatchSearchTeamsByNameTeamWithResponse,
-	"set-structured-content-by-event-id-and-version": dispatchSetStructuredContentByEventIdAndVersionWithResponse,
-	"subcategory-by-i-d":                             dispatchSubcategoryByIDWithResponse,
-	"unpublish-an-event":                             dispatchUnpublishAnEventWithResponse,
-	"update-a-capacity-tier":                         dispatchUpdateACapacityTierWithResponse,
-	"update-a-discount":                              dispatchUpdateADiscountWithResponse,
-	"update-a-ticket-class":                          dispatchUpdateATicketClassWithResponse,
-	"update-a-ticket-group":                          dispatchUpdateATicketGroupWithResponse,
-	"update-a-venue":                                 dispatchUpdateAVenueWithResponse,
-	"update-an-event":                                dispatchUpdateAnEventWithResponse,
-	"update-an-inventory-tier":                       dispatchUpdateAnInventoryTierWithResponse,
-	"update-default-question-by-id":                  dispatchUpdateDefaultQuestionByIdWithResponse,
-	"update-display-settings":                        dispatchUpdateDisplaySettingsWithResponse,
-	"update-multiple-inventory-tiers":                dispatchUpdateMultipleInventoryTiersWithResponse,
-	"update-ticket-buyer-settings-for-an-event":      dispatchUpdateTicketBuyerSettingsForAnEventWithResponse,
-	"upload-a-media-file":                            dispatchUploadAMediaFileWithResponse,
-	"verify-password-for-a-team":                     dispatchVerifyPasswordForATeamWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -155,17 +38,12 @@ func Resolve(
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return cl.Dispatch(ctx, function, config, inputs)
 	}, nil
 }
 
-func dispatchAddATicketClassToTicketGroupsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAddATicketClassToTicketGroupsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -207,7 +85,7 @@ func dispatchAddATicketClassToTicketGroupsWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("eventbrite.add-a-ticket-class-to-ticket-groups: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AddATicketClassToTicketGroupsWithResponse(ctx, organizationId, eventId, ticketClassId, body)
+	resp, callErr := ic.cl.AddATicketClassToTicketGroupsWithResponse(ctx, organizationId, eventId, ticketClassId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -223,7 +101,7 @@ func dispatchAddATicketClassToTicketGroupsWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCalculateItemsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCalculateItemsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CalculateItemsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -231,7 +109,7 @@ func dispatchCalculateItemsWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("eventbrite.calculate-items: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CalculateItemsWithResponse(ctx, body)
+	resp, callErr := ic.cl.CalculateItemsWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -247,7 +125,7 @@ func dispatchCalculateItemsWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCancelAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCancelAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -264,7 +142,7 @@ func dispatchCancelAnEventWithResponse(ctx context.Context, cl *client.ClientWit
 		}
 	}
 
-	resp, callErr := cl.CancelAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.CancelAnEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -280,7 +158,7 @@ func dispatchCancelAnEventWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCategoryByIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCategoryByIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -297,7 +175,7 @@ func dispatchCategoryByIDWithResponse(ctx context.Context, cl *client.ClientWith
 		}
 	}
 
-	resp, callErr := cl.CategoryByIDWithResponse(ctx, id)
+	resp, callErr := ic.cl.CategoryByIDWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -313,7 +191,7 @@ func dispatchCategoryByIDWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCopyAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCopyAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -337,7 +215,7 @@ func dispatchCopyAnEventWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("eventbrite.copy-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CopyAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CopyAnEventWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -353,7 +231,7 @@ func dispatchCopyAnEventWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateACustomQuestionForAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateACustomQuestionForAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -377,7 +255,7 @@ func dispatchCreateACustomQuestionForAnEventWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("eventbrite.create-a-custom-question-for-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateACustomQuestionForAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateACustomQuestionForAnEventWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -393,7 +271,7 @@ func dispatchCreateACustomQuestionForAnEventWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateADefaultQuestionForAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateADefaultQuestionForAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -417,7 +295,7 @@ func dispatchCreateADefaultQuestionForAnEventWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("eventbrite.create-a-default-question-for-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateADefaultQuestionForAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateADefaultQuestionForAnEventWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -433,7 +311,7 @@ func dispatchCreateADefaultQuestionForAnEventWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateADiscountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateADiscountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -457,7 +335,7 @@ func dispatchCreateADiscountWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("eventbrite.create-a-discount: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateADiscountWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateADiscountWithResponse(ctx, organizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -473,7 +351,7 @@ func dispatchCreateADiscountWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateATeamWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateATeamWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -497,7 +375,7 @@ func dispatchCreateATeamWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("eventbrite.create-a-team: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateATeamWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateATeamWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -513,7 +391,7 @@ func dispatchCreateATeamWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateATicketClassWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateATicketClassWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -539,7 +417,7 @@ func dispatchCreateATicketClassWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.CreateATicketClassWithResponse(ctx, eventId, client.CreateATicketClassJSONRequestBody(body))
+	resp, callErr := ic.cl.CreateATicketClassWithResponse(ctx, eventId, client.CreateATicketClassJSONRequestBody(body))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -555,7 +433,7 @@ func dispatchCreateATicketClassWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateATicketGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateATicketGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -579,7 +457,7 @@ func dispatchCreateATicketGroupWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("eventbrite.create-a-ticket-group: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateATicketGroupWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateATicketGroupWithResponse(ctx, organizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -595,7 +473,7 @@ func dispatchCreateATicketGroupWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateAVenueWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateAVenueWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -619,7 +497,7 @@ func dispatchCreateAVenueWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("eventbrite.create-a-venue: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateAVenueWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateAVenueWithResponse(ctx, organizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -635,7 +513,7 @@ func dispatchCreateAVenueWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -659,7 +537,7 @@ func dispatchCreateAnEventWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("eventbrite.create-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateAnEventWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateAnEventWithResponse(ctx, organizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -675,7 +553,7 @@ func dispatchCreateAnEventWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateAnEventScheduleWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateAnEventScheduleWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -699,7 +577,7 @@ func dispatchCreateAnEventScheduleWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("eventbrite.create-an-event-schedule: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateAnEventScheduleWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateAnEventScheduleWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -715,7 +593,7 @@ func dispatchCreateAnEventScheduleWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateSeatMapForEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateSeatMapForEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -739,7 +617,7 @@ func dispatchCreateSeatMapForEventWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("eventbrite.create-seat-map-for-event: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateSeatMapForEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.CreateSeatMapForEventWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -755,7 +633,7 @@ func dispatchCreateSeatMapForEventWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateTextOverridesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateTextOverridesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -779,7 +657,7 @@ func dispatchCreateTextOverridesWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("eventbrite.create-text-overrides: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateTextOverridesWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateTextOverridesWithResponse(ctx, organizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -795,7 +673,7 @@ func dispatchCreateTextOverridesWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateWebhooksByOrganizationIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateWebhooksByOrganizationIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -819,7 +697,7 @@ func dispatchCreateWebhooksByOrganizationIDWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("eventbrite.create-webhooks-by-organization-i-d: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateWebhooksByOrganizationIDWithResponse(ctx, organizationId, body)
+	resp, callErr := ic.cl.CreateWebhooksByOrganizationIDWithResponse(ctx, organizationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -835,7 +713,7 @@ func dispatchCreateWebhooksByOrganizationIDWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateWebhooksDeprecatedWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateWebhooksDeprecatedWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -852,7 +730,7 @@ func dispatchCreateWebhooksDeprecatedWithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.CreateWebhooksDeprecatedWithResponse(ctx, client.CreateWebhooksDeprecatedJSONRequestBody(body))
+	resp, callErr := ic.cl.CreateWebhooksDeprecatedWithResponse(ctx, client.CreateWebhooksDeprecatedJSONRequestBody(body))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -868,7 +746,7 @@ func dispatchCreateWebhooksDeprecatedWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteACustomQuestionForAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteACustomQuestionForAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -894,7 +772,7 @@ func dispatchDeleteACustomQuestionForAnEventWithResponse(ctx context.Context, cl
 		}
 	}
 
-	resp, callErr := cl.DeleteACustomQuestionForAnEventWithResponse(ctx, eventId, questionId)
+	resp, callErr := ic.cl.DeleteACustomQuestionForAnEventWithResponse(ctx, eventId, questionId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -910,7 +788,7 @@ func dispatchDeleteACustomQuestionForAnEventWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteADiscountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteADiscountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -927,7 +805,7 @@ func dispatchDeleteADiscountWithResponse(ctx context.Context, cl *client.ClientW
 		}
 	}
 
-	resp, callErr := cl.DeleteADiscountWithResponse(ctx, discountId)
+	resp, callErr := ic.cl.DeleteADiscountWithResponse(ctx, discountId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -943,7 +821,7 @@ func dispatchDeleteADiscountWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteATicketGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteATicketGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -960,7 +838,7 @@ func dispatchDeleteATicketGroupWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.DeleteATicketGroupWithResponse(ctx, ticketGroupId)
+	resp, callErr := ic.cl.DeleteATicketGroupWithResponse(ctx, ticketGroupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -976,7 +854,7 @@ func dispatchDeleteATicketGroupWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -993,7 +871,7 @@ func dispatchDeleteAnEventWithResponse(ctx context.Context, cl *client.ClientWit
 		}
 	}
 
-	resp, callErr := cl.DeleteAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.DeleteAnEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1009,7 +887,7 @@ func dispatchDeleteAnEventWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteAnInventoryTierWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAnInventoryTierWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1035,7 +913,7 @@ func dispatchDeleteAnInventoryTierWithResponse(ctx context.Context, cl *client.C
 		}
 	}
 
-	resp, callErr := cl.DeleteAnInventoryTierWithResponse(ctx, eventId, inventoryTierId)
+	resp, callErr := ic.cl.DeleteAnInventoryTierWithResponse(ctx, eventId, inventoryTierId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1051,7 +929,7 @@ func dispatchDeleteAnInventoryTierWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteDefaultQuestionByIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteDefaultQuestionByIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1077,7 +955,7 @@ func dispatchDeleteDefaultQuestionByIdWithResponse(ctx context.Context, cl *clie
 		}
 	}
 
-	resp, callErr := cl.DeleteDefaultQuestionByIdWithResponse(ctx, eventId, questionId)
+	resp, callErr := ic.cl.DeleteDefaultQuestionByIdWithResponse(ctx, eventId, questionId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1093,7 +971,7 @@ func dispatchDeleteDefaultQuestionByIdWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteWebhookByIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteWebhookByIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1110,7 +988,7 @@ func dispatchDeleteWebhookByIDWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.DeleteWebhookByIDWithResponse(ctx, id)
+	resp, callErr := ic.cl.DeleteWebhookByIDWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1126,7 +1004,7 @@ func dispatchDeleteWebhookByIDWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCustomQuestionByIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomQuestionByIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1152,7 +1030,7 @@ func dispatchGetCustomQuestionByIdWithResponse(ctx context.Context, cl *client.C
 		}
 	}
 
-	resp, callErr := cl.GetCustomQuestionByIdWithResponse(ctx, eventId, questionId)
+	resp, callErr := ic.cl.GetCustomQuestionByIdWithResponse(ctx, eventId, questionId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1168,7 +1046,7 @@ func dispatchGetCustomQuestionByIdWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDefaultQuestionByIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDefaultQuestionByIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1194,7 +1072,7 @@ func dispatchGetDefaultQuestionByIdWithResponse(ctx context.Context, cl *client.
 		}
 	}
 
-	resp, callErr := cl.GetDefaultQuestionByIdWithResponse(ctx, eventId, questionId)
+	resp, callErr := ic.cl.GetDefaultQuestionByIdWithResponse(ctx, eventId, questionId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1210,7 +1088,7 @@ func dispatchGetDefaultQuestionByIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetRefundRetentionPolicyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRefundRetentionPolicyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1227,7 +1105,7 @@ func dispatchGetRefundRetentionPolicyWithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.GetRefundRetentionPolicyWithResponse(ctx, orderId)
+	resp, callErr := ic.cl.GetRefundRetentionPolicyWithResponse(ctx, orderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1243,7 +1121,7 @@ func dispatchGetRefundRetentionPolicyWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListAttendeesByEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListAttendeesByEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1260,7 +1138,7 @@ func dispatchListAttendeesByEventWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.ListAttendeesByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListAttendeesByEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1276,7 +1154,7 @@ func dispatchListAttendeesByEventWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListAttendeesByOrganizationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListAttendeesByOrganizationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1293,7 +1171,7 @@ func dispatchListAttendeesByOrganizationWithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.ListAttendeesByOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListAttendeesByOrganizationWithResponse(ctx, organizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1309,7 +1187,7 @@ func dispatchListAttendeesByOrganizationWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListAttendeesByTeamWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListAttendeesByTeamWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1335,7 +1213,7 @@ func dispatchListAttendeesByTeamWithResponse(ctx context.Context, cl *client.Cli
 		}
 	}
 
-	resp, callErr := cl.ListAttendeesByTeamWithResponse(ctx, eventId, teamId)
+	resp, callErr := ic.cl.ListAttendeesByTeamWithResponse(ctx, eventId, teamId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1351,7 +1229,7 @@ func dispatchListAttendeesByTeamWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListByEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListByEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1368,7 +1246,7 @@ func dispatchListByEventWithResponse(ctx context.Context, cl *client.ClientWithR
 		}
 	}
 
-	resp, callErr := cl.ListByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListByEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1384,7 +1262,7 @@ func dispatchListByEventWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListCustomQuestionsByEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListCustomQuestionsByEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1401,7 +1279,7 @@ func dispatchListCustomQuestionsByEventWithResponse(ctx context.Context, cl *cli
 		}
 	}
 
-	resp, callErr := cl.ListCustomQuestionsByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListCustomQuestionsByEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1417,7 +1295,7 @@ func dispatchListCustomQuestionsByEventWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListDefaultQuestionsByEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListDefaultQuestionsByEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1434,7 +1312,7 @@ func dispatchListDefaultQuestionsByEventWithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.ListDefaultQuestionsByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListDefaultQuestionsByEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1450,7 +1328,7 @@ func dispatchListDefaultQuestionsByEventWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListEventsByOrganizationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListEventsByOrganizationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1474,7 +1352,7 @@ func dispatchListEventsByOrganizationWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("eventbrite.list-events-by-organization: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListEventsByOrganizationWithResponse(ctx, organizationId, &params)
+	resp, callErr := ic.cl.ListEventsByOrganizationWithResponse(ctx, organizationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1490,7 +1368,7 @@ func dispatchListEventsByOrganizationWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListEventsBySeriesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListEventsBySeriesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1507,7 +1385,7 @@ func dispatchListEventsBySeriesWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.ListEventsBySeriesWithResponse(ctx, eventSeriesId)
+	resp, callErr := ic.cl.ListEventsBySeriesWithResponse(ctx, eventSeriesId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1523,7 +1401,7 @@ func dispatchListEventsBySeriesWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListEventsByVenueWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListEventsByVenueWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1540,7 +1418,7 @@ func dispatchListEventsByVenueWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.ListEventsByVenueWithResponse(ctx, venueId)
+	resp, callErr := ic.cl.ListEventsByVenueWithResponse(ctx, venueId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1556,8 +1434,8 @@ func dispatchListEventsByVenueWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListFormatsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListFormatsWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListFormatsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListFormatsWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1573,7 +1451,7 @@ func dispatchListFormatsWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListInventoryTiersByEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListInventoryTiersByEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1590,7 +1468,7 @@ func dispatchListInventoryTiersByEventWithResponse(ctx context.Context, cl *clie
 		}
 	}
 
-	resp, callErr := cl.ListInventoryTiersByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListInventoryTiersByEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1606,7 +1484,7 @@ func dispatchListInventoryTiersByEventWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListMembersOfAnOrganizationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListMembersOfAnOrganizationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1623,7 +1501,7 @@ func dispatchListMembersOfAnOrganizationWithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.ListMembersOfAnOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListMembersOfAnOrganizationWithResponse(ctx, organizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1639,8 +1517,8 @@ func dispatchListMembersOfAnOrganizationWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListOfCategoriesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListOfCategoriesWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListOfCategoriesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListOfCategoriesWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1656,8 +1534,8 @@ func dispatchListOfCategoriesWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListOfSubcategoriesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListOfSubcategoriesWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListOfSubcategoriesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListOfSubcategoriesWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1673,8 +1551,8 @@ func dispatchListOfSubcategoriesWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListOfWebhooksDeprecationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListOfWebhooksDeprecationWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListOfWebhooksDeprecationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListOfWebhooksDeprecationWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1690,7 +1568,7 @@ func dispatchListOfWebhooksDeprecationWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListOrdersByEventIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListOrdersByEventIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1707,7 +1585,7 @@ func dispatchListOrdersByEventIDWithResponse(ctx context.Context, cl *client.Cli
 		}
 	}
 
-	resp, callErr := cl.ListOrdersByEventIDWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListOrdersByEventIDWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1723,7 +1601,7 @@ func dispatchListOrdersByEventIDWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListOrdersByOrganizationIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListOrdersByOrganizationIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1740,7 +1618,7 @@ func dispatchListOrdersByOrganizationIDWithResponse(ctx context.Context, cl *cli
 		}
 	}
 
-	resp, callErr := cl.ListOrdersByOrganizationIDWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListOrdersByOrganizationIDWithResponse(ctx, organizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1756,7 +1634,7 @@ func dispatchListOrdersByOrganizationIDWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListOrdersByUserIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListOrdersByUserIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1773,7 +1651,7 @@ func dispatchListOrdersByUserIDWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.ListOrdersByUserIDWithResponse(ctx, userId)
+	resp, callErr := ic.cl.ListOrdersByUserIDWithResponse(ctx, userId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1789,7 +1667,7 @@ func dispatchListOrdersByUserIDWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListOrganizationsByUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListOrganizationsByUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1806,7 +1684,7 @@ func dispatchListOrganizationsByUserWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.ListOrganizationsByUserWithResponse(ctx, userId)
+	resp, callErr := ic.cl.ListOrganizationsByUserWithResponse(ctx, userId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1822,7 +1700,7 @@ func dispatchListOrganizationsByUserWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListPricingWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListPricingWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListPricingParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1830,7 +1708,7 @@ func dispatchListPricingWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("eventbrite.list-pricing: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListPricingWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListPricingWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1846,7 +1724,7 @@ func dispatchListPricingWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListRolesByOrganizationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListRolesByOrganizationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1863,7 +1741,7 @@ func dispatchListRolesByOrganizationWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.ListRolesByOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListRolesByOrganizationWithResponse(ctx, organizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1879,7 +1757,7 @@ func dispatchListRolesByOrganizationWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListSeatMapsByOrganizationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListSeatMapsByOrganizationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1903,7 +1781,7 @@ func dispatchListSeatMapsByOrganizationWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("eventbrite.list-seat-maps-by-organization: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListSeatMapsByOrganizationWithResponse(ctx, organizationId, &params)
+	resp, callErr := ic.cl.ListSeatMapsByOrganizationWithResponse(ctx, organizationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1919,7 +1797,7 @@ func dispatchListSeatMapsByOrganizationWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1936,7 +1814,7 @@ func dispatchListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Co
 		}
 	}
 
-	resp, callErr := cl.ListTicketClassesAvailableForSaleByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListTicketClassesAvailableForSaleByEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1952,7 +1830,7 @@ func dispatchListTicketClassesAvailableForSaleByEventWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListTicketClassesByEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListTicketClassesByEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1969,7 +1847,7 @@ func dispatchListTicketClassesByEventWithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.ListTicketClassesByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.ListTicketClassesByEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1985,7 +1863,7 @@ func dispatchListTicketClassesByEventWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListTicketGroupsByOrganizationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListTicketGroupsByOrganizationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2002,7 +1880,7 @@ func dispatchListTicketGroupsByOrganizationWithResponse(ctx context.Context, cl 
 		}
 	}
 
-	resp, callErr := cl.ListTicketGroupsByOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListTicketGroupsByOrganizationWithResponse(ctx, organizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2018,7 +1896,7 @@ func dispatchListTicketGroupsByOrganizationWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListVenuesByOrganizationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListVenuesByOrganizationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2035,7 +1913,7 @@ func dispatchListVenuesByOrganizationWithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.ListVenuesByOrganizationWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListVenuesByOrganizationWithResponse(ctx, organizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2051,7 +1929,7 @@ func dispatchListVenuesByOrganizationWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListWebhookByOrganizationIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListWebhookByOrganizationIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2068,7 +1946,7 @@ func dispatchListWebhookByOrganizationIDWithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.ListWebhookByOrganizationIDWithResponse(ctx, organizationId)
+	resp, callErr := ic.cl.ListWebhookByOrganizationIDWithResponse(ctx, organizationId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2084,8 +1962,8 @@ func dispatchListWebhookByOrganizationIDWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListYourOrganizationsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListYourOrganizationsWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListYourOrganizationsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListYourOrganizationsWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2101,7 +1979,7 @@ func dispatchListYourOrganizationsWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPublishAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPublishAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2118,7 +1996,7 @@ func dispatchPublishAnEventWithResponse(ctx context.Context, cl *client.ClientWi
 		}
 	}
 
-	resp, callErr := cl.PublishAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.PublishAnEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2134,7 +2012,7 @@ func dispatchPublishAnEventWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRefundOrderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRefundOrderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2158,7 +2036,7 @@ func dispatchRefundOrderWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("eventbrite.refund-order: %w", bodyErr)
 	}
 
-	resp, callErr := cl.RefundOrderWithResponse(ctx, orderId, body)
+	resp, callErr := ic.cl.RefundOrderWithResponse(ctx, orderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2174,7 +2052,7 @@ func dispatchRefundOrderWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRemainingBalanceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemainingBalanceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2200,7 +2078,7 @@ func dispatchRemainingBalanceWithResponse(ctx context.Context, cl *client.Client
 		}
 	}
 
-	resp, callErr := cl.RemainingBalanceWithResponse(ctx, publicOrganizationId, publicEventId)
+	resp, callErr := ic.cl.RemainingBalanceWithResponse(ctx, publicOrganizationId, publicEventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2216,8 +2094,8 @@ func dispatchRemainingBalanceWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAAttendeeReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.RetrieveAAttendeeReportWithResponse(ctx)
+func (ic *InterfaceClient) dispatchRetrieveAAttendeeReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.RetrieveAAttendeeReportWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2233,7 +2111,7 @@ func dispatchRetrieveAAttendeeReportWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveACapacityTierWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveACapacityTierWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2250,7 +2128,7 @@ func dispatchRetrieveACapacityTierWithResponse(ctx context.Context, cl *client.C
 		}
 	}
 
-	resp, callErr := cl.RetrieveACapacityTierWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveACapacityTierWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2266,7 +2144,7 @@ func dispatchRetrieveACapacityTierWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveADiscountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveADiscountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2283,7 +2161,7 @@ func dispatchRetrieveADiscountWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.RetrieveADiscountWithResponse(ctx, discountId)
+	resp, callErr := ic.cl.RetrieveADiscountWithResponse(ctx, discountId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2299,7 +2177,7 @@ func dispatchRetrieveADiscountWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAFormatWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveAFormatWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2316,7 +2194,7 @@ func dispatchRetrieveAFormatWithResponse(ctx context.Context, cl *client.ClientW
 		}
 	}
 
-	resp, callErr := cl.RetrieveAFormatWithResponse(ctx, formatId)
+	resp, callErr := ic.cl.RetrieveAFormatWithResponse(ctx, formatId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2332,8 +2210,8 @@ func dispatchRetrieveAFormatWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAMediaUploadWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.RetrieveAMediaUploadWithResponse(ctx)
+func (ic *InterfaceClient) dispatchRetrieveAMediaUploadWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.RetrieveAMediaUploadWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2349,8 +2227,8 @@ func dispatchRetrieveAMediaUploadWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveASalesReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.RetrieveASalesReportWithResponse(ctx)
+func (ic *InterfaceClient) dispatchRetrieveASalesReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.RetrieveASalesReportWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2366,7 +2244,7 @@ func dispatchRetrieveASalesReportWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveATicketClassWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveATicketClassWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2392,7 +2270,7 @@ func dispatchRetrieveATicketClassWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.RetrieveATicketClassWithResponse(ctx, eventId, ticketClassId)
+	resp, callErr := ic.cl.RetrieveATicketClassWithResponse(ctx, eventId, ticketClassId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2408,7 +2286,7 @@ func dispatchRetrieveATicketClassWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveATicketGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveATicketGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2425,7 +2303,7 @@ func dispatchRetrieveATicketGroupWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.RetrieveATicketGroupWithResponse(ctx, ticketGroupId)
+	resp, callErr := ic.cl.RetrieveATicketGroupWithResponse(ctx, ticketGroupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2441,7 +2319,7 @@ func dispatchRetrieveATicketGroupWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAVenueWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveAVenueWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2458,7 +2336,7 @@ func dispatchRetrieveAVenueWithResponse(ctx context.Context, cl *client.ClientWi
 		}
 	}
 
-	resp, callErr := cl.RetrieveAVenueWithResponse(ctx, venueId)
+	resp, callErr := ic.cl.RetrieveAVenueWithResponse(ctx, venueId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2474,7 +2352,7 @@ func dispatchRetrieveAVenueWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAnAttendeeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveAnAttendeeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2500,7 +2378,7 @@ func dispatchRetrieveAnAttendeeWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.RetrieveAnAttendeeWithResponse(ctx, eventId, attendeeId)
+	resp, callErr := ic.cl.RetrieveAnAttendeeWithResponse(ctx, eventId, attendeeId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2516,7 +2394,7 @@ func dispatchRetrieveAnAttendeeWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2533,7 +2411,7 @@ func dispatchRetrieveAnEventWithResponse(ctx context.Context, cl *client.ClientW
 		}
 	}
 
-	resp, callErr := cl.RetrieveAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveAnEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2549,7 +2427,7 @@ func dispatchRetrieveAnEventWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAnEventSeriesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveAnEventSeriesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2566,7 +2444,7 @@ func dispatchRetrieveAnEventSeriesWithResponse(ctx context.Context, cl *client.C
 		}
 	}
 
-	resp, callErr := cl.RetrieveAnEventSeriesWithResponse(ctx, eventSeriesId)
+	resp, callErr := ic.cl.RetrieveAnEventSeriesWithResponse(ctx, eventSeriesId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2582,7 +2460,7 @@ func dispatchRetrieveAnEventSeriesWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAnInventoryTierWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveAnInventoryTierWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2608,7 +2486,7 @@ func dispatchRetrieveAnInventoryTierWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.RetrieveAnInventoryTierWithResponse(ctx, eventId, inventoryTierId)
+	resp, callErr := ic.cl.RetrieveAnInventoryTierWithResponse(ctx, eventId, inventoryTierId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2624,7 +2502,7 @@ func dispatchRetrieveAnInventoryTierWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveDisplaySettingsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveDisplaySettingsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2641,7 +2519,7 @@ func dispatchRetrieveDisplaySettingsWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.RetrieveDisplaySettingsWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveDisplaySettingsWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2657,7 +2535,7 @@ func dispatchRetrieveDisplaySettingsWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveFullHTMLDescriptionWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveFullHTMLDescriptionWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2674,7 +2552,7 @@ func dispatchRetrieveFullHTMLDescriptionWithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.RetrieveFullHTMLDescriptionWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveFullHTMLDescriptionWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2690,7 +2568,7 @@ func dispatchRetrieveFullHTMLDescriptionWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveInformationAboutAUserAccountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveInformationAboutAUserAccountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2707,7 +2585,7 @@ func dispatchRetrieveInformationAboutAUserAccountWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, callErr := cl.RetrieveInformationAboutAUserAccountWithResponse(ctx, userId)
+	resp, callErr := ic.cl.RetrieveInformationAboutAUserAccountWithResponse(ctx, userId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2723,8 +2601,8 @@ func dispatchRetrieveInformationAboutAUserAccountWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveInformationAboutYourUserAccountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.RetrieveInformationAboutYourUserAccountWithResponse(ctx)
+func (ic *InterfaceClient) dispatchRetrieveInformationAboutYourUserAccountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.RetrieveInformationAboutYourUserAccountWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2740,7 +2618,7 @@ func dispatchRetrieveInformationAboutYourUserAccountWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2757,7 +2635,7 @@ func dispatchRetrieveLatestPublishedVersionOfStructuredContentByEventIdWithRespo
 		}
 	}
 
-	resp, callErr := cl.RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx, id)
+	resp, callErr := ic.cl.RetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2773,7 +2651,7 @@ func dispatchRetrieveLatestPublishedVersionOfStructuredContentByEventIdWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2790,7 +2668,7 @@ func dispatchRetrieveLatestWorkingVersionOfStructuredContentByEventIdWithRespons
 		}
 	}
 
-	resp, callErr := cl.RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx, id)
+	resp, callErr := ic.cl.RetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2806,7 +2684,7 @@ func dispatchRetrieveLatestWorkingVersionOfStructuredContentByEventIdWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveMediaWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveMediaWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2830,7 +2708,7 @@ func dispatchRetrieveMediaWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("eventbrite.retrieve-media: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrieveMediaWithResponse(ctx, mediaId, &params)
+	resp, callErr := ic.cl.RetrieveMediaWithResponse(ctx, mediaId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2846,7 +2724,7 @@ func dispatchRetrieveMediaWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveOrderByIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveOrderByIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2863,7 +2741,7 @@ func dispatchRetrieveOrderByIDWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.RetrieveOrderByIDWithResponse(ctx, orderId)
+	resp, callErr := ic.cl.RetrieveOrderByIDWithResponse(ctx, orderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2879,7 +2757,7 @@ func dispatchRetrieveOrderByIDWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveTeamWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveTeamWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2905,7 +2783,7 @@ func dispatchRetrieveTeamWithResponse(ctx context.Context, cl *client.ClientWith
 		}
 	}
 
-	resp, callErr := cl.RetrieveTeamWithResponse(ctx, eventId, teamId)
+	resp, callErr := ic.cl.RetrieveTeamWithResponse(ctx, eventId, teamId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2921,7 +2799,7 @@ func dispatchRetrieveTeamWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveTextOverridesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveTextOverridesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2945,7 +2823,7 @@ func dispatchRetrieveTextOverridesWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("eventbrite.retrieve-text-overrides: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrieveTextOverridesWithResponse(ctx, organizationId, &params)
+	resp, callErr := ic.cl.RetrieveTextOverridesWithResponse(ctx, organizationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2961,7 +2839,7 @@ func dispatchRetrieveTextOverridesWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveTicketBuyerSettingsByEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveTicketBuyerSettingsByEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2978,7 +2856,7 @@ func dispatchRetrieveTicketBuyerSettingsByEventWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, callErr := cl.RetrieveTicketBuyerSettingsByEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.RetrieveTicketBuyerSettingsByEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2994,7 +2872,7 @@ func dispatchRetrieveTicketBuyerSettingsByEventWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSearchDiscountsByOrganizationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSearchDiscountsByOrganizationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3018,7 +2896,7 @@ func dispatchSearchDiscountsByOrganizationWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("eventbrite.search-discounts-by-organization: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SearchDiscountsByOrganizationWithResponse(ctx, organizationId, &params)
+	resp, callErr := ic.cl.SearchDiscountsByOrganizationWithResponse(ctx, organizationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3034,8 +2912,8 @@ func dispatchSearchDiscountsByOrganizationWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSearchEventsDeprecatedWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.SearchEventsDeprecatedWithResponse(ctx)
+func (ic *InterfaceClient) dispatchSearchEventsDeprecatedWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.SearchEventsDeprecatedWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3051,7 +2929,7 @@ func dispatchSearchEventsDeprecatedWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSearchTeamsByNameTeamWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSearchTeamsByNameTeamWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3077,7 +2955,7 @@ func dispatchSearchTeamsByNameTeamWithResponse(ctx context.Context, cl *client.C
 		}
 	}
 
-	resp, callErr := cl.SearchTeamsByNameTeamWithResponse(ctx, eventId, term)
+	resp, callErr := ic.cl.SearchTeamsByNameTeamWithResponse(ctx, eventId, term)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3093,7 +2971,7 @@ func dispatchSearchTeamsByNameTeamWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSetStructuredContentByEventIdAndVersionWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSetStructuredContentByEventIdAndVersionWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3126,7 +3004,7 @@ func dispatchSetStructuredContentByEventIdAndVersionWithResponse(ctx context.Con
 		return nil, fmt.Errorf("eventbrite.set-structured-content-by-event-id-and-version: %w", bodyErr)
 	}
 
-	resp, callErr := cl.SetStructuredContentByEventIdAndVersionWithResponse(ctx, id, version, body)
+	resp, callErr := ic.cl.SetStructuredContentByEventIdAndVersionWithResponse(ctx, id, version, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3142,7 +3020,7 @@ func dispatchSetStructuredContentByEventIdAndVersionWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSubcategoryByIDWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSubcategoryByIDWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3159,7 +3037,7 @@ func dispatchSubcategoryByIDWithResponse(ctx context.Context, cl *client.ClientW
 		}
 	}
 
-	resp, callErr := cl.SubcategoryByIDWithResponse(ctx, subcategoryId)
+	resp, callErr := ic.cl.SubcategoryByIDWithResponse(ctx, subcategoryId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3175,7 +3053,7 @@ func dispatchSubcategoryByIDWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUnpublishAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUnpublishAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3192,7 +3070,7 @@ func dispatchUnpublishAnEventWithResponse(ctx context.Context, cl *client.Client
 		}
 	}
 
-	resp, callErr := cl.UnpublishAnEventWithResponse(ctx, eventId)
+	resp, callErr := ic.cl.UnpublishAnEventWithResponse(ctx, eventId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3208,7 +3086,7 @@ func dispatchUnpublishAnEventWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateACapacityTierWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateACapacityTierWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3232,7 +3110,7 @@ func dispatchUpdateACapacityTierWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("eventbrite.update-a-capacity-tier: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateACapacityTierWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateACapacityTierWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3248,7 +3126,7 @@ func dispatchUpdateACapacityTierWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateADiscountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateADiscountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3272,7 +3150,7 @@ func dispatchUpdateADiscountWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("eventbrite.update-a-discount: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateADiscountWithResponse(ctx, discountId, body)
+	resp, callErr := ic.cl.UpdateADiscountWithResponse(ctx, discountId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3288,7 +3166,7 @@ func dispatchUpdateADiscountWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateATicketClassWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateATicketClassWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3321,7 +3199,7 @@ func dispatchUpdateATicketClassWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("eventbrite.update-a-ticket-class: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateATicketClassWithResponse(ctx, eventId, ticketClassId, body)
+	resp, callErr := ic.cl.UpdateATicketClassWithResponse(ctx, eventId, ticketClassId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3337,7 +3215,7 @@ func dispatchUpdateATicketClassWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateATicketGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateATicketGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3361,7 +3239,7 @@ func dispatchUpdateATicketGroupWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("eventbrite.update-a-ticket-group: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateATicketGroupWithResponse(ctx, ticketGroupId, body)
+	resp, callErr := ic.cl.UpdateATicketGroupWithResponse(ctx, ticketGroupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3377,7 +3255,7 @@ func dispatchUpdateATicketGroupWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateAVenueWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateAVenueWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3401,7 +3279,7 @@ func dispatchUpdateAVenueWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("eventbrite.update-a-venue: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateAVenueWithResponse(ctx, venueId, body)
+	resp, callErr := ic.cl.UpdateAVenueWithResponse(ctx, venueId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3417,7 +3295,7 @@ func dispatchUpdateAVenueWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3441,7 +3319,7 @@ func dispatchUpdateAnEventWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("eventbrite.update-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateAnEventWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3457,7 +3335,7 @@ func dispatchUpdateAnEventWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateAnInventoryTierWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateAnInventoryTierWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3490,7 +3368,7 @@ func dispatchUpdateAnInventoryTierWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("eventbrite.update-an-inventory-tier: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateAnInventoryTierWithResponse(ctx, eventId, inventoryTierId, body)
+	resp, callErr := ic.cl.UpdateAnInventoryTierWithResponse(ctx, eventId, inventoryTierId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3506,7 +3384,7 @@ func dispatchUpdateAnInventoryTierWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateDefaultQuestionByIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateDefaultQuestionByIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3539,7 +3417,7 @@ func dispatchUpdateDefaultQuestionByIdWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("eventbrite.update-default-question-by-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UpdateDefaultQuestionByIdWithResponse(ctx, eventId, questionId, &params)
+	resp, callErr := ic.cl.UpdateDefaultQuestionByIdWithResponse(ctx, eventId, questionId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3555,7 +3433,7 @@ func dispatchUpdateDefaultQuestionByIdWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateDisplaySettingsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateDisplaySettingsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3579,7 +3457,7 @@ func dispatchUpdateDisplaySettingsWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("eventbrite.update-display-settings: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateDisplaySettingsWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateDisplaySettingsWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3595,7 +3473,7 @@ func dispatchUpdateDisplaySettingsWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateMultipleInventoryTiersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateMultipleInventoryTiersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3619,7 +3497,7 @@ func dispatchUpdateMultipleInventoryTiersWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("eventbrite.update-multiple-inventory-tiers: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateMultipleInventoryTiersWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateMultipleInventoryTiersWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3635,7 +3513,7 @@ func dispatchUpdateMultipleInventoryTiersWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateTicketBuyerSettingsForAnEventWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateTicketBuyerSettingsForAnEventWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3659,7 +3537,7 @@ func dispatchUpdateTicketBuyerSettingsForAnEventWithResponse(ctx context.Context
 		return nil, fmt.Errorf("eventbrite.update-ticket-buyer-settings-for-an-event: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateTicketBuyerSettingsForAnEventWithResponse(ctx, eventId, body)
+	resp, callErr := ic.cl.UpdateTicketBuyerSettingsForAnEventWithResponse(ctx, eventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3675,7 +3553,7 @@ func dispatchUpdateTicketBuyerSettingsForAnEventWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUploadAMediaFileWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUploadAMediaFileWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UploadAMediaFileJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3683,7 +3561,7 @@ func dispatchUploadAMediaFileWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("eventbrite.upload-a-media-file: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UploadAMediaFileWithResponse(ctx, body)
+	resp, callErr := ic.cl.UploadAMediaFileWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3699,7 +3577,7 @@ func dispatchUploadAMediaFileWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchVerifyPasswordForATeamWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVerifyPasswordForATeamWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3732,7 +3610,7 @@ func dispatchVerifyPasswordForATeamWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("eventbrite.verify-password-for-a-team: %w", bodyErr)
 	}
 
-	resp, callErr := cl.VerifyPasswordForATeamWithResponse(ctx, eventId, teamId, body)
+	resp, callErr := ic.cl.VerifyPasswordForATeamWithResponse(ctx, eventId, teamId, body)
 	if callErr != nil {
 		return nil, callErr
 	}

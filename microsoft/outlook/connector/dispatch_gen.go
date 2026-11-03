@@ -18,33 +18,17 @@ var (
 	errUnknownFunction        = errors.New("microsoft-outlook: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"list-events": dispatchListEventsWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -54,17 +38,12 @@ func Resolve(
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return cl.Dispatch(ctx, function, config, inputs)
 	}, nil
 }
 
-func dispatchListEventsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListEventsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -88,7 +67,7 @@ func dispatchListEventsWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("microsoft-outlook.list-events: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListEventsWithResponse(ctx, userId, &params)
+	resp, callErr := ic.cl.ListEventsWithResponse(ctx, userId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}

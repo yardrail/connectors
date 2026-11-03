@@ -21,10 +21,9 @@ type runConfig struct {
 	ManifestPath  string
 	SpecPath      string
 	PkgPath       string
-	OutDir        string
-	CWLSchemaOut  string
-	CWLMappingOut string
-	PkgName       string
+	OutDir       string
+	CWLSchemaOut string
+	PkgName      string
 }
 
 // handlerTemplates is the handler and dispatch template pair for one protocol.
@@ -294,16 +293,10 @@ func writeOutputs(cfg runConfig, ctx *genContext, tmpls handlerTemplates) error 
 		cwlSchemaOut = filepath.Join(cfg.OutDir, ctx.ConnectorID+"-ext.yml")
 	}
 
-	cwlMappingOut := cfg.CWLMappingOut
-	if cwlMappingOut == "" {
-		cwlMappingOut = filepath.Join(cfg.OutDir, "cwl_gen.go")
-	}
-
 	outputs := []output{
 		{filepath.Join(cfg.OutDir, "handler_gen.go"), templateRenderer(tmpls.handler)},
 		{filepath.Join(cfg.OutDir, "dispatch_gen.go"), templateRenderer(tmpls.dispatch)},
 		{cwlSchemaOut, renderCWLSchema},
-		{cwlMappingOut, templateRenderer(cwlMappingTemplate)},
 		{filepath.Join(cfg.OutDir, "registration_gen.go"), templateRenderer(registrationTemplate)},
 	}
 

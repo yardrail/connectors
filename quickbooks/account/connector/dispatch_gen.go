@@ -18,122 +18,17 @@ var (
 	errUnknownFunction        = errors.New("quickbooks-account: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"create-account":                 dispatchCreateAccountWithResponse,
-	"create-attachable":              dispatchCreateAttachableWithResponse,
-	"create-bill":                    dispatchCreateBillWithResponse,
-	"create-bill-payment":            dispatchCreateBillPaymentWithResponse,
-	"create-budget":                  dispatchCreateBudgetWithResponse,
-	"create-change-order":            dispatchCreateChangeOrderWithResponse,
-	"create-class":                   dispatchCreateClassWithResponse,
-	"create-company-currency":        dispatchCreateCompanyCurrencyWithResponse,
-	"create-credit-card-payment-txn": dispatchCreateCreditCardPaymentTxnWithResponse,
-	"create-credit-memo":             dispatchCreateCreditMemoWithResponse,
-	"create-customer":                dispatchCreateCustomerWithResponse,
-	"create-department":              dispatchCreateDepartmentWithResponse,
-	"create-deposit":                 dispatchCreateDepositWithResponse,
-	"create-employee":                dispatchCreateEmployeeWithResponse,
-	"create-estimate":                dispatchCreateEstimateWithResponse,
-	"create-inventory-adjustment":    dispatchCreateInventoryAdjustmentWithResponse,
-	"create-invoice":                 dispatchCreateInvoiceWithResponse,
-	"create-item":                    dispatchCreateItemWithResponse,
-	"create-journal-code":            dispatchCreateJournalCodeWithResponse,
-	"create-journal-entry":           dispatchCreateJournalEntryWithResponse,
-	"create-payment":                 dispatchCreatePaymentWithResponse,
-	"create-payment-method":          dispatchCreatePaymentMethodWithResponse,
-	"create-purchase":                dispatchCreatePurchaseWithResponse,
-	"create-purchase-order":          dispatchCreatePurchaseOrderWithResponse,
-	"create-recurring-transaction":   dispatchCreateRecurringTransactionWithResponse,
-	"create-refund-receipt":          dispatchCreateRefundReceiptWithResponse,
-	"create-sales-receipt":           dispatchCreateSalesReceiptWithResponse,
-	"create-tax-agency":              dispatchCreateTaxAgencyWithResponse,
-	"create-taxservice":              dispatchCreateTaxserviceWithResponse,
-	"create-term":                    dispatchCreateTermWithResponse,
-	"create-time-activity":           dispatchCreateTimeActivityWithResponse,
-	"create-transfer":                dispatchCreateTransferWithResponse,
-	"create-vendor":                  dispatchCreateVendorWithResponse,
-	"create-vendor-credit":           dispatchCreateVendorCreditWithResponse,
-	"get-estimate-p-d-f":             dispatchGetEstimatePDFWithResponse,
-	"get-invoice-p-d-f":              dispatchGetInvoicePDFWithResponse,
-	"get-sales-receipt-p-d-f":        dispatchGetSalesReceiptPDFWithResponse,
-	"query-account":                  dispatchQueryAccountWithResponse,
-	"read-account":                   dispatchReadAccountWithResponse,
-	"read-attachable":                dispatchReadAttachableWithResponse,
-	"read-bill":                      dispatchReadBillWithResponse,
-	"read-bill-payment":              dispatchReadBillPaymentWithResponse,
-	"read-budget":                    dispatchReadBudgetWithResponse,
-	"read-change-order":              dispatchReadChangeOrderWithResponse,
-	"read-class":                     dispatchReadClassWithResponse,
-	"read-company-currency":          dispatchReadCompanyCurrencyWithResponse,
-	"read-company-info":              dispatchReadCompanyInfoWithResponse,
-	"read-credit-card-payment-txn":   dispatchReadCreditCardPaymentTxnWithResponse,
-	"read-credit-memo":               dispatchReadCreditMemoWithResponse,
-	"read-customer":                  dispatchReadCustomerWithResponse,
-	"read-customer-type":             dispatchReadCustomerTypeWithResponse,
-	"read-department":                dispatchReadDepartmentWithResponse,
-	"read-deposit":                   dispatchReadDepositWithResponse,
-	"read-employee":                  dispatchReadEmployeeWithResponse,
-	"read-entitlements":              dispatchReadEntitlementsWithResponse,
-	"read-estimate":                  dispatchReadEstimateWithResponse,
-	"read-inventory-adjustment":      dispatchReadInventoryAdjustmentWithResponse,
-	"read-invoice":                   dispatchReadInvoiceWithResponse,
-	"read-item":                      dispatchReadItemWithResponse,
-	"read-journal-code":              dispatchReadJournalCodeWithResponse,
-	"read-journal-entry":             dispatchReadJournalEntryWithResponse,
-	"read-payment":                   dispatchReadPaymentWithResponse,
-	"read-payment-method":            dispatchReadPaymentMethodWithResponse,
-	"read-preferences":               dispatchReadPreferencesWithResponse,
-	"read-purchase":                  dispatchReadPurchaseWithResponse,
-	"read-purchase-order":            dispatchReadPurchaseOrderWithResponse,
-	"read-recurring-transaction":     dispatchReadRecurringTransactionWithResponse,
-	"read-refund-receipt":            dispatchReadRefundReceiptWithResponse,
-	"read-reimburse-charge":          dispatchReadReimburseChargeWithResponse,
-	"read-sales-receipt":             dispatchReadSalesReceiptWithResponse,
-	"read-tax-agency":                dispatchReadTaxAgencyWithResponse,
-	"read-tax-classification":        dispatchReadTaxClassificationWithResponse,
-	"read-tax-code":                  dispatchReadTaxCodeWithResponse,
-	"read-tax-payment":               dispatchReadTaxPaymentWithResponse,
-	"read-tax-rate":                  dispatchReadTaxRateWithResponse,
-	"read-term":                      dispatchReadTermWithResponse,
-	"read-time-activity":             dispatchReadTimeActivityWithResponse,
-	"read-transfer":                  dispatchReadTransferWithResponse,
-	"read-vendor":                    dispatchReadVendorWithResponse,
-	"read-vendor-credit":             dispatchReadVendorCreditWithResponse,
-	"send-credit-memo":               dispatchSendCreditMemoWithResponse,
-	"send-estimate":                  dispatchSendEstimateWithResponse,
-	"send-invoice":                   dispatchSendInvoiceWithResponse,
-	"send-payment":                   dispatchSendPaymentWithResponse,
-	"send-purchase-order":            dispatchSendPurchaseOrderWithResponse,
-	"send-refund-receipt":            dispatchSendRefundReceiptWithResponse,
-	"send-sales-receipt":             dispatchSendSalesReceiptWithResponse,
-	"update-company-info":            dispatchUpdateCompanyInfoWithResponse,
-	"update-exchange-rate":           dispatchUpdateExchangeRateWithResponse,
-	"update-preferences":             dispatchUpdatePreferencesWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -143,17 +38,12 @@ func Resolve(
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return cl.Dispatch(ctx, function, config, inputs)
 	}, nil
 }
 
-func dispatchCreateAccountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateAccountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateAccountJSONRequestBody
 
@@ -169,7 +59,7 @@ func dispatchCreateAccountWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("quickbooks-account.create-account: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateAccountWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateAccountWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -185,7 +75,7 @@ func dispatchCreateAccountWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateAttachableWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateAttachableWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateAttachableJSONRequestBody
 
@@ -201,7 +91,7 @@ func dispatchCreateAttachableWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.create-attachable: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateAttachableWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateAttachableWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -217,7 +107,7 @@ func dispatchCreateAttachableWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateBillWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateBillWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateBillJSONRequestBody
 
@@ -233,7 +123,7 @@ func dispatchCreateBillWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("quickbooks-account.create-bill: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateBillWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateBillWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -249,7 +139,7 @@ func dispatchCreateBillWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateBillPaymentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateBillPaymentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateBillPaymentJSONRequestBody
 
@@ -265,7 +155,7 @@ func dispatchCreateBillPaymentWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.create-bill-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateBillPaymentWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateBillPaymentWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -281,7 +171,7 @@ func dispatchCreateBillPaymentWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateBudgetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateBudgetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateBudgetJSONRequestBody
 
@@ -297,7 +187,7 @@ func dispatchCreateBudgetWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.create-budget: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateBudgetWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateBudgetWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -313,7 +203,7 @@ func dispatchCreateBudgetWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateChangeOrderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateChangeOrderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateChangeOrderJSONRequestBody
 
@@ -329,7 +219,7 @@ func dispatchCreateChangeOrderWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.create-change-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateChangeOrderWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateChangeOrderWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -345,7 +235,7 @@ func dispatchCreateChangeOrderWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateClassWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateClassWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateClassJSONRequestBody
 
@@ -361,7 +251,7 @@ func dispatchCreateClassWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.create-class: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateClassWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateClassWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -377,7 +267,7 @@ func dispatchCreateClassWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateCompanyCurrencyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateCompanyCurrencyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateCompanyCurrencyJSONRequestBody
 
@@ -393,7 +283,7 @@ func dispatchCreateCompanyCurrencyWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("quickbooks-account.create-company-currency: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateCompanyCurrencyWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateCompanyCurrencyWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -409,7 +299,7 @@ func dispatchCreateCompanyCurrencyWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateCreditCardPaymentTxnWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateCreditCardPaymentTxnWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateCreditCardPaymentTxnJSONRequestBody
 
@@ -425,7 +315,7 @@ func dispatchCreateCreditCardPaymentTxnWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("quickbooks-account.create-credit-card-payment-txn: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateCreditCardPaymentTxnWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateCreditCardPaymentTxnWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -441,7 +331,7 @@ func dispatchCreateCreditCardPaymentTxnWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateCreditMemoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateCreditMemoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateCreditMemoJSONRequestBody
 
@@ -457,7 +347,7 @@ func dispatchCreateCreditMemoWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.create-credit-memo: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateCreditMemoWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateCreditMemoWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -473,7 +363,7 @@ func dispatchCreateCreditMemoWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateCustomerWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateCustomerWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateCustomerJSONRequestBody
 
@@ -489,7 +379,7 @@ func dispatchCreateCustomerWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.create-customer: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateCustomerWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateCustomerWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -505,7 +395,7 @@ func dispatchCreateCustomerWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateDepartmentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDepartmentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateDepartmentJSONRequestBody
 
@@ -521,7 +411,7 @@ func dispatchCreateDepartmentWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.create-department: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateDepartmentWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateDepartmentWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -537,7 +427,7 @@ func dispatchCreateDepartmentWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateDepositWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDepositWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateDepositJSONRequestBody
 
@@ -553,7 +443,7 @@ func dispatchCreateDepositWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("quickbooks-account.create-deposit: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateDepositWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateDepositWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -569,7 +459,7 @@ func dispatchCreateDepositWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateEmployeeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateEmployeeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateEmployeeJSONRequestBody
 
@@ -585,7 +475,7 @@ func dispatchCreateEmployeeWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.create-employee: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateEmployeeWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateEmployeeWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -601,7 +491,7 @@ func dispatchCreateEmployeeWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateEstimateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateEstimateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateEstimateJSONRequestBody
 
@@ -617,7 +507,7 @@ func dispatchCreateEstimateWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.create-estimate: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateEstimateWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateEstimateWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -633,7 +523,7 @@ func dispatchCreateEstimateWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateInventoryAdjustmentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateInventoryAdjustmentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateInventoryAdjustmentJSONRequestBody
 
@@ -649,7 +539,7 @@ func dispatchCreateInventoryAdjustmentWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("quickbooks-account.create-inventory-adjustment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateInventoryAdjustmentWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateInventoryAdjustmentWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -665,7 +555,7 @@ func dispatchCreateInventoryAdjustmentWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateInvoiceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateInvoiceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateInvoiceJSONRequestBody
 
@@ -681,7 +571,7 @@ func dispatchCreateInvoiceWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("quickbooks-account.create-invoice: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateInvoiceWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateInvoiceWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -697,7 +587,7 @@ func dispatchCreateInvoiceWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateItemWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateItemWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateItemJSONRequestBody
 
@@ -713,7 +603,7 @@ func dispatchCreateItemWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("quickbooks-account.create-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateItemWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateItemWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -729,7 +619,7 @@ func dispatchCreateItemWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateJournalCodeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateJournalCodeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateJournalCodeJSONRequestBody
 
@@ -745,7 +635,7 @@ func dispatchCreateJournalCodeWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.create-journal-code: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateJournalCodeWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateJournalCodeWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -761,7 +651,7 @@ func dispatchCreateJournalCodeWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateJournalEntryWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateJournalEntryWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateJournalEntryJSONRequestBody
 
@@ -777,7 +667,7 @@ func dispatchCreateJournalEntryWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("quickbooks-account.create-journal-entry: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateJournalEntryWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateJournalEntryWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -793,7 +683,7 @@ func dispatchCreateJournalEntryWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreatePaymentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePaymentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreatePaymentJSONRequestBody
 
@@ -809,7 +699,7 @@ func dispatchCreatePaymentWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("quickbooks-account.create-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreatePaymentWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreatePaymentWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -825,7 +715,7 @@ func dispatchCreatePaymentWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreatePaymentMethodWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePaymentMethodWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreatePaymentMethodJSONRequestBody
 
@@ -841,7 +731,7 @@ func dispatchCreatePaymentMethodWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("quickbooks-account.create-payment-method: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreatePaymentMethodWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreatePaymentMethodWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -857,7 +747,7 @@ func dispatchCreatePaymentMethodWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreatePurchaseWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePurchaseWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreatePurchaseJSONRequestBody
 
@@ -873,7 +763,7 @@ func dispatchCreatePurchaseWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.create-purchase: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreatePurchaseWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreatePurchaseWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -889,7 +779,7 @@ func dispatchCreatePurchaseWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreatePurchaseOrderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePurchaseOrderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreatePurchaseOrderJSONRequestBody
 
@@ -905,7 +795,7 @@ func dispatchCreatePurchaseOrderWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("quickbooks-account.create-purchase-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreatePurchaseOrderWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreatePurchaseOrderWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -921,7 +811,7 @@ func dispatchCreatePurchaseOrderWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateRecurringTransactionWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateRecurringTransactionWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateRecurringTransactionJSONRequestBody
 
@@ -937,7 +827,7 @@ func dispatchCreateRecurringTransactionWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("quickbooks-account.create-recurring-transaction: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateRecurringTransactionWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateRecurringTransactionWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -953,7 +843,7 @@ func dispatchCreateRecurringTransactionWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateRefundReceiptWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateRefundReceiptWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateRefundReceiptJSONRequestBody
 
@@ -969,7 +859,7 @@ func dispatchCreateRefundReceiptWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("quickbooks-account.create-refund-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateRefundReceiptWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateRefundReceiptWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -985,7 +875,7 @@ func dispatchCreateRefundReceiptWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateSalesReceiptWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateSalesReceiptWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateSalesReceiptJSONRequestBody
 
@@ -1001,7 +891,7 @@ func dispatchCreateSalesReceiptWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("quickbooks-account.create-sales-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateSalesReceiptWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateSalesReceiptWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1017,7 +907,7 @@ func dispatchCreateSalesReceiptWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateTaxAgencyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateTaxAgencyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateTaxAgencyJSONRequestBody
 
@@ -1033,7 +923,7 @@ func dispatchCreateTaxAgencyWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("quickbooks-account.create-tax-agency: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateTaxAgencyWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTaxAgencyWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1049,7 +939,7 @@ func dispatchCreateTaxAgencyWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateTaxserviceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateTaxserviceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateTaxserviceJSONRequestBody
 
@@ -1065,7 +955,7 @@ func dispatchCreateTaxserviceWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.create-taxservice: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateTaxserviceWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTaxserviceWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1081,7 +971,7 @@ func dispatchCreateTaxserviceWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateTermWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateTermWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateTermJSONRequestBody
 
@@ -1097,7 +987,7 @@ func dispatchCreateTermWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("quickbooks-account.create-term: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateTermWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTermWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1113,7 +1003,7 @@ func dispatchCreateTermWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateTimeActivityWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateTimeActivityWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateTimeActivityJSONRequestBody
 
@@ -1129,7 +1019,7 @@ func dispatchCreateTimeActivityWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("quickbooks-account.create-time-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateTimeActivityWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTimeActivityWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1145,7 +1035,7 @@ func dispatchCreateTimeActivityWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateTransferWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateTransferWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateTransferJSONRequestBody
 
@@ -1161,7 +1051,7 @@ func dispatchCreateTransferWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.create-transfer: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateTransferWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateTransferWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1177,7 +1067,7 @@ func dispatchCreateTransferWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateVendorWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateVendorWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateVendorJSONRequestBody
 
@@ -1193,7 +1083,7 @@ func dispatchCreateVendorWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.create-vendor: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateVendorWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateVendorWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1209,7 +1099,7 @@ func dispatchCreateVendorWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateVendorCreditWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateVendorCreditWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.CreateVendorCreditJSONRequestBody
 
@@ -1225,7 +1115,7 @@ func dispatchCreateVendorCreditWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("quickbooks-account.create-vendor-credit: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateVendorCreditWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.CreateVendorCreditWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1241,7 +1131,7 @@ func dispatchCreateVendorCreditWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEstimatePDFWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEstimatePDFWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1266,7 +1156,7 @@ func dispatchGetEstimatePDFWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.get-estimate-p-d-f: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEstimatePDFWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.GetEstimatePDFWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1282,7 +1172,7 @@ func dispatchGetEstimatePDFWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetInvoicePDFWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoicePDFWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1307,7 +1197,7 @@ func dispatchGetInvoicePDFWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("quickbooks-account.get-invoice-p-d-f: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetInvoicePDFWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.GetInvoicePDFWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1323,7 +1213,7 @@ func dispatchGetInvoicePDFWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSalesReceiptPDFWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSalesReceiptPDFWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1348,7 +1238,7 @@ func dispatchGetSalesReceiptPDFWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("quickbooks-account.get-sales-receipt-p-d-f: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetSalesReceiptPDFWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.GetSalesReceiptPDFWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1364,7 +1254,7 @@ func dispatchGetSalesReceiptPDFWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchQueryAccountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchQueryAccountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var params client.QueryAccountParams
 
@@ -1373,7 +1263,7 @@ func dispatchQueryAccountWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.query-account: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.QueryAccountWithResponse(ctx, client.RealmId(realmId), &params)
+	resp, callErr := ic.cl.QueryAccountWithResponse(ctx, client.RealmId(realmId), &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1389,7 +1279,7 @@ func dispatchQueryAccountWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadAccountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadAccountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1414,7 +1304,7 @@ func dispatchReadAccountWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.read-account: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadAccountWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadAccountWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1430,7 +1320,7 @@ func dispatchReadAccountWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadAttachableWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadAttachableWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1455,7 +1345,7 @@ func dispatchReadAttachableWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.read-attachable: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadAttachableWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadAttachableWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1471,7 +1361,7 @@ func dispatchReadAttachableWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadBillWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadBillWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1496,7 +1386,7 @@ func dispatchReadBillWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("quickbooks-account.read-bill: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadBillWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadBillWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1512,7 +1402,7 @@ func dispatchReadBillWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadBillPaymentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadBillPaymentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1537,7 +1427,7 @@ func dispatchReadBillPaymentWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("quickbooks-account.read-bill-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadBillPaymentWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadBillPaymentWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1553,7 +1443,7 @@ func dispatchReadBillPaymentWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadBudgetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadBudgetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1578,7 +1468,7 @@ func dispatchReadBudgetWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("quickbooks-account.read-budget: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadBudgetWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadBudgetWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1594,7 +1484,7 @@ func dispatchReadBudgetWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadChangeOrderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadChangeOrderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1619,7 +1509,7 @@ func dispatchReadChangeOrderWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("quickbooks-account.read-change-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadChangeOrderWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadChangeOrderWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1635,7 +1525,7 @@ func dispatchReadChangeOrderWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadClassWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadClassWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1660,7 +1550,7 @@ func dispatchReadClassWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("quickbooks-account.read-class: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadClassWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadClassWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1676,7 +1566,7 @@ func dispatchReadClassWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadCompanyCurrencyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadCompanyCurrencyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1701,7 +1591,7 @@ func dispatchReadCompanyCurrencyWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("quickbooks-account.read-company-currency: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadCompanyCurrencyWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadCompanyCurrencyWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1717,7 +1607,7 @@ func dispatchReadCompanyCurrencyWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadCompanyInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadCompanyInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1742,7 +1632,7 @@ func dispatchReadCompanyInfoWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("quickbooks-account.read-company-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadCompanyInfoWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadCompanyInfoWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1758,7 +1648,7 @@ func dispatchReadCompanyInfoWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadCreditCardPaymentTxnWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadCreditCardPaymentTxnWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1783,7 +1673,7 @@ func dispatchReadCreditCardPaymentTxnWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("quickbooks-account.read-credit-card-payment-txn: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadCreditCardPaymentTxnWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadCreditCardPaymentTxnWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1799,7 +1689,7 @@ func dispatchReadCreditCardPaymentTxnWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadCreditMemoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadCreditMemoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1824,7 +1714,7 @@ func dispatchReadCreditMemoWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.read-credit-memo: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadCreditMemoWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadCreditMemoWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1840,7 +1730,7 @@ func dispatchReadCreditMemoWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadCustomerWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadCustomerWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1865,7 +1755,7 @@ func dispatchReadCustomerWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.read-customer: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadCustomerWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadCustomerWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1881,7 +1771,7 @@ func dispatchReadCustomerWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadCustomerTypeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadCustomerTypeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1906,7 +1796,7 @@ func dispatchReadCustomerTypeWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.read-customer-type: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadCustomerTypeWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadCustomerTypeWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1922,7 +1812,7 @@ func dispatchReadCustomerTypeWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadDepartmentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadDepartmentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1947,7 +1837,7 @@ func dispatchReadDepartmentWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.read-department: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadDepartmentWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadDepartmentWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1963,7 +1853,7 @@ func dispatchReadDepartmentWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadDepositWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadDepositWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -1988,7 +1878,7 @@ func dispatchReadDepositWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.read-deposit: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadDepositWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadDepositWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2004,7 +1894,7 @@ func dispatchReadDepositWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadEmployeeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadEmployeeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2029,7 +1919,7 @@ func dispatchReadEmployeeWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.read-employee: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadEmployeeWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadEmployeeWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2045,7 +1935,7 @@ func dispatchReadEmployeeWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadEntitlementsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadEntitlementsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2070,7 +1960,7 @@ func dispatchReadEntitlementsWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.read-entitlements: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadEntitlementsWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadEntitlementsWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2086,7 +1976,7 @@ func dispatchReadEntitlementsWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadEstimateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadEstimateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2111,7 +2001,7 @@ func dispatchReadEstimateWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.read-estimate: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadEstimateWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadEstimateWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2127,7 +2017,7 @@ func dispatchReadEstimateWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadInventoryAdjustmentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadInventoryAdjustmentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2152,7 +2042,7 @@ func dispatchReadInventoryAdjustmentWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("quickbooks-account.read-inventory-adjustment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadInventoryAdjustmentWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadInventoryAdjustmentWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2168,7 +2058,7 @@ func dispatchReadInventoryAdjustmentWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadInvoiceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadInvoiceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2193,7 +2083,7 @@ func dispatchReadInvoiceWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.read-invoice: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadInvoiceWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadInvoiceWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2209,7 +2099,7 @@ func dispatchReadInvoiceWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadItemWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadItemWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2234,7 +2124,7 @@ func dispatchReadItemWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("quickbooks-account.read-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadItemWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadItemWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2250,7 +2140,7 @@ func dispatchReadItemWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadJournalCodeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadJournalCodeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2275,7 +2165,7 @@ func dispatchReadJournalCodeWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("quickbooks-account.read-journal-code: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadJournalCodeWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadJournalCodeWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2291,7 +2181,7 @@ func dispatchReadJournalCodeWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadJournalEntryWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadJournalEntryWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2316,7 +2206,7 @@ func dispatchReadJournalEntryWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.read-journal-entry: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadJournalEntryWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadJournalEntryWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2332,7 +2222,7 @@ func dispatchReadJournalEntryWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadPaymentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadPaymentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2357,7 +2247,7 @@ func dispatchReadPaymentWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.read-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadPaymentWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadPaymentWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2373,7 +2263,7 @@ func dispatchReadPaymentWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadPaymentMethodWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadPaymentMethodWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2398,7 +2288,7 @@ func dispatchReadPaymentMethodWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.read-payment-method: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadPaymentMethodWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadPaymentMethodWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2414,7 +2304,7 @@ func dispatchReadPaymentMethodWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadPreferencesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadPreferencesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2439,7 +2329,7 @@ func dispatchReadPreferencesWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("quickbooks-account.read-preferences: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadPreferencesWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadPreferencesWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2455,7 +2345,7 @@ func dispatchReadPreferencesWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadPurchaseWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadPurchaseWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2480,7 +2370,7 @@ func dispatchReadPurchaseWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.read-purchase: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadPurchaseWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadPurchaseWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2496,7 +2386,7 @@ func dispatchReadPurchaseWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadPurchaseOrderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadPurchaseOrderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2521,7 +2411,7 @@ func dispatchReadPurchaseOrderWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.read-purchase-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadPurchaseOrderWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadPurchaseOrderWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2537,7 +2427,7 @@ func dispatchReadPurchaseOrderWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadRecurringTransactionWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadRecurringTransactionWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2562,7 +2452,7 @@ func dispatchReadRecurringTransactionWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("quickbooks-account.read-recurring-transaction: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadRecurringTransactionWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadRecurringTransactionWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2578,7 +2468,7 @@ func dispatchReadRecurringTransactionWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadRefundReceiptWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadRefundReceiptWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2603,7 +2493,7 @@ func dispatchReadRefundReceiptWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.read-refund-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadRefundReceiptWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadRefundReceiptWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2619,7 +2509,7 @@ func dispatchReadRefundReceiptWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadReimburseChargeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadReimburseChargeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2644,7 +2534,7 @@ func dispatchReadReimburseChargeWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("quickbooks-account.read-reimburse-charge: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadReimburseChargeWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadReimburseChargeWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2660,7 +2550,7 @@ func dispatchReadReimburseChargeWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadSalesReceiptWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadSalesReceiptWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2685,7 +2575,7 @@ func dispatchReadSalesReceiptWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.read-sales-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadSalesReceiptWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadSalesReceiptWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2701,7 +2591,7 @@ func dispatchReadSalesReceiptWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadTaxAgencyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadTaxAgencyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2726,7 +2616,7 @@ func dispatchReadTaxAgencyWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("quickbooks-account.read-tax-agency: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadTaxAgencyWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadTaxAgencyWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2742,7 +2632,7 @@ func dispatchReadTaxAgencyWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadTaxClassificationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadTaxClassificationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2767,7 +2657,7 @@ func dispatchReadTaxClassificationWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("quickbooks-account.read-tax-classification: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadTaxClassificationWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadTaxClassificationWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2783,7 +2673,7 @@ func dispatchReadTaxClassificationWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadTaxCodeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadTaxCodeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2808,7 +2698,7 @@ func dispatchReadTaxCodeWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.read-tax-code: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadTaxCodeWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadTaxCodeWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2824,7 +2714,7 @@ func dispatchReadTaxCodeWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadTaxPaymentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadTaxPaymentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2849,7 +2739,7 @@ func dispatchReadTaxPaymentWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.read-tax-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadTaxPaymentWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadTaxPaymentWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2865,7 +2755,7 @@ func dispatchReadTaxPaymentWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadTaxRateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadTaxRateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2890,7 +2780,7 @@ func dispatchReadTaxRateWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.read-tax-rate: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadTaxRateWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadTaxRateWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2906,7 +2796,7 @@ func dispatchReadTaxRateWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadTermWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadTermWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2931,7 +2821,7 @@ func dispatchReadTermWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("quickbooks-account.read-term: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadTermWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadTermWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2947,7 +2837,7 @@ func dispatchReadTermWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadTimeActivityWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadTimeActivityWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -2972,7 +2862,7 @@ func dispatchReadTimeActivityWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.read-time-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadTimeActivityWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadTimeActivityWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2988,7 +2878,7 @@ func dispatchReadTimeActivityWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadTransferWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadTransferWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3013,7 +2903,7 @@ func dispatchReadTransferWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.read-transfer: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadTransferWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadTransferWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3029,7 +2919,7 @@ func dispatchReadTransferWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadVendorWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadVendorWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3054,7 +2944,7 @@ func dispatchReadVendorWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("quickbooks-account.read-vendor: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadVendorWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadVendorWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3070,7 +2960,7 @@ func dispatchReadVendorWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReadVendorCreditWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReadVendorCreditWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3095,7 +2985,7 @@ func dispatchReadVendorCreditWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.read-vendor-credit: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReadVendorCreditWithResponse(ctx, client.RealmId(realmId), id, &params)
+	resp, callErr := ic.cl.ReadVendorCreditWithResponse(ctx, client.RealmId(realmId), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3111,7 +3001,7 @@ func dispatchReadVendorCreditWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSendCreditMemoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSendCreditMemoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3143,7 +3033,7 @@ func dispatchSendCreditMemoWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("quickbooks-account.send-credit-memo: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SendCreditMemoWithResponse(ctx, client.RealmId(realmId), id, &params, body)
+	resp, callErr := ic.cl.SendCreditMemoWithResponse(ctx, client.RealmId(realmId), id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3159,7 +3049,7 @@ func dispatchSendCreditMemoWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSendEstimateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSendEstimateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3191,7 +3081,7 @@ func dispatchSendEstimateWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("quickbooks-account.send-estimate: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SendEstimateWithResponse(ctx, client.RealmId(realmId), id, &params, body)
+	resp, callErr := ic.cl.SendEstimateWithResponse(ctx, client.RealmId(realmId), id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3207,7 +3097,7 @@ func dispatchSendEstimateWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSendInvoiceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSendInvoiceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3239,7 +3129,7 @@ func dispatchSendInvoiceWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.send-invoice: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SendInvoiceWithResponse(ctx, client.RealmId(realmId), id, &params, body)
+	resp, callErr := ic.cl.SendInvoiceWithResponse(ctx, client.RealmId(realmId), id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3255,7 +3145,7 @@ func dispatchSendInvoiceWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSendPaymentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSendPaymentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3287,7 +3177,7 @@ func dispatchSendPaymentWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("quickbooks-account.send-payment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SendPaymentWithResponse(ctx, client.RealmId(realmId), id, &params, body)
+	resp, callErr := ic.cl.SendPaymentWithResponse(ctx, client.RealmId(realmId), id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3303,7 +3193,7 @@ func dispatchSendPaymentWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSendPurchaseOrderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSendPurchaseOrderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3335,7 +3225,7 @@ func dispatchSendPurchaseOrderWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.send-purchase-order: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SendPurchaseOrderWithResponse(ctx, client.RealmId(realmId), id, &params, body)
+	resp, callErr := ic.cl.SendPurchaseOrderWithResponse(ctx, client.RealmId(realmId), id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3351,7 +3241,7 @@ func dispatchSendPurchaseOrderWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSendRefundReceiptWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSendRefundReceiptWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3383,7 +3273,7 @@ func dispatchSendRefundReceiptWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.send-refund-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SendRefundReceiptWithResponse(ctx, client.RealmId(realmId), id, &params, body)
+	resp, callErr := ic.cl.SendRefundReceiptWithResponse(ctx, client.RealmId(realmId), id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3399,7 +3289,7 @@ func dispatchSendRefundReceiptWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSendSalesReceiptWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSendSalesReceiptWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var pathArgs map[string]json.RawMessage
 
@@ -3431,7 +3321,7 @@ func dispatchSendSalesReceiptWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("quickbooks-account.send-sales-receipt: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SendSalesReceiptWithResponse(ctx, client.RealmId(realmId), id, &params, body)
+	resp, callErr := ic.cl.SendSalesReceiptWithResponse(ctx, client.RealmId(realmId), id, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3447,7 +3337,7 @@ func dispatchSendSalesReceiptWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateCompanyInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateCompanyInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.UpdateCompanyInfoJSONRequestBody
 
@@ -3463,7 +3353,7 @@ func dispatchUpdateCompanyInfoWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.update-company-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UpdateCompanyInfoWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.UpdateCompanyInfoWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3479,7 +3369,7 @@ func dispatchUpdateCompanyInfoWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateExchangeRateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateExchangeRateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.UpdateExchangeRateJSONRequestBody
 
@@ -3495,7 +3385,7 @@ func dispatchUpdateExchangeRateWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("quickbooks-account.update-exchange-rate: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UpdateExchangeRateWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.UpdateExchangeRateWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3511,7 +3401,7 @@ func dispatchUpdateExchangeRateWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdatePreferencesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdatePreferencesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	realmId := config["realm_id"]
 	var body client.UpdatePreferencesJSONRequestBody
 
@@ -3527,7 +3417,7 @@ func dispatchUpdatePreferencesWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("quickbooks-account.update-preferences: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UpdatePreferencesWithResponse(ctx, client.RealmId(realmId), &params, body)
+	resp, callErr := ic.cl.UpdatePreferencesWithResponse(ctx, client.RealmId(realmId), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}

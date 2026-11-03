@@ -18,45 +18,17 @@ var (
 	errUnknownFunction        = errors.New("hubspot-crm-contacts: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"deletecrmv3objectscontacts-contact-id-archive": dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse,
-	"getcrmv3objectscontacts-contact-id-get-by-id":  dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse,
-	"getcrmv3objectscontacts-get-page":              dispatchGetcrmv3objectscontactsGetPageWithResponse,
-	"patchcrmv3objectscontacts-contact-id-update":   dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse,
-	"postcrmv3objectscontacts-create":               dispatchPostcrmv3objectscontactsCreateWithResponse,
-	"postcrmv3objectscontactsbatcharchive-archive":  dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse,
-	"postcrmv3objectscontactsbatchcreate-create":    dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse,
-	"postcrmv3objectscontactsbatchread-read":        dispatchPostcrmv3objectscontactsbatchreadReadWithResponse,
-	"postcrmv3objectscontactsbatchupdate-update":    dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse,
-	"postcrmv3objectscontactsbatchupsert-upsert":    dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse,
-	"postcrmv3objectscontactsgdpr-delete-purge":     dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse,
-	"postcrmv3objectscontactsmerge-merge":           dispatchPostcrmv3objectscontactsmergeMergeWithResponse,
-	"postcrmv3objectscontactssearch-do-search":      dispatchPostcrmv3objectscontactssearchDoSearchWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -66,17 +38,12 @@ func Resolve(
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return cl.Dispatch(ctx, function, config, inputs)
 	}, nil
 }
 
-func dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -93,7 +60,7 @@ func dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx context.
 		}
 	}
 
-	resp, callErr := cl.Deletecrmv3objectscontactsContactIdArchiveWithResponse(ctx, contactId)
+	resp, callErr := ic.cl.Deletecrmv3objectscontactsContactIdArchiveWithResponse(ctx, contactId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -109,7 +76,7 @@ func dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -133,7 +100,7 @@ func dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx context.Con
 		return nil, fmt.Errorf("hubspot-crm-contacts.getcrmv3objectscontacts-contact-id-get-by-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.Getcrmv3objectscontactsContactIdGetByIdWithResponse(ctx, contactId, &params)
+	resp, callErr := ic.cl.Getcrmv3objectscontactsContactIdGetByIdWithResponse(ctx, contactId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -149,7 +116,7 @@ func dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetcrmv3objectscontactsGetPageWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsGetPageWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.Getcrmv3objectscontactsGetPageParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -157,7 +124,7 @@ func dispatchGetcrmv3objectscontactsGetPageWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("hubspot-crm-contacts.getcrmv3objectscontacts-get-page: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.Getcrmv3objectscontactsGetPageWithResponse(ctx, &params)
+	resp, callErr := ic.cl.Getcrmv3objectscontactsGetPageWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -173,7 +140,7 @@ func dispatchGetcrmv3objectscontactsGetPageWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -204,7 +171,7 @@ func dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx context.Co
 		return nil, fmt.Errorf("hubspot-crm-contacts.patchcrmv3objectscontacts-contact-id-update: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.Patchcrmv3objectscontactsContactIdUpdateWithResponse(ctx, contactId, &params, body)
+	resp, callErr := ic.cl.Patchcrmv3objectscontactsContactIdUpdateWithResponse(ctx, contactId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -220,7 +187,7 @@ func dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactsCreateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsCreateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsCreateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -228,7 +195,7 @@ func dispatchPostcrmv3objectscontactsCreateWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontacts-create: %w", bodyErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactsCreateWithResponse(ctx, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactsCreateWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -244,7 +211,7 @@ func dispatchPostcrmv3objectscontactsCreateWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatcharchiveArchiveJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -252,7 +219,7 @@ func dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx context
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontactsbatcharchive-archive: %w", bodyErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -268,7 +235,7 @@ func dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatchcreateCreateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -276,7 +243,7 @@ func dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse(ctx context.C
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontactsbatchcreate-create: %w", bodyErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactsbatchcreateCreateWithResponse(ctx, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactsbatchcreateCreateWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -292,7 +259,7 @@ func dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactsbatchreadReadWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchreadReadWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatchreadReadJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -307,7 +274,7 @@ func dispatchPostcrmv3objectscontactsbatchreadReadWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontactsbatchread-read: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactsbatchreadReadWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactsbatchreadReadWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -323,7 +290,7 @@ func dispatchPostcrmv3objectscontactsbatchreadReadWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatchupdateUpdateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -331,7 +298,7 @@ func dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx context.C
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontactsbatchupdate-update: %w", bodyErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -347,7 +314,7 @@ func dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatchupsertUpsertJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -355,7 +322,7 @@ func dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx context.C
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontactsbatchupsert-upsert: %w", bodyErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -371,7 +338,7 @@ func dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsgdprDeletePurgeJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -379,7 +346,7 @@ func dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx context.Con
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontactsgdpr-delete-purge: %w", bodyErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -395,7 +362,7 @@ func dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactsmergeMergeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsmergeMergeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsmergeMergeJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -403,7 +370,7 @@ func dispatchPostcrmv3objectscontactsmergeMergeWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontactsmerge-merge: %w", bodyErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactsmergeMergeWithResponse(ctx, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactsmergeMergeWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -419,7 +386,7 @@ func dispatchPostcrmv3objectscontactsmergeMergeWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostcrmv3objectscontactssearchDoSearchWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactssearchDoSearchWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactssearchDoSearchJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -427,7 +394,7 @@ func dispatchPostcrmv3objectscontactssearchDoSearchWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("hubspot-crm-contacts.postcrmv3objectscontactssearch-do-search: %w", bodyErr)
 	}
 
-	resp, callErr := cl.Postcrmv3objectscontactssearchDoSearchWithResponse(ctx, body)
+	resp, callErr := ic.cl.Postcrmv3objectscontactssearchDoSearchWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}

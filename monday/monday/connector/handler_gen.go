@@ -4,19 +4,61 @@ package connector
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
+// InterfaceClient wraps an authenticated GraphQL endpoint for one interface.
+type InterfaceClient struct {
+	ep *endpoint
+}
+
+// Dispatch calls the named GraphQL operation.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch function {
+	case "change-multiple-column-values":
+		return ic.ep.call(ctx, function, queryChangeMultipleColumnValues, inputs)
+	case "create-item":
+		return ic.ep.call(ctx, function, queryCreateItem, inputs)
+	case "create-update":
+		return ic.ep.call(ctx, function, queryCreateUpdate, inputs)
+	case "get-item":
+		return ic.ep.call(ctx, function, queryGetItem, inputs)
+	case "list-board-columns":
+		return ic.ep.call(ctx, function, queryListBoardColumns, inputs)
+	case "list-board-items":
+		return ic.ep.call(ctx, function, queryListBoardItems, inputs)
+	case "list-items-by-column-values":
+		return ic.ep.call(ctx, function, queryListItemsByColumnValues, inputs)
+	case "list-users":
+		return ic.ep.call(ctx, function, queryListUsers, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	}
+}
+
 // Connector holds the GraphQL endpoint for each configured interface.
 type Connector struct {
-	endpoints  map[string]*endpoint
-	httpClient *http.Client
+	clients map[string]*InterfaceClient
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
 // When httpClient is non-nil it is used for all outbound HTTP calls.
 func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	return &Connector{endpoints: newEndpoints(creds, config, httpClient), httpClient: httpClient}, nil
+	endpoints := newEndpoints(creds, config, httpClient)
+	clients := make(map[string]*InterfaceClient, len(endpoints))
+	for id, ep := range endpoints {
+		clients[id] = &InterfaceClient{ep: ep}
+	}
+
+	return &Connector{clients: clients}, nil
+}
+
+// Client returns the interface client for the given interface ID.
+// Returns nil if the interface was not configured with credentials.
+func (c *Connector) Client(interfaceID string) *InterfaceClient {
+	return c.clients[interfaceID]
 }
 
 // endpoint is a GraphQL interface's HTTP endpoint with its auth applied.

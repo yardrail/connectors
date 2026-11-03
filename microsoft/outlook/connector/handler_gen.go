@@ -4,22 +4,37 @@ package connector
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/yardrail/connectors/microsoft/outlook/client"
 )
 
-// Connector wraps authenticated oapi-codegen clients per interface.
-// Use Client() for typed access to the full API surface.
+// InterfaceClient wraps an authenticated oapi-codegen client for one interface.
+type InterfaceClient struct {
+	cl *client.ClientWithResponses
+}
+
+// Dispatch calls the named function's typed client method.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch function {
+	case "list-events":
+		return ic.dispatchListEventsWithResponse(ctx, config, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	}
+}
+
+// Connector holds an authenticated client for each configured interface.
 type Connector struct {
-	clients map[string]*client.ClientWithResponses
+	clients map[string]*InterfaceClient
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
 // When httpClient is non-nil it is used for all outbound HTTP calls.
 func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*client.ClientWithResponses, 1)
+	clients := make(map[string]*InterfaceClient, 1)
 
 	if ifaceCreds, ok := creds["graph"]; ok {
 		baseURL := resolveBaseURL(config["graph"])
@@ -30,20 +45,20 @@ func NewConnector(creds, config map[string]map[string]string, httpClient *http.C
 			opts = append(opts, client.WithHTTPClient(httpClient))
 		}
 
-		c, err := client.NewClientWithResponses(baseURL, opts...)
+		cl, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating graph client: %w", err)
 		}
 
-		clients["graph"] = c
+		clients["graph"] = &InterfaceClient{cl: cl}
 	}
 
 	return &Connector{clients: clients}, nil
 }
 
-// Client returns the typed oapi-codegen client for the given interface.
+// Client returns the interface client for the given interface ID.
 // Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *client.ClientWithResponses {
+func (c *Connector) Client(interfaceID string) *InterfaceClient {
 	return c.clients[interfaceID]
 }
 

@@ -4,22 +4,61 @@ package connector
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/yardrail/connectors/hubspot/crm-contacts/client"
 )
 
-// Connector wraps authenticated oapi-codegen clients per interface.
-// Use Client() for typed access to the full API surface.
+// InterfaceClient wraps an authenticated oapi-codegen client for one interface.
+type InterfaceClient struct {
+	cl *client.ClientWithResponses
+}
+
+// Dispatch calls the named function's typed client method.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch function {
+	case "deletecrmv3objectscontacts-contact-id-archive":
+		return ic.dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx, config, inputs)
+	case "getcrmv3objectscontacts-contact-id-get-by-id":
+		return ic.dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx, config, inputs)
+	case "getcrmv3objectscontacts-get-page":
+		return ic.dispatchGetcrmv3objectscontactsGetPageWithResponse(ctx, config, inputs)
+	case "patchcrmv3objectscontacts-contact-id-update":
+		return ic.dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontacts-create":
+		return ic.dispatchPostcrmv3objectscontactsCreateWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontactsbatcharchive-archive":
+		return ic.dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontactsbatchcreate-create":
+		return ic.dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontactsbatchread-read":
+		return ic.dispatchPostcrmv3objectscontactsbatchreadReadWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontactsbatchupdate-update":
+		return ic.dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontactsbatchupsert-upsert":
+		return ic.dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontactsgdpr-delete-purge":
+		return ic.dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontactsmerge-merge":
+		return ic.dispatchPostcrmv3objectscontactsmergeMergeWithResponse(ctx, config, inputs)
+	case "postcrmv3objectscontactssearch-do-search":
+		return ic.dispatchPostcrmv3objectscontactssearchDoSearchWithResponse(ctx, config, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	}
+}
+
+// Connector holds an authenticated client for each configured interface.
 type Connector struct {
-	clients map[string]*client.ClientWithResponses
+	clients map[string]*InterfaceClient
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
 // When httpClient is non-nil it is used for all outbound HTTP calls.
 func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*client.ClientWithResponses, 2)
+	clients := make(map[string]*InterfaceClient, 2)
 
 	if ifaceCreds, ok := creds["oauth"]; ok {
 		baseURL := resolveBaseURL(config["oauth"])
@@ -30,12 +69,12 @@ func NewConnector(creds, config map[string]map[string]string, httpClient *http.C
 			opts = append(opts, client.WithHTTPClient(httpClient))
 		}
 
-		c, err := client.NewClientWithResponses(baseURL, opts...)
+		cl, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating oauth client: %w", err)
 		}
 
-		clients["oauth"] = c
+		clients["oauth"] = &InterfaceClient{cl: cl}
 	}
 
 	if ifaceCreds, ok := creds["private-app"]; ok {
@@ -47,20 +86,20 @@ func NewConnector(creds, config map[string]map[string]string, httpClient *http.C
 			opts = append(opts, client.WithHTTPClient(httpClient))
 		}
 
-		c, err := client.NewClientWithResponses(baseURL, opts...)
+		cl, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating private-app client: %w", err)
 		}
 
-		clients["private-app"] = c
+		clients["private-app"] = &InterfaceClient{cl: cl}
 	}
 
 	return &Connector{clients: clients}, nil
 }
 
-// Client returns the typed oapi-codegen client for the given interface.
+// Client returns the interface client for the given interface ID.
 // Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *client.ClientWithResponses {
+func (c *Connector) Client(interfaceID string) *InterfaceClient {
 	return c.clients[interfaceID]
 }
 

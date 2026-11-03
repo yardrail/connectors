@@ -4,22 +4,157 @@ package connector
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/yardrail/connectors/canva/canva/client"
 )
 
-// Connector wraps authenticated oapi-codegen clients per interface.
-// Use Client() for typed access to the full API surface.
+// InterfaceClient wraps an authenticated oapi-codegen client for one interface.
+type InterfaceClient struct {
+	cl *client.ClientWithResponses
+}
+
+// Dispatch calls the named function's typed client method.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch function {
+	case "create-comment":
+		return ic.dispatchCreateCommentWithResponse(ctx, config, inputs)
+	case "create-design":
+		return ic.dispatchCreateDesignWithResponse(ctx, config, inputs)
+	case "create-design-autofill-job":
+		return ic.dispatchCreateDesignAutofillJobWithResponse(ctx, config, inputs)
+	case "create-design-export-job":
+		return ic.dispatchCreateDesignExportJobWithResponse(ctx, config, inputs)
+	case "create-design-merge-job":
+		return ic.dispatchCreateDesignMergeJobWithResponse(ctx, config, inputs)
+	case "create-design-resize-job":
+		return ic.dispatchCreateDesignResizeJobWithResponse(ctx, config, inputs)
+	case "create-folder":
+		return ic.dispatchCreateFolderWithResponse(ctx, config, inputs)
+	case "create-image-to-design-import-job":
+		return ic.dispatchCreateImageToDesignImportJobWithResponse(ctx, config, inputs)
+	case "create-image-transformation-job":
+		return ic.dispatchCreateImageTransformationJobWithResponse(ctx, config, inputs)
+	case "create-print-partner-design":
+		return ic.dispatchCreatePrintPartnerDesignWithResponse(ctx, config, inputs)
+	case "create-print-partner-design-export-job":
+		return ic.dispatchCreatePrintPartnerDesignExportJobWithResponse(ctx, config, inputs)
+	case "create-reply":
+		return ic.dispatchCreateReplyWithResponse(ctx, config, inputs)
+	case "create-thread":
+		return ic.dispatchCreateThreadWithResponse(ctx, config, inputs)
+	case "create-url-asset-upload-job":
+		return ic.dispatchCreateUrlAssetUploadJobWithResponse(ctx, config, inputs)
+	case "create-url-import-job":
+		return ic.dispatchCreateUrlImportJobWithResponse(ctx, config, inputs)
+	case "delete-asset":
+		return ic.dispatchDeleteAssetWithResponse(ctx, config, inputs)
+	case "delete-folder":
+		return ic.dispatchDeleteFolderWithResponse(ctx, config, inputs)
+	case "exchange-access-token-with-formdata-body":
+		return ic.dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx, config, inputs)
+	case "get-app-jwks":
+		return ic.dispatchGetAppJwksWithResponse(ctx, config, inputs)
+	case "get-asset":
+		return ic.dispatchGetAssetWithResponse(ctx, config, inputs)
+	case "get-asset-upload-job":
+		return ic.dispatchGetAssetUploadJobWithResponse(ctx, config, inputs)
+	case "get-brand-template":
+		return ic.dispatchGetBrandTemplateWithResponse(ctx, config, inputs)
+	case "get-brand-template-dataset":
+		return ic.dispatchGetBrandTemplateDatasetWithResponse(ctx, config, inputs)
+	case "get-design":
+		return ic.dispatchGetDesignWithResponse(ctx, config, inputs)
+	case "get-design-analytics":
+		return ic.dispatchGetDesignAnalyticsWithResponse(ctx, config, inputs)
+	case "get-design-analytics-links":
+		return ic.dispatchGetDesignAnalyticsLinksWithResponse(ctx, config, inputs)
+	case "get-design-analytics-page-views":
+		return ic.dispatchGetDesignAnalyticsPageViewsWithResponse(ctx, config, inputs)
+	case "get-design-analytics-viewers":
+		return ic.dispatchGetDesignAnalyticsViewersWithResponse(ctx, config, inputs)
+	case "get-design-analytics-views-over-time":
+		return ic.dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx, config, inputs)
+	case "get-design-autofill-job":
+		return ic.dispatchGetDesignAutofillJobWithResponse(ctx, config, inputs)
+	case "get-design-dataset":
+		return ic.dispatchGetDesignDatasetWithResponse(ctx, config, inputs)
+	case "get-design-export-formats":
+		return ic.dispatchGetDesignExportFormatsWithResponse(ctx, config, inputs)
+	case "get-design-export-job":
+		return ic.dispatchGetDesignExportJobWithResponse(ctx, config, inputs)
+	case "get-design-import-job":
+		return ic.dispatchGetDesignImportJobWithResponse(ctx, config, inputs)
+	case "get-design-merge-job":
+		return ic.dispatchGetDesignMergeJobWithResponse(ctx, config, inputs)
+	case "get-design-pages":
+		return ic.dispatchGetDesignPagesWithResponse(ctx, config, inputs)
+	case "get-design-resize-job":
+		return ic.dispatchGetDesignResizeJobWithResponse(ctx, config, inputs)
+	case "get-folder":
+		return ic.dispatchGetFolderWithResponse(ctx, config, inputs)
+	case "get-image-to-design-import-job":
+		return ic.dispatchGetImageToDesignImportJobWithResponse(ctx, config, inputs)
+	case "get-image-transformation-job":
+		return ic.dispatchGetImageTransformationJobWithResponse(ctx, config, inputs)
+	case "get-oidc-jwks":
+		return ic.dispatchGetOidcJwksWithResponse(ctx, config, inputs)
+	case "get-print-partner-design":
+		return ic.dispatchGetPrintPartnerDesignWithResponse(ctx, config, inputs)
+	case "get-reply":
+		return ic.dispatchGetReplyWithResponse(ctx, config, inputs)
+	case "get-signing-public-keys":
+		return ic.dispatchGetSigningPublicKeysWithResponse(ctx, config, inputs)
+	case "get-thread":
+		return ic.dispatchGetThreadWithResponse(ctx, config, inputs)
+	case "get-url-asset-upload-job":
+		return ic.dispatchGetUrlAssetUploadJobWithResponse(ctx, config, inputs)
+	case "get-url-import-job":
+		return ic.dispatchGetUrlImportJobWithResponse(ctx, config, inputs)
+	case "get-user-capabilities":
+		return ic.dispatchGetUserCapabilitiesWithResponse(ctx, config, inputs)
+	case "get-user-profile":
+		return ic.dispatchGetUserProfileWithResponse(ctx, config, inputs)
+	case "introspect-token-with-formdata-body":
+		return ic.dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx, config, inputs)
+	case "list-brand-templates":
+		return ic.dispatchListBrandTemplatesWithResponse(ctx, config, inputs)
+	case "list-designs":
+		return ic.dispatchListDesignsWithResponse(ctx, config, inputs)
+	case "list-folder-items":
+		return ic.dispatchListFolderItemsWithResponse(ctx, config, inputs)
+	case "list-replies":
+		return ic.dispatchListRepliesWithResponse(ctx, config, inputs)
+	case "move-folder-item":
+		return ic.dispatchMoveFolderItemWithResponse(ctx, config, inputs)
+	case "publish-brand-template":
+		return ic.dispatchPublishBrandTemplateWithResponse(ctx, config, inputs)
+	case "revoke-tokens-with-formdata-body":
+		return ic.dispatchRevokeTokensWithFormdataBodyWithResponse(ctx, config, inputs)
+	case "update-asset":
+		return ic.dispatchUpdateAssetWithResponse(ctx, config, inputs)
+	case "update-folder":
+		return ic.dispatchUpdateFolderWithResponse(ctx, config, inputs)
+	case "user-info":
+		return ic.dispatchUserInfoWithResponse(ctx, config, inputs)
+	case "users-me":
+		return ic.dispatchUsersMeWithResponse(ctx, config, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	}
+}
+
+// Connector holds an authenticated client for each configured interface.
 type Connector struct {
-	clients map[string]*client.ClientWithResponses
+	clients map[string]*InterfaceClient
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
 // When httpClient is non-nil it is used for all outbound HTTP calls.
 func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*client.ClientWithResponses, 1)
+	clients := make(map[string]*InterfaceClient, 1)
 
 	if ifaceCreds, ok := creds["oauth"]; ok {
 		baseURL := resolveBaseURL(config["oauth"])
@@ -30,20 +165,20 @@ func NewConnector(creds, config map[string]map[string]string, httpClient *http.C
 			opts = append(opts, client.WithHTTPClient(httpClient))
 		}
 
-		c, err := client.NewClientWithResponses(baseURL, opts...)
+		cl, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating oauth client: %w", err)
 		}
 
-		clients["oauth"] = c
+		clients["oauth"] = &InterfaceClient{cl: cl}
 	}
 
 	return &Connector{clients: clients}, nil
 }
 
-// Client returns the typed oapi-codegen client for the given interface.
+// Client returns the interface client for the given interface ID.
 // Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *client.ClientWithResponses {
+func (c *Connector) Client(interfaceID string) *InterfaceClient {
 	return c.clients[interfaceID]
 }
 

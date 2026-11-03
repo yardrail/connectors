@@ -20,7 +20,6 @@ func goldenFiles(id string) []string {
 		"handler_gen.go",
 		"dispatch_gen.go",
 		id + "-ext.yml",
-		"cwl_gen.go",
 		"registration_gen.go",
 	}
 }
@@ -33,8 +32,7 @@ func goldenConfig(dir, id, manifest, spec, pkg string) runConfig {
 		SpecPath:      filepath.Join(connectorsRoot, spec),
 		PkgPath:       pkg,
 		OutDir:        dir,
-		CWLSchemaOut:  filepath.Join(dir, id+"-ext.yml"),
-		CWLMappingOut: filepath.Join(dir, "cwl_gen.go"),
+		CWLSchemaOut: filepath.Join(dir, id+"-ext.yml"),
 		PkgName:       id,
 	}
 }
@@ -120,8 +118,7 @@ func fixtureConfig(dir, id, manifest string) runConfig {
 	return runConfig{
 		ManifestPath:  manifest,
 		OutDir:        dir,
-		CWLSchemaOut:  filepath.Join(dir, id+"-ext.yml"),
-		CWLMappingOut: filepath.Join(dir, "cwl_gen.go"),
+		CWLSchemaOut: filepath.Join(dir, id+"-ext.yml"),
 		PkgName:       id,
 	}
 }

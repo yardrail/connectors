@@ -26,210 +26,17 @@ var (
 	errUnknownFunction        = errors.New("egnyte: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"activate-msp-trial":              dispatchActivateMspTrialWithResponse,
-	"add-comment":                     dispatchAddCommentWithResponse,
-	"add-document":                    dispatchAddDocumentWithResponse,
-	"advanced-search-v1":              dispatchAdvancedSearchV1WithResponse,
-	"allocate-msp-domain-power-users": dispatchAllocateMspDomainPowerUsersWithResponse,
-	"ask-agent":                       dispatchAskAgentWithResponse,
-	"ask-assistant":                   dispatchAskAssistantWithResponse,
-	"ask-copilot":                     dispatchAskCopilotWithResponse,
-	"ask-document":                    dispatchAskDocumentWithResponse,
-	"ask-kb":                          dispatchAskKbWithResponse,
-	"cancel-signature-request":        dispatchCancelSignatureRequestWithResponse,
-	"cancel-workflow":                 dispatchCancelWorkflowWithResponse,
-	"check-audit-report-status":       dispatchCheckAuditReportStatusWithResponse,
-	"complete-webhook-task":           dispatchCompleteWebhookTaskWithResponse,
-	"create-bookmark":                 dispatchCreateBookmarkWithResponse,
-	"create-configuration-settings-audit-report":     dispatchCreateConfigurationSettingsAuditReportWithResponse,
-	"create-etmf-audit-report":                       dispatchCreateEtmfAuditReportWithResponse,
-	"create-file-audit-report":                       dispatchCreateFileAuditReportWithResponse,
-	"create-group-provisioning-audit-report":         dispatchCreateGroupProvisioningAuditReportWithResponse,
-	"create-login-audit-report":                      dispatchCreateLoginAuditReportWithResponse,
-	"create-msp-trial":                               dispatchCreateMspTrialWithResponse,
-	"create-msp-webhook":                             dispatchCreateMspWebhookWithResponse,
-	"create-permissions-audit-report":                dispatchCreatePermissionsAuditReportWithResponse,
-	"create-quality-docs-audit-report":               dispatchCreateQualityDocsAuditReportWithResponse,
-	"create-quality-docs-categories-audit-report":    dispatchCreateQualityDocsCategoriesAuditReportWithResponse,
-	"create-quality-docs-courses-audit-report":       dispatchCreateQualityDocsCoursesAuditReportWithResponse,
-	"create-scim-group":                              dispatchCreateScimGroupWithResponse,
-	"create-scim-user":                               dispatchCreateScimUserWithResponse,
-	"create-signature-request":                       dispatchCreateSignatureRequestWithResponse,
-	"create-snapshot-restore-audit-report":           dispatchCreateSnapshotRestoreAuditReportWithResponse,
-	"create-sync-with-formdata-body":                 dispatchCreateSyncWithFormdataBodyWithResponse,
-	"create-upload-request":                          dispatchCreateUploadRequestWithResponse,
-	"create-upload-requests-audit-report":            dispatchCreateUploadRequestsAuditReportWithResponse,
-	"create-user":                                    dispatchCreateUserWithResponse,
-	"create-user-provisioning-audit-report":          dispatchCreateUserProvisioningAuditReportWithResponse,
-	"create-workflow":                                dispatchCreateWorkflowWithResponse,
-	"create-workflow-audit-report":                   dispatchCreateWorkflowAuditReportWithResponse,
-	"create-workflow-templates-audit-report":         dispatchCreateWorkflowTemplatesAuditReportWithResponse,
-	"create-workspace":                               dispatchCreateWorkspaceWithResponse,
-	"delete-bookmark":                                dispatchDeleteBookmarkWithResponse,
-	"delete-comment":                                 dispatchDeleteCommentWithResponse,
-	"delete-msp-webhook":                             dispatchDeleteMspWebhookWithResponse,
-	"delete-scim-group":                              dispatchDeleteScimGroupWithResponse,
-	"delete-scim-user":                               dispatchDeleteScimUserWithResponse,
-	"delete-user":                                    dispatchDeleteUserWithResponse,
-	"delete-webhook":                                 dispatchDeleteWebhookWithResponse,
-	"get-agent-ask-status":                           dispatchGetAgentAskStatusWithResponse,
-	"get-assistant-status":                           dispatchGetAssistantStatusWithResponse,
-	"get-bookmark":                                   dispatchGetBookmarkWithResponse,
-	"get-comment":                                    dispatchGetCommentWithResponse,
-	"get-msp-domain":                                 dispatchGetMspDomainWithResponse,
-	"get-msp-power-users-quote":                      dispatchGetMspPowerUsersQuoteWithResponse,
-	"get-msp-tenant":                                 dispatchGetMspTenantWithResponse,
-	"get-msp-webhook":                                dispatchGetMspWebhookWithResponse,
-	"get-project-details":                            dispatchGetProjectDetailsWithResponse,
-	"get-scim-group":                                 dispatchGetScimGroupWithResponse,
-	"get-scim-user":                                  dispatchGetScimUserWithResponse,
-	"get-settings":                                   dispatchGetSettingsWithResponse,
-	"get-sfdc-folder-map":                            dispatchGetSfdcFolderMapWithResponse,
-	"get-sign-template":                              dispatchGetSignTemplateWithResponse,
-	"get-trash-total-count":                          dispatchGetTrashTotalCountWithResponse,
-	"get-user":                                       dispatchGetUserWithResponse,
-	"get-user-details":                               dispatchGetUserDetailsWithResponse,
-	"get-user-logs":                                  dispatchGetUserLogsWithResponse,
-	"get-userinfo":                                   dispatchGetUserinfoWithResponse,
-	"get-users-list":                                 dispatchGetUsersListWithResponse,
-	"get-webhook-details":                            dispatchGetWebhookDetailsWithResponse,
-	"get-webhook-status":                             dispatchGetWebhookStatusWithResponse,
-	"get-workflow":                                   dispatchGetWorkflowWithResponse,
-	"hybrid-search":                                  dispatchHybridSearchWithResponse,
-	"import-document":                                dispatchImportDocumentWithResponse,
-	"import-training-assignment":                     dispatchImportTrainingAssignmentWithResponse,
-	"list-agents":                                    dispatchListAgentsWithResponse,
-	"list-artifacts":                                 dispatchListArtifactsWithResponse,
-	"list-bookmarks":                                 dispatchListBookmarksWithResponse,
-	"list-comments":                                  dispatchListCommentsWithResponse,
-	"list-documents":                                 dispatchListDocumentsWithResponse,
-	"list-filing-levels":                             dispatchListFilingLevelsWithResponse,
-	"list-kb":                                        dispatchListKbWithResponse,
-	"list-msp-domains":                               dispatchListMspDomainsWithResponse,
-	"list-msp-plans":                                 dispatchListMspPlansWithResponse,
-	"list-msp-tenants":                               dispatchListMspTenantsWithResponse,
-	"list-msp-webhooks":                              dispatchListMspWebhooksWithResponse,
-	"list-my-signature-requests":                     dispatchListMySignatureRequestsWithResponse,
-	"list-procore-projects":                          dispatchListProcoreProjectsWithResponse,
-	"list-project-folders":                           dispatchListProjectFoldersWithResponse,
-	"list-scim-groups":                               dispatchListScimGroupsWithResponse,
-	"list-scim-users":                                dispatchListScimUsersWithResponse,
-	"list-sent-signature-requests":                   dispatchListSentSignatureRequestsWithResponse,
-	"list-sign-templates":                            dispatchListSignTemplatesWithResponse,
-	"list-studies":                                   dispatchListStudiesWithResponse,
-	"list-synced-projects":                           dispatchListSyncedProjectsWithResponse,
-	"list-tasks":                                     dispatchListTasksWithResponse,
-	"list-trash-v1":                                  dispatchListTrashV1WithResponse,
-	"list-trash-v2":                                  dispatchListTrashV2WithResponse,
-	"list-upload-request-templates":                  dispatchListUploadRequestTemplatesWithResponse,
-	"list-users":                                     dispatchListUsersWithResponse,
-	"list-users-v1":                                  dispatchListUsersV1WithResponse,
-	"list-webhooks":                                  dispatchListWebhooksWithResponse,
-	"list-workflows":                                 dispatchListWorkflowsWithResponse,
-	"list-workspaces":                                dispatchListWorkspacesWithResponse,
-	"mark-folder-as-project":                         dispatchMarkFolderAsProjectWithResponse,
-	"navigate-post-v1":                               dispatchNavigatePostV1WithResponse,
-	"navigate-post-v2":                               dispatchNavigatePostV2WithResponse,
-	"notes-delete-by-id-v1":                          dispatchNotesDeleteByIdV1WithResponse,
-	"notes-get-by-id-v1":                             dispatchNotesGetByIdV1WithResponse,
-	"patch-scim-group":                               dispatchPatchScimGroupWithResponse,
-	"patch-scim-user":                                dispatchPatchScimUserWithResponse,
-	"portal-prod-delete-fs-by-id-v1":                 dispatchPortalProdDeleteFsByIdV1WithResponse,
-	"portal-prod-delete-fs-v1":                       dispatchPortalProdDeleteFsV1WithResponse,
-	"portal-prod-delete-fs-v2":                       dispatchPortalProdDeleteFsV2WithResponse,
-	"portal-prod-delete-groups-by-id-v2":             dispatchPortalProdDeleteGroupsByIdV2WithResponse,
-	"portal-prod-delete-links-by-id-v1":              dispatchPortalProdDeleteLinksByIdV1WithResponse,
-	"portal-prod-delete-links-by-id-v2":              dispatchPortalProdDeleteLinksByIdV2WithResponse,
-	"portal-prod-delete-metadata-key-v1":             dispatchPortalProdDeleteMetadataKeyV1WithResponse,
-	"portal-prod-delete-namespace-v1":                dispatchPortalProdDeleteNamespaceV1WithResponse,
-	"portal-prod-delete-project-custom-field-v1":     dispatchPortalProdDeleteProjectCustomFieldV1WithResponse,
-	"portal-prod-get-events-cursor-v1":               dispatchPortalProdGetEventsCursorV1WithResponse,
-	"portal-prod-get-events-v1":                      dispatchPortalProdGetEventsV1WithResponse,
-	"portal-prod-get-events-v2":                      dispatchPortalProdGetEventsV2WithResponse,
-	"portal-prod-get-file-metadata-v1":               dispatchPortalProdGetFileMetadataV1WithResponse,
-	"portal-prod-get-folder-metadata-v1":             dispatchPortalProdGetFolderMetadataV1WithResponse,
-	"portal-prod-get-fs-by-id-v1":                    dispatchPortalProdGetFsByIdV1WithResponse,
-	"portal-prod-get-fs-content-by-id-v1":            dispatchPortalProdGetFsContentByIdV1WithResponse,
-	"portal-prod-get-fs-content-by-path-v1":          dispatchPortalProdGetFsContentByPathV1WithResponse,
-	"portal-prod-get-fs-folder-stats-v1":             dispatchPortalProdGetFsFolderStatsV1WithResponse,
-	"portal-prod-get-fs-v1":                          dispatchPortalProdGetFsV1WithResponse,
-	"portal-prod-get-fs-v2":                          dispatchPortalProdGetFsV2WithResponse,
-	"portal-prod-get-groups-by-id-v2":                dispatchPortalProdGetGroupsByIdV2WithResponse,
-	"portal-prod-get-groups-v2":                      dispatchPortalProdGetGroupsV2WithResponse,
-	"portal-prod-get-insights-files-v1":              dispatchPortalProdGetInsightsFilesV1WithResponse,
-	"portal-prod-get-links-by-id-v1":                 dispatchPortalProdGetLinksByIdV1WithResponse,
-	"portal-prod-get-links-by-id-v2":                 dispatchPortalProdGetLinksByIdV2WithResponse,
-	"portal-prod-get-links-v1":                       dispatchPortalProdGetLinksV1WithResponse,
-	"portal-prod-get-links-v2":                       dispatchPortalProdGetLinksV2WithResponse,
-	"portal-prod-get-namespace-v1":                   dispatchPortalProdGetNamespaceV1WithResponse,
-	"portal-prod-get-namespaces-v1":                  dispatchPortalProdGetNamespacesV1WithResponse,
-	"portal-prod-get-project-custom-fields-v1":       dispatchPortalProdGetProjectCustomFieldsV1WithResponse,
-	"portal-prod-patch-groups-by-id-v2":              dispatchPortalProdPatchGroupsByIdV2WithResponse,
-	"portal-prod-patch-metadata-key-data-v1":         dispatchPortalProdPatchMetadataKeyDataV1WithResponse,
-	"portal-prod-patch-metadata-key-v1":              dispatchPortalProdPatchMetadataKeyV1WithResponse,
-	"portal-prod-patch-metadata-keys-data-v1":        dispatchPortalProdPatchMetadataKeysDataV1WithResponse,
-	"portal-prod-patch-namespace-v1":                 dispatchPortalProdPatchNamespaceV1WithResponse,
-	"portal-prod-patch-project-custom-field-data-v1": dispatchPortalProdPatchProjectCustomFieldDataV1WithResponse,
-	"portal-prod-patch-project-custom-field-v1":      dispatchPortalProdPatchProjectCustomFieldV1WithResponse,
-	"portal-prod-post-fs-by-id-v1":                   dispatchPortalProdPostFsByIdV1WithResponse,
-	"portal-prod-post-fs-v1":                         dispatchPortalProdPostFsV1WithResponse,
-	"portal-prod-post-fs-v2":                         dispatchPortalProdPostFsV2WithResponse,
-	"portal-prod-post-groups-v2":                     dispatchPortalProdPostGroupsV2WithResponse,
-	"portal-prod-post-links-v1":                      dispatchPortalProdPostLinksV1WithResponse,
-	"portal-prod-post-links-v2":                      dispatchPortalProdPostLinksV2WithResponse,
-	"portal-prod-post-metadata-key-v1":               dispatchPortalProdPostMetadataKeyV1WithResponse,
-	"portal-prod-post-namespace-v1":                  dispatchPortalProdPostNamespaceV1WithResponse,
-	"portal-prod-post-project-custom-field-v1":       dispatchPortalProdPostProjectCustomFieldV1WithResponse,
-	"portal-prod-post-search-metadata-v1":            dispatchPortalProdPostSearchMetadataV1WithResponse,
-	"portal-prod-put-file-metadata-v1":               dispatchPortalProdPutFileMetadataV1WithResponse,
-	"portal-prod-put-folder-metadata-v1":             dispatchPortalProdPutFolderMetadataV1WithResponse,
-	"portal-prod-put-groups-by-id-v2":                dispatchPortalProdPutGroupsByIdV2WithResponse,
-	"purchase-msp-power-users":                       dispatchPurchaseMspPowerUsersWithResponse,
-	"register-webhook":                               dispatchRegisterWebhookWithResponse,
-	"remove-sync":                                    dispatchRemoveSyncWithResponse,
-	"replace-scim-group":                             dispatchReplaceScimGroupWithResponse,
-	"replace-scim-user":                              dispatchReplaceScimUserWithResponse,
-	"retrieve-audit-report":                          dispatchRetrieveAuditReportWithResponse,
-	"revoke-token-with-formdata-body":                dispatchRevokeTokenWithFormdataBodyWithResponse,
-	"search-v1-get":                                  dispatchSearchV1GetWithResponse,
-	"search-v2-post":                                 dispatchSearchV2PostWithResponse,
-	"set-webhook-status":                             dispatchSetWebhookStatusWithResponse,
-	"stream-audit-events-get":                        dispatchStreamAuditEventsGetWithResponse,
-	"stream-audit-events-post":                       dispatchStreamAuditEventsPostWithResponse,
-	"summarize-document":                             dispatchSummarizeDocumentWithResponse,
-	"synced-projects-details":                        dispatchSyncedProjectsDetailsWithResponse,
-	"trash-action":                                   dispatchTrashActionWithResponse,
-	"update-msp-webhook":                             dispatchUpdateMspWebhookWithResponse,
-	"update-sync-with-formdata-body":                 dispatchUpdateSyncWithFormdataBodyWithResponse,
-	"update-user":                                    dispatchUpdateUserWithResponse,
-	"update-webhook":                                 dispatchUpdateWebhookWithResponse,
-	"whoami":                                         dispatchWhoamiWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -239,17 +46,12 @@ func Resolve(
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return cl.Dispatch(ctx, function, config, inputs)
 	}, nil
 }
 
-func dispatchActivateMspTrialWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchActivateMspTrialWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -273,7 +75,7 @@ func dispatchActivateMspTrialWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("egnyte.activate-msp-trial: %w", bodyErr)
 	}
 
-	resp, callErr := cl.ActivateMspTrialWithResponse(ctx, domain, body)
+	resp, callErr := ic.cl.ActivateMspTrialWithResponse(ctx, domain, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -289,7 +91,7 @@ func dispatchActivateMspTrialWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAddCommentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAddCommentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AddCommentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -297,7 +99,7 @@ func dispatchAddCommentWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("egnyte.add-comment: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AddCommentWithResponse(ctx, body)
+	resp, callErr := ic.cl.AddCommentWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -313,7 +115,7 @@ func dispatchAddCommentWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAddDocumentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAddDocumentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -344,7 +146,7 @@ func dispatchAddDocumentWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("egnyte.add-document: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AddDocumentWithResponse(ctx, studyId, &params, body)
+	resp, callErr := ic.cl.AddDocumentWithResponse(ctx, studyId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -360,7 +162,7 @@ func dispatchAddDocumentWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdvancedSearchV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdvancedSearchV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdvancedSearchV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -368,7 +170,7 @@ func dispatchAdvancedSearchV1WithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("egnyte.advanced-search-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdvancedSearchV1WithResponse(ctx, body)
+	resp, callErr := ic.cl.AdvancedSearchV1WithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -384,7 +186,7 @@ func dispatchAdvancedSearchV1WithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAllocateMspDomainPowerUsersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAllocateMspDomainPowerUsersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -408,7 +210,7 @@ func dispatchAllocateMspDomainPowerUsersWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("egnyte.allocate-msp-domain-power-users: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AllocateMspDomainPowerUsersWithResponse(ctx, client.Domain(domain), body)
+	resp, callErr := ic.cl.AllocateMspDomainPowerUsersWithResponse(ctx, client.Domain(domain), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -424,7 +226,7 @@ func dispatchAllocateMspDomainPowerUsersWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAskAgentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAskAgentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -448,7 +250,7 @@ func dispatchAskAgentWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("egnyte.ask-agent: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AskAgentWithResponse(ctx, agentId, body)
+	resp, callErr := ic.cl.AskAgentWithResponse(ctx, agentId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -464,7 +266,7 @@ func dispatchAskAgentWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAskAssistantWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAskAssistantWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AskAssistantJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -472,7 +274,7 @@ func dispatchAskAssistantWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("egnyte.ask-assistant: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AskAssistantWithResponse(ctx, body)
+	resp, callErr := ic.cl.AskAssistantWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -488,7 +290,7 @@ func dispatchAskAssistantWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAskCopilotWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAskCopilotWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AskCopilotJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -496,7 +298,7 @@ func dispatchAskCopilotWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("egnyte.ask-copilot: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AskCopilotWithResponse(ctx, body)
+	resp, callErr := ic.cl.AskCopilotWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -512,7 +314,7 @@ func dispatchAskCopilotWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAskDocumentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAskDocumentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -536,7 +338,7 @@ func dispatchAskDocumentWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("egnyte.ask-document: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AskDocumentWithResponse(ctx, entryId, body)
+	resp, callErr := ic.cl.AskDocumentWithResponse(ctx, entryId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -552,7 +354,7 @@ func dispatchAskDocumentWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAskKbWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAskKbWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -576,7 +378,7 @@ func dispatchAskKbWithResponse(ctx context.Context, cl *client.ClientWithRespons
 		return nil, fmt.Errorf("egnyte.ask-kb: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AskKbWithResponse(ctx, kbId, body)
+	resp, callErr := ic.cl.AskKbWithResponse(ctx, kbId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -592,7 +394,7 @@ func dispatchAskKbWithResponse(ctx context.Context, cl *client.ClientWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCancelSignatureRequestWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCancelSignatureRequestWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -616,7 +418,7 @@ func dispatchCancelSignatureRequestWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("egnyte.cancel-signature-request: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CancelSignatureRequestWithResponse(ctx, agreementId, body)
+	resp, callErr := ic.cl.CancelSignatureRequestWithResponse(ctx, agreementId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -632,7 +434,7 @@ func dispatchCancelSignatureRequestWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCancelWorkflowWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCancelWorkflowWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -649,7 +451,7 @@ func dispatchCancelWorkflowWithResponse(ctx context.Context, cl *client.ClientWi
 		}
 	}
 
-	resp, callErr := cl.CancelWorkflowWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.CancelWorkflowWithResponse(ctx, workflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -665,7 +467,7 @@ func dispatchCancelWorkflowWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCheckAuditReportStatusWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCheckAuditReportStatusWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -682,7 +484,7 @@ func dispatchCheckAuditReportStatusWithResponse(ctx context.Context, cl *client.
 		}
 	}
 
-	resp, callErr := cl.CheckAuditReportStatusWithResponse(ctx, id)
+	resp, callErr := ic.cl.CheckAuditReportStatusWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -698,7 +500,7 @@ func dispatchCheckAuditReportStatusWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCompleteWebhookTaskWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCompleteWebhookTaskWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -724,7 +526,7 @@ func dispatchCompleteWebhookTaskWithResponse(ctx context.Context, cl *client.Cli
 		}
 	}
 
-	resp, callErr := cl.CompleteWebhookTaskWithResponse(ctx, workflowId, taskId)
+	resp, callErr := ic.cl.CompleteWebhookTaskWithResponse(ctx, workflowId, taskId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -740,7 +542,7 @@ func dispatchCompleteWebhookTaskWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateBookmarkWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateBookmarkWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateBookmarkJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -748,7 +550,7 @@ func dispatchCreateBookmarkWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.create-bookmark: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateBookmarkWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateBookmarkWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -764,7 +566,7 @@ func dispatchCreateBookmarkWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateConfigurationSettingsAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateConfigurationSettingsAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateConfigurationSettingsAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -772,7 +574,7 @@ func dispatchCreateConfigurationSettingsAuditReportWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.create-configuration-settings-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateConfigurationSettingsAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateConfigurationSettingsAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -788,7 +590,7 @@ func dispatchCreateConfigurationSettingsAuditReportWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateEtmfAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateEtmfAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateEtmfAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -796,7 +598,7 @@ func dispatchCreateEtmfAuditReportWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.create-etmf-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateEtmfAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateEtmfAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -812,7 +614,7 @@ func dispatchCreateEtmfAuditReportWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateFileAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateFileAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateFileAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -820,7 +622,7 @@ func dispatchCreateFileAuditReportWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.create-file-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateFileAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateFileAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -836,7 +638,7 @@ func dispatchCreateFileAuditReportWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateGroupProvisioningAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateGroupProvisioningAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateGroupProvisioningAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -844,7 +646,7 @@ func dispatchCreateGroupProvisioningAuditReportWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("egnyte.create-group-provisioning-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateGroupProvisioningAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateGroupProvisioningAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -860,7 +662,7 @@ func dispatchCreateGroupProvisioningAuditReportWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateLoginAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateLoginAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateLoginAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -868,7 +670,7 @@ func dispatchCreateLoginAuditReportWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("egnyte.create-login-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateLoginAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateLoginAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -884,7 +686,7 @@ func dispatchCreateLoginAuditReportWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateMspTrialWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateMspTrialWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateMspTrialJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -892,7 +694,7 @@ func dispatchCreateMspTrialWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.create-msp-trial: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateMspTrialWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateMspTrialWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -908,7 +710,7 @@ func dispatchCreateMspTrialWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateMspWebhookWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateMspWebhookWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateMspWebhookJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -916,7 +718,7 @@ func dispatchCreateMspWebhookWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("egnyte.create-msp-webhook: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateMspWebhookWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateMspWebhookWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -932,7 +734,7 @@ func dispatchCreateMspWebhookWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreatePermissionsAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePermissionsAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreatePermissionsAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -940,7 +742,7 @@ func dispatchCreatePermissionsAuditReportWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("egnyte.create-permissions-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreatePermissionsAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreatePermissionsAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -956,7 +758,7 @@ func dispatchCreatePermissionsAuditReportWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateQualityDocsAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateQualityDocsAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateQualityDocsAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -964,7 +766,7 @@ func dispatchCreateQualityDocsAuditReportWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("egnyte.create-quality-docs-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateQualityDocsAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateQualityDocsAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -980,7 +782,7 @@ func dispatchCreateQualityDocsAuditReportWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateQualityDocsCategoriesAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateQualityDocsCategoriesAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateQualityDocsCategoriesAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -988,7 +790,7 @@ func dispatchCreateQualityDocsCategoriesAuditReportWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.create-quality-docs-categories-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateQualityDocsCategoriesAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateQualityDocsCategoriesAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1004,7 +806,7 @@ func dispatchCreateQualityDocsCategoriesAuditReportWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateQualityDocsCoursesAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateQualityDocsCoursesAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateQualityDocsCoursesAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1012,7 +814,7 @@ func dispatchCreateQualityDocsCoursesAuditReportWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.create-quality-docs-courses-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateQualityDocsCoursesAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateQualityDocsCoursesAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1028,7 +830,7 @@ func dispatchCreateQualityDocsCoursesAuditReportWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateScimGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateScimGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateScimGroupJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1036,7 +838,7 @@ func dispatchCreateScimGroupWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("egnyte.create-scim-group: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateScimGroupWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateScimGroupWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1052,7 +854,7 @@ func dispatchCreateScimGroupWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateScimUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateScimUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateScimUserJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1060,7 +862,7 @@ func dispatchCreateScimUserWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.create-scim-user: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateScimUserWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateScimUserWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1076,7 +878,7 @@ func dispatchCreateScimUserWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateSignatureRequestWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateSignatureRequestWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateSignatureRequestJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1084,7 +886,7 @@ func dispatchCreateSignatureRequestWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("egnyte.create-signature-request: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateSignatureRequestWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateSignatureRequestWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1100,7 +902,7 @@ func dispatchCreateSignatureRequestWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateSnapshotRestoreAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateSnapshotRestoreAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateSnapshotRestoreAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1108,7 +910,7 @@ func dispatchCreateSnapshotRestoreAuditReportWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("egnyte.create-snapshot-restore-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateSnapshotRestoreAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateSnapshotRestoreAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1124,7 +926,7 @@ func dispatchCreateSnapshotRestoreAuditReportWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateSyncWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateSyncWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateSyncFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1132,7 +934,7 @@ func dispatchCreateSyncWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("egnyte.create-sync-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateSyncWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateSyncWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1148,7 +950,7 @@ func dispatchCreateSyncWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateUploadRequestWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateUploadRequestWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateUploadRequestJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1156,7 +958,7 @@ func dispatchCreateUploadRequestWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("egnyte.create-upload-request: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateUploadRequestWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateUploadRequestWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1172,7 +974,7 @@ func dispatchCreateUploadRequestWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateUploadRequestsAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateUploadRequestsAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateUploadRequestsAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1180,7 +982,7 @@ func dispatchCreateUploadRequestsAuditReportWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("egnyte.create-upload-requests-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateUploadRequestsAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateUploadRequestsAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1196,7 +998,7 @@ func dispatchCreateUploadRequestsAuditReportWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateUserJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1204,7 +1006,7 @@ func dispatchCreateUserWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("egnyte.create-user: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateUserWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateUserWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1220,7 +1022,7 @@ func dispatchCreateUserWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateUserProvisioningAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateUserProvisioningAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateUserProvisioningAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1228,7 +1030,7 @@ func dispatchCreateUserProvisioningAuditReportWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("egnyte.create-user-provisioning-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateUserProvisioningAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateUserProvisioningAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1244,7 +1046,7 @@ func dispatchCreateUserProvisioningAuditReportWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateWorkflowWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateWorkflowWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateWorkflowJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1252,7 +1054,7 @@ func dispatchCreateWorkflowWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.create-workflow: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateWorkflowWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateWorkflowWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1268,7 +1070,7 @@ func dispatchCreateWorkflowWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateWorkflowAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateWorkflowAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateWorkflowAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1276,7 +1078,7 @@ func dispatchCreateWorkflowAuditReportWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("egnyte.create-workflow-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateWorkflowAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateWorkflowAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1292,7 +1094,7 @@ func dispatchCreateWorkflowAuditReportWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateWorkflowTemplatesAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateWorkflowTemplatesAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateWorkflowTemplatesAuditReportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1300,7 +1102,7 @@ func dispatchCreateWorkflowTemplatesAuditReportWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("egnyte.create-workflow-templates-audit-report: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateWorkflowTemplatesAuditReportWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateWorkflowTemplatesAuditReportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1316,7 +1118,7 @@ func dispatchCreateWorkflowTemplatesAuditReportWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateWorkspaceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateWorkspaceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateWorkspaceJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1324,7 +1126,7 @@ func dispatchCreateWorkspaceWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("egnyte.create-workspace: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateWorkspaceWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateWorkspaceWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1340,7 +1142,7 @@ func dispatchCreateWorkspaceWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteBookmarkWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteBookmarkWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1357,7 +1159,7 @@ func dispatchDeleteBookmarkWithResponse(ctx context.Context, cl *client.ClientWi
 		}
 	}
 
-	resp, callErr := cl.DeleteBookmarkWithResponse(ctx, id)
+	resp, callErr := ic.cl.DeleteBookmarkWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1373,7 +1175,7 @@ func dispatchDeleteBookmarkWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteCommentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCommentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1390,7 +1192,7 @@ func dispatchDeleteCommentWithResponse(ctx context.Context, cl *client.ClientWit
 		}
 	}
 
-	resp, callErr := cl.DeleteCommentWithResponse(ctx, uuid)
+	resp, callErr := ic.cl.DeleteCommentWithResponse(ctx, uuid)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1406,7 +1208,7 @@ func dispatchDeleteCommentWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteMspWebhookWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteMspWebhookWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1423,7 +1225,7 @@ func dispatchDeleteMspWebhookWithResponse(ctx context.Context, cl *client.Client
 		}
 	}
 
-	resp, callErr := cl.DeleteMspWebhookWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.DeleteMspWebhookWithResponse(ctx, parseUUID(webhookId))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1439,7 +1241,7 @@ func dispatchDeleteMspWebhookWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteScimGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteScimGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1456,7 +1258,7 @@ func dispatchDeleteScimGroupWithResponse(ctx context.Context, cl *client.ClientW
 		}
 	}
 
-	resp, callErr := cl.DeleteScimGroupWithResponse(ctx, groupId)
+	resp, callErr := ic.cl.DeleteScimGroupWithResponse(ctx, groupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1472,7 +1274,7 @@ func dispatchDeleteScimGroupWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteScimUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteScimUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1489,7 +1291,7 @@ func dispatchDeleteScimUserWithResponse(ctx context.Context, cl *client.ClientWi
 		}
 	}
 
-	resp, callErr := cl.DeleteScimUserWithResponse(ctx, userId)
+	resp, callErr := ic.cl.DeleteScimUserWithResponse(ctx, userId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1505,7 +1307,7 @@ func dispatchDeleteScimUserWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1522,7 +1324,7 @@ func dispatchDeleteUserWithResponse(ctx context.Context, cl *client.ClientWithRe
 		}
 	}
 
-	resp, callErr := cl.DeleteUserWithResponse(ctx, id)
+	resp, callErr := ic.cl.DeleteUserWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1538,7 +1340,7 @@ func dispatchDeleteUserWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteWebhookWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteWebhookWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1555,7 +1357,7 @@ func dispatchDeleteWebhookWithResponse(ctx context.Context, cl *client.ClientWit
 		}
 	}
 
-	resp, callErr := cl.DeleteWebhookWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.DeleteWebhookWithResponse(ctx, parseUUID(webhookId))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1571,7 +1373,7 @@ func dispatchDeleteWebhookWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAgentAskStatusWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAgentAskStatusWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1597,7 +1399,7 @@ func dispatchGetAgentAskStatusWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.GetAgentAskStatusWithResponse(ctx, agentId, requestId)
+	resp, callErr := ic.cl.GetAgentAskStatusWithResponse(ctx, agentId, requestId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1613,7 +1415,7 @@ func dispatchGetAgentAskStatusWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAssistantStatusWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAssistantStatusWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1637,7 +1439,7 @@ func dispatchGetAssistantStatusWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("egnyte.get-assistant-status: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAssistantStatusWithResponse(ctx, executionId, &params)
+	resp, callErr := ic.cl.GetAssistantStatusWithResponse(ctx, executionId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1653,7 +1455,7 @@ func dispatchGetAssistantStatusWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetBookmarkWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBookmarkWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1670,7 +1472,7 @@ func dispatchGetBookmarkWithResponse(ctx context.Context, cl *client.ClientWithR
 		}
 	}
 
-	resp, callErr := cl.GetBookmarkWithResponse(ctx, id)
+	resp, callErr := ic.cl.GetBookmarkWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1686,7 +1488,7 @@ func dispatchGetBookmarkWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCommentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCommentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1703,7 +1505,7 @@ func dispatchGetCommentWithResponse(ctx context.Context, cl *client.ClientWithRe
 		}
 	}
 
-	resp, callErr := cl.GetCommentWithResponse(ctx, uuid)
+	resp, callErr := ic.cl.GetCommentWithResponse(ctx, uuid)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1719,7 +1521,7 @@ func dispatchGetCommentWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetMspDomainWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetMspDomainWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1736,7 +1538,7 @@ func dispatchGetMspDomainWithResponse(ctx context.Context, cl *client.ClientWith
 		}
 	}
 
-	resp, callErr := cl.GetMspDomainWithResponse(ctx, domain)
+	resp, callErr := ic.cl.GetMspDomainWithResponse(ctx, domain)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1752,7 +1554,7 @@ func dispatchGetMspDomainWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetMspPowerUsersQuoteWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetMspPowerUsersQuoteWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1776,7 +1578,7 @@ func dispatchGetMspPowerUsersQuoteWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.get-msp-power-users-quote: %w", bodyErr)
 	}
 
-	resp, callErr := cl.GetMspPowerUsersQuoteWithResponse(ctx, client.PlanId(planId), body)
+	resp, callErr := ic.cl.GetMspPowerUsersQuoteWithResponse(ctx, client.PlanId(planId), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1792,7 +1594,7 @@ func dispatchGetMspPowerUsersQuoteWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetMspTenantWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetMspTenantWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1809,7 +1611,7 @@ func dispatchGetMspTenantWithResponse(ctx context.Context, cl *client.ClientWith
 		}
 	}
 
-	resp, callErr := cl.GetMspTenantWithResponse(ctx, tenantName)
+	resp, callErr := ic.cl.GetMspTenantWithResponse(ctx, tenantName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1825,7 +1627,7 @@ func dispatchGetMspTenantWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetMspWebhookWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetMspWebhookWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1842,7 +1644,7 @@ func dispatchGetMspWebhookWithResponse(ctx context.Context, cl *client.ClientWit
 		}
 	}
 
-	resp, callErr := cl.GetMspWebhookWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.GetMspWebhookWithResponse(ctx, parseUUID(webhookId))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1858,7 +1660,7 @@ func dispatchGetMspWebhookWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetProjectDetailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetProjectDetailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1875,7 +1677,7 @@ func dispatchGetProjectDetailsWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.GetProjectDetailsWithResponse(ctx, projectId)
+	resp, callErr := ic.cl.GetProjectDetailsWithResponse(ctx, projectId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1891,7 +1693,7 @@ func dispatchGetProjectDetailsWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetScimGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetScimGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1908,7 +1710,7 @@ func dispatchGetScimGroupWithResponse(ctx context.Context, cl *client.ClientWith
 		}
 	}
 
-	resp, callErr := cl.GetScimGroupWithResponse(ctx, groupId)
+	resp, callErr := ic.cl.GetScimGroupWithResponse(ctx, groupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1924,7 +1726,7 @@ func dispatchGetScimGroupWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetScimUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetScimUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1941,7 +1743,7 @@ func dispatchGetScimUserWithResponse(ctx context.Context, cl *client.ClientWithR
 		}
 	}
 
-	resp, callErr := cl.GetScimUserWithResponse(ctx, userId)
+	resp, callErr := ic.cl.GetScimUserWithResponse(ctx, userId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1957,8 +1759,8 @@ func dispatchGetScimUserWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSettingsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetSettingsWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetSettingsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetSettingsWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1974,7 +1776,7 @@ func dispatchGetSettingsWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSfdcFolderMapWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSfdcFolderMapWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1991,7 +1793,7 @@ func dispatchGetSfdcFolderMapWithResponse(ctx context.Context, cl *client.Client
 		}
 	}
 
-	resp, callErr := cl.GetSfdcFolderMapWithResponse(ctx, recordId)
+	resp, callErr := ic.cl.GetSfdcFolderMapWithResponse(ctx, recordId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2007,7 +1809,7 @@ func dispatchGetSfdcFolderMapWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSignTemplateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSignTemplateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2024,7 +1826,7 @@ func dispatchGetSignTemplateWithResponse(ctx context.Context, cl *client.ClientW
 		}
 	}
 
-	resp, callErr := cl.GetSignTemplateWithResponse(ctx, templateId)
+	resp, callErr := ic.cl.GetSignTemplateWithResponse(ctx, templateId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2040,8 +1842,8 @@ func dispatchGetSignTemplateWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetTrashTotalCountWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetTrashTotalCountWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetTrashTotalCountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetTrashTotalCountWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2057,7 +1859,7 @@ func dispatchGetTrashTotalCountWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2074,7 +1876,7 @@ func dispatchGetUserWithResponse(ctx context.Context, cl *client.ClientWithRespo
 		}
 	}
 
-	resp, callErr := cl.GetUserWithResponse(ctx, id)
+	resp, callErr := ic.cl.GetUserWithResponse(ctx, id)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2090,7 +1892,7 @@ func dispatchGetUserWithResponse(ctx context.Context, cl *client.ClientWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUserDetailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUserDetailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2107,7 +1909,7 @@ func dispatchGetUserDetailsWithResponse(ctx context.Context, cl *client.ClientWi
 		}
 	}
 
-	resp, callErr := cl.GetUserDetailsWithResponse(ctx, parseUUID(userId))
+	resp, callErr := ic.cl.GetUserDetailsWithResponse(ctx, parseUUID(userId))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2123,7 +1925,7 @@ func dispatchGetUserDetailsWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUserLogsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUserLogsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2147,7 +1949,7 @@ func dispatchGetUserLogsWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("egnyte.get-user-logs: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetUserLogsWithResponse(ctx, parseUUID(userId), &params)
+	resp, callErr := ic.cl.GetUserLogsWithResponse(ctx, parseUUID(userId), &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2163,8 +1965,8 @@ func dispatchGetUserLogsWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUserinfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetUserinfoWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetUserinfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetUserinfoWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2180,8 +1982,8 @@ func dispatchGetUserinfoWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUsersListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetUsersListWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetUsersListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetUsersListWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2197,7 +1999,7 @@ func dispatchGetUsersListWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetWebhookDetailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetWebhookDetailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2214,7 +2016,7 @@ func dispatchGetWebhookDetailsWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.GetWebhookDetailsWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.GetWebhookDetailsWithResponse(ctx, parseUUID(webhookId))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2230,7 +2032,7 @@ func dispatchGetWebhookDetailsWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetWebhookStatusWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetWebhookStatusWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2247,7 +2049,7 @@ func dispatchGetWebhookStatusWithResponse(ctx context.Context, cl *client.Client
 		}
 	}
 
-	resp, callErr := cl.GetWebhookStatusWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.GetWebhookStatusWithResponse(ctx, parseUUID(webhookId))
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2263,7 +2065,7 @@ func dispatchGetWebhookStatusWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetWorkflowWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetWorkflowWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2280,7 +2082,7 @@ func dispatchGetWorkflowWithResponse(ctx context.Context, cl *client.ClientWithR
 		}
 	}
 
-	resp, callErr := cl.GetWorkflowWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.GetWorkflowWithResponse(ctx, workflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2296,7 +2098,7 @@ func dispatchGetWorkflowWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchHybridSearchWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchHybridSearchWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.HybridSearchJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2304,7 +2106,7 @@ func dispatchHybridSearchWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("egnyte.hybrid-search: %w", bodyErr)
 	}
 
-	resp, callErr := cl.HybridSearchWithResponse(ctx, body)
+	resp, callErr := ic.cl.HybridSearchWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2320,7 +2122,7 @@ func dispatchHybridSearchWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchImportDocumentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchImportDocumentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ImportDocumentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2328,7 +2130,7 @@ func dispatchImportDocumentWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.import-document: %w", bodyErr)
 	}
 
-	resp, callErr := cl.ImportDocumentWithResponse(ctx, body)
+	resp, callErr := ic.cl.ImportDocumentWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2344,7 +2146,7 @@ func dispatchImportDocumentWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchImportTrainingAssignmentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchImportTrainingAssignmentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ImportTrainingAssignmentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2352,7 +2154,7 @@ func dispatchImportTrainingAssignmentWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("egnyte.import-training-assignment: %w", bodyErr)
 	}
 
-	resp, callErr := cl.ImportTrainingAssignmentWithResponse(ctx, body)
+	resp, callErr := ic.cl.ImportTrainingAssignmentWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2368,7 +2170,7 @@ func dispatchImportTrainingAssignmentWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListAgentsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListAgentsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListAgentsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2376,7 +2178,7 @@ func dispatchListAgentsWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("egnyte.list-agents: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListAgentsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListAgentsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2392,7 +2194,7 @@ func dispatchListAgentsWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListArtifactsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListArtifactsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2416,7 +2218,7 @@ func dispatchListArtifactsWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("egnyte.list-artifacts: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListArtifactsWithResponse(ctx, studyId, &params)
+	resp, callErr := ic.cl.ListArtifactsWithResponse(ctx, studyId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2432,7 +2234,7 @@ func dispatchListArtifactsWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListBookmarksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListBookmarksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListBookmarksParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2440,7 +2242,7 @@ func dispatchListBookmarksWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("egnyte.list-bookmarks: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListBookmarksWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListBookmarksWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2456,7 +2258,7 @@ func dispatchListBookmarksWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListCommentsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListCommentsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListCommentsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2464,7 +2266,7 @@ func dispatchListCommentsWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("egnyte.list-comments: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListCommentsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListCommentsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2480,7 +2282,7 @@ func dispatchListCommentsWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListDocumentsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListDocumentsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2511,7 +2313,7 @@ func dispatchListDocumentsWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("egnyte.list-documents: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListDocumentsWithResponse(ctx, studyId, &params, body)
+	resp, callErr := ic.cl.ListDocumentsWithResponse(ctx, studyId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2527,7 +2329,7 @@ func dispatchListDocumentsWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListFilingLevelsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListFilingLevelsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2544,7 +2346,7 @@ func dispatchListFilingLevelsWithResponse(ctx context.Context, cl *client.Client
 		}
 	}
 
-	resp, callErr := cl.ListFilingLevelsWithResponse(ctx, studyId)
+	resp, callErr := ic.cl.ListFilingLevelsWithResponse(ctx, studyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2560,7 +2362,7 @@ func dispatchListFilingLevelsWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListKbWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListKbWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ListKbJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2568,7 +2370,7 @@ func dispatchListKbWithResponse(ctx context.Context, cl *client.ClientWithRespon
 		return nil, fmt.Errorf("egnyte.list-kb: %w", bodyErr)
 	}
 
-	resp, callErr := cl.ListKbWithResponse(ctx, body)
+	resp, callErr := ic.cl.ListKbWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2584,7 +2386,7 @@ func dispatchListKbWithResponse(ctx context.Context, cl *client.ClientWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListMspDomainsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListMspDomainsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListMspDomainsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2592,7 +2394,7 @@ func dispatchListMspDomainsWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.list-msp-domains: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListMspDomainsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListMspDomainsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2608,8 +2410,8 @@ func dispatchListMspDomainsWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListMspPlansWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListMspPlansWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListMspPlansWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListMspPlansWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2625,7 +2427,7 @@ func dispatchListMspPlansWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListMspTenantsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListMspTenantsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListMspTenantsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2633,7 +2435,7 @@ func dispatchListMspTenantsWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.list-msp-tenants: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListMspTenantsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListMspTenantsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2649,8 +2451,8 @@ func dispatchListMspTenantsWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListMspWebhooksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListMspWebhooksWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListMspWebhooksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListMspWebhooksWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2666,7 +2468,7 @@ func dispatchListMspWebhooksWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListMySignatureRequestsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListMySignatureRequestsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListMySignatureRequestsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2674,7 +2476,7 @@ func dispatchListMySignatureRequestsWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("egnyte.list-my-signature-requests: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListMySignatureRequestsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListMySignatureRequestsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2690,7 +2492,7 @@ func dispatchListMySignatureRequestsWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListProcoreProjectsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListProcoreProjectsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2707,7 +2509,7 @@ func dispatchListProcoreProjectsWithResponse(ctx context.Context, cl *client.Cli
 		}
 	}
 
-	resp, callErr := cl.ListProcoreProjectsWithResponse(ctx, companyId)
+	resp, callErr := ic.cl.ListProcoreProjectsWithResponse(ctx, companyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2723,7 +2525,7 @@ func dispatchListProcoreProjectsWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListProjectFoldersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListProjectFoldersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListProjectFoldersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2731,7 +2533,7 @@ func dispatchListProjectFoldersWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("egnyte.list-project-folders: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListProjectFoldersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListProjectFoldersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2747,7 +2549,7 @@ func dispatchListProjectFoldersWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListScimGroupsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListScimGroupsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListScimGroupsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2755,7 +2557,7 @@ func dispatchListScimGroupsWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.list-scim-groups: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListScimGroupsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListScimGroupsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2771,7 +2573,7 @@ func dispatchListScimGroupsWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListScimUsersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListScimUsersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListScimUsersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2779,7 +2581,7 @@ func dispatchListScimUsersWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("egnyte.list-scim-users: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListScimUsersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListScimUsersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2795,7 +2597,7 @@ func dispatchListScimUsersWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListSentSignatureRequestsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListSentSignatureRequestsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListSentSignatureRequestsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2803,7 +2605,7 @@ func dispatchListSentSignatureRequestsWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("egnyte.list-sent-signature-requests: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListSentSignatureRequestsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListSentSignatureRequestsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2819,7 +2621,7 @@ func dispatchListSentSignatureRequestsWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListSignTemplatesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListSignTemplatesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListSignTemplatesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2827,7 +2629,7 @@ func dispatchListSignTemplatesWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("egnyte.list-sign-templates: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListSignTemplatesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListSignTemplatesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2843,8 +2645,8 @@ func dispatchListSignTemplatesWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListStudiesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListStudiesWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListStudiesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListStudiesWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2860,8 +2662,8 @@ func dispatchListStudiesWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListSyncedProjectsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListSyncedProjectsWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListSyncedProjectsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListSyncedProjectsWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2877,7 +2679,7 @@ func dispatchListSyncedProjectsWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListTasksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListTasksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListTasksParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2885,7 +2687,7 @@ func dispatchListTasksWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("egnyte.list-tasks: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListTasksWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListTasksWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2901,7 +2703,7 @@ func dispatchListTasksWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListTrashV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListTrashV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListTrashV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2909,7 +2711,7 @@ func dispatchListTrashV1WithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("egnyte.list-trash-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListTrashV1WithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListTrashV1WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2925,7 +2727,7 @@ func dispatchListTrashV1WithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListTrashV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListTrashV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListTrashV2Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2933,7 +2735,7 @@ func dispatchListTrashV2WithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("egnyte.list-trash-v2: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListTrashV2WithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListTrashV2WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2949,8 +2751,8 @@ func dispatchListTrashV2WithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListUploadRequestTemplatesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListUploadRequestTemplatesWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListUploadRequestTemplatesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListUploadRequestTemplatesWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2966,7 +2768,7 @@ func dispatchListUploadRequestTemplatesWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListUsersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListUsersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListUsersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2974,7 +2776,7 @@ func dispatchListUsersWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("egnyte.list-users: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListUsersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListUsersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2990,8 +2792,8 @@ func dispatchListUsersWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListUsersV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListUsersV1WithResponse(ctx)
+func (ic *InterfaceClient) dispatchListUsersV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListUsersV1WithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3007,8 +2809,8 @@ func dispatchListUsersV1WithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListWebhooksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListWebhooksWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListWebhooksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListWebhooksWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3024,7 +2826,7 @@ func dispatchListWebhooksWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListWorkflowsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListWorkflowsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListWorkflowsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3032,7 +2834,7 @@ func dispatchListWorkflowsWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("egnyte.list-workflows: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListWorkflowsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListWorkflowsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3048,8 +2850,8 @@ func dispatchListWorkflowsWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListWorkspacesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.ListWorkspacesWithResponse(ctx)
+func (ic *InterfaceClient) dispatchListWorkspacesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.ListWorkspacesWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3065,7 +2867,7 @@ func dispatchListWorkspacesWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchMarkFolderAsProjectWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMarkFolderAsProjectWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.MarkFolderAsProjectJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3073,7 +2875,7 @@ func dispatchMarkFolderAsProjectWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("egnyte.mark-folder-as-project: %w", bodyErr)
 	}
 
-	resp, callErr := cl.MarkFolderAsProjectWithResponse(ctx, body)
+	resp, callErr := ic.cl.MarkFolderAsProjectWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3089,7 +2891,7 @@ func dispatchMarkFolderAsProjectWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchNavigatePostV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchNavigatePostV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3106,7 +2908,7 @@ func dispatchNavigatePostV1WithResponse(ctx context.Context, cl *client.ClientWi
 		}
 	}
 
-	resp, callErr := cl.NavigatePostV1WithResponse(ctx, scope)
+	resp, callErr := ic.cl.NavigatePostV1WithResponse(ctx, scope)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3122,7 +2924,7 @@ func dispatchNavigatePostV1WithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchNavigatePostV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchNavigatePostV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.NavigatePostV2JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3130,7 +2932,7 @@ func dispatchNavigatePostV2WithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.navigate-post-v2: %w", bodyErr)
 	}
 
-	resp, callErr := cl.NavigatePostV2WithResponse(ctx, body)
+	resp, callErr := ic.cl.NavigatePostV2WithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3146,7 +2948,7 @@ func dispatchNavigatePostV2WithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchNotesDeleteByIdV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchNotesDeleteByIdV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3163,7 +2965,7 @@ func dispatchNotesDeleteByIdV1WithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.NotesDeleteByIdV1WithResponse(ctx, noteId)
+	resp, callErr := ic.cl.NotesDeleteByIdV1WithResponse(ctx, noteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3179,7 +2981,7 @@ func dispatchNotesDeleteByIdV1WithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchNotesGetByIdV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchNotesGetByIdV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3196,7 +2998,7 @@ func dispatchNotesGetByIdV1WithResponse(ctx context.Context, cl *client.ClientWi
 		}
 	}
 
-	resp, callErr := cl.NotesGetByIdV1WithResponse(ctx, noteId)
+	resp, callErr := ic.cl.NotesGetByIdV1WithResponse(ctx, noteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3212,7 +3014,7 @@ func dispatchNotesGetByIdV1WithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchScimGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchScimGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3236,7 +3038,7 @@ func dispatchPatchScimGroupWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("egnyte.patch-scim-group: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchScimGroupWithResponse(ctx, groupId, body)
+	resp, callErr := ic.cl.PatchScimGroupWithResponse(ctx, groupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3252,7 +3054,7 @@ func dispatchPatchScimGroupWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchScimUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchScimUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3276,7 +3078,7 @@ func dispatchPatchScimUserWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("egnyte.patch-scim-user: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchScimUserWithResponse(ctx, userId, body)
+	resp, callErr := ic.cl.PatchScimUserWithResponse(ctx, userId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3292,7 +3094,7 @@ func dispatchPatchScimUserWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteFsByIdV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteFsByIdV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3325,7 +3127,7 @@ func dispatchPortalProdDeleteFsByIdV1WithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-by-id-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdDeleteFsByIdV1WithResponse(ctx, client.PortalProdDeleteFsByIdV1ParamsType(pType), id, &params)
+	resp, callErr := ic.cl.PortalProdDeleteFsByIdV1WithResponse(ctx, client.PortalProdDeleteFsByIdV1ParamsType(pType), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3341,7 +3143,7 @@ func dispatchPortalProdDeleteFsByIdV1WithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteFsV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteFsV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3365,7 +3167,7 @@ func dispatchPortalProdDeleteFsV1WithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdDeleteFsV1WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdDeleteFsV1WithResponse(ctx, path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3381,7 +3183,7 @@ func dispatchPortalProdDeleteFsV1WithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteFsV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteFsV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3405,7 +3207,7 @@ func dispatchPortalProdDeleteFsV2WithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-fs-v2: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdDeleteFsV2WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdDeleteFsV2WithResponse(ctx, path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3421,7 +3223,7 @@ func dispatchPortalProdDeleteFsV2WithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteGroupsByIdV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteGroupsByIdV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3438,7 +3240,7 @@ func dispatchPortalProdDeleteGroupsByIdV2WithResponse(ctx context.Context, cl *c
 		}
 	}
 
-	resp, callErr := cl.PortalProdDeleteGroupsByIdV2WithResponse(ctx, groupId)
+	resp, callErr := ic.cl.PortalProdDeleteGroupsByIdV2WithResponse(ctx, groupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3454,7 +3256,7 @@ func dispatchPortalProdDeleteGroupsByIdV2WithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteLinksByIdV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteLinksByIdV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3471,7 +3273,7 @@ func dispatchPortalProdDeleteLinksByIdV1WithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.PortalProdDeleteLinksByIdV1WithResponse(ctx, linkId)
+	resp, callErr := ic.cl.PortalProdDeleteLinksByIdV1WithResponse(ctx, linkId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3487,7 +3289,7 @@ func dispatchPortalProdDeleteLinksByIdV1WithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteLinksByIdV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteLinksByIdV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3504,7 +3306,7 @@ func dispatchPortalProdDeleteLinksByIdV2WithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.PortalProdDeleteLinksByIdV2WithResponse(ctx, linkId)
+	resp, callErr := ic.cl.PortalProdDeleteLinksByIdV2WithResponse(ctx, linkId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3520,7 +3322,7 @@ func dispatchPortalProdDeleteLinksByIdV2WithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteMetadataKeyV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteMetadataKeyV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3553,7 +3355,7 @@ func dispatchPortalProdDeleteMetadataKeyV1WithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-metadata-key-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdDeleteMetadataKeyV1WithResponse(ctx, namespaceName, keyName, &params)
+	resp, callErr := ic.cl.PortalProdDeleteMetadataKeyV1WithResponse(ctx, namespaceName, keyName, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3569,7 +3371,7 @@ func dispatchPortalProdDeleteMetadataKeyV1WithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteNamespaceV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteNamespaceV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3593,7 +3395,7 @@ func dispatchPortalProdDeleteNamespaceV1WithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-namespace-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdDeleteNamespaceV1WithResponse(ctx, namespaceName, &params)
+	resp, callErr := ic.cl.PortalProdDeleteNamespaceV1WithResponse(ctx, namespaceName, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3609,7 +3411,7 @@ func dispatchPortalProdDeleteNamespaceV1WithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdDeleteProjectCustomFieldV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdDeleteProjectCustomFieldV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3633,7 +3435,7 @@ func dispatchPortalProdDeleteProjectCustomFieldV1WithResponse(ctx context.Contex
 		return nil, fmt.Errorf("egnyte.portal-prod-delete-project-custom-field-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdDeleteProjectCustomFieldV1WithResponse(ctx, client.FieldName(fieldName), &params)
+	resp, callErr := ic.cl.PortalProdDeleteProjectCustomFieldV1WithResponse(ctx, client.FieldName(fieldName), &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3649,8 +3451,8 @@ func dispatchPortalProdDeleteProjectCustomFieldV1WithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetEventsCursorV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.PortalProdGetEventsCursorV1WithResponse(ctx)
+func (ic *InterfaceClient) dispatchPortalProdGetEventsCursorV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.PortalProdGetEventsCursorV1WithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3666,7 +3468,7 @@ func dispatchPortalProdGetEventsCursorV1WithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetEventsV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetEventsV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PortalProdGetEventsV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3674,7 +3476,7 @@ func dispatchPortalProdGetEventsV1WithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.portal-prod-get-events-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetEventsV1WithResponse(ctx, &params)
+	resp, callErr := ic.cl.PortalProdGetEventsV1WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3690,7 +3492,7 @@ func dispatchPortalProdGetEventsV1WithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetEventsV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetEventsV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PortalProdGetEventsV2Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3698,7 +3500,7 @@ func dispatchPortalProdGetEventsV2WithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.portal-prod-get-events-v2: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetEventsV2WithResponse(ctx, &params)
+	resp, callErr := ic.cl.PortalProdGetEventsV2WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3714,7 +3516,7 @@ func dispatchPortalProdGetEventsV2WithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetFileMetadataV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetFileMetadataV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3740,7 +3542,7 @@ func dispatchPortalProdGetFileMetadataV1WithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.PortalProdGetFileMetadataV1WithResponse(ctx, id, namespaceName)
+	resp, callErr := ic.cl.PortalProdGetFileMetadataV1WithResponse(ctx, id, namespaceName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3756,7 +3558,7 @@ func dispatchPortalProdGetFileMetadataV1WithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetFolderMetadataV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetFolderMetadataV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3782,7 +3584,7 @@ func dispatchPortalProdGetFolderMetadataV1WithResponse(ctx context.Context, cl *
 		}
 	}
 
-	resp, callErr := cl.PortalProdGetFolderMetadataV1WithResponse(ctx, id, namespaceName)
+	resp, callErr := ic.cl.PortalProdGetFolderMetadataV1WithResponse(ctx, id, namespaceName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3798,7 +3600,7 @@ func dispatchPortalProdGetFolderMetadataV1WithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetFsByIdV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetFsByIdV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3831,7 +3633,7 @@ func dispatchPortalProdGetFsByIdV1WithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-by-id-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetFsByIdV1WithResponse(ctx, client.PortalProdGetFsByIdV1ParamsType(pType), id, &params)
+	resp, callErr := ic.cl.PortalProdGetFsByIdV1WithResponse(ctx, client.PortalProdGetFsByIdV1ParamsType(pType), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3847,7 +3649,7 @@ func dispatchPortalProdGetFsByIdV1WithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetFsContentByIdV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetFsContentByIdV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3871,7 +3673,7 @@ func dispatchPortalProdGetFsContentByIdV1WithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-id-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetFsContentByIdV1WithResponse(ctx, id, &params)
+	resp, callErr := ic.cl.PortalProdGetFsContentByIdV1WithResponse(ctx, id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3887,7 +3689,7 @@ func dispatchPortalProdGetFsContentByIdV1WithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetFsContentByPathV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetFsContentByPathV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3911,7 +3713,7 @@ func dispatchPortalProdGetFsContentByPathV1WithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-path-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetFsContentByPathV1WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdGetFsContentByPathV1WithResponse(ctx, path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3927,7 +3729,7 @@ func dispatchPortalProdGetFsContentByPathV1WithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetFsFolderStatsV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetFsFolderStatsV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3944,7 +3746,7 @@ func dispatchPortalProdGetFsFolderStatsV1WithResponse(ctx context.Context, cl *c
 		}
 	}
 
-	resp, callErr := cl.PortalProdGetFsFolderStatsV1WithResponse(ctx, folderId)
+	resp, callErr := ic.cl.PortalProdGetFsFolderStatsV1WithResponse(ctx, folderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3960,7 +3762,7 @@ func dispatchPortalProdGetFsFolderStatsV1WithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetFsV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetFsV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3984,7 +3786,7 @@ func dispatchPortalProdGetFsV1WithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetFsV1WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdGetFsV1WithResponse(ctx, path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4000,7 +3802,7 @@ func dispatchPortalProdGetFsV1WithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetFsV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetFsV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4024,7 +3826,7 @@ func dispatchPortalProdGetFsV2WithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-v2: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetFsV2WithResponse(ctx, path, &params)
+	resp, callErr := ic.cl.PortalProdGetFsV2WithResponse(ctx, path, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4040,7 +3842,7 @@ func dispatchPortalProdGetFsV2WithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetGroupsByIdV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetGroupsByIdV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4057,7 +3859,7 @@ func dispatchPortalProdGetGroupsByIdV2WithResponse(ctx context.Context, cl *clie
 		}
 	}
 
-	resp, callErr := cl.PortalProdGetGroupsByIdV2WithResponse(ctx, groupId)
+	resp, callErr := ic.cl.PortalProdGetGroupsByIdV2WithResponse(ctx, groupId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4073,7 +3875,7 @@ func dispatchPortalProdGetGroupsByIdV2WithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetGroupsV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetGroupsV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PortalProdGetGroupsV2Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4081,7 +3883,7 @@ func dispatchPortalProdGetGroupsV2WithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.portal-prod-get-groups-v2: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetGroupsV2WithResponse(ctx, &params)
+	resp, callErr := ic.cl.PortalProdGetGroupsV2WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4097,7 +3899,7 @@ func dispatchPortalProdGetGroupsV2WithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetInsightsFilesV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetInsightsFilesV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PortalProdGetInsightsFilesV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4105,7 +3907,7 @@ func dispatchPortalProdGetInsightsFilesV1WithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("egnyte.portal-prod-get-insights-files-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetInsightsFilesV1WithResponse(ctx, &params)
+	resp, callErr := ic.cl.PortalProdGetInsightsFilesV1WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4121,7 +3923,7 @@ func dispatchPortalProdGetInsightsFilesV1WithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetLinksByIdV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetLinksByIdV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4138,7 +3940,7 @@ func dispatchPortalProdGetLinksByIdV1WithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.PortalProdGetLinksByIdV1WithResponse(ctx, linkId)
+	resp, callErr := ic.cl.PortalProdGetLinksByIdV1WithResponse(ctx, linkId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4154,7 +3956,7 @@ func dispatchPortalProdGetLinksByIdV1WithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetLinksByIdV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetLinksByIdV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4171,7 +3973,7 @@ func dispatchPortalProdGetLinksByIdV2WithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.PortalProdGetLinksByIdV2WithResponse(ctx, linkId)
+	resp, callErr := ic.cl.PortalProdGetLinksByIdV2WithResponse(ctx, linkId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4187,7 +3989,7 @@ func dispatchPortalProdGetLinksByIdV2WithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetLinksV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetLinksV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PortalProdGetLinksV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4195,7 +3997,7 @@ func dispatchPortalProdGetLinksV1WithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("egnyte.portal-prod-get-links-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetLinksV1WithResponse(ctx, &params)
+	resp, callErr := ic.cl.PortalProdGetLinksV1WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4211,7 +4013,7 @@ func dispatchPortalProdGetLinksV1WithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetLinksV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetLinksV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PortalProdGetLinksV2Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4219,7 +4021,7 @@ func dispatchPortalProdGetLinksV2WithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("egnyte.portal-prod-get-links-v2: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetLinksV2WithResponse(ctx, &params)
+	resp, callErr := ic.cl.PortalProdGetLinksV2WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4235,7 +4037,7 @@ func dispatchPortalProdGetLinksV2WithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetNamespaceV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetNamespaceV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4252,7 +4054,7 @@ func dispatchPortalProdGetNamespaceV1WithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.PortalProdGetNamespaceV1WithResponse(ctx, namespaceName)
+	resp, callErr := ic.cl.PortalProdGetNamespaceV1WithResponse(ctx, namespaceName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4268,7 +4070,7 @@ func dispatchPortalProdGetNamespaceV1WithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetNamespacesV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdGetNamespacesV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PortalProdGetNamespacesV1Params
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4276,7 +4078,7 @@ func dispatchPortalProdGetNamespacesV1WithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("egnyte.portal-prod-get-namespaces-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdGetNamespacesV1WithResponse(ctx, &params)
+	resp, callErr := ic.cl.PortalProdGetNamespacesV1WithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4292,8 +4094,8 @@ func dispatchPortalProdGetNamespacesV1WithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdGetProjectCustomFieldsV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.PortalProdGetProjectCustomFieldsV1WithResponse(ctx)
+func (ic *InterfaceClient) dispatchPortalProdGetProjectCustomFieldsV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.PortalProdGetProjectCustomFieldsV1WithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4309,7 +4111,7 @@ func dispatchPortalProdGetProjectCustomFieldsV1WithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4333,7 +4135,7 @@ func dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-groups-by-id-v2: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPatchGroupsByIdV2WithResponse(ctx, groupId, body)
+	resp, callErr := ic.cl.PortalProdPatchGroupsByIdV2WithResponse(ctx, groupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4349,7 +4151,7 @@ func dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPatchMetadataKeyDataV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyDataV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4391,7 +4193,7 @@ func dispatchPortalProdPatchMetadataKeyDataV1WithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-data-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdPatchMetadataKeyDataV1WithResponse(ctx, namespaceName, keyName, &params, body)
+	resp, callErr := ic.cl.PortalProdPatchMetadataKeyDataV1WithResponse(ctx, namespaceName, keyName, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4407,7 +4209,7 @@ func dispatchPortalProdPatchMetadataKeyDataV1WithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPatchMetadataKeyV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeyV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4440,7 +4242,7 @@ func dispatchPortalProdPatchMetadataKeyV1WithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-key-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPatchMetadataKeyV1WithResponse(ctx, namespaceName, keyName, body)
+	resp, callErr := ic.cl.PortalProdPatchMetadataKeyV1WithResponse(ctx, namespaceName, keyName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4456,7 +4258,7 @@ func dispatchPortalProdPatchMetadataKeyV1WithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPatchMetadataKeysDataV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPatchMetadataKeysDataV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4487,7 +4289,7 @@ func dispatchPortalProdPatchMetadataKeysDataV1WithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-metadata-keys-data-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdPatchMetadataKeysDataV1WithResponse(ctx, namespaceName, &params, body)
+	resp, callErr := ic.cl.PortalProdPatchMetadataKeysDataV1WithResponse(ctx, namespaceName, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4503,7 +4305,7 @@ func dispatchPortalProdPatchMetadataKeysDataV1WithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPatchNamespaceV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPatchNamespaceV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4527,7 +4329,7 @@ func dispatchPortalProdPatchNamespaceV1WithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-namespace-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPatchNamespaceV1WithResponse(ctx, namespaceName, body)
+	resp, callErr := ic.cl.PortalProdPatchNamespaceV1WithResponse(ctx, namespaceName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4543,7 +4345,7 @@ func dispatchPortalProdPatchNamespaceV1WithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPatchProjectCustomFieldDataV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldDataV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4576,7 +4378,7 @@ func dispatchPortalProdPatchProjectCustomFieldDataV1WithResponse(ctx context.Con
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-data-v1: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, client.FieldName(fieldName), &params, body)
+	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, client.FieldName(fieldName), &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4592,7 +4394,7 @@ func dispatchPortalProdPatchProjectCustomFieldDataV1WithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPatchProjectCustomFieldV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPatchProjectCustomFieldV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4616,7 +4418,7 @@ func dispatchPortalProdPatchProjectCustomFieldV1WithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.portal-prod-patch-project-custom-field-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPatchProjectCustomFieldV1WithResponse(ctx, client.FieldName(fieldName), body)
+	resp, callErr := ic.cl.PortalProdPatchProjectCustomFieldV1WithResponse(ctx, client.FieldName(fieldName), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4632,7 +4434,7 @@ func dispatchPortalProdPatchProjectCustomFieldV1WithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostFsByIdV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostFsByIdV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4665,7 +4467,7 @@ func dispatchPortalProdPostFsByIdV1WithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-by-id-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostFsByIdV1WithResponse(ctx, client.PortalProdPostFsByIdV1ParamsType(pType), id, body)
+	resp, callErr := ic.cl.PortalProdPostFsByIdV1WithResponse(ctx, client.PortalProdPostFsByIdV1ParamsType(pType), id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4681,7 +4483,7 @@ func dispatchPortalProdPostFsByIdV1WithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostFsV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostFsV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4705,7 +4507,7 @@ func dispatchPortalProdPostFsV1WithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostFsV1WithResponse(ctx, path, body)
+	resp, callErr := ic.cl.PortalProdPostFsV1WithResponse(ctx, path, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4721,7 +4523,7 @@ func dispatchPortalProdPostFsV1WithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostFsV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostFsV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4745,7 +4547,7 @@ func dispatchPortalProdPostFsV2WithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-v2: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostFsV2WithResponse(ctx, path, body)
+	resp, callErr := ic.cl.PortalProdPostFsV2WithResponse(ctx, path, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4761,7 +4563,7 @@ func dispatchPortalProdPostFsV2WithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostGroupsV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostGroupsV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PortalProdPostGroupsV2JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4769,7 +4571,7 @@ func dispatchPortalProdPostGroupsV2WithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("egnyte.portal-prod-post-groups-v2: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostGroupsV2WithResponse(ctx, body)
+	resp, callErr := ic.cl.PortalProdPostGroupsV2WithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4785,7 +4587,7 @@ func dispatchPortalProdPostGroupsV2WithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostLinksV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostLinksV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PortalProdPostLinksV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4793,7 +4595,7 @@ func dispatchPortalProdPostLinksV1WithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.portal-prod-post-links-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostLinksV1WithResponse(ctx, body)
+	resp, callErr := ic.cl.PortalProdPostLinksV1WithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4809,7 +4611,7 @@ func dispatchPortalProdPostLinksV1WithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostLinksV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostLinksV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PortalProdPostLinksV2JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4817,7 +4619,7 @@ func dispatchPortalProdPostLinksV2WithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.portal-prod-post-links-v2: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostLinksV2WithResponse(ctx, body)
+	resp, callErr := ic.cl.PortalProdPostLinksV2WithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4833,7 +4635,7 @@ func dispatchPortalProdPostLinksV2WithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostMetadataKeyV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostMetadataKeyV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4857,7 +4659,7 @@ func dispatchPortalProdPostMetadataKeyV1WithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("egnyte.portal-prod-post-metadata-key-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostMetadataKeyV1WithResponse(ctx, namespaceName, body)
+	resp, callErr := ic.cl.PortalProdPostMetadataKeyV1WithResponse(ctx, namespaceName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4873,7 +4675,7 @@ func dispatchPortalProdPostMetadataKeyV1WithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostNamespaceV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostNamespaceV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PortalProdPostNamespaceV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4881,7 +4683,7 @@ func dispatchPortalProdPostNamespaceV1WithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("egnyte.portal-prod-post-namespace-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostNamespaceV1WithResponse(ctx, body)
+	resp, callErr := ic.cl.PortalProdPostNamespaceV1WithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4897,7 +4699,7 @@ func dispatchPortalProdPostNamespaceV1WithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostProjectCustomFieldV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostProjectCustomFieldV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PortalProdPostProjectCustomFieldV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4905,7 +4707,7 @@ func dispatchPortalProdPostProjectCustomFieldV1WithResponse(ctx context.Context,
 		return nil, fmt.Errorf("egnyte.portal-prod-post-project-custom-field-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostProjectCustomFieldV1WithResponse(ctx, body)
+	resp, callErr := ic.cl.PortalProdPostProjectCustomFieldV1WithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4921,7 +4723,7 @@ func dispatchPortalProdPostProjectCustomFieldV1WithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPostSearchMetadataV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPostSearchMetadataV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PortalProdPostSearchMetadataV1JSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4929,7 +4731,7 @@ func dispatchPortalProdPostSearchMetadataV1WithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("egnyte.portal-prod-post-search-metadata-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPostSearchMetadataV1WithResponse(ctx, body)
+	resp, callErr := ic.cl.PortalProdPostSearchMetadataV1WithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4945,7 +4747,7 @@ func dispatchPortalProdPostSearchMetadataV1WithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPutFileMetadataV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPutFileMetadataV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4978,7 +4780,7 @@ func dispatchPortalProdPutFileMetadataV1WithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("egnyte.portal-prod-put-file-metadata-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPutFileMetadataV1WithResponse(ctx, id, namespaceName, body)
+	resp, callErr := ic.cl.PortalProdPutFileMetadataV1WithResponse(ctx, id, namespaceName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4994,7 +4796,7 @@ func dispatchPortalProdPutFileMetadataV1WithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPutFolderMetadataV1WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPutFolderMetadataV1WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5027,7 +4829,7 @@ func dispatchPortalProdPutFolderMetadataV1WithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("egnyte.portal-prod-put-folder-metadata-v1: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPutFolderMetadataV1WithResponse(ctx, id, namespaceName, body)
+	resp, callErr := ic.cl.PortalProdPutFolderMetadataV1WithResponse(ctx, id, namespaceName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5043,7 +4845,7 @@ func dispatchPortalProdPutFolderMetadataV1WithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPortalProdPutGroupsByIdV2WithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPortalProdPutGroupsByIdV2WithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5067,7 +4869,7 @@ func dispatchPortalProdPutGroupsByIdV2WithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("egnyte.portal-prod-put-groups-by-id-v2: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PortalProdPutGroupsByIdV2WithResponse(ctx, groupId, body)
+	resp, callErr := ic.cl.PortalProdPutGroupsByIdV2WithResponse(ctx, groupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5083,7 +4885,7 @@ func dispatchPortalProdPutGroupsByIdV2WithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPurchaseMspPowerUsersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPurchaseMspPowerUsersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5107,7 +4909,7 @@ func dispatchPurchaseMspPowerUsersWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.purchase-msp-power-users: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PurchaseMspPowerUsersWithResponse(ctx, client.PlanId(planId), body)
+	resp, callErr := ic.cl.PurchaseMspPowerUsersWithResponse(ctx, client.PlanId(planId), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5123,7 +4925,7 @@ func dispatchPurchaseMspPowerUsersWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRegisterWebhookWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRegisterWebhookWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RegisterWebhookJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5131,7 +4933,7 @@ func dispatchRegisterWebhookWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("egnyte.register-webhook: %w", bodyErr)
 	}
 
-	resp, callErr := cl.RegisterWebhookWithResponse(ctx, body)
+	resp, callErr := ic.cl.RegisterWebhookWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5147,7 +4949,7 @@ func dispatchRegisterWebhookWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRemoveSyncWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemoveSyncWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5164,7 +4966,7 @@ func dispatchRemoveSyncWithResponse(ctx context.Context, cl *client.ClientWithRe
 		}
 	}
 
-	resp, callErr := cl.RemoveSyncWithResponse(ctx, syncId)
+	resp, callErr := ic.cl.RemoveSyncWithResponse(ctx, syncId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5180,7 +4982,7 @@ func dispatchRemoveSyncWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReplaceScimGroupWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReplaceScimGroupWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5204,7 +5006,7 @@ func dispatchReplaceScimGroupWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("egnyte.replace-scim-group: %w", bodyErr)
 	}
 
-	resp, callErr := cl.ReplaceScimGroupWithResponse(ctx, groupId, body)
+	resp, callErr := ic.cl.ReplaceScimGroupWithResponse(ctx, groupId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5220,7 +5022,7 @@ func dispatchReplaceScimGroupWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReplaceScimUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReplaceScimUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5244,7 +5046,7 @@ func dispatchReplaceScimUserWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("egnyte.replace-scim-user: %w", bodyErr)
 	}
 
-	resp, callErr := cl.ReplaceScimUserWithResponse(ctx, userId, body)
+	resp, callErr := ic.cl.ReplaceScimUserWithResponse(ctx, userId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5260,7 +5062,7 @@ func dispatchReplaceScimUserWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveAuditReportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveAuditReportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5293,7 +5095,7 @@ func dispatchRetrieveAuditReportWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("egnyte.retrieve-audit-report: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrieveAuditReportWithResponse(ctx, client.RetrieveAuditReportParamsType(pType), id, &params)
+	resp, callErr := ic.cl.RetrieveAuditReportWithResponse(ctx, client.RetrieveAuditReportParamsType(pType), id, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5309,7 +5111,7 @@ func dispatchRetrieveAuditReportWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRevokeTokenWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRevokeTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RevokeTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5317,7 +5119,7 @@ func dispatchRevokeTokenWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("egnyte.revoke-token-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.RevokeTokenWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.RevokeTokenWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5333,7 +5135,7 @@ func dispatchRevokeTokenWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSearchV1GetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSearchV1GetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.SearchV1GetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -5341,7 +5143,7 @@ func dispatchSearchV1GetWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("egnyte.search-v1-get: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SearchV1GetWithResponse(ctx, &params)
+	resp, callErr := ic.cl.SearchV1GetWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5357,7 +5159,7 @@ func dispatchSearchV1GetWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSearchV2PostWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSearchV2PostWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.SearchV2PostJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5365,7 +5167,7 @@ func dispatchSearchV2PostWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("egnyte.search-v2-post: %w", bodyErr)
 	}
 
-	resp, callErr := cl.SearchV2PostWithResponse(ctx, body)
+	resp, callErr := ic.cl.SearchV2PostWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5381,7 +5183,7 @@ func dispatchSearchV2PostWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSetWebhookStatusWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSetWebhookStatusWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5405,7 +5207,7 @@ func dispatchSetWebhookStatusWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("egnyte.set-webhook-status: %w", bodyErr)
 	}
 
-	resp, callErr := cl.SetWebhookStatusWithResponse(ctx, parseUUID(webhookId), body)
+	resp, callErr := ic.cl.SetWebhookStatusWithResponse(ctx, parseUUID(webhookId), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5421,7 +5223,7 @@ func dispatchSetWebhookStatusWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchStreamAuditEventsGetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchStreamAuditEventsGetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.StreamAuditEventsGetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -5429,7 +5231,7 @@ func dispatchStreamAuditEventsGetWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("egnyte.stream-audit-events-get: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.StreamAuditEventsGetWithResponse(ctx, &params)
+	resp, callErr := ic.cl.StreamAuditEventsGetWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5445,7 +5247,7 @@ func dispatchStreamAuditEventsGetWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchStreamAuditEventsPostWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchStreamAuditEventsPostWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.StreamAuditEventsPostJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5453,7 +5255,7 @@ func dispatchStreamAuditEventsPostWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("egnyte.stream-audit-events-post: %w", bodyErr)
 	}
 
-	resp, callErr := cl.StreamAuditEventsPostWithResponse(ctx, body)
+	resp, callErr := ic.cl.StreamAuditEventsPostWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5469,7 +5271,7 @@ func dispatchStreamAuditEventsPostWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSummarizeDocumentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSummarizeDocumentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5493,7 +5295,7 @@ func dispatchSummarizeDocumentWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("egnyte.summarize-document: %w", bodyErr)
 	}
 
-	resp, callErr := cl.SummarizeDocumentWithResponse(ctx, entryId, body)
+	resp, callErr := ic.cl.SummarizeDocumentWithResponse(ctx, entryId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5509,7 +5311,7 @@ func dispatchSummarizeDocumentWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSyncedProjectsDetailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSyncedProjectsDetailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5526,7 +5328,7 @@ func dispatchSyncedProjectsDetailsWithResponse(ctx context.Context, cl *client.C
 		}
 	}
 
-	resp, callErr := cl.SyncedProjectsDetailsWithResponse(ctx, syncId)
+	resp, callErr := ic.cl.SyncedProjectsDetailsWithResponse(ctx, syncId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5542,7 +5344,7 @@ func dispatchSyncedProjectsDetailsWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchTrashActionWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTrashActionWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.TrashActionJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5550,7 +5352,7 @@ func dispatchTrashActionWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("egnyte.trash-action: %w", bodyErr)
 	}
 
-	resp, callErr := cl.TrashActionWithResponse(ctx, body)
+	resp, callErr := ic.cl.TrashActionWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5566,7 +5368,7 @@ func dispatchTrashActionWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateMspWebhookWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateMspWebhookWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5590,7 +5392,7 @@ func dispatchUpdateMspWebhookWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("egnyte.update-msp-webhook: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateMspWebhookWithResponse(ctx, parseUUID(webhookId), body)
+	resp, callErr := ic.cl.UpdateMspWebhookWithResponse(ctx, parseUUID(webhookId), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5606,7 +5408,7 @@ func dispatchUpdateMspWebhookWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateSyncWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateSyncWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5630,7 +5432,7 @@ func dispatchUpdateSyncWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateSyncWithFormdataBodyWithResponse(ctx, syncId, body)
+	resp, callErr := ic.cl.UpdateSyncWithFormdataBodyWithResponse(ctx, syncId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5646,7 +5448,7 @@ func dispatchUpdateSyncWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateUserWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateUserWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5670,7 +5472,7 @@ func dispatchUpdateUserWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("egnyte.update-user: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateUserWithResponse(ctx, id, body)
+	resp, callErr := ic.cl.UpdateUserWithResponse(ctx, id, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5686,7 +5488,7 @@ func dispatchUpdateUserWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateWebhookWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateWebhookWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5710,7 +5512,7 @@ func dispatchUpdateWebhookWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("egnyte.update-webhook: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateWebhookWithResponse(ctx, parseUUID(webhookId), body)
+	resp, callErr := ic.cl.UpdateWebhookWithResponse(ctx, parseUUID(webhookId), body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5726,8 +5528,8 @@ func dispatchUpdateWebhookWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchWhoamiWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.WhoamiWithResponse(ctx)
+func (ic *InterfaceClient) dispatchWhoamiWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.WhoamiWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}

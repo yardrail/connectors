@@ -18,93 +18,17 @@ var (
 	errUnknownFunction        = errors.New("canva: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"create-comment":                           dispatchCreateCommentWithResponse,
-	"create-design":                            dispatchCreateDesignWithResponse,
-	"create-design-autofill-job":               dispatchCreateDesignAutofillJobWithResponse,
-	"create-design-export-job":                 dispatchCreateDesignExportJobWithResponse,
-	"create-design-merge-job":                  dispatchCreateDesignMergeJobWithResponse,
-	"create-design-resize-job":                 dispatchCreateDesignResizeJobWithResponse,
-	"create-folder":                            dispatchCreateFolderWithResponse,
-	"create-image-to-design-import-job":        dispatchCreateImageToDesignImportJobWithResponse,
-	"create-image-transformation-job":          dispatchCreateImageTransformationJobWithResponse,
-	"create-print-partner-design":              dispatchCreatePrintPartnerDesignWithResponse,
-	"create-print-partner-design-export-job":   dispatchCreatePrintPartnerDesignExportJobWithResponse,
-	"create-reply":                             dispatchCreateReplyWithResponse,
-	"create-thread":                            dispatchCreateThreadWithResponse,
-	"create-url-asset-upload-job":              dispatchCreateUrlAssetUploadJobWithResponse,
-	"create-url-import-job":                    dispatchCreateUrlImportJobWithResponse,
-	"delete-asset":                             dispatchDeleteAssetWithResponse,
-	"delete-folder":                            dispatchDeleteFolderWithResponse,
-	"exchange-access-token-with-formdata-body": dispatchExchangeAccessTokenWithFormdataBodyWithResponse,
-	"get-app-jwks":                             dispatchGetAppJwksWithResponse,
-	"get-asset":                                dispatchGetAssetWithResponse,
-	"get-asset-upload-job":                     dispatchGetAssetUploadJobWithResponse,
-	"get-brand-template":                       dispatchGetBrandTemplateWithResponse,
-	"get-brand-template-dataset":               dispatchGetBrandTemplateDatasetWithResponse,
-	"get-design":                               dispatchGetDesignWithResponse,
-	"get-design-analytics":                     dispatchGetDesignAnalyticsWithResponse,
-	"get-design-analytics-links":               dispatchGetDesignAnalyticsLinksWithResponse,
-	"get-design-analytics-page-views":          dispatchGetDesignAnalyticsPageViewsWithResponse,
-	"get-design-analytics-viewers":             dispatchGetDesignAnalyticsViewersWithResponse,
-	"get-design-analytics-views-over-time":     dispatchGetDesignAnalyticsViewsOverTimeWithResponse,
-	"get-design-autofill-job":                  dispatchGetDesignAutofillJobWithResponse,
-	"get-design-dataset":                       dispatchGetDesignDatasetWithResponse,
-	"get-design-export-formats":                dispatchGetDesignExportFormatsWithResponse,
-	"get-design-export-job":                    dispatchGetDesignExportJobWithResponse,
-	"get-design-import-job":                    dispatchGetDesignImportJobWithResponse,
-	"get-design-merge-job":                     dispatchGetDesignMergeJobWithResponse,
-	"get-design-pages":                         dispatchGetDesignPagesWithResponse,
-	"get-design-resize-job":                    dispatchGetDesignResizeJobWithResponse,
-	"get-folder":                               dispatchGetFolderWithResponse,
-	"get-image-to-design-import-job":           dispatchGetImageToDesignImportJobWithResponse,
-	"get-image-transformation-job":             dispatchGetImageTransformationJobWithResponse,
-	"get-oidc-jwks":                            dispatchGetOidcJwksWithResponse,
-	"get-print-partner-design":                 dispatchGetPrintPartnerDesignWithResponse,
-	"get-reply":                                dispatchGetReplyWithResponse,
-	"get-signing-public-keys":                  dispatchGetSigningPublicKeysWithResponse,
-	"get-thread":                               dispatchGetThreadWithResponse,
-	"get-url-asset-upload-job":                 dispatchGetUrlAssetUploadJobWithResponse,
-	"get-url-import-job":                       dispatchGetUrlImportJobWithResponse,
-	"get-user-capabilities":                    dispatchGetUserCapabilitiesWithResponse,
-	"get-user-profile":                         dispatchGetUserProfileWithResponse,
-	"introspect-token-with-formdata-body":      dispatchIntrospectTokenWithFormdataBodyWithResponse,
-	"list-brand-templates":                     dispatchListBrandTemplatesWithResponse,
-	"list-designs":                             dispatchListDesignsWithResponse,
-	"list-folder-items":                        dispatchListFolderItemsWithResponse,
-	"list-replies":                             dispatchListRepliesWithResponse,
-	"move-folder-item":                         dispatchMoveFolderItemWithResponse,
-	"publish-brand-template":                   dispatchPublishBrandTemplateWithResponse,
-	"revoke-tokens-with-formdata-body":         dispatchRevokeTokensWithFormdataBodyWithResponse,
-	"update-asset":                             dispatchUpdateAssetWithResponse,
-	"update-folder":                            dispatchUpdateFolderWithResponse,
-	"user-info":                                dispatchUserInfoWithResponse,
-	"users-me":                                 dispatchUsersMeWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -114,17 +38,12 @@ func Resolve(
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return cl.Dispatch(ctx, function, config, inputs)
 	}, nil
 }
 
-func dispatchCreateCommentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateCommentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateCommentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -132,7 +51,7 @@ func dispatchCreateCommentWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("canva.create-comment: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateCommentWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateCommentWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -148,7 +67,7 @@ func dispatchCreateCommentWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateDesignWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -156,7 +75,7 @@ func dispatchCreateDesignWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("canva.create-design: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateDesignWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateDesignWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -172,7 +91,7 @@ func dispatchCreateDesignWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateDesignAutofillJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignAutofillJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignAutofillJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -180,7 +99,7 @@ func dispatchCreateDesignAutofillJobWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("canva.create-design-autofill-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateDesignAutofillJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateDesignAutofillJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -196,7 +115,7 @@ func dispatchCreateDesignAutofillJobWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateDesignExportJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignExportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignExportJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -204,7 +123,7 @@ func dispatchCreateDesignExportJobWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("canva.create-design-export-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateDesignExportJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateDesignExportJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -220,7 +139,7 @@ func dispatchCreateDesignExportJobWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateDesignMergeJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignMergeJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignMergeJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -228,7 +147,7 @@ func dispatchCreateDesignMergeJobWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("canva.create-design-merge-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateDesignMergeJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateDesignMergeJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -244,7 +163,7 @@ func dispatchCreateDesignMergeJobWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateDesignResizeJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignResizeJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignResizeJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -252,7 +171,7 @@ func dispatchCreateDesignResizeJobWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("canva.create-design-resize-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateDesignResizeJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateDesignResizeJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -268,7 +187,7 @@ func dispatchCreateDesignResizeJobWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateFolderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateFolderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateFolderJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -276,7 +195,7 @@ func dispatchCreateFolderWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("canva.create-folder: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateFolderWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateFolderWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -292,7 +211,7 @@ func dispatchCreateFolderWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateImageToDesignImportJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateImageToDesignImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateImageToDesignImportJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -300,7 +219,7 @@ func dispatchCreateImageToDesignImportJobWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("canva.create-image-to-design-import-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateImageToDesignImportJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateImageToDesignImportJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -316,7 +235,7 @@ func dispatchCreateImageToDesignImportJobWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateImageTransformationJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateImageTransformationJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateImageTransformationJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -324,7 +243,7 @@ func dispatchCreateImageTransformationJobWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("canva.create-image-transformation-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateImageTransformationJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateImageTransformationJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -340,7 +259,7 @@ func dispatchCreateImageTransformationJobWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreatePrintPartnerDesignWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreatePrintPartnerDesignJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -348,7 +267,7 @@ func dispatchCreatePrintPartnerDesignWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("canva.create-print-partner-design: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreatePrintPartnerDesignWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreatePrintPartnerDesignWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -364,7 +283,7 @@ func dispatchCreatePrintPartnerDesignWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreatePrintPartnerDesignExportJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignExportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreatePrintPartnerDesignExportJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -372,7 +291,7 @@ func dispatchCreatePrintPartnerDesignExportJobWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("canva.create-print-partner-design-export-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreatePrintPartnerDesignExportJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreatePrintPartnerDesignExportJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -388,7 +307,7 @@ func dispatchCreatePrintPartnerDesignExportJobWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateReplyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateReplyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -421,7 +340,7 @@ func dispatchCreateReplyWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("canva.create-reply: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateReplyWithResponse(ctx, designId, threadId, body)
+	resp, callErr := ic.cl.CreateReplyWithResponse(ctx, designId, threadId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -437,7 +356,7 @@ func dispatchCreateReplyWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateThreadWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateThreadWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -461,7 +380,7 @@ func dispatchCreateThreadWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("canva.create-thread: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateThreadWithResponse(ctx, designId, body)
+	resp, callErr := ic.cl.CreateThreadWithResponse(ctx, designId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -477,7 +396,7 @@ func dispatchCreateThreadWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateUrlAssetUploadJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateUrlAssetUploadJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateUrlAssetUploadJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -485,7 +404,7 @@ func dispatchCreateUrlAssetUploadJobWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("canva.create-url-asset-upload-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateUrlAssetUploadJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateUrlAssetUploadJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -501,7 +420,7 @@ func dispatchCreateUrlAssetUploadJobWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateUrlImportJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateUrlImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateUrlImportJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -509,7 +428,7 @@ func dispatchCreateUrlImportJobWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("canva.create-url-import-job: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateUrlImportJobWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateUrlImportJobWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -525,7 +444,7 @@ func dispatchCreateUrlImportJobWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteAssetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAssetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -542,7 +461,7 @@ func dispatchDeleteAssetWithResponse(ctx context.Context, cl *client.ClientWithR
 		}
 	}
 
-	resp, callErr := cl.DeleteAssetWithResponse(ctx, assetId)
+	resp, callErr := ic.cl.DeleteAssetWithResponse(ctx, assetId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -558,7 +477,7 @@ func dispatchDeleteAssetWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteFolderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteFolderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -575,7 +494,7 @@ func dispatchDeleteFolderWithResponse(ctx context.Context, cl *client.ClientWith
 		}
 	}
 
-	resp, callErr := cl.DeleteFolderWithResponse(ctx, folderId)
+	resp, callErr := ic.cl.DeleteFolderWithResponse(ctx, folderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -591,7 +510,7 @@ func dispatchDeleteFolderWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ExchangeAccessTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -599,7 +518,7 @@ func dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx context.Context
 		return nil, fmt.Errorf("canva.exchange-access-token-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.ExchangeAccessTokenWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.ExchangeAccessTokenWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -615,7 +534,7 @@ func dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAppJwksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAppJwksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -632,7 +551,7 @@ func dispatchGetAppJwksWithResponse(ctx context.Context, cl *client.ClientWithRe
 		}
 	}
 
-	resp, callErr := cl.GetAppJwksWithResponse(ctx, appId)
+	resp, callErr := ic.cl.GetAppJwksWithResponse(ctx, appId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -648,7 +567,7 @@ func dispatchGetAppJwksWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAssetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAssetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -665,7 +584,7 @@ func dispatchGetAssetWithResponse(ctx context.Context, cl *client.ClientWithResp
 		}
 	}
 
-	resp, callErr := cl.GetAssetWithResponse(ctx, assetId)
+	resp, callErr := ic.cl.GetAssetWithResponse(ctx, assetId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -681,7 +600,7 @@ func dispatchGetAssetWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAssetUploadJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAssetUploadJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -698,7 +617,7 @@ func dispatchGetAssetUploadJobWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.GetAssetUploadJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetAssetUploadJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -714,7 +633,7 @@ func dispatchGetAssetUploadJobWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetBrandTemplateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBrandTemplateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -731,7 +650,7 @@ func dispatchGetBrandTemplateWithResponse(ctx context.Context, cl *client.Client
 		}
 	}
 
-	resp, callErr := cl.GetBrandTemplateWithResponse(ctx, brandTemplateId)
+	resp, callErr := ic.cl.GetBrandTemplateWithResponse(ctx, brandTemplateId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -747,7 +666,7 @@ func dispatchGetBrandTemplateWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetBrandTemplateDatasetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBrandTemplateDatasetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -764,7 +683,7 @@ func dispatchGetBrandTemplateDatasetWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.GetBrandTemplateDatasetWithResponse(ctx, brandTemplateId)
+	resp, callErr := ic.cl.GetBrandTemplateDatasetWithResponse(ctx, brandTemplateId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -780,7 +699,7 @@ func dispatchGetBrandTemplateDatasetWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -797,7 +716,7 @@ func dispatchGetDesignWithResponse(ctx context.Context, cl *client.ClientWithRes
 		}
 	}
 
-	resp, callErr := cl.GetDesignWithResponse(ctx, designId)
+	resp, callErr := ic.cl.GetDesignWithResponse(ctx, designId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -813,7 +732,7 @@ func dispatchGetDesignWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignAnalyticsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -830,7 +749,7 @@ func dispatchGetDesignAnalyticsWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.GetDesignAnalyticsWithResponse(ctx, designId)
+	resp, callErr := ic.cl.GetDesignAnalyticsWithResponse(ctx, designId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -846,7 +765,7 @@ func dispatchGetDesignAnalyticsWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignAnalyticsLinksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsLinksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -870,7 +789,7 @@ func dispatchGetDesignAnalyticsLinksWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("canva.get-design-analytics-links: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetDesignAnalyticsLinksWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetDesignAnalyticsLinksWithResponse(ctx, designId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -886,7 +805,7 @@ func dispatchGetDesignAnalyticsLinksWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignAnalyticsPageViewsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsPageViewsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -910,7 +829,7 @@ func dispatchGetDesignAnalyticsPageViewsWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("canva.get-design-analytics-page-views: %w", bodyErr)
 	}
 
-	resp, callErr := cl.GetDesignAnalyticsPageViewsWithResponse(ctx, designId, body)
+	resp, callErr := ic.cl.GetDesignAnalyticsPageViewsWithResponse(ctx, designId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -926,7 +845,7 @@ func dispatchGetDesignAnalyticsPageViewsWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignAnalyticsViewersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -950,7 +869,7 @@ func dispatchGetDesignAnalyticsViewersWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("canva.get-design-analytics-viewers: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetDesignAnalyticsViewersWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetDesignAnalyticsViewersWithResponse(ctx, designId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -966,7 +885,7 @@ func dispatchGetDesignAnalyticsViewersWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -990,7 +909,7 @@ func dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("canva.get-design-analytics-views-over-time: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetDesignAnalyticsViewsOverTimeWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetDesignAnalyticsViewsOverTimeWithResponse(ctx, designId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1006,7 +925,7 @@ func dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignAutofillJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAutofillJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1023,7 +942,7 @@ func dispatchGetDesignAutofillJobWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.GetDesignAutofillJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetDesignAutofillJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1039,7 +958,7 @@ func dispatchGetDesignAutofillJobWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignDatasetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignDatasetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1056,7 +975,7 @@ func dispatchGetDesignDatasetWithResponse(ctx context.Context, cl *client.Client
 		}
 	}
 
-	resp, callErr := cl.GetDesignDatasetWithResponse(ctx, designId)
+	resp, callErr := ic.cl.GetDesignDatasetWithResponse(ctx, designId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1072,7 +991,7 @@ func dispatchGetDesignDatasetWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignExportFormatsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignExportFormatsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1089,7 +1008,7 @@ func dispatchGetDesignExportFormatsWithResponse(ctx context.Context, cl *client.
 		}
 	}
 
-	resp, callErr := cl.GetDesignExportFormatsWithResponse(ctx, designId)
+	resp, callErr := ic.cl.GetDesignExportFormatsWithResponse(ctx, designId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1105,7 +1024,7 @@ func dispatchGetDesignExportFormatsWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignExportJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignExportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1122,7 +1041,7 @@ func dispatchGetDesignExportJobWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.GetDesignExportJobWithResponse(ctx, exportId)
+	resp, callErr := ic.cl.GetDesignExportJobWithResponse(ctx, exportId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1138,7 +1057,7 @@ func dispatchGetDesignExportJobWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignImportJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1155,7 +1074,7 @@ func dispatchGetDesignImportJobWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.GetDesignImportJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetDesignImportJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1171,7 +1090,7 @@ func dispatchGetDesignImportJobWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignMergeJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignMergeJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1188,7 +1107,7 @@ func dispatchGetDesignMergeJobWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.GetDesignMergeJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetDesignMergeJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1204,7 +1123,7 @@ func dispatchGetDesignMergeJobWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignPagesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignPagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1228,7 +1147,7 @@ func dispatchGetDesignPagesWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("canva.get-design-pages: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetDesignPagesWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetDesignPagesWithResponse(ctx, designId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1244,7 +1163,7 @@ func dispatchGetDesignPagesWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetDesignResizeJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignResizeJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1261,7 +1180,7 @@ func dispatchGetDesignResizeJobWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.GetDesignResizeJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetDesignResizeJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1277,7 +1196,7 @@ func dispatchGetDesignResizeJobWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetFolderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFolderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1294,7 +1213,7 @@ func dispatchGetFolderWithResponse(ctx context.Context, cl *client.ClientWithRes
 		}
 	}
 
-	resp, callErr := cl.GetFolderWithResponse(ctx, folderId)
+	resp, callErr := ic.cl.GetFolderWithResponse(ctx, folderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1310,7 +1229,7 @@ func dispatchGetFolderWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetImageToDesignImportJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetImageToDesignImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1327,7 +1246,7 @@ func dispatchGetImageToDesignImportJobWithResponse(ctx context.Context, cl *clie
 		}
 	}
 
-	resp, callErr := cl.GetImageToDesignImportJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetImageToDesignImportJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1343,7 +1262,7 @@ func dispatchGetImageToDesignImportJobWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetImageTransformationJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetImageTransformationJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1360,7 +1279,7 @@ func dispatchGetImageTransformationJobWithResponse(ctx context.Context, cl *clie
 		}
 	}
 
-	resp, callErr := cl.GetImageTransformationJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetImageTransformationJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1376,8 +1295,8 @@ func dispatchGetImageTransformationJobWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetOidcJwksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetOidcJwksWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetOidcJwksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetOidcJwksWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1393,7 +1312,7 @@ func dispatchGetOidcJwksWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetPrintPartnerDesignWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPrintPartnerDesignWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1417,7 +1336,7 @@ func dispatchGetPrintPartnerDesignWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("canva.get-print-partner-design: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetPrintPartnerDesignWithResponse(ctx, designId, &params)
+	resp, callErr := ic.cl.GetPrintPartnerDesignWithResponse(ctx, designId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1433,7 +1352,7 @@ func dispatchGetPrintPartnerDesignWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReplyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReplyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1468,7 +1387,7 @@ func dispatchGetReplyWithResponse(ctx context.Context, cl *client.ClientWithResp
 		}
 	}
 
-	resp, callErr := cl.GetReplyWithResponse(ctx, designId, threadId, replyId)
+	resp, callErr := ic.cl.GetReplyWithResponse(ctx, designId, threadId, replyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1484,8 +1403,8 @@ func dispatchGetReplyWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSigningPublicKeysWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetSigningPublicKeysWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetSigningPublicKeysWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetSigningPublicKeysWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1501,7 +1420,7 @@ func dispatchGetSigningPublicKeysWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetThreadWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetThreadWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1527,7 +1446,7 @@ func dispatchGetThreadWithResponse(ctx context.Context, cl *client.ClientWithRes
 		}
 	}
 
-	resp, callErr := cl.GetThreadWithResponse(ctx, designId, threadId)
+	resp, callErr := ic.cl.GetThreadWithResponse(ctx, designId, threadId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1543,7 +1462,7 @@ func dispatchGetThreadWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUrlAssetUploadJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUrlAssetUploadJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1560,7 +1479,7 @@ func dispatchGetUrlAssetUploadJobWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.GetUrlAssetUploadJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetUrlAssetUploadJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1576,7 +1495,7 @@ func dispatchGetUrlAssetUploadJobWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUrlImportJobWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUrlImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1593,7 +1512,7 @@ func dispatchGetUrlImportJobWithResponse(ctx context.Context, cl *client.ClientW
 		}
 	}
 
-	resp, callErr := cl.GetUrlImportJobWithResponse(ctx, jobId)
+	resp, callErr := ic.cl.GetUrlImportJobWithResponse(ctx, jobId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1609,8 +1528,8 @@ func dispatchGetUrlImportJobWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUserCapabilitiesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetUserCapabilitiesWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetUserCapabilitiesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetUserCapabilitiesWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1626,8 +1545,8 @@ func dispatchGetUserCapabilitiesWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetUserProfileWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetUserProfileWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetUserProfileWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetUserProfileWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1643,7 +1562,7 @@ func dispatchGetUserProfileWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.IntrospectTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1651,7 +1570,7 @@ func dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("canva.introspect-token-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.IntrospectTokenWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.IntrospectTokenWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1667,7 +1586,7 @@ func dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListBrandTemplatesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListBrandTemplatesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListBrandTemplatesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1675,7 +1594,7 @@ func dispatchListBrandTemplatesWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("canva.list-brand-templates: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListBrandTemplatesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListBrandTemplatesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1691,7 +1610,7 @@ func dispatchListBrandTemplatesWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListDesignsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListDesignsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListDesignsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1699,7 +1618,7 @@ func dispatchListDesignsWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("canva.list-designs: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListDesignsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ListDesignsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1715,7 +1634,7 @@ func dispatchListDesignsWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListFolderItemsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListFolderItemsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1739,7 +1658,7 @@ func dispatchListFolderItemsWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("canva.list-folder-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListFolderItemsWithResponse(ctx, folderId, &params)
+	resp, callErr := ic.cl.ListFolderItemsWithResponse(ctx, folderId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1755,7 +1674,7 @@ func dispatchListFolderItemsWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListRepliesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListRepliesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1788,7 +1707,7 @@ func dispatchListRepliesWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("canva.list-replies: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListRepliesWithResponse(ctx, designId, threadId, &params)
+	resp, callErr := ic.cl.ListRepliesWithResponse(ctx, designId, threadId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1804,7 +1723,7 @@ func dispatchListRepliesWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchMoveFolderItemWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMoveFolderItemWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.MoveFolderItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1812,7 +1731,7 @@ func dispatchMoveFolderItemWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("canva.move-folder-item: %w", bodyErr)
 	}
 
-	resp, callErr := cl.MoveFolderItemWithResponse(ctx, body)
+	resp, callErr := ic.cl.MoveFolderItemWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1828,7 +1747,7 @@ func dispatchMoveFolderItemWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPublishBrandTemplateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPublishBrandTemplateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PublishBrandTemplateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1836,7 +1755,7 @@ func dispatchPublishBrandTemplateWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("canva.publish-brand-template: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PublishBrandTemplateWithResponse(ctx, body)
+	resp, callErr := ic.cl.PublishBrandTemplateWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1852,7 +1771,7 @@ func dispatchPublishBrandTemplateWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRevokeTokensWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRevokeTokensWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RevokeTokensFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1860,7 +1779,7 @@ func dispatchRevokeTokensWithFormdataBodyWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("canva.revoke-tokens-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.RevokeTokensWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.RevokeTokensWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1876,7 +1795,7 @@ func dispatchRevokeTokensWithFormdataBodyWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateAssetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateAssetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1900,7 +1819,7 @@ func dispatchUpdateAssetWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("canva.update-asset: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateAssetWithResponse(ctx, assetId, body)
+	resp, callErr := ic.cl.UpdateAssetWithResponse(ctx, assetId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1916,7 +1835,7 @@ func dispatchUpdateAssetWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateFolderWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateFolderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1940,7 +1859,7 @@ func dispatchUpdateFolderWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("canva.update-folder: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UpdateFolderWithResponse(ctx, folderId, body)
+	resp, callErr := ic.cl.UpdateFolderWithResponse(ctx, folderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1956,8 +1875,8 @@ func dispatchUpdateFolderWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUserInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.UserInfoWithResponse(ctx)
+func (ic *InterfaceClient) dispatchUserInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.UserInfoWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1973,8 +1892,8 @@ func dispatchUserInfoWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersMeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.UsersMeWithResponse(ctx)
+func (ic *InterfaceClient) dispatchUsersMeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.UsersMeWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}

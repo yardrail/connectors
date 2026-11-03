@@ -22,8 +22,24 @@ func Register() connector.Registration {
 				},
 			},
 		},
-		Resolve:    Resolve,
-		CWLClasses: cwlClasses,
+		Resolve: Resolve,
+		CWLClasses: []connector.CWLClassEntry{
+			{ClassIRI: "https://yardrail.com/cwl/microsoft-outlook#ListEvents", Info: connector.CWLClassInfo{
+				ConnectorID: "microsoft-outlook",
+				Function:    "list-events",
+				ClassName:   "ListEvents",
+				Description: "Lists events on a mailbox's calendar between two times, including attendees. Read-only; does not return event bodies.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "userId", Type: "string", Required: true, Description: "The mailbox's email address or user ID."},
+					{Name: "startDateTime", Type: "string", Required: true, Description: "Start of the time window, ISO 8601."},
+					{Name: "endDateTime", Type: "string", Required: true, Description: "End of the time window, ISO 8601."},
+					{Name: "$top", Type: "integer", Required: false, Description: "Maximum number of events to return."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "value", Type: "array", Required: false, Description: ""},
+				},
+			}},
+		},
 	}
 }
 

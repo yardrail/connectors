@@ -22,8 +22,27 @@ func Register() connector.Registration {
 				},
 			},
 		},
-		Resolve:    Resolve,
-		CWLClasses: cwlClasses,
+		Resolve: Resolve,
+		CWLClasses: []connector.CWLClassEntry{
+			{ClassIRI: "https://yardrail.com/cwl/fireflies#GetMeeting", Info: connector.CWLClassInfo{
+				ConnectorID: "fireflies",
+				Function:    "get-meeting",
+				ClassName:   "GetMeeting",
+				Description: "Gets a meeting's metadata and AI summary. Does not return the full transcript text.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "id", Type: "string", Required: true, Description: ""},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "id", Type: "string", Required: false, Description: ""},
+					{Name: "title", Type: "string", Required: false, Description: ""},
+					{Name: "date", Type: "number", Required: false, Description: ""},
+					{Name: "duration", Type: "number", Required: false, Description: ""},
+					{Name: "organizer_email", Type: "string", Required: false, Description: ""},
+					{Name: "participants", Type: "array", Required: false, Description: ""},
+					{Name: "summary", Type: "object", Required: false, Description: ""},
+				},
+			}},
+		},
 	}
 }
 

@@ -36,6 +36,7 @@ type genContext struct {
 type connectorFunction struct {
 	Name        string // kebab-case function name
 	ClassName   string // CWL class name
+	MethodName  string // Go method name for dispatch (REST only)
 	InterfaceID string // interface that serves the function; empty when every callable interface does
 	Op          *OperationInfo
 }
@@ -317,16 +318,22 @@ package {{.PkgName}}
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"{{.ClientPkgPath}}"
 )
 
-// Connector wraps authenticated oapi-codegen clients per interface.
-// Use Client() for typed access to the full API surface.
+// InterfaceClient wraps an authenticated oapi-codegen client for one interface.
+type InterfaceClient struct {
+	cl *{{clientPkgName .ClientPkgPath}}.ClientWithResponses
+}
+
+` + restDispatchSwitchTemplate + `
+// Connector holds an authenticated client for each configured interface.
 type Connector struct {
-	clients map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses
+	clients map[string]*InterfaceClient
 }
 
 // NewConnector constructs a Connector from per-interface credentials and config.
@@ -395,42 +402,11 @@ var (
 	errUnknownFunction        = errors.New("{{.ConnectorID}}: unknown function")
 )
 
-` + openAPIDispatchersTemplate + `// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
-func Resolve(
-	interfaceID, function string,
-	creds, config map[string]string,
-	httpClient *http.Client,
-) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
-	if err != nil {
-		return nil, err
-	}
-
-	cl := c.Client(interfaceID)
-	if cl == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
-	}
-
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
-	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
-	}, nil
-}
-
-` + openAPIMethodsTemplate
+` + resolveTemplate + openAPIMethodsTemplate
 
 // openAPIClientsTemplate builds the clients map in NewConnector, one
 // oapi-codegen client per interface in .RESTIfaces.
-const openAPIClientsTemplate = `	clients := make(map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses, {{len .RESTIfaces}})
+const openAPIClientsTemplate = `	clients := make(map[string]*InterfaceClient, {{len .RESTIfaces}})
 {{range .RESTIfaces}}
 	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
 		baseURL := resolveBaseURL(config["{{.ID}}"])
@@ -441,25 +417,37 @@ const openAPIClientsTemplate = `	clients := make(map[string]*{{clientPkgName .Cl
 			opts = append(opts, {{clientPkgName $.ClientPkgPath}}.WithHTTPClient(httpClient))
 		}
 
-		c, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, opts...)
+		cl, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating {{.ID}} client: %w", err)
 		}
 
-		clients["{{.ID}}"] = c
+		clients["{{.ID}}"] = &InterfaceClient{cl: cl}
 	}
 {{end}}
 `
 
 // openAPIAccessorsTemplate renders the typed client accessor and base URL
 // resolution for OpenAPI interfaces.
-const openAPIAccessorsTemplate = `// Client returns the typed oapi-codegen client for the given interface.
+const openAPIAccessorsTemplate = `// Client returns the interface client for the given interface ID.
 // Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *{{clientPkgName .ClientPkgPath}}.ClientWithResponses {
+func (c *Connector) Client(interfaceID string) *InterfaceClient {
 	return c.clients[interfaceID]
 }
 
 func resolveBaseURL(config map[string]string) string {
+	if u, ok := config["base_url"]; ok && u != "" {
+		return u
+	}
+
+	return "{{.BaseURL}}"
+}
+
+`
+
+// openAPIAccessorsBaseURLTemplate renders only resolveBaseURL (used by mixed
+// template which defines its own Client accessor).
+const openAPIAccessorsBaseURLTemplate = `func resolveBaseURL(config map[string]string) string {
 	if u, ok := config["base_url"]; ok && u != "" {
 		return u
 	}
@@ -480,26 +468,7 @@ func parseUUID(s string) uuid.UUID {
 {{- end}}
 `
 
-// openAPIDispatchersTemplate renders the Dispatcher type and the function
-// table for .Methods.
-const openAPIDispatchersTemplate = `// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *{{clientPkgName .ClientPkgPath}}.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-{{range .Methods}}	"{{.Name}}": dispatch{{.MethodName}},
-{{end}}}
-
-`
-
-// openAPIMethodsTemplate renders one dispatch function per method.
+// openAPIMethodsTemplate renders one dispatch method per method on InterfaceClient.
 const openAPIMethodsTemplate = `{{range .Methods}}{{$m := .}}
 {{- /* Determine what args this method needs */ -}}
 {{- $hasBody := false -}}
@@ -520,7 +489,7 @@ const openAPIMethodsTemplate = `{{range .Methods}}{{$m := .}}
   {{- end -}}
 {{- end}}
 
-func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPkgPath}}.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 {{- range .Params}}{{if and .Required (not .IsStruct)}}
 {{- $cp := configParam $.ConfigParams .JSONName}}
 {{- if ne $cp ""}}
@@ -563,7 +532,7 @@ func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPk
 		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: params: %w", paramsErr)
 	}
 {{end}}
-	resp, callErr := cl.{{$m.MethodName}}(ctx, {{range .CallArgs}}{{if .IsParams}}&params{{else if eq .Expr "params"}}&params{{else if eq .Expr "body"}}body{{else}}{{fixTargetRef $.ClientPkgPath .Expr}}{{end}}, {{end}})
+	resp, callErr := ic.cl.{{$m.MethodName}}(ctx, {{range .CallArgs}}{{if .IsParams}}&params{{else if eq .Expr "params"}}&params{{else if eq .Expr "body"}}body{{else}}{{fixTargetRef $.ClientPkgPath .Expr}}{{end}}, {{end}})
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -581,31 +550,42 @@ func dispatch{{.MethodName}}(ctx context.Context, cl *{{clientPkgName $.ClientPk
 {{end}}
 `
 
-const cwlMappingTemplate = `// Code generated by yardrail-connector-codegen. DO NOT EDIT.
+// restDispatchSwitchTemplate renders the Dispatch method as a switch on function name.
+const restDispatchSwitchTemplate = `// Dispatch calls the named function's typed client method.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch function {
+{{range .Functions}}	case "{{.Name}}":
+		return ic.dispatch{{.MethodName}}(ctx, config, inputs)
+{{end}}	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	}
+}
+`
 
-package {{.PkgName}}
+// resolveTemplate renders the Resolve function (shared across all protocol templates).
+const resolveTemplate = `// Resolve creates a ready-to-call dispatch function for the given interface.
+func Resolve(
+	interfaceID, function string,
+	creds, config map[string]string,
+	httpClient *http.Client,
+) (func(context.Context, json.RawMessage) (any, error), error) {
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
+	if err != nil {
+		return nil, err
+	}
 
-import "github.com/yardrail/connectors/connector"
+	cl := c.Client(interfaceID)
+	if cl == nil {
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
 
-var cwlClasses = []connector.CWLClassEntry{
-{{- range .Functions}}
-		{ClassIRI: "https://yardrail.com/cwl/{{$.ConnectorID}}#{{.ClassName}}", Info: connector.CWLClassInfo{
-			ConnectorID: "{{$.ConnectorID}}",
-			Function:    "{{.Name}}",
-			ClassName:   "{{.ClassName}}",
-			Description: "{{escDesc (opDescription .Op)}}",
-			Inputs: []connector.CWLFieldInfo{
-{{- range opInputs .Op}}
-				{Name: "{{.Name}}", Type: "{{.Type}}", Required: {{.Required}}, Description: "{{escDesc .Doc}}"},
-{{- end}}
-			},
-			Outputs: []connector.CWLFieldInfo{
-{{- range opOutputs .Op}}
-				{Name: "{{.Name}}", Type: "{{.Type}}", Required: {{.Required}}, Description: "{{escDesc .Doc}}"},
-{{- end}}
-			},
-		}},
-{{- end}}
+	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
+		return cl.Dispatch(ctx, function, config, inputs)
+	}, nil
 }
 `
 
@@ -641,8 +621,27 @@ func Register() connector.Registration {
 				},
 {{end}}			},
 		},
-		Resolve:    Resolve,
-		CWLClasses: cwlClasses,
+		Resolve: Resolve,
+		CWLClasses: []connector.CWLClassEntry{
+{{- range .Functions}}
+			{ClassIRI: "https://yardrail.com/cwl/{{$.ConnectorID}}#{{.ClassName}}", Info: connector.CWLClassInfo{
+				ConnectorID: "{{$.ConnectorID}}",
+				Function:    "{{.Name}}",
+				ClassName:   "{{.ClassName}}",
+				Description: "{{escDesc (opDescription .Op)}}",
+				Inputs: []connector.CWLFieldInfo{
+{{- range opInputs .Op}}
+					{Name: "{{.Name}}", Type: "{{.Type}}", Required: {{.Required}}, Description: "{{escDesc .Doc}}"},
+{{- end}}
+				},
+				Outputs: []connector.CWLFieldInfo{
+{{- range opOutputs .Op}}
+					{Name: "{{.Name}}", Type: "{{.Type}}", Required: {{.Required}}, Description: "{{escDesc .Doc}}"},
+{{- end}}
+				},
+			}},
+{{- end}}
+		},
 	}
 }
 

@@ -18,330 +18,17 @@ var (
 	errUnknownFunction        = errors.New("mailchimp: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"archive-automations":                                         dispatchArchiveAutomationsWithResponse,
-	"create-audience-contact":                                     dispatchCreateAudienceContactWithResponse,
-	"create-verified-domain":                                      dispatchCreateVerifiedDomainWithResponse,
-	"delete-automations-id-emails-id":                             dispatchDeleteAutomationsIdEmailsIdWithResponse,
-	"delete-batch-webhook-id":                                     dispatchDeleteBatchWebhookIdWithResponse,
-	"delete-batches-id":                                           dispatchDeleteBatchesIdWithResponse,
-	"delete-campaign-folders-id":                                  dispatchDeleteCampaignFoldersIdWithResponse,
-	"delete-campaigns-id":                                         dispatchDeleteCampaignsIdWithResponse,
-	"delete-campaigns-id-feedback-id":                             dispatchDeleteCampaignsIdFeedbackIdWithResponse,
-	"delete-connected-sites-id":                                   dispatchDeleteConnectedSitesIdWithResponse,
-	"delete-ecommerce-stores-id":                                  dispatchDeleteEcommerceStoresIdWithResponse,
-	"delete-ecommerce-stores-id-carts-id":                         dispatchDeleteEcommerceStoresIdCartsIdWithResponse,
-	"delete-ecommerce-stores-id-carts-lines-id":                   dispatchDeleteEcommerceStoresIdCartsLinesIdWithResponse,
-	"delete-ecommerce-stores-id-customers-id":                     dispatchDeleteEcommerceStoresIdCustomersIdWithResponse,
-	"delete-ecommerce-stores-id-orders-id":                        dispatchDeleteEcommerceStoresIdOrdersIdWithResponse,
-	"delete-ecommerce-stores-id-orders-id-lines-id":               dispatchDeleteEcommerceStoresIdOrdersIdLinesIdWithResponse,
-	"delete-ecommerce-stores-id-products-id":                      dispatchDeleteEcommerceStoresIdProductsIdWithResponse,
-	"delete-ecommerce-stores-id-products-id-images-id":            dispatchDeleteEcommerceStoresIdProductsIdImagesIdWithResponse,
-	"delete-ecommerce-stores-id-products-id-variants-id":          dispatchDeleteEcommerceStoresIdProductsIdVariantsIdWithResponse,
-	"delete-ecommerce-stores-id-promocodes-id":                    dispatchDeleteEcommerceStoresIdPromocodesIdWithResponse,
-	"delete-ecommerce-stores-id-promorules-id":                    dispatchDeleteEcommerceStoresIdPromorulesIdWithResponse,
-	"delete-file-manager-files-id":                                dispatchDeleteFileManagerFilesIdWithResponse,
-	"delete-file-manager-folders-id":                              dispatchDeleteFileManagerFoldersIdWithResponse,
-	"delete-landing-page-id":                                      dispatchDeleteLandingPageIdWithResponse,
-	"delete-lists-id":                                             dispatchDeleteListsIdWithResponse,
-	"delete-lists-id-interest-categories-id":                      dispatchDeleteListsIdInterestCategoriesIdWithResponse,
-	"delete-lists-id-interest-categories-id-interests-id":         dispatchDeleteListsIdInterestCategoriesIdInterestsIdWithResponse,
-	"delete-lists-id-members-id":                                  dispatchDeleteListsIdMembersIdWithResponse,
-	"delete-lists-id-members-id-notes-id":                         dispatchDeleteListsIdMembersIdNotesIdWithResponse,
-	"delete-lists-id-merge-fields-id":                             dispatchDeleteListsIdMergeFieldsIdWithResponse,
-	"delete-lists-id-segments-id":                                 dispatchDeleteListsIdSegmentsIdWithResponse,
-	"delete-lists-id-segments-id-members-id":                      dispatchDeleteListsIdSegmentsIdMembersIdWithResponse,
-	"delete-lists-id-surveys-id":                                  dispatchDeleteListsIdSurveysIdWithResponse,
-	"delete-lists-id-webhooks-id":                                 dispatchDeleteListsIdWebhooksIdWithResponse,
-	"delete-sms-campaigns-id":                                     dispatchDeleteSmsCampaignsIdWithResponse,
-	"delete-template-folders-id":                                  dispatchDeleteTemplateFoldersIdWithResponse,
-	"delete-templates-id":                                         dispatchDeleteTemplatesIdWithResponse,
-	"delete-verified-domain":                                      dispatchDeleteVerifiedDomainWithResponse,
-	"get-account-export-id":                                       dispatchGetAccountExportIdWithResponse,
-	"get-account-exports":                                         dispatchGetAccountExportsWithResponse,
-	"get-activity-feed-chimp-chatter":                             dispatchGetActivityFeedChimpChatterWithResponse,
-	"get-all-facebook-ads":                                        dispatchGetAllFacebookAdsWithResponse,
-	"get-all-landing-pages":                                       dispatchGetAllLandingPagesWithResponse,
-	"get-audience-contact":                                        dispatchGetAudienceContactWithResponse,
-	"get-audience-contact-list":                                   dispatchGetAudienceContactListWithResponse,
-	"get-audience-contacts":                                       dispatchGetAudienceContactsWithResponse,
-	"get-audience-id":                                             dispatchGetAudienceIdWithResponse,
-	"get-authorized-apps":                                         dispatchGetAuthorizedAppsWithResponse,
-	"get-authorized-apps-id":                                      dispatchGetAuthorizedAppsIdWithResponse,
-	"get-automations":                                             dispatchGetAutomationsWithResponse,
-	"get-automations-id":                                          dispatchGetAutomationsIdWithResponse,
-	"get-automations-id-emails":                                   dispatchGetAutomationsIdEmailsWithResponse,
-	"get-automations-id-emails-id":                                dispatchGetAutomationsIdEmailsIdWithResponse,
-	"get-automations-id-emails-id-queue":                          dispatchGetAutomationsIdEmailsIdQueueWithResponse,
-	"get-automations-id-emails-id-queue-id":                       dispatchGetAutomationsIdEmailsIdQueueIdWithResponse,
-	"get-automations-id-removed-subscribers":                      dispatchGetAutomationsIdRemovedSubscribersWithResponse,
-	"get-automations-id-removed-subscribers-id":                   dispatchGetAutomationsIdRemovedSubscribersIdWithResponse,
-	"get-batch-webhook":                                           dispatchGetBatchWebhookWithResponse,
-	"get-batch-webhooks":                                          dispatchGetBatchWebhooksWithResponse,
-	"get-batches":                                                 dispatchGetBatchesWithResponse,
-	"get-batches-id":                                              dispatchGetBatchesIdWithResponse,
-	"get-campaign-folders":                                        dispatchGetCampaignFoldersWithResponse,
-	"get-campaign-folders-id":                                     dispatchGetCampaignFoldersIdWithResponse,
-	"get-campaigns":                                               dispatchGetCampaignsWithResponse,
-	"get-campaigns-id":                                            dispatchGetCampaignsIdWithResponse,
-	"get-campaigns-id-content":                                    dispatchGetCampaignsIdContentWithResponse,
-	"get-campaigns-id-feedback":                                   dispatchGetCampaignsIdFeedbackWithResponse,
-	"get-campaigns-id-feedback-id":                                dispatchGetCampaignsIdFeedbackIdWithResponse,
-	"get-campaigns-id-send-checklist":                             dispatchGetCampaignsIdSendChecklistWithResponse,
-	"get-connected-sites":                                         dispatchGetConnectedSitesWithResponse,
-	"get-connected-sites-id":                                      dispatchGetConnectedSitesIdWithResponse,
-	"get-conversations":                                           dispatchGetConversationsWithResponse,
-	"get-conversations-id":                                        dispatchGetConversationsIdWithResponse,
-	"get-conversations-id-messages":                               dispatchGetConversationsIdMessagesWithResponse,
-	"get-conversations-id-messages-id":                            dispatchGetConversationsIdMessagesIdWithResponse,
-	"get-ecommerce-orders":                                        dispatchGetEcommerceOrdersWithResponse,
-	"get-ecommerce-stores":                                        dispatchGetEcommerceStoresWithResponse,
-	"get-ecommerce-stores-id":                                     dispatchGetEcommerceStoresIdWithResponse,
-	"get-ecommerce-stores-id-carts":                               dispatchGetEcommerceStoresIdCartsWithResponse,
-	"get-ecommerce-stores-id-carts-id":                            dispatchGetEcommerceStoresIdCartsIdWithResponse,
-	"get-ecommerce-stores-id-carts-id-lines":                      dispatchGetEcommerceStoresIdCartsIdLinesWithResponse,
-	"get-ecommerce-stores-id-carts-id-lines-id":                   dispatchGetEcommerceStoresIdCartsIdLinesIdWithResponse,
-	"get-ecommerce-stores-id-customers":                           dispatchGetEcommerceStoresIdCustomersWithResponse,
-	"get-ecommerce-stores-id-customers-id":                        dispatchGetEcommerceStoresIdCustomersIdWithResponse,
-	"get-ecommerce-stores-id-orders":                              dispatchGetEcommerceStoresIdOrdersWithResponse,
-	"get-ecommerce-stores-id-orders-id":                           dispatchGetEcommerceStoresIdOrdersIdWithResponse,
-	"get-ecommerce-stores-id-orders-id-lines":                     dispatchGetEcommerceStoresIdOrdersIdLinesWithResponse,
-	"get-ecommerce-stores-id-orders-id-lines-id":                  dispatchGetEcommerceStoresIdOrdersIdLinesIdWithResponse,
-	"get-ecommerce-stores-id-products":                            dispatchGetEcommerceStoresIdProductsWithResponse,
-	"get-ecommerce-stores-id-products-id":                         dispatchGetEcommerceStoresIdProductsIdWithResponse,
-	"get-ecommerce-stores-id-products-id-images":                  dispatchGetEcommerceStoresIdProductsIdImagesWithResponse,
-	"get-ecommerce-stores-id-products-id-images-id":               dispatchGetEcommerceStoresIdProductsIdImagesIdWithResponse,
-	"get-ecommerce-stores-id-products-id-variants":                dispatchGetEcommerceStoresIdProductsIdVariantsWithResponse,
-	"get-ecommerce-stores-id-products-id-variants-id":             dispatchGetEcommerceStoresIdProductsIdVariantsIdWithResponse,
-	"get-ecommerce-stores-id-promocodes":                          dispatchGetEcommerceStoresIdPromocodesWithResponse,
-	"get-ecommerce-stores-id-promocodes-id":                       dispatchGetEcommerceStoresIdPromocodesIdWithResponse,
-	"get-ecommerce-stores-id-promorules":                          dispatchGetEcommerceStoresIdPromorulesWithResponse,
-	"get-ecommerce-stores-id-promorules-id":                       dispatchGetEcommerceStoresIdPromorulesIdWithResponse,
-	"get-facebook-ads-id":                                         dispatchGetFacebookAdsIdWithResponse,
-	"get-file-manager-files":                                      dispatchGetFileManagerFilesWithResponse,
-	"get-file-manager-files-id":                                   dispatchGetFileManagerFilesIdWithResponse,
-	"get-file-manager-folders":                                    dispatchGetFileManagerFoldersWithResponse,
-	"get-file-manager-folders-files":                              dispatchGetFileManagerFoldersFilesWithResponse,
-	"get-file-manager-folders-id":                                 dispatchGetFileManagerFoldersIdWithResponse,
-	"get-landing-page-id":                                         dispatchGetLandingPageIdWithResponse,
-	"get-landing-page-id-content":                                 dispatchGetLandingPageIdContentWithResponse,
-	"get-list-member-tags":                                        dispatchGetListMemberTagsWithResponse,
-	"get-lists":                                                   dispatchGetListsWithResponse,
-	"get-lists-id":                                                dispatchGetListsIdWithResponse,
-	"get-lists-id-abuse-reports":                                  dispatchGetListsIdAbuseReportsWithResponse,
-	"get-lists-id-abuse-reports-id":                               dispatchGetListsIdAbuseReportsIdWithResponse,
-	"get-lists-id-activity":                                       dispatchGetListsIdActivityWithResponse,
-	"get-lists-id-clients":                                        dispatchGetListsIdClientsWithResponse,
-	"get-lists-id-growth-history":                                 dispatchGetListsIdGrowthHistoryWithResponse,
-	"get-lists-id-growth-history-id":                              dispatchGetListsIdGrowthHistoryIdWithResponse,
-	"get-lists-id-interest-categories":                            dispatchGetListsIdInterestCategoriesWithResponse,
-	"get-lists-id-interest-categories-id":                         dispatchGetListsIdInterestCategoriesIdWithResponse,
-	"get-lists-id-interest-categories-id-interests":               dispatchGetListsIdInterestCategoriesIdInterestsWithResponse,
-	"get-lists-id-interest-categories-id-interests-id":            dispatchGetListsIdInterestCategoriesIdInterestsIdWithResponse,
-	"get-lists-id-locations":                                      dispatchGetListsIdLocationsWithResponse,
-	"get-lists-id-members":                                        dispatchGetListsIdMembersWithResponse,
-	"get-lists-id-members-id":                                     dispatchGetListsIdMembersIdWithResponse,
-	"get-lists-id-members-id-activity":                            dispatchGetListsIdMembersIdActivityWithResponse,
-	"get-lists-id-members-id-activity-feed":                       dispatchGetListsIdMembersIdActivityFeedWithResponse,
-	"get-lists-id-members-id-events":                              dispatchGetListsIdMembersIdEventsWithResponse,
-	"get-lists-id-members-id-goals":                               dispatchGetListsIdMembersIdGoalsWithResponse,
-	"get-lists-id-members-id-notes":                               dispatchGetListsIdMembersIdNotesWithResponse,
-	"get-lists-id-members-id-notes-id":                            dispatchGetListsIdMembersIdNotesIdWithResponse,
-	"get-lists-id-merge-fields":                                   dispatchGetListsIdMergeFieldsWithResponse,
-	"get-lists-id-merge-fields-id":                                dispatchGetListsIdMergeFieldsIdWithResponse,
-	"get-lists-id-segments-id":                                    dispatchGetListsIdSegmentsIdWithResponse,
-	"get-lists-id-segments-id-members":                            dispatchGetListsIdSegmentsIdMembersWithResponse,
-	"get-lists-id-signup-forms":                                   dispatchGetListsIdSignupFormsWithResponse,
-	"get-lists-id-surveys":                                        dispatchGetListsIdSurveysWithResponse,
-	"get-lists-id-surveys-id":                                     dispatchGetListsIdSurveysIdWithResponse,
-	"get-lists-id-webhooks":                                       dispatchGetListsIdWebhooksWithResponse,
-	"get-lists-id-webhooks-id":                                    dispatchGetListsIdWebhooksIdWithResponse,
-	"get-ping":                                                    dispatchGetPingWithResponse,
-	"get-reporting-facebook-ads":                                  dispatchGetReportingFacebookAdsWithResponse,
-	"get-reporting-facebook-ads-id":                               dispatchGetReportingFacebookAdsIdWithResponse,
-	"get-reporting-facebook-ads-id-ecommerce-product-activity":    dispatchGetReportingFacebookAdsIdEcommerceProductActivityWithResponse,
-	"get-reporting-landing-pages":                                 dispatchGetReportingLandingPagesWithResponse,
-	"get-reporting-landing-pages-id":                              dispatchGetReportingLandingPagesIdWithResponse,
-	"get-reporting-surveys":                                       dispatchGetReportingSurveysWithResponse,
-	"get-reporting-surveys-id":                                    dispatchGetReportingSurveysIdWithResponse,
-	"get-reporting-surveys-id-questions":                          dispatchGetReportingSurveysIdQuestionsWithResponse,
-	"get-reporting-surveys-id-questions-id":                       dispatchGetReportingSurveysIdQuestionsIdWithResponse,
-	"get-reporting-surveys-id-questions-id-answers":               dispatchGetReportingSurveysIdQuestionsIdAnswersWithResponse,
-	"get-reporting-surveys-id-responses":                          dispatchGetReportingSurveysIdResponsesWithResponse,
-	"get-reporting-surveys-id-responses-id":                       dispatchGetReportingSurveysIdResponsesIdWithResponse,
-	"get-reports":                                                 dispatchGetReportsWithResponse,
-	"get-reports-id":                                              dispatchGetReportsIdWithResponse,
-	"get-reports-id-abuse-reports-id":                             dispatchGetReportsIdAbuseReportsIdWithResponse,
-	"get-reports-id-abuse-reports-id-id":                          dispatchGetReportsIdAbuseReportsIdIdWithResponse,
-	"get-reports-id-advice":                                       dispatchGetReportsIdAdviceWithResponse,
-	"get-reports-id-click-details":                                dispatchGetReportsIdClickDetailsWithResponse,
-	"get-reports-id-click-details-id":                             dispatchGetReportsIdClickDetailsIdWithResponse,
-	"get-reports-id-click-details-id-members":                     dispatchGetReportsIdClickDetailsIdMembersWithResponse,
-	"get-reports-id-click-details-id-members-id":                  dispatchGetReportsIdClickDetailsIdMembersIdWithResponse,
-	"get-reports-id-domain-performance":                           dispatchGetReportsIdDomainPerformanceWithResponse,
-	"get-reports-id-ecommerce-product-activity":                   dispatchGetReportsIdEcommerceProductActivityWithResponse,
-	"get-reports-id-eepurl":                                       dispatchGetReportsIdEepurlWithResponse,
-	"get-reports-id-email-activity":                               dispatchGetReportsIdEmailActivityWithResponse,
-	"get-reports-id-email-activity-id":                            dispatchGetReportsIdEmailActivityIdWithResponse,
-	"get-reports-id-locations":                                    dispatchGetReportsIdLocationsWithResponse,
-	"get-reports-id-open-details":                                 dispatchGetReportsIdOpenDetailsWithResponse,
-	"get-reports-id-open-details-id-members-id":                   dispatchGetReportsIdOpenDetailsIdMembersIdWithResponse,
-	"get-reports-id-sent-to":                                      dispatchGetReportsIdSentToWithResponse,
-	"get-reports-id-sent-to-id":                                   dispatchGetReportsIdSentToIdWithResponse,
-	"get-reports-id-sub-reports-id":                               dispatchGetReportsIdSubReportsIdWithResponse,
-	"get-reports-id-unsubscribed":                                 dispatchGetReportsIdUnsubscribedWithResponse,
-	"get-reports-id-unsubscribed-id":                              dispatchGetReportsIdUnsubscribedIdWithResponse,
-	"get-root":                                                    dispatchGetRootWithResponse,
-	"get-search-campaigns":                                        dispatchGetSearchCampaignsWithResponse,
-	"get-search-members":                                          dispatchGetSearchMembersWithResponse,
-	"get-sms-campaigns":                                           dispatchGetSmsCampaignsWithResponse,
-	"get-sms-campaigns-id":                                        dispatchGetSmsCampaignsIdWithResponse,
-	"get-sms-campaigns-id-content":                                dispatchGetSmsCampaignsIdContentWithResponse,
-	"get-template-folders":                                        dispatchGetTemplateFoldersWithResponse,
-	"get-template-folders-id":                                     dispatchGetTemplateFoldersIdWithResponse,
-	"get-templates":                                               dispatchGetTemplatesWithResponse,
-	"get-templates-id":                                            dispatchGetTemplatesIdWithResponse,
-	"get-templates-id-default-content":                            dispatchGetTemplatesIdDefaultContentWithResponse,
-	"get-verified-domain":                                         dispatchGetVerifiedDomainWithResponse,
-	"get-verified-domains":                                        dispatchGetVerifiedDomainsWithResponse,
-	"patch-audience-contact":                                      dispatchPatchAudienceContactWithResponse,
-	"patch-automation-email-workflow-id":                          dispatchPatchAutomationEmailWorkflowIdWithResponse,
-	"patch-batch-webhooks":                                        dispatchPatchBatchWebhooksWithResponse,
-	"patch-campaign-folders-id":                                   dispatchPatchCampaignFoldersIdWithResponse,
-	"patch-campaigns-id":                                          dispatchPatchCampaignsIdWithResponse,
-	"patch-campaigns-id-feedback-id":                              dispatchPatchCampaignsIdFeedbackIdWithResponse,
-	"patch-ecommerce-stores-id":                                   dispatchPatchEcommerceStoresIdWithResponse,
-	"patch-ecommerce-stores-id-carts-id":                          dispatchPatchEcommerceStoresIdCartsIdWithResponse,
-	"patch-ecommerce-stores-id-carts-id-lines-id":                 dispatchPatchEcommerceStoresIdCartsIdLinesIdWithResponse,
-	"patch-ecommerce-stores-id-customers-id":                      dispatchPatchEcommerceStoresIdCustomersIdWithResponse,
-	"patch-ecommerce-stores-id-orders-id":                         dispatchPatchEcommerceStoresIdOrdersIdWithResponse,
-	"patch-ecommerce-stores-id-orders-id-lines-id":                dispatchPatchEcommerceStoresIdOrdersIdLinesIdWithResponse,
-	"patch-ecommerce-stores-id-products-id":                       dispatchPatchEcommerceStoresIdProductsIdWithResponse,
-	"patch-ecommerce-stores-id-products-id-images-id":             dispatchPatchEcommerceStoresIdProductsIdImagesIdWithResponse,
-	"patch-ecommerce-stores-id-products-id-variants-id":           dispatchPatchEcommerceStoresIdProductsIdVariantsIdWithResponse,
-	"patch-ecommerce-stores-id-promocodes-id":                     dispatchPatchEcommerceStoresIdPromocodesIdWithResponse,
-	"patch-ecommerce-stores-id-promorules-id":                     dispatchPatchEcommerceStoresIdPromorulesIdWithResponse,
-	"patch-file-manager-files-id":                                 dispatchPatchFileManagerFilesIdWithResponse,
-	"patch-file-manager-folders-id":                               dispatchPatchFileManagerFoldersIdWithResponse,
-	"patch-landing-page-id":                                       dispatchPatchLandingPageIdWithResponse,
-	"patch-lists-id":                                              dispatchPatchListsIdWithResponse,
-	"patch-lists-id-interest-categories-id":                       dispatchPatchListsIdInterestCategoriesIdWithResponse,
-	"patch-lists-id-interest-categories-id-interests-id":          dispatchPatchListsIdInterestCategoriesIdInterestsIdWithResponse,
-	"patch-lists-id-members-id":                                   dispatchPatchListsIdMembersIdWithResponse,
-	"patch-lists-id-members-id-notes-id":                          dispatchPatchListsIdMembersIdNotesIdWithResponse,
-	"patch-lists-id-merge-fields-id":                              dispatchPatchListsIdMergeFieldsIdWithResponse,
-	"patch-lists-id-segments-id":                                  dispatchPatchListsIdSegmentsIdWithResponse,
-	"patch-lists-id-surveys-id":                                   dispatchPatchListsIdSurveysIdWithResponse,
-	"patch-lists-id-webhooks-id":                                  dispatchPatchListsIdWebhooksIdWithResponse,
-	"patch-sms-campaigns-id":                                      dispatchPatchSmsCampaignsIdWithResponse,
-	"patch-template-folders-id":                                   dispatchPatchTemplateFoldersIdWithResponse,
-	"patch-templates-id":                                          dispatchPatchTemplatesIdWithResponse,
-	"post-account-export":                                         dispatchPostAccountExportWithResponse,
-	"post-all-landing-pages":                                      dispatchPostAllLandingPagesWithResponse,
-	"post-audiences-contacts-actions-archive":                     dispatchPostAudiencesContactsActionsArchiveWithResponse,
-	"post-audiences-contacts-actions-forget":                      dispatchPostAudiencesContactsActionsForgetWithResponse,
-	"post-automations":                                            dispatchPostAutomationsWithResponse,
-	"post-automations-id-actions-pause-all-emails":                dispatchPostAutomationsIdActionsPauseAllEmailsWithResponse,
-	"post-automations-id-actions-start-all-emails":                dispatchPostAutomationsIdActionsStartAllEmailsWithResponse,
-	"post-automations-id-emails-id-actions-pause":                 dispatchPostAutomationsIdEmailsIdActionsPauseWithResponse,
-	"post-automations-id-emails-id-actions-start":                 dispatchPostAutomationsIdEmailsIdActionsStartWithResponse,
-	"post-automations-id-emails-id-queue":                         dispatchPostAutomationsIdEmailsIdQueueWithResponse,
-	"post-automations-id-removed-subscribers":                     dispatchPostAutomationsIdRemovedSubscribersWithResponse,
-	"post-batch-webhooks":                                         dispatchPostBatchWebhooksWithResponse,
-	"post-batches":                                                dispatchPostBatchesWithResponse,
-	"post-campaign-folders":                                       dispatchPostCampaignFoldersWithResponse,
-	"post-campaigns":                                              dispatchPostCampaignsWithResponse,
-	"post-campaigns-id-actions-cancel-send":                       dispatchPostCampaignsIdActionsCancelSendWithResponse,
-	"post-campaigns-id-actions-create-resend":                     dispatchPostCampaignsIdActionsCreateResendWithResponse,
-	"post-campaigns-id-actions-pause":                             dispatchPostCampaignsIdActionsPauseWithResponse,
-	"post-campaigns-id-actions-replicate":                         dispatchPostCampaignsIdActionsReplicateWithResponse,
-	"post-campaigns-id-actions-resume":                            dispatchPostCampaignsIdActionsResumeWithResponse,
-	"post-campaigns-id-actions-schedule":                          dispatchPostCampaignsIdActionsScheduleWithResponse,
-	"post-campaigns-id-actions-send":                              dispatchPostCampaignsIdActionsSendWithResponse,
-	"post-campaigns-id-actions-test":                              dispatchPostCampaignsIdActionsTestWithResponse,
-	"post-campaigns-id-actions-unschedule":                        dispatchPostCampaignsIdActionsUnscheduleWithResponse,
-	"post-campaigns-id-feedback":                                  dispatchPostCampaignsIdFeedbackWithResponse,
-	"post-connected-sites":                                        dispatchPostConnectedSitesWithResponse,
-	"post-connected-sites-id-actions-disable-pixel":               dispatchPostConnectedSitesIdActionsDisablePixelWithResponse,
-	"post-connected-sites-id-actions-enable-pixel":                dispatchPostConnectedSitesIdActionsEnablePixelWithResponse,
-	"post-connected-sites-id-actions-verify-script-installation":  dispatchPostConnectedSitesIdActionsVerifyScriptInstallationWithResponse,
-	"post-customer-journeys-journeys-id-steps-id-actions-trigger": dispatchPostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse,
-	"post-ecommerce-stores":                                       dispatchPostEcommerceStoresWithResponse,
-	"post-ecommerce-stores-id-carts":                              dispatchPostEcommerceStoresIdCartsWithResponse,
-	"post-ecommerce-stores-id-carts-id-lines":                     dispatchPostEcommerceStoresIdCartsIdLinesWithResponse,
-	"post-ecommerce-stores-id-customers":                          dispatchPostEcommerceStoresIdCustomersWithResponse,
-	"post-ecommerce-stores-id-orders":                             dispatchPostEcommerceStoresIdOrdersWithResponse,
-	"post-ecommerce-stores-id-orders-id-lines":                    dispatchPostEcommerceStoresIdOrdersIdLinesWithResponse,
-	"post-ecommerce-stores-id-products":                           dispatchPostEcommerceStoresIdProductsWithResponse,
-	"post-ecommerce-stores-id-products-id-images":                 dispatchPostEcommerceStoresIdProductsIdImagesWithResponse,
-	"post-ecommerce-stores-id-products-id-variants":               dispatchPostEcommerceStoresIdProductsIdVariantsWithResponse,
-	"post-ecommerce-stores-id-promocodes":                         dispatchPostEcommerceStoresIdPromocodesWithResponse,
-	"post-ecommerce-stores-id-promorules":                         dispatchPostEcommerceStoresIdPromorulesWithResponse,
-	"post-file-manager-files":                                     dispatchPostFileManagerFilesWithResponse,
-	"post-file-manager-folders":                                   dispatchPostFileManagerFoldersWithResponse,
-	"post-landing-page-id-actions-publish":                        dispatchPostLandingPageIdActionsPublishWithResponse,
-	"post-landing-page-id-actions-unpublish":                      dispatchPostLandingPageIdActionsUnpublishWithResponse,
-	"post-list-member-events":                                     dispatchPostListMemberEventsWithResponse,
-	"post-list-member-tags":                                       dispatchPostListMemberTagsWithResponse,
-	"post-lists":                                                  dispatchPostListsWithResponse,
-	"post-lists-id":                                               dispatchPostListsIdWithResponse,
-	"post-lists-id-interest-categories":                           dispatchPostListsIdInterestCategoriesWithResponse,
-	"post-lists-id-interest-categories-id-interests":              dispatchPostListsIdInterestCategoriesIdInterestsWithResponse,
-	"post-lists-id-members":                                       dispatchPostListsIdMembersWithResponse,
-	"post-lists-id-members-hash-actions-delete-permanent":         dispatchPostListsIdMembersHashActionsDeletePermanentWithResponse,
-	"post-lists-id-members-id-notes":                              dispatchPostListsIdMembersIdNotesWithResponse,
-	"post-lists-id-merge-fields":                                  dispatchPostListsIdMergeFieldsWithResponse,
-	"post-lists-id-segments":                                      dispatchPostListsIdSegmentsWithResponse,
-	"post-lists-id-segments-id":                                   dispatchPostListsIdSegmentsIdWithResponse,
-	"post-lists-id-segments-id-members":                           dispatchPostListsIdSegmentsIdMembersWithResponse,
-	"post-lists-id-signup-forms":                                  dispatchPostListsIdSignupFormsWithResponse,
-	"post-lists-id-surveys":                                       dispatchPostListsIdSurveysWithResponse,
-	"post-lists-id-surveys-id-actions-create-email":               dispatchPostListsIdSurveysIdActionsCreateEmailWithResponse,
-	"post-lists-id-surveys-id-actions-publish":                    dispatchPostListsIdSurveysIdActionsPublishWithResponse,
-	"post-lists-id-surveys-id-actions-replicate":                  dispatchPostListsIdSurveysIdActionsReplicateWithResponse,
-	"post-lists-id-surveys-id-actions-unpublish":                  dispatchPostListsIdSurveysIdActionsUnpublishWithResponse,
-	"post-lists-id-webhooks":                                      dispatchPostListsIdWebhooksWithResponse,
-	"post-sms-campaigns":                                          dispatchPostSmsCampaignsWithResponse,
-	"post-sms-campaigns-id-actions-cancel-send":                   dispatchPostSmsCampaignsIdActionsCancelSendWithResponse,
-	"post-sms-campaigns-id-actions-schedule":                      dispatchPostSmsCampaignsIdActionsScheduleWithResponse,
-	"post-sms-campaigns-id-actions-send":                          dispatchPostSmsCampaignsIdActionsSendWithResponse,
-	"post-template-folders":                                       dispatchPostTemplateFoldersWithResponse,
-	"post-templates":                                              dispatchPostTemplatesWithResponse,
-	"preview-a-segment":                                           dispatchPreviewASegmentWithResponse,
-	"put-campaigns-id-content":                                    dispatchPutCampaignsIdContentWithResponse,
-	"put-ecommerce-stores-id-customers-id":                        dispatchPutEcommerceStoresIdCustomersIdWithResponse,
-	"put-ecommerce-stores-id-orders-id":                           dispatchPutEcommerceStoresIdOrdersIdWithResponse,
-	"put-ecommerce-stores-id-products-id":                         dispatchPutEcommerceStoresIdProductsIdWithResponse,
-	"put-ecommerce-stores-id-products-id-variants-id":             dispatchPutEcommerceStoresIdProductsIdVariantsIdWithResponse,
-	"put-lists-id-members-id":                                     dispatchPutListsIdMembersIdWithResponse,
-	"put-sms-campaigns-id-content":                                dispatchPutSmsCampaignsIdContentWithResponse,
-	"search-tags-by-name":                                         dispatchSearchTagsByNameWithResponse,
-	"verify-domain":                                               dispatchVerifyDomainWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
 	creds, config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	c, err := NewConnector(
+		map[string]map[string]string{interfaceID: creds},
+		map[string]map[string]string{interfaceID: config},
+		httpClient,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -351,17 +38,12 @@ func Resolve(
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return cl.Dispatch(ctx, function, config, inputs)
 	}, nil
 }
 
-func dispatchArchiveAutomationsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchArchiveAutomationsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -378,7 +60,7 @@ func dispatchArchiveAutomationsWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.ArchiveAutomationsWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.ArchiveAutomationsWithResponse(ctx, workflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -394,7 +76,7 @@ func dispatchArchiveAutomationsWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateAudienceContactWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateAudienceContactWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -425,7 +107,7 @@ func dispatchCreateAudienceContactWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.create-audience-contact: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateAudienceContactWithResponse(ctx, audienceId, &params, body)
+	resp, callErr := ic.cl.CreateAudienceContactWithResponse(ctx, audienceId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -441,7 +123,7 @@ func dispatchCreateAudienceContactWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCreateVerifiedDomainWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateVerifiedDomainWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateVerifiedDomainJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -449,7 +131,7 @@ func dispatchCreateVerifiedDomainWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.create-verified-domain: %w", bodyErr)
 	}
 
-	resp, callErr := cl.CreateVerifiedDomainWithResponse(ctx, body)
+	resp, callErr := ic.cl.CreateVerifiedDomainWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -465,7 +147,7 @@ func dispatchCreateVerifiedDomainWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteAutomationsIdEmailsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAutomationsIdEmailsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -491,7 +173,7 @@ func dispatchDeleteAutomationsIdEmailsIdWithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.DeleteAutomationsIdEmailsIdWithResponse(ctx, workflowId, workflowEmailId)
+	resp, callErr := ic.cl.DeleteAutomationsIdEmailsIdWithResponse(ctx, workflowId, workflowEmailId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -507,7 +189,7 @@ func dispatchDeleteAutomationsIdEmailsIdWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteBatchWebhookIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteBatchWebhookIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -524,7 +206,7 @@ func dispatchDeleteBatchWebhookIdWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.DeleteBatchWebhookIdWithResponse(ctx, batchWebhookId)
+	resp, callErr := ic.cl.DeleteBatchWebhookIdWithResponse(ctx, batchWebhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -540,7 +222,7 @@ func dispatchDeleteBatchWebhookIdWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteBatchesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteBatchesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -557,7 +239,7 @@ func dispatchDeleteBatchesIdWithResponse(ctx context.Context, cl *client.ClientW
 		}
 	}
 
-	resp, callErr := cl.DeleteBatchesIdWithResponse(ctx, batchId)
+	resp, callErr := ic.cl.DeleteBatchesIdWithResponse(ctx, batchId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -573,7 +255,7 @@ func dispatchDeleteBatchesIdWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteCampaignFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCampaignFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -590,7 +272,7 @@ func dispatchDeleteCampaignFoldersIdWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.DeleteCampaignFoldersIdWithResponse(ctx, folderId)
+	resp, callErr := ic.cl.DeleteCampaignFoldersIdWithResponse(ctx, folderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -606,7 +288,7 @@ func dispatchDeleteCampaignFoldersIdWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteCampaignsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCampaignsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -623,7 +305,7 @@ func dispatchDeleteCampaignsIdWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.DeleteCampaignsIdWithResponse(ctx, campaignId)
+	resp, callErr := ic.cl.DeleteCampaignsIdWithResponse(ctx, campaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -639,7 +321,7 @@ func dispatchDeleteCampaignsIdWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCampaignsIdFeedbackIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -665,7 +347,7 @@ func dispatchDeleteCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.DeleteCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId)
+	resp, callErr := ic.cl.DeleteCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -681,7 +363,7 @@ func dispatchDeleteCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteConnectedSitesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteConnectedSitesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -698,7 +380,7 @@ func dispatchDeleteConnectedSitesIdWithResponse(ctx context.Context, cl *client.
 		}
 	}
 
-	resp, callErr := cl.DeleteConnectedSitesIdWithResponse(ctx, connectedSiteId)
+	resp, callErr := ic.cl.DeleteConnectedSitesIdWithResponse(ctx, connectedSiteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -714,7 +396,7 @@ func dispatchDeleteConnectedSitesIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -731,7 +413,7 @@ func dispatchDeleteEcommerceStoresIdWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdWithResponse(ctx, storeId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdWithResponse(ctx, storeId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -747,7 +429,7 @@ func dispatchDeleteEcommerceStoresIdWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdCartsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -773,7 +455,7 @@ func dispatchDeleteEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl 
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -789,7 +471,7 @@ func dispatchDeleteEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -824,7 +506,7 @@ func dispatchDeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx context.Context
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx, storeId, cartId, lineId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx, storeId, cartId, lineId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -840,7 +522,7 @@ func dispatchDeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -866,7 +548,7 @@ func dispatchDeleteEcommerceStoresIdCustomersIdWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -882,7 +564,7 @@ func dispatchDeleteEcommerceStoresIdCustomersIdWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -908,7 +590,7 @@ func dispatchDeleteEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -924,7 +606,7 @@ func dispatchDeleteEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -959,7 +641,7 @@ func dispatchDeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -975,7 +657,7 @@ func dispatchDeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdProductsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdProductsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1001,7 +683,7 @@ func dispatchDeleteEcommerceStoresIdProductsIdWithResponse(ctx context.Context, 
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1017,7 +699,7 @@ func dispatchDeleteEcommerceStoresIdProductsIdWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1052,7 +734,7 @@ func dispatchDeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.C
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1068,7 +750,7 @@ func dispatchDeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1103,7 +785,7 @@ func dispatchDeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1119,7 +801,7 @@ func dispatchDeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1154,7 +836,7 @@ func dispatchDeleteEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1170,7 +852,7 @@ func dispatchDeleteEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1196,7 +878,7 @@ func dispatchDeleteEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context
 		}
 	}
 
-	resp, callErr := cl.DeleteEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId)
+	resp, callErr := ic.cl.DeleteEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1212,7 +894,7 @@ func dispatchDeleteEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteFileManagerFilesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteFileManagerFilesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1229,7 +911,7 @@ func dispatchDeleteFileManagerFilesIdWithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.DeleteFileManagerFilesIdWithResponse(ctx, fileId)
+	resp, callErr := ic.cl.DeleteFileManagerFilesIdWithResponse(ctx, fileId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1245,7 +927,7 @@ func dispatchDeleteFileManagerFilesIdWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteFileManagerFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteFileManagerFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1262,7 +944,7 @@ func dispatchDeleteFileManagerFoldersIdWithResponse(ctx context.Context, cl *cli
 		}
 	}
 
-	resp, callErr := cl.DeleteFileManagerFoldersIdWithResponse(ctx, folderId)
+	resp, callErr := ic.cl.DeleteFileManagerFoldersIdWithResponse(ctx, folderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1278,7 +960,7 @@ func dispatchDeleteFileManagerFoldersIdWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteLandingPageIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteLandingPageIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1295,7 +977,7 @@ func dispatchDeleteLandingPageIdWithResponse(ctx context.Context, cl *client.Cli
 		}
 	}
 
-	resp, callErr := cl.DeleteLandingPageIdWithResponse(ctx, pageId)
+	resp, callErr := ic.cl.DeleteLandingPageIdWithResponse(ctx, pageId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1311,7 +993,7 @@ func dispatchDeleteLandingPageIdWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1328,7 +1010,7 @@ func dispatchDeleteListsIdWithResponse(ctx context.Context, cl *client.ClientWit
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdWithResponse(ctx, listId)
+	resp, callErr := ic.cl.DeleteListsIdWithResponse(ctx, listId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1344,7 +1026,7 @@ func dispatchDeleteListsIdWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdInterestCategoriesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdInterestCategoriesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1370,7 +1052,7 @@ func dispatchDeleteListsIdInterestCategoriesIdWithResponse(ctx context.Context, 
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId)
+	resp, callErr := ic.cl.DeleteListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1386,7 +1068,7 @@ func dispatchDeleteListsIdInterestCategoriesIdWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1421,7 +1103,7 @@ func dispatchDeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx contex
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId)
+	resp, callErr := ic.cl.DeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1437,7 +1119,7 @@ func dispatchDeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdMembersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdMembersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1463,7 +1145,7 @@ func dispatchDeleteListsIdMembersIdWithResponse(ctx context.Context, cl *client.
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdMembersIdWithResponse(ctx, listId, subscriberHash)
+	resp, callErr := ic.cl.DeleteListsIdMembersIdWithResponse(ctx, listId, subscriberHash)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1479,7 +1161,7 @@ func dispatchDeleteListsIdMembersIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdMembersIdNotesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1514,7 +1196,7 @@ func dispatchDeleteListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId)
+	resp, callErr := ic.cl.DeleteListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1530,7 +1212,7 @@ func dispatchDeleteListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdMergeFieldsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1556,7 +1238,7 @@ func dispatchDeleteListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *cli
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId)
+	resp, callErr := ic.cl.DeleteListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1572,7 +1254,7 @@ func dispatchDeleteListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdSegmentsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1598,7 +1280,7 @@ func dispatchDeleteListsIdSegmentsIdWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdSegmentsIdWithResponse(ctx, listId, segmentId)
+	resp, callErr := ic.cl.DeleteListsIdSegmentsIdWithResponse(ctx, listId, segmentId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1614,7 +1296,7 @@ func dispatchDeleteListsIdSegmentsIdWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdSegmentsIdMembersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdSegmentsIdMembersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1649,7 +1331,7 @@ func dispatchDeleteListsIdSegmentsIdMembersIdWithResponse(ctx context.Context, c
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdSegmentsIdMembersIdWithResponse(ctx, listId, segmentId, subscriberHash)
+	resp, callErr := ic.cl.DeleteListsIdSegmentsIdMembersIdWithResponse(ctx, listId, segmentId, subscriberHash)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1665,7 +1347,7 @@ func dispatchDeleteListsIdSegmentsIdMembersIdWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdSurveysIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdSurveysIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1691,7 +1373,7 @@ func dispatchDeleteListsIdSurveysIdWithResponse(ctx context.Context, cl *client.
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdSurveysIdWithResponse(ctx, listId, surveyId)
+	resp, callErr := ic.cl.DeleteListsIdSurveysIdWithResponse(ctx, listId, surveyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1707,7 +1389,7 @@ func dispatchDeleteListsIdSurveysIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteListsIdWebhooksIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteListsIdWebhooksIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1733,7 +1415,7 @@ func dispatchDeleteListsIdWebhooksIdWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.DeleteListsIdWebhooksIdWithResponse(ctx, listId, webhookId)
+	resp, callErr := ic.cl.DeleteListsIdWebhooksIdWithResponse(ctx, listId, webhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1749,7 +1431,7 @@ func dispatchDeleteListsIdWebhooksIdWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteSmsCampaignsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteSmsCampaignsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1766,7 +1448,7 @@ func dispatchDeleteSmsCampaignsIdWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.DeleteSmsCampaignsIdWithResponse(ctx, smsCampaignId)
+	resp, callErr := ic.cl.DeleteSmsCampaignsIdWithResponse(ctx, smsCampaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1782,7 +1464,7 @@ func dispatchDeleteSmsCampaignsIdWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteTemplateFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteTemplateFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1799,7 +1481,7 @@ func dispatchDeleteTemplateFoldersIdWithResponse(ctx context.Context, cl *client
 		}
 	}
 
-	resp, callErr := cl.DeleteTemplateFoldersIdWithResponse(ctx, folderId)
+	resp, callErr := ic.cl.DeleteTemplateFoldersIdWithResponse(ctx, folderId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1815,7 +1497,7 @@ func dispatchDeleteTemplateFoldersIdWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteTemplatesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteTemplatesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1832,7 +1514,7 @@ func dispatchDeleteTemplatesIdWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.DeleteTemplatesIdWithResponse(ctx, templateId)
+	resp, callErr := ic.cl.DeleteTemplatesIdWithResponse(ctx, templateId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1848,7 +1530,7 @@ func dispatchDeleteTemplatesIdWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDeleteVerifiedDomainWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteVerifiedDomainWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1865,7 +1547,7 @@ func dispatchDeleteVerifiedDomainWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.DeleteVerifiedDomainWithResponse(ctx, domainName)
+	resp, callErr := ic.cl.DeleteVerifiedDomainWithResponse(ctx, domainName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1881,7 +1563,7 @@ func dispatchDeleteVerifiedDomainWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAccountExportIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountExportIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1905,7 +1587,7 @@ func dispatchGetAccountExportIdWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-account-export-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAccountExportIdWithResponse(ctx, exportId, &params)
+	resp, callErr := ic.cl.GetAccountExportIdWithResponse(ctx, exportId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1921,7 +1603,7 @@ func dispatchGetAccountExportIdWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAccountExportsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountExportsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetAccountExportsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1929,7 +1611,7 @@ func dispatchGetAccountExportsWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.get-account-exports: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAccountExportsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetAccountExportsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1945,7 +1627,7 @@ func dispatchGetAccountExportsWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetActivityFeedChimpChatterWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetActivityFeedChimpChatterWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetActivityFeedChimpChatterParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1953,7 +1635,7 @@ func dispatchGetActivityFeedChimpChatterWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("mailchimp.get-activity-feed-chimp-chatter: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetActivityFeedChimpChatterWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetActivityFeedChimpChatterWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1969,7 +1651,7 @@ func dispatchGetActivityFeedChimpChatterWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAllFacebookAdsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAllFacebookAdsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetAllFacebookAdsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1977,7 +1659,7 @@ func dispatchGetAllFacebookAdsWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.get-all-facebook-ads: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAllFacebookAdsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetAllFacebookAdsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1993,7 +1675,7 @@ func dispatchGetAllFacebookAdsWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAllLandingPagesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAllLandingPagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetAllLandingPagesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2001,7 +1683,7 @@ func dispatchGetAllLandingPagesWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-all-landing-pages: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAllLandingPagesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetAllLandingPagesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2017,7 +1699,7 @@ func dispatchGetAllLandingPagesWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAudienceContactWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAudienceContactWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2050,7 +1732,7 @@ func dispatchGetAudienceContactWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-audience-contact: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAudienceContactWithResponse(ctx, audienceId, contactId, &params)
+	resp, callErr := ic.cl.GetAudienceContactWithResponse(ctx, audienceId, contactId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2066,7 +1748,7 @@ func dispatchGetAudienceContactWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAudienceContactListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAudienceContactListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2090,7 +1772,7 @@ func dispatchGetAudienceContactListWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.get-audience-contact-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAudienceContactListWithResponse(ctx, audienceId, &params)
+	resp, callErr := ic.cl.GetAudienceContactListWithResponse(ctx, audienceId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2106,7 +1788,7 @@ func dispatchGetAudienceContactListWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAudienceContactsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAudienceContactsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetAudienceContactsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2114,7 +1796,7 @@ func dispatchGetAudienceContactsWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.get-audience-contacts: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAudienceContactsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetAudienceContactsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2130,7 +1812,7 @@ func dispatchGetAudienceContactsWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAudienceIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAudienceIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2154,7 +1836,7 @@ func dispatchGetAudienceIdWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("mailchimp.get-audience-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAudienceIdWithResponse(ctx, audienceId, &params)
+	resp, callErr := ic.cl.GetAudienceIdWithResponse(ctx, audienceId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2170,7 +1852,7 @@ func dispatchGetAudienceIdWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAuthorizedAppsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAuthorizedAppsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetAuthorizedAppsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2178,7 +1860,7 @@ func dispatchGetAuthorizedAppsWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.get-authorized-apps: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAuthorizedAppsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetAuthorizedAppsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2194,7 +1876,7 @@ func dispatchGetAuthorizedAppsWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAuthorizedAppsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAuthorizedAppsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2218,7 +1900,7 @@ func dispatchGetAuthorizedAppsIdWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.get-authorized-apps-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAuthorizedAppsIdWithResponse(ctx, appId, &params)
+	resp, callErr := ic.cl.GetAuthorizedAppsIdWithResponse(ctx, appId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2234,7 +1916,7 @@ func dispatchGetAuthorizedAppsIdWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAutomationsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAutomationsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetAutomationsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2242,7 +1924,7 @@ func dispatchGetAutomationsWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("mailchimp.get-automations: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAutomationsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetAutomationsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2258,7 +1940,7 @@ func dispatchGetAutomationsWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAutomationsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAutomationsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2282,7 +1964,7 @@ func dispatchGetAutomationsIdWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.get-automations-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetAutomationsIdWithResponse(ctx, workflowId, &params)
+	resp, callErr := ic.cl.GetAutomationsIdWithResponse(ctx, workflowId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2298,7 +1980,7 @@ func dispatchGetAutomationsIdWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAutomationsIdEmailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAutomationsIdEmailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2315,7 +1997,7 @@ func dispatchGetAutomationsIdEmailsWithResponse(ctx context.Context, cl *client.
 		}
 	}
 
-	resp, callErr := cl.GetAutomationsIdEmailsWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.GetAutomationsIdEmailsWithResponse(ctx, workflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2331,7 +2013,7 @@ func dispatchGetAutomationsIdEmailsWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAutomationsIdEmailsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAutomationsIdEmailsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2357,7 +2039,7 @@ func dispatchGetAutomationsIdEmailsIdWithResponse(ctx context.Context, cl *clien
 		}
 	}
 
-	resp, callErr := cl.GetAutomationsIdEmailsIdWithResponse(ctx, workflowId, workflowEmailId)
+	resp, callErr := ic.cl.GetAutomationsIdEmailsIdWithResponse(ctx, workflowId, workflowEmailId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2373,7 +2055,7 @@ func dispatchGetAutomationsIdEmailsIdWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAutomationsIdEmailsIdQueueWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAutomationsIdEmailsIdQueueWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2399,7 +2081,7 @@ func dispatchGetAutomationsIdEmailsIdQueueWithResponse(ctx context.Context, cl *
 		}
 	}
 
-	resp, callErr := cl.GetAutomationsIdEmailsIdQueueWithResponse(ctx, workflowId, workflowEmailId)
+	resp, callErr := ic.cl.GetAutomationsIdEmailsIdQueueWithResponse(ctx, workflowId, workflowEmailId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2415,7 +2097,7 @@ func dispatchGetAutomationsIdEmailsIdQueueWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAutomationsIdEmailsIdQueueIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAutomationsIdEmailsIdQueueIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2450,7 +2132,7 @@ func dispatchGetAutomationsIdEmailsIdQueueIdWithResponse(ctx context.Context, cl
 		}
 	}
 
-	resp, callErr := cl.GetAutomationsIdEmailsIdQueueIdWithResponse(ctx, workflowId, workflowEmailId, subscriberHash)
+	resp, callErr := ic.cl.GetAutomationsIdEmailsIdQueueIdWithResponse(ctx, workflowId, workflowEmailId, subscriberHash)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2466,7 +2148,7 @@ func dispatchGetAutomationsIdEmailsIdQueueIdWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAutomationsIdRemovedSubscribersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAutomationsIdRemovedSubscribersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2483,7 +2165,7 @@ func dispatchGetAutomationsIdRemovedSubscribersWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, callErr := cl.GetAutomationsIdRemovedSubscribersWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.GetAutomationsIdRemovedSubscribersWithResponse(ctx, workflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2499,7 +2181,7 @@ func dispatchGetAutomationsIdRemovedSubscribersWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetAutomationsIdRemovedSubscribersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAutomationsIdRemovedSubscribersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2525,7 +2207,7 @@ func dispatchGetAutomationsIdRemovedSubscribersIdWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, callErr := cl.GetAutomationsIdRemovedSubscribersIdWithResponse(ctx, workflowId, subscriberHash)
+	resp, callErr := ic.cl.GetAutomationsIdRemovedSubscribersIdWithResponse(ctx, workflowId, subscriberHash)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2541,7 +2223,7 @@ func dispatchGetAutomationsIdRemovedSubscribersIdWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetBatchWebhookWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBatchWebhookWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2565,7 +2247,7 @@ func dispatchGetBatchWebhookWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("mailchimp.get-batch-webhook: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetBatchWebhookWithResponse(ctx, batchWebhookId, &params)
+	resp, callErr := ic.cl.GetBatchWebhookWithResponse(ctx, batchWebhookId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2581,7 +2263,7 @@ func dispatchGetBatchWebhookWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetBatchWebhooksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBatchWebhooksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetBatchWebhooksParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2589,7 +2271,7 @@ func dispatchGetBatchWebhooksWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.get-batch-webhooks: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetBatchWebhooksWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetBatchWebhooksWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2605,7 +2287,7 @@ func dispatchGetBatchWebhooksWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetBatchesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBatchesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetBatchesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2613,7 +2295,7 @@ func dispatchGetBatchesWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("mailchimp.get-batches: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetBatchesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetBatchesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2629,7 +2311,7 @@ func dispatchGetBatchesWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetBatchesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBatchesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2653,7 +2335,7 @@ func dispatchGetBatchesIdWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("mailchimp.get-batches-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetBatchesIdWithResponse(ctx, batchId, &params)
+	resp, callErr := ic.cl.GetBatchesIdWithResponse(ctx, batchId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2669,7 +2351,7 @@ func dispatchGetBatchesIdWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCampaignFoldersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCampaignFoldersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetCampaignFoldersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2677,7 +2359,7 @@ func dispatchGetCampaignFoldersWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-campaign-folders: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetCampaignFoldersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetCampaignFoldersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2693,7 +2375,7 @@ func dispatchGetCampaignFoldersWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCampaignFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCampaignFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2717,7 +2399,7 @@ func dispatchGetCampaignFoldersIdWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.get-campaign-folders-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetCampaignFoldersIdWithResponse(ctx, folderId, &params)
+	resp, callErr := ic.cl.GetCampaignFoldersIdWithResponse(ctx, folderId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2733,7 +2415,7 @@ func dispatchGetCampaignFoldersIdWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCampaignsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCampaignsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetCampaignsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2741,7 +2423,7 @@ func dispatchGetCampaignsWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("mailchimp.get-campaigns: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetCampaignsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetCampaignsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2757,7 +2439,7 @@ func dispatchGetCampaignsWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCampaignsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCampaignsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2781,7 +2463,7 @@ func dispatchGetCampaignsIdWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("mailchimp.get-campaigns-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetCampaignsIdWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetCampaignsIdWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2797,7 +2479,7 @@ func dispatchGetCampaignsIdWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCampaignsIdContentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCampaignsIdContentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2821,7 +2503,7 @@ func dispatchGetCampaignsIdContentWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.get-campaigns-id-content: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetCampaignsIdContentWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetCampaignsIdContentWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2837,7 +2519,7 @@ func dispatchGetCampaignsIdContentWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCampaignsIdFeedbackWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCampaignsIdFeedbackWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2861,7 +2543,7 @@ func dispatchGetCampaignsIdFeedbackWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.get-campaigns-id-feedback: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetCampaignsIdFeedbackWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetCampaignsIdFeedbackWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2877,7 +2559,7 @@ func dispatchGetCampaignsIdFeedbackWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCampaignsIdFeedbackIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2910,7 +2592,7 @@ func dispatchGetCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-campaigns-id-feedback-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, &params)
+	resp, callErr := ic.cl.GetCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2926,7 +2608,7 @@ func dispatchGetCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetCampaignsIdSendChecklistWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCampaignsIdSendChecklistWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2950,7 +2632,7 @@ func dispatchGetCampaignsIdSendChecklistWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("mailchimp.get-campaigns-id-send-checklist: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetCampaignsIdSendChecklistWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetCampaignsIdSendChecklistWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2966,7 +2648,7 @@ func dispatchGetCampaignsIdSendChecklistWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetConnectedSitesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetConnectedSitesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetConnectedSitesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2974,7 +2656,7 @@ func dispatchGetConnectedSitesWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.get-connected-sites: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetConnectedSitesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetConnectedSitesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2990,7 +2672,7 @@ func dispatchGetConnectedSitesWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetConnectedSitesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetConnectedSitesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3014,7 +2696,7 @@ func dispatchGetConnectedSitesIdWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.get-connected-sites-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetConnectedSitesIdWithResponse(ctx, connectedSiteId, &params)
+	resp, callErr := ic.cl.GetConnectedSitesIdWithResponse(ctx, connectedSiteId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3030,7 +2712,7 @@ func dispatchGetConnectedSitesIdWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetConversationsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetConversationsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetConversationsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3038,7 +2720,7 @@ func dispatchGetConversationsWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.get-conversations: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetConversationsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetConversationsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3054,7 +2736,7 @@ func dispatchGetConversationsWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetConversationsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetConversationsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3078,7 +2760,7 @@ func dispatchGetConversationsIdWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-conversations-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetConversationsIdWithResponse(ctx, conversationId, &params)
+	resp, callErr := ic.cl.GetConversationsIdWithResponse(ctx, conversationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3094,7 +2776,7 @@ func dispatchGetConversationsIdWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetConversationsIdMessagesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetConversationsIdMessagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3118,7 +2800,7 @@ func dispatchGetConversationsIdMessagesWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.get-conversations-id-messages: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetConversationsIdMessagesWithResponse(ctx, conversationId, &params)
+	resp, callErr := ic.cl.GetConversationsIdMessagesWithResponse(ctx, conversationId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3134,7 +2816,7 @@ func dispatchGetConversationsIdMessagesWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetConversationsIdMessagesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetConversationsIdMessagesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3167,7 +2849,7 @@ func dispatchGetConversationsIdMessagesIdWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.get-conversations-id-messages-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetConversationsIdMessagesIdWithResponse(ctx, conversationId, messageId, &params)
+	resp, callErr := ic.cl.GetConversationsIdMessagesIdWithResponse(ctx, conversationId, messageId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3183,7 +2865,7 @@ func dispatchGetConversationsIdMessagesIdWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceOrdersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceOrdersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetEcommerceOrdersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3191,7 +2873,7 @@ func dispatchGetEcommerceOrdersWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-orders: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceOrdersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetEcommerceOrdersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3207,7 +2889,7 @@ func dispatchGetEcommerceOrdersWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetEcommerceStoresParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3215,7 +2897,7 @@ func dispatchGetEcommerceStoresWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3231,7 +2913,7 @@ func dispatchGetEcommerceStoresWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3255,7 +2937,7 @@ func dispatchGetEcommerceStoresIdWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdWithResponse(ctx, storeId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdWithResponse(ctx, storeId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3271,7 +2953,7 @@ func dispatchGetEcommerceStoresIdWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdCartsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdCartsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3295,7 +2977,7 @@ func dispatchGetEcommerceStoresIdCartsWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-carts: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdCartsWithResponse(ctx, storeId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdCartsWithResponse(ctx, storeId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3311,7 +2993,7 @@ func dispatchGetEcommerceStoresIdCartsWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdCartsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3344,7 +3026,7 @@ func dispatchGetEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-carts-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3360,7 +3042,7 @@ func dispatchGetEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdCartsIdLinesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdCartsIdLinesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3393,7 +3075,7 @@ func dispatchGetEcommerceStoresIdCartsIdLinesWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-carts-id-lines: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdCartsIdLinesWithResponse(ctx, storeId, cartId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdCartsIdLinesWithResponse(ctx, storeId, cartId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3409,7 +3091,7 @@ func dispatchGetEcommerceStoresIdCartsIdLinesWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3451,7 +3133,7 @@ func dispatchGetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-carts-id-lines-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, storeId, cartId, lineId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, storeId, cartId, lineId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3467,7 +3149,7 @@ func dispatchGetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdCustomersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdCustomersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3491,7 +3173,7 @@ func dispatchGetEcommerceStoresIdCustomersWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-customers: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdCustomersWithResponse(ctx, storeId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdCustomersWithResponse(ctx, storeId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3507,7 +3189,7 @@ func dispatchGetEcommerceStoresIdCustomersWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3540,7 +3222,7 @@ func dispatchGetEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-customers-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3556,7 +3238,7 @@ func dispatchGetEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdOrdersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdOrdersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3580,7 +3262,7 @@ func dispatchGetEcommerceStoresIdOrdersWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-orders: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdOrdersWithResponse(ctx, storeId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdOrdersWithResponse(ctx, storeId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3596,7 +3278,7 @@ func dispatchGetEcommerceStoresIdOrdersWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3629,7 +3311,7 @@ func dispatchGetEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-orders-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3645,7 +3327,7 @@ func dispatchGetEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdOrdersIdLinesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdOrdersIdLinesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3678,7 +3360,7 @@ func dispatchGetEcommerceStoresIdOrdersIdLinesWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-orders-id-lines: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdOrdersIdLinesWithResponse(ctx, storeId, orderId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdOrdersIdLinesWithResponse(ctx, storeId, orderId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3694,7 +3376,7 @@ func dispatchGetEcommerceStoresIdOrdersIdLinesWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3736,7 +3418,7 @@ func dispatchGetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Context
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-orders-id-lines-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3752,7 +3434,7 @@ func dispatchGetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdProductsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdProductsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3776,7 +3458,7 @@ func dispatchGetEcommerceStoresIdProductsWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-products: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdProductsWithResponse(ctx, storeId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdProductsWithResponse(ctx, storeId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3792,7 +3474,7 @@ func dispatchGetEcommerceStoresIdProductsWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdProductsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdProductsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3825,7 +3507,7 @@ func dispatchGetEcommerceStoresIdProductsIdWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-products-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3841,7 +3523,7 @@ func dispatchGetEcommerceStoresIdProductsIdWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdProductsIdImagesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdProductsIdImagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3874,7 +3556,7 @@ func dispatchGetEcommerceStoresIdProductsIdImagesWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-products-id-images: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdProductsIdImagesWithResponse(ctx, storeId, productId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdProductsIdImagesWithResponse(ctx, storeId, productId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3890,7 +3572,7 @@ func dispatchGetEcommerceStoresIdProductsIdImagesWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3932,7 +3614,7 @@ func dispatchGetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-products-id-images-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3948,7 +3630,7 @@ func dispatchGetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdProductsIdVariantsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdProductsIdVariantsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3981,7 +3663,7 @@ func dispatchGetEcommerceStoresIdProductsIdVariantsWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-products-id-variants: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdProductsIdVariantsWithResponse(ctx, storeId, productId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdProductsIdVariantsWithResponse(ctx, storeId, productId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3997,7 +3679,7 @@ func dispatchGetEcommerceStoresIdProductsIdVariantsWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4039,7 +3721,7 @@ func dispatchGetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Co
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-products-id-variants-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4055,7 +3737,7 @@ func dispatchGetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdPromocodesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdPromocodesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4088,7 +3770,7 @@ func dispatchGetEcommerceStoresIdPromocodesWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-promocodes: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdPromocodesWithResponse(ctx, storeId, promoRuleId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdPromocodesWithResponse(ctx, storeId, promoRuleId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4104,7 +3786,7 @@ func dispatchGetEcommerceStoresIdPromocodesWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4146,7 +3828,7 @@ func dispatchGetEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-promocodes-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4162,7 +3844,7 @@ func dispatchGetEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdPromorulesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdPromorulesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4186,7 +3868,7 @@ func dispatchGetEcommerceStoresIdPromorulesWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-promorules: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdPromorulesWithResponse(ctx, storeId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdPromorulesWithResponse(ctx, storeId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4202,7 +3884,7 @@ func dispatchGetEcommerceStoresIdPromorulesWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4235,7 +3917,7 @@ func dispatchGetEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("mailchimp.get-ecommerce-stores-id-promorules-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, &params)
+	resp, callErr := ic.cl.GetEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4251,7 +3933,7 @@ func dispatchGetEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetFacebookAdsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFacebookAdsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4275,7 +3957,7 @@ func dispatchGetFacebookAdsIdWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.get-facebook-ads-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetFacebookAdsIdWithResponse(ctx, outreachId, &params)
+	resp, callErr := ic.cl.GetFacebookAdsIdWithResponse(ctx, outreachId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4291,7 +3973,7 @@ func dispatchGetFacebookAdsIdWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetFileManagerFilesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFileManagerFilesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetFileManagerFilesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4299,7 +3981,7 @@ func dispatchGetFileManagerFilesWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.get-file-manager-files: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetFileManagerFilesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetFileManagerFilesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4315,7 +3997,7 @@ func dispatchGetFileManagerFilesWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetFileManagerFilesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFileManagerFilesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4339,7 +4021,7 @@ func dispatchGetFileManagerFilesIdWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.get-file-manager-files-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetFileManagerFilesIdWithResponse(ctx, fileId, &params)
+	resp, callErr := ic.cl.GetFileManagerFilesIdWithResponse(ctx, fileId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4355,7 +4037,7 @@ func dispatchGetFileManagerFilesIdWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetFileManagerFoldersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFileManagerFoldersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetFileManagerFoldersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4363,7 +4045,7 @@ func dispatchGetFileManagerFoldersWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.get-file-manager-folders: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetFileManagerFoldersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetFileManagerFoldersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4379,7 +4061,7 @@ func dispatchGetFileManagerFoldersWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetFileManagerFoldersFilesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFileManagerFoldersFilesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4403,7 +4085,7 @@ func dispatchGetFileManagerFoldersFilesWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.get-file-manager-folders-files: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetFileManagerFoldersFilesWithResponse(ctx, folderId, &params)
+	resp, callErr := ic.cl.GetFileManagerFoldersFilesWithResponse(ctx, folderId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4419,7 +4101,7 @@ func dispatchGetFileManagerFoldersFilesWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetFileManagerFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFileManagerFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4443,7 +4125,7 @@ func dispatchGetFileManagerFoldersIdWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mailchimp.get-file-manager-folders-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetFileManagerFoldersIdWithResponse(ctx, folderId, &params)
+	resp, callErr := ic.cl.GetFileManagerFoldersIdWithResponse(ctx, folderId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4459,7 +4141,7 @@ func dispatchGetFileManagerFoldersIdWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetLandingPageIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetLandingPageIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4483,7 +4165,7 @@ func dispatchGetLandingPageIdWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.get-landing-page-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetLandingPageIdWithResponse(ctx, pageId, &params)
+	resp, callErr := ic.cl.GetLandingPageIdWithResponse(ctx, pageId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4499,7 +4181,7 @@ func dispatchGetLandingPageIdWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetLandingPageIdContentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetLandingPageIdContentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4523,7 +4205,7 @@ func dispatchGetLandingPageIdContentWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mailchimp.get-landing-page-id-content: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetLandingPageIdContentWithResponse(ctx, pageId, &params)
+	resp, callErr := ic.cl.GetLandingPageIdContentWithResponse(ctx, pageId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4539,7 +4221,7 @@ func dispatchGetLandingPageIdContentWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListMemberTagsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListMemberTagsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4572,7 +4254,7 @@ func dispatchGetListMemberTagsWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.get-list-member-tags: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListMemberTagsWithResponse(ctx, listId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetListMemberTagsWithResponse(ctx, listId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4588,7 +4270,7 @@ func dispatchGetListMemberTagsWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetListsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4596,7 +4278,7 @@ func dispatchGetListsWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("mailchimp.get-lists: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetListsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4612,7 +4294,7 @@ func dispatchGetListsWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4636,7 +4318,7 @@ func dispatchGetListsIdWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("mailchimp.get-lists-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4652,7 +4334,7 @@ func dispatchGetListsIdWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdAbuseReportsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdAbuseReportsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4676,7 +4358,7 @@ func dispatchGetListsIdAbuseReportsWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.get-lists-id-abuse-reports: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdAbuseReportsWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdAbuseReportsWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4692,7 +4374,7 @@ func dispatchGetListsIdAbuseReportsWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdAbuseReportsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdAbuseReportsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4725,7 +4407,7 @@ func dispatchGetListsIdAbuseReportsIdWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-lists-id-abuse-reports-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdAbuseReportsIdWithResponse(ctx, listId, reportId, &params)
+	resp, callErr := ic.cl.GetListsIdAbuseReportsIdWithResponse(ctx, listId, reportId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4741,7 +4423,7 @@ func dispatchGetListsIdAbuseReportsIdWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdActivityWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdActivityWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4765,7 +4447,7 @@ func dispatchGetListsIdActivityWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-lists-id-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdActivityWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdActivityWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4781,7 +4463,7 @@ func dispatchGetListsIdActivityWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdClientsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdClientsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4805,7 +4487,7 @@ func dispatchGetListsIdClientsWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.get-lists-id-clients: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdClientsWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdClientsWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4821,7 +4503,7 @@ func dispatchGetListsIdClientsWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdGrowthHistoryWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdGrowthHistoryWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4845,7 +4527,7 @@ func dispatchGetListsIdGrowthHistoryWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mailchimp.get-lists-id-growth-history: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdGrowthHistoryWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdGrowthHistoryWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4861,7 +4543,7 @@ func dispatchGetListsIdGrowthHistoryWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdGrowthHistoryIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdGrowthHistoryIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4894,7 +4576,7 @@ func dispatchGetListsIdGrowthHistoryIdWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("mailchimp.get-lists-id-growth-history-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdGrowthHistoryIdWithResponse(ctx, listId, month, &params)
+	resp, callErr := ic.cl.GetListsIdGrowthHistoryIdWithResponse(ctx, listId, month, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4910,7 +4592,7 @@ func dispatchGetListsIdGrowthHistoryIdWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdInterestCategoriesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdInterestCategoriesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4934,7 +4616,7 @@ func dispatchGetListsIdInterestCategoriesWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.get-lists-id-interest-categories: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdInterestCategoriesWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdInterestCategoriesWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4950,7 +4632,7 @@ func dispatchGetListsIdInterestCategoriesWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdInterestCategoriesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdInterestCategoriesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4983,7 +4665,7 @@ func dispatchGetListsIdInterestCategoriesIdWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.get-lists-id-interest-categories-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, &params)
+	resp, callErr := ic.cl.GetListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4999,7 +4681,7 @@ func dispatchGetListsIdInterestCategoriesIdWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdInterestCategoriesIdInterestsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdInterestCategoriesIdInterestsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5032,7 +4714,7 @@ func dispatchGetListsIdInterestCategoriesIdInterestsWithResponse(ctx context.Con
 		return nil, fmt.Errorf("mailchimp.get-lists-id-interest-categories-id-interests: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdInterestCategoriesIdInterestsWithResponse(ctx, listId, interestCategoryId, &params)
+	resp, callErr := ic.cl.GetListsIdInterestCategoriesIdInterestsWithResponse(ctx, listId, interestCategoryId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5048,7 +4730,7 @@ func dispatchGetListsIdInterestCategoriesIdInterestsWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5090,7 +4772,7 @@ func dispatchGetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context.C
 		return nil, fmt.Errorf("mailchimp.get-lists-id-interest-categories-id-interests-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, &params)
+	resp, callErr := ic.cl.GetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5106,7 +4788,7 @@ func dispatchGetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdLocationsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdLocationsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5130,7 +4812,7 @@ func dispatchGetListsIdLocationsWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.get-lists-id-locations: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdLocationsWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdLocationsWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5146,7 +4828,7 @@ func dispatchGetListsIdLocationsWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMembersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMembersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5170,7 +4852,7 @@ func dispatchGetListsIdMembersWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.get-lists-id-members: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMembersWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdMembersWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5186,7 +4868,7 @@ func dispatchGetListsIdMembersWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMembersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMembersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5219,7 +4901,7 @@ func dispatchGetListsIdMembersIdWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.get-lists-id-members-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMembersIdWithResponse(ctx, listId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetListsIdMembersIdWithResponse(ctx, listId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5235,7 +4917,7 @@ func dispatchGetListsIdMembersIdWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMembersIdActivityWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMembersIdActivityWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5268,7 +4950,7 @@ func dispatchGetListsIdMembersIdActivityWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("mailchimp.get-lists-id-members-id-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMembersIdActivityWithResponse(ctx, listId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetListsIdMembersIdActivityWithResponse(ctx, listId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5284,7 +4966,7 @@ func dispatchGetListsIdMembersIdActivityWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMembersIdActivityFeedWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMembersIdActivityFeedWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5317,7 +4999,7 @@ func dispatchGetListsIdMembersIdActivityFeedWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("mailchimp.get-lists-id-members-id-activity-feed: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMembersIdActivityFeedWithResponse(ctx, listId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetListsIdMembersIdActivityFeedWithResponse(ctx, listId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5333,7 +5015,7 @@ func dispatchGetListsIdMembersIdActivityFeedWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMembersIdEventsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMembersIdEventsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5366,7 +5048,7 @@ func dispatchGetListsIdMembersIdEventsWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("mailchimp.get-lists-id-members-id-events: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMembersIdEventsWithResponse(ctx, listId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetListsIdMembersIdEventsWithResponse(ctx, listId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5382,7 +5064,7 @@ func dispatchGetListsIdMembersIdEventsWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMembersIdGoalsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMembersIdGoalsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5415,7 +5097,7 @@ func dispatchGetListsIdMembersIdGoalsWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-lists-id-members-id-goals: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMembersIdGoalsWithResponse(ctx, listId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetListsIdMembersIdGoalsWithResponse(ctx, listId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5431,7 +5113,7 @@ func dispatchGetListsIdMembersIdGoalsWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMembersIdNotesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMembersIdNotesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5464,7 +5146,7 @@ func dispatchGetListsIdMembersIdNotesWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-lists-id-members-id-notes: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMembersIdNotesWithResponse(ctx, listId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetListsIdMembersIdNotesWithResponse(ctx, listId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5480,7 +5162,7 @@ func dispatchGetListsIdMembersIdNotesWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMembersIdNotesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5522,7 +5204,7 @@ func dispatchGetListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.get-lists-id-members-id-notes-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, &params)
+	resp, callErr := ic.cl.GetListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5538,7 +5220,7 @@ func dispatchGetListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMergeFieldsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMergeFieldsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5562,7 +5244,7 @@ func dispatchGetListsIdMergeFieldsWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.get-lists-id-merge-fields: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMergeFieldsWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.GetListsIdMergeFieldsWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5578,7 +5260,7 @@ func dispatchGetListsIdMergeFieldsWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdMergeFieldsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5611,7 +5293,7 @@ func dispatchGetListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mailchimp.get-lists-id-merge-fields-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, &params)
+	resp, callErr := ic.cl.GetListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5627,7 +5309,7 @@ func dispatchGetListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdSegmentsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5660,7 +5342,7 @@ func dispatchGetListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.get-lists-id-segments-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdSegmentsIdWithResponse(ctx, listId, segmentId, &params)
+	resp, callErr := ic.cl.GetListsIdSegmentsIdWithResponse(ctx, listId, segmentId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5676,7 +5358,7 @@ func dispatchGetListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdSegmentsIdMembersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdSegmentsIdMembersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5709,7 +5391,7 @@ func dispatchGetListsIdSegmentsIdMembersWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("mailchimp.get-lists-id-segments-id-members: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetListsIdSegmentsIdMembersWithResponse(ctx, listId, segmentId, &params)
+	resp, callErr := ic.cl.GetListsIdSegmentsIdMembersWithResponse(ctx, listId, segmentId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5725,7 +5407,7 @@ func dispatchGetListsIdSegmentsIdMembersWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdSignupFormsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdSignupFormsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5742,7 +5424,7 @@ func dispatchGetListsIdSignupFormsWithResponse(ctx context.Context, cl *client.C
 		}
 	}
 
-	resp, callErr := cl.GetListsIdSignupFormsWithResponse(ctx, listId)
+	resp, callErr := ic.cl.GetListsIdSignupFormsWithResponse(ctx, listId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5758,7 +5440,7 @@ func dispatchGetListsIdSignupFormsWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdSurveysWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdSurveysWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5775,7 +5457,7 @@ func dispatchGetListsIdSurveysWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.GetListsIdSurveysWithResponse(ctx, listId)
+	resp, callErr := ic.cl.GetListsIdSurveysWithResponse(ctx, listId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5791,7 +5473,7 @@ func dispatchGetListsIdSurveysWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdSurveysIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdSurveysIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5817,7 +5499,7 @@ func dispatchGetListsIdSurveysIdWithResponse(ctx context.Context, cl *client.Cli
 		}
 	}
 
-	resp, callErr := cl.GetListsIdSurveysIdWithResponse(ctx, listId, surveyId)
+	resp, callErr := ic.cl.GetListsIdSurveysIdWithResponse(ctx, listId, surveyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5833,7 +5515,7 @@ func dispatchGetListsIdSurveysIdWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdWebhooksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdWebhooksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5850,7 +5532,7 @@ func dispatchGetListsIdWebhooksWithResponse(ctx context.Context, cl *client.Clie
 		}
 	}
 
-	resp, callErr := cl.GetListsIdWebhooksWithResponse(ctx, listId)
+	resp, callErr := ic.cl.GetListsIdWebhooksWithResponse(ctx, listId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5866,7 +5548,7 @@ func dispatchGetListsIdWebhooksWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetListsIdWebhooksIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetListsIdWebhooksIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5892,7 +5574,7 @@ func dispatchGetListsIdWebhooksIdWithResponse(ctx context.Context, cl *client.Cl
 		}
 	}
 
-	resp, callErr := cl.GetListsIdWebhooksIdWithResponse(ctx, listId, webhookId)
+	resp, callErr := ic.cl.GetListsIdWebhooksIdWithResponse(ctx, listId, webhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5908,8 +5590,8 @@ func dispatchGetListsIdWebhooksIdWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetPingWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetPingWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetPingWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetPingWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5925,7 +5607,7 @@ func dispatchGetPingWithResponse(ctx context.Context, cl *client.ClientWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingFacebookAdsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingFacebookAdsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetReportingFacebookAdsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -5933,7 +5615,7 @@ func dispatchGetReportingFacebookAdsWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mailchimp.get-reporting-facebook-ads: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingFacebookAdsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetReportingFacebookAdsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5949,7 +5631,7 @@ func dispatchGetReportingFacebookAdsWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingFacebookAdsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingFacebookAdsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5973,7 +5655,7 @@ func dispatchGetReportingFacebookAdsIdWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("mailchimp.get-reporting-facebook-ads-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingFacebookAdsIdWithResponse(ctx, outreachId, &params)
+	resp, callErr := ic.cl.GetReportingFacebookAdsIdWithResponse(ctx, outreachId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5989,7 +5671,7 @@ func dispatchGetReportingFacebookAdsIdWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6013,7 +5695,7 @@ func dispatchGetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx c
 		return nil, fmt.Errorf("mailchimp.get-reporting-facebook-ads-id-ecommerce-product-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx, outreachId, &params)
+	resp, callErr := ic.cl.GetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx, outreachId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6029,7 +5711,7 @@ func dispatchGetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingLandingPagesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingLandingPagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetReportingLandingPagesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -6037,7 +5719,7 @@ func dispatchGetReportingLandingPagesWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-reporting-landing-pages: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingLandingPagesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetReportingLandingPagesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6053,7 +5735,7 @@ func dispatchGetReportingLandingPagesWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingLandingPagesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingLandingPagesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6077,7 +5759,7 @@ func dispatchGetReportingLandingPagesIdWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.get-reporting-landing-pages-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingLandingPagesIdWithResponse(ctx, outreachId, &params)
+	resp, callErr := ic.cl.GetReportingLandingPagesIdWithResponse(ctx, outreachId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6093,7 +5775,7 @@ func dispatchGetReportingLandingPagesIdWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingSurveysWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingSurveysWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetReportingSurveysParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -6101,7 +5783,7 @@ func dispatchGetReportingSurveysWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.get-reporting-surveys: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingSurveysWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetReportingSurveysWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6117,7 +5799,7 @@ func dispatchGetReportingSurveysWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingSurveysIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingSurveysIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6141,7 +5823,7 @@ func dispatchGetReportingSurveysIdWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.get-reporting-surveys-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingSurveysIdWithResponse(ctx, surveyId, &params)
+	resp, callErr := ic.cl.GetReportingSurveysIdWithResponse(ctx, surveyId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6157,7 +5839,7 @@ func dispatchGetReportingSurveysIdWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingSurveysIdQuestionsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingSurveysIdQuestionsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6181,7 +5863,7 @@ func dispatchGetReportingSurveysIdQuestionsWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.get-reporting-surveys-id-questions: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingSurveysIdQuestionsWithResponse(ctx, surveyId, &params)
+	resp, callErr := ic.cl.GetReportingSurveysIdQuestionsWithResponse(ctx, surveyId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6197,7 +5879,7 @@ func dispatchGetReportingSurveysIdQuestionsWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingSurveysIdQuestionsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingSurveysIdQuestionsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6230,7 +5912,7 @@ func dispatchGetReportingSurveysIdQuestionsIdWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("mailchimp.get-reporting-surveys-id-questions-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingSurveysIdQuestionsIdWithResponse(ctx, surveyId, questionId, &params)
+	resp, callErr := ic.cl.GetReportingSurveysIdQuestionsIdWithResponse(ctx, surveyId, questionId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6246,7 +5928,7 @@ func dispatchGetReportingSurveysIdQuestionsIdWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6279,7 +5961,7 @@ func dispatchGetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx context.Con
 		return nil, fmt.Errorf("mailchimp.get-reporting-surveys-id-questions-id-answers: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx, surveyId, questionId, &params)
+	resp, callErr := ic.cl.GetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx, surveyId, questionId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6295,7 +5977,7 @@ func dispatchGetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingSurveysIdResponsesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingSurveysIdResponsesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6319,7 +6001,7 @@ func dispatchGetReportingSurveysIdResponsesWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.get-reporting-surveys-id-responses: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportingSurveysIdResponsesWithResponse(ctx, surveyId, &params)
+	resp, callErr := ic.cl.GetReportingSurveysIdResponsesWithResponse(ctx, surveyId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6335,7 +6017,7 @@ func dispatchGetReportingSurveysIdResponsesWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportingSurveysIdResponsesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingSurveysIdResponsesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6361,7 +6043,7 @@ func dispatchGetReportingSurveysIdResponsesIdWithResponse(ctx context.Context, c
 		}
 	}
 
-	resp, callErr := cl.GetReportingSurveysIdResponsesIdWithResponse(ctx, surveyId, responseId)
+	resp, callErr := ic.cl.GetReportingSurveysIdResponsesIdWithResponse(ctx, surveyId, responseId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6377,7 +6059,7 @@ func dispatchGetReportingSurveysIdResponsesIdWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetReportsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -6385,7 +6067,7 @@ func dispatchGetReportsWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("mailchimp.get-reports: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetReportsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6401,7 +6083,7 @@ func dispatchGetReportsWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6425,7 +6107,7 @@ func dispatchGetReportsIdWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("mailchimp.get-reports-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6441,7 +6123,7 @@ func dispatchGetReportsIdWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdAbuseReportsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdAbuseReportsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6465,7 +6147,7 @@ func dispatchGetReportsIdAbuseReportsIdWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.get-reports-id-abuse-reports-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdAbuseReportsIdWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdAbuseReportsIdWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6481,7 +6163,7 @@ func dispatchGetReportsIdAbuseReportsIdWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdAbuseReportsIdIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdAbuseReportsIdIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6514,7 +6196,7 @@ func dispatchGetReportsIdAbuseReportsIdIdWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.get-reports-id-abuse-reports-id-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdAbuseReportsIdIdWithResponse(ctx, campaignId, reportId, &params)
+	resp, callErr := ic.cl.GetReportsIdAbuseReportsIdIdWithResponse(ctx, campaignId, reportId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6530,7 +6212,7 @@ func dispatchGetReportsIdAbuseReportsIdIdWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdAdviceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdAdviceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6554,7 +6236,7 @@ func dispatchGetReportsIdAdviceWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-reports-id-advice: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdAdviceWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdAdviceWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6570,7 +6252,7 @@ func dispatchGetReportsIdAdviceWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdClickDetailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdClickDetailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6594,7 +6276,7 @@ func dispatchGetReportsIdClickDetailsWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-reports-id-click-details: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdClickDetailsWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdClickDetailsWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6610,7 +6292,7 @@ func dispatchGetReportsIdClickDetailsWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdClickDetailsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdClickDetailsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6643,7 +6325,7 @@ func dispatchGetReportsIdClickDetailsIdWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.get-reports-id-click-details-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdClickDetailsIdWithResponse(ctx, campaignId, linkId, &params)
+	resp, callErr := ic.cl.GetReportsIdClickDetailsIdWithResponse(ctx, campaignId, linkId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6659,7 +6341,7 @@ func dispatchGetReportsIdClickDetailsIdWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdClickDetailsIdMembersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdClickDetailsIdMembersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6692,7 +6374,7 @@ func dispatchGetReportsIdClickDetailsIdMembersWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("mailchimp.get-reports-id-click-details-id-members: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdClickDetailsIdMembersWithResponse(ctx, campaignId, linkId, &params)
+	resp, callErr := ic.cl.GetReportsIdClickDetailsIdMembersWithResponse(ctx, campaignId, linkId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6708,7 +6390,7 @@ func dispatchGetReportsIdClickDetailsIdMembersWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdClickDetailsIdMembersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdClickDetailsIdMembersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6750,7 +6432,7 @@ func dispatchGetReportsIdClickDetailsIdMembersIdWithResponse(ctx context.Context
 		return nil, fmt.Errorf("mailchimp.get-reports-id-click-details-id-members-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdClickDetailsIdMembersIdWithResponse(ctx, campaignId, linkId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetReportsIdClickDetailsIdMembersIdWithResponse(ctx, campaignId, linkId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6766,7 +6448,7 @@ func dispatchGetReportsIdClickDetailsIdMembersIdWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdDomainPerformanceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdDomainPerformanceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6790,7 +6472,7 @@ func dispatchGetReportsIdDomainPerformanceWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("mailchimp.get-reports-id-domain-performance: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdDomainPerformanceWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdDomainPerformanceWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6806,7 +6488,7 @@ func dispatchGetReportsIdDomainPerformanceWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdEcommerceProductActivityWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdEcommerceProductActivityWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6830,7 +6512,7 @@ func dispatchGetReportsIdEcommerceProductActivityWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("mailchimp.get-reports-id-ecommerce-product-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdEcommerceProductActivityWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdEcommerceProductActivityWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6846,7 +6528,7 @@ func dispatchGetReportsIdEcommerceProductActivityWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdEepurlWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdEepurlWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6870,7 +6552,7 @@ func dispatchGetReportsIdEepurlWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-reports-id-eepurl: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdEepurlWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdEepurlWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6886,7 +6568,7 @@ func dispatchGetReportsIdEepurlWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdEmailActivityWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdEmailActivityWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6910,7 +6592,7 @@ func dispatchGetReportsIdEmailActivityWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("mailchimp.get-reports-id-email-activity: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdEmailActivityWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdEmailActivityWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6926,7 +6608,7 @@ func dispatchGetReportsIdEmailActivityWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdEmailActivityIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdEmailActivityIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6959,7 +6641,7 @@ func dispatchGetReportsIdEmailActivityIdWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("mailchimp.get-reports-id-email-activity-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdEmailActivityIdWithResponse(ctx, campaignId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetReportsIdEmailActivityIdWithResponse(ctx, campaignId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -6975,7 +6657,7 @@ func dispatchGetReportsIdEmailActivityIdWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdLocationsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdLocationsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6999,7 +6681,7 @@ func dispatchGetReportsIdLocationsWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.get-reports-id-locations: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdLocationsWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdLocationsWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7015,7 +6697,7 @@ func dispatchGetReportsIdLocationsWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdOpenDetailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdOpenDetailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7039,7 +6721,7 @@ func dispatchGetReportsIdOpenDetailsWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mailchimp.get-reports-id-open-details: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdOpenDetailsWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdOpenDetailsWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7055,7 +6737,7 @@ func dispatchGetReportsIdOpenDetailsWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdOpenDetailsIdMembersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdOpenDetailsIdMembersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7088,7 +6770,7 @@ func dispatchGetReportsIdOpenDetailsIdMembersIdWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("mailchimp.get-reports-id-open-details-id-members-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdOpenDetailsIdMembersIdWithResponse(ctx, campaignId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetReportsIdOpenDetailsIdMembersIdWithResponse(ctx, campaignId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7104,7 +6786,7 @@ func dispatchGetReportsIdOpenDetailsIdMembersIdWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdSentToWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdSentToWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7128,7 +6810,7 @@ func dispatchGetReportsIdSentToWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-reports-id-sent-to: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdSentToWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdSentToWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7144,7 +6826,7 @@ func dispatchGetReportsIdSentToWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdSentToIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdSentToIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7177,7 +6859,7 @@ func dispatchGetReportsIdSentToIdWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.get-reports-id-sent-to-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdSentToIdWithResponse(ctx, campaignId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetReportsIdSentToIdWithResponse(ctx, campaignId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7193,7 +6875,7 @@ func dispatchGetReportsIdSentToIdWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdSubReportsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdSubReportsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7217,7 +6899,7 @@ func dispatchGetReportsIdSubReportsIdWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-reports-id-sub-reports-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdSubReportsIdWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdSubReportsIdWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7233,7 +6915,7 @@ func dispatchGetReportsIdSubReportsIdWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdUnsubscribedWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdUnsubscribedWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7257,7 +6939,7 @@ func dispatchGetReportsIdUnsubscribedWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-reports-id-unsubscribed: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdUnsubscribedWithResponse(ctx, campaignId, &params)
+	resp, callErr := ic.cl.GetReportsIdUnsubscribedWithResponse(ctx, campaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7273,7 +6955,7 @@ func dispatchGetReportsIdUnsubscribedWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetReportsIdUnsubscribedIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportsIdUnsubscribedIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7306,7 +6988,7 @@ func dispatchGetReportsIdUnsubscribedIdWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.get-reports-id-unsubscribed-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetReportsIdUnsubscribedIdWithResponse(ctx, campaignId, subscriberHash, &params)
+	resp, callErr := ic.cl.GetReportsIdUnsubscribedIdWithResponse(ctx, campaignId, subscriberHash, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7322,7 +7004,7 @@ func dispatchGetReportsIdUnsubscribedIdWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetRootWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRootWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetRootParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -7330,7 +7012,7 @@ func dispatchGetRootWithResponse(ctx context.Context, cl *client.ClientWithRespo
 		return nil, fmt.Errorf("mailchimp.get-root: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetRootWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetRootWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7346,7 +7028,7 @@ func dispatchGetRootWithResponse(ctx context.Context, cl *client.ClientWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSearchCampaignsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSearchCampaignsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetSearchCampaignsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -7354,7 +7036,7 @@ func dispatchGetSearchCampaignsWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-search-campaigns: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetSearchCampaignsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetSearchCampaignsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7370,7 +7052,7 @@ func dispatchGetSearchCampaignsWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSearchMembersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSearchMembersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetSearchMembersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -7378,7 +7060,7 @@ func dispatchGetSearchMembersWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.get-search-members: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetSearchMembersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetSearchMembersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7394,7 +7076,7 @@ func dispatchGetSearchMembersWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSmsCampaignsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSmsCampaignsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetSmsCampaignsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -7402,7 +7084,7 @@ func dispatchGetSmsCampaignsWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("mailchimp.get-sms-campaigns: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetSmsCampaignsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetSmsCampaignsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7418,7 +7100,7 @@ func dispatchGetSmsCampaignsWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSmsCampaignsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSmsCampaignsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7442,7 +7124,7 @@ func dispatchGetSmsCampaignsIdWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.get-sms-campaigns-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetSmsCampaignsIdWithResponse(ctx, smsCampaignId, &params)
+	resp, callErr := ic.cl.GetSmsCampaignsIdWithResponse(ctx, smsCampaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7458,7 +7140,7 @@ func dispatchGetSmsCampaignsIdWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetSmsCampaignsIdContentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSmsCampaignsIdContentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7482,7 +7164,7 @@ func dispatchGetSmsCampaignsIdContentWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.get-sms-campaigns-id-content: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetSmsCampaignsIdContentWithResponse(ctx, smsCampaignId, &params)
+	resp, callErr := ic.cl.GetSmsCampaignsIdContentWithResponse(ctx, smsCampaignId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7498,7 +7180,7 @@ func dispatchGetSmsCampaignsIdContentWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetTemplateFoldersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTemplateFoldersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetTemplateFoldersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -7506,7 +7188,7 @@ func dispatchGetTemplateFoldersWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.get-template-folders: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetTemplateFoldersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetTemplateFoldersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7522,7 +7204,7 @@ func dispatchGetTemplateFoldersWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetTemplateFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTemplateFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7546,7 +7228,7 @@ func dispatchGetTemplateFoldersIdWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.get-template-folders-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetTemplateFoldersIdWithResponse(ctx, folderId, &params)
+	resp, callErr := ic.cl.GetTemplateFoldersIdWithResponse(ctx, folderId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7562,7 +7244,7 @@ func dispatchGetTemplateFoldersIdWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetTemplatesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTemplatesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.GetTemplatesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -7570,7 +7252,7 @@ func dispatchGetTemplatesWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("mailchimp.get-templates: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetTemplatesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.GetTemplatesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7586,7 +7268,7 @@ func dispatchGetTemplatesWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetTemplatesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTemplatesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7610,7 +7292,7 @@ func dispatchGetTemplatesIdWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("mailchimp.get-templates-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetTemplatesIdWithResponse(ctx, templateId, &params)
+	resp, callErr := ic.cl.GetTemplatesIdWithResponse(ctx, templateId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7626,7 +7308,7 @@ func dispatchGetTemplatesIdWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetTemplatesIdDefaultContentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTemplatesIdDefaultContentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7650,7 +7332,7 @@ func dispatchGetTemplatesIdDefaultContentWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.get-templates-id-default-content: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.GetTemplatesIdDefaultContentWithResponse(ctx, templateId, &params)
+	resp, callErr := ic.cl.GetTemplatesIdDefaultContentWithResponse(ctx, templateId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7666,7 +7348,7 @@ func dispatchGetTemplatesIdDefaultContentWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetVerifiedDomainWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetVerifiedDomainWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7683,7 +7365,7 @@ func dispatchGetVerifiedDomainWithResponse(ctx context.Context, cl *client.Clien
 		}
 	}
 
-	resp, callErr := cl.GetVerifiedDomainWithResponse(ctx, domainName)
+	resp, callErr := ic.cl.GetVerifiedDomainWithResponse(ctx, domainName)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7699,8 +7381,8 @@ func dispatchGetVerifiedDomainWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchGetVerifiedDomainsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	resp, callErr := cl.GetVerifiedDomainsWithResponse(ctx)
+func (ic *InterfaceClient) dispatchGetVerifiedDomainsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+	resp, callErr := ic.cl.GetVerifiedDomainsWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7716,7 +7398,7 @@ func dispatchGetVerifiedDomainsWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchAudienceContactWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchAudienceContactWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7756,7 +7438,7 @@ func dispatchPatchAudienceContactWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.patch-audience-contact: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PatchAudienceContactWithResponse(ctx, audienceId, contactId, &params, body)
+	resp, callErr := ic.cl.PatchAudienceContactWithResponse(ctx, audienceId, contactId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7772,7 +7454,7 @@ func dispatchPatchAudienceContactWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchAutomationEmailWorkflowIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchAutomationEmailWorkflowIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7805,7 +7487,7 @@ func dispatchPatchAutomationEmailWorkflowIdWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.patch-automation-email-workflow-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchAutomationEmailWorkflowIdWithResponse(ctx, workflowId, workflowEmailId, body)
+	resp, callErr := ic.cl.PatchAutomationEmailWorkflowIdWithResponse(ctx, workflowId, workflowEmailId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7821,7 +7503,7 @@ func dispatchPatchAutomationEmailWorkflowIdWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchBatchWebhooksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchBatchWebhooksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7845,7 +7527,7 @@ func dispatchPatchBatchWebhooksWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.patch-batch-webhooks: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchBatchWebhooksWithResponse(ctx, batchWebhookId, body)
+	resp, callErr := ic.cl.PatchBatchWebhooksWithResponse(ctx, batchWebhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7861,7 +7543,7 @@ func dispatchPatchBatchWebhooksWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchCampaignFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchCampaignFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7885,7 +7567,7 @@ func dispatchPatchCampaignFoldersIdWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.patch-campaign-folders-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchCampaignFoldersIdWithResponse(ctx, folderId, body)
+	resp, callErr := ic.cl.PatchCampaignFoldersIdWithResponse(ctx, folderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7901,7 +7583,7 @@ func dispatchPatchCampaignFoldersIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchCampaignsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchCampaignsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7925,7 +7607,7 @@ func dispatchPatchCampaignsIdWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.patch-campaigns-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchCampaignsIdWithResponse(ctx, campaignId, body)
+	resp, callErr := ic.cl.PatchCampaignsIdWithResponse(ctx, campaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7941,7 +7623,7 @@ func dispatchPatchCampaignsIdWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchCampaignsIdFeedbackIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7974,7 +7656,7 @@ func dispatchPatchCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.patch-campaigns-id-feedback-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, body)
+	resp, callErr := ic.cl.PatchCampaignsIdFeedbackIdWithResponse(ctx, campaignId, feedbackId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -7990,7 +7672,7 @@ func dispatchPatchCampaignsIdFeedbackIdWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8014,7 +7696,7 @@ func dispatchPatchEcommerceStoresIdWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdWithResponse(ctx, storeId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdWithResponse(ctx, storeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8030,7 +7712,7 @@ func dispatchPatchEcommerceStoresIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdCartsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8063,7 +7745,7 @@ func dispatchPatchEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-carts-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdCartsIdWithResponse(ctx, storeId, cartId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8079,7 +7761,7 @@ func dispatchPatchEcommerceStoresIdCartsIdWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8121,7 +7803,7 @@ func dispatchPatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-carts-id-lines-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, storeId, cartId, lineId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, storeId, cartId, lineId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8137,7 +7819,7 @@ func dispatchPatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8170,7 +7852,7 @@ func dispatchPatchEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-customers-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8186,7 +7868,7 @@ func dispatchPatchEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8219,7 +7901,7 @@ func dispatchPatchEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-orders-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8235,7 +7917,7 @@ func dispatchPatchEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8277,7 +7959,7 @@ func dispatchPatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-orders-id-lines-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, storeId, orderId, lineId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8293,7 +7975,7 @@ func dispatchPatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdProductsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdProductsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8326,7 +8008,7 @@ func dispatchPatchEcommerceStoresIdProductsIdWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-products-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8342,7 +8024,7 @@ func dispatchPatchEcommerceStoresIdProductsIdWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8384,7 +8066,7 @@ func dispatchPatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Co
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-products-id-images-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, storeId, productId, imageId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8400,7 +8082,7 @@ func dispatchPatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8442,7 +8124,7 @@ func dispatchPatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-products-id-variants-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8458,7 +8140,7 @@ func dispatchPatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8500,7 +8182,7 @@ func dispatchPatchEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-promocodes-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdPromocodesIdWithResponse(ctx, storeId, promoRuleId, promoCodeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8516,7 +8198,7 @@ func dispatchPatchEcommerceStoresIdPromocodesIdWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8549,7 +8231,7 @@ func dispatchPatchEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("mailchimp.patch-ecommerce-stores-id-promorules-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, body)
+	resp, callErr := ic.cl.PatchEcommerceStoresIdPromorulesIdWithResponse(ctx, storeId, promoRuleId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8565,7 +8247,7 @@ func dispatchPatchEcommerceStoresIdPromorulesIdWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchFileManagerFilesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchFileManagerFilesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8589,7 +8271,7 @@ func dispatchPatchFileManagerFilesIdWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mailchimp.patch-file-manager-files-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchFileManagerFilesIdWithResponse(ctx, fileId, body)
+	resp, callErr := ic.cl.PatchFileManagerFilesIdWithResponse(ctx, fileId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8605,7 +8287,7 @@ func dispatchPatchFileManagerFilesIdWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchFileManagerFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchFileManagerFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8629,7 +8311,7 @@ func dispatchPatchFileManagerFoldersIdWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("mailchimp.patch-file-manager-folders-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchFileManagerFoldersIdWithResponse(ctx, folderId, body)
+	resp, callErr := ic.cl.PatchFileManagerFoldersIdWithResponse(ctx, folderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8645,7 +8327,7 @@ func dispatchPatchFileManagerFoldersIdWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchLandingPageIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchLandingPageIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8669,7 +8351,7 @@ func dispatchPatchLandingPageIdWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.patch-landing-page-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchLandingPageIdWithResponse(ctx, pageId, body)
+	resp, callErr := ic.cl.PatchLandingPageIdWithResponse(ctx, pageId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8685,7 +8367,7 @@ func dispatchPatchLandingPageIdWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8709,7 +8391,7 @@ func dispatchPatchListsIdWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("mailchimp.patch-lists-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchListsIdWithResponse(ctx, listId, body)
+	resp, callErr := ic.cl.PatchListsIdWithResponse(ctx, listId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8725,7 +8407,7 @@ func dispatchPatchListsIdWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdInterestCategoriesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdInterestCategoriesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8758,7 +8440,7 @@ func dispatchPatchListsIdInterestCategoriesIdWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("mailchimp.patch-lists-id-interest-categories-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, body)
+	resp, callErr := ic.cl.PatchListsIdInterestCategoriesIdWithResponse(ctx, listId, interestCategoryId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8774,7 +8456,7 @@ func dispatchPatchListsIdInterestCategoriesIdWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8816,7 +8498,7 @@ func dispatchPatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context
 		return nil, fmt.Errorf("mailchimp.patch-lists-id-interest-categories-id-interests-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, body)
+	resp, callErr := ic.cl.PatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, listId, interestCategoryId, interestId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8832,7 +8514,7 @@ func dispatchPatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdMembersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdMembersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8872,7 +8554,7 @@ func dispatchPatchListsIdMembersIdWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.patch-lists-id-members-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PatchListsIdMembersIdWithResponse(ctx, listId, subscriberHash, &params, body)
+	resp, callErr := ic.cl.PatchListsIdMembersIdWithResponse(ctx, listId, subscriberHash, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8888,7 +8570,7 @@ func dispatchPatchListsIdMembersIdWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdMembersIdNotesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8930,7 +8612,7 @@ func dispatchPatchListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.patch-lists-id-members-id-notes-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, body)
+	resp, callErr := ic.cl.PatchListsIdMembersIdNotesIdWithResponse(ctx, listId, subscriberHash, noteId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8946,7 +8628,7 @@ func dispatchPatchListsIdMembersIdNotesIdWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdMergeFieldsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8979,7 +8661,7 @@ func dispatchPatchListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("mailchimp.patch-lists-id-merge-fields-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, body)
+	resp, callErr := ic.cl.PatchListsIdMergeFieldsIdWithResponse(ctx, listId, mergeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -8995,7 +8677,7 @@ func dispatchPatchListsIdMergeFieldsIdWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdSegmentsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9028,7 +8710,7 @@ func dispatchPatchListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.patch-lists-id-segments-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchListsIdSegmentsIdWithResponse(ctx, listId, segmentId, body)
+	resp, callErr := ic.cl.PatchListsIdSegmentsIdWithResponse(ctx, listId, segmentId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9044,7 +8726,7 @@ func dispatchPatchListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdSurveysIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdSurveysIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9077,7 +8759,7 @@ func dispatchPatchListsIdSurveysIdWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.patch-lists-id-surveys-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchListsIdSurveysIdWithResponse(ctx, listId, surveyId, body)
+	resp, callErr := ic.cl.PatchListsIdSurveysIdWithResponse(ctx, listId, surveyId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9093,7 +8775,7 @@ func dispatchPatchListsIdSurveysIdWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchListsIdWebhooksIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchListsIdWebhooksIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9126,7 +8808,7 @@ func dispatchPatchListsIdWebhooksIdWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.patch-lists-id-webhooks-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchListsIdWebhooksIdWithResponse(ctx, listId, webhookId, body)
+	resp, callErr := ic.cl.PatchListsIdWebhooksIdWithResponse(ctx, listId, webhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9142,7 +8824,7 @@ func dispatchPatchListsIdWebhooksIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchSmsCampaignsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchSmsCampaignsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9166,7 +8848,7 @@ func dispatchPatchSmsCampaignsIdWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.patch-sms-campaigns-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchSmsCampaignsIdWithResponse(ctx, smsCampaignId, body)
+	resp, callErr := ic.cl.PatchSmsCampaignsIdWithResponse(ctx, smsCampaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9182,7 +8864,7 @@ func dispatchPatchSmsCampaignsIdWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchTemplateFoldersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchTemplateFoldersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9206,7 +8888,7 @@ func dispatchPatchTemplateFoldersIdWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.patch-template-folders-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchTemplateFoldersIdWithResponse(ctx, folderId, body)
+	resp, callErr := ic.cl.PatchTemplateFoldersIdWithResponse(ctx, folderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9222,7 +8904,7 @@ func dispatchPatchTemplateFoldersIdWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPatchTemplatesIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchTemplatesIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9246,7 +8928,7 @@ func dispatchPatchTemplatesIdWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.patch-templates-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PatchTemplatesIdWithResponse(ctx, templateId, body)
+	resp, callErr := ic.cl.PatchTemplatesIdWithResponse(ctx, templateId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9262,7 +8944,7 @@ func dispatchPatchTemplatesIdWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAccountExportWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountExportWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAccountExportJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9270,7 +8952,7 @@ func dispatchPostAccountExportWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.post-account-export: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostAccountExportWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostAccountExportWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9286,7 +8968,7 @@ func dispatchPostAccountExportWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAllLandingPagesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAllLandingPagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAllLandingPagesJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9301,7 +8983,7 @@ func dispatchPostAllLandingPagesWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.post-all-landing-pages: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PostAllLandingPagesWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.PostAllLandingPagesWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9317,7 +8999,7 @@ func dispatchPostAllLandingPagesWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAudiencesContactsActionsArchiveWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAudiencesContactsActionsArchiveWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9343,7 +9025,7 @@ func dispatchPostAudiencesContactsActionsArchiveWithResponse(ctx context.Context
 		}
 	}
 
-	resp, callErr := cl.PostAudiencesContactsActionsArchiveWithResponse(ctx, audienceId, contactId)
+	resp, callErr := ic.cl.PostAudiencesContactsActionsArchiveWithResponse(ctx, audienceId, contactId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9359,7 +9041,7 @@ func dispatchPostAudiencesContactsActionsArchiveWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAudiencesContactsActionsForgetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAudiencesContactsActionsForgetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9385,7 +9067,7 @@ func dispatchPostAudiencesContactsActionsForgetWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, callErr := cl.PostAudiencesContactsActionsForgetWithResponse(ctx, audienceId, contactId)
+	resp, callErr := ic.cl.PostAudiencesContactsActionsForgetWithResponse(ctx, audienceId, contactId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9401,7 +9083,7 @@ func dispatchPostAudiencesContactsActionsForgetWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAutomationsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAutomationsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAutomationsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9409,7 +9091,7 @@ func dispatchPostAutomationsWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("mailchimp.post-automations: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostAutomationsWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostAutomationsWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9425,7 +9107,7 @@ func dispatchPostAutomationsWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAutomationsIdActionsPauseAllEmailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAutomationsIdActionsPauseAllEmailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9442,7 +9124,7 @@ func dispatchPostAutomationsIdActionsPauseAllEmailsWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, callErr := cl.PostAutomationsIdActionsPauseAllEmailsWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.PostAutomationsIdActionsPauseAllEmailsWithResponse(ctx, workflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9458,7 +9140,7 @@ func dispatchPostAutomationsIdActionsPauseAllEmailsWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAutomationsIdActionsStartAllEmailsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAutomationsIdActionsStartAllEmailsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9475,7 +9157,7 @@ func dispatchPostAutomationsIdActionsStartAllEmailsWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, callErr := cl.PostAutomationsIdActionsStartAllEmailsWithResponse(ctx, workflowId)
+	resp, callErr := ic.cl.PostAutomationsIdActionsStartAllEmailsWithResponse(ctx, workflowId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9491,7 +9173,7 @@ func dispatchPostAutomationsIdActionsStartAllEmailsWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAutomationsIdEmailsIdActionsPauseWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAutomationsIdEmailsIdActionsPauseWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9517,7 +9199,7 @@ func dispatchPostAutomationsIdEmailsIdActionsPauseWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, callErr := cl.PostAutomationsIdEmailsIdActionsPauseWithResponse(ctx, workflowId, workflowEmailId)
+	resp, callErr := ic.cl.PostAutomationsIdEmailsIdActionsPauseWithResponse(ctx, workflowId, workflowEmailId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9533,7 +9215,7 @@ func dispatchPostAutomationsIdEmailsIdActionsPauseWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAutomationsIdEmailsIdActionsStartWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAutomationsIdEmailsIdActionsStartWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9559,7 +9241,7 @@ func dispatchPostAutomationsIdEmailsIdActionsStartWithResponse(ctx context.Conte
 		}
 	}
 
-	resp, callErr := cl.PostAutomationsIdEmailsIdActionsStartWithResponse(ctx, workflowId, workflowEmailId)
+	resp, callErr := ic.cl.PostAutomationsIdEmailsIdActionsStartWithResponse(ctx, workflowId, workflowEmailId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9575,7 +9257,7 @@ func dispatchPostAutomationsIdEmailsIdActionsStartWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAutomationsIdEmailsIdQueueWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAutomationsIdEmailsIdQueueWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9608,7 +9290,7 @@ func dispatchPostAutomationsIdEmailsIdQueueWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.post-automations-id-emails-id-queue: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostAutomationsIdEmailsIdQueueWithResponse(ctx, workflowId, workflowEmailId, body)
+	resp, callErr := ic.cl.PostAutomationsIdEmailsIdQueueWithResponse(ctx, workflowId, workflowEmailId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9624,7 +9306,7 @@ func dispatchPostAutomationsIdEmailsIdQueueWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostAutomationsIdRemovedSubscribersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAutomationsIdRemovedSubscribersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9648,7 +9330,7 @@ func dispatchPostAutomationsIdRemovedSubscribersWithResponse(ctx context.Context
 		return nil, fmt.Errorf("mailchimp.post-automations-id-removed-subscribers: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostAutomationsIdRemovedSubscribersWithResponse(ctx, workflowId, body)
+	resp, callErr := ic.cl.PostAutomationsIdRemovedSubscribersWithResponse(ctx, workflowId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9664,7 +9346,7 @@ func dispatchPostAutomationsIdRemovedSubscribersWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostBatchWebhooksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBatchWebhooksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBatchWebhooksJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9672,7 +9354,7 @@ func dispatchPostBatchWebhooksWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("mailchimp.post-batch-webhooks: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostBatchWebhooksWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostBatchWebhooksWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9688,7 +9370,7 @@ func dispatchPostBatchWebhooksWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostBatchesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBatchesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBatchesJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9696,7 +9378,7 @@ func dispatchPostBatchesWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("mailchimp.post-batches: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostBatchesWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostBatchesWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9712,7 +9394,7 @@ func dispatchPostBatchesWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignFoldersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignFoldersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostCampaignFoldersJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9720,7 +9402,7 @@ func dispatchPostCampaignFoldersWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.post-campaign-folders: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostCampaignFoldersWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostCampaignFoldersWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9736,7 +9418,7 @@ func dispatchPostCampaignFoldersWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostCampaignsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9744,7 +9426,7 @@ func dispatchPostCampaignsWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("mailchimp.post-campaigns: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostCampaignsWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostCampaignsWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9760,7 +9442,7 @@ func dispatchPostCampaignsWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsCancelSendWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsCancelSendWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9777,7 +9459,7 @@ func dispatchPostCampaignsIdActionsCancelSendWithResponse(ctx context.Context, c
 		}
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsCancelSendWithResponse(ctx, campaignId)
+	resp, callErr := ic.cl.PostCampaignsIdActionsCancelSendWithResponse(ctx, campaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9793,7 +9475,7 @@ func dispatchPostCampaignsIdActionsCancelSendWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsCreateResendWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsCreateResendWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9817,7 +9499,7 @@ func dispatchPostCampaignsIdActionsCreateResendWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("mailchimp.post-campaigns-id-actions-create-resend: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsCreateResendWithResponse(ctx, campaignId, body)
+	resp, callErr := ic.cl.PostCampaignsIdActionsCreateResendWithResponse(ctx, campaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9833,7 +9515,7 @@ func dispatchPostCampaignsIdActionsCreateResendWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsPauseWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsPauseWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9850,7 +9532,7 @@ func dispatchPostCampaignsIdActionsPauseWithResponse(ctx context.Context, cl *cl
 		}
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsPauseWithResponse(ctx, campaignId)
+	resp, callErr := ic.cl.PostCampaignsIdActionsPauseWithResponse(ctx, campaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9866,7 +9548,7 @@ func dispatchPostCampaignsIdActionsPauseWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsReplicateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsReplicateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9883,7 +9565,7 @@ func dispatchPostCampaignsIdActionsReplicateWithResponse(ctx context.Context, cl
 		}
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsReplicateWithResponse(ctx, campaignId)
+	resp, callErr := ic.cl.PostCampaignsIdActionsReplicateWithResponse(ctx, campaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9899,7 +9581,7 @@ func dispatchPostCampaignsIdActionsReplicateWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsResumeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsResumeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9916,7 +9598,7 @@ func dispatchPostCampaignsIdActionsResumeWithResponse(ctx context.Context, cl *c
 		}
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsResumeWithResponse(ctx, campaignId)
+	resp, callErr := ic.cl.PostCampaignsIdActionsResumeWithResponse(ctx, campaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9932,7 +9614,7 @@ func dispatchPostCampaignsIdActionsResumeWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsScheduleWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsScheduleWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9956,7 +9638,7 @@ func dispatchPostCampaignsIdActionsScheduleWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.post-campaigns-id-actions-schedule: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsScheduleWithResponse(ctx, campaignId, body)
+	resp, callErr := ic.cl.PostCampaignsIdActionsScheduleWithResponse(ctx, campaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -9972,7 +9654,7 @@ func dispatchPostCampaignsIdActionsScheduleWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsSendWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsSendWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9989,7 +9671,7 @@ func dispatchPostCampaignsIdActionsSendWithResponse(ctx context.Context, cl *cli
 		}
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsSendWithResponse(ctx, campaignId)
+	resp, callErr := ic.cl.PostCampaignsIdActionsSendWithResponse(ctx, campaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10005,7 +9687,7 @@ func dispatchPostCampaignsIdActionsSendWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsTestWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsTestWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10029,7 +9711,7 @@ func dispatchPostCampaignsIdActionsTestWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.post-campaigns-id-actions-test: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsTestWithResponse(ctx, campaignId, body)
+	resp, callErr := ic.cl.PostCampaignsIdActionsTestWithResponse(ctx, campaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10045,7 +9727,7 @@ func dispatchPostCampaignsIdActionsTestWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdActionsUnscheduleWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdActionsUnscheduleWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10062,7 +9744,7 @@ func dispatchPostCampaignsIdActionsUnscheduleWithResponse(ctx context.Context, c
 		}
 	}
 
-	resp, callErr := cl.PostCampaignsIdActionsUnscheduleWithResponse(ctx, campaignId)
+	resp, callErr := ic.cl.PostCampaignsIdActionsUnscheduleWithResponse(ctx, campaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10078,7 +9760,7 @@ func dispatchPostCampaignsIdActionsUnscheduleWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCampaignsIdFeedbackWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCampaignsIdFeedbackWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10102,7 +9784,7 @@ func dispatchPostCampaignsIdFeedbackWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("mailchimp.post-campaigns-id-feedback: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostCampaignsIdFeedbackWithResponse(ctx, campaignId, body)
+	resp, callErr := ic.cl.PostCampaignsIdFeedbackWithResponse(ctx, campaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10118,7 +9800,7 @@ func dispatchPostCampaignsIdFeedbackWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostConnectedSitesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostConnectedSitesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostConnectedSitesJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10126,7 +9808,7 @@ func dispatchPostConnectedSitesWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.post-connected-sites: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostConnectedSitesWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostConnectedSitesWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10142,7 +9824,7 @@ func dispatchPostConnectedSitesWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostConnectedSitesIdActionsDisablePixelWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostConnectedSitesIdActionsDisablePixelWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10159,7 +9841,7 @@ func dispatchPostConnectedSitesIdActionsDisablePixelWithResponse(ctx context.Con
 		}
 	}
 
-	resp, callErr := cl.PostConnectedSitesIdActionsDisablePixelWithResponse(ctx, connectedSiteId)
+	resp, callErr := ic.cl.PostConnectedSitesIdActionsDisablePixelWithResponse(ctx, connectedSiteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10175,7 +9857,7 @@ func dispatchPostConnectedSitesIdActionsDisablePixelWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostConnectedSitesIdActionsEnablePixelWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostConnectedSitesIdActionsEnablePixelWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10192,7 +9874,7 @@ func dispatchPostConnectedSitesIdActionsEnablePixelWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, callErr := cl.PostConnectedSitesIdActionsEnablePixelWithResponse(ctx, connectedSiteId)
+	resp, callErr := ic.cl.PostConnectedSitesIdActionsEnablePixelWithResponse(ctx, connectedSiteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10208,7 +9890,7 @@ func dispatchPostConnectedSitesIdActionsEnablePixelWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10225,7 +9907,7 @@ func dispatchPostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx
 		}
 	}
 
-	resp, callErr := cl.PostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx, connectedSiteId)
+	resp, callErr := ic.cl.PostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx, connectedSiteId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10241,7 +9923,7 @@ func dispatchPostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10274,7 +9956,7 @@ func dispatchPostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx
 		return nil, fmt.Errorf("mailchimp.post-customer-journeys-journeys-id-steps-id-actions-trigger: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx, journeyId, stepId, body)
+	resp, callErr := ic.cl.PostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx, journeyId, stepId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10290,7 +9972,7 @@ func dispatchPostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostEcommerceStoresJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10298,7 +9980,7 @@ func dispatchPostEcommerceStoresWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostEcommerceStoresWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10314,7 +9996,7 @@ func dispatchPostEcommerceStoresWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdCartsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdCartsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10338,7 +10020,7 @@ func dispatchPostEcommerceStoresIdCartsWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-carts: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdCartsWithResponse(ctx, storeId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdCartsWithResponse(ctx, storeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10354,7 +10036,7 @@ func dispatchPostEcommerceStoresIdCartsWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdCartsIdLinesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdCartsIdLinesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10387,7 +10069,7 @@ func dispatchPostEcommerceStoresIdCartsIdLinesWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-carts-id-lines: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdCartsIdLinesWithResponse(ctx, storeId, cartId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdCartsIdLinesWithResponse(ctx, storeId, cartId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10403,7 +10085,7 @@ func dispatchPostEcommerceStoresIdCartsIdLinesWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdCustomersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdCustomersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10427,7 +10109,7 @@ func dispatchPostEcommerceStoresIdCustomersWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-customers: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdCustomersWithResponse(ctx, storeId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdCustomersWithResponse(ctx, storeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10443,7 +10125,7 @@ func dispatchPostEcommerceStoresIdCustomersWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdOrdersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdOrdersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10467,7 +10149,7 @@ func dispatchPostEcommerceStoresIdOrdersWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-orders: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdOrdersWithResponse(ctx, storeId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdOrdersWithResponse(ctx, storeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10483,7 +10165,7 @@ func dispatchPostEcommerceStoresIdOrdersWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdOrdersIdLinesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdOrdersIdLinesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10516,7 +10198,7 @@ func dispatchPostEcommerceStoresIdOrdersIdLinesWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-orders-id-lines: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdOrdersIdLinesWithResponse(ctx, storeId, orderId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdOrdersIdLinesWithResponse(ctx, storeId, orderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10532,7 +10214,7 @@ func dispatchPostEcommerceStoresIdOrdersIdLinesWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdProductsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdProductsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10556,7 +10238,7 @@ func dispatchPostEcommerceStoresIdProductsWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-products: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdProductsWithResponse(ctx, storeId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdProductsWithResponse(ctx, storeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10572,7 +10254,7 @@ func dispatchPostEcommerceStoresIdProductsWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdProductsIdImagesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdProductsIdImagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10605,7 +10287,7 @@ func dispatchPostEcommerceStoresIdProductsIdImagesWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-products-id-images: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdProductsIdImagesWithResponse(ctx, storeId, productId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdProductsIdImagesWithResponse(ctx, storeId, productId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10621,7 +10303,7 @@ func dispatchPostEcommerceStoresIdProductsIdImagesWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdProductsIdVariantsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdProductsIdVariantsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10654,7 +10336,7 @@ func dispatchPostEcommerceStoresIdProductsIdVariantsWithResponse(ctx context.Con
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-products-id-variants: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdProductsIdVariantsWithResponse(ctx, storeId, productId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdProductsIdVariantsWithResponse(ctx, storeId, productId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10670,7 +10352,7 @@ func dispatchPostEcommerceStoresIdProductsIdVariantsWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdPromocodesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdPromocodesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10703,7 +10385,7 @@ func dispatchPostEcommerceStoresIdPromocodesWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-promocodes: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdPromocodesWithResponse(ctx, storeId, promoRuleId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdPromocodesWithResponse(ctx, storeId, promoRuleId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10719,7 +10401,7 @@ func dispatchPostEcommerceStoresIdPromocodesWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostEcommerceStoresIdPromorulesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEcommerceStoresIdPromorulesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10743,7 +10425,7 @@ func dispatchPostEcommerceStoresIdPromorulesWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("mailchimp.post-ecommerce-stores-id-promorules: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostEcommerceStoresIdPromorulesWithResponse(ctx, storeId, body)
+	resp, callErr := ic.cl.PostEcommerceStoresIdPromorulesWithResponse(ctx, storeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10759,7 +10441,7 @@ func dispatchPostEcommerceStoresIdPromorulesWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostFileManagerFilesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFileManagerFilesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostFileManagerFilesJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10767,7 +10449,7 @@ func dispatchPostFileManagerFilesWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.post-file-manager-files: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostFileManagerFilesWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostFileManagerFilesWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10783,7 +10465,7 @@ func dispatchPostFileManagerFilesWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostFileManagerFoldersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFileManagerFoldersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostFileManagerFoldersJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10791,7 +10473,7 @@ func dispatchPostFileManagerFoldersWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.post-file-manager-folders: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostFileManagerFoldersWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostFileManagerFoldersWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10807,7 +10489,7 @@ func dispatchPostFileManagerFoldersWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostLandingPageIdActionsPublishWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostLandingPageIdActionsPublishWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10824,7 +10506,7 @@ func dispatchPostLandingPageIdActionsPublishWithResponse(ctx context.Context, cl
 		}
 	}
 
-	resp, callErr := cl.PostLandingPageIdActionsPublishWithResponse(ctx, pageId)
+	resp, callErr := ic.cl.PostLandingPageIdActionsPublishWithResponse(ctx, pageId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10840,7 +10522,7 @@ func dispatchPostLandingPageIdActionsPublishWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostLandingPageIdActionsUnpublishWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostLandingPageIdActionsUnpublishWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10857,7 +10539,7 @@ func dispatchPostLandingPageIdActionsUnpublishWithResponse(ctx context.Context, 
 		}
 	}
 
-	resp, callErr := cl.PostLandingPageIdActionsUnpublishWithResponse(ctx, pageId)
+	resp, callErr := ic.cl.PostLandingPageIdActionsUnpublishWithResponse(ctx, pageId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10873,7 +10555,7 @@ func dispatchPostLandingPageIdActionsUnpublishWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListMemberEventsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListMemberEventsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10906,7 +10588,7 @@ func dispatchPostListMemberEventsWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("mailchimp.post-list-member-events: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListMemberEventsWithResponse(ctx, listId, subscriberHash, body)
+	resp, callErr := ic.cl.PostListMemberEventsWithResponse(ctx, listId, subscriberHash, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10922,7 +10604,7 @@ func dispatchPostListMemberEventsWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListMemberTagsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListMemberTagsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10955,7 +10637,7 @@ func dispatchPostListMemberTagsWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.post-list-member-tags: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListMemberTagsWithResponse(ctx, listId, subscriberHash, body)
+	resp, callErr := ic.cl.PostListMemberTagsWithResponse(ctx, listId, subscriberHash, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10971,7 +10653,7 @@ func dispatchPostListMemberTagsWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostListsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10979,7 +10661,7 @@ func dispatchPostListsWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("mailchimp.post-lists: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostListsWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -10995,7 +10677,7 @@ func dispatchPostListsWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11026,7 +10708,7 @@ func dispatchPostListsIdWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("mailchimp.post-lists-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PostListsIdWithResponse(ctx, listId, &params, body)
+	resp, callErr := ic.cl.PostListsIdWithResponse(ctx, listId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11042,7 +10724,7 @@ func dispatchPostListsIdWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdInterestCategoriesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdInterestCategoriesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11066,7 +10748,7 @@ func dispatchPostListsIdInterestCategoriesWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("mailchimp.post-lists-id-interest-categories: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdInterestCategoriesWithResponse(ctx, listId, body)
+	resp, callErr := ic.cl.PostListsIdInterestCategoriesWithResponse(ctx, listId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11082,7 +10764,7 @@ func dispatchPostListsIdInterestCategoriesWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdInterestCategoriesIdInterestsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdInterestCategoriesIdInterestsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11115,7 +10797,7 @@ func dispatchPostListsIdInterestCategoriesIdInterestsWithResponse(ctx context.Co
 		return nil, fmt.Errorf("mailchimp.post-lists-id-interest-categories-id-interests: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdInterestCategoriesIdInterestsWithResponse(ctx, listId, interestCategoryId, body)
+	resp, callErr := ic.cl.PostListsIdInterestCategoriesIdInterestsWithResponse(ctx, listId, interestCategoryId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11131,7 +10813,7 @@ func dispatchPostListsIdInterestCategoriesIdInterestsWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdMembersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdMembersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11162,7 +10844,7 @@ func dispatchPostListsIdMembersWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.post-lists-id-members: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PostListsIdMembersWithResponse(ctx, listId, &params, body)
+	resp, callErr := ic.cl.PostListsIdMembersWithResponse(ctx, listId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11178,7 +10860,7 @@ func dispatchPostListsIdMembersWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdMembersHashActionsDeletePermanentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdMembersHashActionsDeletePermanentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11204,7 +10886,7 @@ func dispatchPostListsIdMembersHashActionsDeletePermanentWithResponse(ctx contex
 		}
 	}
 
-	resp, callErr := cl.PostListsIdMembersHashActionsDeletePermanentWithResponse(ctx, listId, subscriberHash)
+	resp, callErr := ic.cl.PostListsIdMembersHashActionsDeletePermanentWithResponse(ctx, listId, subscriberHash)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11220,7 +10902,7 @@ func dispatchPostListsIdMembersHashActionsDeletePermanentWithResponse(ctx contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdMembersIdNotesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdMembersIdNotesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11253,7 +10935,7 @@ func dispatchPostListsIdMembersIdNotesWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("mailchimp.post-lists-id-members-id-notes: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdMembersIdNotesWithResponse(ctx, listId, subscriberHash, body)
+	resp, callErr := ic.cl.PostListsIdMembersIdNotesWithResponse(ctx, listId, subscriberHash, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11269,7 +10951,7 @@ func dispatchPostListsIdMembersIdNotesWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdMergeFieldsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdMergeFieldsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11293,7 +10975,7 @@ func dispatchPostListsIdMergeFieldsWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.post-lists-id-merge-fields: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdMergeFieldsWithResponse(ctx, listId, body)
+	resp, callErr := ic.cl.PostListsIdMergeFieldsWithResponse(ctx, listId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11309,7 +10991,7 @@ func dispatchPostListsIdMergeFieldsWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSegmentsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSegmentsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11333,7 +11015,7 @@ func dispatchPostListsIdSegmentsWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.post-lists-id-segments: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdSegmentsWithResponse(ctx, listId, body)
+	resp, callErr := ic.cl.PostListsIdSegmentsWithResponse(ctx, listId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11349,7 +11031,7 @@ func dispatchPostListsIdSegmentsWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSegmentsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11382,7 +11064,7 @@ func dispatchPostListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.post-lists-id-segments-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdSegmentsIdWithResponse(ctx, listId, segmentId, body)
+	resp, callErr := ic.cl.PostListsIdSegmentsIdWithResponse(ctx, listId, segmentId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11398,7 +11080,7 @@ func dispatchPostListsIdSegmentsIdWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSegmentsIdMembersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSegmentsIdMembersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11431,7 +11113,7 @@ func dispatchPostListsIdSegmentsIdMembersWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.post-lists-id-segments-id-members: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdSegmentsIdMembersWithResponse(ctx, listId, segmentId, body)
+	resp, callErr := ic.cl.PostListsIdSegmentsIdMembersWithResponse(ctx, listId, segmentId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11447,7 +11129,7 @@ func dispatchPostListsIdSegmentsIdMembersWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSignupFormsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSignupFormsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11471,7 +11153,7 @@ func dispatchPostListsIdSignupFormsWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("mailchimp.post-lists-id-signup-forms: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdSignupFormsWithResponse(ctx, listId, body)
+	resp, callErr := ic.cl.PostListsIdSignupFormsWithResponse(ctx, listId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11487,7 +11169,7 @@ func dispatchPostListsIdSignupFormsWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSurveysWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSurveysWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11511,7 +11193,7 @@ func dispatchPostListsIdSurveysWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("mailchimp.post-lists-id-surveys: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdSurveysWithResponse(ctx, listId, body)
+	resp, callErr := ic.cl.PostListsIdSurveysWithResponse(ctx, listId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11527,7 +11209,7 @@ func dispatchPostListsIdSurveysWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSurveysIdActionsCreateEmailWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSurveysIdActionsCreateEmailWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11553,7 +11235,7 @@ func dispatchPostListsIdSurveysIdActionsCreateEmailWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, callErr := cl.PostListsIdSurveysIdActionsCreateEmailWithResponse(ctx, listId, surveyId)
+	resp, callErr := ic.cl.PostListsIdSurveysIdActionsCreateEmailWithResponse(ctx, listId, surveyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11569,7 +11251,7 @@ func dispatchPostListsIdSurveysIdActionsCreateEmailWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSurveysIdActionsPublishWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSurveysIdActionsPublishWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11595,7 +11277,7 @@ func dispatchPostListsIdSurveysIdActionsPublishWithResponse(ctx context.Context,
 		}
 	}
 
-	resp, callErr := cl.PostListsIdSurveysIdActionsPublishWithResponse(ctx, listId, surveyId)
+	resp, callErr := ic.cl.PostListsIdSurveysIdActionsPublishWithResponse(ctx, listId, surveyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11611,7 +11293,7 @@ func dispatchPostListsIdSurveysIdActionsPublishWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSurveysIdActionsReplicateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSurveysIdActionsReplicateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11644,7 +11326,7 @@ func dispatchPostListsIdSurveysIdActionsReplicateWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("mailchimp.post-lists-id-surveys-id-actions-replicate: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdSurveysIdActionsReplicateWithResponse(ctx, listId, surveyId, body)
+	resp, callErr := ic.cl.PostListsIdSurveysIdActionsReplicateWithResponse(ctx, listId, surveyId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11660,7 +11342,7 @@ func dispatchPostListsIdSurveysIdActionsReplicateWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdSurveysIdActionsUnpublishWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdSurveysIdActionsUnpublishWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11686,7 +11368,7 @@ func dispatchPostListsIdSurveysIdActionsUnpublishWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, callErr := cl.PostListsIdSurveysIdActionsUnpublishWithResponse(ctx, listId, surveyId)
+	resp, callErr := ic.cl.PostListsIdSurveysIdActionsUnpublishWithResponse(ctx, listId, surveyId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11702,7 +11384,7 @@ func dispatchPostListsIdSurveysIdActionsUnpublishWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostListsIdWebhooksWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostListsIdWebhooksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11726,7 +11408,7 @@ func dispatchPostListsIdWebhooksWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.post-lists-id-webhooks: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostListsIdWebhooksWithResponse(ctx, listId, body)
+	resp, callErr := ic.cl.PostListsIdWebhooksWithResponse(ctx, listId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11742,7 +11424,7 @@ func dispatchPostListsIdWebhooksWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostSmsCampaignsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSmsCampaignsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostSmsCampaignsJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11750,7 +11432,7 @@ func dispatchPostSmsCampaignsWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.post-sms-campaigns: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostSmsCampaignsWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostSmsCampaignsWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11766,7 +11448,7 @@ func dispatchPostSmsCampaignsWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostSmsCampaignsIdActionsCancelSendWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSmsCampaignsIdActionsCancelSendWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11783,7 +11465,7 @@ func dispatchPostSmsCampaignsIdActionsCancelSendWithResponse(ctx context.Context
 		}
 	}
 
-	resp, callErr := cl.PostSmsCampaignsIdActionsCancelSendWithResponse(ctx, smsCampaignId)
+	resp, callErr := ic.cl.PostSmsCampaignsIdActionsCancelSendWithResponse(ctx, smsCampaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11799,7 +11481,7 @@ func dispatchPostSmsCampaignsIdActionsCancelSendWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostSmsCampaignsIdActionsScheduleWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSmsCampaignsIdActionsScheduleWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11823,7 +11505,7 @@ func dispatchPostSmsCampaignsIdActionsScheduleWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("mailchimp.post-sms-campaigns-id-actions-schedule: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostSmsCampaignsIdActionsScheduleWithResponse(ctx, smsCampaignId, body)
+	resp, callErr := ic.cl.PostSmsCampaignsIdActionsScheduleWithResponse(ctx, smsCampaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11839,7 +11521,7 @@ func dispatchPostSmsCampaignsIdActionsScheduleWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostSmsCampaignsIdActionsSendWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSmsCampaignsIdActionsSendWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11856,7 +11538,7 @@ func dispatchPostSmsCampaignsIdActionsSendWithResponse(ctx context.Context, cl *
 		}
 	}
 
-	resp, callErr := cl.PostSmsCampaignsIdActionsSendWithResponse(ctx, smsCampaignId)
+	resp, callErr := ic.cl.PostSmsCampaignsIdActionsSendWithResponse(ctx, smsCampaignId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11872,7 +11554,7 @@ func dispatchPostSmsCampaignsIdActionsSendWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostTemplateFoldersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTemplateFoldersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTemplateFoldersJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11880,7 +11562,7 @@ func dispatchPostTemplateFoldersWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.post-template-folders: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostTemplateFoldersWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostTemplateFoldersWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11896,7 +11578,7 @@ func dispatchPostTemplateFoldersWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPostTemplatesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTemplatesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTemplatesJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11904,7 +11586,7 @@ func dispatchPostTemplatesWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("mailchimp.post-templates: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PostTemplatesWithResponse(ctx, body)
+	resp, callErr := ic.cl.PostTemplatesWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11920,7 +11602,7 @@ func dispatchPostTemplatesWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPreviewASegmentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPreviewASegmentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11944,7 +11626,7 @@ func dispatchPreviewASegmentWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("mailchimp.preview-a-segment: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PreviewASegmentWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.PreviewASegmentWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -11960,7 +11642,7 @@ func dispatchPreviewASegmentWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPutCampaignsIdContentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPutCampaignsIdContentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11984,7 +11666,7 @@ func dispatchPutCampaignsIdContentWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("mailchimp.put-campaigns-id-content: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PutCampaignsIdContentWithResponse(ctx, campaignId, body)
+	resp, callErr := ic.cl.PutCampaignsIdContentWithResponse(ctx, campaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12000,7 +11682,7 @@ func dispatchPutCampaignsIdContentWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPutEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPutEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12033,7 +11715,7 @@ func dispatchPutEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("mailchimp.put-ecommerce-stores-id-customers-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PutEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, body)
+	resp, callErr := ic.cl.PutEcommerceStoresIdCustomersIdWithResponse(ctx, storeId, customerId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12049,7 +11731,7 @@ func dispatchPutEcommerceStoresIdCustomersIdWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPutEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPutEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12082,7 +11764,7 @@ func dispatchPutEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("mailchimp.put-ecommerce-stores-id-orders-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PutEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, body)
+	resp, callErr := ic.cl.PutEcommerceStoresIdOrdersIdWithResponse(ctx, storeId, orderId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12098,7 +11780,7 @@ func dispatchPutEcommerceStoresIdOrdersIdWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPutEcommerceStoresIdProductsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPutEcommerceStoresIdProductsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12131,7 +11813,7 @@ func dispatchPutEcommerceStoresIdProductsIdWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("mailchimp.put-ecommerce-stores-id-products-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PutEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, body)
+	resp, callErr := ic.cl.PutEcommerceStoresIdProductsIdWithResponse(ctx, storeId, productId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12147,7 +11829,7 @@ func dispatchPutEcommerceStoresIdProductsIdWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12189,7 +11871,7 @@ func dispatchPutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Co
 		return nil, fmt.Errorf("mailchimp.put-ecommerce-stores-id-products-id-variants-id: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, body)
+	resp, callErr := ic.cl.PutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, storeId, productId, variantId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12205,7 +11887,7 @@ func dispatchPutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPutListsIdMembersIdWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPutListsIdMembersIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12245,7 +11927,7 @@ func dispatchPutListsIdMembersIdWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("mailchimp.put-lists-id-members-id: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PutListsIdMembersIdWithResponse(ctx, listId, subscriberHash, &params, body)
+	resp, callErr := ic.cl.PutListsIdMembersIdWithResponse(ctx, listId, subscriberHash, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12261,7 +11943,7 @@ func dispatchPutListsIdMembersIdWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPutSmsCampaignsIdContentWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPutSmsCampaignsIdContentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12285,7 +11967,7 @@ func dispatchPutSmsCampaignsIdContentWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("mailchimp.put-sms-campaigns-id-content: %w", bodyErr)
 	}
 
-	resp, callErr := cl.PutSmsCampaignsIdContentWithResponse(ctx, smsCampaignId, body)
+	resp, callErr := ic.cl.PutSmsCampaignsIdContentWithResponse(ctx, smsCampaignId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12301,7 +11983,7 @@ func dispatchPutSmsCampaignsIdContentWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSearchTagsByNameWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSearchTagsByNameWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12325,7 +12007,7 @@ func dispatchSearchTagsByNameWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("mailchimp.search-tags-by-name: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SearchTagsByNameWithResponse(ctx, listId, &params)
+	resp, callErr := ic.cl.SearchTagsByNameWithResponse(ctx, listId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -12341,7 +12023,7 @@ func dispatchSearchTagsByNameWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchVerifyDomainWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVerifyDomainWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12365,7 +12047,7 @@ func dispatchVerifyDomainWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("mailchimp.verify-domain: %w", bodyErr)
 	}
 
-	resp, callErr := cl.VerifyDomainWithResponse(ctx, domainName, body)
+	resp, callErr := ic.cl.VerifyDomainWithResponse(ctx, domainName, body)
 	if callErr != nil {
 		return nil, callErr
 	}
