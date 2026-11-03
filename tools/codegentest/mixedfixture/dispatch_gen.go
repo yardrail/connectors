@@ -20,12 +20,6 @@ import (
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
-func parseUUID(s string) uuid.UUID {
-	id, _ := uuid.Parse(s)
-
-	return id
-}
-
 var (
 	errInterfaceNotConfigured = errors.New("mixedfixture: interface not configured")
 	errUnknownFunction        = errors.New("mixedfixture: unknown function")
@@ -143,7 +137,7 @@ func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, _ m
 		return nil, fmt.Errorf("mixedfixture.move-page: %w", pathErr)
 	}
 
-	var pageId string
+	var pageId uuid.UUID
 
 	if raw, ok := pathArgs["pageId"]; ok {
 		paramErr := json.Unmarshal(raw, &pageId)
@@ -166,7 +160,7 @@ func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, _ m
 		return nil, fmt.Errorf("mixedfixture.move-page: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.MovePageWithResponse(ctx, parseUUID(pageId), &params, body)
+	resp, callErr := ic.cl.MovePageWithResponse(ctx, pageId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -317,7 +311,7 @@ func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.
 		return nil, fmt.Errorf("mixedfixture.retrieve-page-markdown: %w", pathErr)
 	}
 
-	var pageId string
+	var pageId uuid.UUID
 
 	if raw, ok := pathArgs["pageId"]; ok {
 		paramErr := json.Unmarshal(raw, &pageId)
@@ -333,7 +327,7 @@ func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.
 		return nil, fmt.Errorf("mixedfixture.retrieve-page-markdown: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RetrievePageMarkdownWithResponse(ctx, parseUUID(pageId), &params)
+	resp, callErr := ic.cl.RetrievePageMarkdownWithResponse(ctx, pageId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -404,7 +398,7 @@ func (ic *InterfaceClient) dispatchUpdatePageMarkdownWithResponse(ctx context.Co
 		return nil, fmt.Errorf("mixedfixture.update-page-markdown: %w", pathErr)
 	}
 
-	var pageId string
+	var pageId uuid.UUID
 
 	if raw, ok := pathArgs["pageId"]; ok {
 		paramErr := json.Unmarshal(raw, &pageId)
@@ -427,7 +421,7 @@ func (ic *InterfaceClient) dispatchUpdatePageMarkdownWithResponse(ctx context.Co
 		return nil, fmt.Errorf("mixedfixture.update-page-markdown: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.UpdatePageMarkdownWithResponse(ctx, parseUUID(pageId), &params, body)
+	resp, callErr := ic.cl.UpdatePageMarkdownWithResponse(ctx, pageId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}

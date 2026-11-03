@@ -253,13 +253,7 @@ var tmplFuncs = template.FuncMap{
 	"needsUUID": func(methods []introspect.MethodInfo) bool {
 		for _, m := range methods {
 			for _, p := range m.Params {
-				if p.TypeConv == "parseUUID" {
-					return true
-				}
-			}
-
-			for _, a := range m.CallArgs {
-				if strings.Contains(a.Expr, "parseUUID") {
+				if p.GoType == "uuid.UUID" {
 					return true
 				}
 			}
@@ -448,7 +442,6 @@ import (
 	"{{.ClientPkgPath}}"
 )
 
-` + openAPIUUIDTemplate + `
 var (
 	errInterfaceNotConfigured = errors.New("{{.ConnectorID}}: interface not configured")
 	errUnknownFunction        = errors.New("{{.ConnectorID}}: unknown function")
@@ -468,16 +461,6 @@ const openAPIAccessorsBaseURLTemplate = `func resolveBaseURL(config map[string]s
 
 `
 
-// openAPIUUIDTemplate renders parseUUID when a method takes a UUID.
-const openAPIUUIDTemplate = `{{- if needsUUID .Methods}}
-
-func parseUUID(s string) uuid.UUID {
-	id, _ := uuid.Parse(s)
-
-	return id
-}
-{{- end}}
-`
 
 // openAPIMethodsTemplate renders one dispatch method per method on InterfaceClient.
 const openAPIMethodsTemplate = `{{range .Methods}}{{$m := .}}

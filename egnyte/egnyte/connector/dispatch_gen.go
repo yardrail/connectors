@@ -17,12 +17,6 @@ import (
 	"github.com/yardrail/connectors/egnyte/egnyte/client"
 )
 
-func parseUUID(s string) uuid.UUID {
-	id, _ := uuid.Parse(s)
-
-	return id
-}
-
 var (
 	errInterfaceNotConfigured = errors.New("egnyte: interface not configured")
 	errUnknownFunction        = errors.New("egnyte: unknown function")
@@ -1215,7 +1209,7 @@ func (ic *InterfaceClient) dispatchDeleteMspWebhookWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.delete-msp-webhook: %w", pathErr)
 	}
 
-	var webhookId string
+	var webhookId uuid.UUID
 
 	if raw, ok := pathArgs["webhookId"]; ok {
 		paramErr := json.Unmarshal(raw, &webhookId)
@@ -1224,7 +1218,7 @@ func (ic *InterfaceClient) dispatchDeleteMspWebhookWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, callErr := ic.cl.DeleteMspWebhookWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.DeleteMspWebhookWithResponse(ctx, webhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1347,7 +1341,7 @@ func (ic *InterfaceClient) dispatchDeleteWebhookWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.delete-webhook: %w", pathErr)
 	}
 
-	var webhookId string
+	var webhookId uuid.UUID
 
 	if raw, ok := pathArgs["webhookId"]; ok {
 		paramErr := json.Unmarshal(raw, &webhookId)
@@ -1356,7 +1350,7 @@ func (ic *InterfaceClient) dispatchDeleteWebhookWithResponse(ctx context.Context
 		}
 	}
 
-	resp, callErr := ic.cl.DeleteWebhookWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.DeleteWebhookWithResponse(ctx, webhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1634,7 +1628,7 @@ func (ic *InterfaceClient) dispatchGetMspWebhookWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.get-msp-webhook: %w", pathErr)
 	}
 
-	var webhookId string
+	var webhookId uuid.UUID
 
 	if raw, ok := pathArgs["webhookId"]; ok {
 		paramErr := json.Unmarshal(raw, &webhookId)
@@ -1643,7 +1637,7 @@ func (ic *InterfaceClient) dispatchGetMspWebhookWithResponse(ctx context.Context
 		}
 	}
 
-	resp, callErr := ic.cl.GetMspWebhookWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.GetMspWebhookWithResponse(ctx, webhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1899,7 +1893,7 @@ func (ic *InterfaceClient) dispatchGetUserDetailsWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("egnyte.get-user-details: %w", pathErr)
 	}
 
-	var userId string
+	var userId uuid.UUID
 
 	if raw, ok := pathArgs["userId"]; ok {
 		paramErr := json.Unmarshal(raw, &userId)
@@ -1908,7 +1902,7 @@ func (ic *InterfaceClient) dispatchGetUserDetailsWithResponse(ctx context.Contex
 		}
 	}
 
-	resp, callErr := ic.cl.GetUserDetailsWithResponse(ctx, parseUUID(userId))
+	resp, callErr := ic.cl.GetUserDetailsWithResponse(ctx, userId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1932,7 +1926,7 @@ func (ic *InterfaceClient) dispatchGetUserLogsWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("egnyte.get-user-logs: %w", pathErr)
 	}
 
-	var userId string
+	var userId uuid.UUID
 
 	if raw, ok := pathArgs["userId"]; ok {
 		paramErr := json.Unmarshal(raw, &userId)
@@ -1948,7 +1942,7 @@ func (ic *InterfaceClient) dispatchGetUserLogsWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("egnyte.get-user-logs: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.GetUserLogsWithResponse(ctx, parseUUID(userId), &params)
+	resp, callErr := ic.cl.GetUserLogsWithResponse(ctx, userId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2006,7 +2000,7 @@ func (ic *InterfaceClient) dispatchGetWebhookDetailsWithResponse(ctx context.Con
 		return nil, fmt.Errorf("egnyte.get-webhook-details: %w", pathErr)
 	}
 
-	var webhookId string
+	var webhookId uuid.UUID
 
 	if raw, ok := pathArgs["webhookId"]; ok {
 		paramErr := json.Unmarshal(raw, &webhookId)
@@ -2015,7 +2009,7 @@ func (ic *InterfaceClient) dispatchGetWebhookDetailsWithResponse(ctx context.Con
 		}
 	}
 
-	resp, callErr := ic.cl.GetWebhookDetailsWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.GetWebhookDetailsWithResponse(ctx, webhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2039,7 +2033,7 @@ func (ic *InterfaceClient) dispatchGetWebhookStatusWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.get-webhook-status: %w", pathErr)
 	}
 
-	var webhookId string
+	var webhookId uuid.UUID
 
 	if raw, ok := pathArgs["webhookId"]; ok {
 		paramErr := json.Unmarshal(raw, &webhookId)
@@ -2048,7 +2042,7 @@ func (ic *InterfaceClient) dispatchGetWebhookStatusWithResponse(ctx context.Cont
 		}
 	}
 
-	resp, callErr := ic.cl.GetWebhookStatusWithResponse(ctx, parseUUID(webhookId))
+	resp, callErr := ic.cl.GetWebhookStatusWithResponse(ctx, webhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5190,7 +5184,7 @@ func (ic *InterfaceClient) dispatchSetWebhookStatusWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.set-webhook-status: %w", pathErr)
 	}
 
-	var webhookId string
+	var webhookId uuid.UUID
 
 	if raw, ok := pathArgs["webhookId"]; ok {
 		paramErr := json.Unmarshal(raw, &webhookId)
@@ -5206,7 +5200,7 @@ func (ic *InterfaceClient) dispatchSetWebhookStatusWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.set-webhook-status: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.SetWebhookStatusWithResponse(ctx, parseUUID(webhookId), body)
+	resp, callErr := ic.cl.SetWebhookStatusWithResponse(ctx, webhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5375,7 +5369,7 @@ func (ic *InterfaceClient) dispatchUpdateMspWebhookWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.update-msp-webhook: %w", pathErr)
 	}
 
-	var webhookId string
+	var webhookId uuid.UUID
 
 	if raw, ok := pathArgs["webhookId"]; ok {
 		paramErr := json.Unmarshal(raw, &webhookId)
@@ -5391,7 +5385,7 @@ func (ic *InterfaceClient) dispatchUpdateMspWebhookWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("egnyte.update-msp-webhook: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateMspWebhookWithResponse(ctx, parseUUID(webhookId), body)
+	resp, callErr := ic.cl.UpdateMspWebhookWithResponse(ctx, webhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -5495,7 +5489,7 @@ func (ic *InterfaceClient) dispatchUpdateWebhookWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.update-webhook: %w", pathErr)
 	}
 
-	var webhookId string
+	var webhookId uuid.UUID
 
 	if raw, ok := pathArgs["webhookId"]; ok {
 		paramErr := json.Unmarshal(raw, &webhookId)
@@ -5511,7 +5505,7 @@ func (ic *InterfaceClient) dispatchUpdateWebhookWithResponse(ctx context.Context
 		return nil, fmt.Errorf("egnyte.update-webhook: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.UpdateWebhookWithResponse(ctx, parseUUID(webhookId), body)
+	resp, callErr := ic.cl.UpdateWebhookWithResponse(ctx, webhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}

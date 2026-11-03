@@ -416,20 +416,11 @@ func TypeObjName(t types.Type) (string, bool) {
 }
 
 // TypeConversion returns the conversion function name for special types.
+// Returns "" for types that implement json.Unmarshaler or encoding.TextUnmarshaler
+// (UUID, Date, Time) since json.Unmarshal handles them directly.
 func TypeConversion(t types.Type) string {
 	if pt, ok := t.(*types.Pointer); ok {
 		return TypeConversion(pt.Elem())
-	}
-	if IsUUIDLike(t) {
-		return "parseUUID"
-	}
-	if IsDateLike(t) {
-		return "parseDate"
-	}
-	if name, ok := TypeObjName(t); ok {
-		if name == "Time" && strings.HasSuffix(t.String(), "time.Time") {
-			return "parseTime"
-		}
 	}
 	return ""
 }
@@ -481,10 +472,16 @@ func GoTypeToJSON(t types.Type) (jsonType string, goType string) {
 	if name, ok := TypeObjName(t); ok {
 		switch name {
 		case "UUID":
-			return "string", "string"
-		case "Date", "Time":
-			return "string", "string"
+			return "string", "uuid.UUID"
+		case "Date":
+			return "string", "types.Date"
+		case "Time":
+			return "string", "time.Time"
 		}
+	}
+
+	if IsUUIDLike(t) {
+		return "string", "uuid.UUID"
 	}
 	switch u := t.Underlying().(type) {
 	case *types.Basic:
