@@ -18,13 +18,30 @@ type InterfaceClient struct {
 	cl *client.ClientWithResponses
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnListEvents Function = "list-events"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnListEvents:
+		return FnListEvents, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "list-events":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnListEvents:
 		return ic.dispatchListEventsWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

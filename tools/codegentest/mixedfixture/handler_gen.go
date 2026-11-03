@@ -19,61 +19,105 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnCreateADataSource       Function = "create-a-data-source"
+	FnGetWidget               Function = "get-widget"
+	FnListDataSourceTemplates Function = "list-data-source-templates"
+	FnMovePage                Function = "move-page"
+	FnQueryDataSource         Function = "query-data-source"
+	FnRetrieveADataSource     Function = "retrieve-a-data-source"
+	FnRetrieveADatabase       Function = "retrieve-a-database"
+	FnRetrievePageMarkdown    Function = "retrieve-page-markdown"
+	FnUpdateADataSource       Function = "update-a-data-source"
+	FnUpdatePageMarkdown      Function = "update-page-markdown"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnCreateADataSource:
+		return FnCreateADataSource, nil
+	case FnGetWidget:
+		return FnGetWidget, nil
+	case FnListDataSourceTemplates:
+		return FnListDataSourceTemplates, nil
+	case FnMovePage:
+		return FnMovePage, nil
+	case FnQueryDataSource:
+		return FnQueryDataSource, nil
+	case FnRetrieveADataSource:
+		return FnRetrieveADataSource, nil
+	case FnRetrieveADatabase:
+		return FnRetrieveADatabase, nil
+	case FnRetrievePageMarkdown:
+		return FnRetrievePageMarkdown, nil
+	case FnUpdateADataSource:
+		return FnUpdateADataSource, nil
+	case FnUpdatePageMarkdown:
+		return FnUpdatePageMarkdown, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function using the appropriate protocol.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "create-a-data-source":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnCreateADataSource:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchCreateADataSourceWithResponse(ctx, config, inputs)
-	case "get-widget":
+	case FnGetWidget:
 		if ic.ep == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
-		return ic.ep.call(ctx, function, queryGetWidget, inputs)
-	case "list-data-source-templates":
+		return ic.ep.call(ctx, string(fn), queryGetWidget, inputs)
+	case FnListDataSourceTemplates:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchListDataSourceTemplatesWithResponse(ctx, config, inputs)
-	case "move-page":
+	case FnMovePage:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchMovePageWithResponse(ctx, config, inputs)
-	case "query-data-source":
+	case FnQueryDataSource:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchQueryDataSourceWithResponse(ctx, config, inputs)
-	case "retrieve-a-data-source":
+	case FnRetrieveADataSource:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchRetrieveADataSourceWithResponse(ctx, config, inputs)
-	case "retrieve-a-database":
+	case FnRetrieveADatabase:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchRetrieveADatabaseWithResponse(ctx, config, inputs)
-	case "retrieve-page-markdown":
+	case FnRetrievePageMarkdown:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchRetrievePageMarkdownWithResponse(ctx, config, inputs)
-	case "update-a-data-source":
+	case FnUpdateADataSource:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchUpdateADataSourceWithResponse(ctx, config, inputs)
-	case "update-page-markdown":
+	case FnUpdatePageMarkdown:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatchUpdatePageMarkdownWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

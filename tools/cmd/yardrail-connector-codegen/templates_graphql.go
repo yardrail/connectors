@@ -54,7 +54,7 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
-` + graphqlDispatchSwitchTemplate + `
+` + functionEnumTemplate + graphqlDispatchSwitchTemplate + `
 
 // Connector holds an authenticated client for one interface.
 type Connector struct {
@@ -91,12 +91,12 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 ` + graphqlEndpointsTemplate + authEditorsTemplate
 
 const graphqlDispatchSwitchTemplate = `// Dispatch calls the named GraphQL operation.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-{{range .Functions}}	case "{{.Name}}":
-		return ic.ep.call(ctx, function, query{{.ClassName}}, inputs)
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+{{range .Functions}}	case Fn{{goIdent .Name}}:
+		return ic.ep.call(ctx, string(fn), query{{.ClassName}}, inputs)
 {{end}}	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 `
@@ -236,7 +236,7 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
-` + mixedDispatchSwitchTemplate + `
+` + functionEnumTemplate + mixedDispatchSwitchTemplate + `
 // Connector holds an authenticated client for one interface.
 type Connector struct {
 	client *InterfaceClient
@@ -279,20 +279,20 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 ` + openAPIAccessorsBaseURLTemplate + graphqlEndpointsTemplate + authEditorsTemplate
 
 const mixedDispatchSwitchTemplate = `// Dispatch calls the named function using the appropriate protocol.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-{{range .Functions}}{{if .MethodName}}	case "{{.Name}}":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+{{range .Functions}}{{if .MethodName}}	case Fn{{goIdent .Name}}:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatch{{.MethodName}}(ctx, config, inputs)
-{{else}}	case "{{.Name}}":
+{{else}}	case Fn{{goIdent .Name}}:
 		if ic.ep == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
-		return ic.ep.call(ctx, function, query{{.ClassName}}, inputs)
+		return ic.ep.call(ctx, string(fn), query{{.ClassName}}, inputs)
 {{end}}{{end}}	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 `

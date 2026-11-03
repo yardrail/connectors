@@ -18,215 +18,535 @@ type InterfaceClient struct {
 	cl *client.ClientWithResponses
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnAddATicketClassToTicketGroups                              Function = "add-a-ticket-class-to-ticket-groups"
+	FnCalculateItems                                             Function = "calculate-items"
+	FnCancelAnEvent                                              Function = "cancel-an-event"
+	FnCategoryByID                                               Function = "category-by-i-d"
+	FnCopyAnEvent                                                Function = "copy-an-event"
+	FnCreateACustomQuestionForAnEvent                            Function = "create-a-custom-question-for-an-event"
+	FnCreateADefaultQuestionForAnEvent                           Function = "create-a-default-question-for-an-event"
+	FnCreateADiscount                                            Function = "create-a-discount"
+	FnCreateATeam                                                Function = "create-a-team"
+	FnCreateATicketClass                                         Function = "create-a-ticket-class"
+	FnCreateATicketGroup                                         Function = "create-a-ticket-group"
+	FnCreateAVenue                                               Function = "create-a-venue"
+	FnCreateAnEvent                                              Function = "create-an-event"
+	FnCreateAnEventSchedule                                      Function = "create-an-event-schedule"
+	FnCreateSeatMapForEvent                                      Function = "create-seat-map-for-event"
+	FnCreateTextOverrides                                        Function = "create-text-overrides"
+	FnCreateWebhooksByOrganizationID                             Function = "create-webhooks-by-organization-i-d"
+	FnCreateWebhooksDeprecated                                   Function = "create-webhooks-deprecated"
+	FnDeleteACustomQuestionForAnEvent                            Function = "delete-a-custom-question-for-an-event"
+	FnDeleteADiscount                                            Function = "delete-a-discount"
+	FnDeleteATicketGroup                                         Function = "delete-a-ticket-group"
+	FnDeleteAnEvent                                              Function = "delete-an-event"
+	FnDeleteAnInventoryTier                                      Function = "delete-an-inventory-tier"
+	FnDeleteDefaultQuestionById                                  Function = "delete-default-question-by-id"
+	FnDeleteWebhookByID                                          Function = "delete-webhook-by-i-d"
+	FnGetCustomQuestionById                                      Function = "get-custom-question-by-id"
+	FnGetDefaultQuestionById                                     Function = "get-default-question-by-id"
+	FnGetRefundRetentionPolicy                                   Function = "get-refund-retention-policy"
+	FnListAttendeesByEvent                                       Function = "list-attendees-by-event"
+	FnListAttendeesByOrganization                                Function = "list-attendees-by-organization"
+	FnListAttendeesByTeam                                        Function = "list-attendees-by-team"
+	FnListByEvent                                                Function = "list-by-event"
+	FnListCustomQuestionsByEvent                                 Function = "list-custom-questions-by-event"
+	FnListDefaultQuestionsByEvent                                Function = "list-default-questions-by-event"
+	FnListEventsByOrganization                                   Function = "list-events-by-organization"
+	FnListEventsBySeries                                         Function = "list-events-by-series"
+	FnListEventsByVenue                                          Function = "list-events-by-venue"
+	FnListFormats                                                Function = "list-formats"
+	FnListInventoryTiersByEvent                                  Function = "list-inventory-tiers-by-event"
+	FnListMembersOfAnOrganization                                Function = "list-members-of-an-organization"
+	FnListOfCategories                                           Function = "list-of-categories"
+	FnListOfSubcategories                                        Function = "list-of-subcategories"
+	FnListOfWebhooksDeprecation                                  Function = "list-of-webhooks-deprecation"
+	FnListOrdersByEventID                                        Function = "list-orders-by-event-i-d"
+	FnListOrdersByOrganizationID                                 Function = "list-orders-by-organization-i-d"
+	FnListOrdersByUserID                                         Function = "list-orders-by-user-i-d"
+	FnListOrganizationsByUser                                    Function = "list-organizations-by-user"
+	FnListPricing                                                Function = "list-pricing"
+	FnListRolesByOrganization                                    Function = "list-roles-by-organization"
+	FnListSeatMapsByOrganization                                 Function = "list-seat-maps-by-organization"
+	FnListTicketClassesAvailableForSaleByEvent                   Function = "list-ticket-classes-available-for-sale-by-event"
+	FnListTicketClassesByEvent                                   Function = "list-ticket-classes-by-event"
+	FnListTicketGroupsByOrganization                             Function = "list-ticket-groups-by-organization"
+	FnListVenuesByOrganization                                   Function = "list-venues-by-organization"
+	FnListWebhookByOrganizationID                                Function = "list-webhook-by-organization-i-d"
+	FnListYourOrganizations                                      Function = "list-your-organizations"
+	FnPublishAnEvent                                             Function = "publish-an-event"
+	FnRefundOrder                                                Function = "refund-order"
+	FnRemainingBalance                                           Function = "remaining-balance"
+	FnRetrieveAAttendeeReport                                    Function = "retrieve-a-attendee-report"
+	FnRetrieveACapacityTier                                      Function = "retrieve-a-capacity-tier"
+	FnRetrieveADiscount                                          Function = "retrieve-a-discount"
+	FnRetrieveAFormat                                            Function = "retrieve-a-format"
+	FnRetrieveAMediaUpload                                       Function = "retrieve-a-media-upload"
+	FnRetrieveASalesReport                                       Function = "retrieve-a-sales-report"
+	FnRetrieveATicketClass                                       Function = "retrieve-a-ticket-class"
+	FnRetrieveATicketGroup                                       Function = "retrieve-a-ticket-group"
+	FnRetrieveAVenue                                             Function = "retrieve-a-venue"
+	FnRetrieveAnAttendee                                         Function = "retrieve-an-attendee"
+	FnRetrieveAnEvent                                            Function = "retrieve-an-event"
+	FnRetrieveAnEventSeries                                      Function = "retrieve-an-event-series"
+	FnRetrieveAnInventoryTier                                    Function = "retrieve-an-inventory-tier"
+	FnRetrieveDisplaySettings                                    Function = "retrieve-display-settings"
+	FnRetrieveFullHTMLDescription                                Function = "retrieve-full-h-t-m-l-description"
+	FnRetrieveInformationAboutAUserAccount                       Function = "retrieve-information-about-a-user-account"
+	FnRetrieveInformationAboutYourUserAccount                    Function = "retrieve-information-about-your-user-account"
+	FnRetrieveLatestPublishedVersionOfStructuredContentByEventId Function = "retrieve-latest-published-version-of-structured-content-by-event-id"
+	FnRetrieveLatestWorkingVersionOfStructuredContentByEventId   Function = "retrieve-latest-working-version-of-structured-content-by-event-id"
+	FnRetrieveMedia                                              Function = "retrieve-media"
+	FnRetrieveOrderByID                                          Function = "retrieve-order-by-i-d"
+	FnRetrieveTeam                                               Function = "retrieve-team"
+	FnRetrieveTextOverrides                                      Function = "retrieve-text-overrides"
+	FnRetrieveTicketBuyerSettingsByEvent                         Function = "retrieve-ticket-buyer-settings-by-event"
+	FnSearchDiscountsByOrganization                              Function = "search-discounts-by-organization"
+	FnSearchEventsDeprecated                                     Function = "search-events-deprecated"
+	FnSearchTeamsByNameTeam                                      Function = "search-teams-by-name-team"
+	FnSetStructuredContentByEventIdAndVersion                    Function = "set-structured-content-by-event-id-and-version"
+	FnSubcategoryByID                                            Function = "subcategory-by-i-d"
+	FnUnpublishAnEvent                                           Function = "unpublish-an-event"
+	FnUpdateACapacityTier                                        Function = "update-a-capacity-tier"
+	FnUpdateADiscount                                            Function = "update-a-discount"
+	FnUpdateATicketClass                                         Function = "update-a-ticket-class"
+	FnUpdateATicketGroup                                         Function = "update-a-ticket-group"
+	FnUpdateAVenue                                               Function = "update-a-venue"
+	FnUpdateAnEvent                                              Function = "update-an-event"
+	FnUpdateAnInventoryTier                                      Function = "update-an-inventory-tier"
+	FnUpdateDefaultQuestionById                                  Function = "update-default-question-by-id"
+	FnUpdateDisplaySettings                                      Function = "update-display-settings"
+	FnUpdateMultipleInventoryTiers                               Function = "update-multiple-inventory-tiers"
+	FnUpdateTicketBuyerSettingsForAnEvent                        Function = "update-ticket-buyer-settings-for-an-event"
+	FnUploadAMediaFile                                           Function = "upload-a-media-file"
+	FnVerifyPasswordForATeam                                     Function = "verify-password-for-a-team"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnAddATicketClassToTicketGroups:
+		return FnAddATicketClassToTicketGroups, nil
+	case FnCalculateItems:
+		return FnCalculateItems, nil
+	case FnCancelAnEvent:
+		return FnCancelAnEvent, nil
+	case FnCategoryByID:
+		return FnCategoryByID, nil
+	case FnCopyAnEvent:
+		return FnCopyAnEvent, nil
+	case FnCreateACustomQuestionForAnEvent:
+		return FnCreateACustomQuestionForAnEvent, nil
+	case FnCreateADefaultQuestionForAnEvent:
+		return FnCreateADefaultQuestionForAnEvent, nil
+	case FnCreateADiscount:
+		return FnCreateADiscount, nil
+	case FnCreateATeam:
+		return FnCreateATeam, nil
+	case FnCreateATicketClass:
+		return FnCreateATicketClass, nil
+	case FnCreateATicketGroup:
+		return FnCreateATicketGroup, nil
+	case FnCreateAVenue:
+		return FnCreateAVenue, nil
+	case FnCreateAnEvent:
+		return FnCreateAnEvent, nil
+	case FnCreateAnEventSchedule:
+		return FnCreateAnEventSchedule, nil
+	case FnCreateSeatMapForEvent:
+		return FnCreateSeatMapForEvent, nil
+	case FnCreateTextOverrides:
+		return FnCreateTextOverrides, nil
+	case FnCreateWebhooksByOrganizationID:
+		return FnCreateWebhooksByOrganizationID, nil
+	case FnCreateWebhooksDeprecated:
+		return FnCreateWebhooksDeprecated, nil
+	case FnDeleteACustomQuestionForAnEvent:
+		return FnDeleteACustomQuestionForAnEvent, nil
+	case FnDeleteADiscount:
+		return FnDeleteADiscount, nil
+	case FnDeleteATicketGroup:
+		return FnDeleteATicketGroup, nil
+	case FnDeleteAnEvent:
+		return FnDeleteAnEvent, nil
+	case FnDeleteAnInventoryTier:
+		return FnDeleteAnInventoryTier, nil
+	case FnDeleteDefaultQuestionById:
+		return FnDeleteDefaultQuestionById, nil
+	case FnDeleteWebhookByID:
+		return FnDeleteWebhookByID, nil
+	case FnGetCustomQuestionById:
+		return FnGetCustomQuestionById, nil
+	case FnGetDefaultQuestionById:
+		return FnGetDefaultQuestionById, nil
+	case FnGetRefundRetentionPolicy:
+		return FnGetRefundRetentionPolicy, nil
+	case FnListAttendeesByEvent:
+		return FnListAttendeesByEvent, nil
+	case FnListAttendeesByOrganization:
+		return FnListAttendeesByOrganization, nil
+	case FnListAttendeesByTeam:
+		return FnListAttendeesByTeam, nil
+	case FnListByEvent:
+		return FnListByEvent, nil
+	case FnListCustomQuestionsByEvent:
+		return FnListCustomQuestionsByEvent, nil
+	case FnListDefaultQuestionsByEvent:
+		return FnListDefaultQuestionsByEvent, nil
+	case FnListEventsByOrganization:
+		return FnListEventsByOrganization, nil
+	case FnListEventsBySeries:
+		return FnListEventsBySeries, nil
+	case FnListEventsByVenue:
+		return FnListEventsByVenue, nil
+	case FnListFormats:
+		return FnListFormats, nil
+	case FnListInventoryTiersByEvent:
+		return FnListInventoryTiersByEvent, nil
+	case FnListMembersOfAnOrganization:
+		return FnListMembersOfAnOrganization, nil
+	case FnListOfCategories:
+		return FnListOfCategories, nil
+	case FnListOfSubcategories:
+		return FnListOfSubcategories, nil
+	case FnListOfWebhooksDeprecation:
+		return FnListOfWebhooksDeprecation, nil
+	case FnListOrdersByEventID:
+		return FnListOrdersByEventID, nil
+	case FnListOrdersByOrganizationID:
+		return FnListOrdersByOrganizationID, nil
+	case FnListOrdersByUserID:
+		return FnListOrdersByUserID, nil
+	case FnListOrganizationsByUser:
+		return FnListOrganizationsByUser, nil
+	case FnListPricing:
+		return FnListPricing, nil
+	case FnListRolesByOrganization:
+		return FnListRolesByOrganization, nil
+	case FnListSeatMapsByOrganization:
+		return FnListSeatMapsByOrganization, nil
+	case FnListTicketClassesAvailableForSaleByEvent:
+		return FnListTicketClassesAvailableForSaleByEvent, nil
+	case FnListTicketClassesByEvent:
+		return FnListTicketClassesByEvent, nil
+	case FnListTicketGroupsByOrganization:
+		return FnListTicketGroupsByOrganization, nil
+	case FnListVenuesByOrganization:
+		return FnListVenuesByOrganization, nil
+	case FnListWebhookByOrganizationID:
+		return FnListWebhookByOrganizationID, nil
+	case FnListYourOrganizations:
+		return FnListYourOrganizations, nil
+	case FnPublishAnEvent:
+		return FnPublishAnEvent, nil
+	case FnRefundOrder:
+		return FnRefundOrder, nil
+	case FnRemainingBalance:
+		return FnRemainingBalance, nil
+	case FnRetrieveAAttendeeReport:
+		return FnRetrieveAAttendeeReport, nil
+	case FnRetrieveACapacityTier:
+		return FnRetrieveACapacityTier, nil
+	case FnRetrieveADiscount:
+		return FnRetrieveADiscount, nil
+	case FnRetrieveAFormat:
+		return FnRetrieveAFormat, nil
+	case FnRetrieveAMediaUpload:
+		return FnRetrieveAMediaUpload, nil
+	case FnRetrieveASalesReport:
+		return FnRetrieveASalesReport, nil
+	case FnRetrieveATicketClass:
+		return FnRetrieveATicketClass, nil
+	case FnRetrieveATicketGroup:
+		return FnRetrieveATicketGroup, nil
+	case FnRetrieveAVenue:
+		return FnRetrieveAVenue, nil
+	case FnRetrieveAnAttendee:
+		return FnRetrieveAnAttendee, nil
+	case FnRetrieveAnEvent:
+		return FnRetrieveAnEvent, nil
+	case FnRetrieveAnEventSeries:
+		return FnRetrieveAnEventSeries, nil
+	case FnRetrieveAnInventoryTier:
+		return FnRetrieveAnInventoryTier, nil
+	case FnRetrieveDisplaySettings:
+		return FnRetrieveDisplaySettings, nil
+	case FnRetrieveFullHTMLDescription:
+		return FnRetrieveFullHTMLDescription, nil
+	case FnRetrieveInformationAboutAUserAccount:
+		return FnRetrieveInformationAboutAUserAccount, nil
+	case FnRetrieveInformationAboutYourUserAccount:
+		return FnRetrieveInformationAboutYourUserAccount, nil
+	case FnRetrieveLatestPublishedVersionOfStructuredContentByEventId:
+		return FnRetrieveLatestPublishedVersionOfStructuredContentByEventId, nil
+	case FnRetrieveLatestWorkingVersionOfStructuredContentByEventId:
+		return FnRetrieveLatestWorkingVersionOfStructuredContentByEventId, nil
+	case FnRetrieveMedia:
+		return FnRetrieveMedia, nil
+	case FnRetrieveOrderByID:
+		return FnRetrieveOrderByID, nil
+	case FnRetrieveTeam:
+		return FnRetrieveTeam, nil
+	case FnRetrieveTextOverrides:
+		return FnRetrieveTextOverrides, nil
+	case FnRetrieveTicketBuyerSettingsByEvent:
+		return FnRetrieveTicketBuyerSettingsByEvent, nil
+	case FnSearchDiscountsByOrganization:
+		return FnSearchDiscountsByOrganization, nil
+	case FnSearchEventsDeprecated:
+		return FnSearchEventsDeprecated, nil
+	case FnSearchTeamsByNameTeam:
+		return FnSearchTeamsByNameTeam, nil
+	case FnSetStructuredContentByEventIdAndVersion:
+		return FnSetStructuredContentByEventIdAndVersion, nil
+	case FnSubcategoryByID:
+		return FnSubcategoryByID, nil
+	case FnUnpublishAnEvent:
+		return FnUnpublishAnEvent, nil
+	case FnUpdateACapacityTier:
+		return FnUpdateACapacityTier, nil
+	case FnUpdateADiscount:
+		return FnUpdateADiscount, nil
+	case FnUpdateATicketClass:
+		return FnUpdateATicketClass, nil
+	case FnUpdateATicketGroup:
+		return FnUpdateATicketGroup, nil
+	case FnUpdateAVenue:
+		return FnUpdateAVenue, nil
+	case FnUpdateAnEvent:
+		return FnUpdateAnEvent, nil
+	case FnUpdateAnInventoryTier:
+		return FnUpdateAnInventoryTier, nil
+	case FnUpdateDefaultQuestionById:
+		return FnUpdateDefaultQuestionById, nil
+	case FnUpdateDisplaySettings:
+		return FnUpdateDisplaySettings, nil
+	case FnUpdateMultipleInventoryTiers:
+		return FnUpdateMultipleInventoryTiers, nil
+	case FnUpdateTicketBuyerSettingsForAnEvent:
+		return FnUpdateTicketBuyerSettingsForAnEvent, nil
+	case FnUploadAMediaFile:
+		return FnUploadAMediaFile, nil
+	case FnVerifyPasswordForATeam:
+		return FnVerifyPasswordForATeam, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "add-a-ticket-class-to-ticket-groups":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnAddATicketClassToTicketGroups:
 		return ic.dispatchAddATicketClassToTicketGroupsWithResponse(ctx, config, inputs)
-	case "calculate-items":
+	case FnCalculateItems:
 		return ic.dispatchCalculateItemsWithResponse(ctx, config, inputs)
-	case "cancel-an-event":
+	case FnCancelAnEvent:
 		return ic.dispatchCancelAnEventWithResponse(ctx, config, inputs)
-	case "category-by-i-d":
+	case FnCategoryByID:
 		return ic.dispatchCategoryByIDWithResponse(ctx, config, inputs)
-	case "copy-an-event":
+	case FnCopyAnEvent:
 		return ic.dispatchCopyAnEventWithResponse(ctx, config, inputs)
-	case "create-a-custom-question-for-an-event":
+	case FnCreateACustomQuestionForAnEvent:
 		return ic.dispatchCreateACustomQuestionForAnEventWithResponse(ctx, config, inputs)
-	case "create-a-default-question-for-an-event":
+	case FnCreateADefaultQuestionForAnEvent:
 		return ic.dispatchCreateADefaultQuestionForAnEventWithResponse(ctx, config, inputs)
-	case "create-a-discount":
+	case FnCreateADiscount:
 		return ic.dispatchCreateADiscountWithResponse(ctx, config, inputs)
-	case "create-a-team":
+	case FnCreateATeam:
 		return ic.dispatchCreateATeamWithResponse(ctx, config, inputs)
-	case "create-a-ticket-class":
+	case FnCreateATicketClass:
 		return ic.dispatchCreateATicketClassWithResponse(ctx, config, inputs)
-	case "create-a-ticket-group":
+	case FnCreateATicketGroup:
 		return ic.dispatchCreateATicketGroupWithResponse(ctx, config, inputs)
-	case "create-a-venue":
+	case FnCreateAVenue:
 		return ic.dispatchCreateAVenueWithResponse(ctx, config, inputs)
-	case "create-an-event":
+	case FnCreateAnEvent:
 		return ic.dispatchCreateAnEventWithResponse(ctx, config, inputs)
-	case "create-an-event-schedule":
+	case FnCreateAnEventSchedule:
 		return ic.dispatchCreateAnEventScheduleWithResponse(ctx, config, inputs)
-	case "create-seat-map-for-event":
+	case FnCreateSeatMapForEvent:
 		return ic.dispatchCreateSeatMapForEventWithResponse(ctx, config, inputs)
-	case "create-text-overrides":
+	case FnCreateTextOverrides:
 		return ic.dispatchCreateTextOverridesWithResponse(ctx, config, inputs)
-	case "create-webhooks-by-organization-i-d":
+	case FnCreateWebhooksByOrganizationID:
 		return ic.dispatchCreateWebhooksByOrganizationIDWithResponse(ctx, config, inputs)
-	case "create-webhooks-deprecated":
+	case FnCreateWebhooksDeprecated:
 		return ic.dispatchCreateWebhooksDeprecatedWithResponse(ctx, config, inputs)
-	case "delete-a-custom-question-for-an-event":
+	case FnDeleteACustomQuestionForAnEvent:
 		return ic.dispatchDeleteACustomQuestionForAnEventWithResponse(ctx, config, inputs)
-	case "delete-a-discount":
+	case FnDeleteADiscount:
 		return ic.dispatchDeleteADiscountWithResponse(ctx, config, inputs)
-	case "delete-a-ticket-group":
+	case FnDeleteATicketGroup:
 		return ic.dispatchDeleteATicketGroupWithResponse(ctx, config, inputs)
-	case "delete-an-event":
+	case FnDeleteAnEvent:
 		return ic.dispatchDeleteAnEventWithResponse(ctx, config, inputs)
-	case "delete-an-inventory-tier":
+	case FnDeleteAnInventoryTier:
 		return ic.dispatchDeleteAnInventoryTierWithResponse(ctx, config, inputs)
-	case "delete-default-question-by-id":
+	case FnDeleteDefaultQuestionById:
 		return ic.dispatchDeleteDefaultQuestionByIdWithResponse(ctx, config, inputs)
-	case "delete-webhook-by-i-d":
+	case FnDeleteWebhookByID:
 		return ic.dispatchDeleteWebhookByIDWithResponse(ctx, config, inputs)
-	case "get-custom-question-by-id":
+	case FnGetCustomQuestionById:
 		return ic.dispatchGetCustomQuestionByIdWithResponse(ctx, config, inputs)
-	case "get-default-question-by-id":
+	case FnGetDefaultQuestionById:
 		return ic.dispatchGetDefaultQuestionByIdWithResponse(ctx, config, inputs)
-	case "get-refund-retention-policy":
+	case FnGetRefundRetentionPolicy:
 		return ic.dispatchGetRefundRetentionPolicyWithResponse(ctx, config, inputs)
-	case "list-attendees-by-event":
+	case FnListAttendeesByEvent:
 		return ic.dispatchListAttendeesByEventWithResponse(ctx, config, inputs)
-	case "list-attendees-by-organization":
+	case FnListAttendeesByOrganization:
 		return ic.dispatchListAttendeesByOrganizationWithResponse(ctx, config, inputs)
-	case "list-attendees-by-team":
+	case FnListAttendeesByTeam:
 		return ic.dispatchListAttendeesByTeamWithResponse(ctx, config, inputs)
-	case "list-by-event":
+	case FnListByEvent:
 		return ic.dispatchListByEventWithResponse(ctx, config, inputs)
-	case "list-custom-questions-by-event":
+	case FnListCustomQuestionsByEvent:
 		return ic.dispatchListCustomQuestionsByEventWithResponse(ctx, config, inputs)
-	case "list-default-questions-by-event":
+	case FnListDefaultQuestionsByEvent:
 		return ic.dispatchListDefaultQuestionsByEventWithResponse(ctx, config, inputs)
-	case "list-events-by-organization":
+	case FnListEventsByOrganization:
 		return ic.dispatchListEventsByOrganizationWithResponse(ctx, config, inputs)
-	case "list-events-by-series":
+	case FnListEventsBySeries:
 		return ic.dispatchListEventsBySeriesWithResponse(ctx, config, inputs)
-	case "list-events-by-venue":
+	case FnListEventsByVenue:
 		return ic.dispatchListEventsByVenueWithResponse(ctx, config, inputs)
-	case "list-formats":
+	case FnListFormats:
 		return ic.dispatchListFormatsWithResponse(ctx, config, inputs)
-	case "list-inventory-tiers-by-event":
+	case FnListInventoryTiersByEvent:
 		return ic.dispatchListInventoryTiersByEventWithResponse(ctx, config, inputs)
-	case "list-members-of-an-organization":
+	case FnListMembersOfAnOrganization:
 		return ic.dispatchListMembersOfAnOrganizationWithResponse(ctx, config, inputs)
-	case "list-of-categories":
+	case FnListOfCategories:
 		return ic.dispatchListOfCategoriesWithResponse(ctx, config, inputs)
-	case "list-of-subcategories":
+	case FnListOfSubcategories:
 		return ic.dispatchListOfSubcategoriesWithResponse(ctx, config, inputs)
-	case "list-of-webhooks-deprecation":
+	case FnListOfWebhooksDeprecation:
 		return ic.dispatchListOfWebhooksDeprecationWithResponse(ctx, config, inputs)
-	case "list-orders-by-event-i-d":
+	case FnListOrdersByEventID:
 		return ic.dispatchListOrdersByEventIDWithResponse(ctx, config, inputs)
-	case "list-orders-by-organization-i-d":
+	case FnListOrdersByOrganizationID:
 		return ic.dispatchListOrdersByOrganizationIDWithResponse(ctx, config, inputs)
-	case "list-orders-by-user-i-d":
+	case FnListOrdersByUserID:
 		return ic.dispatchListOrdersByUserIDWithResponse(ctx, config, inputs)
-	case "list-organizations-by-user":
+	case FnListOrganizationsByUser:
 		return ic.dispatchListOrganizationsByUserWithResponse(ctx, config, inputs)
-	case "list-pricing":
+	case FnListPricing:
 		return ic.dispatchListPricingWithResponse(ctx, config, inputs)
-	case "list-roles-by-organization":
+	case FnListRolesByOrganization:
 		return ic.dispatchListRolesByOrganizationWithResponse(ctx, config, inputs)
-	case "list-seat-maps-by-organization":
+	case FnListSeatMapsByOrganization:
 		return ic.dispatchListSeatMapsByOrganizationWithResponse(ctx, config, inputs)
-	case "list-ticket-classes-available-for-sale-by-event":
+	case FnListTicketClassesAvailableForSaleByEvent:
 		return ic.dispatchListTicketClassesAvailableForSaleByEventWithResponse(ctx, config, inputs)
-	case "list-ticket-classes-by-event":
+	case FnListTicketClassesByEvent:
 		return ic.dispatchListTicketClassesByEventWithResponse(ctx, config, inputs)
-	case "list-ticket-groups-by-organization":
+	case FnListTicketGroupsByOrganization:
 		return ic.dispatchListTicketGroupsByOrganizationWithResponse(ctx, config, inputs)
-	case "list-venues-by-organization":
+	case FnListVenuesByOrganization:
 		return ic.dispatchListVenuesByOrganizationWithResponse(ctx, config, inputs)
-	case "list-webhook-by-organization-i-d":
+	case FnListWebhookByOrganizationID:
 		return ic.dispatchListWebhookByOrganizationIDWithResponse(ctx, config, inputs)
-	case "list-your-organizations":
+	case FnListYourOrganizations:
 		return ic.dispatchListYourOrganizationsWithResponse(ctx, config, inputs)
-	case "publish-an-event":
+	case FnPublishAnEvent:
 		return ic.dispatchPublishAnEventWithResponse(ctx, config, inputs)
-	case "refund-order":
+	case FnRefundOrder:
 		return ic.dispatchRefundOrderWithResponse(ctx, config, inputs)
-	case "remaining-balance":
+	case FnRemainingBalance:
 		return ic.dispatchRemainingBalanceWithResponse(ctx, config, inputs)
-	case "retrieve-a-attendee-report":
+	case FnRetrieveAAttendeeReport:
 		return ic.dispatchRetrieveAAttendeeReportWithResponse(ctx, config, inputs)
-	case "retrieve-a-capacity-tier":
+	case FnRetrieveACapacityTier:
 		return ic.dispatchRetrieveACapacityTierWithResponse(ctx, config, inputs)
-	case "retrieve-a-discount":
+	case FnRetrieveADiscount:
 		return ic.dispatchRetrieveADiscountWithResponse(ctx, config, inputs)
-	case "retrieve-a-format":
+	case FnRetrieveAFormat:
 		return ic.dispatchRetrieveAFormatWithResponse(ctx, config, inputs)
-	case "retrieve-a-media-upload":
+	case FnRetrieveAMediaUpload:
 		return ic.dispatchRetrieveAMediaUploadWithResponse(ctx, config, inputs)
-	case "retrieve-a-sales-report":
+	case FnRetrieveASalesReport:
 		return ic.dispatchRetrieveASalesReportWithResponse(ctx, config, inputs)
-	case "retrieve-a-ticket-class":
+	case FnRetrieveATicketClass:
 		return ic.dispatchRetrieveATicketClassWithResponse(ctx, config, inputs)
-	case "retrieve-a-ticket-group":
+	case FnRetrieveATicketGroup:
 		return ic.dispatchRetrieveATicketGroupWithResponse(ctx, config, inputs)
-	case "retrieve-a-venue":
+	case FnRetrieveAVenue:
 		return ic.dispatchRetrieveAVenueWithResponse(ctx, config, inputs)
-	case "retrieve-an-attendee":
+	case FnRetrieveAnAttendee:
 		return ic.dispatchRetrieveAnAttendeeWithResponse(ctx, config, inputs)
-	case "retrieve-an-event":
+	case FnRetrieveAnEvent:
 		return ic.dispatchRetrieveAnEventWithResponse(ctx, config, inputs)
-	case "retrieve-an-event-series":
+	case FnRetrieveAnEventSeries:
 		return ic.dispatchRetrieveAnEventSeriesWithResponse(ctx, config, inputs)
-	case "retrieve-an-inventory-tier":
+	case FnRetrieveAnInventoryTier:
 		return ic.dispatchRetrieveAnInventoryTierWithResponse(ctx, config, inputs)
-	case "retrieve-display-settings":
+	case FnRetrieveDisplaySettings:
 		return ic.dispatchRetrieveDisplaySettingsWithResponse(ctx, config, inputs)
-	case "retrieve-full-h-t-m-l-description":
+	case FnRetrieveFullHTMLDescription:
 		return ic.dispatchRetrieveFullHTMLDescriptionWithResponse(ctx, config, inputs)
-	case "retrieve-information-about-a-user-account":
+	case FnRetrieveInformationAboutAUserAccount:
 		return ic.dispatchRetrieveInformationAboutAUserAccountWithResponse(ctx, config, inputs)
-	case "retrieve-information-about-your-user-account":
+	case FnRetrieveInformationAboutYourUserAccount:
 		return ic.dispatchRetrieveInformationAboutYourUserAccountWithResponse(ctx, config, inputs)
-	case "retrieve-latest-published-version-of-structured-content-by-event-id":
+	case FnRetrieveLatestPublishedVersionOfStructuredContentByEventId:
 		return ic.dispatchRetrieveLatestPublishedVersionOfStructuredContentByEventIdWithResponse(ctx, config, inputs)
-	case "retrieve-latest-working-version-of-structured-content-by-event-id":
+	case FnRetrieveLatestWorkingVersionOfStructuredContentByEventId:
 		return ic.dispatchRetrieveLatestWorkingVersionOfStructuredContentByEventIdWithResponse(ctx, config, inputs)
-	case "retrieve-media":
+	case FnRetrieveMedia:
 		return ic.dispatchRetrieveMediaWithResponse(ctx, config, inputs)
-	case "retrieve-order-by-i-d":
+	case FnRetrieveOrderByID:
 		return ic.dispatchRetrieveOrderByIDWithResponse(ctx, config, inputs)
-	case "retrieve-team":
+	case FnRetrieveTeam:
 		return ic.dispatchRetrieveTeamWithResponse(ctx, config, inputs)
-	case "retrieve-text-overrides":
+	case FnRetrieveTextOverrides:
 		return ic.dispatchRetrieveTextOverridesWithResponse(ctx, config, inputs)
-	case "retrieve-ticket-buyer-settings-by-event":
+	case FnRetrieveTicketBuyerSettingsByEvent:
 		return ic.dispatchRetrieveTicketBuyerSettingsByEventWithResponse(ctx, config, inputs)
-	case "search-discounts-by-organization":
+	case FnSearchDiscountsByOrganization:
 		return ic.dispatchSearchDiscountsByOrganizationWithResponse(ctx, config, inputs)
-	case "search-events-deprecated":
+	case FnSearchEventsDeprecated:
 		return ic.dispatchSearchEventsDeprecatedWithResponse(ctx, config, inputs)
-	case "search-teams-by-name-team":
+	case FnSearchTeamsByNameTeam:
 		return ic.dispatchSearchTeamsByNameTeamWithResponse(ctx, config, inputs)
-	case "set-structured-content-by-event-id-and-version":
+	case FnSetStructuredContentByEventIdAndVersion:
 		return ic.dispatchSetStructuredContentByEventIdAndVersionWithResponse(ctx, config, inputs)
-	case "subcategory-by-i-d":
+	case FnSubcategoryByID:
 		return ic.dispatchSubcategoryByIDWithResponse(ctx, config, inputs)
-	case "unpublish-an-event":
+	case FnUnpublishAnEvent:
 		return ic.dispatchUnpublishAnEventWithResponse(ctx, config, inputs)
-	case "update-a-capacity-tier":
+	case FnUpdateACapacityTier:
 		return ic.dispatchUpdateACapacityTierWithResponse(ctx, config, inputs)
-	case "update-a-discount":
+	case FnUpdateADiscount:
 		return ic.dispatchUpdateADiscountWithResponse(ctx, config, inputs)
-	case "update-a-ticket-class":
+	case FnUpdateATicketClass:
 		return ic.dispatchUpdateATicketClassWithResponse(ctx, config, inputs)
-	case "update-a-ticket-group":
+	case FnUpdateATicketGroup:
 		return ic.dispatchUpdateATicketGroupWithResponse(ctx, config, inputs)
-	case "update-a-venue":
+	case FnUpdateAVenue:
 		return ic.dispatchUpdateAVenueWithResponse(ctx, config, inputs)
-	case "update-an-event":
+	case FnUpdateAnEvent:
 		return ic.dispatchUpdateAnEventWithResponse(ctx, config, inputs)
-	case "update-an-inventory-tier":
+	case FnUpdateAnInventoryTier:
 		return ic.dispatchUpdateAnInventoryTierWithResponse(ctx, config, inputs)
-	case "update-default-question-by-id":
+	case FnUpdateDefaultQuestionById:
 		return ic.dispatchUpdateDefaultQuestionByIdWithResponse(ctx, config, inputs)
-	case "update-display-settings":
+	case FnUpdateDisplaySettings:
 		return ic.dispatchUpdateDisplaySettingsWithResponse(ctx, config, inputs)
-	case "update-multiple-inventory-tiers":
+	case FnUpdateMultipleInventoryTiers:
 		return ic.dispatchUpdateMultipleInventoryTiersWithResponse(ctx, config, inputs)
-	case "update-ticket-buyer-settings-for-an-event":
+	case FnUpdateTicketBuyerSettingsForAnEvent:
 		return ic.dispatchUpdateTicketBuyerSettingsForAnEventWithResponse(ctx, config, inputs)
-	case "upload-a-media-file":
+	case FnUploadAMediaFile:
 		return ic.dispatchUploadAMediaFileWithResponse(ctx, config, inputs)
-	case "verify-password-for-a-team":
+	case FnVerifyPasswordForATeam:
 		return ic.dispatchVerifyPasswordForATeamWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

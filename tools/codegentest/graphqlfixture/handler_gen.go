@@ -16,15 +16,35 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
-// Dispatch calls the named GraphQL operation.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "get-widget":
-		return ic.ep.call(ctx, function, queryGetWidget, inputs)
-	case "rename-widget":
-		return ic.ep.call(ctx, function, queryRenameWidget, inputs)
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnGetWidget    Function = "get-widget"
+	FnRenameWidget Function = "rename-widget"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnGetWidget:
+		return FnGetWidget, nil
+	case FnRenameWidget:
+		return FnRenameWidget, nil
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
+// Dispatch calls the named GraphQL operation.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnGetWidget:
+		return ic.ep.call(ctx, string(fn), queryGetWidget, inputs)
+	case FnRenameWidget:
+		return ic.ep.call(ctx, string(fn), queryRenameWidget, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

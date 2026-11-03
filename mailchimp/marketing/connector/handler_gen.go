@@ -18,607 +18,1515 @@ type InterfaceClient struct {
 	cl *client.ClientWithResponses
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnArchiveAutomations                                  Function = "archive-automations"
+	FnCreateAudienceContact                               Function = "create-audience-contact"
+	FnCreateVerifiedDomain                                Function = "create-verified-domain"
+	FnDeleteAutomationsIdEmailsId                         Function = "delete-automations-id-emails-id"
+	FnDeleteBatchWebhookId                                Function = "delete-batch-webhook-id"
+	FnDeleteBatchesId                                     Function = "delete-batches-id"
+	FnDeleteCampaignFoldersId                             Function = "delete-campaign-folders-id"
+	FnDeleteCampaignsId                                   Function = "delete-campaigns-id"
+	FnDeleteCampaignsIdFeedbackId                         Function = "delete-campaigns-id-feedback-id"
+	FnDeleteConnectedSitesId                              Function = "delete-connected-sites-id"
+	FnDeleteEcommerceStoresId                             Function = "delete-ecommerce-stores-id"
+	FnDeleteEcommerceStoresIdCartsId                      Function = "delete-ecommerce-stores-id-carts-id"
+	FnDeleteEcommerceStoresIdCartsLinesId                 Function = "delete-ecommerce-stores-id-carts-lines-id"
+	FnDeleteEcommerceStoresIdCustomersId                  Function = "delete-ecommerce-stores-id-customers-id"
+	FnDeleteEcommerceStoresIdOrdersId                     Function = "delete-ecommerce-stores-id-orders-id"
+	FnDeleteEcommerceStoresIdOrdersIdLinesId              Function = "delete-ecommerce-stores-id-orders-id-lines-id"
+	FnDeleteEcommerceStoresIdProductsId                   Function = "delete-ecommerce-stores-id-products-id"
+	FnDeleteEcommerceStoresIdProductsIdImagesId           Function = "delete-ecommerce-stores-id-products-id-images-id"
+	FnDeleteEcommerceStoresIdProductsIdVariantsId         Function = "delete-ecommerce-stores-id-products-id-variants-id"
+	FnDeleteEcommerceStoresIdPromocodesId                 Function = "delete-ecommerce-stores-id-promocodes-id"
+	FnDeleteEcommerceStoresIdPromorulesId                 Function = "delete-ecommerce-stores-id-promorules-id"
+	FnDeleteFileManagerFilesId                            Function = "delete-file-manager-files-id"
+	FnDeleteFileManagerFoldersId                          Function = "delete-file-manager-folders-id"
+	FnDeleteLandingPageId                                 Function = "delete-landing-page-id"
+	FnDeleteListsId                                       Function = "delete-lists-id"
+	FnDeleteListsIdInterestCategoriesId                   Function = "delete-lists-id-interest-categories-id"
+	FnDeleteListsIdInterestCategoriesIdInterestsId        Function = "delete-lists-id-interest-categories-id-interests-id"
+	FnDeleteListsIdMembersId                              Function = "delete-lists-id-members-id"
+	FnDeleteListsIdMembersIdNotesId                       Function = "delete-lists-id-members-id-notes-id"
+	FnDeleteListsIdMergeFieldsId                          Function = "delete-lists-id-merge-fields-id"
+	FnDeleteListsIdSegmentsId                             Function = "delete-lists-id-segments-id"
+	FnDeleteListsIdSegmentsIdMembersId                    Function = "delete-lists-id-segments-id-members-id"
+	FnDeleteListsIdSurveysId                              Function = "delete-lists-id-surveys-id"
+	FnDeleteListsIdWebhooksId                             Function = "delete-lists-id-webhooks-id"
+	FnDeleteSmsCampaignsId                                Function = "delete-sms-campaigns-id"
+	FnDeleteTemplateFoldersId                             Function = "delete-template-folders-id"
+	FnDeleteTemplatesId                                   Function = "delete-templates-id"
+	FnDeleteVerifiedDomain                                Function = "delete-verified-domain"
+	FnGetAccountExportId                                  Function = "get-account-export-id"
+	FnGetAccountExports                                   Function = "get-account-exports"
+	FnGetActivityFeedChimpChatter                         Function = "get-activity-feed-chimp-chatter"
+	FnGetAllFacebookAds                                   Function = "get-all-facebook-ads"
+	FnGetAllLandingPages                                  Function = "get-all-landing-pages"
+	FnGetAudienceContact                                  Function = "get-audience-contact"
+	FnGetAudienceContactList                              Function = "get-audience-contact-list"
+	FnGetAudienceContacts                                 Function = "get-audience-contacts"
+	FnGetAudienceId                                       Function = "get-audience-id"
+	FnGetAuthorizedApps                                   Function = "get-authorized-apps"
+	FnGetAuthorizedAppsId                                 Function = "get-authorized-apps-id"
+	FnGetAutomations                                      Function = "get-automations"
+	FnGetAutomationsId                                    Function = "get-automations-id"
+	FnGetAutomationsIdEmails                              Function = "get-automations-id-emails"
+	FnGetAutomationsIdEmailsId                            Function = "get-automations-id-emails-id"
+	FnGetAutomationsIdEmailsIdQueue                       Function = "get-automations-id-emails-id-queue"
+	FnGetAutomationsIdEmailsIdQueueId                     Function = "get-automations-id-emails-id-queue-id"
+	FnGetAutomationsIdRemovedSubscribers                  Function = "get-automations-id-removed-subscribers"
+	FnGetAutomationsIdRemovedSubscribersId                Function = "get-automations-id-removed-subscribers-id"
+	FnGetBatchWebhook                                     Function = "get-batch-webhook"
+	FnGetBatchWebhooks                                    Function = "get-batch-webhooks"
+	FnGetBatches                                          Function = "get-batches"
+	FnGetBatchesId                                        Function = "get-batches-id"
+	FnGetCampaignFolders                                  Function = "get-campaign-folders"
+	FnGetCampaignFoldersId                                Function = "get-campaign-folders-id"
+	FnGetCampaigns                                        Function = "get-campaigns"
+	FnGetCampaignsId                                      Function = "get-campaigns-id"
+	FnGetCampaignsIdContent                               Function = "get-campaigns-id-content"
+	FnGetCampaignsIdFeedback                              Function = "get-campaigns-id-feedback"
+	FnGetCampaignsIdFeedbackId                            Function = "get-campaigns-id-feedback-id"
+	FnGetCampaignsIdSendChecklist                         Function = "get-campaigns-id-send-checklist"
+	FnGetConnectedSites                                   Function = "get-connected-sites"
+	FnGetConnectedSitesId                                 Function = "get-connected-sites-id"
+	FnGetConversations                                    Function = "get-conversations"
+	FnGetConversationsId                                  Function = "get-conversations-id"
+	FnGetConversationsIdMessages                          Function = "get-conversations-id-messages"
+	FnGetConversationsIdMessagesId                        Function = "get-conversations-id-messages-id"
+	FnGetEcommerceOrders                                  Function = "get-ecommerce-orders"
+	FnGetEcommerceStores                                  Function = "get-ecommerce-stores"
+	FnGetEcommerceStoresId                                Function = "get-ecommerce-stores-id"
+	FnGetEcommerceStoresIdCarts                           Function = "get-ecommerce-stores-id-carts"
+	FnGetEcommerceStoresIdCartsId                         Function = "get-ecommerce-stores-id-carts-id"
+	FnGetEcommerceStoresIdCartsIdLines                    Function = "get-ecommerce-stores-id-carts-id-lines"
+	FnGetEcommerceStoresIdCartsIdLinesId                  Function = "get-ecommerce-stores-id-carts-id-lines-id"
+	FnGetEcommerceStoresIdCustomers                       Function = "get-ecommerce-stores-id-customers"
+	FnGetEcommerceStoresIdCustomersId                     Function = "get-ecommerce-stores-id-customers-id"
+	FnGetEcommerceStoresIdOrders                          Function = "get-ecommerce-stores-id-orders"
+	FnGetEcommerceStoresIdOrdersId                        Function = "get-ecommerce-stores-id-orders-id"
+	FnGetEcommerceStoresIdOrdersIdLines                   Function = "get-ecommerce-stores-id-orders-id-lines"
+	FnGetEcommerceStoresIdOrdersIdLinesId                 Function = "get-ecommerce-stores-id-orders-id-lines-id"
+	FnGetEcommerceStoresIdProducts                        Function = "get-ecommerce-stores-id-products"
+	FnGetEcommerceStoresIdProductsId                      Function = "get-ecommerce-stores-id-products-id"
+	FnGetEcommerceStoresIdProductsIdImages                Function = "get-ecommerce-stores-id-products-id-images"
+	FnGetEcommerceStoresIdProductsIdImagesId              Function = "get-ecommerce-stores-id-products-id-images-id"
+	FnGetEcommerceStoresIdProductsIdVariants              Function = "get-ecommerce-stores-id-products-id-variants"
+	FnGetEcommerceStoresIdProductsIdVariantsId            Function = "get-ecommerce-stores-id-products-id-variants-id"
+	FnGetEcommerceStoresIdPromocodes                      Function = "get-ecommerce-stores-id-promocodes"
+	FnGetEcommerceStoresIdPromocodesId                    Function = "get-ecommerce-stores-id-promocodes-id"
+	FnGetEcommerceStoresIdPromorules                      Function = "get-ecommerce-stores-id-promorules"
+	FnGetEcommerceStoresIdPromorulesId                    Function = "get-ecommerce-stores-id-promorules-id"
+	FnGetFacebookAdsId                                    Function = "get-facebook-ads-id"
+	FnGetFileManagerFiles                                 Function = "get-file-manager-files"
+	FnGetFileManagerFilesId                               Function = "get-file-manager-files-id"
+	FnGetFileManagerFolders                               Function = "get-file-manager-folders"
+	FnGetFileManagerFoldersFiles                          Function = "get-file-manager-folders-files"
+	FnGetFileManagerFoldersId                             Function = "get-file-manager-folders-id"
+	FnGetLandingPageId                                    Function = "get-landing-page-id"
+	FnGetLandingPageIdContent                             Function = "get-landing-page-id-content"
+	FnGetListMemberTags                                   Function = "get-list-member-tags"
+	FnGetLists                                            Function = "get-lists"
+	FnGetListsId                                          Function = "get-lists-id"
+	FnGetListsIdAbuseReports                              Function = "get-lists-id-abuse-reports"
+	FnGetListsIdAbuseReportsId                            Function = "get-lists-id-abuse-reports-id"
+	FnGetListsIdActivity                                  Function = "get-lists-id-activity"
+	FnGetListsIdClients                                   Function = "get-lists-id-clients"
+	FnGetListsIdGrowthHistory                             Function = "get-lists-id-growth-history"
+	FnGetListsIdGrowthHistoryId                           Function = "get-lists-id-growth-history-id"
+	FnGetListsIdInterestCategories                        Function = "get-lists-id-interest-categories"
+	FnGetListsIdInterestCategoriesId                      Function = "get-lists-id-interest-categories-id"
+	FnGetListsIdInterestCategoriesIdInterests             Function = "get-lists-id-interest-categories-id-interests"
+	FnGetListsIdInterestCategoriesIdInterestsId           Function = "get-lists-id-interest-categories-id-interests-id"
+	FnGetListsIdLocations                                 Function = "get-lists-id-locations"
+	FnGetListsIdMembers                                   Function = "get-lists-id-members"
+	FnGetListsIdMembersId                                 Function = "get-lists-id-members-id"
+	FnGetListsIdMembersIdActivity                         Function = "get-lists-id-members-id-activity"
+	FnGetListsIdMembersIdActivityFeed                     Function = "get-lists-id-members-id-activity-feed"
+	FnGetListsIdMembersIdEvents                           Function = "get-lists-id-members-id-events"
+	FnGetListsIdMembersIdGoals                            Function = "get-lists-id-members-id-goals"
+	FnGetListsIdMembersIdNotes                            Function = "get-lists-id-members-id-notes"
+	FnGetListsIdMembersIdNotesId                          Function = "get-lists-id-members-id-notes-id"
+	FnGetListsIdMergeFields                               Function = "get-lists-id-merge-fields"
+	FnGetListsIdMergeFieldsId                             Function = "get-lists-id-merge-fields-id"
+	FnGetListsIdSegmentsId                                Function = "get-lists-id-segments-id"
+	FnGetListsIdSegmentsIdMembers                         Function = "get-lists-id-segments-id-members"
+	FnGetListsIdSignupForms                               Function = "get-lists-id-signup-forms"
+	FnGetListsIdSurveys                                   Function = "get-lists-id-surveys"
+	FnGetListsIdSurveysId                                 Function = "get-lists-id-surveys-id"
+	FnGetListsIdWebhooks                                  Function = "get-lists-id-webhooks"
+	FnGetListsIdWebhooksId                                Function = "get-lists-id-webhooks-id"
+	FnGetPing                                             Function = "get-ping"
+	FnGetReportingFacebookAds                             Function = "get-reporting-facebook-ads"
+	FnGetReportingFacebookAdsId                           Function = "get-reporting-facebook-ads-id"
+	FnGetReportingFacebookAdsIdEcommerceProductActivity   Function = "get-reporting-facebook-ads-id-ecommerce-product-activity"
+	FnGetReportingLandingPages                            Function = "get-reporting-landing-pages"
+	FnGetReportingLandingPagesId                          Function = "get-reporting-landing-pages-id"
+	FnGetReportingSurveys                                 Function = "get-reporting-surveys"
+	FnGetReportingSurveysId                               Function = "get-reporting-surveys-id"
+	FnGetReportingSurveysIdQuestions                      Function = "get-reporting-surveys-id-questions"
+	FnGetReportingSurveysIdQuestionsId                    Function = "get-reporting-surveys-id-questions-id"
+	FnGetReportingSurveysIdQuestionsIdAnswers             Function = "get-reporting-surveys-id-questions-id-answers"
+	FnGetReportingSurveysIdResponses                      Function = "get-reporting-surveys-id-responses"
+	FnGetReportingSurveysIdResponsesId                    Function = "get-reporting-surveys-id-responses-id"
+	FnGetReports                                          Function = "get-reports"
+	FnGetReportsId                                        Function = "get-reports-id"
+	FnGetReportsIdAbuseReportsId                          Function = "get-reports-id-abuse-reports-id"
+	FnGetReportsIdAbuseReportsIdId                        Function = "get-reports-id-abuse-reports-id-id"
+	FnGetReportsIdAdvice                                  Function = "get-reports-id-advice"
+	FnGetReportsIdClickDetails                            Function = "get-reports-id-click-details"
+	FnGetReportsIdClickDetailsId                          Function = "get-reports-id-click-details-id"
+	FnGetReportsIdClickDetailsIdMembers                   Function = "get-reports-id-click-details-id-members"
+	FnGetReportsIdClickDetailsIdMembersId                 Function = "get-reports-id-click-details-id-members-id"
+	FnGetReportsIdDomainPerformance                       Function = "get-reports-id-domain-performance"
+	FnGetReportsIdEcommerceProductActivity                Function = "get-reports-id-ecommerce-product-activity"
+	FnGetReportsIdEepurl                                  Function = "get-reports-id-eepurl"
+	FnGetReportsIdEmailActivity                           Function = "get-reports-id-email-activity"
+	FnGetReportsIdEmailActivityId                         Function = "get-reports-id-email-activity-id"
+	FnGetReportsIdLocations                               Function = "get-reports-id-locations"
+	FnGetReportsIdOpenDetails                             Function = "get-reports-id-open-details"
+	FnGetReportsIdOpenDetailsIdMembersId                  Function = "get-reports-id-open-details-id-members-id"
+	FnGetReportsIdSentTo                                  Function = "get-reports-id-sent-to"
+	FnGetReportsIdSentToId                                Function = "get-reports-id-sent-to-id"
+	FnGetReportsIdSubReportsId                            Function = "get-reports-id-sub-reports-id"
+	FnGetReportsIdUnsubscribed                            Function = "get-reports-id-unsubscribed"
+	FnGetReportsIdUnsubscribedId                          Function = "get-reports-id-unsubscribed-id"
+	FnGetRoot                                             Function = "get-root"
+	FnGetSearchCampaigns                                  Function = "get-search-campaigns"
+	FnGetSearchMembers                                    Function = "get-search-members"
+	FnGetSmsCampaigns                                     Function = "get-sms-campaigns"
+	FnGetSmsCampaignsId                                   Function = "get-sms-campaigns-id"
+	FnGetSmsCampaignsIdContent                            Function = "get-sms-campaigns-id-content"
+	FnGetTemplateFolders                                  Function = "get-template-folders"
+	FnGetTemplateFoldersId                                Function = "get-template-folders-id"
+	FnGetTemplates                                        Function = "get-templates"
+	FnGetTemplatesId                                      Function = "get-templates-id"
+	FnGetTemplatesIdDefaultContent                        Function = "get-templates-id-default-content"
+	FnGetVerifiedDomain                                   Function = "get-verified-domain"
+	FnGetVerifiedDomains                                  Function = "get-verified-domains"
+	FnPatchAudienceContact                                Function = "patch-audience-contact"
+	FnPatchAutomationEmailWorkflowId                      Function = "patch-automation-email-workflow-id"
+	FnPatchBatchWebhooks                                  Function = "patch-batch-webhooks"
+	FnPatchCampaignFoldersId                              Function = "patch-campaign-folders-id"
+	FnPatchCampaignsId                                    Function = "patch-campaigns-id"
+	FnPatchCampaignsIdFeedbackId                          Function = "patch-campaigns-id-feedback-id"
+	FnPatchEcommerceStoresId                              Function = "patch-ecommerce-stores-id"
+	FnPatchEcommerceStoresIdCartsId                       Function = "patch-ecommerce-stores-id-carts-id"
+	FnPatchEcommerceStoresIdCartsIdLinesId                Function = "patch-ecommerce-stores-id-carts-id-lines-id"
+	FnPatchEcommerceStoresIdCustomersId                   Function = "patch-ecommerce-stores-id-customers-id"
+	FnPatchEcommerceStoresIdOrdersId                      Function = "patch-ecommerce-stores-id-orders-id"
+	FnPatchEcommerceStoresIdOrdersIdLinesId               Function = "patch-ecommerce-stores-id-orders-id-lines-id"
+	FnPatchEcommerceStoresIdProductsId                    Function = "patch-ecommerce-stores-id-products-id"
+	FnPatchEcommerceStoresIdProductsIdImagesId            Function = "patch-ecommerce-stores-id-products-id-images-id"
+	FnPatchEcommerceStoresIdProductsIdVariantsId          Function = "patch-ecommerce-stores-id-products-id-variants-id"
+	FnPatchEcommerceStoresIdPromocodesId                  Function = "patch-ecommerce-stores-id-promocodes-id"
+	FnPatchEcommerceStoresIdPromorulesId                  Function = "patch-ecommerce-stores-id-promorules-id"
+	FnPatchFileManagerFilesId                             Function = "patch-file-manager-files-id"
+	FnPatchFileManagerFoldersId                           Function = "patch-file-manager-folders-id"
+	FnPatchLandingPageId                                  Function = "patch-landing-page-id"
+	FnPatchListsId                                        Function = "patch-lists-id"
+	FnPatchListsIdInterestCategoriesId                    Function = "patch-lists-id-interest-categories-id"
+	FnPatchListsIdInterestCategoriesIdInterestsId         Function = "patch-lists-id-interest-categories-id-interests-id"
+	FnPatchListsIdMembersId                               Function = "patch-lists-id-members-id"
+	FnPatchListsIdMembersIdNotesId                        Function = "patch-lists-id-members-id-notes-id"
+	FnPatchListsIdMergeFieldsId                           Function = "patch-lists-id-merge-fields-id"
+	FnPatchListsIdSegmentsId                              Function = "patch-lists-id-segments-id"
+	FnPatchListsIdSurveysId                               Function = "patch-lists-id-surveys-id"
+	FnPatchListsIdWebhooksId                              Function = "patch-lists-id-webhooks-id"
+	FnPatchSmsCampaignsId                                 Function = "patch-sms-campaigns-id"
+	FnPatchTemplateFoldersId                              Function = "patch-template-folders-id"
+	FnPatchTemplatesId                                    Function = "patch-templates-id"
+	FnPostAccountExport                                   Function = "post-account-export"
+	FnPostAllLandingPages                                 Function = "post-all-landing-pages"
+	FnPostAudiencesContactsActionsArchive                 Function = "post-audiences-contacts-actions-archive"
+	FnPostAudiencesContactsActionsForget                  Function = "post-audiences-contacts-actions-forget"
+	FnPostAutomations                                     Function = "post-automations"
+	FnPostAutomationsIdActionsPauseAllEmails              Function = "post-automations-id-actions-pause-all-emails"
+	FnPostAutomationsIdActionsStartAllEmails              Function = "post-automations-id-actions-start-all-emails"
+	FnPostAutomationsIdEmailsIdActionsPause               Function = "post-automations-id-emails-id-actions-pause"
+	FnPostAutomationsIdEmailsIdActionsStart               Function = "post-automations-id-emails-id-actions-start"
+	FnPostAutomationsIdEmailsIdQueue                      Function = "post-automations-id-emails-id-queue"
+	FnPostAutomationsIdRemovedSubscribers                 Function = "post-automations-id-removed-subscribers"
+	FnPostBatchWebhooks                                   Function = "post-batch-webhooks"
+	FnPostBatches                                         Function = "post-batches"
+	FnPostCampaignFolders                                 Function = "post-campaign-folders"
+	FnPostCampaigns                                       Function = "post-campaigns"
+	FnPostCampaignsIdActionsCancelSend                    Function = "post-campaigns-id-actions-cancel-send"
+	FnPostCampaignsIdActionsCreateResend                  Function = "post-campaigns-id-actions-create-resend"
+	FnPostCampaignsIdActionsPause                         Function = "post-campaigns-id-actions-pause"
+	FnPostCampaignsIdActionsReplicate                     Function = "post-campaigns-id-actions-replicate"
+	FnPostCampaignsIdActionsResume                        Function = "post-campaigns-id-actions-resume"
+	FnPostCampaignsIdActionsSchedule                      Function = "post-campaigns-id-actions-schedule"
+	FnPostCampaignsIdActionsSend                          Function = "post-campaigns-id-actions-send"
+	FnPostCampaignsIdActionsTest                          Function = "post-campaigns-id-actions-test"
+	FnPostCampaignsIdActionsUnschedule                    Function = "post-campaigns-id-actions-unschedule"
+	FnPostCampaignsIdFeedback                             Function = "post-campaigns-id-feedback"
+	FnPostConnectedSites                                  Function = "post-connected-sites"
+	FnPostConnectedSitesIdActionsDisablePixel             Function = "post-connected-sites-id-actions-disable-pixel"
+	FnPostConnectedSitesIdActionsEnablePixel              Function = "post-connected-sites-id-actions-enable-pixel"
+	FnPostConnectedSitesIdActionsVerifyScriptInstallation Function = "post-connected-sites-id-actions-verify-script-installation"
+	FnPostCustomerJourneysJourneysIdStepsIdActionsTrigger Function = "post-customer-journeys-journeys-id-steps-id-actions-trigger"
+	FnPostEcommerceStores                                 Function = "post-ecommerce-stores"
+	FnPostEcommerceStoresIdCarts                          Function = "post-ecommerce-stores-id-carts"
+	FnPostEcommerceStoresIdCartsIdLines                   Function = "post-ecommerce-stores-id-carts-id-lines"
+	FnPostEcommerceStoresIdCustomers                      Function = "post-ecommerce-stores-id-customers"
+	FnPostEcommerceStoresIdOrders                         Function = "post-ecommerce-stores-id-orders"
+	FnPostEcommerceStoresIdOrdersIdLines                  Function = "post-ecommerce-stores-id-orders-id-lines"
+	FnPostEcommerceStoresIdProducts                       Function = "post-ecommerce-stores-id-products"
+	FnPostEcommerceStoresIdProductsIdImages               Function = "post-ecommerce-stores-id-products-id-images"
+	FnPostEcommerceStoresIdProductsIdVariants             Function = "post-ecommerce-stores-id-products-id-variants"
+	FnPostEcommerceStoresIdPromocodes                     Function = "post-ecommerce-stores-id-promocodes"
+	FnPostEcommerceStoresIdPromorules                     Function = "post-ecommerce-stores-id-promorules"
+	FnPostFileManagerFiles                                Function = "post-file-manager-files"
+	FnPostFileManagerFolders                              Function = "post-file-manager-folders"
+	FnPostLandingPageIdActionsPublish                     Function = "post-landing-page-id-actions-publish"
+	FnPostLandingPageIdActionsUnpublish                   Function = "post-landing-page-id-actions-unpublish"
+	FnPostListMemberEvents                                Function = "post-list-member-events"
+	FnPostListMemberTags                                  Function = "post-list-member-tags"
+	FnPostLists                                           Function = "post-lists"
+	FnPostListsId                                         Function = "post-lists-id"
+	FnPostListsIdInterestCategories                       Function = "post-lists-id-interest-categories"
+	FnPostListsIdInterestCategoriesIdInterests            Function = "post-lists-id-interest-categories-id-interests"
+	FnPostListsIdMembers                                  Function = "post-lists-id-members"
+	FnPostListsIdMembersHashActionsDeletePermanent        Function = "post-lists-id-members-hash-actions-delete-permanent"
+	FnPostListsIdMembersIdNotes                           Function = "post-lists-id-members-id-notes"
+	FnPostListsIdMergeFields                              Function = "post-lists-id-merge-fields"
+	FnPostListsIdSegments                                 Function = "post-lists-id-segments"
+	FnPostListsIdSegmentsId                               Function = "post-lists-id-segments-id"
+	FnPostListsIdSegmentsIdMembers                        Function = "post-lists-id-segments-id-members"
+	FnPostListsIdSignupForms                              Function = "post-lists-id-signup-forms"
+	FnPostListsIdSurveys                                  Function = "post-lists-id-surveys"
+	FnPostListsIdSurveysIdActionsCreateEmail              Function = "post-lists-id-surveys-id-actions-create-email"
+	FnPostListsIdSurveysIdActionsPublish                  Function = "post-lists-id-surveys-id-actions-publish"
+	FnPostListsIdSurveysIdActionsReplicate                Function = "post-lists-id-surveys-id-actions-replicate"
+	FnPostListsIdSurveysIdActionsUnpublish                Function = "post-lists-id-surveys-id-actions-unpublish"
+	FnPostListsIdWebhooks                                 Function = "post-lists-id-webhooks"
+	FnPostSmsCampaigns                                    Function = "post-sms-campaigns"
+	FnPostSmsCampaignsIdActionsCancelSend                 Function = "post-sms-campaigns-id-actions-cancel-send"
+	FnPostSmsCampaignsIdActionsSchedule                   Function = "post-sms-campaigns-id-actions-schedule"
+	FnPostSmsCampaignsIdActionsSend                       Function = "post-sms-campaigns-id-actions-send"
+	FnPostTemplateFolders                                 Function = "post-template-folders"
+	FnPostTemplates                                       Function = "post-templates"
+	FnPreviewASegment                                     Function = "preview-a-segment"
+	FnPutCampaignsIdContent                               Function = "put-campaigns-id-content"
+	FnPutEcommerceStoresIdCustomersId                     Function = "put-ecommerce-stores-id-customers-id"
+	FnPutEcommerceStoresIdOrdersId                        Function = "put-ecommerce-stores-id-orders-id"
+	FnPutEcommerceStoresIdProductsId                      Function = "put-ecommerce-stores-id-products-id"
+	FnPutEcommerceStoresIdProductsIdVariantsId            Function = "put-ecommerce-stores-id-products-id-variants-id"
+	FnPutListsIdMembersId                                 Function = "put-lists-id-members-id"
+	FnPutSmsCampaignsIdContent                            Function = "put-sms-campaigns-id-content"
+	FnSearchTagsByName                                    Function = "search-tags-by-name"
+	FnVerifyDomain                                        Function = "verify-domain"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnArchiveAutomations:
+		return FnArchiveAutomations, nil
+	case FnCreateAudienceContact:
+		return FnCreateAudienceContact, nil
+	case FnCreateVerifiedDomain:
+		return FnCreateVerifiedDomain, nil
+	case FnDeleteAutomationsIdEmailsId:
+		return FnDeleteAutomationsIdEmailsId, nil
+	case FnDeleteBatchWebhookId:
+		return FnDeleteBatchWebhookId, nil
+	case FnDeleteBatchesId:
+		return FnDeleteBatchesId, nil
+	case FnDeleteCampaignFoldersId:
+		return FnDeleteCampaignFoldersId, nil
+	case FnDeleteCampaignsId:
+		return FnDeleteCampaignsId, nil
+	case FnDeleteCampaignsIdFeedbackId:
+		return FnDeleteCampaignsIdFeedbackId, nil
+	case FnDeleteConnectedSitesId:
+		return FnDeleteConnectedSitesId, nil
+	case FnDeleteEcommerceStoresId:
+		return FnDeleteEcommerceStoresId, nil
+	case FnDeleteEcommerceStoresIdCartsId:
+		return FnDeleteEcommerceStoresIdCartsId, nil
+	case FnDeleteEcommerceStoresIdCartsLinesId:
+		return FnDeleteEcommerceStoresIdCartsLinesId, nil
+	case FnDeleteEcommerceStoresIdCustomersId:
+		return FnDeleteEcommerceStoresIdCustomersId, nil
+	case FnDeleteEcommerceStoresIdOrdersId:
+		return FnDeleteEcommerceStoresIdOrdersId, nil
+	case FnDeleteEcommerceStoresIdOrdersIdLinesId:
+		return FnDeleteEcommerceStoresIdOrdersIdLinesId, nil
+	case FnDeleteEcommerceStoresIdProductsId:
+		return FnDeleteEcommerceStoresIdProductsId, nil
+	case FnDeleteEcommerceStoresIdProductsIdImagesId:
+		return FnDeleteEcommerceStoresIdProductsIdImagesId, nil
+	case FnDeleteEcommerceStoresIdProductsIdVariantsId:
+		return FnDeleteEcommerceStoresIdProductsIdVariantsId, nil
+	case FnDeleteEcommerceStoresIdPromocodesId:
+		return FnDeleteEcommerceStoresIdPromocodesId, nil
+	case FnDeleteEcommerceStoresIdPromorulesId:
+		return FnDeleteEcommerceStoresIdPromorulesId, nil
+	case FnDeleteFileManagerFilesId:
+		return FnDeleteFileManagerFilesId, nil
+	case FnDeleteFileManagerFoldersId:
+		return FnDeleteFileManagerFoldersId, nil
+	case FnDeleteLandingPageId:
+		return FnDeleteLandingPageId, nil
+	case FnDeleteListsId:
+		return FnDeleteListsId, nil
+	case FnDeleteListsIdInterestCategoriesId:
+		return FnDeleteListsIdInterestCategoriesId, nil
+	case FnDeleteListsIdInterestCategoriesIdInterestsId:
+		return FnDeleteListsIdInterestCategoriesIdInterestsId, nil
+	case FnDeleteListsIdMembersId:
+		return FnDeleteListsIdMembersId, nil
+	case FnDeleteListsIdMembersIdNotesId:
+		return FnDeleteListsIdMembersIdNotesId, nil
+	case FnDeleteListsIdMergeFieldsId:
+		return FnDeleteListsIdMergeFieldsId, nil
+	case FnDeleteListsIdSegmentsId:
+		return FnDeleteListsIdSegmentsId, nil
+	case FnDeleteListsIdSegmentsIdMembersId:
+		return FnDeleteListsIdSegmentsIdMembersId, nil
+	case FnDeleteListsIdSurveysId:
+		return FnDeleteListsIdSurveysId, nil
+	case FnDeleteListsIdWebhooksId:
+		return FnDeleteListsIdWebhooksId, nil
+	case FnDeleteSmsCampaignsId:
+		return FnDeleteSmsCampaignsId, nil
+	case FnDeleteTemplateFoldersId:
+		return FnDeleteTemplateFoldersId, nil
+	case FnDeleteTemplatesId:
+		return FnDeleteTemplatesId, nil
+	case FnDeleteVerifiedDomain:
+		return FnDeleteVerifiedDomain, nil
+	case FnGetAccountExportId:
+		return FnGetAccountExportId, nil
+	case FnGetAccountExports:
+		return FnGetAccountExports, nil
+	case FnGetActivityFeedChimpChatter:
+		return FnGetActivityFeedChimpChatter, nil
+	case FnGetAllFacebookAds:
+		return FnGetAllFacebookAds, nil
+	case FnGetAllLandingPages:
+		return FnGetAllLandingPages, nil
+	case FnGetAudienceContact:
+		return FnGetAudienceContact, nil
+	case FnGetAudienceContactList:
+		return FnGetAudienceContactList, nil
+	case FnGetAudienceContacts:
+		return FnGetAudienceContacts, nil
+	case FnGetAudienceId:
+		return FnGetAudienceId, nil
+	case FnGetAuthorizedApps:
+		return FnGetAuthorizedApps, nil
+	case FnGetAuthorizedAppsId:
+		return FnGetAuthorizedAppsId, nil
+	case FnGetAutomations:
+		return FnGetAutomations, nil
+	case FnGetAutomationsId:
+		return FnGetAutomationsId, nil
+	case FnGetAutomationsIdEmails:
+		return FnGetAutomationsIdEmails, nil
+	case FnGetAutomationsIdEmailsId:
+		return FnGetAutomationsIdEmailsId, nil
+	case FnGetAutomationsIdEmailsIdQueue:
+		return FnGetAutomationsIdEmailsIdQueue, nil
+	case FnGetAutomationsIdEmailsIdQueueId:
+		return FnGetAutomationsIdEmailsIdQueueId, nil
+	case FnGetAutomationsIdRemovedSubscribers:
+		return FnGetAutomationsIdRemovedSubscribers, nil
+	case FnGetAutomationsIdRemovedSubscribersId:
+		return FnGetAutomationsIdRemovedSubscribersId, nil
+	case FnGetBatchWebhook:
+		return FnGetBatchWebhook, nil
+	case FnGetBatchWebhooks:
+		return FnGetBatchWebhooks, nil
+	case FnGetBatches:
+		return FnGetBatches, nil
+	case FnGetBatchesId:
+		return FnGetBatchesId, nil
+	case FnGetCampaignFolders:
+		return FnGetCampaignFolders, nil
+	case FnGetCampaignFoldersId:
+		return FnGetCampaignFoldersId, nil
+	case FnGetCampaigns:
+		return FnGetCampaigns, nil
+	case FnGetCampaignsId:
+		return FnGetCampaignsId, nil
+	case FnGetCampaignsIdContent:
+		return FnGetCampaignsIdContent, nil
+	case FnGetCampaignsIdFeedback:
+		return FnGetCampaignsIdFeedback, nil
+	case FnGetCampaignsIdFeedbackId:
+		return FnGetCampaignsIdFeedbackId, nil
+	case FnGetCampaignsIdSendChecklist:
+		return FnGetCampaignsIdSendChecklist, nil
+	case FnGetConnectedSites:
+		return FnGetConnectedSites, nil
+	case FnGetConnectedSitesId:
+		return FnGetConnectedSitesId, nil
+	case FnGetConversations:
+		return FnGetConversations, nil
+	case FnGetConversationsId:
+		return FnGetConversationsId, nil
+	case FnGetConversationsIdMessages:
+		return FnGetConversationsIdMessages, nil
+	case FnGetConversationsIdMessagesId:
+		return FnGetConversationsIdMessagesId, nil
+	case FnGetEcommerceOrders:
+		return FnGetEcommerceOrders, nil
+	case FnGetEcommerceStores:
+		return FnGetEcommerceStores, nil
+	case FnGetEcommerceStoresId:
+		return FnGetEcommerceStoresId, nil
+	case FnGetEcommerceStoresIdCarts:
+		return FnGetEcommerceStoresIdCarts, nil
+	case FnGetEcommerceStoresIdCartsId:
+		return FnGetEcommerceStoresIdCartsId, nil
+	case FnGetEcommerceStoresIdCartsIdLines:
+		return FnGetEcommerceStoresIdCartsIdLines, nil
+	case FnGetEcommerceStoresIdCartsIdLinesId:
+		return FnGetEcommerceStoresIdCartsIdLinesId, nil
+	case FnGetEcommerceStoresIdCustomers:
+		return FnGetEcommerceStoresIdCustomers, nil
+	case FnGetEcommerceStoresIdCustomersId:
+		return FnGetEcommerceStoresIdCustomersId, nil
+	case FnGetEcommerceStoresIdOrders:
+		return FnGetEcommerceStoresIdOrders, nil
+	case FnGetEcommerceStoresIdOrdersId:
+		return FnGetEcommerceStoresIdOrdersId, nil
+	case FnGetEcommerceStoresIdOrdersIdLines:
+		return FnGetEcommerceStoresIdOrdersIdLines, nil
+	case FnGetEcommerceStoresIdOrdersIdLinesId:
+		return FnGetEcommerceStoresIdOrdersIdLinesId, nil
+	case FnGetEcommerceStoresIdProducts:
+		return FnGetEcommerceStoresIdProducts, nil
+	case FnGetEcommerceStoresIdProductsId:
+		return FnGetEcommerceStoresIdProductsId, nil
+	case FnGetEcommerceStoresIdProductsIdImages:
+		return FnGetEcommerceStoresIdProductsIdImages, nil
+	case FnGetEcommerceStoresIdProductsIdImagesId:
+		return FnGetEcommerceStoresIdProductsIdImagesId, nil
+	case FnGetEcommerceStoresIdProductsIdVariants:
+		return FnGetEcommerceStoresIdProductsIdVariants, nil
+	case FnGetEcommerceStoresIdProductsIdVariantsId:
+		return FnGetEcommerceStoresIdProductsIdVariantsId, nil
+	case FnGetEcommerceStoresIdPromocodes:
+		return FnGetEcommerceStoresIdPromocodes, nil
+	case FnGetEcommerceStoresIdPromocodesId:
+		return FnGetEcommerceStoresIdPromocodesId, nil
+	case FnGetEcommerceStoresIdPromorules:
+		return FnGetEcommerceStoresIdPromorules, nil
+	case FnGetEcommerceStoresIdPromorulesId:
+		return FnGetEcommerceStoresIdPromorulesId, nil
+	case FnGetFacebookAdsId:
+		return FnGetFacebookAdsId, nil
+	case FnGetFileManagerFiles:
+		return FnGetFileManagerFiles, nil
+	case FnGetFileManagerFilesId:
+		return FnGetFileManagerFilesId, nil
+	case FnGetFileManagerFolders:
+		return FnGetFileManagerFolders, nil
+	case FnGetFileManagerFoldersFiles:
+		return FnGetFileManagerFoldersFiles, nil
+	case FnGetFileManagerFoldersId:
+		return FnGetFileManagerFoldersId, nil
+	case FnGetLandingPageId:
+		return FnGetLandingPageId, nil
+	case FnGetLandingPageIdContent:
+		return FnGetLandingPageIdContent, nil
+	case FnGetListMemberTags:
+		return FnGetListMemberTags, nil
+	case FnGetLists:
+		return FnGetLists, nil
+	case FnGetListsId:
+		return FnGetListsId, nil
+	case FnGetListsIdAbuseReports:
+		return FnGetListsIdAbuseReports, nil
+	case FnGetListsIdAbuseReportsId:
+		return FnGetListsIdAbuseReportsId, nil
+	case FnGetListsIdActivity:
+		return FnGetListsIdActivity, nil
+	case FnGetListsIdClients:
+		return FnGetListsIdClients, nil
+	case FnGetListsIdGrowthHistory:
+		return FnGetListsIdGrowthHistory, nil
+	case FnGetListsIdGrowthHistoryId:
+		return FnGetListsIdGrowthHistoryId, nil
+	case FnGetListsIdInterestCategories:
+		return FnGetListsIdInterestCategories, nil
+	case FnGetListsIdInterestCategoriesId:
+		return FnGetListsIdInterestCategoriesId, nil
+	case FnGetListsIdInterestCategoriesIdInterests:
+		return FnGetListsIdInterestCategoriesIdInterests, nil
+	case FnGetListsIdInterestCategoriesIdInterestsId:
+		return FnGetListsIdInterestCategoriesIdInterestsId, nil
+	case FnGetListsIdLocations:
+		return FnGetListsIdLocations, nil
+	case FnGetListsIdMembers:
+		return FnGetListsIdMembers, nil
+	case FnGetListsIdMembersId:
+		return FnGetListsIdMembersId, nil
+	case FnGetListsIdMembersIdActivity:
+		return FnGetListsIdMembersIdActivity, nil
+	case FnGetListsIdMembersIdActivityFeed:
+		return FnGetListsIdMembersIdActivityFeed, nil
+	case FnGetListsIdMembersIdEvents:
+		return FnGetListsIdMembersIdEvents, nil
+	case FnGetListsIdMembersIdGoals:
+		return FnGetListsIdMembersIdGoals, nil
+	case FnGetListsIdMembersIdNotes:
+		return FnGetListsIdMembersIdNotes, nil
+	case FnGetListsIdMembersIdNotesId:
+		return FnGetListsIdMembersIdNotesId, nil
+	case FnGetListsIdMergeFields:
+		return FnGetListsIdMergeFields, nil
+	case FnGetListsIdMergeFieldsId:
+		return FnGetListsIdMergeFieldsId, nil
+	case FnGetListsIdSegmentsId:
+		return FnGetListsIdSegmentsId, nil
+	case FnGetListsIdSegmentsIdMembers:
+		return FnGetListsIdSegmentsIdMembers, nil
+	case FnGetListsIdSignupForms:
+		return FnGetListsIdSignupForms, nil
+	case FnGetListsIdSurveys:
+		return FnGetListsIdSurveys, nil
+	case FnGetListsIdSurveysId:
+		return FnGetListsIdSurveysId, nil
+	case FnGetListsIdWebhooks:
+		return FnGetListsIdWebhooks, nil
+	case FnGetListsIdWebhooksId:
+		return FnGetListsIdWebhooksId, nil
+	case FnGetPing:
+		return FnGetPing, nil
+	case FnGetReportingFacebookAds:
+		return FnGetReportingFacebookAds, nil
+	case FnGetReportingFacebookAdsId:
+		return FnGetReportingFacebookAdsId, nil
+	case FnGetReportingFacebookAdsIdEcommerceProductActivity:
+		return FnGetReportingFacebookAdsIdEcommerceProductActivity, nil
+	case FnGetReportingLandingPages:
+		return FnGetReportingLandingPages, nil
+	case FnGetReportingLandingPagesId:
+		return FnGetReportingLandingPagesId, nil
+	case FnGetReportingSurveys:
+		return FnGetReportingSurveys, nil
+	case FnGetReportingSurveysId:
+		return FnGetReportingSurveysId, nil
+	case FnGetReportingSurveysIdQuestions:
+		return FnGetReportingSurveysIdQuestions, nil
+	case FnGetReportingSurveysIdQuestionsId:
+		return FnGetReportingSurveysIdQuestionsId, nil
+	case FnGetReportingSurveysIdQuestionsIdAnswers:
+		return FnGetReportingSurveysIdQuestionsIdAnswers, nil
+	case FnGetReportingSurveysIdResponses:
+		return FnGetReportingSurveysIdResponses, nil
+	case FnGetReportingSurveysIdResponsesId:
+		return FnGetReportingSurveysIdResponsesId, nil
+	case FnGetReports:
+		return FnGetReports, nil
+	case FnGetReportsId:
+		return FnGetReportsId, nil
+	case FnGetReportsIdAbuseReportsId:
+		return FnGetReportsIdAbuseReportsId, nil
+	case FnGetReportsIdAbuseReportsIdId:
+		return FnGetReportsIdAbuseReportsIdId, nil
+	case FnGetReportsIdAdvice:
+		return FnGetReportsIdAdvice, nil
+	case FnGetReportsIdClickDetails:
+		return FnGetReportsIdClickDetails, nil
+	case FnGetReportsIdClickDetailsId:
+		return FnGetReportsIdClickDetailsId, nil
+	case FnGetReportsIdClickDetailsIdMembers:
+		return FnGetReportsIdClickDetailsIdMembers, nil
+	case FnGetReportsIdClickDetailsIdMembersId:
+		return FnGetReportsIdClickDetailsIdMembersId, nil
+	case FnGetReportsIdDomainPerformance:
+		return FnGetReportsIdDomainPerformance, nil
+	case FnGetReportsIdEcommerceProductActivity:
+		return FnGetReportsIdEcommerceProductActivity, nil
+	case FnGetReportsIdEepurl:
+		return FnGetReportsIdEepurl, nil
+	case FnGetReportsIdEmailActivity:
+		return FnGetReportsIdEmailActivity, nil
+	case FnGetReportsIdEmailActivityId:
+		return FnGetReportsIdEmailActivityId, nil
+	case FnGetReportsIdLocations:
+		return FnGetReportsIdLocations, nil
+	case FnGetReportsIdOpenDetails:
+		return FnGetReportsIdOpenDetails, nil
+	case FnGetReportsIdOpenDetailsIdMembersId:
+		return FnGetReportsIdOpenDetailsIdMembersId, nil
+	case FnGetReportsIdSentTo:
+		return FnGetReportsIdSentTo, nil
+	case FnGetReportsIdSentToId:
+		return FnGetReportsIdSentToId, nil
+	case FnGetReportsIdSubReportsId:
+		return FnGetReportsIdSubReportsId, nil
+	case FnGetReportsIdUnsubscribed:
+		return FnGetReportsIdUnsubscribed, nil
+	case FnGetReportsIdUnsubscribedId:
+		return FnGetReportsIdUnsubscribedId, nil
+	case FnGetRoot:
+		return FnGetRoot, nil
+	case FnGetSearchCampaigns:
+		return FnGetSearchCampaigns, nil
+	case FnGetSearchMembers:
+		return FnGetSearchMembers, nil
+	case FnGetSmsCampaigns:
+		return FnGetSmsCampaigns, nil
+	case FnGetSmsCampaignsId:
+		return FnGetSmsCampaignsId, nil
+	case FnGetSmsCampaignsIdContent:
+		return FnGetSmsCampaignsIdContent, nil
+	case FnGetTemplateFolders:
+		return FnGetTemplateFolders, nil
+	case FnGetTemplateFoldersId:
+		return FnGetTemplateFoldersId, nil
+	case FnGetTemplates:
+		return FnGetTemplates, nil
+	case FnGetTemplatesId:
+		return FnGetTemplatesId, nil
+	case FnGetTemplatesIdDefaultContent:
+		return FnGetTemplatesIdDefaultContent, nil
+	case FnGetVerifiedDomain:
+		return FnGetVerifiedDomain, nil
+	case FnGetVerifiedDomains:
+		return FnGetVerifiedDomains, nil
+	case FnPatchAudienceContact:
+		return FnPatchAudienceContact, nil
+	case FnPatchAutomationEmailWorkflowId:
+		return FnPatchAutomationEmailWorkflowId, nil
+	case FnPatchBatchWebhooks:
+		return FnPatchBatchWebhooks, nil
+	case FnPatchCampaignFoldersId:
+		return FnPatchCampaignFoldersId, nil
+	case FnPatchCampaignsId:
+		return FnPatchCampaignsId, nil
+	case FnPatchCampaignsIdFeedbackId:
+		return FnPatchCampaignsIdFeedbackId, nil
+	case FnPatchEcommerceStoresId:
+		return FnPatchEcommerceStoresId, nil
+	case FnPatchEcommerceStoresIdCartsId:
+		return FnPatchEcommerceStoresIdCartsId, nil
+	case FnPatchEcommerceStoresIdCartsIdLinesId:
+		return FnPatchEcommerceStoresIdCartsIdLinesId, nil
+	case FnPatchEcommerceStoresIdCustomersId:
+		return FnPatchEcommerceStoresIdCustomersId, nil
+	case FnPatchEcommerceStoresIdOrdersId:
+		return FnPatchEcommerceStoresIdOrdersId, nil
+	case FnPatchEcommerceStoresIdOrdersIdLinesId:
+		return FnPatchEcommerceStoresIdOrdersIdLinesId, nil
+	case FnPatchEcommerceStoresIdProductsId:
+		return FnPatchEcommerceStoresIdProductsId, nil
+	case FnPatchEcommerceStoresIdProductsIdImagesId:
+		return FnPatchEcommerceStoresIdProductsIdImagesId, nil
+	case FnPatchEcommerceStoresIdProductsIdVariantsId:
+		return FnPatchEcommerceStoresIdProductsIdVariantsId, nil
+	case FnPatchEcommerceStoresIdPromocodesId:
+		return FnPatchEcommerceStoresIdPromocodesId, nil
+	case FnPatchEcommerceStoresIdPromorulesId:
+		return FnPatchEcommerceStoresIdPromorulesId, nil
+	case FnPatchFileManagerFilesId:
+		return FnPatchFileManagerFilesId, nil
+	case FnPatchFileManagerFoldersId:
+		return FnPatchFileManagerFoldersId, nil
+	case FnPatchLandingPageId:
+		return FnPatchLandingPageId, nil
+	case FnPatchListsId:
+		return FnPatchListsId, nil
+	case FnPatchListsIdInterestCategoriesId:
+		return FnPatchListsIdInterestCategoriesId, nil
+	case FnPatchListsIdInterestCategoriesIdInterestsId:
+		return FnPatchListsIdInterestCategoriesIdInterestsId, nil
+	case FnPatchListsIdMembersId:
+		return FnPatchListsIdMembersId, nil
+	case FnPatchListsIdMembersIdNotesId:
+		return FnPatchListsIdMembersIdNotesId, nil
+	case FnPatchListsIdMergeFieldsId:
+		return FnPatchListsIdMergeFieldsId, nil
+	case FnPatchListsIdSegmentsId:
+		return FnPatchListsIdSegmentsId, nil
+	case FnPatchListsIdSurveysId:
+		return FnPatchListsIdSurveysId, nil
+	case FnPatchListsIdWebhooksId:
+		return FnPatchListsIdWebhooksId, nil
+	case FnPatchSmsCampaignsId:
+		return FnPatchSmsCampaignsId, nil
+	case FnPatchTemplateFoldersId:
+		return FnPatchTemplateFoldersId, nil
+	case FnPatchTemplatesId:
+		return FnPatchTemplatesId, nil
+	case FnPostAccountExport:
+		return FnPostAccountExport, nil
+	case FnPostAllLandingPages:
+		return FnPostAllLandingPages, nil
+	case FnPostAudiencesContactsActionsArchive:
+		return FnPostAudiencesContactsActionsArchive, nil
+	case FnPostAudiencesContactsActionsForget:
+		return FnPostAudiencesContactsActionsForget, nil
+	case FnPostAutomations:
+		return FnPostAutomations, nil
+	case FnPostAutomationsIdActionsPauseAllEmails:
+		return FnPostAutomationsIdActionsPauseAllEmails, nil
+	case FnPostAutomationsIdActionsStartAllEmails:
+		return FnPostAutomationsIdActionsStartAllEmails, nil
+	case FnPostAutomationsIdEmailsIdActionsPause:
+		return FnPostAutomationsIdEmailsIdActionsPause, nil
+	case FnPostAutomationsIdEmailsIdActionsStart:
+		return FnPostAutomationsIdEmailsIdActionsStart, nil
+	case FnPostAutomationsIdEmailsIdQueue:
+		return FnPostAutomationsIdEmailsIdQueue, nil
+	case FnPostAutomationsIdRemovedSubscribers:
+		return FnPostAutomationsIdRemovedSubscribers, nil
+	case FnPostBatchWebhooks:
+		return FnPostBatchWebhooks, nil
+	case FnPostBatches:
+		return FnPostBatches, nil
+	case FnPostCampaignFolders:
+		return FnPostCampaignFolders, nil
+	case FnPostCampaigns:
+		return FnPostCampaigns, nil
+	case FnPostCampaignsIdActionsCancelSend:
+		return FnPostCampaignsIdActionsCancelSend, nil
+	case FnPostCampaignsIdActionsCreateResend:
+		return FnPostCampaignsIdActionsCreateResend, nil
+	case FnPostCampaignsIdActionsPause:
+		return FnPostCampaignsIdActionsPause, nil
+	case FnPostCampaignsIdActionsReplicate:
+		return FnPostCampaignsIdActionsReplicate, nil
+	case FnPostCampaignsIdActionsResume:
+		return FnPostCampaignsIdActionsResume, nil
+	case FnPostCampaignsIdActionsSchedule:
+		return FnPostCampaignsIdActionsSchedule, nil
+	case FnPostCampaignsIdActionsSend:
+		return FnPostCampaignsIdActionsSend, nil
+	case FnPostCampaignsIdActionsTest:
+		return FnPostCampaignsIdActionsTest, nil
+	case FnPostCampaignsIdActionsUnschedule:
+		return FnPostCampaignsIdActionsUnschedule, nil
+	case FnPostCampaignsIdFeedback:
+		return FnPostCampaignsIdFeedback, nil
+	case FnPostConnectedSites:
+		return FnPostConnectedSites, nil
+	case FnPostConnectedSitesIdActionsDisablePixel:
+		return FnPostConnectedSitesIdActionsDisablePixel, nil
+	case FnPostConnectedSitesIdActionsEnablePixel:
+		return FnPostConnectedSitesIdActionsEnablePixel, nil
+	case FnPostConnectedSitesIdActionsVerifyScriptInstallation:
+		return FnPostConnectedSitesIdActionsVerifyScriptInstallation, nil
+	case FnPostCustomerJourneysJourneysIdStepsIdActionsTrigger:
+		return FnPostCustomerJourneysJourneysIdStepsIdActionsTrigger, nil
+	case FnPostEcommerceStores:
+		return FnPostEcommerceStores, nil
+	case FnPostEcommerceStoresIdCarts:
+		return FnPostEcommerceStoresIdCarts, nil
+	case FnPostEcommerceStoresIdCartsIdLines:
+		return FnPostEcommerceStoresIdCartsIdLines, nil
+	case FnPostEcommerceStoresIdCustomers:
+		return FnPostEcommerceStoresIdCustomers, nil
+	case FnPostEcommerceStoresIdOrders:
+		return FnPostEcommerceStoresIdOrders, nil
+	case FnPostEcommerceStoresIdOrdersIdLines:
+		return FnPostEcommerceStoresIdOrdersIdLines, nil
+	case FnPostEcommerceStoresIdProducts:
+		return FnPostEcommerceStoresIdProducts, nil
+	case FnPostEcommerceStoresIdProductsIdImages:
+		return FnPostEcommerceStoresIdProductsIdImages, nil
+	case FnPostEcommerceStoresIdProductsIdVariants:
+		return FnPostEcommerceStoresIdProductsIdVariants, nil
+	case FnPostEcommerceStoresIdPromocodes:
+		return FnPostEcommerceStoresIdPromocodes, nil
+	case FnPostEcommerceStoresIdPromorules:
+		return FnPostEcommerceStoresIdPromorules, nil
+	case FnPostFileManagerFiles:
+		return FnPostFileManagerFiles, nil
+	case FnPostFileManagerFolders:
+		return FnPostFileManagerFolders, nil
+	case FnPostLandingPageIdActionsPublish:
+		return FnPostLandingPageIdActionsPublish, nil
+	case FnPostLandingPageIdActionsUnpublish:
+		return FnPostLandingPageIdActionsUnpublish, nil
+	case FnPostListMemberEvents:
+		return FnPostListMemberEvents, nil
+	case FnPostListMemberTags:
+		return FnPostListMemberTags, nil
+	case FnPostLists:
+		return FnPostLists, nil
+	case FnPostListsId:
+		return FnPostListsId, nil
+	case FnPostListsIdInterestCategories:
+		return FnPostListsIdInterestCategories, nil
+	case FnPostListsIdInterestCategoriesIdInterests:
+		return FnPostListsIdInterestCategoriesIdInterests, nil
+	case FnPostListsIdMembers:
+		return FnPostListsIdMembers, nil
+	case FnPostListsIdMembersHashActionsDeletePermanent:
+		return FnPostListsIdMembersHashActionsDeletePermanent, nil
+	case FnPostListsIdMembersIdNotes:
+		return FnPostListsIdMembersIdNotes, nil
+	case FnPostListsIdMergeFields:
+		return FnPostListsIdMergeFields, nil
+	case FnPostListsIdSegments:
+		return FnPostListsIdSegments, nil
+	case FnPostListsIdSegmentsId:
+		return FnPostListsIdSegmentsId, nil
+	case FnPostListsIdSegmentsIdMembers:
+		return FnPostListsIdSegmentsIdMembers, nil
+	case FnPostListsIdSignupForms:
+		return FnPostListsIdSignupForms, nil
+	case FnPostListsIdSurveys:
+		return FnPostListsIdSurveys, nil
+	case FnPostListsIdSurveysIdActionsCreateEmail:
+		return FnPostListsIdSurveysIdActionsCreateEmail, nil
+	case FnPostListsIdSurveysIdActionsPublish:
+		return FnPostListsIdSurveysIdActionsPublish, nil
+	case FnPostListsIdSurveysIdActionsReplicate:
+		return FnPostListsIdSurveysIdActionsReplicate, nil
+	case FnPostListsIdSurveysIdActionsUnpublish:
+		return FnPostListsIdSurveysIdActionsUnpublish, nil
+	case FnPostListsIdWebhooks:
+		return FnPostListsIdWebhooks, nil
+	case FnPostSmsCampaigns:
+		return FnPostSmsCampaigns, nil
+	case FnPostSmsCampaignsIdActionsCancelSend:
+		return FnPostSmsCampaignsIdActionsCancelSend, nil
+	case FnPostSmsCampaignsIdActionsSchedule:
+		return FnPostSmsCampaignsIdActionsSchedule, nil
+	case FnPostSmsCampaignsIdActionsSend:
+		return FnPostSmsCampaignsIdActionsSend, nil
+	case FnPostTemplateFolders:
+		return FnPostTemplateFolders, nil
+	case FnPostTemplates:
+		return FnPostTemplates, nil
+	case FnPreviewASegment:
+		return FnPreviewASegment, nil
+	case FnPutCampaignsIdContent:
+		return FnPutCampaignsIdContent, nil
+	case FnPutEcommerceStoresIdCustomersId:
+		return FnPutEcommerceStoresIdCustomersId, nil
+	case FnPutEcommerceStoresIdOrdersId:
+		return FnPutEcommerceStoresIdOrdersId, nil
+	case FnPutEcommerceStoresIdProductsId:
+		return FnPutEcommerceStoresIdProductsId, nil
+	case FnPutEcommerceStoresIdProductsIdVariantsId:
+		return FnPutEcommerceStoresIdProductsIdVariantsId, nil
+	case FnPutListsIdMembersId:
+		return FnPutListsIdMembersId, nil
+	case FnPutSmsCampaignsIdContent:
+		return FnPutSmsCampaignsIdContent, nil
+	case FnSearchTagsByName:
+		return FnSearchTagsByName, nil
+	case FnVerifyDomain:
+		return FnVerifyDomain, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "archive-automations":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnArchiveAutomations:
 		return ic.dispatchArchiveAutomationsWithResponse(ctx, config, inputs)
-	case "create-audience-contact":
+	case FnCreateAudienceContact:
 		return ic.dispatchCreateAudienceContactWithResponse(ctx, config, inputs)
-	case "create-verified-domain":
+	case FnCreateVerifiedDomain:
 		return ic.dispatchCreateVerifiedDomainWithResponse(ctx, config, inputs)
-	case "delete-automations-id-emails-id":
+	case FnDeleteAutomationsIdEmailsId:
 		return ic.dispatchDeleteAutomationsIdEmailsIdWithResponse(ctx, config, inputs)
-	case "delete-batch-webhook-id":
+	case FnDeleteBatchWebhookId:
 		return ic.dispatchDeleteBatchWebhookIdWithResponse(ctx, config, inputs)
-	case "delete-batches-id":
+	case FnDeleteBatchesId:
 		return ic.dispatchDeleteBatchesIdWithResponse(ctx, config, inputs)
-	case "delete-campaign-folders-id":
+	case FnDeleteCampaignFoldersId:
 		return ic.dispatchDeleteCampaignFoldersIdWithResponse(ctx, config, inputs)
-	case "delete-campaigns-id":
+	case FnDeleteCampaignsId:
 		return ic.dispatchDeleteCampaignsIdWithResponse(ctx, config, inputs)
-	case "delete-campaigns-id-feedback-id":
+	case FnDeleteCampaignsIdFeedbackId:
 		return ic.dispatchDeleteCampaignsIdFeedbackIdWithResponse(ctx, config, inputs)
-	case "delete-connected-sites-id":
+	case FnDeleteConnectedSitesId:
 		return ic.dispatchDeleteConnectedSitesIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id":
+	case FnDeleteEcommerceStoresId:
 		return ic.dispatchDeleteEcommerceStoresIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-carts-id":
+	case FnDeleteEcommerceStoresIdCartsId:
 		return ic.dispatchDeleteEcommerceStoresIdCartsIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-carts-lines-id":
+	case FnDeleteEcommerceStoresIdCartsLinesId:
 		return ic.dispatchDeleteEcommerceStoresIdCartsLinesIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-customers-id":
+	case FnDeleteEcommerceStoresIdCustomersId:
 		return ic.dispatchDeleteEcommerceStoresIdCustomersIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-orders-id":
+	case FnDeleteEcommerceStoresIdOrdersId:
 		return ic.dispatchDeleteEcommerceStoresIdOrdersIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-orders-id-lines-id":
+	case FnDeleteEcommerceStoresIdOrdersIdLinesId:
 		return ic.dispatchDeleteEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-products-id":
+	case FnDeleteEcommerceStoresIdProductsId:
 		return ic.dispatchDeleteEcommerceStoresIdProductsIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-products-id-images-id":
+	case FnDeleteEcommerceStoresIdProductsIdImagesId:
 		return ic.dispatchDeleteEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-products-id-variants-id":
+	case FnDeleteEcommerceStoresIdProductsIdVariantsId:
 		return ic.dispatchDeleteEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-promocodes-id":
+	case FnDeleteEcommerceStoresIdPromocodesId:
 		return ic.dispatchDeleteEcommerceStoresIdPromocodesIdWithResponse(ctx, config, inputs)
-	case "delete-ecommerce-stores-id-promorules-id":
+	case FnDeleteEcommerceStoresIdPromorulesId:
 		return ic.dispatchDeleteEcommerceStoresIdPromorulesIdWithResponse(ctx, config, inputs)
-	case "delete-file-manager-files-id":
+	case FnDeleteFileManagerFilesId:
 		return ic.dispatchDeleteFileManagerFilesIdWithResponse(ctx, config, inputs)
-	case "delete-file-manager-folders-id":
+	case FnDeleteFileManagerFoldersId:
 		return ic.dispatchDeleteFileManagerFoldersIdWithResponse(ctx, config, inputs)
-	case "delete-landing-page-id":
+	case FnDeleteLandingPageId:
 		return ic.dispatchDeleteLandingPageIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id":
+	case FnDeleteListsId:
 		return ic.dispatchDeleteListsIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-interest-categories-id":
+	case FnDeleteListsIdInterestCategoriesId:
 		return ic.dispatchDeleteListsIdInterestCategoriesIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-interest-categories-id-interests-id":
+	case FnDeleteListsIdInterestCategoriesIdInterestsId:
 		return ic.dispatchDeleteListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-members-id":
+	case FnDeleteListsIdMembersId:
 		return ic.dispatchDeleteListsIdMembersIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-members-id-notes-id":
+	case FnDeleteListsIdMembersIdNotesId:
 		return ic.dispatchDeleteListsIdMembersIdNotesIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-merge-fields-id":
+	case FnDeleteListsIdMergeFieldsId:
 		return ic.dispatchDeleteListsIdMergeFieldsIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-segments-id":
+	case FnDeleteListsIdSegmentsId:
 		return ic.dispatchDeleteListsIdSegmentsIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-segments-id-members-id":
+	case FnDeleteListsIdSegmentsIdMembersId:
 		return ic.dispatchDeleteListsIdSegmentsIdMembersIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-surveys-id":
+	case FnDeleteListsIdSurveysId:
 		return ic.dispatchDeleteListsIdSurveysIdWithResponse(ctx, config, inputs)
-	case "delete-lists-id-webhooks-id":
+	case FnDeleteListsIdWebhooksId:
 		return ic.dispatchDeleteListsIdWebhooksIdWithResponse(ctx, config, inputs)
-	case "delete-sms-campaigns-id":
+	case FnDeleteSmsCampaignsId:
 		return ic.dispatchDeleteSmsCampaignsIdWithResponse(ctx, config, inputs)
-	case "delete-template-folders-id":
+	case FnDeleteTemplateFoldersId:
 		return ic.dispatchDeleteTemplateFoldersIdWithResponse(ctx, config, inputs)
-	case "delete-templates-id":
+	case FnDeleteTemplatesId:
 		return ic.dispatchDeleteTemplatesIdWithResponse(ctx, config, inputs)
-	case "delete-verified-domain":
+	case FnDeleteVerifiedDomain:
 		return ic.dispatchDeleteVerifiedDomainWithResponse(ctx, config, inputs)
-	case "get-account-export-id":
+	case FnGetAccountExportId:
 		return ic.dispatchGetAccountExportIdWithResponse(ctx, config, inputs)
-	case "get-account-exports":
+	case FnGetAccountExports:
 		return ic.dispatchGetAccountExportsWithResponse(ctx, config, inputs)
-	case "get-activity-feed-chimp-chatter":
+	case FnGetActivityFeedChimpChatter:
 		return ic.dispatchGetActivityFeedChimpChatterWithResponse(ctx, config, inputs)
-	case "get-all-facebook-ads":
+	case FnGetAllFacebookAds:
 		return ic.dispatchGetAllFacebookAdsWithResponse(ctx, config, inputs)
-	case "get-all-landing-pages":
+	case FnGetAllLandingPages:
 		return ic.dispatchGetAllLandingPagesWithResponse(ctx, config, inputs)
-	case "get-audience-contact":
+	case FnGetAudienceContact:
 		return ic.dispatchGetAudienceContactWithResponse(ctx, config, inputs)
-	case "get-audience-contact-list":
+	case FnGetAudienceContactList:
 		return ic.dispatchGetAudienceContactListWithResponse(ctx, config, inputs)
-	case "get-audience-contacts":
+	case FnGetAudienceContacts:
 		return ic.dispatchGetAudienceContactsWithResponse(ctx, config, inputs)
-	case "get-audience-id":
+	case FnGetAudienceId:
 		return ic.dispatchGetAudienceIdWithResponse(ctx, config, inputs)
-	case "get-authorized-apps":
+	case FnGetAuthorizedApps:
 		return ic.dispatchGetAuthorizedAppsWithResponse(ctx, config, inputs)
-	case "get-authorized-apps-id":
+	case FnGetAuthorizedAppsId:
 		return ic.dispatchGetAuthorizedAppsIdWithResponse(ctx, config, inputs)
-	case "get-automations":
+	case FnGetAutomations:
 		return ic.dispatchGetAutomationsWithResponse(ctx, config, inputs)
-	case "get-automations-id":
+	case FnGetAutomationsId:
 		return ic.dispatchGetAutomationsIdWithResponse(ctx, config, inputs)
-	case "get-automations-id-emails":
+	case FnGetAutomationsIdEmails:
 		return ic.dispatchGetAutomationsIdEmailsWithResponse(ctx, config, inputs)
-	case "get-automations-id-emails-id":
+	case FnGetAutomationsIdEmailsId:
 		return ic.dispatchGetAutomationsIdEmailsIdWithResponse(ctx, config, inputs)
-	case "get-automations-id-emails-id-queue":
+	case FnGetAutomationsIdEmailsIdQueue:
 		return ic.dispatchGetAutomationsIdEmailsIdQueueWithResponse(ctx, config, inputs)
-	case "get-automations-id-emails-id-queue-id":
+	case FnGetAutomationsIdEmailsIdQueueId:
 		return ic.dispatchGetAutomationsIdEmailsIdQueueIdWithResponse(ctx, config, inputs)
-	case "get-automations-id-removed-subscribers":
+	case FnGetAutomationsIdRemovedSubscribers:
 		return ic.dispatchGetAutomationsIdRemovedSubscribersWithResponse(ctx, config, inputs)
-	case "get-automations-id-removed-subscribers-id":
+	case FnGetAutomationsIdRemovedSubscribersId:
 		return ic.dispatchGetAutomationsIdRemovedSubscribersIdWithResponse(ctx, config, inputs)
-	case "get-batch-webhook":
+	case FnGetBatchWebhook:
 		return ic.dispatchGetBatchWebhookWithResponse(ctx, config, inputs)
-	case "get-batch-webhooks":
+	case FnGetBatchWebhooks:
 		return ic.dispatchGetBatchWebhooksWithResponse(ctx, config, inputs)
-	case "get-batches":
+	case FnGetBatches:
 		return ic.dispatchGetBatchesWithResponse(ctx, config, inputs)
-	case "get-batches-id":
+	case FnGetBatchesId:
 		return ic.dispatchGetBatchesIdWithResponse(ctx, config, inputs)
-	case "get-campaign-folders":
+	case FnGetCampaignFolders:
 		return ic.dispatchGetCampaignFoldersWithResponse(ctx, config, inputs)
-	case "get-campaign-folders-id":
+	case FnGetCampaignFoldersId:
 		return ic.dispatchGetCampaignFoldersIdWithResponse(ctx, config, inputs)
-	case "get-campaigns":
+	case FnGetCampaigns:
 		return ic.dispatchGetCampaignsWithResponse(ctx, config, inputs)
-	case "get-campaigns-id":
+	case FnGetCampaignsId:
 		return ic.dispatchGetCampaignsIdWithResponse(ctx, config, inputs)
-	case "get-campaigns-id-content":
+	case FnGetCampaignsIdContent:
 		return ic.dispatchGetCampaignsIdContentWithResponse(ctx, config, inputs)
-	case "get-campaigns-id-feedback":
+	case FnGetCampaignsIdFeedback:
 		return ic.dispatchGetCampaignsIdFeedbackWithResponse(ctx, config, inputs)
-	case "get-campaigns-id-feedback-id":
+	case FnGetCampaignsIdFeedbackId:
 		return ic.dispatchGetCampaignsIdFeedbackIdWithResponse(ctx, config, inputs)
-	case "get-campaigns-id-send-checklist":
+	case FnGetCampaignsIdSendChecklist:
 		return ic.dispatchGetCampaignsIdSendChecklistWithResponse(ctx, config, inputs)
-	case "get-connected-sites":
+	case FnGetConnectedSites:
 		return ic.dispatchGetConnectedSitesWithResponse(ctx, config, inputs)
-	case "get-connected-sites-id":
+	case FnGetConnectedSitesId:
 		return ic.dispatchGetConnectedSitesIdWithResponse(ctx, config, inputs)
-	case "get-conversations":
+	case FnGetConversations:
 		return ic.dispatchGetConversationsWithResponse(ctx, config, inputs)
-	case "get-conversations-id":
+	case FnGetConversationsId:
 		return ic.dispatchGetConversationsIdWithResponse(ctx, config, inputs)
-	case "get-conversations-id-messages":
+	case FnGetConversationsIdMessages:
 		return ic.dispatchGetConversationsIdMessagesWithResponse(ctx, config, inputs)
-	case "get-conversations-id-messages-id":
+	case FnGetConversationsIdMessagesId:
 		return ic.dispatchGetConversationsIdMessagesIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-orders":
+	case FnGetEcommerceOrders:
 		return ic.dispatchGetEcommerceOrdersWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores":
+	case FnGetEcommerceStores:
 		return ic.dispatchGetEcommerceStoresWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id":
+	case FnGetEcommerceStoresId:
 		return ic.dispatchGetEcommerceStoresIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-carts":
+	case FnGetEcommerceStoresIdCarts:
 		return ic.dispatchGetEcommerceStoresIdCartsWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-carts-id":
+	case FnGetEcommerceStoresIdCartsId:
 		return ic.dispatchGetEcommerceStoresIdCartsIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-carts-id-lines":
+	case FnGetEcommerceStoresIdCartsIdLines:
 		return ic.dispatchGetEcommerceStoresIdCartsIdLinesWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-carts-id-lines-id":
+	case FnGetEcommerceStoresIdCartsIdLinesId:
 		return ic.dispatchGetEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-customers":
+	case FnGetEcommerceStoresIdCustomers:
 		return ic.dispatchGetEcommerceStoresIdCustomersWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-customers-id":
+	case FnGetEcommerceStoresIdCustomersId:
 		return ic.dispatchGetEcommerceStoresIdCustomersIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-orders":
+	case FnGetEcommerceStoresIdOrders:
 		return ic.dispatchGetEcommerceStoresIdOrdersWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-orders-id":
+	case FnGetEcommerceStoresIdOrdersId:
 		return ic.dispatchGetEcommerceStoresIdOrdersIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-orders-id-lines":
+	case FnGetEcommerceStoresIdOrdersIdLines:
 		return ic.dispatchGetEcommerceStoresIdOrdersIdLinesWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-orders-id-lines-id":
+	case FnGetEcommerceStoresIdOrdersIdLinesId:
 		return ic.dispatchGetEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-products":
+	case FnGetEcommerceStoresIdProducts:
 		return ic.dispatchGetEcommerceStoresIdProductsWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-products-id":
+	case FnGetEcommerceStoresIdProductsId:
 		return ic.dispatchGetEcommerceStoresIdProductsIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-products-id-images":
+	case FnGetEcommerceStoresIdProductsIdImages:
 		return ic.dispatchGetEcommerceStoresIdProductsIdImagesWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-products-id-images-id":
+	case FnGetEcommerceStoresIdProductsIdImagesId:
 		return ic.dispatchGetEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-products-id-variants":
+	case FnGetEcommerceStoresIdProductsIdVariants:
 		return ic.dispatchGetEcommerceStoresIdProductsIdVariantsWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-products-id-variants-id":
+	case FnGetEcommerceStoresIdProductsIdVariantsId:
 		return ic.dispatchGetEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-promocodes":
+	case FnGetEcommerceStoresIdPromocodes:
 		return ic.dispatchGetEcommerceStoresIdPromocodesWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-promocodes-id":
+	case FnGetEcommerceStoresIdPromocodesId:
 		return ic.dispatchGetEcommerceStoresIdPromocodesIdWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-promorules":
+	case FnGetEcommerceStoresIdPromorules:
 		return ic.dispatchGetEcommerceStoresIdPromorulesWithResponse(ctx, config, inputs)
-	case "get-ecommerce-stores-id-promorules-id":
+	case FnGetEcommerceStoresIdPromorulesId:
 		return ic.dispatchGetEcommerceStoresIdPromorulesIdWithResponse(ctx, config, inputs)
-	case "get-facebook-ads-id":
+	case FnGetFacebookAdsId:
 		return ic.dispatchGetFacebookAdsIdWithResponse(ctx, config, inputs)
-	case "get-file-manager-files":
+	case FnGetFileManagerFiles:
 		return ic.dispatchGetFileManagerFilesWithResponse(ctx, config, inputs)
-	case "get-file-manager-files-id":
+	case FnGetFileManagerFilesId:
 		return ic.dispatchGetFileManagerFilesIdWithResponse(ctx, config, inputs)
-	case "get-file-manager-folders":
+	case FnGetFileManagerFolders:
 		return ic.dispatchGetFileManagerFoldersWithResponse(ctx, config, inputs)
-	case "get-file-manager-folders-files":
+	case FnGetFileManagerFoldersFiles:
 		return ic.dispatchGetFileManagerFoldersFilesWithResponse(ctx, config, inputs)
-	case "get-file-manager-folders-id":
+	case FnGetFileManagerFoldersId:
 		return ic.dispatchGetFileManagerFoldersIdWithResponse(ctx, config, inputs)
-	case "get-landing-page-id":
+	case FnGetLandingPageId:
 		return ic.dispatchGetLandingPageIdWithResponse(ctx, config, inputs)
-	case "get-landing-page-id-content":
+	case FnGetLandingPageIdContent:
 		return ic.dispatchGetLandingPageIdContentWithResponse(ctx, config, inputs)
-	case "get-list-member-tags":
+	case FnGetListMemberTags:
 		return ic.dispatchGetListMemberTagsWithResponse(ctx, config, inputs)
-	case "get-lists":
+	case FnGetLists:
 		return ic.dispatchGetListsWithResponse(ctx, config, inputs)
-	case "get-lists-id":
+	case FnGetListsId:
 		return ic.dispatchGetListsIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-abuse-reports":
+	case FnGetListsIdAbuseReports:
 		return ic.dispatchGetListsIdAbuseReportsWithResponse(ctx, config, inputs)
-	case "get-lists-id-abuse-reports-id":
+	case FnGetListsIdAbuseReportsId:
 		return ic.dispatchGetListsIdAbuseReportsIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-activity":
+	case FnGetListsIdActivity:
 		return ic.dispatchGetListsIdActivityWithResponse(ctx, config, inputs)
-	case "get-lists-id-clients":
+	case FnGetListsIdClients:
 		return ic.dispatchGetListsIdClientsWithResponse(ctx, config, inputs)
-	case "get-lists-id-growth-history":
+	case FnGetListsIdGrowthHistory:
 		return ic.dispatchGetListsIdGrowthHistoryWithResponse(ctx, config, inputs)
-	case "get-lists-id-growth-history-id":
+	case FnGetListsIdGrowthHistoryId:
 		return ic.dispatchGetListsIdGrowthHistoryIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-interest-categories":
+	case FnGetListsIdInterestCategories:
 		return ic.dispatchGetListsIdInterestCategoriesWithResponse(ctx, config, inputs)
-	case "get-lists-id-interest-categories-id":
+	case FnGetListsIdInterestCategoriesId:
 		return ic.dispatchGetListsIdInterestCategoriesIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-interest-categories-id-interests":
+	case FnGetListsIdInterestCategoriesIdInterests:
 		return ic.dispatchGetListsIdInterestCategoriesIdInterestsWithResponse(ctx, config, inputs)
-	case "get-lists-id-interest-categories-id-interests-id":
+	case FnGetListsIdInterestCategoriesIdInterestsId:
 		return ic.dispatchGetListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-locations":
+	case FnGetListsIdLocations:
 		return ic.dispatchGetListsIdLocationsWithResponse(ctx, config, inputs)
-	case "get-lists-id-members":
+	case FnGetListsIdMembers:
 		return ic.dispatchGetListsIdMembersWithResponse(ctx, config, inputs)
-	case "get-lists-id-members-id":
+	case FnGetListsIdMembersId:
 		return ic.dispatchGetListsIdMembersIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-members-id-activity":
+	case FnGetListsIdMembersIdActivity:
 		return ic.dispatchGetListsIdMembersIdActivityWithResponse(ctx, config, inputs)
-	case "get-lists-id-members-id-activity-feed":
+	case FnGetListsIdMembersIdActivityFeed:
 		return ic.dispatchGetListsIdMembersIdActivityFeedWithResponse(ctx, config, inputs)
-	case "get-lists-id-members-id-events":
+	case FnGetListsIdMembersIdEvents:
 		return ic.dispatchGetListsIdMembersIdEventsWithResponse(ctx, config, inputs)
-	case "get-lists-id-members-id-goals":
+	case FnGetListsIdMembersIdGoals:
 		return ic.dispatchGetListsIdMembersIdGoalsWithResponse(ctx, config, inputs)
-	case "get-lists-id-members-id-notes":
+	case FnGetListsIdMembersIdNotes:
 		return ic.dispatchGetListsIdMembersIdNotesWithResponse(ctx, config, inputs)
-	case "get-lists-id-members-id-notes-id":
+	case FnGetListsIdMembersIdNotesId:
 		return ic.dispatchGetListsIdMembersIdNotesIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-merge-fields":
+	case FnGetListsIdMergeFields:
 		return ic.dispatchGetListsIdMergeFieldsWithResponse(ctx, config, inputs)
-	case "get-lists-id-merge-fields-id":
+	case FnGetListsIdMergeFieldsId:
 		return ic.dispatchGetListsIdMergeFieldsIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-segments-id":
+	case FnGetListsIdSegmentsId:
 		return ic.dispatchGetListsIdSegmentsIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-segments-id-members":
+	case FnGetListsIdSegmentsIdMembers:
 		return ic.dispatchGetListsIdSegmentsIdMembersWithResponse(ctx, config, inputs)
-	case "get-lists-id-signup-forms":
+	case FnGetListsIdSignupForms:
 		return ic.dispatchGetListsIdSignupFormsWithResponse(ctx, config, inputs)
-	case "get-lists-id-surveys":
+	case FnGetListsIdSurveys:
 		return ic.dispatchGetListsIdSurveysWithResponse(ctx, config, inputs)
-	case "get-lists-id-surveys-id":
+	case FnGetListsIdSurveysId:
 		return ic.dispatchGetListsIdSurveysIdWithResponse(ctx, config, inputs)
-	case "get-lists-id-webhooks":
+	case FnGetListsIdWebhooks:
 		return ic.dispatchGetListsIdWebhooksWithResponse(ctx, config, inputs)
-	case "get-lists-id-webhooks-id":
+	case FnGetListsIdWebhooksId:
 		return ic.dispatchGetListsIdWebhooksIdWithResponse(ctx, config, inputs)
-	case "get-ping":
+	case FnGetPing:
 		return ic.dispatchGetPingWithResponse(ctx, config, inputs)
-	case "get-reporting-facebook-ads":
+	case FnGetReportingFacebookAds:
 		return ic.dispatchGetReportingFacebookAdsWithResponse(ctx, config, inputs)
-	case "get-reporting-facebook-ads-id":
+	case FnGetReportingFacebookAdsId:
 		return ic.dispatchGetReportingFacebookAdsIdWithResponse(ctx, config, inputs)
-	case "get-reporting-facebook-ads-id-ecommerce-product-activity":
+	case FnGetReportingFacebookAdsIdEcommerceProductActivity:
 		return ic.dispatchGetReportingFacebookAdsIdEcommerceProductActivityWithResponse(ctx, config, inputs)
-	case "get-reporting-landing-pages":
+	case FnGetReportingLandingPages:
 		return ic.dispatchGetReportingLandingPagesWithResponse(ctx, config, inputs)
-	case "get-reporting-landing-pages-id":
+	case FnGetReportingLandingPagesId:
 		return ic.dispatchGetReportingLandingPagesIdWithResponse(ctx, config, inputs)
-	case "get-reporting-surveys":
+	case FnGetReportingSurveys:
 		return ic.dispatchGetReportingSurveysWithResponse(ctx, config, inputs)
-	case "get-reporting-surveys-id":
+	case FnGetReportingSurveysId:
 		return ic.dispatchGetReportingSurveysIdWithResponse(ctx, config, inputs)
-	case "get-reporting-surveys-id-questions":
+	case FnGetReportingSurveysIdQuestions:
 		return ic.dispatchGetReportingSurveysIdQuestionsWithResponse(ctx, config, inputs)
-	case "get-reporting-surveys-id-questions-id":
+	case FnGetReportingSurveysIdQuestionsId:
 		return ic.dispatchGetReportingSurveysIdQuestionsIdWithResponse(ctx, config, inputs)
-	case "get-reporting-surveys-id-questions-id-answers":
+	case FnGetReportingSurveysIdQuestionsIdAnswers:
 		return ic.dispatchGetReportingSurveysIdQuestionsIdAnswersWithResponse(ctx, config, inputs)
-	case "get-reporting-surveys-id-responses":
+	case FnGetReportingSurveysIdResponses:
 		return ic.dispatchGetReportingSurveysIdResponsesWithResponse(ctx, config, inputs)
-	case "get-reporting-surveys-id-responses-id":
+	case FnGetReportingSurveysIdResponsesId:
 		return ic.dispatchGetReportingSurveysIdResponsesIdWithResponse(ctx, config, inputs)
-	case "get-reports":
+	case FnGetReports:
 		return ic.dispatchGetReportsWithResponse(ctx, config, inputs)
-	case "get-reports-id":
+	case FnGetReportsId:
 		return ic.dispatchGetReportsIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-abuse-reports-id":
+	case FnGetReportsIdAbuseReportsId:
 		return ic.dispatchGetReportsIdAbuseReportsIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-abuse-reports-id-id":
+	case FnGetReportsIdAbuseReportsIdId:
 		return ic.dispatchGetReportsIdAbuseReportsIdIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-advice":
+	case FnGetReportsIdAdvice:
 		return ic.dispatchGetReportsIdAdviceWithResponse(ctx, config, inputs)
-	case "get-reports-id-click-details":
+	case FnGetReportsIdClickDetails:
 		return ic.dispatchGetReportsIdClickDetailsWithResponse(ctx, config, inputs)
-	case "get-reports-id-click-details-id":
+	case FnGetReportsIdClickDetailsId:
 		return ic.dispatchGetReportsIdClickDetailsIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-click-details-id-members":
+	case FnGetReportsIdClickDetailsIdMembers:
 		return ic.dispatchGetReportsIdClickDetailsIdMembersWithResponse(ctx, config, inputs)
-	case "get-reports-id-click-details-id-members-id":
+	case FnGetReportsIdClickDetailsIdMembersId:
 		return ic.dispatchGetReportsIdClickDetailsIdMembersIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-domain-performance":
+	case FnGetReportsIdDomainPerformance:
 		return ic.dispatchGetReportsIdDomainPerformanceWithResponse(ctx, config, inputs)
-	case "get-reports-id-ecommerce-product-activity":
+	case FnGetReportsIdEcommerceProductActivity:
 		return ic.dispatchGetReportsIdEcommerceProductActivityWithResponse(ctx, config, inputs)
-	case "get-reports-id-eepurl":
+	case FnGetReportsIdEepurl:
 		return ic.dispatchGetReportsIdEepurlWithResponse(ctx, config, inputs)
-	case "get-reports-id-email-activity":
+	case FnGetReportsIdEmailActivity:
 		return ic.dispatchGetReportsIdEmailActivityWithResponse(ctx, config, inputs)
-	case "get-reports-id-email-activity-id":
+	case FnGetReportsIdEmailActivityId:
 		return ic.dispatchGetReportsIdEmailActivityIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-locations":
+	case FnGetReportsIdLocations:
 		return ic.dispatchGetReportsIdLocationsWithResponse(ctx, config, inputs)
-	case "get-reports-id-open-details":
+	case FnGetReportsIdOpenDetails:
 		return ic.dispatchGetReportsIdOpenDetailsWithResponse(ctx, config, inputs)
-	case "get-reports-id-open-details-id-members-id":
+	case FnGetReportsIdOpenDetailsIdMembersId:
 		return ic.dispatchGetReportsIdOpenDetailsIdMembersIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-sent-to":
+	case FnGetReportsIdSentTo:
 		return ic.dispatchGetReportsIdSentToWithResponse(ctx, config, inputs)
-	case "get-reports-id-sent-to-id":
+	case FnGetReportsIdSentToId:
 		return ic.dispatchGetReportsIdSentToIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-sub-reports-id":
+	case FnGetReportsIdSubReportsId:
 		return ic.dispatchGetReportsIdSubReportsIdWithResponse(ctx, config, inputs)
-	case "get-reports-id-unsubscribed":
+	case FnGetReportsIdUnsubscribed:
 		return ic.dispatchGetReportsIdUnsubscribedWithResponse(ctx, config, inputs)
-	case "get-reports-id-unsubscribed-id":
+	case FnGetReportsIdUnsubscribedId:
 		return ic.dispatchGetReportsIdUnsubscribedIdWithResponse(ctx, config, inputs)
-	case "get-root":
+	case FnGetRoot:
 		return ic.dispatchGetRootWithResponse(ctx, config, inputs)
-	case "get-search-campaigns":
+	case FnGetSearchCampaigns:
 		return ic.dispatchGetSearchCampaignsWithResponse(ctx, config, inputs)
-	case "get-search-members":
+	case FnGetSearchMembers:
 		return ic.dispatchGetSearchMembersWithResponse(ctx, config, inputs)
-	case "get-sms-campaigns":
+	case FnGetSmsCampaigns:
 		return ic.dispatchGetSmsCampaignsWithResponse(ctx, config, inputs)
-	case "get-sms-campaigns-id":
+	case FnGetSmsCampaignsId:
 		return ic.dispatchGetSmsCampaignsIdWithResponse(ctx, config, inputs)
-	case "get-sms-campaigns-id-content":
+	case FnGetSmsCampaignsIdContent:
 		return ic.dispatchGetSmsCampaignsIdContentWithResponse(ctx, config, inputs)
-	case "get-template-folders":
+	case FnGetTemplateFolders:
 		return ic.dispatchGetTemplateFoldersWithResponse(ctx, config, inputs)
-	case "get-template-folders-id":
+	case FnGetTemplateFoldersId:
 		return ic.dispatchGetTemplateFoldersIdWithResponse(ctx, config, inputs)
-	case "get-templates":
+	case FnGetTemplates:
 		return ic.dispatchGetTemplatesWithResponse(ctx, config, inputs)
-	case "get-templates-id":
+	case FnGetTemplatesId:
 		return ic.dispatchGetTemplatesIdWithResponse(ctx, config, inputs)
-	case "get-templates-id-default-content":
+	case FnGetTemplatesIdDefaultContent:
 		return ic.dispatchGetTemplatesIdDefaultContentWithResponse(ctx, config, inputs)
-	case "get-verified-domain":
+	case FnGetVerifiedDomain:
 		return ic.dispatchGetVerifiedDomainWithResponse(ctx, config, inputs)
-	case "get-verified-domains":
+	case FnGetVerifiedDomains:
 		return ic.dispatchGetVerifiedDomainsWithResponse(ctx, config, inputs)
-	case "patch-audience-contact":
+	case FnPatchAudienceContact:
 		return ic.dispatchPatchAudienceContactWithResponse(ctx, config, inputs)
-	case "patch-automation-email-workflow-id":
+	case FnPatchAutomationEmailWorkflowId:
 		return ic.dispatchPatchAutomationEmailWorkflowIdWithResponse(ctx, config, inputs)
-	case "patch-batch-webhooks":
+	case FnPatchBatchWebhooks:
 		return ic.dispatchPatchBatchWebhooksWithResponse(ctx, config, inputs)
-	case "patch-campaign-folders-id":
+	case FnPatchCampaignFoldersId:
 		return ic.dispatchPatchCampaignFoldersIdWithResponse(ctx, config, inputs)
-	case "patch-campaigns-id":
+	case FnPatchCampaignsId:
 		return ic.dispatchPatchCampaignsIdWithResponse(ctx, config, inputs)
-	case "patch-campaigns-id-feedback-id":
+	case FnPatchCampaignsIdFeedbackId:
 		return ic.dispatchPatchCampaignsIdFeedbackIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id":
+	case FnPatchEcommerceStoresId:
 		return ic.dispatchPatchEcommerceStoresIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-carts-id":
+	case FnPatchEcommerceStoresIdCartsId:
 		return ic.dispatchPatchEcommerceStoresIdCartsIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-carts-id-lines-id":
+	case FnPatchEcommerceStoresIdCartsIdLinesId:
 		return ic.dispatchPatchEcommerceStoresIdCartsIdLinesIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-customers-id":
+	case FnPatchEcommerceStoresIdCustomersId:
 		return ic.dispatchPatchEcommerceStoresIdCustomersIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-orders-id":
+	case FnPatchEcommerceStoresIdOrdersId:
 		return ic.dispatchPatchEcommerceStoresIdOrdersIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-orders-id-lines-id":
+	case FnPatchEcommerceStoresIdOrdersIdLinesId:
 		return ic.dispatchPatchEcommerceStoresIdOrdersIdLinesIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-products-id":
+	case FnPatchEcommerceStoresIdProductsId:
 		return ic.dispatchPatchEcommerceStoresIdProductsIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-products-id-images-id":
+	case FnPatchEcommerceStoresIdProductsIdImagesId:
 		return ic.dispatchPatchEcommerceStoresIdProductsIdImagesIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-products-id-variants-id":
+	case FnPatchEcommerceStoresIdProductsIdVariantsId:
 		return ic.dispatchPatchEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-promocodes-id":
+	case FnPatchEcommerceStoresIdPromocodesId:
 		return ic.dispatchPatchEcommerceStoresIdPromocodesIdWithResponse(ctx, config, inputs)
-	case "patch-ecommerce-stores-id-promorules-id":
+	case FnPatchEcommerceStoresIdPromorulesId:
 		return ic.dispatchPatchEcommerceStoresIdPromorulesIdWithResponse(ctx, config, inputs)
-	case "patch-file-manager-files-id":
+	case FnPatchFileManagerFilesId:
 		return ic.dispatchPatchFileManagerFilesIdWithResponse(ctx, config, inputs)
-	case "patch-file-manager-folders-id":
+	case FnPatchFileManagerFoldersId:
 		return ic.dispatchPatchFileManagerFoldersIdWithResponse(ctx, config, inputs)
-	case "patch-landing-page-id":
+	case FnPatchLandingPageId:
 		return ic.dispatchPatchLandingPageIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id":
+	case FnPatchListsId:
 		return ic.dispatchPatchListsIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id-interest-categories-id":
+	case FnPatchListsIdInterestCategoriesId:
 		return ic.dispatchPatchListsIdInterestCategoriesIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id-interest-categories-id-interests-id":
+	case FnPatchListsIdInterestCategoriesIdInterestsId:
 		return ic.dispatchPatchListsIdInterestCategoriesIdInterestsIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id-members-id":
+	case FnPatchListsIdMembersId:
 		return ic.dispatchPatchListsIdMembersIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id-members-id-notes-id":
+	case FnPatchListsIdMembersIdNotesId:
 		return ic.dispatchPatchListsIdMembersIdNotesIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id-merge-fields-id":
+	case FnPatchListsIdMergeFieldsId:
 		return ic.dispatchPatchListsIdMergeFieldsIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id-segments-id":
+	case FnPatchListsIdSegmentsId:
 		return ic.dispatchPatchListsIdSegmentsIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id-surveys-id":
+	case FnPatchListsIdSurveysId:
 		return ic.dispatchPatchListsIdSurveysIdWithResponse(ctx, config, inputs)
-	case "patch-lists-id-webhooks-id":
+	case FnPatchListsIdWebhooksId:
 		return ic.dispatchPatchListsIdWebhooksIdWithResponse(ctx, config, inputs)
-	case "patch-sms-campaigns-id":
+	case FnPatchSmsCampaignsId:
 		return ic.dispatchPatchSmsCampaignsIdWithResponse(ctx, config, inputs)
-	case "patch-template-folders-id":
+	case FnPatchTemplateFoldersId:
 		return ic.dispatchPatchTemplateFoldersIdWithResponse(ctx, config, inputs)
-	case "patch-templates-id":
+	case FnPatchTemplatesId:
 		return ic.dispatchPatchTemplatesIdWithResponse(ctx, config, inputs)
-	case "post-account-export":
+	case FnPostAccountExport:
 		return ic.dispatchPostAccountExportWithResponse(ctx, config, inputs)
-	case "post-all-landing-pages":
+	case FnPostAllLandingPages:
 		return ic.dispatchPostAllLandingPagesWithResponse(ctx, config, inputs)
-	case "post-audiences-contacts-actions-archive":
+	case FnPostAudiencesContactsActionsArchive:
 		return ic.dispatchPostAudiencesContactsActionsArchiveWithResponse(ctx, config, inputs)
-	case "post-audiences-contacts-actions-forget":
+	case FnPostAudiencesContactsActionsForget:
 		return ic.dispatchPostAudiencesContactsActionsForgetWithResponse(ctx, config, inputs)
-	case "post-automations":
+	case FnPostAutomations:
 		return ic.dispatchPostAutomationsWithResponse(ctx, config, inputs)
-	case "post-automations-id-actions-pause-all-emails":
+	case FnPostAutomationsIdActionsPauseAllEmails:
 		return ic.dispatchPostAutomationsIdActionsPauseAllEmailsWithResponse(ctx, config, inputs)
-	case "post-automations-id-actions-start-all-emails":
+	case FnPostAutomationsIdActionsStartAllEmails:
 		return ic.dispatchPostAutomationsIdActionsStartAllEmailsWithResponse(ctx, config, inputs)
-	case "post-automations-id-emails-id-actions-pause":
+	case FnPostAutomationsIdEmailsIdActionsPause:
 		return ic.dispatchPostAutomationsIdEmailsIdActionsPauseWithResponse(ctx, config, inputs)
-	case "post-automations-id-emails-id-actions-start":
+	case FnPostAutomationsIdEmailsIdActionsStart:
 		return ic.dispatchPostAutomationsIdEmailsIdActionsStartWithResponse(ctx, config, inputs)
-	case "post-automations-id-emails-id-queue":
+	case FnPostAutomationsIdEmailsIdQueue:
 		return ic.dispatchPostAutomationsIdEmailsIdQueueWithResponse(ctx, config, inputs)
-	case "post-automations-id-removed-subscribers":
+	case FnPostAutomationsIdRemovedSubscribers:
 		return ic.dispatchPostAutomationsIdRemovedSubscribersWithResponse(ctx, config, inputs)
-	case "post-batch-webhooks":
+	case FnPostBatchWebhooks:
 		return ic.dispatchPostBatchWebhooksWithResponse(ctx, config, inputs)
-	case "post-batches":
+	case FnPostBatches:
 		return ic.dispatchPostBatchesWithResponse(ctx, config, inputs)
-	case "post-campaign-folders":
+	case FnPostCampaignFolders:
 		return ic.dispatchPostCampaignFoldersWithResponse(ctx, config, inputs)
-	case "post-campaigns":
+	case FnPostCampaigns:
 		return ic.dispatchPostCampaignsWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-cancel-send":
+	case FnPostCampaignsIdActionsCancelSend:
 		return ic.dispatchPostCampaignsIdActionsCancelSendWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-create-resend":
+	case FnPostCampaignsIdActionsCreateResend:
 		return ic.dispatchPostCampaignsIdActionsCreateResendWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-pause":
+	case FnPostCampaignsIdActionsPause:
 		return ic.dispatchPostCampaignsIdActionsPauseWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-replicate":
+	case FnPostCampaignsIdActionsReplicate:
 		return ic.dispatchPostCampaignsIdActionsReplicateWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-resume":
+	case FnPostCampaignsIdActionsResume:
 		return ic.dispatchPostCampaignsIdActionsResumeWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-schedule":
+	case FnPostCampaignsIdActionsSchedule:
 		return ic.dispatchPostCampaignsIdActionsScheduleWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-send":
+	case FnPostCampaignsIdActionsSend:
 		return ic.dispatchPostCampaignsIdActionsSendWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-test":
+	case FnPostCampaignsIdActionsTest:
 		return ic.dispatchPostCampaignsIdActionsTestWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-actions-unschedule":
+	case FnPostCampaignsIdActionsUnschedule:
 		return ic.dispatchPostCampaignsIdActionsUnscheduleWithResponse(ctx, config, inputs)
-	case "post-campaigns-id-feedback":
+	case FnPostCampaignsIdFeedback:
 		return ic.dispatchPostCampaignsIdFeedbackWithResponse(ctx, config, inputs)
-	case "post-connected-sites":
+	case FnPostConnectedSites:
 		return ic.dispatchPostConnectedSitesWithResponse(ctx, config, inputs)
-	case "post-connected-sites-id-actions-disable-pixel":
+	case FnPostConnectedSitesIdActionsDisablePixel:
 		return ic.dispatchPostConnectedSitesIdActionsDisablePixelWithResponse(ctx, config, inputs)
-	case "post-connected-sites-id-actions-enable-pixel":
+	case FnPostConnectedSitesIdActionsEnablePixel:
 		return ic.dispatchPostConnectedSitesIdActionsEnablePixelWithResponse(ctx, config, inputs)
-	case "post-connected-sites-id-actions-verify-script-installation":
+	case FnPostConnectedSitesIdActionsVerifyScriptInstallation:
 		return ic.dispatchPostConnectedSitesIdActionsVerifyScriptInstallationWithResponse(ctx, config, inputs)
-	case "post-customer-journeys-journeys-id-steps-id-actions-trigger":
+	case FnPostCustomerJourneysJourneysIdStepsIdActionsTrigger:
 		return ic.dispatchPostCustomerJourneysJourneysIdStepsIdActionsTriggerWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores":
+	case FnPostEcommerceStores:
 		return ic.dispatchPostEcommerceStoresWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-carts":
+	case FnPostEcommerceStoresIdCarts:
 		return ic.dispatchPostEcommerceStoresIdCartsWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-carts-id-lines":
+	case FnPostEcommerceStoresIdCartsIdLines:
 		return ic.dispatchPostEcommerceStoresIdCartsIdLinesWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-customers":
+	case FnPostEcommerceStoresIdCustomers:
 		return ic.dispatchPostEcommerceStoresIdCustomersWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-orders":
+	case FnPostEcommerceStoresIdOrders:
 		return ic.dispatchPostEcommerceStoresIdOrdersWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-orders-id-lines":
+	case FnPostEcommerceStoresIdOrdersIdLines:
 		return ic.dispatchPostEcommerceStoresIdOrdersIdLinesWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-products":
+	case FnPostEcommerceStoresIdProducts:
 		return ic.dispatchPostEcommerceStoresIdProductsWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-products-id-images":
+	case FnPostEcommerceStoresIdProductsIdImages:
 		return ic.dispatchPostEcommerceStoresIdProductsIdImagesWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-products-id-variants":
+	case FnPostEcommerceStoresIdProductsIdVariants:
 		return ic.dispatchPostEcommerceStoresIdProductsIdVariantsWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-promocodes":
+	case FnPostEcommerceStoresIdPromocodes:
 		return ic.dispatchPostEcommerceStoresIdPromocodesWithResponse(ctx, config, inputs)
-	case "post-ecommerce-stores-id-promorules":
+	case FnPostEcommerceStoresIdPromorules:
 		return ic.dispatchPostEcommerceStoresIdPromorulesWithResponse(ctx, config, inputs)
-	case "post-file-manager-files":
+	case FnPostFileManagerFiles:
 		return ic.dispatchPostFileManagerFilesWithResponse(ctx, config, inputs)
-	case "post-file-manager-folders":
+	case FnPostFileManagerFolders:
 		return ic.dispatchPostFileManagerFoldersWithResponse(ctx, config, inputs)
-	case "post-landing-page-id-actions-publish":
+	case FnPostLandingPageIdActionsPublish:
 		return ic.dispatchPostLandingPageIdActionsPublishWithResponse(ctx, config, inputs)
-	case "post-landing-page-id-actions-unpublish":
+	case FnPostLandingPageIdActionsUnpublish:
 		return ic.dispatchPostLandingPageIdActionsUnpublishWithResponse(ctx, config, inputs)
-	case "post-list-member-events":
+	case FnPostListMemberEvents:
 		return ic.dispatchPostListMemberEventsWithResponse(ctx, config, inputs)
-	case "post-list-member-tags":
+	case FnPostListMemberTags:
 		return ic.dispatchPostListMemberTagsWithResponse(ctx, config, inputs)
-	case "post-lists":
+	case FnPostLists:
 		return ic.dispatchPostListsWithResponse(ctx, config, inputs)
-	case "post-lists-id":
+	case FnPostListsId:
 		return ic.dispatchPostListsIdWithResponse(ctx, config, inputs)
-	case "post-lists-id-interest-categories":
+	case FnPostListsIdInterestCategories:
 		return ic.dispatchPostListsIdInterestCategoriesWithResponse(ctx, config, inputs)
-	case "post-lists-id-interest-categories-id-interests":
+	case FnPostListsIdInterestCategoriesIdInterests:
 		return ic.dispatchPostListsIdInterestCategoriesIdInterestsWithResponse(ctx, config, inputs)
-	case "post-lists-id-members":
+	case FnPostListsIdMembers:
 		return ic.dispatchPostListsIdMembersWithResponse(ctx, config, inputs)
-	case "post-lists-id-members-hash-actions-delete-permanent":
+	case FnPostListsIdMembersHashActionsDeletePermanent:
 		return ic.dispatchPostListsIdMembersHashActionsDeletePermanentWithResponse(ctx, config, inputs)
-	case "post-lists-id-members-id-notes":
+	case FnPostListsIdMembersIdNotes:
 		return ic.dispatchPostListsIdMembersIdNotesWithResponse(ctx, config, inputs)
-	case "post-lists-id-merge-fields":
+	case FnPostListsIdMergeFields:
 		return ic.dispatchPostListsIdMergeFieldsWithResponse(ctx, config, inputs)
-	case "post-lists-id-segments":
+	case FnPostListsIdSegments:
 		return ic.dispatchPostListsIdSegmentsWithResponse(ctx, config, inputs)
-	case "post-lists-id-segments-id":
+	case FnPostListsIdSegmentsId:
 		return ic.dispatchPostListsIdSegmentsIdWithResponse(ctx, config, inputs)
-	case "post-lists-id-segments-id-members":
+	case FnPostListsIdSegmentsIdMembers:
 		return ic.dispatchPostListsIdSegmentsIdMembersWithResponse(ctx, config, inputs)
-	case "post-lists-id-signup-forms":
+	case FnPostListsIdSignupForms:
 		return ic.dispatchPostListsIdSignupFormsWithResponse(ctx, config, inputs)
-	case "post-lists-id-surveys":
+	case FnPostListsIdSurveys:
 		return ic.dispatchPostListsIdSurveysWithResponse(ctx, config, inputs)
-	case "post-lists-id-surveys-id-actions-create-email":
+	case FnPostListsIdSurveysIdActionsCreateEmail:
 		return ic.dispatchPostListsIdSurveysIdActionsCreateEmailWithResponse(ctx, config, inputs)
-	case "post-lists-id-surveys-id-actions-publish":
+	case FnPostListsIdSurveysIdActionsPublish:
 		return ic.dispatchPostListsIdSurveysIdActionsPublishWithResponse(ctx, config, inputs)
-	case "post-lists-id-surveys-id-actions-replicate":
+	case FnPostListsIdSurveysIdActionsReplicate:
 		return ic.dispatchPostListsIdSurveysIdActionsReplicateWithResponse(ctx, config, inputs)
-	case "post-lists-id-surveys-id-actions-unpublish":
+	case FnPostListsIdSurveysIdActionsUnpublish:
 		return ic.dispatchPostListsIdSurveysIdActionsUnpublishWithResponse(ctx, config, inputs)
-	case "post-lists-id-webhooks":
+	case FnPostListsIdWebhooks:
 		return ic.dispatchPostListsIdWebhooksWithResponse(ctx, config, inputs)
-	case "post-sms-campaigns":
+	case FnPostSmsCampaigns:
 		return ic.dispatchPostSmsCampaignsWithResponse(ctx, config, inputs)
-	case "post-sms-campaigns-id-actions-cancel-send":
+	case FnPostSmsCampaignsIdActionsCancelSend:
 		return ic.dispatchPostSmsCampaignsIdActionsCancelSendWithResponse(ctx, config, inputs)
-	case "post-sms-campaigns-id-actions-schedule":
+	case FnPostSmsCampaignsIdActionsSchedule:
 		return ic.dispatchPostSmsCampaignsIdActionsScheduleWithResponse(ctx, config, inputs)
-	case "post-sms-campaigns-id-actions-send":
+	case FnPostSmsCampaignsIdActionsSend:
 		return ic.dispatchPostSmsCampaignsIdActionsSendWithResponse(ctx, config, inputs)
-	case "post-template-folders":
+	case FnPostTemplateFolders:
 		return ic.dispatchPostTemplateFoldersWithResponse(ctx, config, inputs)
-	case "post-templates":
+	case FnPostTemplates:
 		return ic.dispatchPostTemplatesWithResponse(ctx, config, inputs)
-	case "preview-a-segment":
+	case FnPreviewASegment:
 		return ic.dispatchPreviewASegmentWithResponse(ctx, config, inputs)
-	case "put-campaigns-id-content":
+	case FnPutCampaignsIdContent:
 		return ic.dispatchPutCampaignsIdContentWithResponse(ctx, config, inputs)
-	case "put-ecommerce-stores-id-customers-id":
+	case FnPutEcommerceStoresIdCustomersId:
 		return ic.dispatchPutEcommerceStoresIdCustomersIdWithResponse(ctx, config, inputs)
-	case "put-ecommerce-stores-id-orders-id":
+	case FnPutEcommerceStoresIdOrdersId:
 		return ic.dispatchPutEcommerceStoresIdOrdersIdWithResponse(ctx, config, inputs)
-	case "put-ecommerce-stores-id-products-id":
+	case FnPutEcommerceStoresIdProductsId:
 		return ic.dispatchPutEcommerceStoresIdProductsIdWithResponse(ctx, config, inputs)
-	case "put-ecommerce-stores-id-products-id-variants-id":
+	case FnPutEcommerceStoresIdProductsIdVariantsId:
 		return ic.dispatchPutEcommerceStoresIdProductsIdVariantsIdWithResponse(ctx, config, inputs)
-	case "put-lists-id-members-id":
+	case FnPutListsIdMembersId:
 		return ic.dispatchPutListsIdMembersIdWithResponse(ctx, config, inputs)
-	case "put-sms-campaigns-id-content":
+	case FnPutSmsCampaignsIdContent:
 		return ic.dispatchPutSmsCampaignsIdContentWithResponse(ctx, config, inputs)
-	case "search-tags-by-name":
+	case FnSearchTagsByName:
 		return ic.dispatchSearchTagsByNameWithResponse(ctx, config, inputs)
-	case "verify-domain":
+	case FnVerifyDomain:
 		return ic.dispatchVerifyDomainWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

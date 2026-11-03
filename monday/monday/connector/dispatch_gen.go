@@ -29,13 +29,18 @@ func Resolve(
 	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
+	fn, err := ParseFunction(function)
+	if err != nil {
+		return nil, err
+	}
+
 	c, err := NewConnector(interfaceID, creds, config, httpClient)
 	if err != nil {
 		return nil, err
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return c.Client().Dispatch(ctx, function, config, inputs)
+		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
 }
 

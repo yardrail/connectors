@@ -18,133 +18,330 @@ type InterfaceClient struct {
 	cl *client.ClientWithResponses
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnCreateComment                       Function = "create-comment"
+	FnCreateDesign                        Function = "create-design"
+	FnCreateDesignAutofillJob             Function = "create-design-autofill-job"
+	FnCreateDesignExportJob               Function = "create-design-export-job"
+	FnCreateDesignMergeJob                Function = "create-design-merge-job"
+	FnCreateDesignResizeJob               Function = "create-design-resize-job"
+	FnCreateFolder                        Function = "create-folder"
+	FnCreateImageToDesignImportJob        Function = "create-image-to-design-import-job"
+	FnCreateImageTransformationJob        Function = "create-image-transformation-job"
+	FnCreatePrintPartnerDesign            Function = "create-print-partner-design"
+	FnCreatePrintPartnerDesignExportJob   Function = "create-print-partner-design-export-job"
+	FnCreateReply                         Function = "create-reply"
+	FnCreateThread                        Function = "create-thread"
+	FnCreateUrlAssetUploadJob             Function = "create-url-asset-upload-job"
+	FnCreateUrlImportJob                  Function = "create-url-import-job"
+	FnDeleteAsset                         Function = "delete-asset"
+	FnDeleteFolder                        Function = "delete-folder"
+	FnExchangeAccessTokenWithFormdataBody Function = "exchange-access-token-with-formdata-body"
+	FnGetAppJwks                          Function = "get-app-jwks"
+	FnGetAsset                            Function = "get-asset"
+	FnGetAssetUploadJob                   Function = "get-asset-upload-job"
+	FnGetBrandTemplate                    Function = "get-brand-template"
+	FnGetBrandTemplateDataset             Function = "get-brand-template-dataset"
+	FnGetDesign                           Function = "get-design"
+	FnGetDesignAnalytics                  Function = "get-design-analytics"
+	FnGetDesignAnalyticsLinks             Function = "get-design-analytics-links"
+	FnGetDesignAnalyticsPageViews         Function = "get-design-analytics-page-views"
+	FnGetDesignAnalyticsViewers           Function = "get-design-analytics-viewers"
+	FnGetDesignAnalyticsViewsOverTime     Function = "get-design-analytics-views-over-time"
+	FnGetDesignAutofillJob                Function = "get-design-autofill-job"
+	FnGetDesignDataset                    Function = "get-design-dataset"
+	FnGetDesignExportFormats              Function = "get-design-export-formats"
+	FnGetDesignExportJob                  Function = "get-design-export-job"
+	FnGetDesignImportJob                  Function = "get-design-import-job"
+	FnGetDesignMergeJob                   Function = "get-design-merge-job"
+	FnGetDesignPages                      Function = "get-design-pages"
+	FnGetDesignResizeJob                  Function = "get-design-resize-job"
+	FnGetFolder                           Function = "get-folder"
+	FnGetImageToDesignImportJob           Function = "get-image-to-design-import-job"
+	FnGetImageTransformationJob           Function = "get-image-transformation-job"
+	FnGetOidcJwks                         Function = "get-oidc-jwks"
+	FnGetPrintPartnerDesign               Function = "get-print-partner-design"
+	FnGetReply                            Function = "get-reply"
+	FnGetSigningPublicKeys                Function = "get-signing-public-keys"
+	FnGetThread                           Function = "get-thread"
+	FnGetUrlAssetUploadJob                Function = "get-url-asset-upload-job"
+	FnGetUrlImportJob                     Function = "get-url-import-job"
+	FnGetUserCapabilities                 Function = "get-user-capabilities"
+	FnGetUserProfile                      Function = "get-user-profile"
+	FnIntrospectTokenWithFormdataBody     Function = "introspect-token-with-formdata-body"
+	FnListBrandTemplates                  Function = "list-brand-templates"
+	FnListDesigns                         Function = "list-designs"
+	FnListFolderItems                     Function = "list-folder-items"
+	FnListReplies                         Function = "list-replies"
+	FnMoveFolderItem                      Function = "move-folder-item"
+	FnPublishBrandTemplate                Function = "publish-brand-template"
+	FnRevokeTokensWithFormdataBody        Function = "revoke-tokens-with-formdata-body"
+	FnUpdateAsset                         Function = "update-asset"
+	FnUpdateFolder                        Function = "update-folder"
+	FnUserInfo                            Function = "user-info"
+	FnUsersMe                             Function = "users-me"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnCreateComment:
+		return FnCreateComment, nil
+	case FnCreateDesign:
+		return FnCreateDesign, nil
+	case FnCreateDesignAutofillJob:
+		return FnCreateDesignAutofillJob, nil
+	case FnCreateDesignExportJob:
+		return FnCreateDesignExportJob, nil
+	case FnCreateDesignMergeJob:
+		return FnCreateDesignMergeJob, nil
+	case FnCreateDesignResizeJob:
+		return FnCreateDesignResizeJob, nil
+	case FnCreateFolder:
+		return FnCreateFolder, nil
+	case FnCreateImageToDesignImportJob:
+		return FnCreateImageToDesignImportJob, nil
+	case FnCreateImageTransformationJob:
+		return FnCreateImageTransformationJob, nil
+	case FnCreatePrintPartnerDesign:
+		return FnCreatePrintPartnerDesign, nil
+	case FnCreatePrintPartnerDesignExportJob:
+		return FnCreatePrintPartnerDesignExportJob, nil
+	case FnCreateReply:
+		return FnCreateReply, nil
+	case FnCreateThread:
+		return FnCreateThread, nil
+	case FnCreateUrlAssetUploadJob:
+		return FnCreateUrlAssetUploadJob, nil
+	case FnCreateUrlImportJob:
+		return FnCreateUrlImportJob, nil
+	case FnDeleteAsset:
+		return FnDeleteAsset, nil
+	case FnDeleteFolder:
+		return FnDeleteFolder, nil
+	case FnExchangeAccessTokenWithFormdataBody:
+		return FnExchangeAccessTokenWithFormdataBody, nil
+	case FnGetAppJwks:
+		return FnGetAppJwks, nil
+	case FnGetAsset:
+		return FnGetAsset, nil
+	case FnGetAssetUploadJob:
+		return FnGetAssetUploadJob, nil
+	case FnGetBrandTemplate:
+		return FnGetBrandTemplate, nil
+	case FnGetBrandTemplateDataset:
+		return FnGetBrandTemplateDataset, nil
+	case FnGetDesign:
+		return FnGetDesign, nil
+	case FnGetDesignAnalytics:
+		return FnGetDesignAnalytics, nil
+	case FnGetDesignAnalyticsLinks:
+		return FnGetDesignAnalyticsLinks, nil
+	case FnGetDesignAnalyticsPageViews:
+		return FnGetDesignAnalyticsPageViews, nil
+	case FnGetDesignAnalyticsViewers:
+		return FnGetDesignAnalyticsViewers, nil
+	case FnGetDesignAnalyticsViewsOverTime:
+		return FnGetDesignAnalyticsViewsOverTime, nil
+	case FnGetDesignAutofillJob:
+		return FnGetDesignAutofillJob, nil
+	case FnGetDesignDataset:
+		return FnGetDesignDataset, nil
+	case FnGetDesignExportFormats:
+		return FnGetDesignExportFormats, nil
+	case FnGetDesignExportJob:
+		return FnGetDesignExportJob, nil
+	case FnGetDesignImportJob:
+		return FnGetDesignImportJob, nil
+	case FnGetDesignMergeJob:
+		return FnGetDesignMergeJob, nil
+	case FnGetDesignPages:
+		return FnGetDesignPages, nil
+	case FnGetDesignResizeJob:
+		return FnGetDesignResizeJob, nil
+	case FnGetFolder:
+		return FnGetFolder, nil
+	case FnGetImageToDesignImportJob:
+		return FnGetImageToDesignImportJob, nil
+	case FnGetImageTransformationJob:
+		return FnGetImageTransformationJob, nil
+	case FnGetOidcJwks:
+		return FnGetOidcJwks, nil
+	case FnGetPrintPartnerDesign:
+		return FnGetPrintPartnerDesign, nil
+	case FnGetReply:
+		return FnGetReply, nil
+	case FnGetSigningPublicKeys:
+		return FnGetSigningPublicKeys, nil
+	case FnGetThread:
+		return FnGetThread, nil
+	case FnGetUrlAssetUploadJob:
+		return FnGetUrlAssetUploadJob, nil
+	case FnGetUrlImportJob:
+		return FnGetUrlImportJob, nil
+	case FnGetUserCapabilities:
+		return FnGetUserCapabilities, nil
+	case FnGetUserProfile:
+		return FnGetUserProfile, nil
+	case FnIntrospectTokenWithFormdataBody:
+		return FnIntrospectTokenWithFormdataBody, nil
+	case FnListBrandTemplates:
+		return FnListBrandTemplates, nil
+	case FnListDesigns:
+		return FnListDesigns, nil
+	case FnListFolderItems:
+		return FnListFolderItems, nil
+	case FnListReplies:
+		return FnListReplies, nil
+	case FnMoveFolderItem:
+		return FnMoveFolderItem, nil
+	case FnPublishBrandTemplate:
+		return FnPublishBrandTemplate, nil
+	case FnRevokeTokensWithFormdataBody:
+		return FnRevokeTokensWithFormdataBody, nil
+	case FnUpdateAsset:
+		return FnUpdateAsset, nil
+	case FnUpdateFolder:
+		return FnUpdateFolder, nil
+	case FnUserInfo:
+		return FnUserInfo, nil
+	case FnUsersMe:
+		return FnUsersMe, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "create-comment":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnCreateComment:
 		return ic.dispatchCreateCommentWithResponse(ctx, config, inputs)
-	case "create-design":
+	case FnCreateDesign:
 		return ic.dispatchCreateDesignWithResponse(ctx, config, inputs)
-	case "create-design-autofill-job":
+	case FnCreateDesignAutofillJob:
 		return ic.dispatchCreateDesignAutofillJobWithResponse(ctx, config, inputs)
-	case "create-design-export-job":
+	case FnCreateDesignExportJob:
 		return ic.dispatchCreateDesignExportJobWithResponse(ctx, config, inputs)
-	case "create-design-merge-job":
+	case FnCreateDesignMergeJob:
 		return ic.dispatchCreateDesignMergeJobWithResponse(ctx, config, inputs)
-	case "create-design-resize-job":
+	case FnCreateDesignResizeJob:
 		return ic.dispatchCreateDesignResizeJobWithResponse(ctx, config, inputs)
-	case "create-folder":
+	case FnCreateFolder:
 		return ic.dispatchCreateFolderWithResponse(ctx, config, inputs)
-	case "create-image-to-design-import-job":
+	case FnCreateImageToDesignImportJob:
 		return ic.dispatchCreateImageToDesignImportJobWithResponse(ctx, config, inputs)
-	case "create-image-transformation-job":
+	case FnCreateImageTransformationJob:
 		return ic.dispatchCreateImageTransformationJobWithResponse(ctx, config, inputs)
-	case "create-print-partner-design":
+	case FnCreatePrintPartnerDesign:
 		return ic.dispatchCreatePrintPartnerDesignWithResponse(ctx, config, inputs)
-	case "create-print-partner-design-export-job":
+	case FnCreatePrintPartnerDesignExportJob:
 		return ic.dispatchCreatePrintPartnerDesignExportJobWithResponse(ctx, config, inputs)
-	case "create-reply":
+	case FnCreateReply:
 		return ic.dispatchCreateReplyWithResponse(ctx, config, inputs)
-	case "create-thread":
+	case FnCreateThread:
 		return ic.dispatchCreateThreadWithResponse(ctx, config, inputs)
-	case "create-url-asset-upload-job":
+	case FnCreateUrlAssetUploadJob:
 		return ic.dispatchCreateUrlAssetUploadJobWithResponse(ctx, config, inputs)
-	case "create-url-import-job":
+	case FnCreateUrlImportJob:
 		return ic.dispatchCreateUrlImportJobWithResponse(ctx, config, inputs)
-	case "delete-asset":
+	case FnDeleteAsset:
 		return ic.dispatchDeleteAssetWithResponse(ctx, config, inputs)
-	case "delete-folder":
+	case FnDeleteFolder:
 		return ic.dispatchDeleteFolderWithResponse(ctx, config, inputs)
-	case "exchange-access-token-with-formdata-body":
+	case FnExchangeAccessTokenWithFormdataBody:
 		return ic.dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "get-app-jwks":
+	case FnGetAppJwks:
 		return ic.dispatchGetAppJwksWithResponse(ctx, config, inputs)
-	case "get-asset":
+	case FnGetAsset:
 		return ic.dispatchGetAssetWithResponse(ctx, config, inputs)
-	case "get-asset-upload-job":
+	case FnGetAssetUploadJob:
 		return ic.dispatchGetAssetUploadJobWithResponse(ctx, config, inputs)
-	case "get-brand-template":
+	case FnGetBrandTemplate:
 		return ic.dispatchGetBrandTemplateWithResponse(ctx, config, inputs)
-	case "get-brand-template-dataset":
+	case FnGetBrandTemplateDataset:
 		return ic.dispatchGetBrandTemplateDatasetWithResponse(ctx, config, inputs)
-	case "get-design":
+	case FnGetDesign:
 		return ic.dispatchGetDesignWithResponse(ctx, config, inputs)
-	case "get-design-analytics":
+	case FnGetDesignAnalytics:
 		return ic.dispatchGetDesignAnalyticsWithResponse(ctx, config, inputs)
-	case "get-design-analytics-links":
+	case FnGetDesignAnalyticsLinks:
 		return ic.dispatchGetDesignAnalyticsLinksWithResponse(ctx, config, inputs)
-	case "get-design-analytics-page-views":
+	case FnGetDesignAnalyticsPageViews:
 		return ic.dispatchGetDesignAnalyticsPageViewsWithResponse(ctx, config, inputs)
-	case "get-design-analytics-viewers":
+	case FnGetDesignAnalyticsViewers:
 		return ic.dispatchGetDesignAnalyticsViewersWithResponse(ctx, config, inputs)
-	case "get-design-analytics-views-over-time":
+	case FnGetDesignAnalyticsViewsOverTime:
 		return ic.dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx, config, inputs)
-	case "get-design-autofill-job":
+	case FnGetDesignAutofillJob:
 		return ic.dispatchGetDesignAutofillJobWithResponse(ctx, config, inputs)
-	case "get-design-dataset":
+	case FnGetDesignDataset:
 		return ic.dispatchGetDesignDatasetWithResponse(ctx, config, inputs)
-	case "get-design-export-formats":
+	case FnGetDesignExportFormats:
 		return ic.dispatchGetDesignExportFormatsWithResponse(ctx, config, inputs)
-	case "get-design-export-job":
+	case FnGetDesignExportJob:
 		return ic.dispatchGetDesignExportJobWithResponse(ctx, config, inputs)
-	case "get-design-import-job":
+	case FnGetDesignImportJob:
 		return ic.dispatchGetDesignImportJobWithResponse(ctx, config, inputs)
-	case "get-design-merge-job":
+	case FnGetDesignMergeJob:
 		return ic.dispatchGetDesignMergeJobWithResponse(ctx, config, inputs)
-	case "get-design-pages":
+	case FnGetDesignPages:
 		return ic.dispatchGetDesignPagesWithResponse(ctx, config, inputs)
-	case "get-design-resize-job":
+	case FnGetDesignResizeJob:
 		return ic.dispatchGetDesignResizeJobWithResponse(ctx, config, inputs)
-	case "get-folder":
+	case FnGetFolder:
 		return ic.dispatchGetFolderWithResponse(ctx, config, inputs)
-	case "get-image-to-design-import-job":
+	case FnGetImageToDesignImportJob:
 		return ic.dispatchGetImageToDesignImportJobWithResponse(ctx, config, inputs)
-	case "get-image-transformation-job":
+	case FnGetImageTransformationJob:
 		return ic.dispatchGetImageTransformationJobWithResponse(ctx, config, inputs)
-	case "get-oidc-jwks":
+	case FnGetOidcJwks:
 		return ic.dispatchGetOidcJwksWithResponse(ctx, config, inputs)
-	case "get-print-partner-design":
+	case FnGetPrintPartnerDesign:
 		return ic.dispatchGetPrintPartnerDesignWithResponse(ctx, config, inputs)
-	case "get-reply":
+	case FnGetReply:
 		return ic.dispatchGetReplyWithResponse(ctx, config, inputs)
-	case "get-signing-public-keys":
+	case FnGetSigningPublicKeys:
 		return ic.dispatchGetSigningPublicKeysWithResponse(ctx, config, inputs)
-	case "get-thread":
+	case FnGetThread:
 		return ic.dispatchGetThreadWithResponse(ctx, config, inputs)
-	case "get-url-asset-upload-job":
+	case FnGetUrlAssetUploadJob:
 		return ic.dispatchGetUrlAssetUploadJobWithResponse(ctx, config, inputs)
-	case "get-url-import-job":
+	case FnGetUrlImportJob:
 		return ic.dispatchGetUrlImportJobWithResponse(ctx, config, inputs)
-	case "get-user-capabilities":
+	case FnGetUserCapabilities:
 		return ic.dispatchGetUserCapabilitiesWithResponse(ctx, config, inputs)
-	case "get-user-profile":
+	case FnGetUserProfile:
 		return ic.dispatchGetUserProfileWithResponse(ctx, config, inputs)
-	case "introspect-token-with-formdata-body":
+	case FnIntrospectTokenWithFormdataBody:
 		return ic.dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "list-brand-templates":
+	case FnListBrandTemplates:
 		return ic.dispatchListBrandTemplatesWithResponse(ctx, config, inputs)
-	case "list-designs":
+	case FnListDesigns:
 		return ic.dispatchListDesignsWithResponse(ctx, config, inputs)
-	case "list-folder-items":
+	case FnListFolderItems:
 		return ic.dispatchListFolderItemsWithResponse(ctx, config, inputs)
-	case "list-replies":
+	case FnListReplies:
 		return ic.dispatchListRepliesWithResponse(ctx, config, inputs)
-	case "move-folder-item":
+	case FnMoveFolderItem:
 		return ic.dispatchMoveFolderItemWithResponse(ctx, config, inputs)
-	case "publish-brand-template":
+	case FnPublishBrandTemplate:
 		return ic.dispatchPublishBrandTemplateWithResponse(ctx, config, inputs)
-	case "revoke-tokens-with-formdata-body":
+	case FnRevokeTokensWithFormdataBody:
 		return ic.dispatchRevokeTokensWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "update-asset":
+	case FnUpdateAsset:
 		return ic.dispatchUpdateAssetWithResponse(ctx, config, inputs)
-	case "update-folder":
+	case FnUpdateFolder:
 		return ic.dispatchUpdateFolderWithResponse(ctx, config, inputs)
-	case "user-info":
+	case FnUserInfo:
 		return ic.dispatchUserInfoWithResponse(ctx, config, inputs)
-	case "users-me":
+	case FnUsersMe:
 		return ic.dispatchUsersMeWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

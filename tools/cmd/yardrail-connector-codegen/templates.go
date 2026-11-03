@@ -341,7 +341,7 @@ type InterfaceClient struct {
 	cl *{{clientPkgName .ClientPkgPath}}.ClientWithResponses
 }
 
-` + restDispatchSwitchTemplate + `
+` + functionEnumTemplate + restDispatchSwitchTemplate + `
 // Connector holds an authenticated client for one interface.
 type Connector struct {
 	client *InterfaceClient
@@ -561,14 +561,33 @@ func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if use
 {{end}}
 `
 
-// restDispatchSwitchTemplate renders the Dispatch method as a switch on function name.
+// functionEnumTemplate renders the Function type, constants, and ParseFunction.
+const functionEnumTemplate = `// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+{{range .Functions}}	Fn{{goIdent .Name}} Function = "{{.Name}}"
+{{end}})
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+{{range .Functions}}	case Fn{{goIdent .Name}}:
+		return Fn{{goIdent .Name}}, nil
+{{end}}	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+`
+
+// restDispatchSwitchTemplate renders the Dispatch method as a switch on Function.
 const restDispatchSwitchTemplate = `// Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-{{range .Functions}}	case "{{.Name}}":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+{{range .Functions}}	case Fn{{goIdent .Name}}:
 		return ic.dispatch{{.MethodName}}(ctx, config, inputs)
 {{end}}	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 `
@@ -581,13 +600,18 @@ func Resolve(
 	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
+	fn, err := ParseFunction(function)
+	if err != nil {
+		return nil, err
+	}
+
 	c, err := NewConnector(interfaceID, creds, config, httpClient)
 	if err != nil {
 		return nil, err
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return c.Client().Dispatch(ctx, function, config, inputs)
+		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
 }
 `

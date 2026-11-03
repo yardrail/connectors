@@ -16,27 +16,65 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
-// Dispatch calls the named GraphQL operation.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "change-multiple-column-values":
-		return ic.ep.call(ctx, function, queryChangeMultipleColumnValues, inputs)
-	case "create-item":
-		return ic.ep.call(ctx, function, queryCreateItem, inputs)
-	case "create-update":
-		return ic.ep.call(ctx, function, queryCreateUpdate, inputs)
-	case "get-item":
-		return ic.ep.call(ctx, function, queryGetItem, inputs)
-	case "list-board-columns":
-		return ic.ep.call(ctx, function, queryListBoardColumns, inputs)
-	case "list-board-items":
-		return ic.ep.call(ctx, function, queryListBoardItems, inputs)
-	case "list-items-by-column-values":
-		return ic.ep.call(ctx, function, queryListItemsByColumnValues, inputs)
-	case "list-users":
-		return ic.ep.call(ctx, function, queryListUsers, inputs)
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnChangeMultipleColumnValues Function = "change-multiple-column-values"
+	FnCreateItem                 Function = "create-item"
+	FnCreateUpdate               Function = "create-update"
+	FnGetItem                    Function = "get-item"
+	FnListBoardColumns           Function = "list-board-columns"
+	FnListBoardItems             Function = "list-board-items"
+	FnListItemsByColumnValues    Function = "list-items-by-column-values"
+	FnListUsers                  Function = "list-users"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnChangeMultipleColumnValues:
+		return FnChangeMultipleColumnValues, nil
+	case FnCreateItem:
+		return FnCreateItem, nil
+	case FnCreateUpdate:
+		return FnCreateUpdate, nil
+	case FnGetItem:
+		return FnGetItem, nil
+	case FnListBoardColumns:
+		return FnListBoardColumns, nil
+	case FnListBoardItems:
+		return FnListBoardItems, nil
+	case FnListItemsByColumnValues:
+		return FnListItemsByColumnValues, nil
+	case FnListUsers:
+		return FnListUsers, nil
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
+// Dispatch calls the named GraphQL operation.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnChangeMultipleColumnValues:
+		return ic.ep.call(ctx, string(fn), queryChangeMultipleColumnValues, inputs)
+	case FnCreateItem:
+		return ic.ep.call(ctx, string(fn), queryCreateItem, inputs)
+	case FnCreateUpdate:
+		return ic.ep.call(ctx, string(fn), queryCreateUpdate, inputs)
+	case FnGetItem:
+		return ic.ep.call(ctx, string(fn), queryGetItem, inputs)
+	case FnListBoardColumns:
+		return ic.ep.call(ctx, string(fn), queryListBoardColumns, inputs)
+	case FnListBoardItems:
+		return ic.ep.call(ctx, string(fn), queryListBoardItems, inputs)
+	case FnListItemsByColumnValues:
+		return ic.ep.call(ctx, string(fn), queryListItemsByColumnValues, inputs)
+	case FnListUsers:
+		return ic.ep.call(ctx, string(fn), queryListUsers, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

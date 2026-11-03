@@ -18,37 +18,90 @@ type InterfaceClient struct {
 	cl *client.ClientWithResponses
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnDeletecrmv3objectscontactsContactIdArchive  Function = "deletecrmv3objectscontacts-contact-id-archive"
+	FnGetcrmv3objectscontactsContactIdGetById     Function = "getcrmv3objectscontacts-contact-id-get-by-id"
+	FnGetcrmv3objectscontactsGetPage              Function = "getcrmv3objectscontacts-get-page"
+	FnPatchcrmv3objectscontactsContactIdUpdate    Function = "patchcrmv3objectscontacts-contact-id-update"
+	FnPostcrmv3objectscontactsCreate              Function = "postcrmv3objectscontacts-create"
+	FnPostcrmv3objectscontactsbatcharchiveArchive Function = "postcrmv3objectscontactsbatcharchive-archive"
+	FnPostcrmv3objectscontactsbatchcreateCreate   Function = "postcrmv3objectscontactsbatchcreate-create"
+	FnPostcrmv3objectscontactsbatchreadRead       Function = "postcrmv3objectscontactsbatchread-read"
+	FnPostcrmv3objectscontactsbatchupdateUpdate   Function = "postcrmv3objectscontactsbatchupdate-update"
+	FnPostcrmv3objectscontactsbatchupsertUpsert   Function = "postcrmv3objectscontactsbatchupsert-upsert"
+	FnPostcrmv3objectscontactsgdprDeletePurge     Function = "postcrmv3objectscontactsgdpr-delete-purge"
+	FnPostcrmv3objectscontactsmergeMerge          Function = "postcrmv3objectscontactsmerge-merge"
+	FnPostcrmv3objectscontactssearchDoSearch      Function = "postcrmv3objectscontactssearch-do-search"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnDeletecrmv3objectscontactsContactIdArchive:
+		return FnDeletecrmv3objectscontactsContactIdArchive, nil
+	case FnGetcrmv3objectscontactsContactIdGetById:
+		return FnGetcrmv3objectscontactsContactIdGetById, nil
+	case FnGetcrmv3objectscontactsGetPage:
+		return FnGetcrmv3objectscontactsGetPage, nil
+	case FnPatchcrmv3objectscontactsContactIdUpdate:
+		return FnPatchcrmv3objectscontactsContactIdUpdate, nil
+	case FnPostcrmv3objectscontactsCreate:
+		return FnPostcrmv3objectscontactsCreate, nil
+	case FnPostcrmv3objectscontactsbatcharchiveArchive:
+		return FnPostcrmv3objectscontactsbatcharchiveArchive, nil
+	case FnPostcrmv3objectscontactsbatchcreateCreate:
+		return FnPostcrmv3objectscontactsbatchcreateCreate, nil
+	case FnPostcrmv3objectscontactsbatchreadRead:
+		return FnPostcrmv3objectscontactsbatchreadRead, nil
+	case FnPostcrmv3objectscontactsbatchupdateUpdate:
+		return FnPostcrmv3objectscontactsbatchupdateUpdate, nil
+	case FnPostcrmv3objectscontactsbatchupsertUpsert:
+		return FnPostcrmv3objectscontactsbatchupsertUpsert, nil
+	case FnPostcrmv3objectscontactsgdprDeletePurge:
+		return FnPostcrmv3objectscontactsgdprDeletePurge, nil
+	case FnPostcrmv3objectscontactsmergeMerge:
+		return FnPostcrmv3objectscontactsmergeMerge, nil
+	case FnPostcrmv3objectscontactssearchDoSearch:
+		return FnPostcrmv3objectscontactssearchDoSearch, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "deletecrmv3objectscontacts-contact-id-archive":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnDeletecrmv3objectscontactsContactIdArchive:
 		return ic.dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx, config, inputs)
-	case "getcrmv3objectscontacts-contact-id-get-by-id":
+	case FnGetcrmv3objectscontactsContactIdGetById:
 		return ic.dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx, config, inputs)
-	case "getcrmv3objectscontacts-get-page":
+	case FnGetcrmv3objectscontactsGetPage:
 		return ic.dispatchGetcrmv3objectscontactsGetPageWithResponse(ctx, config, inputs)
-	case "patchcrmv3objectscontacts-contact-id-update":
+	case FnPatchcrmv3objectscontactsContactIdUpdate:
 		return ic.dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontacts-create":
+	case FnPostcrmv3objectscontactsCreate:
 		return ic.dispatchPostcrmv3objectscontactsCreateWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontactsbatcharchive-archive":
+	case FnPostcrmv3objectscontactsbatcharchiveArchive:
 		return ic.dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontactsbatchcreate-create":
+	case FnPostcrmv3objectscontactsbatchcreateCreate:
 		return ic.dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontactsbatchread-read":
+	case FnPostcrmv3objectscontactsbatchreadRead:
 		return ic.dispatchPostcrmv3objectscontactsbatchreadReadWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontactsbatchupdate-update":
+	case FnPostcrmv3objectscontactsbatchupdateUpdate:
 		return ic.dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontactsbatchupsert-upsert":
+	case FnPostcrmv3objectscontactsbatchupsertUpsert:
 		return ic.dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontactsgdpr-delete-purge":
+	case FnPostcrmv3objectscontactsgdprDeletePurge:
 		return ic.dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontactsmerge-merge":
+	case FnPostcrmv3objectscontactsmergeMerge:
 		return ic.dispatchPostcrmv3objectscontactsmergeMergeWithResponse(ctx, config, inputs)
-	case "postcrmv3objectscontactssearch-do-search":
+	case FnPostcrmv3objectscontactssearchDoSearch:
 		return ic.dispatchPostcrmv3objectscontactssearchDoSearchWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

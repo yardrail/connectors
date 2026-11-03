@@ -18,367 +18,915 @@ type InterfaceClient struct {
 	cl *client.ClientWithResponses
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnActivateMspTrial                        Function = "activate-msp-trial"
+	FnAddComment                              Function = "add-comment"
+	FnAddDocument                             Function = "add-document"
+	FnAdvancedSearchV1                        Function = "advanced-search-v1"
+	FnAllocateMspDomainPowerUsers             Function = "allocate-msp-domain-power-users"
+	FnAskAgent                                Function = "ask-agent"
+	FnAskAssistant                            Function = "ask-assistant"
+	FnAskCopilot                              Function = "ask-copilot"
+	FnAskDocument                             Function = "ask-document"
+	FnAskKb                                   Function = "ask-kb"
+	FnCancelSignatureRequest                  Function = "cancel-signature-request"
+	FnCancelWorkflow                          Function = "cancel-workflow"
+	FnCheckAuditReportStatus                  Function = "check-audit-report-status"
+	FnCompleteWebhookTask                     Function = "complete-webhook-task"
+	FnCreateBookmark                          Function = "create-bookmark"
+	FnCreateConfigurationSettingsAuditReport  Function = "create-configuration-settings-audit-report"
+	FnCreateEtmfAuditReport                   Function = "create-etmf-audit-report"
+	FnCreateFileAuditReport                   Function = "create-file-audit-report"
+	FnCreateGroupProvisioningAuditReport      Function = "create-group-provisioning-audit-report"
+	FnCreateLoginAuditReport                  Function = "create-login-audit-report"
+	FnCreateMspTrial                          Function = "create-msp-trial"
+	FnCreateMspWebhook                        Function = "create-msp-webhook"
+	FnCreatePermissionsAuditReport            Function = "create-permissions-audit-report"
+	FnCreateQualityDocsAuditReport            Function = "create-quality-docs-audit-report"
+	FnCreateQualityDocsCategoriesAuditReport  Function = "create-quality-docs-categories-audit-report"
+	FnCreateQualityDocsCoursesAuditReport     Function = "create-quality-docs-courses-audit-report"
+	FnCreateScimGroup                         Function = "create-scim-group"
+	FnCreateScimUser                          Function = "create-scim-user"
+	FnCreateSignatureRequest                  Function = "create-signature-request"
+	FnCreateSnapshotRestoreAuditReport        Function = "create-snapshot-restore-audit-report"
+	FnCreateSyncWithFormdataBody              Function = "create-sync-with-formdata-body"
+	FnCreateUploadRequest                     Function = "create-upload-request"
+	FnCreateUploadRequestsAuditReport         Function = "create-upload-requests-audit-report"
+	FnCreateUser                              Function = "create-user"
+	FnCreateUserProvisioningAuditReport       Function = "create-user-provisioning-audit-report"
+	FnCreateWorkflow                          Function = "create-workflow"
+	FnCreateWorkflowAuditReport               Function = "create-workflow-audit-report"
+	FnCreateWorkflowTemplatesAuditReport      Function = "create-workflow-templates-audit-report"
+	FnCreateWorkspace                         Function = "create-workspace"
+	FnDeleteBookmark                          Function = "delete-bookmark"
+	FnDeleteComment                           Function = "delete-comment"
+	FnDeleteMspWebhook                        Function = "delete-msp-webhook"
+	FnDeleteScimGroup                         Function = "delete-scim-group"
+	FnDeleteScimUser                          Function = "delete-scim-user"
+	FnDeleteUser                              Function = "delete-user"
+	FnDeleteWebhook                           Function = "delete-webhook"
+	FnGetAgentAskStatus                       Function = "get-agent-ask-status"
+	FnGetAssistantStatus                      Function = "get-assistant-status"
+	FnGetBookmark                             Function = "get-bookmark"
+	FnGetComment                              Function = "get-comment"
+	FnGetMspDomain                            Function = "get-msp-domain"
+	FnGetMspPowerUsersQuote                   Function = "get-msp-power-users-quote"
+	FnGetMspTenant                            Function = "get-msp-tenant"
+	FnGetMspWebhook                           Function = "get-msp-webhook"
+	FnGetProjectDetails                       Function = "get-project-details"
+	FnGetScimGroup                            Function = "get-scim-group"
+	FnGetScimUser                             Function = "get-scim-user"
+	FnGetSettings                             Function = "get-settings"
+	FnGetSfdcFolderMap                        Function = "get-sfdc-folder-map"
+	FnGetSignTemplate                         Function = "get-sign-template"
+	FnGetTrashTotalCount                      Function = "get-trash-total-count"
+	FnGetUser                                 Function = "get-user"
+	FnGetUserDetails                          Function = "get-user-details"
+	FnGetUserLogs                             Function = "get-user-logs"
+	FnGetUserinfo                             Function = "get-userinfo"
+	FnGetUsersList                            Function = "get-users-list"
+	FnGetWebhookDetails                       Function = "get-webhook-details"
+	FnGetWebhookStatus                        Function = "get-webhook-status"
+	FnGetWorkflow                             Function = "get-workflow"
+	FnHybridSearch                            Function = "hybrid-search"
+	FnImportDocument                          Function = "import-document"
+	FnImportTrainingAssignment                Function = "import-training-assignment"
+	FnListAgents                              Function = "list-agents"
+	FnListArtifacts                           Function = "list-artifacts"
+	FnListBookmarks                           Function = "list-bookmarks"
+	FnListComments                            Function = "list-comments"
+	FnListDocuments                           Function = "list-documents"
+	FnListFilingLevels                        Function = "list-filing-levels"
+	FnListKb                                  Function = "list-kb"
+	FnListMspDomains                          Function = "list-msp-domains"
+	FnListMspPlans                            Function = "list-msp-plans"
+	FnListMspTenants                          Function = "list-msp-tenants"
+	FnListMspWebhooks                         Function = "list-msp-webhooks"
+	FnListMySignatureRequests                 Function = "list-my-signature-requests"
+	FnListProcoreProjects                     Function = "list-procore-projects"
+	FnListProjectFolders                      Function = "list-project-folders"
+	FnListScimGroups                          Function = "list-scim-groups"
+	FnListScimUsers                           Function = "list-scim-users"
+	FnListSentSignatureRequests               Function = "list-sent-signature-requests"
+	FnListSignTemplates                       Function = "list-sign-templates"
+	FnListStudies                             Function = "list-studies"
+	FnListSyncedProjects                      Function = "list-synced-projects"
+	FnListTasks                               Function = "list-tasks"
+	FnListTrashV1                             Function = "list-trash-v1"
+	FnListTrashV2                             Function = "list-trash-v2"
+	FnListUploadRequestTemplates              Function = "list-upload-request-templates"
+	FnListUsers                               Function = "list-users"
+	FnListUsersV1                             Function = "list-users-v1"
+	FnListWebhooks                            Function = "list-webhooks"
+	FnListWorkflows                           Function = "list-workflows"
+	FnListWorkspaces                          Function = "list-workspaces"
+	FnMarkFolderAsProject                     Function = "mark-folder-as-project"
+	FnNavigatePostV1                          Function = "navigate-post-v1"
+	FnNavigatePostV2                          Function = "navigate-post-v2"
+	FnNotesDeleteByIdV1                       Function = "notes-delete-by-id-v1"
+	FnNotesGetByIdV1                          Function = "notes-get-by-id-v1"
+	FnPatchScimGroup                          Function = "patch-scim-group"
+	FnPatchScimUser                           Function = "patch-scim-user"
+	FnPortalProdDeleteFsByIdV1                Function = "portal-prod-delete-fs-by-id-v1"
+	FnPortalProdDeleteFsV1                    Function = "portal-prod-delete-fs-v1"
+	FnPortalProdDeleteFsV2                    Function = "portal-prod-delete-fs-v2"
+	FnPortalProdDeleteGroupsByIdV2            Function = "portal-prod-delete-groups-by-id-v2"
+	FnPortalProdDeleteLinksByIdV1             Function = "portal-prod-delete-links-by-id-v1"
+	FnPortalProdDeleteLinksByIdV2             Function = "portal-prod-delete-links-by-id-v2"
+	FnPortalProdDeleteMetadataKeyV1           Function = "portal-prod-delete-metadata-key-v1"
+	FnPortalProdDeleteNamespaceV1             Function = "portal-prod-delete-namespace-v1"
+	FnPortalProdDeleteProjectCustomFieldV1    Function = "portal-prod-delete-project-custom-field-v1"
+	FnPortalProdGetEventsCursorV1             Function = "portal-prod-get-events-cursor-v1"
+	FnPortalProdGetEventsV1                   Function = "portal-prod-get-events-v1"
+	FnPortalProdGetEventsV2                   Function = "portal-prod-get-events-v2"
+	FnPortalProdGetFileMetadataV1             Function = "portal-prod-get-file-metadata-v1"
+	FnPortalProdGetFolderMetadataV1           Function = "portal-prod-get-folder-metadata-v1"
+	FnPortalProdGetFsByIdV1                   Function = "portal-prod-get-fs-by-id-v1"
+	FnPortalProdGetFsContentByIdV1            Function = "portal-prod-get-fs-content-by-id-v1"
+	FnPortalProdGetFsContentByPathV1          Function = "portal-prod-get-fs-content-by-path-v1"
+	FnPortalProdGetFsFolderStatsV1            Function = "portal-prod-get-fs-folder-stats-v1"
+	FnPortalProdGetFsV1                       Function = "portal-prod-get-fs-v1"
+	FnPortalProdGetFsV2                       Function = "portal-prod-get-fs-v2"
+	FnPortalProdGetGroupsByIdV2               Function = "portal-prod-get-groups-by-id-v2"
+	FnPortalProdGetGroupsV2                   Function = "portal-prod-get-groups-v2"
+	FnPortalProdGetInsightsFilesV1            Function = "portal-prod-get-insights-files-v1"
+	FnPortalProdGetLinksByIdV1                Function = "portal-prod-get-links-by-id-v1"
+	FnPortalProdGetLinksByIdV2                Function = "portal-prod-get-links-by-id-v2"
+	FnPortalProdGetLinksV1                    Function = "portal-prod-get-links-v1"
+	FnPortalProdGetLinksV2                    Function = "portal-prod-get-links-v2"
+	FnPortalProdGetNamespaceV1                Function = "portal-prod-get-namespace-v1"
+	FnPortalProdGetNamespacesV1               Function = "portal-prod-get-namespaces-v1"
+	FnPortalProdGetProjectCustomFieldsV1      Function = "portal-prod-get-project-custom-fields-v1"
+	FnPortalProdPatchGroupsByIdV2             Function = "portal-prod-patch-groups-by-id-v2"
+	FnPortalProdPatchMetadataKeyDataV1        Function = "portal-prod-patch-metadata-key-data-v1"
+	FnPortalProdPatchMetadataKeyV1            Function = "portal-prod-patch-metadata-key-v1"
+	FnPortalProdPatchMetadataKeysDataV1       Function = "portal-prod-patch-metadata-keys-data-v1"
+	FnPortalProdPatchNamespaceV1              Function = "portal-prod-patch-namespace-v1"
+	FnPortalProdPatchProjectCustomFieldDataV1 Function = "portal-prod-patch-project-custom-field-data-v1"
+	FnPortalProdPatchProjectCustomFieldV1     Function = "portal-prod-patch-project-custom-field-v1"
+	FnPortalProdPostFsByIdV1                  Function = "portal-prod-post-fs-by-id-v1"
+	FnPortalProdPostFsV1                      Function = "portal-prod-post-fs-v1"
+	FnPortalProdPostFsV2                      Function = "portal-prod-post-fs-v2"
+	FnPortalProdPostGroupsV2                  Function = "portal-prod-post-groups-v2"
+	FnPortalProdPostLinksV1                   Function = "portal-prod-post-links-v1"
+	FnPortalProdPostLinksV2                   Function = "portal-prod-post-links-v2"
+	FnPortalProdPostMetadataKeyV1             Function = "portal-prod-post-metadata-key-v1"
+	FnPortalProdPostNamespaceV1               Function = "portal-prod-post-namespace-v1"
+	FnPortalProdPostProjectCustomFieldV1      Function = "portal-prod-post-project-custom-field-v1"
+	FnPortalProdPostSearchMetadataV1          Function = "portal-prod-post-search-metadata-v1"
+	FnPortalProdPutFileMetadataV1             Function = "portal-prod-put-file-metadata-v1"
+	FnPortalProdPutFolderMetadataV1           Function = "portal-prod-put-folder-metadata-v1"
+	FnPortalProdPutGroupsByIdV2               Function = "portal-prod-put-groups-by-id-v2"
+	FnPurchaseMspPowerUsers                   Function = "purchase-msp-power-users"
+	FnRegisterWebhook                         Function = "register-webhook"
+	FnRemoveSync                              Function = "remove-sync"
+	FnReplaceScimGroup                        Function = "replace-scim-group"
+	FnReplaceScimUser                         Function = "replace-scim-user"
+	FnRetrieveAuditReport                     Function = "retrieve-audit-report"
+	FnRevokeTokenWithFormdataBody             Function = "revoke-token-with-formdata-body"
+	FnSearchV1Get                             Function = "search-v1-get"
+	FnSearchV2Post                            Function = "search-v2-post"
+	FnSetWebhookStatus                        Function = "set-webhook-status"
+	FnStreamAuditEventsGet                    Function = "stream-audit-events-get"
+	FnStreamAuditEventsPost                   Function = "stream-audit-events-post"
+	FnSummarizeDocument                       Function = "summarize-document"
+	FnSyncedProjectsDetails                   Function = "synced-projects-details"
+	FnTrashAction                             Function = "trash-action"
+	FnUpdateMspWebhook                        Function = "update-msp-webhook"
+	FnUpdateSyncWithFormdataBody              Function = "update-sync-with-formdata-body"
+	FnUpdateUser                              Function = "update-user"
+	FnUpdateWebhook                           Function = "update-webhook"
+	FnWhoami                                  Function = "whoami"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnActivateMspTrial:
+		return FnActivateMspTrial, nil
+	case FnAddComment:
+		return FnAddComment, nil
+	case FnAddDocument:
+		return FnAddDocument, nil
+	case FnAdvancedSearchV1:
+		return FnAdvancedSearchV1, nil
+	case FnAllocateMspDomainPowerUsers:
+		return FnAllocateMspDomainPowerUsers, nil
+	case FnAskAgent:
+		return FnAskAgent, nil
+	case FnAskAssistant:
+		return FnAskAssistant, nil
+	case FnAskCopilot:
+		return FnAskCopilot, nil
+	case FnAskDocument:
+		return FnAskDocument, nil
+	case FnAskKb:
+		return FnAskKb, nil
+	case FnCancelSignatureRequest:
+		return FnCancelSignatureRequest, nil
+	case FnCancelWorkflow:
+		return FnCancelWorkflow, nil
+	case FnCheckAuditReportStatus:
+		return FnCheckAuditReportStatus, nil
+	case FnCompleteWebhookTask:
+		return FnCompleteWebhookTask, nil
+	case FnCreateBookmark:
+		return FnCreateBookmark, nil
+	case FnCreateConfigurationSettingsAuditReport:
+		return FnCreateConfigurationSettingsAuditReport, nil
+	case FnCreateEtmfAuditReport:
+		return FnCreateEtmfAuditReport, nil
+	case FnCreateFileAuditReport:
+		return FnCreateFileAuditReport, nil
+	case FnCreateGroupProvisioningAuditReport:
+		return FnCreateGroupProvisioningAuditReport, nil
+	case FnCreateLoginAuditReport:
+		return FnCreateLoginAuditReport, nil
+	case FnCreateMspTrial:
+		return FnCreateMspTrial, nil
+	case FnCreateMspWebhook:
+		return FnCreateMspWebhook, nil
+	case FnCreatePermissionsAuditReport:
+		return FnCreatePermissionsAuditReport, nil
+	case FnCreateQualityDocsAuditReport:
+		return FnCreateQualityDocsAuditReport, nil
+	case FnCreateQualityDocsCategoriesAuditReport:
+		return FnCreateQualityDocsCategoriesAuditReport, nil
+	case FnCreateQualityDocsCoursesAuditReport:
+		return FnCreateQualityDocsCoursesAuditReport, nil
+	case FnCreateScimGroup:
+		return FnCreateScimGroup, nil
+	case FnCreateScimUser:
+		return FnCreateScimUser, nil
+	case FnCreateSignatureRequest:
+		return FnCreateSignatureRequest, nil
+	case FnCreateSnapshotRestoreAuditReport:
+		return FnCreateSnapshotRestoreAuditReport, nil
+	case FnCreateSyncWithFormdataBody:
+		return FnCreateSyncWithFormdataBody, nil
+	case FnCreateUploadRequest:
+		return FnCreateUploadRequest, nil
+	case FnCreateUploadRequestsAuditReport:
+		return FnCreateUploadRequestsAuditReport, nil
+	case FnCreateUser:
+		return FnCreateUser, nil
+	case FnCreateUserProvisioningAuditReport:
+		return FnCreateUserProvisioningAuditReport, nil
+	case FnCreateWorkflow:
+		return FnCreateWorkflow, nil
+	case FnCreateWorkflowAuditReport:
+		return FnCreateWorkflowAuditReport, nil
+	case FnCreateWorkflowTemplatesAuditReport:
+		return FnCreateWorkflowTemplatesAuditReport, nil
+	case FnCreateWorkspace:
+		return FnCreateWorkspace, nil
+	case FnDeleteBookmark:
+		return FnDeleteBookmark, nil
+	case FnDeleteComment:
+		return FnDeleteComment, nil
+	case FnDeleteMspWebhook:
+		return FnDeleteMspWebhook, nil
+	case FnDeleteScimGroup:
+		return FnDeleteScimGroup, nil
+	case FnDeleteScimUser:
+		return FnDeleteScimUser, nil
+	case FnDeleteUser:
+		return FnDeleteUser, nil
+	case FnDeleteWebhook:
+		return FnDeleteWebhook, nil
+	case FnGetAgentAskStatus:
+		return FnGetAgentAskStatus, nil
+	case FnGetAssistantStatus:
+		return FnGetAssistantStatus, nil
+	case FnGetBookmark:
+		return FnGetBookmark, nil
+	case FnGetComment:
+		return FnGetComment, nil
+	case FnGetMspDomain:
+		return FnGetMspDomain, nil
+	case FnGetMspPowerUsersQuote:
+		return FnGetMspPowerUsersQuote, nil
+	case FnGetMspTenant:
+		return FnGetMspTenant, nil
+	case FnGetMspWebhook:
+		return FnGetMspWebhook, nil
+	case FnGetProjectDetails:
+		return FnGetProjectDetails, nil
+	case FnGetScimGroup:
+		return FnGetScimGroup, nil
+	case FnGetScimUser:
+		return FnGetScimUser, nil
+	case FnGetSettings:
+		return FnGetSettings, nil
+	case FnGetSfdcFolderMap:
+		return FnGetSfdcFolderMap, nil
+	case FnGetSignTemplate:
+		return FnGetSignTemplate, nil
+	case FnGetTrashTotalCount:
+		return FnGetTrashTotalCount, nil
+	case FnGetUser:
+		return FnGetUser, nil
+	case FnGetUserDetails:
+		return FnGetUserDetails, nil
+	case FnGetUserLogs:
+		return FnGetUserLogs, nil
+	case FnGetUserinfo:
+		return FnGetUserinfo, nil
+	case FnGetUsersList:
+		return FnGetUsersList, nil
+	case FnGetWebhookDetails:
+		return FnGetWebhookDetails, nil
+	case FnGetWebhookStatus:
+		return FnGetWebhookStatus, nil
+	case FnGetWorkflow:
+		return FnGetWorkflow, nil
+	case FnHybridSearch:
+		return FnHybridSearch, nil
+	case FnImportDocument:
+		return FnImportDocument, nil
+	case FnImportTrainingAssignment:
+		return FnImportTrainingAssignment, nil
+	case FnListAgents:
+		return FnListAgents, nil
+	case FnListArtifacts:
+		return FnListArtifacts, nil
+	case FnListBookmarks:
+		return FnListBookmarks, nil
+	case FnListComments:
+		return FnListComments, nil
+	case FnListDocuments:
+		return FnListDocuments, nil
+	case FnListFilingLevels:
+		return FnListFilingLevels, nil
+	case FnListKb:
+		return FnListKb, nil
+	case FnListMspDomains:
+		return FnListMspDomains, nil
+	case FnListMspPlans:
+		return FnListMspPlans, nil
+	case FnListMspTenants:
+		return FnListMspTenants, nil
+	case FnListMspWebhooks:
+		return FnListMspWebhooks, nil
+	case FnListMySignatureRequests:
+		return FnListMySignatureRequests, nil
+	case FnListProcoreProjects:
+		return FnListProcoreProjects, nil
+	case FnListProjectFolders:
+		return FnListProjectFolders, nil
+	case FnListScimGroups:
+		return FnListScimGroups, nil
+	case FnListScimUsers:
+		return FnListScimUsers, nil
+	case FnListSentSignatureRequests:
+		return FnListSentSignatureRequests, nil
+	case FnListSignTemplates:
+		return FnListSignTemplates, nil
+	case FnListStudies:
+		return FnListStudies, nil
+	case FnListSyncedProjects:
+		return FnListSyncedProjects, nil
+	case FnListTasks:
+		return FnListTasks, nil
+	case FnListTrashV1:
+		return FnListTrashV1, nil
+	case FnListTrashV2:
+		return FnListTrashV2, nil
+	case FnListUploadRequestTemplates:
+		return FnListUploadRequestTemplates, nil
+	case FnListUsers:
+		return FnListUsers, nil
+	case FnListUsersV1:
+		return FnListUsersV1, nil
+	case FnListWebhooks:
+		return FnListWebhooks, nil
+	case FnListWorkflows:
+		return FnListWorkflows, nil
+	case FnListWorkspaces:
+		return FnListWorkspaces, nil
+	case FnMarkFolderAsProject:
+		return FnMarkFolderAsProject, nil
+	case FnNavigatePostV1:
+		return FnNavigatePostV1, nil
+	case FnNavigatePostV2:
+		return FnNavigatePostV2, nil
+	case FnNotesDeleteByIdV1:
+		return FnNotesDeleteByIdV1, nil
+	case FnNotesGetByIdV1:
+		return FnNotesGetByIdV1, nil
+	case FnPatchScimGroup:
+		return FnPatchScimGroup, nil
+	case FnPatchScimUser:
+		return FnPatchScimUser, nil
+	case FnPortalProdDeleteFsByIdV1:
+		return FnPortalProdDeleteFsByIdV1, nil
+	case FnPortalProdDeleteFsV1:
+		return FnPortalProdDeleteFsV1, nil
+	case FnPortalProdDeleteFsV2:
+		return FnPortalProdDeleteFsV2, nil
+	case FnPortalProdDeleteGroupsByIdV2:
+		return FnPortalProdDeleteGroupsByIdV2, nil
+	case FnPortalProdDeleteLinksByIdV1:
+		return FnPortalProdDeleteLinksByIdV1, nil
+	case FnPortalProdDeleteLinksByIdV2:
+		return FnPortalProdDeleteLinksByIdV2, nil
+	case FnPortalProdDeleteMetadataKeyV1:
+		return FnPortalProdDeleteMetadataKeyV1, nil
+	case FnPortalProdDeleteNamespaceV1:
+		return FnPortalProdDeleteNamespaceV1, nil
+	case FnPortalProdDeleteProjectCustomFieldV1:
+		return FnPortalProdDeleteProjectCustomFieldV1, nil
+	case FnPortalProdGetEventsCursorV1:
+		return FnPortalProdGetEventsCursorV1, nil
+	case FnPortalProdGetEventsV1:
+		return FnPortalProdGetEventsV1, nil
+	case FnPortalProdGetEventsV2:
+		return FnPortalProdGetEventsV2, nil
+	case FnPortalProdGetFileMetadataV1:
+		return FnPortalProdGetFileMetadataV1, nil
+	case FnPortalProdGetFolderMetadataV1:
+		return FnPortalProdGetFolderMetadataV1, nil
+	case FnPortalProdGetFsByIdV1:
+		return FnPortalProdGetFsByIdV1, nil
+	case FnPortalProdGetFsContentByIdV1:
+		return FnPortalProdGetFsContentByIdV1, nil
+	case FnPortalProdGetFsContentByPathV1:
+		return FnPortalProdGetFsContentByPathV1, nil
+	case FnPortalProdGetFsFolderStatsV1:
+		return FnPortalProdGetFsFolderStatsV1, nil
+	case FnPortalProdGetFsV1:
+		return FnPortalProdGetFsV1, nil
+	case FnPortalProdGetFsV2:
+		return FnPortalProdGetFsV2, nil
+	case FnPortalProdGetGroupsByIdV2:
+		return FnPortalProdGetGroupsByIdV2, nil
+	case FnPortalProdGetGroupsV2:
+		return FnPortalProdGetGroupsV2, nil
+	case FnPortalProdGetInsightsFilesV1:
+		return FnPortalProdGetInsightsFilesV1, nil
+	case FnPortalProdGetLinksByIdV1:
+		return FnPortalProdGetLinksByIdV1, nil
+	case FnPortalProdGetLinksByIdV2:
+		return FnPortalProdGetLinksByIdV2, nil
+	case FnPortalProdGetLinksV1:
+		return FnPortalProdGetLinksV1, nil
+	case FnPortalProdGetLinksV2:
+		return FnPortalProdGetLinksV2, nil
+	case FnPortalProdGetNamespaceV1:
+		return FnPortalProdGetNamespaceV1, nil
+	case FnPortalProdGetNamespacesV1:
+		return FnPortalProdGetNamespacesV1, nil
+	case FnPortalProdGetProjectCustomFieldsV1:
+		return FnPortalProdGetProjectCustomFieldsV1, nil
+	case FnPortalProdPatchGroupsByIdV2:
+		return FnPortalProdPatchGroupsByIdV2, nil
+	case FnPortalProdPatchMetadataKeyDataV1:
+		return FnPortalProdPatchMetadataKeyDataV1, nil
+	case FnPortalProdPatchMetadataKeyV1:
+		return FnPortalProdPatchMetadataKeyV1, nil
+	case FnPortalProdPatchMetadataKeysDataV1:
+		return FnPortalProdPatchMetadataKeysDataV1, nil
+	case FnPortalProdPatchNamespaceV1:
+		return FnPortalProdPatchNamespaceV1, nil
+	case FnPortalProdPatchProjectCustomFieldDataV1:
+		return FnPortalProdPatchProjectCustomFieldDataV1, nil
+	case FnPortalProdPatchProjectCustomFieldV1:
+		return FnPortalProdPatchProjectCustomFieldV1, nil
+	case FnPortalProdPostFsByIdV1:
+		return FnPortalProdPostFsByIdV1, nil
+	case FnPortalProdPostFsV1:
+		return FnPortalProdPostFsV1, nil
+	case FnPortalProdPostFsV2:
+		return FnPortalProdPostFsV2, nil
+	case FnPortalProdPostGroupsV2:
+		return FnPortalProdPostGroupsV2, nil
+	case FnPortalProdPostLinksV1:
+		return FnPortalProdPostLinksV1, nil
+	case FnPortalProdPostLinksV2:
+		return FnPortalProdPostLinksV2, nil
+	case FnPortalProdPostMetadataKeyV1:
+		return FnPortalProdPostMetadataKeyV1, nil
+	case FnPortalProdPostNamespaceV1:
+		return FnPortalProdPostNamespaceV1, nil
+	case FnPortalProdPostProjectCustomFieldV1:
+		return FnPortalProdPostProjectCustomFieldV1, nil
+	case FnPortalProdPostSearchMetadataV1:
+		return FnPortalProdPostSearchMetadataV1, nil
+	case FnPortalProdPutFileMetadataV1:
+		return FnPortalProdPutFileMetadataV1, nil
+	case FnPortalProdPutFolderMetadataV1:
+		return FnPortalProdPutFolderMetadataV1, nil
+	case FnPortalProdPutGroupsByIdV2:
+		return FnPortalProdPutGroupsByIdV2, nil
+	case FnPurchaseMspPowerUsers:
+		return FnPurchaseMspPowerUsers, nil
+	case FnRegisterWebhook:
+		return FnRegisterWebhook, nil
+	case FnRemoveSync:
+		return FnRemoveSync, nil
+	case FnReplaceScimGroup:
+		return FnReplaceScimGroup, nil
+	case FnReplaceScimUser:
+		return FnReplaceScimUser, nil
+	case FnRetrieveAuditReport:
+		return FnRetrieveAuditReport, nil
+	case FnRevokeTokenWithFormdataBody:
+		return FnRevokeTokenWithFormdataBody, nil
+	case FnSearchV1Get:
+		return FnSearchV1Get, nil
+	case FnSearchV2Post:
+		return FnSearchV2Post, nil
+	case FnSetWebhookStatus:
+		return FnSetWebhookStatus, nil
+	case FnStreamAuditEventsGet:
+		return FnStreamAuditEventsGet, nil
+	case FnStreamAuditEventsPost:
+		return FnStreamAuditEventsPost, nil
+	case FnSummarizeDocument:
+		return FnSummarizeDocument, nil
+	case FnSyncedProjectsDetails:
+		return FnSyncedProjectsDetails, nil
+	case FnTrashAction:
+		return FnTrashAction, nil
+	case FnUpdateMspWebhook:
+		return FnUpdateMspWebhook, nil
+	case FnUpdateSyncWithFormdataBody:
+		return FnUpdateSyncWithFormdataBody, nil
+	case FnUpdateUser:
+		return FnUpdateUser, nil
+	case FnUpdateWebhook:
+		return FnUpdateWebhook, nil
+	case FnWhoami:
+		return FnWhoami, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "activate-msp-trial":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnActivateMspTrial:
 		return ic.dispatchActivateMspTrialWithResponse(ctx, config, inputs)
-	case "add-comment":
+	case FnAddComment:
 		return ic.dispatchAddCommentWithResponse(ctx, config, inputs)
-	case "add-document":
+	case FnAddDocument:
 		return ic.dispatchAddDocumentWithResponse(ctx, config, inputs)
-	case "advanced-search-v1":
+	case FnAdvancedSearchV1:
 		return ic.dispatchAdvancedSearchV1WithResponse(ctx, config, inputs)
-	case "allocate-msp-domain-power-users":
+	case FnAllocateMspDomainPowerUsers:
 		return ic.dispatchAllocateMspDomainPowerUsersWithResponse(ctx, config, inputs)
-	case "ask-agent":
+	case FnAskAgent:
 		return ic.dispatchAskAgentWithResponse(ctx, config, inputs)
-	case "ask-assistant":
+	case FnAskAssistant:
 		return ic.dispatchAskAssistantWithResponse(ctx, config, inputs)
-	case "ask-copilot":
+	case FnAskCopilot:
 		return ic.dispatchAskCopilotWithResponse(ctx, config, inputs)
-	case "ask-document":
+	case FnAskDocument:
 		return ic.dispatchAskDocumentWithResponse(ctx, config, inputs)
-	case "ask-kb":
+	case FnAskKb:
 		return ic.dispatchAskKbWithResponse(ctx, config, inputs)
-	case "cancel-signature-request":
+	case FnCancelSignatureRequest:
 		return ic.dispatchCancelSignatureRequestWithResponse(ctx, config, inputs)
-	case "cancel-workflow":
+	case FnCancelWorkflow:
 		return ic.dispatchCancelWorkflowWithResponse(ctx, config, inputs)
-	case "check-audit-report-status":
+	case FnCheckAuditReportStatus:
 		return ic.dispatchCheckAuditReportStatusWithResponse(ctx, config, inputs)
-	case "complete-webhook-task":
+	case FnCompleteWebhookTask:
 		return ic.dispatchCompleteWebhookTaskWithResponse(ctx, config, inputs)
-	case "create-bookmark":
+	case FnCreateBookmark:
 		return ic.dispatchCreateBookmarkWithResponse(ctx, config, inputs)
-	case "create-configuration-settings-audit-report":
+	case FnCreateConfigurationSettingsAuditReport:
 		return ic.dispatchCreateConfigurationSettingsAuditReportWithResponse(ctx, config, inputs)
-	case "create-etmf-audit-report":
+	case FnCreateEtmfAuditReport:
 		return ic.dispatchCreateEtmfAuditReportWithResponse(ctx, config, inputs)
-	case "create-file-audit-report":
+	case FnCreateFileAuditReport:
 		return ic.dispatchCreateFileAuditReportWithResponse(ctx, config, inputs)
-	case "create-group-provisioning-audit-report":
+	case FnCreateGroupProvisioningAuditReport:
 		return ic.dispatchCreateGroupProvisioningAuditReportWithResponse(ctx, config, inputs)
-	case "create-login-audit-report":
+	case FnCreateLoginAuditReport:
 		return ic.dispatchCreateLoginAuditReportWithResponse(ctx, config, inputs)
-	case "create-msp-trial":
+	case FnCreateMspTrial:
 		return ic.dispatchCreateMspTrialWithResponse(ctx, config, inputs)
-	case "create-msp-webhook":
+	case FnCreateMspWebhook:
 		return ic.dispatchCreateMspWebhookWithResponse(ctx, config, inputs)
-	case "create-permissions-audit-report":
+	case FnCreatePermissionsAuditReport:
 		return ic.dispatchCreatePermissionsAuditReportWithResponse(ctx, config, inputs)
-	case "create-quality-docs-audit-report":
+	case FnCreateQualityDocsAuditReport:
 		return ic.dispatchCreateQualityDocsAuditReportWithResponse(ctx, config, inputs)
-	case "create-quality-docs-categories-audit-report":
+	case FnCreateQualityDocsCategoriesAuditReport:
 		return ic.dispatchCreateQualityDocsCategoriesAuditReportWithResponse(ctx, config, inputs)
-	case "create-quality-docs-courses-audit-report":
+	case FnCreateQualityDocsCoursesAuditReport:
 		return ic.dispatchCreateQualityDocsCoursesAuditReportWithResponse(ctx, config, inputs)
-	case "create-scim-group":
+	case FnCreateScimGroup:
 		return ic.dispatchCreateScimGroupWithResponse(ctx, config, inputs)
-	case "create-scim-user":
+	case FnCreateScimUser:
 		return ic.dispatchCreateScimUserWithResponse(ctx, config, inputs)
-	case "create-signature-request":
+	case FnCreateSignatureRequest:
 		return ic.dispatchCreateSignatureRequestWithResponse(ctx, config, inputs)
-	case "create-snapshot-restore-audit-report":
+	case FnCreateSnapshotRestoreAuditReport:
 		return ic.dispatchCreateSnapshotRestoreAuditReportWithResponse(ctx, config, inputs)
-	case "create-sync-with-formdata-body":
+	case FnCreateSyncWithFormdataBody:
 		return ic.dispatchCreateSyncWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "create-upload-request":
+	case FnCreateUploadRequest:
 		return ic.dispatchCreateUploadRequestWithResponse(ctx, config, inputs)
-	case "create-upload-requests-audit-report":
+	case FnCreateUploadRequestsAuditReport:
 		return ic.dispatchCreateUploadRequestsAuditReportWithResponse(ctx, config, inputs)
-	case "create-user":
+	case FnCreateUser:
 		return ic.dispatchCreateUserWithResponse(ctx, config, inputs)
-	case "create-user-provisioning-audit-report":
+	case FnCreateUserProvisioningAuditReport:
 		return ic.dispatchCreateUserProvisioningAuditReportWithResponse(ctx, config, inputs)
-	case "create-workflow":
+	case FnCreateWorkflow:
 		return ic.dispatchCreateWorkflowWithResponse(ctx, config, inputs)
-	case "create-workflow-audit-report":
+	case FnCreateWorkflowAuditReport:
 		return ic.dispatchCreateWorkflowAuditReportWithResponse(ctx, config, inputs)
-	case "create-workflow-templates-audit-report":
+	case FnCreateWorkflowTemplatesAuditReport:
 		return ic.dispatchCreateWorkflowTemplatesAuditReportWithResponse(ctx, config, inputs)
-	case "create-workspace":
+	case FnCreateWorkspace:
 		return ic.dispatchCreateWorkspaceWithResponse(ctx, config, inputs)
-	case "delete-bookmark":
+	case FnDeleteBookmark:
 		return ic.dispatchDeleteBookmarkWithResponse(ctx, config, inputs)
-	case "delete-comment":
+	case FnDeleteComment:
 		return ic.dispatchDeleteCommentWithResponse(ctx, config, inputs)
-	case "delete-msp-webhook":
+	case FnDeleteMspWebhook:
 		return ic.dispatchDeleteMspWebhookWithResponse(ctx, config, inputs)
-	case "delete-scim-group":
+	case FnDeleteScimGroup:
 		return ic.dispatchDeleteScimGroupWithResponse(ctx, config, inputs)
-	case "delete-scim-user":
+	case FnDeleteScimUser:
 		return ic.dispatchDeleteScimUserWithResponse(ctx, config, inputs)
-	case "delete-user":
+	case FnDeleteUser:
 		return ic.dispatchDeleteUserWithResponse(ctx, config, inputs)
-	case "delete-webhook":
+	case FnDeleteWebhook:
 		return ic.dispatchDeleteWebhookWithResponse(ctx, config, inputs)
-	case "get-agent-ask-status":
+	case FnGetAgentAskStatus:
 		return ic.dispatchGetAgentAskStatusWithResponse(ctx, config, inputs)
-	case "get-assistant-status":
+	case FnGetAssistantStatus:
 		return ic.dispatchGetAssistantStatusWithResponse(ctx, config, inputs)
-	case "get-bookmark":
+	case FnGetBookmark:
 		return ic.dispatchGetBookmarkWithResponse(ctx, config, inputs)
-	case "get-comment":
+	case FnGetComment:
 		return ic.dispatchGetCommentWithResponse(ctx, config, inputs)
-	case "get-msp-domain":
+	case FnGetMspDomain:
 		return ic.dispatchGetMspDomainWithResponse(ctx, config, inputs)
-	case "get-msp-power-users-quote":
+	case FnGetMspPowerUsersQuote:
 		return ic.dispatchGetMspPowerUsersQuoteWithResponse(ctx, config, inputs)
-	case "get-msp-tenant":
+	case FnGetMspTenant:
 		return ic.dispatchGetMspTenantWithResponse(ctx, config, inputs)
-	case "get-msp-webhook":
+	case FnGetMspWebhook:
 		return ic.dispatchGetMspWebhookWithResponse(ctx, config, inputs)
-	case "get-project-details":
+	case FnGetProjectDetails:
 		return ic.dispatchGetProjectDetailsWithResponse(ctx, config, inputs)
-	case "get-scim-group":
+	case FnGetScimGroup:
 		return ic.dispatchGetScimGroupWithResponse(ctx, config, inputs)
-	case "get-scim-user":
+	case FnGetScimUser:
 		return ic.dispatchGetScimUserWithResponse(ctx, config, inputs)
-	case "get-settings":
+	case FnGetSettings:
 		return ic.dispatchGetSettingsWithResponse(ctx, config, inputs)
-	case "get-sfdc-folder-map":
+	case FnGetSfdcFolderMap:
 		return ic.dispatchGetSfdcFolderMapWithResponse(ctx, config, inputs)
-	case "get-sign-template":
+	case FnGetSignTemplate:
 		return ic.dispatchGetSignTemplateWithResponse(ctx, config, inputs)
-	case "get-trash-total-count":
+	case FnGetTrashTotalCount:
 		return ic.dispatchGetTrashTotalCountWithResponse(ctx, config, inputs)
-	case "get-user":
+	case FnGetUser:
 		return ic.dispatchGetUserWithResponse(ctx, config, inputs)
-	case "get-user-details":
+	case FnGetUserDetails:
 		return ic.dispatchGetUserDetailsWithResponse(ctx, config, inputs)
-	case "get-user-logs":
+	case FnGetUserLogs:
 		return ic.dispatchGetUserLogsWithResponse(ctx, config, inputs)
-	case "get-userinfo":
+	case FnGetUserinfo:
 		return ic.dispatchGetUserinfoWithResponse(ctx, config, inputs)
-	case "get-users-list":
+	case FnGetUsersList:
 		return ic.dispatchGetUsersListWithResponse(ctx, config, inputs)
-	case "get-webhook-details":
+	case FnGetWebhookDetails:
 		return ic.dispatchGetWebhookDetailsWithResponse(ctx, config, inputs)
-	case "get-webhook-status":
+	case FnGetWebhookStatus:
 		return ic.dispatchGetWebhookStatusWithResponse(ctx, config, inputs)
-	case "get-workflow":
+	case FnGetWorkflow:
 		return ic.dispatchGetWorkflowWithResponse(ctx, config, inputs)
-	case "hybrid-search":
+	case FnHybridSearch:
 		return ic.dispatchHybridSearchWithResponse(ctx, config, inputs)
-	case "import-document":
+	case FnImportDocument:
 		return ic.dispatchImportDocumentWithResponse(ctx, config, inputs)
-	case "import-training-assignment":
+	case FnImportTrainingAssignment:
 		return ic.dispatchImportTrainingAssignmentWithResponse(ctx, config, inputs)
-	case "list-agents":
+	case FnListAgents:
 		return ic.dispatchListAgentsWithResponse(ctx, config, inputs)
-	case "list-artifacts":
+	case FnListArtifacts:
 		return ic.dispatchListArtifactsWithResponse(ctx, config, inputs)
-	case "list-bookmarks":
+	case FnListBookmarks:
 		return ic.dispatchListBookmarksWithResponse(ctx, config, inputs)
-	case "list-comments":
+	case FnListComments:
 		return ic.dispatchListCommentsWithResponse(ctx, config, inputs)
-	case "list-documents":
+	case FnListDocuments:
 		return ic.dispatchListDocumentsWithResponse(ctx, config, inputs)
-	case "list-filing-levels":
+	case FnListFilingLevels:
 		return ic.dispatchListFilingLevelsWithResponse(ctx, config, inputs)
-	case "list-kb":
+	case FnListKb:
 		return ic.dispatchListKbWithResponse(ctx, config, inputs)
-	case "list-msp-domains":
+	case FnListMspDomains:
 		return ic.dispatchListMspDomainsWithResponse(ctx, config, inputs)
-	case "list-msp-plans":
+	case FnListMspPlans:
 		return ic.dispatchListMspPlansWithResponse(ctx, config, inputs)
-	case "list-msp-tenants":
+	case FnListMspTenants:
 		return ic.dispatchListMspTenantsWithResponse(ctx, config, inputs)
-	case "list-msp-webhooks":
+	case FnListMspWebhooks:
 		return ic.dispatchListMspWebhooksWithResponse(ctx, config, inputs)
-	case "list-my-signature-requests":
+	case FnListMySignatureRequests:
 		return ic.dispatchListMySignatureRequestsWithResponse(ctx, config, inputs)
-	case "list-procore-projects":
+	case FnListProcoreProjects:
 		return ic.dispatchListProcoreProjectsWithResponse(ctx, config, inputs)
-	case "list-project-folders":
+	case FnListProjectFolders:
 		return ic.dispatchListProjectFoldersWithResponse(ctx, config, inputs)
-	case "list-scim-groups":
+	case FnListScimGroups:
 		return ic.dispatchListScimGroupsWithResponse(ctx, config, inputs)
-	case "list-scim-users":
+	case FnListScimUsers:
 		return ic.dispatchListScimUsersWithResponse(ctx, config, inputs)
-	case "list-sent-signature-requests":
+	case FnListSentSignatureRequests:
 		return ic.dispatchListSentSignatureRequestsWithResponse(ctx, config, inputs)
-	case "list-sign-templates":
+	case FnListSignTemplates:
 		return ic.dispatchListSignTemplatesWithResponse(ctx, config, inputs)
-	case "list-studies":
+	case FnListStudies:
 		return ic.dispatchListStudiesWithResponse(ctx, config, inputs)
-	case "list-synced-projects":
+	case FnListSyncedProjects:
 		return ic.dispatchListSyncedProjectsWithResponse(ctx, config, inputs)
-	case "list-tasks":
+	case FnListTasks:
 		return ic.dispatchListTasksWithResponse(ctx, config, inputs)
-	case "list-trash-v1":
+	case FnListTrashV1:
 		return ic.dispatchListTrashV1WithResponse(ctx, config, inputs)
-	case "list-trash-v2":
+	case FnListTrashV2:
 		return ic.dispatchListTrashV2WithResponse(ctx, config, inputs)
-	case "list-upload-request-templates":
+	case FnListUploadRequestTemplates:
 		return ic.dispatchListUploadRequestTemplatesWithResponse(ctx, config, inputs)
-	case "list-users":
+	case FnListUsers:
 		return ic.dispatchListUsersWithResponse(ctx, config, inputs)
-	case "list-users-v1":
+	case FnListUsersV1:
 		return ic.dispatchListUsersV1WithResponse(ctx, config, inputs)
-	case "list-webhooks":
+	case FnListWebhooks:
 		return ic.dispatchListWebhooksWithResponse(ctx, config, inputs)
-	case "list-workflows":
+	case FnListWorkflows:
 		return ic.dispatchListWorkflowsWithResponse(ctx, config, inputs)
-	case "list-workspaces":
+	case FnListWorkspaces:
 		return ic.dispatchListWorkspacesWithResponse(ctx, config, inputs)
-	case "mark-folder-as-project":
+	case FnMarkFolderAsProject:
 		return ic.dispatchMarkFolderAsProjectWithResponse(ctx, config, inputs)
-	case "navigate-post-v1":
+	case FnNavigatePostV1:
 		return ic.dispatchNavigatePostV1WithResponse(ctx, config, inputs)
-	case "navigate-post-v2":
+	case FnNavigatePostV2:
 		return ic.dispatchNavigatePostV2WithResponse(ctx, config, inputs)
-	case "notes-delete-by-id-v1":
+	case FnNotesDeleteByIdV1:
 		return ic.dispatchNotesDeleteByIdV1WithResponse(ctx, config, inputs)
-	case "notes-get-by-id-v1":
+	case FnNotesGetByIdV1:
 		return ic.dispatchNotesGetByIdV1WithResponse(ctx, config, inputs)
-	case "patch-scim-group":
+	case FnPatchScimGroup:
 		return ic.dispatchPatchScimGroupWithResponse(ctx, config, inputs)
-	case "patch-scim-user":
+	case FnPatchScimUser:
 		return ic.dispatchPatchScimUserWithResponse(ctx, config, inputs)
-	case "portal-prod-delete-fs-by-id-v1":
+	case FnPortalProdDeleteFsByIdV1:
 		return ic.dispatchPortalProdDeleteFsByIdV1WithResponse(ctx, config, inputs)
-	case "portal-prod-delete-fs-v1":
+	case FnPortalProdDeleteFsV1:
 		return ic.dispatchPortalProdDeleteFsV1WithResponse(ctx, config, inputs)
-	case "portal-prod-delete-fs-v2":
+	case FnPortalProdDeleteFsV2:
 		return ic.dispatchPortalProdDeleteFsV2WithResponse(ctx, config, inputs)
-	case "portal-prod-delete-groups-by-id-v2":
+	case FnPortalProdDeleteGroupsByIdV2:
 		return ic.dispatchPortalProdDeleteGroupsByIdV2WithResponse(ctx, config, inputs)
-	case "portal-prod-delete-links-by-id-v1":
+	case FnPortalProdDeleteLinksByIdV1:
 		return ic.dispatchPortalProdDeleteLinksByIdV1WithResponse(ctx, config, inputs)
-	case "portal-prod-delete-links-by-id-v2":
+	case FnPortalProdDeleteLinksByIdV2:
 		return ic.dispatchPortalProdDeleteLinksByIdV2WithResponse(ctx, config, inputs)
-	case "portal-prod-delete-metadata-key-v1":
+	case FnPortalProdDeleteMetadataKeyV1:
 		return ic.dispatchPortalProdDeleteMetadataKeyV1WithResponse(ctx, config, inputs)
-	case "portal-prod-delete-namespace-v1":
+	case FnPortalProdDeleteNamespaceV1:
 		return ic.dispatchPortalProdDeleteNamespaceV1WithResponse(ctx, config, inputs)
-	case "portal-prod-delete-project-custom-field-v1":
+	case FnPortalProdDeleteProjectCustomFieldV1:
 		return ic.dispatchPortalProdDeleteProjectCustomFieldV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-events-cursor-v1":
+	case FnPortalProdGetEventsCursorV1:
 		return ic.dispatchPortalProdGetEventsCursorV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-events-v1":
+	case FnPortalProdGetEventsV1:
 		return ic.dispatchPortalProdGetEventsV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-events-v2":
+	case FnPortalProdGetEventsV2:
 		return ic.dispatchPortalProdGetEventsV2WithResponse(ctx, config, inputs)
-	case "portal-prod-get-file-metadata-v1":
+	case FnPortalProdGetFileMetadataV1:
 		return ic.dispatchPortalProdGetFileMetadataV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-folder-metadata-v1":
+	case FnPortalProdGetFolderMetadataV1:
 		return ic.dispatchPortalProdGetFolderMetadataV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-fs-by-id-v1":
+	case FnPortalProdGetFsByIdV1:
 		return ic.dispatchPortalProdGetFsByIdV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-fs-content-by-id-v1":
+	case FnPortalProdGetFsContentByIdV1:
 		return ic.dispatchPortalProdGetFsContentByIdV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-fs-content-by-path-v1":
+	case FnPortalProdGetFsContentByPathV1:
 		return ic.dispatchPortalProdGetFsContentByPathV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-fs-folder-stats-v1":
+	case FnPortalProdGetFsFolderStatsV1:
 		return ic.dispatchPortalProdGetFsFolderStatsV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-fs-v1":
+	case FnPortalProdGetFsV1:
 		return ic.dispatchPortalProdGetFsV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-fs-v2":
+	case FnPortalProdGetFsV2:
 		return ic.dispatchPortalProdGetFsV2WithResponse(ctx, config, inputs)
-	case "portal-prod-get-groups-by-id-v2":
+	case FnPortalProdGetGroupsByIdV2:
 		return ic.dispatchPortalProdGetGroupsByIdV2WithResponse(ctx, config, inputs)
-	case "portal-prod-get-groups-v2":
+	case FnPortalProdGetGroupsV2:
 		return ic.dispatchPortalProdGetGroupsV2WithResponse(ctx, config, inputs)
-	case "portal-prod-get-insights-files-v1":
+	case FnPortalProdGetInsightsFilesV1:
 		return ic.dispatchPortalProdGetInsightsFilesV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-links-by-id-v1":
+	case FnPortalProdGetLinksByIdV1:
 		return ic.dispatchPortalProdGetLinksByIdV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-links-by-id-v2":
+	case FnPortalProdGetLinksByIdV2:
 		return ic.dispatchPortalProdGetLinksByIdV2WithResponse(ctx, config, inputs)
-	case "portal-prod-get-links-v1":
+	case FnPortalProdGetLinksV1:
 		return ic.dispatchPortalProdGetLinksV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-links-v2":
+	case FnPortalProdGetLinksV2:
 		return ic.dispatchPortalProdGetLinksV2WithResponse(ctx, config, inputs)
-	case "portal-prod-get-namespace-v1":
+	case FnPortalProdGetNamespaceV1:
 		return ic.dispatchPortalProdGetNamespaceV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-namespaces-v1":
+	case FnPortalProdGetNamespacesV1:
 		return ic.dispatchPortalProdGetNamespacesV1WithResponse(ctx, config, inputs)
-	case "portal-prod-get-project-custom-fields-v1":
+	case FnPortalProdGetProjectCustomFieldsV1:
 		return ic.dispatchPortalProdGetProjectCustomFieldsV1WithResponse(ctx, config, inputs)
-	case "portal-prod-patch-groups-by-id-v2":
+	case FnPortalProdPatchGroupsByIdV2:
 		return ic.dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx, config, inputs)
-	case "portal-prod-patch-metadata-key-data-v1":
+	case FnPortalProdPatchMetadataKeyDataV1:
 		return ic.dispatchPortalProdPatchMetadataKeyDataV1WithResponse(ctx, config, inputs)
-	case "portal-prod-patch-metadata-key-v1":
+	case FnPortalProdPatchMetadataKeyV1:
 		return ic.dispatchPortalProdPatchMetadataKeyV1WithResponse(ctx, config, inputs)
-	case "portal-prod-patch-metadata-keys-data-v1":
+	case FnPortalProdPatchMetadataKeysDataV1:
 		return ic.dispatchPortalProdPatchMetadataKeysDataV1WithResponse(ctx, config, inputs)
-	case "portal-prod-patch-namespace-v1":
+	case FnPortalProdPatchNamespaceV1:
 		return ic.dispatchPortalProdPatchNamespaceV1WithResponse(ctx, config, inputs)
-	case "portal-prod-patch-project-custom-field-data-v1":
+	case FnPortalProdPatchProjectCustomFieldDataV1:
 		return ic.dispatchPortalProdPatchProjectCustomFieldDataV1WithResponse(ctx, config, inputs)
-	case "portal-prod-patch-project-custom-field-v1":
+	case FnPortalProdPatchProjectCustomFieldV1:
 		return ic.dispatchPortalProdPatchProjectCustomFieldV1WithResponse(ctx, config, inputs)
-	case "portal-prod-post-fs-by-id-v1":
+	case FnPortalProdPostFsByIdV1:
 		return ic.dispatchPortalProdPostFsByIdV1WithResponse(ctx, config, inputs)
-	case "portal-prod-post-fs-v1":
+	case FnPortalProdPostFsV1:
 		return ic.dispatchPortalProdPostFsV1WithResponse(ctx, config, inputs)
-	case "portal-prod-post-fs-v2":
+	case FnPortalProdPostFsV2:
 		return ic.dispatchPortalProdPostFsV2WithResponse(ctx, config, inputs)
-	case "portal-prod-post-groups-v2":
+	case FnPortalProdPostGroupsV2:
 		return ic.dispatchPortalProdPostGroupsV2WithResponse(ctx, config, inputs)
-	case "portal-prod-post-links-v1":
+	case FnPortalProdPostLinksV1:
 		return ic.dispatchPortalProdPostLinksV1WithResponse(ctx, config, inputs)
-	case "portal-prod-post-links-v2":
+	case FnPortalProdPostLinksV2:
 		return ic.dispatchPortalProdPostLinksV2WithResponse(ctx, config, inputs)
-	case "portal-prod-post-metadata-key-v1":
+	case FnPortalProdPostMetadataKeyV1:
 		return ic.dispatchPortalProdPostMetadataKeyV1WithResponse(ctx, config, inputs)
-	case "portal-prod-post-namespace-v1":
+	case FnPortalProdPostNamespaceV1:
 		return ic.dispatchPortalProdPostNamespaceV1WithResponse(ctx, config, inputs)
-	case "portal-prod-post-project-custom-field-v1":
+	case FnPortalProdPostProjectCustomFieldV1:
 		return ic.dispatchPortalProdPostProjectCustomFieldV1WithResponse(ctx, config, inputs)
-	case "portal-prod-post-search-metadata-v1":
+	case FnPortalProdPostSearchMetadataV1:
 		return ic.dispatchPortalProdPostSearchMetadataV1WithResponse(ctx, config, inputs)
-	case "portal-prod-put-file-metadata-v1":
+	case FnPortalProdPutFileMetadataV1:
 		return ic.dispatchPortalProdPutFileMetadataV1WithResponse(ctx, config, inputs)
-	case "portal-prod-put-folder-metadata-v1":
+	case FnPortalProdPutFolderMetadataV1:
 		return ic.dispatchPortalProdPutFolderMetadataV1WithResponse(ctx, config, inputs)
-	case "portal-prod-put-groups-by-id-v2":
+	case FnPortalProdPutGroupsByIdV2:
 		return ic.dispatchPortalProdPutGroupsByIdV2WithResponse(ctx, config, inputs)
-	case "purchase-msp-power-users":
+	case FnPurchaseMspPowerUsers:
 		return ic.dispatchPurchaseMspPowerUsersWithResponse(ctx, config, inputs)
-	case "register-webhook":
+	case FnRegisterWebhook:
 		return ic.dispatchRegisterWebhookWithResponse(ctx, config, inputs)
-	case "remove-sync":
+	case FnRemoveSync:
 		return ic.dispatchRemoveSyncWithResponse(ctx, config, inputs)
-	case "replace-scim-group":
+	case FnReplaceScimGroup:
 		return ic.dispatchReplaceScimGroupWithResponse(ctx, config, inputs)
-	case "replace-scim-user":
+	case FnReplaceScimUser:
 		return ic.dispatchReplaceScimUserWithResponse(ctx, config, inputs)
-	case "retrieve-audit-report":
+	case FnRetrieveAuditReport:
 		return ic.dispatchRetrieveAuditReportWithResponse(ctx, config, inputs)
-	case "revoke-token-with-formdata-body":
+	case FnRevokeTokenWithFormdataBody:
 		return ic.dispatchRevokeTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "search-v1-get":
+	case FnSearchV1Get:
 		return ic.dispatchSearchV1GetWithResponse(ctx, config, inputs)
-	case "search-v2-post":
+	case FnSearchV2Post:
 		return ic.dispatchSearchV2PostWithResponse(ctx, config, inputs)
-	case "set-webhook-status":
+	case FnSetWebhookStatus:
 		return ic.dispatchSetWebhookStatusWithResponse(ctx, config, inputs)
-	case "stream-audit-events-get":
+	case FnStreamAuditEventsGet:
 		return ic.dispatchStreamAuditEventsGetWithResponse(ctx, config, inputs)
-	case "stream-audit-events-post":
+	case FnStreamAuditEventsPost:
 		return ic.dispatchStreamAuditEventsPostWithResponse(ctx, config, inputs)
-	case "summarize-document":
+	case FnSummarizeDocument:
 		return ic.dispatchSummarizeDocumentWithResponse(ctx, config, inputs)
-	case "synced-projects-details":
+	case FnSyncedProjectsDetails:
 		return ic.dispatchSyncedProjectsDetailsWithResponse(ctx, config, inputs)
-	case "trash-action":
+	case FnTrashAction:
 		return ic.dispatchTrashActionWithResponse(ctx, config, inputs)
-	case "update-msp-webhook":
+	case FnUpdateMspWebhook:
 		return ic.dispatchUpdateMspWebhookWithResponse(ctx, config, inputs)
-	case "update-sync-with-formdata-body":
+	case FnUpdateSyncWithFormdataBody:
 		return ic.dispatchUpdateSyncWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "update-user":
+	case FnUpdateUser:
 		return ic.dispatchUpdateUserWithResponse(ctx, config, inputs)
-	case "update-webhook":
+	case FnUpdateWebhook:
 		return ic.dispatchUpdateWebhookWithResponse(ctx, config, inputs)
-	case "whoami":
+	case FnWhoami:
 		return ic.dispatchWhoamiWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 

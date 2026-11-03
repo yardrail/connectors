@@ -16,13 +16,30 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
-// Dispatch calls the named GraphQL operation.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "get-meeting":
-		return ic.ep.call(ctx, function, queryGetMeeting, inputs)
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnGetMeeting Function = "get-meeting"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnGetMeeting:
+		return FnGetMeeting, nil
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
+// Dispatch calls the named GraphQL operation.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnGetMeeting:
+		return ic.ep.call(ctx, string(fn), queryGetMeeting, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 
