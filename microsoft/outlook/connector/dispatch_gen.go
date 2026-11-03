@@ -10,6 +10,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/microsoft/outlook/client"
 )
 
@@ -21,29 +23,26 @@ var (
 // Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
-	creds, config map[string]string,
+	creds connector.Credentials,
+	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	c, err := NewConnector(
-		map[string]map[string]string{interfaceID: creds},
-		map[string]map[string]string{interfaceID: config},
-		httpClient,
-	)
+	fn, err := ParseFunction(function)
 	if err != nil {
 		return nil, err
 	}
 
-	cl := c.Client(interfaceID)
-	if cl == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	c, err := NewConnector(interfaceID, creds, config, httpClient)
+	if err != nil {
+		return nil, err
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return cl.Dispatch(ctx, function, config, inputs)
+		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
 }
 
-func (ic *InterfaceClient) dispatchListEventsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListEventsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)

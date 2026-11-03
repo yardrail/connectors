@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/slack/slack/client"
 )
 
@@ -16,413 +18,933 @@ type InterfaceClient struct {
 	cl *client.ClientWithResponses
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnAdminAppsApproveWithFormdataBody                            Function = "admin-apps-approve-with-formdata-body"
+	FnAdminAppsApprovedList                                       Function = "admin-apps-approved-list"
+	FnAdminAppsRequestsList                                       Function = "admin-apps-requests-list"
+	FnAdminAppsRestrictWithFormdataBody                           Function = "admin-apps-restrict-with-formdata-body"
+	FnAdminAppsRestrictedList                                     Function = "admin-apps-restricted-list"
+	FnAdminConversationsArchiveWithFormdataBody                   Function = "admin-conversations-archive-with-formdata-body"
+	FnAdminConversationsConvertToPrivateWithFormdataBody          Function = "admin-conversations-convert-to-private-with-formdata-body"
+	FnAdminConversationsCreateWithFormdataBody                    Function = "admin-conversations-create-with-formdata-body"
+	FnAdminConversationsDeleteWithFormdataBody                    Function = "admin-conversations-delete-with-formdata-body"
+	FnAdminConversationsDisconnectSharedWithFormdataBody          Function = "admin-conversations-disconnect-shared-with-formdata-body"
+	FnAdminConversationsEkmListOriginalConnectedChannelInfo       Function = "admin-conversations-ekm-list-original-connected-channel-info"
+	FnAdminConversationsGetConversationPrefs                      Function = "admin-conversations-get-conversation-prefs"
+	FnAdminConversationsGetTeams                                  Function = "admin-conversations-get-teams"
+	FnAdminConversationsInviteWithFormdataBody                    Function = "admin-conversations-invite-with-formdata-body"
+	FnAdminConversationsRenameWithFormdataBody                    Function = "admin-conversations-rename-with-formdata-body"
+	FnAdminConversationsRestrictAccessAddGroupWithFormdataBody    Function = "admin-conversations-restrict-access-add-group-with-formdata-body"
+	FnAdminConversationsRestrictAccessListGroups                  Function = "admin-conversations-restrict-access-list-groups"
+	FnAdminConversationsRestrictAccessRemoveGroupWithFormdataBody Function = "admin-conversations-restrict-access-remove-group-with-formdata-body"
+	FnAdminConversationsSearch                                    Function = "admin-conversations-search"
+	FnAdminConversationsSetConversationPrefsWithFormdataBody      Function = "admin-conversations-set-conversation-prefs-with-formdata-body"
+	FnAdminConversationsSetTeamsWithFormdataBody                  Function = "admin-conversations-set-teams-with-formdata-body"
+	FnAdminConversationsUnarchiveWithFormdataBody                 Function = "admin-conversations-unarchive-with-formdata-body"
+	FnAdminEmojiAddAliasWithFormdataBody                          Function = "admin-emoji-add-alias-with-formdata-body"
+	FnAdminEmojiAddWithFormdataBody                               Function = "admin-emoji-add-with-formdata-body"
+	FnAdminEmojiList                                              Function = "admin-emoji-list"
+	FnAdminEmojiRemoveWithFormdataBody                            Function = "admin-emoji-remove-with-formdata-body"
+	FnAdminEmojiRenameWithFormdataBody                            Function = "admin-emoji-rename-with-formdata-body"
+	FnAdminInviteRequestsApproveWithFormdataBody                  Function = "admin-invite-requests-approve-with-formdata-body"
+	FnAdminInviteRequestsApprovedList                             Function = "admin-invite-requests-approved-list"
+	FnAdminInviteRequestsDeniedList                               Function = "admin-invite-requests-denied-list"
+	FnAdminInviteRequestsDenyWithFormdataBody                     Function = "admin-invite-requests-deny-with-formdata-body"
+	FnAdminInviteRequestsList                                     Function = "admin-invite-requests-list"
+	FnAdminTeamsAdminsList                                        Function = "admin-teams-admins-list"
+	FnAdminTeamsCreateWithFormdataBody                            Function = "admin-teams-create-with-formdata-body"
+	FnAdminTeamsList                                              Function = "admin-teams-list"
+	FnAdminTeamsOwnersList                                        Function = "admin-teams-owners-list"
+	FnAdminTeamsSettingsInfo                                      Function = "admin-teams-settings-info"
+	FnAdminTeamsSettingsSetDefaultChannelsWithFormdataBody        Function = "admin-teams-settings-set-default-channels-with-formdata-body"
+	FnAdminTeamsSettingsSetDescriptionWithFormdataBody            Function = "admin-teams-settings-set-description-with-formdata-body"
+	FnAdminTeamsSettingsSetDiscoverabilityWithFormdataBody        Function = "admin-teams-settings-set-discoverability-with-formdata-body"
+	FnAdminTeamsSettingsSetIconWithFormdataBody                   Function = "admin-teams-settings-set-icon-with-formdata-body"
+	FnAdminTeamsSettingsSetNameWithFormdataBody                   Function = "admin-teams-settings-set-name-with-formdata-body"
+	FnAdminUsergroupsAddChannelsWithFormdataBody                  Function = "admin-usergroups-add-channels-with-formdata-body"
+	FnAdminUsergroupsAddTeamsWithFormdataBody                     Function = "admin-usergroups-add-teams-with-formdata-body"
+	FnAdminUsergroupsListChannels                                 Function = "admin-usergroups-list-channels"
+	FnAdminUsergroupsRemoveChannelsWithFormdataBody               Function = "admin-usergroups-remove-channels-with-formdata-body"
+	FnAdminUsersAssignWithFormdataBody                            Function = "admin-users-assign-with-formdata-body"
+	FnAdminUsersInviteWithFormdataBody                            Function = "admin-users-invite-with-formdata-body"
+	FnAdminUsersList                                              Function = "admin-users-list"
+	FnAdminUsersRemoveWithFormdataBody                            Function = "admin-users-remove-with-formdata-body"
+	FnAdminUsersSessionInvalidateWithFormdataBody                 Function = "admin-users-session-invalidate-with-formdata-body"
+	FnAdminUsersSessionResetWithFormdataBody                      Function = "admin-users-session-reset-with-formdata-body"
+	FnAdminUsersSetAdminWithFormdataBody                          Function = "admin-users-set-admin-with-formdata-body"
+	FnAdminUsersSetExpirationWithFormdataBody                     Function = "admin-users-set-expiration-with-formdata-body"
+	FnAdminUsersSetOwnerWithFormdataBody                          Function = "admin-users-set-owner-with-formdata-body"
+	FnAdminUsersSetRegularWithFormdataBody                        Function = "admin-users-set-regular-with-formdata-body"
+	FnApiTest                                                     Function = "api-test"
+	FnAppsEventAuthorizationsList                                 Function = "apps-event-authorizations-list"
+	FnAppsPermissionsInfo                                         Function = "apps-permissions-info"
+	FnAppsPermissionsRequest                                      Function = "apps-permissions-request"
+	FnAppsPermissionsResourcesList                                Function = "apps-permissions-resources-list"
+	FnAppsPermissionsScopesList                                   Function = "apps-permissions-scopes-list"
+	FnAppsPermissionsUsersList                                    Function = "apps-permissions-users-list"
+	FnAppsPermissionsUsersRequest                                 Function = "apps-permissions-users-request"
+	FnAppsUninstall                                               Function = "apps-uninstall"
+	FnAuthRevoke                                                  Function = "auth-revoke"
+	FnAuthTest                                                    Function = "auth-test"
+	FnBotsInfo                                                    Function = "bots-info"
+	FnCallsAddWithFormdataBody                                    Function = "calls-add-with-formdata-body"
+	FnCallsEndWithFormdataBody                                    Function = "calls-end-with-formdata-body"
+	FnCallsInfo                                                   Function = "calls-info"
+	FnCallsParticipantsAddWithFormdataBody                        Function = "calls-participants-add-with-formdata-body"
+	FnCallsParticipantsRemoveWithFormdataBody                     Function = "calls-participants-remove-with-formdata-body"
+	FnCallsUpdateWithFormdataBody                                 Function = "calls-update-with-formdata-body"
+	FnChatDeleteScheduledMessageWithFormdataBody                  Function = "chat-delete-scheduled-message-with-formdata-body"
+	FnChatDeleteWithFormdataBody                                  Function = "chat-delete-with-formdata-body"
+	FnChatGetPermalink                                            Function = "chat-get-permalink"
+	FnChatMeMessageWithFormdataBody                               Function = "chat-me-message-with-formdata-body"
+	FnChatPostEphemeralWithFormdataBody                           Function = "chat-post-ephemeral-with-formdata-body"
+	FnChatPostMessageWithFormdataBody                             Function = "chat-post-message-with-formdata-body"
+	FnChatScheduleMessageWithFormdataBody                         Function = "chat-schedule-message-with-formdata-body"
+	FnChatScheduledMessagesList                                   Function = "chat-scheduled-messages-list"
+	FnChatUnfurlWithFormdataBody                                  Function = "chat-unfurl-with-formdata-body"
+	FnChatUpdateWithFormdataBody                                  Function = "chat-update-with-formdata-body"
+	FnConversationsArchiveWithFormdataBody                        Function = "conversations-archive-with-formdata-body"
+	FnConversationsCloseWithFormdataBody                          Function = "conversations-close-with-formdata-body"
+	FnConversationsCreateWithFormdataBody                         Function = "conversations-create-with-formdata-body"
+	FnConversationsHistory                                        Function = "conversations-history"
+	FnConversationsInfo                                           Function = "conversations-info"
+	FnConversationsInviteWithFormdataBody                         Function = "conversations-invite-with-formdata-body"
+	FnConversationsJoinWithFormdataBody                           Function = "conversations-join-with-formdata-body"
+	FnConversationsKickWithFormdataBody                           Function = "conversations-kick-with-formdata-body"
+	FnConversationsLeaveWithFormdataBody                          Function = "conversations-leave-with-formdata-body"
+	FnConversationsList                                           Function = "conversations-list"
+	FnConversationsMarkWithFormdataBody                           Function = "conversations-mark-with-formdata-body"
+	FnConversationsMembers                                        Function = "conversations-members"
+	FnConversationsOpenWithFormdataBody                           Function = "conversations-open-with-formdata-body"
+	FnConversationsRenameWithFormdataBody                         Function = "conversations-rename-with-formdata-body"
+	FnConversationsReplies                                        Function = "conversations-replies"
+	FnConversationsSetPurposeWithFormdataBody                     Function = "conversations-set-purpose-with-formdata-body"
+	FnConversationsSetTopicWithFormdataBody                       Function = "conversations-set-topic-with-formdata-body"
+	FnConversationsUnarchiveWithFormdataBody                      Function = "conversations-unarchive-with-formdata-body"
+	FnDialogOpen                                                  Function = "dialog-open"
+	FnDndEndDnd                                                   Function = "dnd-end-dnd"
+	FnDndEndSnooze                                                Function = "dnd-end-snooze"
+	FnDndInfo                                                     Function = "dnd-info"
+	FnDndSetSnoozeWithFormdataBody                                Function = "dnd-set-snooze-with-formdata-body"
+	FnDndTeamInfo                                                 Function = "dnd-team-info"
+	FnEmojiList                                                   Function = "emoji-list"
+	FnFilesCommentsDeleteWithFormdataBody                         Function = "files-comments-delete-with-formdata-body"
+	FnFilesDeleteWithFormdataBody                                 Function = "files-delete-with-formdata-body"
+	FnFilesInfo                                                   Function = "files-info"
+	FnFilesList                                                   Function = "files-list"
+	FnFilesRemoteAddWithFormdataBody                              Function = "files-remote-add-with-formdata-body"
+	FnFilesRemoteInfo                                             Function = "files-remote-info"
+	FnFilesRemoteList                                             Function = "files-remote-list"
+	FnFilesRemoteRemoveWithFormdataBody                           Function = "files-remote-remove-with-formdata-body"
+	FnFilesRemoteShare                                            Function = "files-remote-share"
+	FnFilesRemoteUpdateWithFormdataBody                           Function = "files-remote-update-with-formdata-body"
+	FnFilesRevokePublicURLWithFormdataBody                        Function = "files-revoke-public-u-r-l-with-formdata-body"
+	FnFilesSharedPublicURLWithFormdataBody                        Function = "files-shared-public-u-r-l-with-formdata-body"
+	FnFilesUploadWithFormdataBody                                 Function = "files-upload-with-formdata-body"
+	FnMigrationExchange                                           Function = "migration-exchange"
+	FnOauthAccess                                                 Function = "oauth-access"
+	FnOauthToken                                                  Function = "oauth-token"
+	FnOauthV2Access                                               Function = "oauth-v2-access"
+	FnPinsAddWithFormdataBody                                     Function = "pins-add-with-formdata-body"
+	FnPinsList                                                    Function = "pins-list"
+	FnPinsRemoveWithFormdataBody                                  Function = "pins-remove-with-formdata-body"
+	FnReactionsAddWithFormdataBody                                Function = "reactions-add-with-formdata-body"
+	FnReactionsGet                                                Function = "reactions-get"
+	FnReactionsList                                               Function = "reactions-list"
+	FnReactionsRemoveWithFormdataBody                             Function = "reactions-remove-with-formdata-body"
+	FnRemindersAddWithFormdataBody                                Function = "reminders-add-with-formdata-body"
+	FnRemindersCompleteWithFormdataBody                           Function = "reminders-complete-with-formdata-body"
+	FnRemindersDeleteWithFormdataBody                             Function = "reminders-delete-with-formdata-body"
+	FnRemindersInfo                                               Function = "reminders-info"
+	FnRemindersList                                               Function = "reminders-list"
+	FnRtmConnect                                                  Function = "rtm-connect"
+	FnSearchMessages                                              Function = "search-messages"
+	FnStarsAddWithFormdataBody                                    Function = "stars-add-with-formdata-body"
+	FnStarsList                                                   Function = "stars-list"
+	FnStarsRemoveWithFormdataBody                                 Function = "stars-remove-with-formdata-body"
+	FnTeamAccessLogs                                              Function = "team-access-logs"
+	FnTeamBillableInfo                                            Function = "team-billable-info"
+	FnTeamInfo                                                    Function = "team-info"
+	FnTeamIntegrationLogs                                         Function = "team-integration-logs"
+	FnTeamProfileGet                                              Function = "team-profile-get"
+	FnUsergroupsCreateWithFormdataBody                            Function = "usergroups-create-with-formdata-body"
+	FnUsergroupsDisableWithFormdataBody                           Function = "usergroups-disable-with-formdata-body"
+	FnUsergroupsEnableWithFormdataBody                            Function = "usergroups-enable-with-formdata-body"
+	FnUsergroupsList                                              Function = "usergroups-list"
+	FnUsergroupsUpdateWithFormdataBody                            Function = "usergroups-update-with-formdata-body"
+	FnUsergroupsUsersList                                         Function = "usergroups-users-list"
+	FnUsergroupsUsersUpdateWithFormdataBody                       Function = "usergroups-users-update-with-formdata-body"
+	FnUsersConversations                                          Function = "users-conversations"
+	FnUsersDeletePhotoWithFormdataBody                            Function = "users-delete-photo-with-formdata-body"
+	FnUsersGetPresence                                            Function = "users-get-presence"
+	FnUsersIdentity                                               Function = "users-identity"
+	FnUsersInfo                                                   Function = "users-info"
+	FnUsersList                                                   Function = "users-list"
+	FnUsersLookupByEmail                                          Function = "users-lookup-by-email"
+	FnUsersProfileGet                                             Function = "users-profile-get"
+	FnUsersProfileSetWithFormdataBody                             Function = "users-profile-set-with-formdata-body"
+	FnUsersSetActive                                              Function = "users-set-active"
+	FnUsersSetPhotoWithFormdataBody                               Function = "users-set-photo-with-formdata-body"
+	FnUsersSetPresenceWithFormdataBody                            Function = "users-set-presence-with-formdata-body"
+	FnViewsOpen                                                   Function = "views-open"
+	FnViewsPublish                                                Function = "views-publish"
+	FnViewsPush                                                   Function = "views-push"
+	FnViewsUpdate                                                 Function = "views-update"
+	FnWorkflowsStepCompleted                                      Function = "workflows-step-completed"
+	FnWorkflowsStepFailed                                         Function = "workflows-step-failed"
+	FnWorkflowsUpdateStep                                         Function = "workflows-update-step"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnAdminAppsApproveWithFormdataBody:
+		return FnAdminAppsApproveWithFormdataBody, nil
+	case FnAdminAppsApprovedList:
+		return FnAdminAppsApprovedList, nil
+	case FnAdminAppsRequestsList:
+		return FnAdminAppsRequestsList, nil
+	case FnAdminAppsRestrictWithFormdataBody:
+		return FnAdminAppsRestrictWithFormdataBody, nil
+	case FnAdminAppsRestrictedList:
+		return FnAdminAppsRestrictedList, nil
+	case FnAdminConversationsArchiveWithFormdataBody:
+		return FnAdminConversationsArchiveWithFormdataBody, nil
+	case FnAdminConversationsConvertToPrivateWithFormdataBody:
+		return FnAdminConversationsConvertToPrivateWithFormdataBody, nil
+	case FnAdminConversationsCreateWithFormdataBody:
+		return FnAdminConversationsCreateWithFormdataBody, nil
+	case FnAdminConversationsDeleteWithFormdataBody:
+		return FnAdminConversationsDeleteWithFormdataBody, nil
+	case FnAdminConversationsDisconnectSharedWithFormdataBody:
+		return FnAdminConversationsDisconnectSharedWithFormdataBody, nil
+	case FnAdminConversationsEkmListOriginalConnectedChannelInfo:
+		return FnAdminConversationsEkmListOriginalConnectedChannelInfo, nil
+	case FnAdminConversationsGetConversationPrefs:
+		return FnAdminConversationsGetConversationPrefs, nil
+	case FnAdminConversationsGetTeams:
+		return FnAdminConversationsGetTeams, nil
+	case FnAdminConversationsInviteWithFormdataBody:
+		return FnAdminConversationsInviteWithFormdataBody, nil
+	case FnAdminConversationsRenameWithFormdataBody:
+		return FnAdminConversationsRenameWithFormdataBody, nil
+	case FnAdminConversationsRestrictAccessAddGroupWithFormdataBody:
+		return FnAdminConversationsRestrictAccessAddGroupWithFormdataBody, nil
+	case FnAdminConversationsRestrictAccessListGroups:
+		return FnAdminConversationsRestrictAccessListGroups, nil
+	case FnAdminConversationsRestrictAccessRemoveGroupWithFormdataBody:
+		return FnAdminConversationsRestrictAccessRemoveGroupWithFormdataBody, nil
+	case FnAdminConversationsSearch:
+		return FnAdminConversationsSearch, nil
+	case FnAdminConversationsSetConversationPrefsWithFormdataBody:
+		return FnAdminConversationsSetConversationPrefsWithFormdataBody, nil
+	case FnAdminConversationsSetTeamsWithFormdataBody:
+		return FnAdminConversationsSetTeamsWithFormdataBody, nil
+	case FnAdminConversationsUnarchiveWithFormdataBody:
+		return FnAdminConversationsUnarchiveWithFormdataBody, nil
+	case FnAdminEmojiAddAliasWithFormdataBody:
+		return FnAdminEmojiAddAliasWithFormdataBody, nil
+	case FnAdminEmojiAddWithFormdataBody:
+		return FnAdminEmojiAddWithFormdataBody, nil
+	case FnAdminEmojiList:
+		return FnAdminEmojiList, nil
+	case FnAdminEmojiRemoveWithFormdataBody:
+		return FnAdminEmojiRemoveWithFormdataBody, nil
+	case FnAdminEmojiRenameWithFormdataBody:
+		return FnAdminEmojiRenameWithFormdataBody, nil
+	case FnAdminInviteRequestsApproveWithFormdataBody:
+		return FnAdminInviteRequestsApproveWithFormdataBody, nil
+	case FnAdminInviteRequestsApprovedList:
+		return FnAdminInviteRequestsApprovedList, nil
+	case FnAdminInviteRequestsDeniedList:
+		return FnAdminInviteRequestsDeniedList, nil
+	case FnAdminInviteRequestsDenyWithFormdataBody:
+		return FnAdminInviteRequestsDenyWithFormdataBody, nil
+	case FnAdminInviteRequestsList:
+		return FnAdminInviteRequestsList, nil
+	case FnAdminTeamsAdminsList:
+		return FnAdminTeamsAdminsList, nil
+	case FnAdminTeamsCreateWithFormdataBody:
+		return FnAdminTeamsCreateWithFormdataBody, nil
+	case FnAdminTeamsList:
+		return FnAdminTeamsList, nil
+	case FnAdminTeamsOwnersList:
+		return FnAdminTeamsOwnersList, nil
+	case FnAdminTeamsSettingsInfo:
+		return FnAdminTeamsSettingsInfo, nil
+	case FnAdminTeamsSettingsSetDefaultChannelsWithFormdataBody:
+		return FnAdminTeamsSettingsSetDefaultChannelsWithFormdataBody, nil
+	case FnAdminTeamsSettingsSetDescriptionWithFormdataBody:
+		return FnAdminTeamsSettingsSetDescriptionWithFormdataBody, nil
+	case FnAdminTeamsSettingsSetDiscoverabilityWithFormdataBody:
+		return FnAdminTeamsSettingsSetDiscoverabilityWithFormdataBody, nil
+	case FnAdminTeamsSettingsSetIconWithFormdataBody:
+		return FnAdminTeamsSettingsSetIconWithFormdataBody, nil
+	case FnAdminTeamsSettingsSetNameWithFormdataBody:
+		return FnAdminTeamsSettingsSetNameWithFormdataBody, nil
+	case FnAdminUsergroupsAddChannelsWithFormdataBody:
+		return FnAdminUsergroupsAddChannelsWithFormdataBody, nil
+	case FnAdminUsergroupsAddTeamsWithFormdataBody:
+		return FnAdminUsergroupsAddTeamsWithFormdataBody, nil
+	case FnAdminUsergroupsListChannels:
+		return FnAdminUsergroupsListChannels, nil
+	case FnAdminUsergroupsRemoveChannelsWithFormdataBody:
+		return FnAdminUsergroupsRemoveChannelsWithFormdataBody, nil
+	case FnAdminUsersAssignWithFormdataBody:
+		return FnAdminUsersAssignWithFormdataBody, nil
+	case FnAdminUsersInviteWithFormdataBody:
+		return FnAdminUsersInviteWithFormdataBody, nil
+	case FnAdminUsersList:
+		return FnAdminUsersList, nil
+	case FnAdminUsersRemoveWithFormdataBody:
+		return FnAdminUsersRemoveWithFormdataBody, nil
+	case FnAdminUsersSessionInvalidateWithFormdataBody:
+		return FnAdminUsersSessionInvalidateWithFormdataBody, nil
+	case FnAdminUsersSessionResetWithFormdataBody:
+		return FnAdminUsersSessionResetWithFormdataBody, nil
+	case FnAdminUsersSetAdminWithFormdataBody:
+		return FnAdminUsersSetAdminWithFormdataBody, nil
+	case FnAdminUsersSetExpirationWithFormdataBody:
+		return FnAdminUsersSetExpirationWithFormdataBody, nil
+	case FnAdminUsersSetOwnerWithFormdataBody:
+		return FnAdminUsersSetOwnerWithFormdataBody, nil
+	case FnAdminUsersSetRegularWithFormdataBody:
+		return FnAdminUsersSetRegularWithFormdataBody, nil
+	case FnApiTest:
+		return FnApiTest, nil
+	case FnAppsEventAuthorizationsList:
+		return FnAppsEventAuthorizationsList, nil
+	case FnAppsPermissionsInfo:
+		return FnAppsPermissionsInfo, nil
+	case FnAppsPermissionsRequest:
+		return FnAppsPermissionsRequest, nil
+	case FnAppsPermissionsResourcesList:
+		return FnAppsPermissionsResourcesList, nil
+	case FnAppsPermissionsScopesList:
+		return FnAppsPermissionsScopesList, nil
+	case FnAppsPermissionsUsersList:
+		return FnAppsPermissionsUsersList, nil
+	case FnAppsPermissionsUsersRequest:
+		return FnAppsPermissionsUsersRequest, nil
+	case FnAppsUninstall:
+		return FnAppsUninstall, nil
+	case FnAuthRevoke:
+		return FnAuthRevoke, nil
+	case FnAuthTest:
+		return FnAuthTest, nil
+	case FnBotsInfo:
+		return FnBotsInfo, nil
+	case FnCallsAddWithFormdataBody:
+		return FnCallsAddWithFormdataBody, nil
+	case FnCallsEndWithFormdataBody:
+		return FnCallsEndWithFormdataBody, nil
+	case FnCallsInfo:
+		return FnCallsInfo, nil
+	case FnCallsParticipantsAddWithFormdataBody:
+		return FnCallsParticipantsAddWithFormdataBody, nil
+	case FnCallsParticipantsRemoveWithFormdataBody:
+		return FnCallsParticipantsRemoveWithFormdataBody, nil
+	case FnCallsUpdateWithFormdataBody:
+		return FnCallsUpdateWithFormdataBody, nil
+	case FnChatDeleteScheduledMessageWithFormdataBody:
+		return FnChatDeleteScheduledMessageWithFormdataBody, nil
+	case FnChatDeleteWithFormdataBody:
+		return FnChatDeleteWithFormdataBody, nil
+	case FnChatGetPermalink:
+		return FnChatGetPermalink, nil
+	case FnChatMeMessageWithFormdataBody:
+		return FnChatMeMessageWithFormdataBody, nil
+	case FnChatPostEphemeralWithFormdataBody:
+		return FnChatPostEphemeralWithFormdataBody, nil
+	case FnChatPostMessageWithFormdataBody:
+		return FnChatPostMessageWithFormdataBody, nil
+	case FnChatScheduleMessageWithFormdataBody:
+		return FnChatScheduleMessageWithFormdataBody, nil
+	case FnChatScheduledMessagesList:
+		return FnChatScheduledMessagesList, nil
+	case FnChatUnfurlWithFormdataBody:
+		return FnChatUnfurlWithFormdataBody, nil
+	case FnChatUpdateWithFormdataBody:
+		return FnChatUpdateWithFormdataBody, nil
+	case FnConversationsArchiveWithFormdataBody:
+		return FnConversationsArchiveWithFormdataBody, nil
+	case FnConversationsCloseWithFormdataBody:
+		return FnConversationsCloseWithFormdataBody, nil
+	case FnConversationsCreateWithFormdataBody:
+		return FnConversationsCreateWithFormdataBody, nil
+	case FnConversationsHistory:
+		return FnConversationsHistory, nil
+	case FnConversationsInfo:
+		return FnConversationsInfo, nil
+	case FnConversationsInviteWithFormdataBody:
+		return FnConversationsInviteWithFormdataBody, nil
+	case FnConversationsJoinWithFormdataBody:
+		return FnConversationsJoinWithFormdataBody, nil
+	case FnConversationsKickWithFormdataBody:
+		return FnConversationsKickWithFormdataBody, nil
+	case FnConversationsLeaveWithFormdataBody:
+		return FnConversationsLeaveWithFormdataBody, nil
+	case FnConversationsList:
+		return FnConversationsList, nil
+	case FnConversationsMarkWithFormdataBody:
+		return FnConversationsMarkWithFormdataBody, nil
+	case FnConversationsMembers:
+		return FnConversationsMembers, nil
+	case FnConversationsOpenWithFormdataBody:
+		return FnConversationsOpenWithFormdataBody, nil
+	case FnConversationsRenameWithFormdataBody:
+		return FnConversationsRenameWithFormdataBody, nil
+	case FnConversationsReplies:
+		return FnConversationsReplies, nil
+	case FnConversationsSetPurposeWithFormdataBody:
+		return FnConversationsSetPurposeWithFormdataBody, nil
+	case FnConversationsSetTopicWithFormdataBody:
+		return FnConversationsSetTopicWithFormdataBody, nil
+	case FnConversationsUnarchiveWithFormdataBody:
+		return FnConversationsUnarchiveWithFormdataBody, nil
+	case FnDialogOpen:
+		return FnDialogOpen, nil
+	case FnDndEndDnd:
+		return FnDndEndDnd, nil
+	case FnDndEndSnooze:
+		return FnDndEndSnooze, nil
+	case FnDndInfo:
+		return FnDndInfo, nil
+	case FnDndSetSnoozeWithFormdataBody:
+		return FnDndSetSnoozeWithFormdataBody, nil
+	case FnDndTeamInfo:
+		return FnDndTeamInfo, nil
+	case FnEmojiList:
+		return FnEmojiList, nil
+	case FnFilesCommentsDeleteWithFormdataBody:
+		return FnFilesCommentsDeleteWithFormdataBody, nil
+	case FnFilesDeleteWithFormdataBody:
+		return FnFilesDeleteWithFormdataBody, nil
+	case FnFilesInfo:
+		return FnFilesInfo, nil
+	case FnFilesList:
+		return FnFilesList, nil
+	case FnFilesRemoteAddWithFormdataBody:
+		return FnFilesRemoteAddWithFormdataBody, nil
+	case FnFilesRemoteInfo:
+		return FnFilesRemoteInfo, nil
+	case FnFilesRemoteList:
+		return FnFilesRemoteList, nil
+	case FnFilesRemoteRemoveWithFormdataBody:
+		return FnFilesRemoteRemoveWithFormdataBody, nil
+	case FnFilesRemoteShare:
+		return FnFilesRemoteShare, nil
+	case FnFilesRemoteUpdateWithFormdataBody:
+		return FnFilesRemoteUpdateWithFormdataBody, nil
+	case FnFilesRevokePublicURLWithFormdataBody:
+		return FnFilesRevokePublicURLWithFormdataBody, nil
+	case FnFilesSharedPublicURLWithFormdataBody:
+		return FnFilesSharedPublicURLWithFormdataBody, nil
+	case FnFilesUploadWithFormdataBody:
+		return FnFilesUploadWithFormdataBody, nil
+	case FnMigrationExchange:
+		return FnMigrationExchange, nil
+	case FnOauthAccess:
+		return FnOauthAccess, nil
+	case FnOauthToken:
+		return FnOauthToken, nil
+	case FnOauthV2Access:
+		return FnOauthV2Access, nil
+	case FnPinsAddWithFormdataBody:
+		return FnPinsAddWithFormdataBody, nil
+	case FnPinsList:
+		return FnPinsList, nil
+	case FnPinsRemoveWithFormdataBody:
+		return FnPinsRemoveWithFormdataBody, nil
+	case FnReactionsAddWithFormdataBody:
+		return FnReactionsAddWithFormdataBody, nil
+	case FnReactionsGet:
+		return FnReactionsGet, nil
+	case FnReactionsList:
+		return FnReactionsList, nil
+	case FnReactionsRemoveWithFormdataBody:
+		return FnReactionsRemoveWithFormdataBody, nil
+	case FnRemindersAddWithFormdataBody:
+		return FnRemindersAddWithFormdataBody, nil
+	case FnRemindersCompleteWithFormdataBody:
+		return FnRemindersCompleteWithFormdataBody, nil
+	case FnRemindersDeleteWithFormdataBody:
+		return FnRemindersDeleteWithFormdataBody, nil
+	case FnRemindersInfo:
+		return FnRemindersInfo, nil
+	case FnRemindersList:
+		return FnRemindersList, nil
+	case FnRtmConnect:
+		return FnRtmConnect, nil
+	case FnSearchMessages:
+		return FnSearchMessages, nil
+	case FnStarsAddWithFormdataBody:
+		return FnStarsAddWithFormdataBody, nil
+	case FnStarsList:
+		return FnStarsList, nil
+	case FnStarsRemoveWithFormdataBody:
+		return FnStarsRemoveWithFormdataBody, nil
+	case FnTeamAccessLogs:
+		return FnTeamAccessLogs, nil
+	case FnTeamBillableInfo:
+		return FnTeamBillableInfo, nil
+	case FnTeamInfo:
+		return FnTeamInfo, nil
+	case FnTeamIntegrationLogs:
+		return FnTeamIntegrationLogs, nil
+	case FnTeamProfileGet:
+		return FnTeamProfileGet, nil
+	case FnUsergroupsCreateWithFormdataBody:
+		return FnUsergroupsCreateWithFormdataBody, nil
+	case FnUsergroupsDisableWithFormdataBody:
+		return FnUsergroupsDisableWithFormdataBody, nil
+	case FnUsergroupsEnableWithFormdataBody:
+		return FnUsergroupsEnableWithFormdataBody, nil
+	case FnUsergroupsList:
+		return FnUsergroupsList, nil
+	case FnUsergroupsUpdateWithFormdataBody:
+		return FnUsergroupsUpdateWithFormdataBody, nil
+	case FnUsergroupsUsersList:
+		return FnUsergroupsUsersList, nil
+	case FnUsergroupsUsersUpdateWithFormdataBody:
+		return FnUsergroupsUsersUpdateWithFormdataBody, nil
+	case FnUsersConversations:
+		return FnUsersConversations, nil
+	case FnUsersDeletePhotoWithFormdataBody:
+		return FnUsersDeletePhotoWithFormdataBody, nil
+	case FnUsersGetPresence:
+		return FnUsersGetPresence, nil
+	case FnUsersIdentity:
+		return FnUsersIdentity, nil
+	case FnUsersInfo:
+		return FnUsersInfo, nil
+	case FnUsersList:
+		return FnUsersList, nil
+	case FnUsersLookupByEmail:
+		return FnUsersLookupByEmail, nil
+	case FnUsersProfileGet:
+		return FnUsersProfileGet, nil
+	case FnUsersProfileSetWithFormdataBody:
+		return FnUsersProfileSetWithFormdataBody, nil
+	case FnUsersSetActive:
+		return FnUsersSetActive, nil
+	case FnUsersSetPhotoWithFormdataBody:
+		return FnUsersSetPhotoWithFormdataBody, nil
+	case FnUsersSetPresenceWithFormdataBody:
+		return FnUsersSetPresenceWithFormdataBody, nil
+	case FnViewsOpen:
+		return FnViewsOpen, nil
+	case FnViewsPublish:
+		return FnViewsPublish, nil
+	case FnViewsPush:
+		return FnViewsPush, nil
+	case FnViewsUpdate:
+		return FnViewsUpdate, nil
+	case FnWorkflowsStepCompleted:
+		return FnWorkflowsStepCompleted, nil
+	case FnWorkflowsStepFailed:
+		return FnWorkflowsStepFailed, nil
+	case FnWorkflowsUpdateStep:
+		return FnWorkflowsUpdateStep, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "admin-apps-approve-with-formdata-body":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnAdminAppsApproveWithFormdataBody:
 		return ic.dispatchAdminAppsApproveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-apps-approved-list":
+	case FnAdminAppsApprovedList:
 		return ic.dispatchAdminAppsApprovedListWithResponse(ctx, config, inputs)
-	case "admin-apps-requests-list":
+	case FnAdminAppsRequestsList:
 		return ic.dispatchAdminAppsRequestsListWithResponse(ctx, config, inputs)
-	case "admin-apps-restrict-with-formdata-body":
+	case FnAdminAppsRestrictWithFormdataBody:
 		return ic.dispatchAdminAppsRestrictWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-apps-restricted-list":
+	case FnAdminAppsRestrictedList:
 		return ic.dispatchAdminAppsRestrictedListWithResponse(ctx, config, inputs)
-	case "admin-conversations-archive-with-formdata-body":
+	case FnAdminConversationsArchiveWithFormdataBody:
 		return ic.dispatchAdminConversationsArchiveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-convert-to-private-with-formdata-body":
+	case FnAdminConversationsConvertToPrivateWithFormdataBody:
 		return ic.dispatchAdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-create-with-formdata-body":
+	case FnAdminConversationsCreateWithFormdataBody:
 		return ic.dispatchAdminConversationsCreateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-delete-with-formdata-body":
+	case FnAdminConversationsDeleteWithFormdataBody:
 		return ic.dispatchAdminConversationsDeleteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-disconnect-shared-with-formdata-body":
+	case FnAdminConversationsDisconnectSharedWithFormdataBody:
 		return ic.dispatchAdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-ekm-list-original-connected-channel-info":
+	case FnAdminConversationsEkmListOriginalConnectedChannelInfo:
 		return ic.dispatchAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx, config, inputs)
-	case "admin-conversations-get-conversation-prefs":
+	case FnAdminConversationsGetConversationPrefs:
 		return ic.dispatchAdminConversationsGetConversationPrefsWithResponse(ctx, config, inputs)
-	case "admin-conversations-get-teams":
+	case FnAdminConversationsGetTeams:
 		return ic.dispatchAdminConversationsGetTeamsWithResponse(ctx, config, inputs)
-	case "admin-conversations-invite-with-formdata-body":
+	case FnAdminConversationsInviteWithFormdataBody:
 		return ic.dispatchAdminConversationsInviteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-rename-with-formdata-body":
+	case FnAdminConversationsRenameWithFormdataBody:
 		return ic.dispatchAdminConversationsRenameWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-restrict-access-add-group-with-formdata-body":
+	case FnAdminConversationsRestrictAccessAddGroupWithFormdataBody:
 		return ic.dispatchAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-restrict-access-list-groups":
+	case FnAdminConversationsRestrictAccessListGroups:
 		return ic.dispatchAdminConversationsRestrictAccessListGroupsWithResponse(ctx, config, inputs)
-	case "admin-conversations-restrict-access-remove-group-with-formdata-body":
+	case FnAdminConversationsRestrictAccessRemoveGroupWithFormdataBody:
 		return ic.dispatchAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-search":
+	case FnAdminConversationsSearch:
 		return ic.dispatchAdminConversationsSearchWithResponse(ctx, config, inputs)
-	case "admin-conversations-set-conversation-prefs-with-formdata-body":
+	case FnAdminConversationsSetConversationPrefsWithFormdataBody:
 		return ic.dispatchAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-set-teams-with-formdata-body":
+	case FnAdminConversationsSetTeamsWithFormdataBody:
 		return ic.dispatchAdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-conversations-unarchive-with-formdata-body":
+	case FnAdminConversationsUnarchiveWithFormdataBody:
 		return ic.dispatchAdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-emoji-add-alias-with-formdata-body":
+	case FnAdminEmojiAddAliasWithFormdataBody:
 		return ic.dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-emoji-add-with-formdata-body":
+	case FnAdminEmojiAddWithFormdataBody:
 		return ic.dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-emoji-list":
+	case FnAdminEmojiList:
 		return ic.dispatchAdminEmojiListWithResponse(ctx, config, inputs)
-	case "admin-emoji-remove-with-formdata-body":
+	case FnAdminEmojiRemoveWithFormdataBody:
 		return ic.dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-emoji-rename-with-formdata-body":
+	case FnAdminEmojiRenameWithFormdataBody:
 		return ic.dispatchAdminEmojiRenameWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-invite-requests-approve-with-formdata-body":
+	case FnAdminInviteRequestsApproveWithFormdataBody:
 		return ic.dispatchAdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-invite-requests-approved-list":
+	case FnAdminInviteRequestsApprovedList:
 		return ic.dispatchAdminInviteRequestsApprovedListWithResponse(ctx, config, inputs)
-	case "admin-invite-requests-denied-list":
+	case FnAdminInviteRequestsDeniedList:
 		return ic.dispatchAdminInviteRequestsDeniedListWithResponse(ctx, config, inputs)
-	case "admin-invite-requests-deny-with-formdata-body":
+	case FnAdminInviteRequestsDenyWithFormdataBody:
 		return ic.dispatchAdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-invite-requests-list":
+	case FnAdminInviteRequestsList:
 		return ic.dispatchAdminInviteRequestsListWithResponse(ctx, config, inputs)
-	case "admin-teams-admins-list":
+	case FnAdminTeamsAdminsList:
 		return ic.dispatchAdminTeamsAdminsListWithResponse(ctx, config, inputs)
-	case "admin-teams-create-with-formdata-body":
+	case FnAdminTeamsCreateWithFormdataBody:
 		return ic.dispatchAdminTeamsCreateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-teams-list":
+	case FnAdminTeamsList:
 		return ic.dispatchAdminTeamsListWithResponse(ctx, config, inputs)
-	case "admin-teams-owners-list":
+	case FnAdminTeamsOwnersList:
 		return ic.dispatchAdminTeamsOwnersListWithResponse(ctx, config, inputs)
-	case "admin-teams-settings-info":
+	case FnAdminTeamsSettingsInfo:
 		return ic.dispatchAdminTeamsSettingsInfoWithResponse(ctx, config, inputs)
-	case "admin-teams-settings-set-default-channels-with-formdata-body":
+	case FnAdminTeamsSettingsSetDefaultChannelsWithFormdataBody:
 		return ic.dispatchAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-teams-settings-set-description-with-formdata-body":
+	case FnAdminTeamsSettingsSetDescriptionWithFormdataBody:
 		return ic.dispatchAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-teams-settings-set-discoverability-with-formdata-body":
+	case FnAdminTeamsSettingsSetDiscoverabilityWithFormdataBody:
 		return ic.dispatchAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-teams-settings-set-icon-with-formdata-body":
+	case FnAdminTeamsSettingsSetIconWithFormdataBody:
 		return ic.dispatchAdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-teams-settings-set-name-with-formdata-body":
+	case FnAdminTeamsSettingsSetNameWithFormdataBody:
 		return ic.dispatchAdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-usergroups-add-channels-with-formdata-body":
+	case FnAdminUsergroupsAddChannelsWithFormdataBody:
 		return ic.dispatchAdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-usergroups-add-teams-with-formdata-body":
+	case FnAdminUsergroupsAddTeamsWithFormdataBody:
 		return ic.dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-usergroups-list-channels":
+	case FnAdminUsergroupsListChannels:
 		return ic.dispatchAdminUsergroupsListChannelsWithResponse(ctx, config, inputs)
-	case "admin-usergroups-remove-channels-with-formdata-body":
+	case FnAdminUsergroupsRemoveChannelsWithFormdataBody:
 		return ic.dispatchAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-assign-with-formdata-body":
+	case FnAdminUsersAssignWithFormdataBody:
 		return ic.dispatchAdminUsersAssignWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-invite-with-formdata-body":
+	case FnAdminUsersInviteWithFormdataBody:
 		return ic.dispatchAdminUsersInviteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-list":
+	case FnAdminUsersList:
 		return ic.dispatchAdminUsersListWithResponse(ctx, config, inputs)
-	case "admin-users-remove-with-formdata-body":
+	case FnAdminUsersRemoveWithFormdataBody:
 		return ic.dispatchAdminUsersRemoveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-session-invalidate-with-formdata-body":
+	case FnAdminUsersSessionInvalidateWithFormdataBody:
 		return ic.dispatchAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-session-reset-with-formdata-body":
+	case FnAdminUsersSessionResetWithFormdataBody:
 		return ic.dispatchAdminUsersSessionResetWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-set-admin-with-formdata-body":
+	case FnAdminUsersSetAdminWithFormdataBody:
 		return ic.dispatchAdminUsersSetAdminWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-set-expiration-with-formdata-body":
+	case FnAdminUsersSetExpirationWithFormdataBody:
 		return ic.dispatchAdminUsersSetExpirationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-set-owner-with-formdata-body":
+	case FnAdminUsersSetOwnerWithFormdataBody:
 		return ic.dispatchAdminUsersSetOwnerWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "admin-users-set-regular-with-formdata-body":
+	case FnAdminUsersSetRegularWithFormdataBody:
 		return ic.dispatchAdminUsersSetRegularWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "api-test":
+	case FnApiTest:
 		return ic.dispatchApiTestWithResponse(ctx, config, inputs)
-	case "apps-event-authorizations-list":
+	case FnAppsEventAuthorizationsList:
 		return ic.dispatchAppsEventAuthorizationsListWithResponse(ctx, config, inputs)
-	case "apps-permissions-info":
+	case FnAppsPermissionsInfo:
 		return ic.dispatchAppsPermissionsInfoWithResponse(ctx, config, inputs)
-	case "apps-permissions-request":
+	case FnAppsPermissionsRequest:
 		return ic.dispatchAppsPermissionsRequestWithResponse(ctx, config, inputs)
-	case "apps-permissions-resources-list":
+	case FnAppsPermissionsResourcesList:
 		return ic.dispatchAppsPermissionsResourcesListWithResponse(ctx, config, inputs)
-	case "apps-permissions-scopes-list":
+	case FnAppsPermissionsScopesList:
 		return ic.dispatchAppsPermissionsScopesListWithResponse(ctx, config, inputs)
-	case "apps-permissions-users-list":
+	case FnAppsPermissionsUsersList:
 		return ic.dispatchAppsPermissionsUsersListWithResponse(ctx, config, inputs)
-	case "apps-permissions-users-request":
+	case FnAppsPermissionsUsersRequest:
 		return ic.dispatchAppsPermissionsUsersRequestWithResponse(ctx, config, inputs)
-	case "apps-uninstall":
+	case FnAppsUninstall:
 		return ic.dispatchAppsUninstallWithResponse(ctx, config, inputs)
-	case "auth-revoke":
+	case FnAuthRevoke:
 		return ic.dispatchAuthRevokeWithResponse(ctx, config, inputs)
-	case "auth-test":
+	case FnAuthTest:
 		return ic.dispatchAuthTestWithResponse(ctx, config, inputs)
-	case "bots-info":
+	case FnBotsInfo:
 		return ic.dispatchBotsInfoWithResponse(ctx, config, inputs)
-	case "calls-add-with-formdata-body":
+	case FnCallsAddWithFormdataBody:
 		return ic.dispatchCallsAddWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "calls-end-with-formdata-body":
+	case FnCallsEndWithFormdataBody:
 		return ic.dispatchCallsEndWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "calls-info":
+	case FnCallsInfo:
 		return ic.dispatchCallsInfoWithResponse(ctx, config, inputs)
-	case "calls-participants-add-with-formdata-body":
+	case FnCallsParticipantsAddWithFormdataBody:
 		return ic.dispatchCallsParticipantsAddWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "calls-participants-remove-with-formdata-body":
+	case FnCallsParticipantsRemoveWithFormdataBody:
 		return ic.dispatchCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "calls-update-with-formdata-body":
+	case FnCallsUpdateWithFormdataBody:
 		return ic.dispatchCallsUpdateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "chat-delete-scheduled-message-with-formdata-body":
+	case FnChatDeleteScheduledMessageWithFormdataBody:
 		return ic.dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "chat-delete-with-formdata-body":
+	case FnChatDeleteWithFormdataBody:
 		return ic.dispatchChatDeleteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "chat-get-permalink":
+	case FnChatGetPermalink:
 		return ic.dispatchChatGetPermalinkWithResponse(ctx, config, inputs)
-	case "chat-me-message-with-formdata-body":
+	case FnChatMeMessageWithFormdataBody:
 		return ic.dispatchChatMeMessageWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "chat-post-ephemeral-with-formdata-body":
+	case FnChatPostEphemeralWithFormdataBody:
 		return ic.dispatchChatPostEphemeralWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "chat-post-message-with-formdata-body":
+	case FnChatPostMessageWithFormdataBody:
 		return ic.dispatchChatPostMessageWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "chat-schedule-message-with-formdata-body":
+	case FnChatScheduleMessageWithFormdataBody:
 		return ic.dispatchChatScheduleMessageWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "chat-scheduled-messages-list":
+	case FnChatScheduledMessagesList:
 		return ic.dispatchChatScheduledMessagesListWithResponse(ctx, config, inputs)
-	case "chat-unfurl-with-formdata-body":
+	case FnChatUnfurlWithFormdataBody:
 		return ic.dispatchChatUnfurlWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "chat-update-with-formdata-body":
+	case FnChatUpdateWithFormdataBody:
 		return ic.dispatchChatUpdateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-archive-with-formdata-body":
+	case FnConversationsArchiveWithFormdataBody:
 		return ic.dispatchConversationsArchiveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-close-with-formdata-body":
+	case FnConversationsCloseWithFormdataBody:
 		return ic.dispatchConversationsCloseWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-create-with-formdata-body":
+	case FnConversationsCreateWithFormdataBody:
 		return ic.dispatchConversationsCreateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-history":
+	case FnConversationsHistory:
 		return ic.dispatchConversationsHistoryWithResponse(ctx, config, inputs)
-	case "conversations-info":
+	case FnConversationsInfo:
 		return ic.dispatchConversationsInfoWithResponse(ctx, config, inputs)
-	case "conversations-invite-with-formdata-body":
+	case FnConversationsInviteWithFormdataBody:
 		return ic.dispatchConversationsInviteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-join-with-formdata-body":
+	case FnConversationsJoinWithFormdataBody:
 		return ic.dispatchConversationsJoinWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-kick-with-formdata-body":
+	case FnConversationsKickWithFormdataBody:
 		return ic.dispatchConversationsKickWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-leave-with-formdata-body":
+	case FnConversationsLeaveWithFormdataBody:
 		return ic.dispatchConversationsLeaveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-list":
+	case FnConversationsList:
 		return ic.dispatchConversationsListWithResponse(ctx, config, inputs)
-	case "conversations-mark-with-formdata-body":
+	case FnConversationsMarkWithFormdataBody:
 		return ic.dispatchConversationsMarkWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-members":
+	case FnConversationsMembers:
 		return ic.dispatchConversationsMembersWithResponse(ctx, config, inputs)
-	case "conversations-open-with-formdata-body":
+	case FnConversationsOpenWithFormdataBody:
 		return ic.dispatchConversationsOpenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-rename-with-formdata-body":
+	case FnConversationsRenameWithFormdataBody:
 		return ic.dispatchConversationsRenameWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-replies":
+	case FnConversationsReplies:
 		return ic.dispatchConversationsRepliesWithResponse(ctx, config, inputs)
-	case "conversations-set-purpose-with-formdata-body":
+	case FnConversationsSetPurposeWithFormdataBody:
 		return ic.dispatchConversationsSetPurposeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-set-topic-with-formdata-body":
+	case FnConversationsSetTopicWithFormdataBody:
 		return ic.dispatchConversationsSetTopicWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "conversations-unarchive-with-formdata-body":
+	case FnConversationsUnarchiveWithFormdataBody:
 		return ic.dispatchConversationsUnarchiveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "dialog-open":
+	case FnDialogOpen:
 		return ic.dispatchDialogOpenWithResponse(ctx, config, inputs)
-	case "dnd-end-dnd":
+	case FnDndEndDnd:
 		return ic.dispatchDndEndDndWithResponse(ctx, config, inputs)
-	case "dnd-end-snooze":
+	case FnDndEndSnooze:
 		return ic.dispatchDndEndSnoozeWithResponse(ctx, config, inputs)
-	case "dnd-info":
+	case FnDndInfo:
 		return ic.dispatchDndInfoWithResponse(ctx, config, inputs)
-	case "dnd-set-snooze-with-formdata-body":
+	case FnDndSetSnoozeWithFormdataBody:
 		return ic.dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "dnd-team-info":
+	case FnDndTeamInfo:
 		return ic.dispatchDndTeamInfoWithResponse(ctx, config, inputs)
-	case "emoji-list":
+	case FnEmojiList:
 		return ic.dispatchEmojiListWithResponse(ctx, config, inputs)
-	case "files-comments-delete-with-formdata-body":
+	case FnFilesCommentsDeleteWithFormdataBody:
 		return ic.dispatchFilesCommentsDeleteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "files-delete-with-formdata-body":
+	case FnFilesDeleteWithFormdataBody:
 		return ic.dispatchFilesDeleteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "files-info":
+	case FnFilesInfo:
 		return ic.dispatchFilesInfoWithResponse(ctx, config, inputs)
-	case "files-list":
+	case FnFilesList:
 		return ic.dispatchFilesListWithResponse(ctx, config, inputs)
-	case "files-remote-add-with-formdata-body":
+	case FnFilesRemoteAddWithFormdataBody:
 		return ic.dispatchFilesRemoteAddWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "files-remote-info":
+	case FnFilesRemoteInfo:
 		return ic.dispatchFilesRemoteInfoWithResponse(ctx, config, inputs)
-	case "files-remote-list":
+	case FnFilesRemoteList:
 		return ic.dispatchFilesRemoteListWithResponse(ctx, config, inputs)
-	case "files-remote-remove-with-formdata-body":
+	case FnFilesRemoteRemoveWithFormdataBody:
 		return ic.dispatchFilesRemoteRemoveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "files-remote-share":
+	case FnFilesRemoteShare:
 		return ic.dispatchFilesRemoteShareWithResponse(ctx, config, inputs)
-	case "files-remote-update-with-formdata-body":
+	case FnFilesRemoteUpdateWithFormdataBody:
 		return ic.dispatchFilesRemoteUpdateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "files-revoke-public-u-r-l-with-formdata-body":
+	case FnFilesRevokePublicURLWithFormdataBody:
 		return ic.dispatchFilesRevokePublicURLWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "files-shared-public-u-r-l-with-formdata-body":
+	case FnFilesSharedPublicURLWithFormdataBody:
 		return ic.dispatchFilesSharedPublicURLWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "files-upload-with-formdata-body":
+	case FnFilesUploadWithFormdataBody:
 		return ic.dispatchFilesUploadWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "migration-exchange":
+	case FnMigrationExchange:
 		return ic.dispatchMigrationExchangeWithResponse(ctx, config, inputs)
-	case "oauth-access":
+	case FnOauthAccess:
 		return ic.dispatchOauthAccessWithResponse(ctx, config, inputs)
-	case "oauth-token":
+	case FnOauthToken:
 		return ic.dispatchOauthTokenWithResponse(ctx, config, inputs)
-	case "oauth-v2-access":
+	case FnOauthV2Access:
 		return ic.dispatchOauthV2AccessWithResponse(ctx, config, inputs)
-	case "pins-add-with-formdata-body":
+	case FnPinsAddWithFormdataBody:
 		return ic.dispatchPinsAddWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "pins-list":
+	case FnPinsList:
 		return ic.dispatchPinsListWithResponse(ctx, config, inputs)
-	case "pins-remove-with-formdata-body":
+	case FnPinsRemoveWithFormdataBody:
 		return ic.dispatchPinsRemoveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "reactions-add-with-formdata-body":
+	case FnReactionsAddWithFormdataBody:
 		return ic.dispatchReactionsAddWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "reactions-get":
+	case FnReactionsGet:
 		return ic.dispatchReactionsGetWithResponse(ctx, config, inputs)
-	case "reactions-list":
+	case FnReactionsList:
 		return ic.dispatchReactionsListWithResponse(ctx, config, inputs)
-	case "reactions-remove-with-formdata-body":
+	case FnReactionsRemoveWithFormdataBody:
 		return ic.dispatchReactionsRemoveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "reminders-add-with-formdata-body":
+	case FnRemindersAddWithFormdataBody:
 		return ic.dispatchRemindersAddWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "reminders-complete-with-formdata-body":
+	case FnRemindersCompleteWithFormdataBody:
 		return ic.dispatchRemindersCompleteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "reminders-delete-with-formdata-body":
+	case FnRemindersDeleteWithFormdataBody:
 		return ic.dispatchRemindersDeleteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "reminders-info":
+	case FnRemindersInfo:
 		return ic.dispatchRemindersInfoWithResponse(ctx, config, inputs)
-	case "reminders-list":
+	case FnRemindersList:
 		return ic.dispatchRemindersListWithResponse(ctx, config, inputs)
-	case "rtm-connect":
+	case FnRtmConnect:
 		return ic.dispatchRtmConnectWithResponse(ctx, config, inputs)
-	case "search-messages":
+	case FnSearchMessages:
 		return ic.dispatchSearchMessagesWithResponse(ctx, config, inputs)
-	case "stars-add-with-formdata-body":
+	case FnStarsAddWithFormdataBody:
 		return ic.dispatchStarsAddWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "stars-list":
+	case FnStarsList:
 		return ic.dispatchStarsListWithResponse(ctx, config, inputs)
-	case "stars-remove-with-formdata-body":
+	case FnStarsRemoveWithFormdataBody:
 		return ic.dispatchStarsRemoveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "team-access-logs":
+	case FnTeamAccessLogs:
 		return ic.dispatchTeamAccessLogsWithResponse(ctx, config, inputs)
-	case "team-billable-info":
+	case FnTeamBillableInfo:
 		return ic.dispatchTeamBillableInfoWithResponse(ctx, config, inputs)
-	case "team-info":
+	case FnTeamInfo:
 		return ic.dispatchTeamInfoWithResponse(ctx, config, inputs)
-	case "team-integration-logs":
+	case FnTeamIntegrationLogs:
 		return ic.dispatchTeamIntegrationLogsWithResponse(ctx, config, inputs)
-	case "team-profile-get":
+	case FnTeamProfileGet:
 		return ic.dispatchTeamProfileGetWithResponse(ctx, config, inputs)
-	case "usergroups-create-with-formdata-body":
+	case FnUsergroupsCreateWithFormdataBody:
 		return ic.dispatchUsergroupsCreateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "usergroups-disable-with-formdata-body":
+	case FnUsergroupsDisableWithFormdataBody:
 		return ic.dispatchUsergroupsDisableWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "usergroups-enable-with-formdata-body":
+	case FnUsergroupsEnableWithFormdataBody:
 		return ic.dispatchUsergroupsEnableWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "usergroups-list":
+	case FnUsergroupsList:
 		return ic.dispatchUsergroupsListWithResponse(ctx, config, inputs)
-	case "usergroups-update-with-formdata-body":
+	case FnUsergroupsUpdateWithFormdataBody:
 		return ic.dispatchUsergroupsUpdateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "usergroups-users-list":
+	case FnUsergroupsUsersList:
 		return ic.dispatchUsergroupsUsersListWithResponse(ctx, config, inputs)
-	case "usergroups-users-update-with-formdata-body":
+	case FnUsergroupsUsersUpdateWithFormdataBody:
 		return ic.dispatchUsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "users-conversations":
+	case FnUsersConversations:
 		return ic.dispatchUsersConversationsWithResponse(ctx, config, inputs)
-	case "users-delete-photo-with-formdata-body":
+	case FnUsersDeletePhotoWithFormdataBody:
 		return ic.dispatchUsersDeletePhotoWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "users-get-presence":
+	case FnUsersGetPresence:
 		return ic.dispatchUsersGetPresenceWithResponse(ctx, config, inputs)
-	case "users-identity":
+	case FnUsersIdentity:
 		return ic.dispatchUsersIdentityWithResponse(ctx, config, inputs)
-	case "users-info":
+	case FnUsersInfo:
 		return ic.dispatchUsersInfoWithResponse(ctx, config, inputs)
-	case "users-list":
+	case FnUsersList:
 		return ic.dispatchUsersListWithResponse(ctx, config, inputs)
-	case "users-lookup-by-email":
+	case FnUsersLookupByEmail:
 		return ic.dispatchUsersLookupByEmailWithResponse(ctx, config, inputs)
-	case "users-profile-get":
+	case FnUsersProfileGet:
 		return ic.dispatchUsersProfileGetWithResponse(ctx, config, inputs)
-	case "users-profile-set-with-formdata-body":
+	case FnUsersProfileSetWithFormdataBody:
 		return ic.dispatchUsersProfileSetWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "users-set-active":
+	case FnUsersSetActive:
 		return ic.dispatchUsersSetActiveWithResponse(ctx, config, inputs)
-	case "users-set-photo-with-formdata-body":
+	case FnUsersSetPhotoWithFormdataBody:
 		return ic.dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "users-set-presence-with-formdata-body":
+	case FnUsersSetPresenceWithFormdataBody:
 		return ic.dispatchUsersSetPresenceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case "views-open":
+	case FnViewsOpen:
 		return ic.dispatchViewsOpenWithResponse(ctx, config, inputs)
-	case "views-publish":
+	case FnViewsPublish:
 		return ic.dispatchViewsPublishWithResponse(ctx, config, inputs)
-	case "views-push":
+	case FnViewsPush:
 		return ic.dispatchViewsPushWithResponse(ctx, config, inputs)
-	case "views-update":
+	case FnViewsUpdate:
 		return ic.dispatchViewsUpdateWithResponse(ctx, config, inputs)
-	case "workflows-step-completed":
+	case FnWorkflowsStepCompleted:
 		return ic.dispatchWorkflowsStepCompletedWithResponse(ctx, config, inputs)
-	case "workflows-step-failed":
+	case FnWorkflowsStepFailed:
 		return ic.dispatchWorkflowsStepFailedWithResponse(ctx, config, inputs)
-	case "workflows-update-step":
+	case FnWorkflowsUpdateStep:
 		return ic.dispatchWorkflowsUpdateStepWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 
-// Connector holds an authenticated client for each configured interface.
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*InterfaceClient, 2)
-
-	if ifaceCreds, ok := creds["bot-api"]; ok {
-		baseURL := resolveBaseURL(config["bot-api"])
-		authFn := authEditorBotApi(ifaceCreds)
-
-		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
-		if httpClient != nil {
-			opts = append(opts, client.WithHTTPClient(httpClient))
-		}
-
-		cl, err := client.NewClientWithResponses(baseURL, opts...)
-		if err != nil {
-			return nil, fmt.Errorf("creating bot-api client: %w", err)
-		}
-
-		clients["bot-api"] = &InterfaceClient{cl: cl}
-	}
-
-	if ifaceCreds, ok := creds["user-token"]; ok {
-		baseURL := resolveBaseURL(config["user-token"])
-		authFn := authEditorUserToken(ifaceCreds)
-
-		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
-		if httpClient != nil {
-			opts = append(opts, client.WithHTTPClient(httpClient))
-		}
-
-		cl, err := client.NewClientWithResponses(baseURL, opts...)
-		if err != nil {
-			return nil, fmt.Errorf("creating user-token client: %w", err)
-		}
-
-		clients["user-token"] = &InterfaceClient{cl: cl}
-	}
-
-	return &Connector{clients: clients}, nil
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
 }
 
-// Client returns the interface client for the given interface ID.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
+// NewConnector constructs a Connector for the given interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	baseURL := resolveBaseURL(config)
+
+	var authFn func(context.Context, *http.Request) error
+	switch interfaceID {
+	case "bot-api":
+		authFn = authEditorBotApi(creds)
+	case "user-token":
+		authFn = authEditorUserToken(creds)
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+	if httpClient != nil {
+		opts = append(opts, client.WithHTTPClient(httpClient))
+	}
+
+	cl, err := client.NewClientWithResponses(baseURL, opts...)
+	if err != nil {
+		return nil, fmt.Errorf("creating %s client: %w", interfaceID, err)
+	}
+
+	return &Connector{client: &InterfaceClient{cl: cl}}, nil
 }
 
 func resolveBaseURL(config map[string]string) string {
@@ -433,20 +955,22 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://slack.com/api"
 }
 
-func authEditorBotApi(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorBotApi(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["access_token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 
 		return nil
 	}
 }
 
-func authEditorUserToken(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorUserToken(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["access_token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 
 		return nil

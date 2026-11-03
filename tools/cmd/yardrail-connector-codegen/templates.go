@@ -273,6 +273,15 @@ var tmplFuncs = template.FuncMap{
 	"configParam": func(configParams map[string]string, jsonName string) string {
 		return configParams[jsonName]
 	},
+	"usesConfig": func(configParams map[string]string, m introspect.MethodInfo) bool {
+		for _, p := range m.Params {
+			if p.Required && !p.IsStruct && configParams[p.JSONName] != "" {
+				return true
+			}
+		}
+
+		return false
+	},
 	"opDescription": func(op *OperationInfo) string {
 		if op == nil {
 			return ""
@@ -322,6 +331,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"{{.ClientPkgPath}}"
 )
 
@@ -330,39 +341,78 @@ type InterfaceClient struct {
 	cl *{{clientPkgName .ClientPkgPath}}.ClientWithResponses
 }
 
-` + restDispatchSwitchTemplate + `
-// Connector holds an authenticated client for each configured interface.
+` + functionEnumTemplate + restDispatchSwitchTemplate + `
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-` + openAPIClientsTemplate + `	return &Connector{clients: clients}, nil
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
 }
 
-` + openAPIAccessorsTemplate + authEditorsTemplate
+// NewConnector constructs a Connector for the given interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	baseURL := resolveBaseURL(config)
+
+	var authFn func(context.Context, *http.Request) error
+	switch interfaceID {
+{{range .RESTIfaces}}	case "{{.ID}}":
+		authFn = authEditor{{goIdent .ID}}(creds)
+{{end}}	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	opts := []{{clientPkgName .ClientPkgPath}}.ClientOption{ {{clientPkgName .ClientPkgPath}}.WithRequestEditorFn(authFn)}
+	if httpClient != nil {
+		opts = append(opts, {{clientPkgName .ClientPkgPath}}.WithHTTPClient(httpClient))
+	}
+
+	cl, err := {{clientPkgName .ClientPkgPath}}.NewClientWithResponses(baseURL, opts...)
+	if err != nil {
+		return nil, fmt.Errorf("creating %s client: %w", interfaceID, err)
+	}
+
+	return &Connector{client: &InterfaceClient{cl: cl}}, nil
+}
+
+func resolveBaseURL(config map[string]string) string {
+	if u, ok := config["base_url"]; ok && u != "" {
+		return u
+	}
+
+	return "{{.BaseURL}}"
+}
+
+` + authEditorsTemplate
 
 // authEditorsTemplate renders one request editor per callable interface that
 // applies its auth scheme and static headers. Every handler template uses it.
 const authEditorsTemplate = `{{range .CallableIfaces}}{{$strat := strategyFor $.AuthStrategy .ID}}
-func authEditor{{goIdent .ID}}(creds map[string]string) func(context.Context, *http.Request) error {
-	return func(_ context.Context, req *http.Request) error {
+func authEditor{{goIdent .ID}}(creds connector.Credentials) func(context.Context, *http.Request) error {
 {{- if eq (authSchemeType $strat) "bearer"}}
-		if token := creds["{{$strat.CredKey}}"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+	bc := creds.(connector.BearerCredentials)
+	return func(_ context.Context, req *http.Request) error {
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 {{- else if eq (authSchemeType $strat) "basic"}}
-		req.SetBasicAuth(creds["{{$strat.UsernameField}}"], creds["{{$strat.PasswordField}}"])
+	bc := creds.(connector.BasicCredentials)
+	return func(_ context.Context, req *http.Request) error {
+		req.SetBasicAuth(bc.Username, bc.Password)
 {{- else if eq (authSchemeType $strat) "apikey_header"}}
-		if key := creds["{{$strat.CredKey}}"]; key != "" {
-			req.Header.Set("{{$strat.SecurityScheme.Name}}", key)
+	ac := creds.(connector.APIKeyCredentials)
+	return func(_ context.Context, req *http.Request) error {
+		if ac.Key != "" {
+			req.Header.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
 		}
 {{- else if eq (authSchemeType $strat) "apikey_query"}}
-		if key := creds["{{$strat.CredKey}}"]; key != "" {
+	ac := creds.(connector.APIKeyCredentials)
+	return func(_ context.Context, req *http.Request) error {
+		if ac.Key != "" {
 			q := req.URL.Query()
-			q.Set("{{$strat.SecurityScheme.Name}}", key)
+			q.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
 			req.URL.RawQuery = q.Encode()
 		}
 {{- end}}
@@ -393,6 +443,8 @@ import (
 	"github.com/google/uuid"
 {{- end}}
 
+	"github.com/yardrail/connectors/connector"
+
 	"{{.ClientPkgPath}}"
 )
 
@@ -403,47 +455,6 @@ var (
 )
 
 ` + resolveTemplate + openAPIMethodsTemplate
-
-// openAPIClientsTemplate builds the clients map in NewConnector, one
-// oapi-codegen client per interface in .RESTIfaces.
-const openAPIClientsTemplate = `	clients := make(map[string]*InterfaceClient, {{len .RESTIfaces}})
-{{range .RESTIfaces}}
-	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
-		baseURL := resolveBaseURL(config["{{.ID}}"])
-		authFn := authEditor{{goIdent .ID}}(ifaceCreds)
-
-		opts := []{{clientPkgName $.ClientPkgPath}}.ClientOption{ {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn)}
-		if httpClient != nil {
-			opts = append(opts, {{clientPkgName $.ClientPkgPath}}.WithHTTPClient(httpClient))
-		}
-
-		cl, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, opts...)
-		if err != nil {
-			return nil, fmt.Errorf("creating {{.ID}} client: %w", err)
-		}
-
-		clients["{{.ID}}"] = &InterfaceClient{cl: cl}
-	}
-{{end}}
-`
-
-// openAPIAccessorsTemplate renders the typed client accessor and base URL
-// resolution for OpenAPI interfaces.
-const openAPIAccessorsTemplate = `// Client returns the interface client for the given interface ID.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
-}
-
-func resolveBaseURL(config map[string]string) string {
-	if u, ok := config["base_url"]; ok && u != "" {
-		return u
-	}
-
-	return "{{.BaseURL}}"
-}
-
-`
 
 // openAPIAccessorsBaseURLTemplate renders only resolveBaseURL (used by mixed
 // template which defines its own Client accessor).
@@ -489,7 +500,7 @@ const openAPIMethodsTemplate = `{{range .Methods}}{{$m := .}}
   {{- end -}}
 {{- end}}
 
-func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if usesConfig $.ConfigParams .}}config{{else}}_{{end}} map[string]string, inputs json.RawMessage) (any, error) {
 {{- range .Params}}{{if and .Required (not .IsStruct)}}
 {{- $cp := configParam $.ConfigParams .JSONName}}
 {{- if ne $cp ""}}
@@ -550,14 +561,33 @@ func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, config m
 {{end}}
 `
 
-// restDispatchSwitchTemplate renders the Dispatch method as a switch on function name.
+// functionEnumTemplate renders the Function type, constants, and ParseFunction.
+const functionEnumTemplate = `// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+{{range .Functions}}	Fn{{goIdent .Name}} Function = "{{.Name}}"
+{{end}})
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+{{range .Functions}}	case Fn{{goIdent .Name}}:
+		return Fn{{goIdent .Name}}, nil
+{{end}}	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+`
+
+// restDispatchSwitchTemplate renders the Dispatch method as a switch on Function.
 const restDispatchSwitchTemplate = `// Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-{{range .Functions}}	case "{{.Name}}":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+{{range .Functions}}	case Fn{{goIdent .Name}}:
 		return ic.dispatch{{.MethodName}}(ctx, config, inputs)
 {{end}}	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 `
@@ -566,25 +596,22 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config
 const resolveTemplate = `// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
-	creds, config map[string]string,
+	creds connector.Credentials,
+	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	c, err := NewConnector(
-		map[string]map[string]string{interfaceID: creds},
-		map[string]map[string]string{interfaceID: config},
-		httpClient,
-	)
+	fn, err := ParseFunction(function)
 	if err != nil {
 		return nil, err
 	}
 
-	cl := c.Client(interfaceID)
-	if cl == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	c, err := NewConnector(interfaceID, creds, config, httpClient)
+	if err != nil {
+		return nil, err
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return cl.Dispatch(ctx, function, config, inputs)
+		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
 }
 `

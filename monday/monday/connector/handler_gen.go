@@ -7,6 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 )
 
 // InterfaceClient wraps an authenticated GraphQL endpoint for one interface.
@@ -14,51 +16,98 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
-// Dispatch calls the named GraphQL operation.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "change-multiple-column-values":
-		return ic.ep.call(ctx, function, queryChangeMultipleColumnValues, inputs)
-	case "create-item":
-		return ic.ep.call(ctx, function, queryCreateItem, inputs)
-	case "create-update":
-		return ic.ep.call(ctx, function, queryCreateUpdate, inputs)
-	case "get-item":
-		return ic.ep.call(ctx, function, queryGetItem, inputs)
-	case "list-board-columns":
-		return ic.ep.call(ctx, function, queryListBoardColumns, inputs)
-	case "list-board-items":
-		return ic.ep.call(ctx, function, queryListBoardItems, inputs)
-	case "list-items-by-column-values":
-		return ic.ep.call(ctx, function, queryListItemsByColumnValues, inputs)
-	case "list-users":
-		return ic.ep.call(ctx, function, queryListUsers, inputs)
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnChangeMultipleColumnValues Function = "change-multiple-column-values"
+	FnCreateItem                 Function = "create-item"
+	FnCreateUpdate               Function = "create-update"
+	FnGetItem                    Function = "get-item"
+	FnListBoardColumns           Function = "list-board-columns"
+	FnListBoardItems             Function = "list-board-items"
+	FnListItemsByColumnValues    Function = "list-items-by-column-values"
+	FnListUsers                  Function = "list-users"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnChangeMultipleColumnValues:
+		return FnChangeMultipleColumnValues, nil
+	case FnCreateItem:
+		return FnCreateItem, nil
+	case FnCreateUpdate:
+		return FnCreateUpdate, nil
+	case FnGetItem:
+		return FnGetItem, nil
+	case FnListBoardColumns:
+		return FnListBoardColumns, nil
+	case FnListBoardItems:
+		return FnListBoardItems, nil
+	case FnListItemsByColumnValues:
+		return FnListItemsByColumnValues, nil
+	case FnListUsers:
+		return FnListUsers, nil
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
 	}
 }
 
-// Connector holds the GraphQL endpoint for each configured interface.
+// Dispatch calls the named GraphQL operation.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnChangeMultipleColumnValues:
+		return ic.ep.call(ctx, string(fn), queryChangeMultipleColumnValues, inputs)
+	case FnCreateItem:
+		return ic.ep.call(ctx, string(fn), queryCreateItem, inputs)
+	case FnCreateUpdate:
+		return ic.ep.call(ctx, string(fn), queryCreateUpdate, inputs)
+	case FnGetItem:
+		return ic.ep.call(ctx, string(fn), queryGetItem, inputs)
+	case FnListBoardColumns:
+		return ic.ep.call(ctx, string(fn), queryListBoardColumns, inputs)
+	case FnListBoardItems:
+		return ic.ep.call(ctx, string(fn), queryListBoardItems, inputs)
+	case FnListItemsByColumnValues:
+		return ic.ep.call(ctx, string(fn), queryListItemsByColumnValues, inputs)
+	case FnListUsers:
+		return ic.ep.call(ctx, string(fn), queryListUsers, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+	}
+}
+
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	endpoints := newEndpoints(creds, config, httpClient)
-	clients := make(map[string]*InterfaceClient, len(endpoints))
-	for id, ep := range endpoints {
-		clients[id] = &InterfaceClient{ep: ep}
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
+
+// NewConnector constructs a Connector for the given GraphQL interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	var defaultURL string
+	var authFn func(context.Context, *http.Request) error
+
+	switch interfaceID {
+	case "api":
+		defaultURL = "https://api.monday.com/v2"
+		authFn = authEditorApi(creds)
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	return &Connector{clients: clients}, nil
-}
+	ep := &endpoint{
+		url:        resolveEndpoint(config, defaultURL),
+		auth:       authFn,
+		httpClient: httpClient,
+	}
 
-// Client returns the interface client for the given interface ID.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
+	return &Connector{client: &InterfaceClient{ep: ep}}, nil
 }
 
 // endpoint is a GraphQL interface's HTTP endpoint with its auth applied.
@@ -66,20 +115,6 @@ type endpoint struct {
 	url        string
 	auth       func(context.Context, *http.Request) error
 	httpClient *http.Client
-}
-
-func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
-	endpoints := make(map[string]*endpoint, 1)
-
-	if ifaceCreds, ok := creds["api"]; ok {
-		endpoints["api"] = &endpoint{
-			url:        resolveEndpoint(config["api"], "https://api.monday.com/v2"),
-			auth:       authEditorApi(ifaceCreds),
-			httpClient: httpClient,
-		}
-	}
-
-	return endpoints
 }
 
 // resolveEndpoint returns config["base_url"] when set, otherwise the
@@ -92,10 +127,11 @@ func resolveEndpoint(config map[string]string, defaultURL string) string {
 	return defaultURL
 }
 
-func authEditorApi(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorApi(creds connector.Credentials) func(context.Context, *http.Request) error {
+	ac := creds.(connector.APIKeyCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if key := creds["token"]; key != "" {
-			req.Header.Set("Authorization", key)
+		if ac.Key != "" {
+			req.Header.Set("Authorization", ac.Key)
 		}
 		req.Header.Set("API-Version", "2026-07")
 

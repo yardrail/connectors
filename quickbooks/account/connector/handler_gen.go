@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/quickbooks/account/client"
 )
 
@@ -16,228 +18,511 @@ type InterfaceClient struct {
 	cl *client.ClientWithResponses
 }
 
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnCreateAccount              Function = "create-account"
+	FnCreateAttachable           Function = "create-attachable"
+	FnCreateBill                 Function = "create-bill"
+	FnCreateBillPayment          Function = "create-bill-payment"
+	FnCreateBudget               Function = "create-budget"
+	FnCreateChangeOrder          Function = "create-change-order"
+	FnCreateClass                Function = "create-class"
+	FnCreateCompanyCurrency      Function = "create-company-currency"
+	FnCreateCreditCardPaymentTxn Function = "create-credit-card-payment-txn"
+	FnCreateCreditMemo           Function = "create-credit-memo"
+	FnCreateCustomer             Function = "create-customer"
+	FnCreateDepartment           Function = "create-department"
+	FnCreateDeposit              Function = "create-deposit"
+	FnCreateEmployee             Function = "create-employee"
+	FnCreateEstimate             Function = "create-estimate"
+	FnCreateInventoryAdjustment  Function = "create-inventory-adjustment"
+	FnCreateInvoice              Function = "create-invoice"
+	FnCreateItem                 Function = "create-item"
+	FnCreateJournalCode          Function = "create-journal-code"
+	FnCreateJournalEntry         Function = "create-journal-entry"
+	FnCreatePayment              Function = "create-payment"
+	FnCreatePaymentMethod        Function = "create-payment-method"
+	FnCreatePurchase             Function = "create-purchase"
+	FnCreatePurchaseOrder        Function = "create-purchase-order"
+	FnCreateRecurringTransaction Function = "create-recurring-transaction"
+	FnCreateRefundReceipt        Function = "create-refund-receipt"
+	FnCreateSalesReceipt         Function = "create-sales-receipt"
+	FnCreateTaxAgency            Function = "create-tax-agency"
+	FnCreateTaxservice           Function = "create-taxservice"
+	FnCreateTerm                 Function = "create-term"
+	FnCreateTimeActivity         Function = "create-time-activity"
+	FnCreateTransfer             Function = "create-transfer"
+	FnCreateVendor               Function = "create-vendor"
+	FnCreateVendorCredit         Function = "create-vendor-credit"
+	FnGetEstimatePDF             Function = "get-estimate-p-d-f"
+	FnGetInvoicePDF              Function = "get-invoice-p-d-f"
+	FnGetSalesReceiptPDF         Function = "get-sales-receipt-p-d-f"
+	FnQueryAccount               Function = "query-account"
+	FnReadAccount                Function = "read-account"
+	FnReadAttachable             Function = "read-attachable"
+	FnReadBill                   Function = "read-bill"
+	FnReadBillPayment            Function = "read-bill-payment"
+	FnReadBudget                 Function = "read-budget"
+	FnReadChangeOrder            Function = "read-change-order"
+	FnReadClass                  Function = "read-class"
+	FnReadCompanyCurrency        Function = "read-company-currency"
+	FnReadCompanyInfo            Function = "read-company-info"
+	FnReadCreditCardPaymentTxn   Function = "read-credit-card-payment-txn"
+	FnReadCreditMemo             Function = "read-credit-memo"
+	FnReadCustomer               Function = "read-customer"
+	FnReadCustomerType           Function = "read-customer-type"
+	FnReadDepartment             Function = "read-department"
+	FnReadDeposit                Function = "read-deposit"
+	FnReadEmployee               Function = "read-employee"
+	FnReadEntitlements           Function = "read-entitlements"
+	FnReadEstimate               Function = "read-estimate"
+	FnReadInventoryAdjustment    Function = "read-inventory-adjustment"
+	FnReadInvoice                Function = "read-invoice"
+	FnReadItem                   Function = "read-item"
+	FnReadJournalCode            Function = "read-journal-code"
+	FnReadJournalEntry           Function = "read-journal-entry"
+	FnReadPayment                Function = "read-payment"
+	FnReadPaymentMethod          Function = "read-payment-method"
+	FnReadPreferences            Function = "read-preferences"
+	FnReadPurchase               Function = "read-purchase"
+	FnReadPurchaseOrder          Function = "read-purchase-order"
+	FnReadRecurringTransaction   Function = "read-recurring-transaction"
+	FnReadRefundReceipt          Function = "read-refund-receipt"
+	FnReadReimburseCharge        Function = "read-reimburse-charge"
+	FnReadSalesReceipt           Function = "read-sales-receipt"
+	FnReadTaxAgency              Function = "read-tax-agency"
+	FnReadTaxClassification      Function = "read-tax-classification"
+	FnReadTaxCode                Function = "read-tax-code"
+	FnReadTaxPayment             Function = "read-tax-payment"
+	FnReadTaxRate                Function = "read-tax-rate"
+	FnReadTerm                   Function = "read-term"
+	FnReadTimeActivity           Function = "read-time-activity"
+	FnReadTransfer               Function = "read-transfer"
+	FnReadVendor                 Function = "read-vendor"
+	FnReadVendorCredit           Function = "read-vendor-credit"
+	FnSendCreditMemo             Function = "send-credit-memo"
+	FnSendEstimate               Function = "send-estimate"
+	FnSendInvoice                Function = "send-invoice"
+	FnSendPayment                Function = "send-payment"
+	FnSendPurchaseOrder          Function = "send-purchase-order"
+	FnSendRefundReceipt          Function = "send-refund-receipt"
+	FnSendSalesReceipt           Function = "send-sales-receipt"
+	FnUpdateCompanyInfo          Function = "update-company-info"
+	FnUpdateExchangeRate         Function = "update-exchange-rate"
+	FnUpdatePreferences          Function = "update-preferences"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnCreateAccount:
+		return FnCreateAccount, nil
+	case FnCreateAttachable:
+		return FnCreateAttachable, nil
+	case FnCreateBill:
+		return FnCreateBill, nil
+	case FnCreateBillPayment:
+		return FnCreateBillPayment, nil
+	case FnCreateBudget:
+		return FnCreateBudget, nil
+	case FnCreateChangeOrder:
+		return FnCreateChangeOrder, nil
+	case FnCreateClass:
+		return FnCreateClass, nil
+	case FnCreateCompanyCurrency:
+		return FnCreateCompanyCurrency, nil
+	case FnCreateCreditCardPaymentTxn:
+		return FnCreateCreditCardPaymentTxn, nil
+	case FnCreateCreditMemo:
+		return FnCreateCreditMemo, nil
+	case FnCreateCustomer:
+		return FnCreateCustomer, nil
+	case FnCreateDepartment:
+		return FnCreateDepartment, nil
+	case FnCreateDeposit:
+		return FnCreateDeposit, nil
+	case FnCreateEmployee:
+		return FnCreateEmployee, nil
+	case FnCreateEstimate:
+		return FnCreateEstimate, nil
+	case FnCreateInventoryAdjustment:
+		return FnCreateInventoryAdjustment, nil
+	case FnCreateInvoice:
+		return FnCreateInvoice, nil
+	case FnCreateItem:
+		return FnCreateItem, nil
+	case FnCreateJournalCode:
+		return FnCreateJournalCode, nil
+	case FnCreateJournalEntry:
+		return FnCreateJournalEntry, nil
+	case FnCreatePayment:
+		return FnCreatePayment, nil
+	case FnCreatePaymentMethod:
+		return FnCreatePaymentMethod, nil
+	case FnCreatePurchase:
+		return FnCreatePurchase, nil
+	case FnCreatePurchaseOrder:
+		return FnCreatePurchaseOrder, nil
+	case FnCreateRecurringTransaction:
+		return FnCreateRecurringTransaction, nil
+	case FnCreateRefundReceipt:
+		return FnCreateRefundReceipt, nil
+	case FnCreateSalesReceipt:
+		return FnCreateSalesReceipt, nil
+	case FnCreateTaxAgency:
+		return FnCreateTaxAgency, nil
+	case FnCreateTaxservice:
+		return FnCreateTaxservice, nil
+	case FnCreateTerm:
+		return FnCreateTerm, nil
+	case FnCreateTimeActivity:
+		return FnCreateTimeActivity, nil
+	case FnCreateTransfer:
+		return FnCreateTransfer, nil
+	case FnCreateVendor:
+		return FnCreateVendor, nil
+	case FnCreateVendorCredit:
+		return FnCreateVendorCredit, nil
+	case FnGetEstimatePDF:
+		return FnGetEstimatePDF, nil
+	case FnGetInvoicePDF:
+		return FnGetInvoicePDF, nil
+	case FnGetSalesReceiptPDF:
+		return FnGetSalesReceiptPDF, nil
+	case FnQueryAccount:
+		return FnQueryAccount, nil
+	case FnReadAccount:
+		return FnReadAccount, nil
+	case FnReadAttachable:
+		return FnReadAttachable, nil
+	case FnReadBill:
+		return FnReadBill, nil
+	case FnReadBillPayment:
+		return FnReadBillPayment, nil
+	case FnReadBudget:
+		return FnReadBudget, nil
+	case FnReadChangeOrder:
+		return FnReadChangeOrder, nil
+	case FnReadClass:
+		return FnReadClass, nil
+	case FnReadCompanyCurrency:
+		return FnReadCompanyCurrency, nil
+	case FnReadCompanyInfo:
+		return FnReadCompanyInfo, nil
+	case FnReadCreditCardPaymentTxn:
+		return FnReadCreditCardPaymentTxn, nil
+	case FnReadCreditMemo:
+		return FnReadCreditMemo, nil
+	case FnReadCustomer:
+		return FnReadCustomer, nil
+	case FnReadCustomerType:
+		return FnReadCustomerType, nil
+	case FnReadDepartment:
+		return FnReadDepartment, nil
+	case FnReadDeposit:
+		return FnReadDeposit, nil
+	case FnReadEmployee:
+		return FnReadEmployee, nil
+	case FnReadEntitlements:
+		return FnReadEntitlements, nil
+	case FnReadEstimate:
+		return FnReadEstimate, nil
+	case FnReadInventoryAdjustment:
+		return FnReadInventoryAdjustment, nil
+	case FnReadInvoice:
+		return FnReadInvoice, nil
+	case FnReadItem:
+		return FnReadItem, nil
+	case FnReadJournalCode:
+		return FnReadJournalCode, nil
+	case FnReadJournalEntry:
+		return FnReadJournalEntry, nil
+	case FnReadPayment:
+		return FnReadPayment, nil
+	case FnReadPaymentMethod:
+		return FnReadPaymentMethod, nil
+	case FnReadPreferences:
+		return FnReadPreferences, nil
+	case FnReadPurchase:
+		return FnReadPurchase, nil
+	case FnReadPurchaseOrder:
+		return FnReadPurchaseOrder, nil
+	case FnReadRecurringTransaction:
+		return FnReadRecurringTransaction, nil
+	case FnReadRefundReceipt:
+		return FnReadRefundReceipt, nil
+	case FnReadReimburseCharge:
+		return FnReadReimburseCharge, nil
+	case FnReadSalesReceipt:
+		return FnReadSalesReceipt, nil
+	case FnReadTaxAgency:
+		return FnReadTaxAgency, nil
+	case FnReadTaxClassification:
+		return FnReadTaxClassification, nil
+	case FnReadTaxCode:
+		return FnReadTaxCode, nil
+	case FnReadTaxPayment:
+		return FnReadTaxPayment, nil
+	case FnReadTaxRate:
+		return FnReadTaxRate, nil
+	case FnReadTerm:
+		return FnReadTerm, nil
+	case FnReadTimeActivity:
+		return FnReadTimeActivity, nil
+	case FnReadTransfer:
+		return FnReadTransfer, nil
+	case FnReadVendor:
+		return FnReadVendor, nil
+	case FnReadVendorCredit:
+		return FnReadVendorCredit, nil
+	case FnSendCreditMemo:
+		return FnSendCreditMemo, nil
+	case FnSendEstimate:
+		return FnSendEstimate, nil
+	case FnSendInvoice:
+		return FnSendInvoice, nil
+	case FnSendPayment:
+		return FnSendPayment, nil
+	case FnSendPurchaseOrder:
+		return FnSendPurchaseOrder, nil
+	case FnSendRefundReceipt:
+		return FnSendRefundReceipt, nil
+	case FnSendSalesReceipt:
+		return FnSendSalesReceipt, nil
+	case FnUpdateCompanyInfo:
+		return FnUpdateCompanyInfo, nil
+	case FnUpdateExchangeRate:
+		return FnUpdateExchangeRate, nil
+	case FnUpdatePreferences:
+		return FnUpdatePreferences, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
 // Dispatch calls the named function's typed client method.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-	case "create-account":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnCreateAccount:
 		return ic.dispatchCreateAccountWithResponse(ctx, config, inputs)
-	case "create-attachable":
+	case FnCreateAttachable:
 		return ic.dispatchCreateAttachableWithResponse(ctx, config, inputs)
-	case "create-bill":
+	case FnCreateBill:
 		return ic.dispatchCreateBillWithResponse(ctx, config, inputs)
-	case "create-bill-payment":
+	case FnCreateBillPayment:
 		return ic.dispatchCreateBillPaymentWithResponse(ctx, config, inputs)
-	case "create-budget":
+	case FnCreateBudget:
 		return ic.dispatchCreateBudgetWithResponse(ctx, config, inputs)
-	case "create-change-order":
+	case FnCreateChangeOrder:
 		return ic.dispatchCreateChangeOrderWithResponse(ctx, config, inputs)
-	case "create-class":
+	case FnCreateClass:
 		return ic.dispatchCreateClassWithResponse(ctx, config, inputs)
-	case "create-company-currency":
+	case FnCreateCompanyCurrency:
 		return ic.dispatchCreateCompanyCurrencyWithResponse(ctx, config, inputs)
-	case "create-credit-card-payment-txn":
+	case FnCreateCreditCardPaymentTxn:
 		return ic.dispatchCreateCreditCardPaymentTxnWithResponse(ctx, config, inputs)
-	case "create-credit-memo":
+	case FnCreateCreditMemo:
 		return ic.dispatchCreateCreditMemoWithResponse(ctx, config, inputs)
-	case "create-customer":
+	case FnCreateCustomer:
 		return ic.dispatchCreateCustomerWithResponse(ctx, config, inputs)
-	case "create-department":
+	case FnCreateDepartment:
 		return ic.dispatchCreateDepartmentWithResponse(ctx, config, inputs)
-	case "create-deposit":
+	case FnCreateDeposit:
 		return ic.dispatchCreateDepositWithResponse(ctx, config, inputs)
-	case "create-employee":
+	case FnCreateEmployee:
 		return ic.dispatchCreateEmployeeWithResponse(ctx, config, inputs)
-	case "create-estimate":
+	case FnCreateEstimate:
 		return ic.dispatchCreateEstimateWithResponse(ctx, config, inputs)
-	case "create-inventory-adjustment":
+	case FnCreateInventoryAdjustment:
 		return ic.dispatchCreateInventoryAdjustmentWithResponse(ctx, config, inputs)
-	case "create-invoice":
+	case FnCreateInvoice:
 		return ic.dispatchCreateInvoiceWithResponse(ctx, config, inputs)
-	case "create-item":
+	case FnCreateItem:
 		return ic.dispatchCreateItemWithResponse(ctx, config, inputs)
-	case "create-journal-code":
+	case FnCreateJournalCode:
 		return ic.dispatchCreateJournalCodeWithResponse(ctx, config, inputs)
-	case "create-journal-entry":
+	case FnCreateJournalEntry:
 		return ic.dispatchCreateJournalEntryWithResponse(ctx, config, inputs)
-	case "create-payment":
+	case FnCreatePayment:
 		return ic.dispatchCreatePaymentWithResponse(ctx, config, inputs)
-	case "create-payment-method":
+	case FnCreatePaymentMethod:
 		return ic.dispatchCreatePaymentMethodWithResponse(ctx, config, inputs)
-	case "create-purchase":
+	case FnCreatePurchase:
 		return ic.dispatchCreatePurchaseWithResponse(ctx, config, inputs)
-	case "create-purchase-order":
+	case FnCreatePurchaseOrder:
 		return ic.dispatchCreatePurchaseOrderWithResponse(ctx, config, inputs)
-	case "create-recurring-transaction":
+	case FnCreateRecurringTransaction:
 		return ic.dispatchCreateRecurringTransactionWithResponse(ctx, config, inputs)
-	case "create-refund-receipt":
+	case FnCreateRefundReceipt:
 		return ic.dispatchCreateRefundReceiptWithResponse(ctx, config, inputs)
-	case "create-sales-receipt":
+	case FnCreateSalesReceipt:
 		return ic.dispatchCreateSalesReceiptWithResponse(ctx, config, inputs)
-	case "create-tax-agency":
+	case FnCreateTaxAgency:
 		return ic.dispatchCreateTaxAgencyWithResponse(ctx, config, inputs)
-	case "create-taxservice":
+	case FnCreateTaxservice:
 		return ic.dispatchCreateTaxserviceWithResponse(ctx, config, inputs)
-	case "create-term":
+	case FnCreateTerm:
 		return ic.dispatchCreateTermWithResponse(ctx, config, inputs)
-	case "create-time-activity":
+	case FnCreateTimeActivity:
 		return ic.dispatchCreateTimeActivityWithResponse(ctx, config, inputs)
-	case "create-transfer":
+	case FnCreateTransfer:
 		return ic.dispatchCreateTransferWithResponse(ctx, config, inputs)
-	case "create-vendor":
+	case FnCreateVendor:
 		return ic.dispatchCreateVendorWithResponse(ctx, config, inputs)
-	case "create-vendor-credit":
+	case FnCreateVendorCredit:
 		return ic.dispatchCreateVendorCreditWithResponse(ctx, config, inputs)
-	case "get-estimate-p-d-f":
+	case FnGetEstimatePDF:
 		return ic.dispatchGetEstimatePDFWithResponse(ctx, config, inputs)
-	case "get-invoice-p-d-f":
+	case FnGetInvoicePDF:
 		return ic.dispatchGetInvoicePDFWithResponse(ctx, config, inputs)
-	case "get-sales-receipt-p-d-f":
+	case FnGetSalesReceiptPDF:
 		return ic.dispatchGetSalesReceiptPDFWithResponse(ctx, config, inputs)
-	case "query-account":
+	case FnQueryAccount:
 		return ic.dispatchQueryAccountWithResponse(ctx, config, inputs)
-	case "read-account":
+	case FnReadAccount:
 		return ic.dispatchReadAccountWithResponse(ctx, config, inputs)
-	case "read-attachable":
+	case FnReadAttachable:
 		return ic.dispatchReadAttachableWithResponse(ctx, config, inputs)
-	case "read-bill":
+	case FnReadBill:
 		return ic.dispatchReadBillWithResponse(ctx, config, inputs)
-	case "read-bill-payment":
+	case FnReadBillPayment:
 		return ic.dispatchReadBillPaymentWithResponse(ctx, config, inputs)
-	case "read-budget":
+	case FnReadBudget:
 		return ic.dispatchReadBudgetWithResponse(ctx, config, inputs)
-	case "read-change-order":
+	case FnReadChangeOrder:
 		return ic.dispatchReadChangeOrderWithResponse(ctx, config, inputs)
-	case "read-class":
+	case FnReadClass:
 		return ic.dispatchReadClassWithResponse(ctx, config, inputs)
-	case "read-company-currency":
+	case FnReadCompanyCurrency:
 		return ic.dispatchReadCompanyCurrencyWithResponse(ctx, config, inputs)
-	case "read-company-info":
+	case FnReadCompanyInfo:
 		return ic.dispatchReadCompanyInfoWithResponse(ctx, config, inputs)
-	case "read-credit-card-payment-txn":
+	case FnReadCreditCardPaymentTxn:
 		return ic.dispatchReadCreditCardPaymentTxnWithResponse(ctx, config, inputs)
-	case "read-credit-memo":
+	case FnReadCreditMemo:
 		return ic.dispatchReadCreditMemoWithResponse(ctx, config, inputs)
-	case "read-customer":
+	case FnReadCustomer:
 		return ic.dispatchReadCustomerWithResponse(ctx, config, inputs)
-	case "read-customer-type":
+	case FnReadCustomerType:
 		return ic.dispatchReadCustomerTypeWithResponse(ctx, config, inputs)
-	case "read-department":
+	case FnReadDepartment:
 		return ic.dispatchReadDepartmentWithResponse(ctx, config, inputs)
-	case "read-deposit":
+	case FnReadDeposit:
 		return ic.dispatchReadDepositWithResponse(ctx, config, inputs)
-	case "read-employee":
+	case FnReadEmployee:
 		return ic.dispatchReadEmployeeWithResponse(ctx, config, inputs)
-	case "read-entitlements":
+	case FnReadEntitlements:
 		return ic.dispatchReadEntitlementsWithResponse(ctx, config, inputs)
-	case "read-estimate":
+	case FnReadEstimate:
 		return ic.dispatchReadEstimateWithResponse(ctx, config, inputs)
-	case "read-inventory-adjustment":
+	case FnReadInventoryAdjustment:
 		return ic.dispatchReadInventoryAdjustmentWithResponse(ctx, config, inputs)
-	case "read-invoice":
+	case FnReadInvoice:
 		return ic.dispatchReadInvoiceWithResponse(ctx, config, inputs)
-	case "read-item":
+	case FnReadItem:
 		return ic.dispatchReadItemWithResponse(ctx, config, inputs)
-	case "read-journal-code":
+	case FnReadJournalCode:
 		return ic.dispatchReadJournalCodeWithResponse(ctx, config, inputs)
-	case "read-journal-entry":
+	case FnReadJournalEntry:
 		return ic.dispatchReadJournalEntryWithResponse(ctx, config, inputs)
-	case "read-payment":
+	case FnReadPayment:
 		return ic.dispatchReadPaymentWithResponse(ctx, config, inputs)
-	case "read-payment-method":
+	case FnReadPaymentMethod:
 		return ic.dispatchReadPaymentMethodWithResponse(ctx, config, inputs)
-	case "read-preferences":
+	case FnReadPreferences:
 		return ic.dispatchReadPreferencesWithResponse(ctx, config, inputs)
-	case "read-purchase":
+	case FnReadPurchase:
 		return ic.dispatchReadPurchaseWithResponse(ctx, config, inputs)
-	case "read-purchase-order":
+	case FnReadPurchaseOrder:
 		return ic.dispatchReadPurchaseOrderWithResponse(ctx, config, inputs)
-	case "read-recurring-transaction":
+	case FnReadRecurringTransaction:
 		return ic.dispatchReadRecurringTransactionWithResponse(ctx, config, inputs)
-	case "read-refund-receipt":
+	case FnReadRefundReceipt:
 		return ic.dispatchReadRefundReceiptWithResponse(ctx, config, inputs)
-	case "read-reimburse-charge":
+	case FnReadReimburseCharge:
 		return ic.dispatchReadReimburseChargeWithResponse(ctx, config, inputs)
-	case "read-sales-receipt":
+	case FnReadSalesReceipt:
 		return ic.dispatchReadSalesReceiptWithResponse(ctx, config, inputs)
-	case "read-tax-agency":
+	case FnReadTaxAgency:
 		return ic.dispatchReadTaxAgencyWithResponse(ctx, config, inputs)
-	case "read-tax-classification":
+	case FnReadTaxClassification:
 		return ic.dispatchReadTaxClassificationWithResponse(ctx, config, inputs)
-	case "read-tax-code":
+	case FnReadTaxCode:
 		return ic.dispatchReadTaxCodeWithResponse(ctx, config, inputs)
-	case "read-tax-payment":
+	case FnReadTaxPayment:
 		return ic.dispatchReadTaxPaymentWithResponse(ctx, config, inputs)
-	case "read-tax-rate":
+	case FnReadTaxRate:
 		return ic.dispatchReadTaxRateWithResponse(ctx, config, inputs)
-	case "read-term":
+	case FnReadTerm:
 		return ic.dispatchReadTermWithResponse(ctx, config, inputs)
-	case "read-time-activity":
+	case FnReadTimeActivity:
 		return ic.dispatchReadTimeActivityWithResponse(ctx, config, inputs)
-	case "read-transfer":
+	case FnReadTransfer:
 		return ic.dispatchReadTransferWithResponse(ctx, config, inputs)
-	case "read-vendor":
+	case FnReadVendor:
 		return ic.dispatchReadVendorWithResponse(ctx, config, inputs)
-	case "read-vendor-credit":
+	case FnReadVendorCredit:
 		return ic.dispatchReadVendorCreditWithResponse(ctx, config, inputs)
-	case "send-credit-memo":
+	case FnSendCreditMemo:
 		return ic.dispatchSendCreditMemoWithResponse(ctx, config, inputs)
-	case "send-estimate":
+	case FnSendEstimate:
 		return ic.dispatchSendEstimateWithResponse(ctx, config, inputs)
-	case "send-invoice":
+	case FnSendInvoice:
 		return ic.dispatchSendInvoiceWithResponse(ctx, config, inputs)
-	case "send-payment":
+	case FnSendPayment:
 		return ic.dispatchSendPaymentWithResponse(ctx, config, inputs)
-	case "send-purchase-order":
+	case FnSendPurchaseOrder:
 		return ic.dispatchSendPurchaseOrderWithResponse(ctx, config, inputs)
-	case "send-refund-receipt":
+	case FnSendRefundReceipt:
 		return ic.dispatchSendRefundReceiptWithResponse(ctx, config, inputs)
-	case "send-sales-receipt":
+	case FnSendSalesReceipt:
 		return ic.dispatchSendSalesReceiptWithResponse(ctx, config, inputs)
-	case "update-company-info":
+	case FnUpdateCompanyInfo:
 		return ic.dispatchUpdateCompanyInfoWithResponse(ctx, config, inputs)
-	case "update-exchange-rate":
+	case FnUpdateExchangeRate:
 		return ic.dispatchUpdateExchangeRateWithResponse(ctx, config, inputs)
-	case "update-preferences":
+	case FnUpdatePreferences:
 		return ic.dispatchUpdatePreferencesWithResponse(ctx, config, inputs)
 	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 
-// Connector holds an authenticated client for each configured interface.
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*InterfaceClient, 1)
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
 
-	if ifaceCreds, ok := creds["oauth"]; ok {
-		baseURL := resolveBaseURL(config["oauth"])
-		authFn := authEditorOauth(ifaceCreds)
+// NewConnector constructs a Connector for the given interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	baseURL := resolveBaseURL(config)
 
-		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
-		if httpClient != nil {
-			opts = append(opts, client.WithHTTPClient(httpClient))
-		}
-
-		cl, err := client.NewClientWithResponses(baseURL, opts...)
-		if err != nil {
-			return nil, fmt.Errorf("creating oauth client: %w", err)
-		}
-
-		clients["oauth"] = &InterfaceClient{cl: cl}
+	var authFn func(context.Context, *http.Request) error
+	switch interfaceID {
+	case "oauth":
+		authFn = authEditorOauth(creds)
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	return &Connector{clients: clients}, nil
-}
+	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+	if httpClient != nil {
+		opts = append(opts, client.WithHTTPClient(httpClient))
+	}
 
-// Client returns the interface client for the given interface ID.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
+	cl, err := client.NewClientWithResponses(baseURL, opts...)
+	if err != nil {
+		return nil, fmt.Errorf("creating %s client: %w", interfaceID, err)
+	}
+
+	return &Connector{client: &InterfaceClient{cl: cl}}, nil
 }
 
 func resolveBaseURL(config map[string]string) string {
@@ -248,10 +533,11 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://quickbooks.api.intuit.com"
 }
 
-func authEditorOauth(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorOauth(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["access_token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 
 		return nil
