@@ -65,7 +65,7 @@ const queryGetWidget = `query GetWidget($widgetId: ID!) {
 }
 `
 
-func (ic *InterfaceClient) dispatchCreateADataSourceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateADataSourceJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -96,7 +96,7 @@ func (ic *InterfaceClient) dispatchCreateADataSourceWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchListDataSourceTemplatesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListDataSourceTemplatesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -136,7 +136,7 @@ func (ic *InterfaceClient) dispatchListDataSourceTemplatesWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -183,7 +183,7 @@ func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -230,7 +230,7 @@ func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRetrieveADataSourceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -270,7 +270,7 @@ func (ic *InterfaceClient) dispatchRetrieveADataSourceWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -310,7 +310,7 @@ func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -350,7 +350,7 @@ func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUpdateADataSourceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -397,7 +397,7 @@ func (ic *InterfaceClient) dispatchUpdateADataSourceWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUpdatePageMarkdownWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdatePageMarkdownWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)

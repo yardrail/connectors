@@ -43,7 +43,7 @@ func Resolve(
 	}, nil
 }
 
-func (ic *InterfaceClient) dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeletecrmv3objectscontactsContactIdArchiveWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -76,7 +76,7 @@ func (ic *InterfaceClient) dispatchDeletecrmv3objectscontactsContactIdArchiveWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsContactIdGetByIdWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -116,7 +116,7 @@ func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsContactIdGetByIdWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsGetPageWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsGetPageWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.Getcrmv3objectscontactsGetPageParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -140,7 +140,7 @@ func (ic *InterfaceClient) dispatchGetcrmv3objectscontactsGetPageWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPatchcrmv3objectscontactsContactIdUpdateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -187,7 +187,7 @@ func (ic *InterfaceClient) dispatchPatchcrmv3objectscontactsContactIdUpdateWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsCreateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsCreateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsCreateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -211,7 +211,7 @@ func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsCreateWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatcharchiveArchiveWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatcharchiveArchiveJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -235,7 +235,7 @@ func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatcharchiveArchiveWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchcreateCreateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatchcreateCreateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -259,7 +259,7 @@ func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchcreateCreateWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchreadReadWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchreadReadWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatchreadReadJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -290,7 +290,7 @@ func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchreadReadWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchupdateUpdateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatchupdateUpdateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -314,7 +314,7 @@ func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchupdateUpdateWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchupsertUpsertWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsbatchupsertUpsertJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -338,7 +338,7 @@ func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsbatchupsertUpsertWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsgdprDeletePurgeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsgdprDeletePurgeJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -362,7 +362,7 @@ func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsgdprDeletePurgeWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsmergeMergeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsmergeMergeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactsmergeMergeJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -386,7 +386,7 @@ func (ic *InterfaceClient) dispatchPostcrmv3objectscontactsmergeMergeWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostcrmv3objectscontactssearchDoSearchWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostcrmv3objectscontactssearchDoSearchWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.Postcrmv3objectscontactssearchDoSearchJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)

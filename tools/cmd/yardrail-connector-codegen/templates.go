@@ -273,6 +273,15 @@ var tmplFuncs = template.FuncMap{
 	"configParam": func(configParams map[string]string, jsonName string) string {
 		return configParams[jsonName]
 	},
+	"usesConfig": func(configParams map[string]string, m introspect.MethodInfo) bool {
+		for _, p := range m.Params {
+			if p.Required && !p.IsStruct && configParams[p.JSONName] != "" {
+				return true
+			}
+		}
+
+		return false
+	},
 	"opDescription": func(op *OperationInfo) string {
 		if op == nil {
 			return ""
@@ -489,7 +498,7 @@ const openAPIMethodsTemplate = `{{range .Methods}}{{$m := .}}
   {{- end -}}
 {{- end}}
 
-func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if usesConfig $.ConfigParams .}}config{{else}}_{{end}} map[string]string, inputs json.RawMessage) (any, error) {
 {{- range .Params}}{{if and .Required (not .IsStruct)}}
 {{- $cp := configParam $.ConfigParams .JSONName}}
 {{- if ne $cp ""}}

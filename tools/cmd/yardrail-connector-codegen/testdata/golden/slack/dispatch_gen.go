@@ -43,7 +43,7 @@ func Resolve(
 	}, nil
 }
 
-func (ic *InterfaceClient) dispatchAdminAppsApproveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsApproveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminAppsApproveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -74,7 +74,7 @@ func (ic *InterfaceClient) dispatchAdminAppsApproveWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminAppsApprovedListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsApprovedListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminAppsApprovedListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -98,7 +98,7 @@ func (ic *InterfaceClient) dispatchAdminAppsApprovedListWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminAppsRequestsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsRequestsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminAppsRequestsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -122,7 +122,7 @@ func (ic *InterfaceClient) dispatchAdminAppsRequestsListWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminAppsRestrictWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsRestrictWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminAppsRestrictFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -153,7 +153,7 @@ func (ic *InterfaceClient) dispatchAdminAppsRestrictWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminAppsRestrictedListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsRestrictedListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminAppsRestrictedListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -177,7 +177,7 @@ func (ic *InterfaceClient) dispatchAdminAppsRestrictedListWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsArchiveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsArchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsArchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -208,7 +208,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsArchiveWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsConvertToPrivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -239,7 +239,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsConvertToPrivateWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsCreateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsCreateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsCreateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -270,7 +270,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsCreateWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsDeleteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -301,7 +301,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsDeleteWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsDisconnectSharedFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -332,7 +332,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsDisconnectSharedWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsEkmListOriginalConnectedChannelInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -356,7 +356,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsEkmListOriginalConnectedCha
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsGetConversationPrefsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsGetConversationPrefsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsGetConversationPrefsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -380,7 +380,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsGetConversationPrefsWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsGetTeamsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsGetTeamsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsGetTeamsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -404,7 +404,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsGetTeamsWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsInviteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsInviteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsInviteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -435,7 +435,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsInviteWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsRenameWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsRenameWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsRenameFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -466,7 +466,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsRenameWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsRestrictAccessAddGroupFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -490,7 +490,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessAddGroupWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessListGroupsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessListGroupsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsRestrictAccessListGroupsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -514,7 +514,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessListGroupsWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsRestrictAccessRemoveGroupFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -538,7 +538,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessRemoveGroupWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsSearchWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsSearchWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsSearchParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -562,7 +562,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsSearchWithResponse(ctx cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsSetConversationPrefsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -593,7 +593,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsSetConversationPrefsWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsSetTeamsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -624,7 +624,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsSetTeamsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsUnarchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -655,7 +655,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsUnarchiveWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminEmojiAddAliasFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -679,7 +679,7 @@ func (ic *InterfaceClient) dispatchAdminEmojiAddAliasWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminEmojiAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -703,7 +703,7 @@ func (ic *InterfaceClient) dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminEmojiListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminEmojiListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -727,7 +727,7 @@ func (ic *InterfaceClient) dispatchAdminEmojiListWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminEmojiRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -751,7 +751,7 @@ func (ic *InterfaceClient) dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminEmojiRenameWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiRenameWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminEmojiRenameFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -775,7 +775,7 @@ func (ic *InterfaceClient) dispatchAdminEmojiRenameWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminInviteRequestsApproveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -806,7 +806,7 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsApproveWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminInviteRequestsApprovedListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsApprovedListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminInviteRequestsApprovedListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -830,7 +830,7 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsApprovedListWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminInviteRequestsDeniedListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsDeniedListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminInviteRequestsDeniedListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -854,7 +854,7 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsDeniedListWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminInviteRequestsDenyFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -885,7 +885,7 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsDenyWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminInviteRequestsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminInviteRequestsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -909,7 +909,7 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsListWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsAdminsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsAdminsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminTeamsAdminsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -933,7 +933,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsAdminsListWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsCreateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsCreateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsCreateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -964,7 +964,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsCreateWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminTeamsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -988,7 +988,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsListWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsOwnersListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsOwnersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminTeamsOwnersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1012,7 +1012,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsOwnersListWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsSettingsInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminTeamsSettingsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1036,7 +1036,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsInfoWithResponse(ctx contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetDefaultChannelsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1060,7 +1060,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDefaultChannelsWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetDescriptionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1091,7 +1091,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDescriptionWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetDiscoverabilityFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1122,7 +1122,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDiscoverabilityWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetIconFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1146,7 +1146,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetIconWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetNameFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1177,7 +1177,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetNameWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsergroupsAddChannelsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1208,7 +1208,7 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsAddChannelsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsergroupsAddTeamsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1239,7 +1239,7 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsergroupsListChannelsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsergroupsListChannelsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminUsergroupsListChannelsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1263,7 +1263,7 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsListChannelsWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsergroupsRemoveChannelsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1294,7 +1294,7 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsRemoveChannelsWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersAssignWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersAssignWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersAssignFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1325,7 +1325,7 @@ func (ic *InterfaceClient) dispatchAdminUsersAssignWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersInviteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersInviteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersInviteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1356,7 +1356,7 @@ func (ic *InterfaceClient) dispatchAdminUsersInviteWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminUsersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1380,7 +1380,7 @@ func (ic *InterfaceClient) dispatchAdminUsersListWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersRemoveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1411,7 +1411,7 @@ func (ic *InterfaceClient) dispatchAdminUsersRemoveWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSessionInvalidateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1442,7 +1442,7 @@ func (ic *InterfaceClient) dispatchAdminUsersSessionInvalidateWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersSessionResetWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSessionResetWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSessionResetFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1473,7 +1473,7 @@ func (ic *InterfaceClient) dispatchAdminUsersSessionResetWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersSetAdminWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSetAdminWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSetAdminFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1504,7 +1504,7 @@ func (ic *InterfaceClient) dispatchAdminUsersSetAdminWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersSetExpirationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSetExpirationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSetExpirationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1535,7 +1535,7 @@ func (ic *InterfaceClient) dispatchAdminUsersSetExpirationWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersSetOwnerWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSetOwnerWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSetOwnerFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1566,7 +1566,7 @@ func (ic *InterfaceClient) dispatchAdminUsersSetOwnerWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAdminUsersSetRegularWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSetRegularWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSetRegularFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1597,7 +1597,7 @@ func (ic *InterfaceClient) dispatchAdminUsersSetRegularWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchApiTestWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchApiTestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ApiTestParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1621,7 +1621,7 @@ func (ic *InterfaceClient) dispatchApiTestWithResponse(ctx context.Context, conf
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAppsEventAuthorizationsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsEventAuthorizationsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsEventAuthorizationsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1645,7 +1645,7 @@ func (ic *InterfaceClient) dispatchAppsEventAuthorizationsListWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAppsPermissionsInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1669,7 +1669,7 @@ func (ic *InterfaceClient) dispatchAppsPermissionsInfoWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAppsPermissionsRequestWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsRequestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsRequestParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1693,7 +1693,7 @@ func (ic *InterfaceClient) dispatchAppsPermissionsRequestWithResponse(ctx contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAppsPermissionsResourcesListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsResourcesListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsResourcesListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1717,7 +1717,7 @@ func (ic *InterfaceClient) dispatchAppsPermissionsResourcesListWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAppsPermissionsScopesListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsScopesListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsScopesListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1741,7 +1741,7 @@ func (ic *InterfaceClient) dispatchAppsPermissionsScopesListWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAppsPermissionsUsersListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsUsersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsUsersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1765,7 +1765,7 @@ func (ic *InterfaceClient) dispatchAppsPermissionsUsersListWithResponse(ctx cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAppsPermissionsUsersRequestWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsUsersRequestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsUsersRequestParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1789,7 +1789,7 @@ func (ic *InterfaceClient) dispatchAppsPermissionsUsersRequestWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAppsUninstallWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsUninstallWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsUninstallParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1813,7 +1813,7 @@ func (ic *InterfaceClient) dispatchAppsUninstallWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAuthRevokeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAuthRevokeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AuthRevokeParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1837,7 +1837,7 @@ func (ic *InterfaceClient) dispatchAuthRevokeWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAuthTestWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAuthTestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AuthTestParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1861,7 +1861,7 @@ func (ic *InterfaceClient) dispatchAuthTestWithResponse(ctx context.Context, con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBotsInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBotsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.BotsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1885,7 +1885,7 @@ func (ic *InterfaceClient) dispatchBotsInfoWithResponse(ctx context.Context, con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCallsAddWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1916,7 +1916,7 @@ func (ic *InterfaceClient) dispatchCallsAddWithFormdataBodyWithResponse(ctx cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCallsEndWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsEndWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsEndFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1947,7 +1947,7 @@ func (ic *InterfaceClient) dispatchCallsEndWithFormdataBodyWithResponse(ctx cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCallsInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.CallsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1971,7 +1971,7 @@ func (ic *InterfaceClient) dispatchCallsInfoWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCallsParticipantsAddWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsParticipantsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsParticipantsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2002,7 +2002,7 @@ func (ic *InterfaceClient) dispatchCallsParticipantsAddWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsParticipantsRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2033,7 +2033,7 @@ func (ic *InterfaceClient) dispatchCallsParticipantsRemoveWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCallsUpdateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2064,7 +2064,7 @@ func (ic *InterfaceClient) dispatchCallsUpdateWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatDeleteScheduledMessageFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2095,7 +2095,7 @@ func (ic *InterfaceClient) dispatchChatDeleteScheduledMessageWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatDeleteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2126,7 +2126,7 @@ func (ic *InterfaceClient) dispatchChatDeleteWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatGetPermalinkWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatGetPermalinkWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ChatGetPermalinkParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2150,7 +2150,7 @@ func (ic *InterfaceClient) dispatchChatGetPermalinkWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatMeMessageWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatMeMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatMeMessageFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2181,7 +2181,7 @@ func (ic *InterfaceClient) dispatchChatMeMessageWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatPostEphemeralWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatPostEphemeralWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatPostEphemeralFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2212,7 +2212,7 @@ func (ic *InterfaceClient) dispatchChatPostEphemeralWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatPostMessageWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatPostMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatPostMessageFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2243,7 +2243,7 @@ func (ic *InterfaceClient) dispatchChatPostMessageWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatScheduleMessageWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatScheduleMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatScheduleMessageFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2274,7 +2274,7 @@ func (ic *InterfaceClient) dispatchChatScheduleMessageWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatScheduledMessagesListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatScheduledMessagesListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ChatScheduledMessagesListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2298,7 +2298,7 @@ func (ic *InterfaceClient) dispatchChatScheduledMessagesListWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatUnfurlWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatUnfurlWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatUnfurlFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2329,7 +2329,7 @@ func (ic *InterfaceClient) dispatchChatUnfurlWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChatUpdateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2360,7 +2360,7 @@ func (ic *InterfaceClient) dispatchChatUpdateWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsArchiveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsArchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsArchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2391,7 +2391,7 @@ func (ic *InterfaceClient) dispatchConversationsArchiveWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsCloseWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsCloseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsCloseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2422,7 +2422,7 @@ func (ic *InterfaceClient) dispatchConversationsCloseWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsCreateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsCreateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsCreateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2453,7 +2453,7 @@ func (ic *InterfaceClient) dispatchConversationsCreateWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsHistoryWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsHistoryWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsHistoryParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2477,7 +2477,7 @@ func (ic *InterfaceClient) dispatchConversationsHistoryWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2501,7 +2501,7 @@ func (ic *InterfaceClient) dispatchConversationsInfoWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsInviteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsInviteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsInviteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2532,7 +2532,7 @@ func (ic *InterfaceClient) dispatchConversationsInviteWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsJoinWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsJoinWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsJoinFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2563,7 +2563,7 @@ func (ic *InterfaceClient) dispatchConversationsJoinWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsKickWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsKickWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsKickFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2594,7 +2594,7 @@ func (ic *InterfaceClient) dispatchConversationsKickWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsLeaveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsLeaveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsLeaveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2625,7 +2625,7 @@ func (ic *InterfaceClient) dispatchConversationsLeaveWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2649,7 +2649,7 @@ func (ic *InterfaceClient) dispatchConversationsListWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsMarkWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsMarkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsMarkFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2680,7 +2680,7 @@ func (ic *InterfaceClient) dispatchConversationsMarkWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsMembersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsMembersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsMembersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2704,7 +2704,7 @@ func (ic *InterfaceClient) dispatchConversationsMembersWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsOpenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsOpenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsOpenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2735,7 +2735,7 @@ func (ic *InterfaceClient) dispatchConversationsOpenWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsRenameWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsRenameWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsRenameFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2766,7 +2766,7 @@ func (ic *InterfaceClient) dispatchConversationsRenameWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsRepliesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsRepliesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsRepliesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2790,7 +2790,7 @@ func (ic *InterfaceClient) dispatchConversationsRepliesWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsSetPurposeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsSetPurposeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsSetPurposeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2821,7 +2821,7 @@ func (ic *InterfaceClient) dispatchConversationsSetPurposeWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsSetTopicWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsSetTopicWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsSetTopicFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2852,7 +2852,7 @@ func (ic *InterfaceClient) dispatchConversationsSetTopicWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsUnarchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2883,7 +2883,7 @@ func (ic *InterfaceClient) dispatchConversationsUnarchiveWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDialogOpenWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDialogOpenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DialogOpenParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2907,7 +2907,7 @@ func (ic *InterfaceClient) dispatchDialogOpenWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDndEndDndWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndEndDndWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DndEndDndParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2931,7 +2931,7 @@ func (ic *InterfaceClient) dispatchDndEndDndWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDndEndSnoozeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndEndSnoozeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DndEndSnoozeParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2955,7 +2955,7 @@ func (ic *InterfaceClient) dispatchDndEndSnoozeWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDndInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DndInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2979,7 +2979,7 @@ func (ic *InterfaceClient) dispatchDndInfoWithResponse(ctx context.Context, conf
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.DndSetSnoozeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3003,7 +3003,7 @@ func (ic *InterfaceClient) dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDndTeamInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndTeamInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DndTeamInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3027,7 +3027,7 @@ func (ic *InterfaceClient) dispatchDndTeamInfoWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchEmojiListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchEmojiListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.EmojiListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3051,7 +3051,7 @@ func (ic *InterfaceClient) dispatchEmojiListWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesCommentsDeleteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesCommentsDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesCommentsDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3082,7 +3082,7 @@ func (ic *InterfaceClient) dispatchFilesCommentsDeleteWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesDeleteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3113,7 +3113,7 @@ func (ic *InterfaceClient) dispatchFilesDeleteWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3137,7 +3137,7 @@ func (ic *InterfaceClient) dispatchFilesInfoWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3161,7 +3161,7 @@ func (ic *InterfaceClient) dispatchFilesListWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesRemoteAddWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesRemoteAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3185,7 +3185,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteAddWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesRemoteInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesRemoteInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3209,7 +3209,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteInfoWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesRemoteListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesRemoteListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3233,7 +3233,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteListWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesRemoteRemoveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesRemoteRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3257,7 +3257,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteRemoveWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesRemoteShareWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteShareWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesRemoteShareParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3281,7 +3281,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteShareWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesRemoteUpdateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesRemoteUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3305,7 +3305,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteUpdateWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesRevokePublicURLWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRevokePublicURLWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesRevokePublicURLFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3336,7 +3336,7 @@ func (ic *InterfaceClient) dispatchFilesRevokePublicURLWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesSharedPublicURLWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesSharedPublicURLWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesSharedPublicURLFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3367,7 +3367,7 @@ func (ic *InterfaceClient) dispatchFilesSharedPublicURLWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFilesUploadWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesUploadWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesUploadFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3391,7 +3391,7 @@ func (ic *InterfaceClient) dispatchFilesUploadWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMigrationExchangeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMigrationExchangeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.MigrationExchangeParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3415,7 +3415,7 @@ func (ic *InterfaceClient) dispatchMigrationExchangeWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOauthAccessWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOauthAccessWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.OauthAccessParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3439,7 +3439,7 @@ func (ic *InterfaceClient) dispatchOauthAccessWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOauthTokenWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOauthTokenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.OauthTokenParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3463,7 +3463,7 @@ func (ic *InterfaceClient) dispatchOauthTokenWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOauthV2AccessWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOauthV2AccessWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.OauthV2AccessParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3487,7 +3487,7 @@ func (ic *InterfaceClient) dispatchOauthV2AccessWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPinsAddWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPinsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PinsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3518,7 +3518,7 @@ func (ic *InterfaceClient) dispatchPinsAddWithFormdataBodyWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPinsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPinsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PinsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3542,7 +3542,7 @@ func (ic *InterfaceClient) dispatchPinsListWithResponse(ctx context.Context, con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPinsRemoveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPinsRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PinsRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3573,7 +3573,7 @@ func (ic *InterfaceClient) dispatchPinsRemoveWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchReactionsAddWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReactionsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ReactionsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3604,7 +3604,7 @@ func (ic *InterfaceClient) dispatchReactionsAddWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchReactionsGetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReactionsGetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ReactionsGetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3628,7 +3628,7 @@ func (ic *InterfaceClient) dispatchReactionsGetWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchReactionsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReactionsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ReactionsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3652,7 +3652,7 @@ func (ic *InterfaceClient) dispatchReactionsListWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchReactionsRemoveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReactionsRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ReactionsRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3683,7 +3683,7 @@ func (ic *InterfaceClient) dispatchReactionsRemoveWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRemindersAddWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RemindersAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3714,7 +3714,7 @@ func (ic *InterfaceClient) dispatchRemindersAddWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRemindersCompleteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersCompleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RemindersCompleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3745,7 +3745,7 @@ func (ic *InterfaceClient) dispatchRemindersCompleteWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRemindersDeleteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RemindersDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3776,7 +3776,7 @@ func (ic *InterfaceClient) dispatchRemindersDeleteWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRemindersInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.RemindersInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3800,7 +3800,7 @@ func (ic *InterfaceClient) dispatchRemindersInfoWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRemindersListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.RemindersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3824,7 +3824,7 @@ func (ic *InterfaceClient) dispatchRemindersListWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRtmConnectWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRtmConnectWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.RtmConnectParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3848,7 +3848,7 @@ func (ic *InterfaceClient) dispatchRtmConnectWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchSearchMessagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSearchMessagesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.SearchMessagesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3872,7 +3872,7 @@ func (ic *InterfaceClient) dispatchSearchMessagesWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchStarsAddWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchStarsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.StarsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3903,7 +3903,7 @@ func (ic *InterfaceClient) dispatchStarsAddWithFormdataBodyWithResponse(ctx cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchStarsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchStarsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.StarsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3927,7 +3927,7 @@ func (ic *InterfaceClient) dispatchStarsListWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchStarsRemoveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchStarsRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.StarsRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3958,7 +3958,7 @@ func (ic *InterfaceClient) dispatchStarsRemoveWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTeamAccessLogsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamAccessLogsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamAccessLogsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3982,7 +3982,7 @@ func (ic *InterfaceClient) dispatchTeamAccessLogsWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTeamBillableInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamBillableInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamBillableInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4006,7 +4006,7 @@ func (ic *InterfaceClient) dispatchTeamBillableInfoWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTeamInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4030,7 +4030,7 @@ func (ic *InterfaceClient) dispatchTeamInfoWithResponse(ctx context.Context, con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTeamIntegrationLogsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamIntegrationLogsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamIntegrationLogsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4054,7 +4054,7 @@ func (ic *InterfaceClient) dispatchTeamIntegrationLogsWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTeamProfileGetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamProfileGetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamProfileGetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4078,7 +4078,7 @@ func (ic *InterfaceClient) dispatchTeamProfileGetWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsergroupsCreateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsCreateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsCreateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4109,7 +4109,7 @@ func (ic *InterfaceClient) dispatchUsergroupsCreateWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsergroupsDisableWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsDisableWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsDisableFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4140,7 +4140,7 @@ func (ic *InterfaceClient) dispatchUsergroupsDisableWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsergroupsEnableWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsEnableWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsEnableFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4171,7 +4171,7 @@ func (ic *InterfaceClient) dispatchUsergroupsEnableWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsergroupsListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsergroupsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4195,7 +4195,7 @@ func (ic *InterfaceClient) dispatchUsergroupsListWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsergroupsUpdateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4226,7 +4226,7 @@ func (ic *InterfaceClient) dispatchUsergroupsUpdateWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsergroupsUsersListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsUsersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsergroupsUsersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4250,7 +4250,7 @@ func (ic *InterfaceClient) dispatchUsergroupsUsersListWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsUsersUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4281,7 +4281,7 @@ func (ic *InterfaceClient) dispatchUsergroupsUsersUpdateWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersConversationsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersConversationsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersConversationsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4305,7 +4305,7 @@ func (ic *InterfaceClient) dispatchUsersConversationsWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersDeletePhotoWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersDeletePhotoWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsersDeletePhotoFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4329,7 +4329,7 @@ func (ic *InterfaceClient) dispatchUsersDeletePhotoWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersGetPresenceWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersGetPresenceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersGetPresenceParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4353,7 +4353,7 @@ func (ic *InterfaceClient) dispatchUsersGetPresenceWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersIdentityWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersIdentityWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersIdentityParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4377,7 +4377,7 @@ func (ic *InterfaceClient) dispatchUsersIdentityWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4401,7 +4401,7 @@ func (ic *InterfaceClient) dispatchUsersInfoWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersListWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4425,7 +4425,7 @@ func (ic *InterfaceClient) dispatchUsersListWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersLookupByEmailWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersLookupByEmailWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersLookupByEmailParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4449,7 +4449,7 @@ func (ic *InterfaceClient) dispatchUsersLookupByEmailWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersProfileGetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersProfileGetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersProfileGetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4473,7 +4473,7 @@ func (ic *InterfaceClient) dispatchUsersProfileGetWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersProfileSetWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersProfileSetWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsersProfileSetFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4504,7 +4504,7 @@ func (ic *InterfaceClient) dispatchUsersProfileSetWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersSetActiveWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersSetActiveWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersSetActiveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4528,7 +4528,7 @@ func (ic *InterfaceClient) dispatchUsersSetActiveWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsersSetPhotoFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4552,7 +4552,7 @@ func (ic *InterfaceClient) dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersSetPresenceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersSetPresenceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsersSetPresenceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4583,7 +4583,7 @@ func (ic *InterfaceClient) dispatchUsersSetPresenceWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchViewsOpenWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchViewsOpenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ViewsOpenParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4607,7 +4607,7 @@ func (ic *InterfaceClient) dispatchViewsOpenWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchViewsPublishWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchViewsPublishWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ViewsPublishParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4631,7 +4631,7 @@ func (ic *InterfaceClient) dispatchViewsPublishWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchViewsPushWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchViewsPushWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ViewsPushParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4655,7 +4655,7 @@ func (ic *InterfaceClient) dispatchViewsPushWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchViewsUpdateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchViewsUpdateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ViewsUpdateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4679,7 +4679,7 @@ func (ic *InterfaceClient) dispatchViewsUpdateWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchWorkflowsStepCompletedWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWorkflowsStepCompletedWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.WorkflowsStepCompletedParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4703,7 +4703,7 @@ func (ic *InterfaceClient) dispatchWorkflowsStepCompletedWithResponse(ctx contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchWorkflowsStepFailedWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWorkflowsStepFailedWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.WorkflowsStepFailedParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4727,7 +4727,7 @@ func (ic *InterfaceClient) dispatchWorkflowsStepFailedWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchWorkflowsUpdateStepWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWorkflowsUpdateStepWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.WorkflowsUpdateStepParams
 
 	paramsErr := json.Unmarshal(inputs, &params)

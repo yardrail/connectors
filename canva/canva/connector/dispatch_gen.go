@@ -43,7 +43,7 @@ func Resolve(
 	}, nil
 }
 
-func (ic *InterfaceClient) dispatchCreateCommentWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateCommentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateCommentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -67,7 +67,7 @@ func (ic *InterfaceClient) dispatchCreateCommentWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateDesignWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -91,7 +91,7 @@ func (ic *InterfaceClient) dispatchCreateDesignWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateDesignAutofillJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignAutofillJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignAutofillJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -115,7 +115,7 @@ func (ic *InterfaceClient) dispatchCreateDesignAutofillJobWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateDesignExportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignExportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignExportJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -139,7 +139,7 @@ func (ic *InterfaceClient) dispatchCreateDesignExportJobWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateDesignMergeJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignMergeJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignMergeJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -163,7 +163,7 @@ func (ic *InterfaceClient) dispatchCreateDesignMergeJobWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateDesignResizeJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateDesignResizeJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateDesignResizeJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -187,7 +187,7 @@ func (ic *InterfaceClient) dispatchCreateDesignResizeJobWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateFolderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateFolderWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateFolderJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -211,7 +211,7 @@ func (ic *InterfaceClient) dispatchCreateFolderWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateImageToDesignImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateImageToDesignImportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateImageToDesignImportJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -235,7 +235,7 @@ func (ic *InterfaceClient) dispatchCreateImageToDesignImportJobWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateImageTransformationJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateImageTransformationJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateImageTransformationJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -259,7 +259,7 @@ func (ic *InterfaceClient) dispatchCreateImageTransformationJobWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreatePrintPartnerDesignJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -283,7 +283,7 @@ func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignWithResponse(ctx cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignExportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignExportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreatePrintPartnerDesignExportJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -307,7 +307,7 @@ func (ic *InterfaceClient) dispatchCreatePrintPartnerDesignExportJobWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateReplyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateReplyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -356,7 +356,7 @@ func (ic *InterfaceClient) dispatchCreateReplyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateThreadWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateThreadWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -396,7 +396,7 @@ func (ic *InterfaceClient) dispatchCreateThreadWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateUrlAssetUploadJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateUrlAssetUploadJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateUrlAssetUploadJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -420,7 +420,7 @@ func (ic *InterfaceClient) dispatchCreateUrlAssetUploadJobWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreateUrlImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateUrlImportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateUrlImportJobJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -444,7 +444,7 @@ func (ic *InterfaceClient) dispatchCreateUrlImportJobWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteAssetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAssetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -477,7 +477,7 @@ func (ic *InterfaceClient) dispatchDeleteAssetWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteFolderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteFolderWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -510,7 +510,7 @@ func (ic *InterfaceClient) dispatchDeleteFolderWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ExchangeAccessTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -534,7 +534,7 @@ func (ic *InterfaceClient) dispatchExchangeAccessTokenWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAppJwksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAppJwksWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -567,7 +567,7 @@ func (ic *InterfaceClient) dispatchGetAppJwksWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAssetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAssetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -600,7 +600,7 @@ func (ic *InterfaceClient) dispatchGetAssetWithResponse(ctx context.Context, con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAssetUploadJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAssetUploadJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -633,7 +633,7 @@ func (ic *InterfaceClient) dispatchGetAssetUploadJobWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBrandTemplateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBrandTemplateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -666,7 +666,7 @@ func (ic *InterfaceClient) dispatchGetBrandTemplateWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBrandTemplateDatasetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBrandTemplateDatasetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -699,7 +699,7 @@ func (ic *InterfaceClient) dispatchGetBrandTemplateDatasetWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -732,7 +732,7 @@ func (ic *InterfaceClient) dispatchGetDesignWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignAnalyticsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -765,7 +765,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignAnalyticsLinksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsLinksWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -805,7 +805,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsLinksWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignAnalyticsPageViewsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsPageViewsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -845,7 +845,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsPageViewsWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewersWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -885,7 +885,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewersWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewsOverTimeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -925,7 +925,7 @@ func (ic *InterfaceClient) dispatchGetDesignAnalyticsViewsOverTimeWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignAutofillJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignAutofillJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -958,7 +958,7 @@ func (ic *InterfaceClient) dispatchGetDesignAutofillJobWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignDatasetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignDatasetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -991,7 +991,7 @@ func (ic *InterfaceClient) dispatchGetDesignDatasetWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignExportFormatsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignExportFormatsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1024,7 +1024,7 @@ func (ic *InterfaceClient) dispatchGetDesignExportFormatsWithResponse(ctx contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignExportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignExportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1057,7 +1057,7 @@ func (ic *InterfaceClient) dispatchGetDesignExportJobWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignImportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1090,7 +1090,7 @@ func (ic *InterfaceClient) dispatchGetDesignImportJobWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignMergeJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignMergeJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1123,7 +1123,7 @@ func (ic *InterfaceClient) dispatchGetDesignMergeJobWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignPagesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignPagesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1163,7 +1163,7 @@ func (ic *InterfaceClient) dispatchGetDesignPagesWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDesignResizeJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDesignResizeJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1196,7 +1196,7 @@ func (ic *InterfaceClient) dispatchGetDesignResizeJobWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFolderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFolderWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1229,7 +1229,7 @@ func (ic *InterfaceClient) dispatchGetFolderWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetImageToDesignImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetImageToDesignImportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1262,7 +1262,7 @@ func (ic *InterfaceClient) dispatchGetImageToDesignImportJobWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetImageTransformationJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetImageTransformationJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1295,7 +1295,7 @@ func (ic *InterfaceClient) dispatchGetImageTransformationJobWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetOidcJwksWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetOidcJwksWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	resp, callErr := ic.cl.GetOidcJwksWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
@@ -1312,7 +1312,7 @@ func (ic *InterfaceClient) dispatchGetOidcJwksWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPrintPartnerDesignWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPrintPartnerDesignWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1352,7 +1352,7 @@ func (ic *InterfaceClient) dispatchGetPrintPartnerDesignWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetReplyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReplyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1403,7 +1403,7 @@ func (ic *InterfaceClient) dispatchGetReplyWithResponse(ctx context.Context, con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSigningPublicKeysWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSigningPublicKeysWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	resp, callErr := ic.cl.GetSigningPublicKeysWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
@@ -1420,7 +1420,7 @@ func (ic *InterfaceClient) dispatchGetSigningPublicKeysWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetThreadWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetThreadWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1462,7 +1462,7 @@ func (ic *InterfaceClient) dispatchGetThreadWithResponse(ctx context.Context, co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetUrlAssetUploadJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUrlAssetUploadJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1495,7 +1495,7 @@ func (ic *InterfaceClient) dispatchGetUrlAssetUploadJobWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetUrlImportJobWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUrlImportJobWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1528,7 +1528,7 @@ func (ic *InterfaceClient) dispatchGetUrlImportJobWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetUserCapabilitiesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUserCapabilitiesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	resp, callErr := ic.cl.GetUserCapabilitiesWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
@@ -1545,7 +1545,7 @@ func (ic *InterfaceClient) dispatchGetUserCapabilitiesWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetUserProfileWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetUserProfileWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	resp, callErr := ic.cl.GetUserProfileWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
@@ -1562,7 +1562,7 @@ func (ic *InterfaceClient) dispatchGetUserProfileWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.IntrospectTokenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1586,7 +1586,7 @@ func (ic *InterfaceClient) dispatchIntrospectTokenWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchListBrandTemplatesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListBrandTemplatesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListBrandTemplatesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1610,7 +1610,7 @@ func (ic *InterfaceClient) dispatchListBrandTemplatesWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchListDesignsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListDesignsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ListDesignsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1634,7 +1634,7 @@ func (ic *InterfaceClient) dispatchListDesignsWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchListFolderItemsWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListFolderItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1674,7 +1674,7 @@ func (ic *InterfaceClient) dispatchListFolderItemsWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchListRepliesWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchListRepliesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1723,7 +1723,7 @@ func (ic *InterfaceClient) dispatchListRepliesWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMoveFolderItemWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMoveFolderItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.MoveFolderItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1747,7 +1747,7 @@ func (ic *InterfaceClient) dispatchMoveFolderItemWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPublishBrandTemplateWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPublishBrandTemplateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PublishBrandTemplateJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1771,7 +1771,7 @@ func (ic *InterfaceClient) dispatchPublishBrandTemplateWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRevokeTokensWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRevokeTokensWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RevokeTokensFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1795,7 +1795,7 @@ func (ic *InterfaceClient) dispatchRevokeTokensWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUpdateAssetWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateAssetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1835,7 +1835,7 @@ func (ic *InterfaceClient) dispatchUpdateAssetWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUpdateFolderWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUpdateFolderWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1875,7 +1875,7 @@ func (ic *InterfaceClient) dispatchUpdateFolderWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUserInfoWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUserInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	resp, callErr := ic.cl.UserInfoWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
@@ -1892,7 +1892,7 @@ func (ic *InterfaceClient) dispatchUserInfoWithResponse(ctx context.Context, con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchUsersMeWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersMeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	resp, callErr := ic.cl.UsersMeWithResponse(ctx)
 	if callErr != nil {
 		return nil, callErr
