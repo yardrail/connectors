@@ -11,6 +11,7 @@ import (
 // inputs and returns the result.
 type Resolver func(
 	interfaceID, function string,
-	creds, config map[string]string,
+	creds Credentials,
+	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error)

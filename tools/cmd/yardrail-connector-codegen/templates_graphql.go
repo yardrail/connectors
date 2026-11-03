@@ -24,20 +24,6 @@ type endpoint struct {
 	httpClient *http.Client
 }
 
-func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
-	endpoints := make(map[string]*endpoint, {{len .GraphQLIfaces}})
-{{range .GraphQLIfaces}}
-	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
-		endpoints["{{.ID}}"] = &endpoint{
-			url:        resolveEndpoint(config["{{.ID}}"], "{{.Source.Endpoint}}"),
-			auth:       authEditor{{goIdent .ID}}(ifaceCreds),
-			httpClient: httpClient,
-		}
-	}
-{{end}}
-	return endpoints
-}
-
 // resolveEndpoint returns config["base_url"] when set, otherwise the
 // interface's endpoint from the manifest.
 func resolveEndpoint(config map[string]string, defaultURL string) string {
@@ -59,6 +45,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 )
 
 // InterfaceClient wraps an authenticated GraphQL endpoint for one interface.
@@ -66,40 +54,49 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
-` + graphqlDispatchSwitchTemplate + `
+` + functionEnumTemplate + graphqlDispatchSwitchTemplate + `
 
-// Connector holds the GraphQL endpoint for each configured interface.
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	endpoints := newEndpoints(creds, config, httpClient)
-	clients := make(map[string]*InterfaceClient, len(endpoints))
-	for id, ep := range endpoints {
-		clients[id] = &InterfaceClient{ep: ep}
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
+
+// NewConnector constructs a Connector for the given GraphQL interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	var defaultURL string
+	var authFn func(context.Context, *http.Request) error
+
+	switch interfaceID {
+{{range .GraphQLIfaces}}	case "{{.ID}}":
+		defaultURL = "{{.Source.Endpoint}}"
+		authFn = authEditor{{goIdent .ID}}(creds)
+{{end}}	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	return &Connector{clients: clients}, nil
-}
+	ep := &endpoint{
+		url:        resolveEndpoint(config, defaultURL),
+		auth:       authFn,
+		httpClient: httpClient,
+	}
 
-// Client returns the interface client for the given interface ID.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
+	return &Connector{client: &InterfaceClient{ep: ep}}, nil
 }
 
 ` + graphqlEndpointsTemplate + authEditorsTemplate
 
 const graphqlDispatchSwitchTemplate = `// Dispatch calls the named GraphQL operation.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-{{range .Functions}}	case "{{.Name}}":
-		return ic.ep.call(ctx, function, query{{.ClassName}}, inputs)
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+{{range .Functions}}	case Fn{{goIdent .Name}}:
+		return ic.ep.call(ctx, string(fn), query{{.ClassName}}, inputs)
 {{end}}	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 `
@@ -206,6 +203,8 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/yardrail/connectors/connector"
 )
 
 var (
@@ -226,6 +225,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"{{.ClientPkgPath}}"
 )
 
@@ -235,18 +236,21 @@ type InterfaceClient struct {
 	ep *endpoint
 }
 
-` + mixedDispatchSwitchTemplate + `
-// Connector holds an authenticated client for each configured interface.
+` + functionEnumTemplate + mixedDispatchSwitchTemplate + `
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients map[string]*InterfaceClient
+	client *InterfaceClient
 }
 
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*InterfaceClient, {{len .RESTIfaces}} + {{len .GraphQLIfaces}})
-{{range .RESTIfaces}}
-	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
-		baseURL := resolveBaseURL(config["{{.ID}}"])
-		authFn := authEditor{{goIdent .ID}}(ifaceCreds)
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
+
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	switch interfaceID {
+{{range .RESTIfaces}}	case "{{.ID}}":
+		baseURL := resolveBaseURL(config)
+		authFn := authEditor{{goIdent .ID}}(creds)
 
 		opts := []{{clientPkgName $.ClientPkgPath}}.ClientOption{ {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn)}
 		if httpClient != nil {
@@ -258,38 +262,37 @@ func NewConnector(creds, config map[string]map[string]string, httpClient *http.C
 			return nil, fmt.Errorf("creating {{.ID}} client: %w", err)
 		}
 
-		clients["{{.ID}}"] = &InterfaceClient{cl: cl}
-	}
-{{end}}
-	endpoints := newEndpoints(creds, config, httpClient)
-	for id, ep := range endpoints {
-		clients[id] = &InterfaceClient{ep: ep}
-	}
+		return &Connector{client: &InterfaceClient{cl: cl}}, nil
+{{end}}{{range .GraphQLIfaces}}	case "{{.ID}}":
+		ep := &endpoint{
+			url:        resolveEndpoint(config, "{{.Source.Endpoint}}"),
+			auth:       authEditor{{goIdent .ID}}(creds),
+			httpClient: httpClient,
+		}
 
-	return &Connector{clients: clients}, nil
-}
-
-func (c *Connector) Client(interfaceID string) *InterfaceClient {
-	return c.clients[interfaceID]
+		return &Connector{client: &InterfaceClient{ep: ep}}, nil
+{{end}}	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
 }
 
 ` + openAPIAccessorsBaseURLTemplate + graphqlEndpointsTemplate + authEditorsTemplate
 
 const mixedDispatchSwitchTemplate = `// Dispatch calls the named function using the appropriate protocol.
-func (ic *InterfaceClient) Dispatch(ctx context.Context, function string, config map[string]string, inputs json.RawMessage) (any, error) {
-	switch function {
-{{range .Functions}}{{if .MethodName}}	case "{{.Name}}":
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+{{range .Functions}}{{if .MethodName}}	case Fn{{goIdent .Name}}:
 		if ic.cl == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
 		return ic.dispatch{{.MethodName}}(ctx, config, inputs)
-{{else}}	case "{{.Name}}":
+{{else}}	case Fn{{goIdent .Name}}:
 		if ic.ep == nil {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 		}
-		return ic.ep.call(ctx, function, query{{.ClassName}}, inputs)
+		return ic.ep.call(ctx, string(fn), query{{.ClassName}}, inputs)
 {{end}}{{end}}	default:
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
 }
 `
@@ -312,6 +315,8 @@ import (
 
 	"github.com/google/uuid"
 {{- end}}
+
+	"github.com/yardrail/connectors/connector"
 
 	"{{.ClientPkgPath}}"
 )

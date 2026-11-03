@@ -10,6 +10,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/stripe/stripe/client"
 )
 
@@ -21,29 +23,26 @@ var (
 // Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
-	creds, config map[string]string,
+	creds connector.Credentials,
+	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	c, err := NewConnector(
-		map[string]map[string]string{interfaceID: creds},
-		map[string]map[string]string{interfaceID: config},
-		httpClient,
-	)
+	fn, err := ParseFunction(function)
 	if err != nil {
 		return nil, err
 	}
 
-	cl := c.Client(interfaceID)
-	if cl == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	c, err := NewConnector(interfaceID, creds, config, httpClient)
+	if err != nil {
+		return nil, err
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return cl.Dispatch(ctx, function, config, inputs)
+		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -92,7 +91,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountBankAccountsIdWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -141,7 +140,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountExternalAccountsIdWithFo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -190,7 +189,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountPeoplePersonWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -239,7 +238,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountPersonsPersonWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -279,7 +278,7 @@ func (ic *InterfaceClient) dispatchDeleteAccountsAccountWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteApplePayDomainsDomainWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteApplePayDomainsDomainWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -319,7 +318,7 @@ func (ic *InterfaceClient) dispatchDeleteApplePayDomainsDomainWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -359,7 +358,7 @@ func (ic *InterfaceClient) dispatchDeleteCouponsCouponWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -408,7 +407,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerBankAccountsIdWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -457,7 +456,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerCardsIdWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -497,7 +496,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerDiscountWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -546,7 +545,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSourcesIdWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -595,7 +594,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscript
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -644,7 +643,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerSubscriptionsSubscript
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -693,7 +692,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerTaxIdsIdWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -733,7 +732,7 @@ func (ic *InterfaceClient) dispatchDeleteCustomersCustomerWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteEphemeralKeysKeyWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteEphemeralKeysKeyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -773,7 +772,7 @@ func (ic *InterfaceClient) dispatchDeleteEphemeralKeysKeyWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -813,7 +812,7 @@ func (ic *InterfaceClient) dispatchDeleteInvoiceitemsInvoiceitemWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -853,7 +852,7 @@ func (ic *InterfaceClient) dispatchDeleteInvoicesInvoiceWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeletePlansPlanWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeletePlansPlanWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -893,7 +892,7 @@ func (ic *InterfaceClient) dispatchDeletePlansPlanWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteProductsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteProductsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -933,7 +932,7 @@ func (ic *InterfaceClient) dispatchDeleteProductsIdWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -982,7 +981,7 @@ func (ic *InterfaceClient) dispatchDeleteProductsProductFeaturesIdWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteRadarValueListItemsItemWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteRadarValueListItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1022,7 +1021,7 @@ func (ic *InterfaceClient) dispatchDeleteRadarValueListItemsItemWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1062,7 +1061,7 @@ func (ic *InterfaceClient) dispatchDeleteRadarValueListsValueListWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1102,7 +1101,7 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionItemsItemWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1142,7 +1141,7 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdDisco
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1182,7 +1181,7 @@ func (ic *InterfaceClient) dispatchDeleteSubscriptionsSubscriptionExposedIdWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1222,7 +1221,7 @@ func (ic *InterfaceClient) dispatchDeleteTaxIdsIdWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1262,7 +1261,7 @@ func (ic *InterfaceClient) dispatchDeleteTerminalConfigurationsConfigurationWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1302,7 +1301,7 @@ func (ic *InterfaceClient) dispatchDeleteTerminalLocationsLocationWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1342,7 +1341,7 @@ func (ic *InterfaceClient) dispatchDeleteTerminalReadersReaderWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1382,7 +1381,7 @@ func (ic *InterfaceClient) dispatchDeleteTestHelpersTestClocksTestClockWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchDeleteWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDeleteWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1422,7 +1421,7 @@ func (ic *InterfaceClient) dispatchDeleteWebhookEndpointsWebhookEndpointWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetAccountFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1453,7 +1452,7 @@ func (ic *InterfaceClient) dispatchGetAccountWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1509,7 +1508,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountBankAccountsIdWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1565,7 +1564,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesCapabilityWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1612,7 +1611,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountCapabilitiesWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1668,7 +1667,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsIdWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1715,7 +1714,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountExternalAccountsWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1771,7 +1770,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPeoplePersonWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountPeopleWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountPeopleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1818,7 +1817,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPeopleWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1874,7 +1873,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsPersonWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1921,7 +1920,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountPersonsWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -1968,7 +1967,7 @@ func (ic *InterfaceClient) dispatchGetAccountsAccountWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1999,7 +1998,7 @@ func (ic *InterfaceClient) dispatchGetAccountsWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetApplePayDomainsDomainWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetApplePayDomainsDomainWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2046,7 +2045,7 @@ func (ic *InterfaceClient) dispatchGetApplePayDomainsDomainWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetApplePayDomainsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetApplePayDomainsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetApplePayDomainsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2077,7 +2076,7 @@ func (ic *InterfaceClient) dispatchGetApplePayDomainsWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2133,7 +2132,7 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesFeeRefundsIdWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2180,7 +2179,7 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesIdRefundsWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetApplicationFeesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetApplicationFeesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2227,7 +2226,7 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesIdWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetApplicationFeesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetApplicationFeesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetApplicationFeesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2258,7 +2257,7 @@ func (ic *InterfaceClient) dispatchGetApplicationFeesWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAppsInstallsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAppsInstallsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2305,7 +2304,7 @@ func (ic *InterfaceClient) dispatchGetAppsInstallsIdWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAppsInstallsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAppsInstallsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetAppsInstallsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2336,7 +2335,7 @@ func (ic *InterfaceClient) dispatchGetAppsInstallsWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAppsSecretsFindWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAppsSecretsFindWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetAppsSecretsFindFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2367,7 +2366,7 @@ func (ic *InterfaceClient) dispatchGetAppsSecretsFindWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetAppsSecretsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetAppsSecretsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetAppsSecretsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2398,7 +2397,7 @@ func (ic *InterfaceClient) dispatchGetAppsSecretsWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBalanceHistoryIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBalanceHistoryIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2445,7 +2444,7 @@ func (ic *InterfaceClient) dispatchGetBalanceHistoryIdWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBalanceHistoryWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBalanceHistoryWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBalanceHistoryFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2476,7 +2475,7 @@ func (ic *InterfaceClient) dispatchGetBalanceHistoryWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBalanceSettingsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBalanceSettingsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBalanceSettingsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2507,7 +2506,7 @@ func (ic *InterfaceClient) dispatchGetBalanceSettingsWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBalanceTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBalanceTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2554,7 +2553,7 @@ func (ic *InterfaceClient) dispatchGetBalanceTransactionsIdWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBalanceTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2585,7 +2584,7 @@ func (ic *InterfaceClient) dispatchGetBalanceTransactionsWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBalanceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBalanceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2616,7 +2615,7 @@ func (ic *InterfaceClient) dispatchGetBalanceWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingAlertsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingAlertsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2663,7 +2662,7 @@ func (ic *InterfaceClient) dispatchGetBillingAlertsIdWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingAlertsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingAlertsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBillingAlertsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2694,7 +2693,7 @@ func (ic *InterfaceClient) dispatchGetBillingAlertsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingCreditBalanceSummaryWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingCreditBalanceSummaryWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBillingCreditBalanceSummaryFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2725,7 +2724,7 @@ func (ic *InterfaceClient) dispatchGetBillingCreditBalanceSummaryWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2772,7 +2771,7 @@ func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsIdWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBillingCreditBalanceTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2803,7 +2802,7 @@ func (ic *InterfaceClient) dispatchGetBillingCreditBalanceTransactionsWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2850,7 +2849,7 @@ func (ic *InterfaceClient) dispatchGetBillingCreditGrantsIdWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingCreditGrantsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingCreditGrantsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBillingCreditGrantsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2881,7 +2880,7 @@ func (ic *InterfaceClient) dispatchGetBillingCreditGrantsWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -2928,7 +2927,7 @@ func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsIdWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBillingFeedbackOptionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2959,7 +2958,7 @@ func (ic *InterfaceClient) dispatchGetBillingFeedbackOptionsWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingMetersIdEventSummariesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingMetersIdEventSummariesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3006,7 +3005,7 @@ func (ic *InterfaceClient) dispatchGetBillingMetersIdEventSummariesWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingMetersIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingMetersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3053,7 +3052,7 @@ func (ic *InterfaceClient) dispatchGetBillingMetersIdWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingMetersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingMetersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBillingMetersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3084,7 +3083,7 @@ func (ic *InterfaceClient) dispatchGetBillingMetersWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3131,7 +3130,7 @@ func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsConfigurationWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetBillingPortalConfigurationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3162,7 +3161,7 @@ func (ic *InterfaceClient) dispatchGetBillingPortalConfigurationsWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetChargesChargeDisputeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetChargesChargeDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3209,7 +3208,7 @@ func (ic *InterfaceClient) dispatchGetChargesChargeDisputeWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3265,7 +3264,7 @@ func (ic *InterfaceClient) dispatchGetChargesChargeRefundsRefundWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetChargesChargeRefundsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetChargesChargeRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3312,7 +3311,7 @@ func (ic *InterfaceClient) dispatchGetChargesChargeRefundsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetChargesChargeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetChargesChargeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3359,7 +3358,7 @@ func (ic *InterfaceClient) dispatchGetChargesChargeWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetChargesSearchWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetChargesSearchWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetChargesSearchFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3390,7 +3389,7 @@ func (ic *InterfaceClient) dispatchGetChargesSearchWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetChargesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetChargesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetChargesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3421,7 +3420,7 @@ func (ic *InterfaceClient) dispatchGetChargesWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionLineItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3468,7 +3467,7 @@ func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionLineItemsWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3515,7 +3514,7 @@ func (ic *InterfaceClient) dispatchGetCheckoutSessionsSessionWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCheckoutSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCheckoutSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetCheckoutSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3546,7 +3545,7 @@ func (ic *InterfaceClient) dispatchGetCheckoutSessionsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetClimateOrdersOrderWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetClimateOrdersOrderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3593,7 +3592,7 @@ func (ic *InterfaceClient) dispatchGetClimateOrdersOrderWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetClimateOrdersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetClimateOrdersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetClimateOrdersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3624,7 +3623,7 @@ func (ic *InterfaceClient) dispatchGetClimateOrdersWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetClimateProductsProductWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetClimateProductsProductWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3671,7 +3670,7 @@ func (ic *InterfaceClient) dispatchGetClimateProductsProductWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetClimateProductsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetClimateProductsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetClimateProductsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3702,7 +3701,7 @@ func (ic *InterfaceClient) dispatchGetClimateProductsWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetClimateSuppliersSupplierWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetClimateSuppliersSupplierWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3749,7 +3748,7 @@ func (ic *InterfaceClient) dispatchGetClimateSuppliersSupplierWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetClimateSuppliersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetClimateSuppliersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetClimateSuppliersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3780,7 +3779,7 @@ func (ic *InterfaceClient) dispatchGetClimateSuppliersWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetConfirmationTokensConfirmationTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetConfirmationTokensConfirmationTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3827,7 +3826,7 @@ func (ic *InterfaceClient) dispatchGetConfirmationTokensConfirmationTokenWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCountrySpecsCountryWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCountrySpecsCountryWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3874,7 +3873,7 @@ func (ic *InterfaceClient) dispatchGetCountrySpecsCountryWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCountrySpecsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCountrySpecsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetCountrySpecsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3905,7 +3904,7 @@ func (ic *InterfaceClient) dispatchGetCountrySpecsWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -3952,7 +3951,7 @@ func (ic *InterfaceClient) dispatchGetCouponsCouponWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCouponsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCouponsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetCouponsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3983,7 +3982,7 @@ func (ic *InterfaceClient) dispatchGetCouponsWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCreditNotesCreditNoteLinesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCreditNotesCreditNoteLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4030,7 +4029,7 @@ func (ic *InterfaceClient) dispatchGetCreditNotesCreditNoteLinesWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCreditNotesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCreditNotesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4077,7 +4076,7 @@ func (ic *InterfaceClient) dispatchGetCreditNotesIdWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCreditNotesPreviewLinesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCreditNotesPreviewLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetCreditNotesPreviewLinesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4108,7 +4107,7 @@ func (ic *InterfaceClient) dispatchGetCreditNotesPreviewLinesWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCreditNotesPreviewWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCreditNotesPreviewWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetCreditNotesPreviewFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4139,7 +4138,7 @@ func (ic *InterfaceClient) dispatchGetCreditNotesPreviewWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCreditNotesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCreditNotesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetCreditNotesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4170,7 +4169,7 @@ func (ic *InterfaceClient) dispatchGetCreditNotesWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4226,7 +4225,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsTransa
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4273,7 +4272,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBalanceTransactionsWithFo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4329,7 +4328,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsIdWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4376,7 +4375,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerBankAccountsWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4432,7 +4431,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsIdWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4479,7 +4478,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCardsWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4535,7 +4534,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsTr
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4582,7 +4581,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceTransactionsWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4629,7 +4628,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerCashBalanceWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4676,7 +4675,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerDiscountWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4732,7 +4731,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsPaymentMeth
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4779,7 +4778,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerPaymentMethodsWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4835,7 +4834,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesIdWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4882,7 +4881,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSourcesWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4938,7 +4937,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscription
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -4994,7 +4993,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsSubscription
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5041,7 +5040,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerSubscriptionsWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5097,7 +5096,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsIdWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5144,7 +5143,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerTaxIdsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5191,7 +5190,7 @@ func (ic *InterfaceClient) dispatchGetCustomersCustomerWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersSearchWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersSearchWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetCustomersSearchFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5222,7 +5221,7 @@ func (ic *InterfaceClient) dispatchGetCustomersSearchWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetCustomersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetCustomersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetCustomersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5253,7 +5252,7 @@ func (ic *InterfaceClient) dispatchGetCustomersWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5300,7 +5299,7 @@ func (ic *InterfaceClient) dispatchGetDisputesDisputeWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetDisputesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetDisputesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetDisputesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5331,7 +5330,7 @@ func (ic *InterfaceClient) dispatchGetDisputesWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5378,7 +5377,7 @@ func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsIdWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetEntitlementsActiveEntitlementsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5409,7 +5408,7 @@ func (ic *InterfaceClient) dispatchGetEntitlementsActiveEntitlementsWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5456,7 +5455,7 @@ func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesIdWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetEntitlementsFeaturesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5487,7 +5486,7 @@ func (ic *InterfaceClient) dispatchGetEntitlementsFeaturesWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetEventsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEventsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5534,7 +5533,7 @@ func (ic *InterfaceClient) dispatchGetEventsIdWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetEventsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetEventsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetEventsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5565,7 +5564,7 @@ func (ic *InterfaceClient) dispatchGetEventsWithFormdataBodyWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetExchangeRatesRateIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetExchangeRatesRateIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5612,7 +5611,7 @@ func (ic *InterfaceClient) dispatchGetExchangeRatesRateIdWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetExchangeRatesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetExchangeRatesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetExchangeRatesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5643,7 +5642,7 @@ func (ic *InterfaceClient) dispatchGetExchangeRatesWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFileLinksLinkWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFileLinksLinkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5690,7 +5689,7 @@ func (ic *InterfaceClient) dispatchGetFileLinksLinkWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFileLinksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFileLinksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetFileLinksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5721,7 +5720,7 @@ func (ic *InterfaceClient) dispatchGetFileLinksWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFilesFileWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFilesFileWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5768,7 +5767,7 @@ func (ic *InterfaceClient) dispatchGetFilesFileWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFilesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFilesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetFilesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5799,7 +5798,7 @@ func (ic *InterfaceClient) dispatchGetFilesWithFormdataBodyWithResponse(ctx cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountOwnersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountOwnersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5846,7 +5845,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountOwnersW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5893,7 +5892,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsAccountWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetFinancialConnectionsAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -5924,7 +5923,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsAccountsWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFinancialConnectionsSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFinancialConnectionsSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -5971,7 +5970,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsSessionsSessionWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6018,7 +6017,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsTransactio
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetFinancialConnectionsTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6049,7 +6048,7 @@ func (ic *InterfaceClient) dispatchGetFinancialConnectionsTransactionsWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetForwardingRequestsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetForwardingRequestsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6096,7 +6095,7 @@ func (ic *InterfaceClient) dispatchGetForwardingRequestsIdWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetForwardingRequestsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetForwardingRequestsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetForwardingRequestsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6127,7 +6126,7 @@ func (ic *InterfaceClient) dispatchGetForwardingRequestsWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsReportWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsReportWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6174,7 +6173,7 @@ func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsReportWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIdentityVerificationReportsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6205,7 +6204,7 @@ func (ic *InterfaceClient) dispatchGetIdentityVerificationReportsWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6252,7 +6251,7 @@ func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsSessionWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIdentityVerificationSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6283,7 +6282,7 @@ func (ic *InterfaceClient) dispatchGetIdentityVerificationSessionsWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoicePaymentsInvoicePaymentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoicePaymentsInvoicePaymentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6330,7 +6329,7 @@ func (ic *InterfaceClient) dispatchGetInvoicePaymentsInvoicePaymentWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoicePaymentsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoicePaymentsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetInvoicePaymentsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6361,7 +6360,7 @@ func (ic *InterfaceClient) dispatchGetInvoicePaymentsWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesTemplateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesTemplateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6408,7 +6407,7 @@ func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesTemplateWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetInvoiceRenderingTemplatesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6439,7 +6438,7 @@ func (ic *InterfaceClient) dispatchGetInvoiceRenderingTemplatesWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6486,7 +6485,7 @@ func (ic *InterfaceClient) dispatchGetInvoiceitemsInvoiceitemWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoiceitemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoiceitemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetInvoiceitemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6517,7 +6516,7 @@ func (ic *InterfaceClient) dispatchGetInvoiceitemsWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoicesInvoiceLinesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoicesInvoiceLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6564,7 +6563,7 @@ func (ic *InterfaceClient) dispatchGetInvoicesInvoiceLinesWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6611,7 +6610,7 @@ func (ic *InterfaceClient) dispatchGetInvoicesInvoiceWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoicesSearchWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoicesSearchWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetInvoicesSearchFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6642,7 +6641,7 @@ func (ic *InterfaceClient) dispatchGetInvoicesSearchWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetInvoicesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetInvoicesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetInvoicesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6673,7 +6672,7 @@ func (ic *InterfaceClient) dispatchGetInvoicesWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6720,7 +6719,7 @@ func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsAuthorizationWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIssuingAuthorizationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6751,7 +6750,7 @@ func (ic *InterfaceClient) dispatchGetIssuingAuthorizationsWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6798,7 +6797,7 @@ func (ic *InterfaceClient) dispatchGetIssuingCardholdersCardholderWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingCardholdersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingCardholdersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIssuingCardholdersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6829,7 +6828,7 @@ func (ic *InterfaceClient) dispatchGetIssuingCardholdersWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingCardsCardWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingCardsCardWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6876,7 +6875,7 @@ func (ic *InterfaceClient) dispatchGetIssuingCardsCardWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingCardsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingCardsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIssuingCardsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6907,7 +6906,7 @@ func (ic *InterfaceClient) dispatchGetIssuingCardsWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -6954,7 +6953,7 @@ func (ic *InterfaceClient) dispatchGetIssuingDisputesDisputeWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingDisputesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingDisputesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIssuingDisputesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -6985,7 +6984,7 @@ func (ic *InterfaceClient) dispatchGetIssuingDisputesWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7032,7 +7031,7 @@ func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsPersonalizati
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIssuingPersonalizationDesignsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7063,7 +7062,7 @@ func (ic *InterfaceClient) dispatchGetIssuingPersonalizationDesignsWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7110,7 +7109,7 @@ func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesPhysicalBundleWithFo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIssuingPhysicalBundlesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7141,7 +7140,7 @@ func (ic *InterfaceClient) dispatchGetIssuingPhysicalBundlesWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7188,7 +7187,7 @@ func (ic *InterfaceClient) dispatchGetIssuingSettlementsSettlementWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingTokensTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingTokensTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7235,7 +7234,7 @@ func (ic *InterfaceClient) dispatchGetIssuingTokensTokenWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingTokensWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingTokensWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIssuingTokensFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7266,7 +7265,7 @@ func (ic *InterfaceClient) dispatchGetIssuingTokensWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7313,7 +7312,7 @@ func (ic *InterfaceClient) dispatchGetIssuingTransactionsTransactionWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetIssuingTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetIssuingTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetIssuingTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7344,7 +7343,7 @@ func (ic *InterfaceClient) dispatchGetIssuingTransactionsWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetLinkAccountSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetLinkAccountSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7391,7 +7390,7 @@ func (ic *InterfaceClient) dispatchGetLinkAccountSessionsSessionWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountOwnersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountOwnersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7438,7 +7437,7 @@ func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountOwnersWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7485,7 +7484,7 @@ func (ic *InterfaceClient) dispatchGetLinkedAccountsAccountWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetLinkedAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetLinkedAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetLinkedAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7516,7 +7515,7 @@ func (ic *InterfaceClient) dispatchGetLinkedAccountsWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetMandatesMandateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetMandatesMandateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7563,7 +7562,7 @@ func (ic *InterfaceClient) dispatchGetMandatesMandateWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7610,7 +7609,7 @@ func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsIdWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPaymentAttemptRecordsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7641,7 +7640,7 @@ func (ic *InterfaceClient) dispatchGetPaymentAttemptRecordsWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7688,7 +7687,7 @@ func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentAmountDetailsLineItems
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7735,7 +7734,7 @@ func (ic *InterfaceClient) dispatchGetPaymentIntentsIntentWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentIntentsSearchWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentIntentsSearchWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPaymentIntentsSearchFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7766,7 +7765,7 @@ func (ic *InterfaceClient) dispatchGetPaymentIntentsSearchWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentIntentsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentIntentsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPaymentIntentsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7797,7 +7796,7 @@ func (ic *InterfaceClient) dispatchGetPaymentIntentsWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkLineItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7844,7 +7843,7 @@ func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkLineItemsWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7891,7 +7890,7 @@ func (ic *InterfaceClient) dispatchGetPaymentLinksPaymentLinkWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentLinksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentLinksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPaymentLinksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -7922,7 +7921,7 @@ func (ic *InterfaceClient) dispatchGetPaymentLinksWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -7969,7 +7968,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsConfigurationWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPaymentMethodConfigurationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8000,7 +7999,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodConfigurationsWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8047,7 +8046,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsPaymentMethodDomainWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPaymentMethodDomainsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8078,7 +8077,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodDomainsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8125,7 +8124,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodsPaymentMethodWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentMethodsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentMethodsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPaymentMethodsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8156,7 +8155,7 @@ func (ic *InterfaceClient) dispatchGetPaymentMethodsWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentRecordsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentRecordsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8203,7 +8202,7 @@ func (ic *InterfaceClient) dispatchGetPaymentRecordsIdWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPaymentRecordsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPaymentRecordsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPaymentRecordsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8234,7 +8233,7 @@ func (ic *InterfaceClient) dispatchGetPaymentRecordsWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPayoutsPayoutWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPayoutsPayoutWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8281,7 +8280,7 @@ func (ic *InterfaceClient) dispatchGetPayoutsPayoutWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPayoutsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPayoutsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPayoutsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8312,7 +8311,7 @@ func (ic *InterfaceClient) dispatchGetPayoutsWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPlansPlanWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPlansPlanWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8359,7 +8358,7 @@ func (ic *InterfaceClient) dispatchGetPlansPlanWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPlansWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPlansWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPlansFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8390,7 +8389,7 @@ func (ic *InterfaceClient) dispatchGetPlansWithFormdataBodyWithResponse(ctx cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPricesPriceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPricesPriceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8437,7 +8436,7 @@ func (ic *InterfaceClient) dispatchGetPricesPriceWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPricesSearchWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPricesSearchWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPricesSearchFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8468,7 +8467,7 @@ func (ic *InterfaceClient) dispatchGetPricesSearchWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPricesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPricesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPricesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8499,7 +8498,7 @@ func (ic *InterfaceClient) dispatchGetPricesWithFormdataBodyWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8546,7 +8545,7 @@ func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersIdWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetProductCatalogTrialOffersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8577,7 +8576,7 @@ func (ic *InterfaceClient) dispatchGetProductCatalogTrialOffersWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetProductsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetProductsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8624,7 +8623,7 @@ func (ic *InterfaceClient) dispatchGetProductsIdWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8680,7 +8679,7 @@ func (ic *InterfaceClient) dispatchGetProductsProductFeaturesIdWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetProductsProductFeaturesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetProductsProductFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8727,7 +8726,7 @@ func (ic *InterfaceClient) dispatchGetProductsProductFeaturesWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetProductsSearchWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetProductsSearchWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetProductsSearchFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8758,7 +8757,7 @@ func (ic *InterfaceClient) dispatchGetProductsSearchWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetProductsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetProductsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetProductsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8789,7 +8788,7 @@ func (ic *InterfaceClient) dispatchGetProductsWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8836,7 +8835,7 @@ func (ic *InterfaceClient) dispatchGetPromotionCodesPromotionCodeWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetPromotionCodesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetPromotionCodesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetPromotionCodesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -8867,7 +8866,7 @@ func (ic *InterfaceClient) dispatchGetPromotionCodesWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8914,7 +8913,7 @@ func (ic *InterfaceClient) dispatchGetQuotesQuoteComputedUpfrontLineItemsWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetQuotesQuoteLineItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetQuotesQuoteLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -8961,7 +8960,7 @@ func (ic *InterfaceClient) dispatchGetQuotesQuoteLineItemsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9008,7 +9007,7 @@ func (ic *InterfaceClient) dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetQuotesQuoteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetQuotesQuoteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9055,7 +9054,7 @@ func (ic *InterfaceClient) dispatchGetQuotesQuoteWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetQuotesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetQuotesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetQuotesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9086,7 +9085,7 @@ func (ic *InterfaceClient) dispatchGetQuotesWithFormdataBodyWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9133,7 +9132,7 @@ func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsEarlyFraudWarningWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetRadarEarlyFraudWarningsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9164,7 +9163,7 @@ func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetRadarValueListItemsItemWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRadarValueListItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9211,7 +9210,7 @@ func (ic *InterfaceClient) dispatchGetRadarValueListItemsItemWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetRadarValueListItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRadarValueListItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetRadarValueListItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9242,7 +9241,7 @@ func (ic *InterfaceClient) dispatchGetRadarValueListItemsWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9289,7 +9288,7 @@ func (ic *InterfaceClient) dispatchGetRadarValueListsValueListWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetRadarValueListsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRadarValueListsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetRadarValueListsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9320,7 +9319,7 @@ func (ic *InterfaceClient) dispatchGetRadarValueListsWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9367,7 +9366,7 @@ func (ic *InterfaceClient) dispatchGetRefundsRefundWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetRefundsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetRefundsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9398,7 +9397,7 @@ func (ic *InterfaceClient) dispatchGetRefundsWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetReportingReportRunsReportRunWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingReportRunsReportRunWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9445,7 +9444,7 @@ func (ic *InterfaceClient) dispatchGetReportingReportRunsReportRunWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetReportingReportRunsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingReportRunsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetReportingReportRunsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9476,7 +9475,7 @@ func (ic *InterfaceClient) dispatchGetReportingReportRunsWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetReportingReportTypesReportTypeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingReportTypesReportTypeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9523,7 +9522,7 @@ func (ic *InterfaceClient) dispatchGetReportingReportTypesReportTypeWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetReportingReportTypesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReportingReportTypesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetReportingReportTypesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9554,7 +9553,7 @@ func (ic *InterfaceClient) dispatchGetReportingReportTypesWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetReviewsReviewWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReviewsReviewWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9601,7 +9600,7 @@ func (ic *InterfaceClient) dispatchGetReviewsReviewWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetReviewsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetReviewsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetReviewsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9632,7 +9631,7 @@ func (ic *InterfaceClient) dispatchGetReviewsWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSetupAttemptsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSetupAttemptsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetSetupAttemptsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9663,7 +9662,7 @@ func (ic *InterfaceClient) dispatchGetSetupAttemptsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSetupIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSetupIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9710,7 +9709,7 @@ func (ic *InterfaceClient) dispatchGetSetupIntentsIntentWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSetupIntentsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSetupIntentsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetSetupIntentsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9741,7 +9740,7 @@ func (ic *InterfaceClient) dispatchGetSetupIntentsWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9788,7 +9787,7 @@ func (ic *InterfaceClient) dispatchGetShippingRatesShippingRateTokenWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetShippingRatesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetShippingRatesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetShippingRatesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9819,7 +9818,7 @@ func (ic *InterfaceClient) dispatchGetShippingRatesWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9866,7 +9865,7 @@ func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsScheduledQueryRunWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetSigmaScheduledQueryRunsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -9897,7 +9896,7 @@ func (ic *InterfaceClient) dispatchGetSigmaScheduledQueryRunsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -9953,7 +9952,7 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceMandateNotificationsMandateNo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10009,7 +10008,7 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsSourceTrans
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10056,7 +10055,7 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceSourceTransactionsWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSourcesSourceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSourcesSourceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10103,7 +10102,7 @@ func (ic *InterfaceClient) dispatchGetSourcesSourceWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10150,7 +10149,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionItemsItemWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSubscriptionItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSubscriptionItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetSubscriptionItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10181,7 +10180,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionItemsWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10228,7 +10227,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionSchedulesScheduleWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSubscriptionSchedulesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSubscriptionSchedulesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetSubscriptionSchedulesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10259,7 +10258,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionSchedulesWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSubscriptionsSearchWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSubscriptionsSearchWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetSubscriptionsSearchFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10290,7 +10289,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionsSearchWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10337,7 +10336,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionsSubscriptionExposedIdWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetSubscriptionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10368,7 +10367,7 @@ func (ic *InterfaceClient) dispatchGetSubscriptionsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxAssociationsFindWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxAssociationsFindWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTaxAssociationsFindFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10399,7 +10398,7 @@ func (ic *InterfaceClient) dispatchGetTaxAssociationsFindWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationLineItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10446,7 +10445,7 @@ func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationLineItemsWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10493,7 +10492,7 @@ func (ic *InterfaceClient) dispatchGetTaxCalculationsCalculationWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxCodesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxCodesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10540,7 +10539,7 @@ func (ic *InterfaceClient) dispatchGetTaxCodesIdWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxCodesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxCodesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTaxCodesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10571,7 +10570,7 @@ func (ic *InterfaceClient) dispatchGetTaxCodesWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxIdsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10618,7 +10617,7 @@ func (ic *InterfaceClient) dispatchGetTaxIdsIdWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxIdsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxIdsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTaxIdsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10649,7 +10648,7 @@ func (ic *InterfaceClient) dispatchGetTaxIdsWithFormdataBodyWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10696,7 +10695,7 @@ func (ic *InterfaceClient) dispatchGetTaxLocationsLocationWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxLocationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxLocationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTaxLocationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10727,7 +10726,7 @@ func (ic *InterfaceClient) dispatchGetTaxLocationsWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxRatesTaxRateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxRatesTaxRateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10774,7 +10773,7 @@ func (ic *InterfaceClient) dispatchGetTaxRatesTaxRateWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxRatesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxRatesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTaxRatesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10805,7 +10804,7 @@ func (ic *InterfaceClient) dispatchGetTaxRatesWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxRegistrationsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxRegistrationsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10852,7 +10851,7 @@ func (ic *InterfaceClient) dispatchGetTaxRegistrationsIdWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxRegistrationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxRegistrationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTaxRegistrationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10883,7 +10882,7 @@ func (ic *InterfaceClient) dispatchGetTaxRegistrationsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxSettingsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxSettingsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTaxSettingsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -10914,7 +10913,7 @@ func (ic *InterfaceClient) dispatchGetTaxSettingsWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionLineItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionLineItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -10961,7 +10960,7 @@ func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionLineItemsWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11008,7 +11007,7 @@ func (ic *InterfaceClient) dispatchGetTaxTransactionsTransactionWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11055,7 +11054,7 @@ func (ic *InterfaceClient) dispatchGetTerminalConfigurationsConfigurationWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTerminalConfigurationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTerminalConfigurationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTerminalConfigurationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11086,7 +11085,7 @@ func (ic *InterfaceClient) dispatchGetTerminalConfigurationsWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11133,7 +11132,7 @@ func (ic *InterfaceClient) dispatchGetTerminalLocationsLocationWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTerminalLocationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTerminalLocationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTerminalLocationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11164,7 +11163,7 @@ func (ic *InterfaceClient) dispatchGetTerminalLocationsWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11211,7 +11210,7 @@ func (ic *InterfaceClient) dispatchGetTerminalReadersReaderWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTerminalReadersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTerminalReadersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTerminalReadersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11242,7 +11241,7 @@ func (ic *InterfaceClient) dispatchGetTerminalReadersWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11289,7 +11288,7 @@ func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksTestClockWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTestHelpersTestClocksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11320,7 +11319,7 @@ func (ic *InterfaceClient) dispatchGetTestHelpersTestClocksWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsAuthenticationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsAuthenticationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11367,7 +11366,7 @@ func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsAuthenticationW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetThreeDSecureAuthenticationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11398,7 +11397,7 @@ func (ic *InterfaceClient) dispatchGetThreeDSecureAuthenticationsWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTokensTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTokensTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11445,7 +11444,7 @@ func (ic *InterfaceClient) dispatchGetTokensTokenWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTopupsTopupWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTopupsTopupWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11492,7 +11491,7 @@ func (ic *InterfaceClient) dispatchGetTopupsTopupWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTopupsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTopupsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTopupsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11523,7 +11522,7 @@ func (ic *InterfaceClient) dispatchGetTopupsWithFormdataBodyWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTransfersIdReversalsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTransfersIdReversalsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11570,7 +11569,7 @@ func (ic *InterfaceClient) dispatchGetTransfersIdReversalsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11626,7 +11625,7 @@ func (ic *InterfaceClient) dispatchGetTransfersTransferReversalsIdWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTransfersTransferWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTransfersTransferWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11673,7 +11672,7 @@ func (ic *InterfaceClient) dispatchGetTransfersTransferWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTransfersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTransfersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTransfersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11704,7 +11703,7 @@ func (ic *InterfaceClient) dispatchGetTransfersWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsCreditReversalWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsCreditReversalWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11751,7 +11750,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsCreditReversalWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryCreditReversalsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11782,7 +11781,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryCreditReversalsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsDebitReversalWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsDebitReversalWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11829,7 +11828,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsDebitReversalWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryDebitReversalsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11860,7 +11859,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryDebitReversalsWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11907,7 +11906,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -11954,7 +11953,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsFinancialAccountW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryFinancialAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -11985,7 +11984,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryFinancialAccountsWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12032,7 +12031,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersIdWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryInboundTransfersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12063,7 +12062,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryInboundTransfersWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12110,7 +12109,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsIdWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryOutboundPaymentsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12141,7 +12140,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryOutboundPaymentsWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12188,7 +12187,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersOutboundTransferW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryOutboundTransfersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12219,7 +12218,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryOutboundTransfersWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12266,7 +12265,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsIdWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryReceivedCreditsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12297,7 +12296,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryReceivedCreditsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12344,7 +12343,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsIdWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryReceivedDebitsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12375,7 +12374,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryReceivedDebitsWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12422,7 +12421,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesIdWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryTransactionEntriesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12453,7 +12452,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryTransactionEntriesWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryTransactionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12500,7 +12499,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryTransactionsIdWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetTreasuryTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetTreasuryTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetTreasuryTransactionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12531,7 +12530,7 @@ func (ic *InterfaceClient) dispatchGetTreasuryTransactionsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12578,7 +12577,7 @@ func (ic *InterfaceClient) dispatchGetWebhookEndpointsWebhookEndpointWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchGetWebhookEndpointsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchGetWebhookEndpointsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.GetWebhookEndpointsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12609,7 +12608,7 @@ func (ic *InterfaceClient) dispatchGetWebhookEndpointsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountLinksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountLinksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAccountLinksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12633,7 +12632,7 @@ func (ic *InterfaceClient) dispatchPostAccountLinksWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAccountSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -12657,7 +12656,7 @@ func (ic *InterfaceClient) dispatchPostAccountSessionsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12706,7 +12705,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsIdWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12746,7 +12745,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountBankAccountsWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12795,7 +12794,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountCapabilitiesCapabilityWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12844,7 +12843,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsIdWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12884,7 +12883,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountExternalAccountsWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountLoginLinksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountLoginLinksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12924,7 +12923,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountLoginLinksWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -12973,7 +12972,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPeoplePersonWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountPeopleWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountPeopleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13013,7 +13012,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPeopleWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13062,7 +13061,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsPersonWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13102,7 +13101,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountPersonsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountRejectWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountRejectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13142,7 +13141,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountRejectWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountUnrejectWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountUnrejectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13182,7 +13181,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountUnrejectWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13222,7 +13221,7 @@ func (ic *InterfaceClient) dispatchPostAccountsAccountWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13246,7 +13245,7 @@ func (ic *InterfaceClient) dispatchPostAccountsWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostApplePayDomainsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostApplePayDomainsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostApplePayDomainsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13270,7 +13269,7 @@ func (ic *InterfaceClient) dispatchPostApplePayDomainsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13319,7 +13318,7 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesFeeRefundsIdWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13359,7 +13358,7 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13399,7 +13398,7 @@ func (ic *InterfaceClient) dispatchPostApplicationFeesIdRefundsWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAppsInstallsIdUninstallWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAppsInstallsIdUninstallWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13439,7 +13438,7 @@ func (ic *InterfaceClient) dispatchPostAppsInstallsIdUninstallWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAppsInstallsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAppsInstallsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13479,7 +13478,7 @@ func (ic *InterfaceClient) dispatchPostAppsInstallsIdWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAppsInstallsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAppsInstallsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAppsInstallsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13503,7 +13502,7 @@ func (ic *InterfaceClient) dispatchPostAppsInstallsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAppsSecretsDeleteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAppsSecretsDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAppsSecretsDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13527,7 +13526,7 @@ func (ic *InterfaceClient) dispatchPostAppsSecretsDeleteWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostAppsSecretsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostAppsSecretsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostAppsSecretsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13551,7 +13550,7 @@ func (ic *InterfaceClient) dispatchPostAppsSecretsWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBalanceSettingsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBalanceSettingsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBalanceSettingsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13575,7 +13574,7 @@ func (ic *InterfaceClient) dispatchPostBalanceSettingsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingAlertsIdActivateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingAlertsIdActivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13615,7 +13614,7 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsIdActivateWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingAlertsIdArchiveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingAlertsIdArchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13655,7 +13654,7 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsIdArchiveWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingAlertsIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingAlertsIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13695,7 +13694,7 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsIdDeactivateWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingAlertsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingAlertsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBillingAlertsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13719,7 +13718,7 @@ func (ic *InterfaceClient) dispatchPostBillingAlertsWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdExpireWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdExpireWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13759,7 +13758,7 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdExpireWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdVoidWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdVoidWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13799,7 +13798,7 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdVoidWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13839,7 +13838,7 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsIdWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingCreditGrantsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingCreditGrantsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBillingCreditGrantsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13863,7 +13862,7 @@ func (ic *InterfaceClient) dispatchPostBillingCreditGrantsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13903,7 +13902,7 @@ func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdDeactivateWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -13943,7 +13942,7 @@ func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsIdWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBillingFeedbackOptionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13967,7 +13966,7 @@ func (ic *InterfaceClient) dispatchPostBillingFeedbackOptionsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingMeterEventAdjustmentsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingMeterEventAdjustmentsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBillingMeterEventAdjustmentsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -13991,7 +13990,7 @@ func (ic *InterfaceClient) dispatchPostBillingMeterEventAdjustmentsWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingMeterEventsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingMeterEventsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBillingMeterEventsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14015,7 +14014,7 @@ func (ic *InterfaceClient) dispatchPostBillingMeterEventsWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingMetersIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingMetersIdDeactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14055,7 +14054,7 @@ func (ic *InterfaceClient) dispatchPostBillingMetersIdDeactivateWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingMetersIdReactivateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingMetersIdReactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14095,7 +14094,7 @@ func (ic *InterfaceClient) dispatchPostBillingMetersIdReactivateWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingMetersIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingMetersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14135,7 +14134,7 @@ func (ic *InterfaceClient) dispatchPostBillingMetersIdWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingMetersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingMetersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBillingMetersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14159,7 +14158,7 @@ func (ic *InterfaceClient) dispatchPostBillingMetersWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14199,7 +14198,7 @@ func (ic *InterfaceClient) dispatchPostBillingPortalConfigurationsConfigurationW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingPortalConfigurationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingPortalConfigurationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBillingPortalConfigurationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14223,7 +14222,7 @@ func (ic *InterfaceClient) dispatchPostBillingPortalConfigurationsWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostBillingPortalSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostBillingPortalSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostBillingPortalSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14247,7 +14246,7 @@ func (ic *InterfaceClient) dispatchPostBillingPortalSessionsWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostChargesChargeCaptureWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostChargesChargeCaptureWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14287,7 +14286,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeCaptureWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostChargesChargeDisputeCloseWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostChargesChargeDisputeCloseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14327,7 +14326,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeDisputeCloseWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostChargesChargeDisputeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostChargesChargeDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14367,7 +14366,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeDisputeWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostChargesChargeRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostChargesChargeRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14407,7 +14406,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14456,7 +14455,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundsRefundWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostChargesChargeRefundsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostChargesChargeRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14496,7 +14495,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeRefundsWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostChargesChargeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostChargesChargeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14536,7 +14535,7 @@ func (ic *InterfaceClient) dispatchPostChargesChargeWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostChargesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostChargesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostChargesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14560,7 +14559,7 @@ func (ic *InterfaceClient) dispatchPostChargesWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionExpireWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionExpireWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14600,7 +14599,7 @@ func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionExpireWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14640,7 +14639,7 @@ func (ic *InterfaceClient) dispatchPostCheckoutSessionsSessionWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCheckoutSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCheckoutSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostCheckoutSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14664,7 +14663,7 @@ func (ic *InterfaceClient) dispatchPostCheckoutSessionsWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostClimateOrdersOrderCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostClimateOrdersOrderCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14704,7 +14703,7 @@ func (ic *InterfaceClient) dispatchPostClimateOrdersOrderCancelWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostClimateOrdersOrderWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostClimateOrdersOrderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14744,7 +14743,7 @@ func (ic *InterfaceClient) dispatchPostClimateOrdersOrderWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostClimateOrdersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostClimateOrdersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostClimateOrdersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14768,7 +14767,7 @@ func (ic *InterfaceClient) dispatchPostClimateOrdersWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCouponsCouponWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14808,7 +14807,7 @@ func (ic *InterfaceClient) dispatchPostCouponsCouponWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCouponsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCouponsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostCouponsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14832,7 +14831,7 @@ func (ic *InterfaceClient) dispatchPostCouponsWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCreditNotesIdVoidWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCreditNotesIdVoidWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14872,7 +14871,7 @@ func (ic *InterfaceClient) dispatchPostCreditNotesIdVoidWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCreditNotesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCreditNotesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -14912,7 +14911,7 @@ func (ic *InterfaceClient) dispatchPostCreditNotesIdWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCreditNotesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCreditNotesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostCreditNotesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14936,7 +14935,7 @@ func (ic *InterfaceClient) dispatchPostCreditNotesWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomerSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomerSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostCustomerSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -14960,7 +14959,7 @@ func (ic *InterfaceClient) dispatchPostCustomerSessionsWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15009,7 +15008,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsTrans
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15049,7 +15048,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBalanceTransactionsWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdVerifyWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdVerifyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15098,7 +15097,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdVerifyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15147,7 +15146,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsIdWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15187,7 +15186,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerBankAccountsWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15236,7 +15235,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsIdWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15276,7 +15275,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCardsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15316,7 +15315,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerCashBalanceWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerFundingInstructionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerFundingInstructionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15356,7 +15355,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerFundingInstructionsWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdVerifyWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdVerifyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15405,7 +15404,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdVerifyWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15454,7 +15453,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesIdWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15494,7 +15493,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSourcesWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15543,7 +15542,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsSubscriptio
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15583,7 +15582,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerSubscriptionsWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15623,7 +15622,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerTaxIdsWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersCustomerWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15663,7 +15662,7 @@ func (ic *InterfaceClient) dispatchPostCustomersCustomerWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostCustomersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostCustomersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostCustomersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15687,7 +15686,7 @@ func (ic *InterfaceClient) dispatchPostCustomersWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostDisputesDisputeCloseWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostDisputesDisputeCloseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15727,7 +15726,7 @@ func (ic *InterfaceClient) dispatchPostDisputesDisputeCloseWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15767,7 +15766,7 @@ func (ic *InterfaceClient) dispatchPostDisputesDisputeWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15807,7 +15806,7 @@ func (ic *InterfaceClient) dispatchPostEntitlementsFeaturesIdWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostEntitlementsFeaturesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEntitlementsFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostEntitlementsFeaturesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15831,7 +15830,7 @@ func (ic *InterfaceClient) dispatchPostEntitlementsFeaturesWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostEphemeralKeysWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostEphemeralKeysWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostEphemeralKeysFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15855,7 +15854,7 @@ func (ic *InterfaceClient) dispatchPostEphemeralKeysWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostExternalAccountsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15895,7 +15894,7 @@ func (ic *InterfaceClient) dispatchPostExternalAccountsIdWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostFileLinksLinkWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFileLinksLinkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15935,7 +15934,7 @@ func (ic *InterfaceClient) dispatchPostFileLinksLinkWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostFileLinksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFileLinksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostFileLinksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -15959,7 +15958,7 @@ func (ic *InterfaceClient) dispatchPostFileLinksWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -15999,7 +15998,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountDiscon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountRefreshWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountRefreshWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16039,7 +16038,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountRefres
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountSubscribeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountSubscribeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16079,7 +16078,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountSubscr
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16119,7 +16118,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsAccountsAccountUnsubs
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostFinancialConnectionsSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostFinancialConnectionsSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostFinancialConnectionsSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16143,7 +16142,7 @@ func (ic *InterfaceClient) dispatchPostFinancialConnectionsSessionsWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostForwardingRequestsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostForwardingRequestsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostForwardingRequestsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16167,7 +16166,7 @@ func (ic *InterfaceClient) dispatchPostForwardingRequestsWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16207,7 +16206,7 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionCancel
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionRedactWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionRedactWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16247,7 +16246,7 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionRedact
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16287,7 +16286,7 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsSessionWithFo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostIdentityVerificationSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16311,7 +16310,7 @@ func (ic *InterfaceClient) dispatchPostIdentityVerificationSessionsWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16351,7 +16350,7 @@ func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateArchiveW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16391,7 +16390,7 @@ func (ic *InterfaceClient) dispatchPostInvoiceRenderingTemplatesTemplateUnarchiv
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16431,7 +16430,7 @@ func (ic *InterfaceClient) dispatchPostInvoiceitemsInvoiceitemWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoiceitemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoiceitemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostInvoiceitemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16455,7 +16454,7 @@ func (ic *InterfaceClient) dispatchPostInvoiceitemsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesCreatePreviewWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesCreatePreviewWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostInvoicesCreatePreviewFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16479,7 +16478,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesCreatePreviewWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAddLinesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAddLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16519,7 +16518,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAddLinesWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAttachPaymentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAttachPaymentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16559,7 +16558,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceAttachPaymentWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceFinalizeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceFinalizeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16599,7 +16598,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceFinalizeWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceLinesLineItemIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceLinesLineItemIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16648,7 +16647,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceLinesLineItemIdWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceMarkUncollectibleWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceMarkUncollectibleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16688,7 +16687,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceMarkUncollectibleWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoicePayWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoicePayWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16728,7 +16727,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoicePayWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceRemoveLinesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceRemoveLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16768,7 +16767,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceRemoveLinesWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceSendWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceSendWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16808,7 +16807,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceSendWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceUpdateLinesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceUpdateLinesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16848,7 +16847,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceUpdateLinesWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceVoidWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceVoidWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16888,7 +16887,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceVoidWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesInvoiceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16928,7 +16927,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesInvoiceWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostInvoicesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostInvoicesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostInvoicesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -16952,7 +16951,7 @@ func (ic *InterfaceClient) dispatchPostInvoicesWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationApproveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationApproveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -16992,7 +16991,7 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationApprove
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17032,7 +17031,7 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationDecline
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17072,7 +17071,7 @@ func (ic *InterfaceClient) dispatchPostIssuingAuthorizationsAuthorizationWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17112,7 +17111,7 @@ func (ic *InterfaceClient) dispatchPostIssuingCardholdersCardholderWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingCardholdersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingCardholdersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostIssuingCardholdersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17136,7 +17135,7 @@ func (ic *InterfaceClient) dispatchPostIssuingCardholdersWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingCardsCardWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingCardsCardWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17176,7 +17175,7 @@ func (ic *InterfaceClient) dispatchPostIssuingCardsCardWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingCardsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingCardsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostIssuingCardsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17200,7 +17199,7 @@ func (ic *InterfaceClient) dispatchPostIssuingCardsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeSubmitWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeSubmitWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17240,7 +17239,7 @@ func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeSubmitWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17280,7 +17279,7 @@ func (ic *InterfaceClient) dispatchPostIssuingDisputesDisputeWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingDisputesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingDisputesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostIssuingDisputesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17304,7 +17303,7 @@ func (ic *InterfaceClient) dispatchPostIssuingDisputesWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17344,7 +17343,7 @@ func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsPersonalizat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostIssuingPersonalizationDesignsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17368,7 +17367,7 @@ func (ic *InterfaceClient) dispatchPostIssuingPersonalizationDesignsWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17408,7 +17407,7 @@ func (ic *InterfaceClient) dispatchPostIssuingSettlementsSettlementWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingTokensTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingTokensTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17448,7 +17447,7 @@ func (ic *InterfaceClient) dispatchPostIssuingTokensTokenWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17488,7 +17487,7 @@ func (ic *InterfaceClient) dispatchPostIssuingTransactionsTransactionWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostLinkAccountSessionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostLinkAccountSessionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostLinkAccountSessionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17512,7 +17511,7 @@ func (ic *InterfaceClient) dispatchPostLinkAccountSessionsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17552,7 +17551,7 @@ func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountDisconnectWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountRefreshWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountRefreshWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17592,7 +17591,7 @@ func (ic *InterfaceClient) dispatchPostLinkedAccountsAccountRefreshWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17632,7 +17631,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentApplyCustomerBalanceW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17672,7 +17671,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCancelWithFormdataBod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCaptureWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCaptureWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17712,7 +17711,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentCaptureWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentConfirmWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentConfirmWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17752,7 +17751,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentConfirmWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17792,7 +17791,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentIncrementAuthorizatio
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17832,7 +17831,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentVerifyMicrodepositsWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17872,7 +17871,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsIntentWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentIntentsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentIntentsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPaymentIntentsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17896,7 +17895,7 @@ func (ic *InterfaceClient) dispatchPostPaymentIntentsWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -17936,7 +17935,7 @@ func (ic *InterfaceClient) dispatchPostPaymentLinksPaymentLinkWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentLinksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentLinksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPaymentLinksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -17960,7 +17959,7 @@ func (ic *InterfaceClient) dispatchPostPaymentLinksWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18000,7 +17999,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsConfigurationW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPaymentMethodConfigurationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18024,7 +18023,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodConfigurationsWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18064,7 +18063,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainVa
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18104,7 +18103,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsPaymentMethodDomainWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPaymentMethodDomainsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18128,7 +18127,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodDomainsWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodAttachWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodAttachWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18168,7 +18167,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodAttachWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodDetachWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodDetachWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18208,7 +18207,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodDetachWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18248,7 +18247,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsPaymentMethodWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentMethodsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentMethodsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPaymentMethodsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18272,7 +18271,7 @@ func (ic *InterfaceClient) dispatchPostPaymentMethodsWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18312,7 +18311,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptCance
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18352,7 +18351,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptFaile
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18392,7 +18391,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptGuara
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18432,7 +18431,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptInfor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18472,7 +18471,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportPaymentAttemptWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18512,7 +18511,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsIdReportRefundWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPaymentRecordsReportPaymentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPaymentRecordsReportPaymentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPaymentRecordsReportPaymentFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18536,7 +18535,7 @@ func (ic *InterfaceClient) dispatchPostPaymentRecordsReportPaymentWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPayoutsPayoutCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPayoutsPayoutCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18576,7 +18575,7 @@ func (ic *InterfaceClient) dispatchPostPayoutsPayoutCancelWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPayoutsPayoutReverseWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPayoutsPayoutReverseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18616,7 +18615,7 @@ func (ic *InterfaceClient) dispatchPostPayoutsPayoutReverseWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPayoutsPayoutWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPayoutsPayoutWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18656,7 +18655,7 @@ func (ic *InterfaceClient) dispatchPostPayoutsPayoutWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPayoutsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPayoutsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPayoutsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18680,7 +18679,7 @@ func (ic *InterfaceClient) dispatchPostPayoutsWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPlansPlanWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPlansPlanWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18720,7 +18719,7 @@ func (ic *InterfaceClient) dispatchPostPlansPlanWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPlansWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPlansWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPlansFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18744,7 +18743,7 @@ func (ic *InterfaceClient) dispatchPostPlansWithFormdataBodyWithResponse(ctx con
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPricesPriceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPricesPriceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18784,7 +18783,7 @@ func (ic *InterfaceClient) dispatchPostPricesPriceWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPricesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPricesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPricesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18808,7 +18807,7 @@ func (ic *InterfaceClient) dispatchPostPricesWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18848,7 +18847,7 @@ func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersIdWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostProductCatalogTrialOffersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18872,7 +18871,7 @@ func (ic *InterfaceClient) dispatchPostProductCatalogTrialOffersWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostProductsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostProductsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18912,7 +18911,7 @@ func (ic *InterfaceClient) dispatchPostProductsIdWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostProductsProductFeaturesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostProductsProductFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -18952,7 +18951,7 @@ func (ic *InterfaceClient) dispatchPostProductsProductFeaturesWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostProductsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostProductsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostProductsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -18976,7 +18975,7 @@ func (ic *InterfaceClient) dispatchPostProductsWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19016,7 +19015,7 @@ func (ic *InterfaceClient) dispatchPostPromotionCodesPromotionCodeWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostPromotionCodesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostPromotionCodesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostPromotionCodesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19040,7 +19039,7 @@ func (ic *InterfaceClient) dispatchPostPromotionCodesWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostQuotesQuoteAcceptWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostQuotesQuoteAcceptWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19080,7 +19079,7 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteAcceptWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostQuotesQuoteCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostQuotesQuoteCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19120,7 +19119,7 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteCancelWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostQuotesQuoteFinalizeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostQuotesQuoteFinalizeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19160,7 +19159,7 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteFinalizeWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostQuotesQuoteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostQuotesQuoteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19200,7 +19199,7 @@ func (ic *InterfaceClient) dispatchPostQuotesQuoteWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostQuotesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostQuotesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostQuotesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19224,7 +19223,7 @@ func (ic *InterfaceClient) dispatchPostQuotesWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostRadarPaymentEvaluationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostRadarPaymentEvaluationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostRadarPaymentEvaluationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19248,7 +19247,7 @@ func (ic *InterfaceClient) dispatchPostRadarPaymentEvaluationsWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostRadarValueListItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostRadarValueListItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostRadarValueListItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19272,7 +19271,7 @@ func (ic *InterfaceClient) dispatchPostRadarValueListItemsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostRadarValueListsValueListWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19312,7 +19311,7 @@ func (ic *InterfaceClient) dispatchPostRadarValueListsValueListWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostRadarValueListsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostRadarValueListsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostRadarValueListsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19336,7 +19335,7 @@ func (ic *InterfaceClient) dispatchPostRadarValueListsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostRefundsRefundCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostRefundsRefundCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19376,7 +19375,7 @@ func (ic *InterfaceClient) dispatchPostRefundsRefundCancelWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostRefundsRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19416,7 +19415,7 @@ func (ic *InterfaceClient) dispatchPostRefundsRefundWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostRefundsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostRefundsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19440,7 +19439,7 @@ func (ic *InterfaceClient) dispatchPostRefundsWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostReportingReportRunsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostReportingReportRunsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostReportingReportRunsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19464,7 +19463,7 @@ func (ic *InterfaceClient) dispatchPostReportingReportRunsWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostReviewsReviewApproveWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostReviewsReviewApproveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19504,7 +19503,7 @@ func (ic *InterfaceClient) dispatchPostReviewsReviewApproveWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSetupIntentsIntentCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSetupIntentsIntentCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19544,7 +19543,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentCancelWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSetupIntentsIntentConfirmWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSetupIntentsIntentConfirmWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19584,7 +19583,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentConfirmWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19624,7 +19623,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentVerifyMicrodepositsWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSetupIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSetupIntentsIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19664,7 +19663,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsIntentWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSetupIntentsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSetupIntentsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostSetupIntentsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19688,7 +19687,7 @@ func (ic *InterfaceClient) dispatchPostSetupIntentsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19728,7 +19727,7 @@ func (ic *InterfaceClient) dispatchPostShippingRatesShippingRateTokenWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostShippingRatesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostShippingRatesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostShippingRatesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19752,7 +19751,7 @@ func (ic *InterfaceClient) dispatchPostShippingRatesWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSigmaSavedQueriesIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSigmaSavedQueriesIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19792,7 +19791,7 @@ func (ic *InterfaceClient) dispatchPostSigmaSavedQueriesIdWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSourcesSourceVerifyWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSourcesSourceVerifyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19832,7 +19831,7 @@ func (ic *InterfaceClient) dispatchPostSourcesSourceVerifyWithFormdataBodyWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSourcesSourceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSourcesSourceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19872,7 +19871,7 @@ func (ic *InterfaceClient) dispatchPostSourcesSourceWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSourcesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSourcesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostSourcesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19896,7 +19895,7 @@ func (ic *InterfaceClient) dispatchPostSourcesWithFormdataBodyWithResponse(ctx c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionItemsItemWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -19936,7 +19935,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionItemsItemWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionItemsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionItemsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostSubscriptionItemsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -19960,7 +19959,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionItemsWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20000,7 +19999,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleCancelWithFo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleReleaseWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleReleaseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20040,7 +20039,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleReleaseWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20080,7 +20079,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesScheduleWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostSubscriptionSchedulesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20104,7 +20103,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionSchedulesWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20144,7 +20143,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionExposedIdWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionMigrateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionMigrateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20184,7 +20183,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionMigrateWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionPauseWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionPauseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20224,7 +20223,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionPauseWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionResumeWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionResumeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20264,7 +20263,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsSubscriptionResumeWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostSubscriptionsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostSubscriptionsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20288,7 +20287,7 @@ func (ic *InterfaceClient) dispatchPostSubscriptionsWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxCalculationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxCalculationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTaxCalculationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20312,7 +20311,7 @@ func (ic *InterfaceClient) dispatchPostTaxCalculationsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxIdsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxIdsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTaxIdsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20336,7 +20335,7 @@ func (ic *InterfaceClient) dispatchPostTaxIdsWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxLocationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxLocationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTaxLocationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20360,7 +20359,7 @@ func (ic *InterfaceClient) dispatchPostTaxLocationsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxRatesTaxRateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxRatesTaxRateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20400,7 +20399,7 @@ func (ic *InterfaceClient) dispatchPostTaxRatesTaxRateWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxRatesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxRatesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTaxRatesFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20424,7 +20423,7 @@ func (ic *InterfaceClient) dispatchPostTaxRatesWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxRegistrationsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxRegistrationsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20464,7 +20463,7 @@ func (ic *InterfaceClient) dispatchPostTaxRegistrationsIdWithFormdataBodyWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxRegistrationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxRegistrationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTaxRegistrationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20488,7 +20487,7 @@ func (ic *InterfaceClient) dispatchPostTaxRegistrationsWithFormdataBodyWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxSettingsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxSettingsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTaxSettingsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20512,7 +20511,7 @@ func (ic *InterfaceClient) dispatchPostTaxSettingsWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxTransactionsCreateFromCalculationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxTransactionsCreateFromCalculationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTaxTransactionsCreateFromCalculationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20536,7 +20535,7 @@ func (ic *InterfaceClient) dispatchPostTaxTransactionsCreateFromCalculationWithF
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTaxTransactionsCreateReversalWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTaxTransactionsCreateReversalWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTaxTransactionsCreateReversalFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20560,7 +20559,7 @@ func (ic *InterfaceClient) dispatchPostTaxTransactionsCreateReversalWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20600,7 +20599,7 @@ func (ic *InterfaceClient) dispatchPostTerminalConfigurationsConfigurationWithFo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalConfigurationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalConfigurationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTerminalConfigurationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20624,7 +20623,7 @@ func (ic *InterfaceClient) dispatchPostTerminalConfigurationsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalConnectionTokensWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalConnectionTokensWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTerminalConnectionTokensFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20648,7 +20647,7 @@ func (ic *InterfaceClient) dispatchPostTerminalConnectionTokensWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalLocationsLocationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20688,7 +20687,7 @@ func (ic *InterfaceClient) dispatchPostTerminalLocationsLocationWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalLocationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalLocationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTerminalLocationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20712,7 +20711,7 @@ func (ic *InterfaceClient) dispatchPostTerminalLocationsWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalOnboardingLinksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalOnboardingLinksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTerminalOnboardingLinksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -20736,7 +20735,7 @@ func (ic *InterfaceClient) dispatchPostTerminalOnboardingLinksWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCancelActionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCancelActionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20776,7 +20775,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCancelActionWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectInputsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectInputsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20816,7 +20815,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectInputsWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20856,7 +20855,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderCollectPaymentMethod
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20896,7 +20895,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderConfirmPaymentIntent
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessPaymentIntentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessPaymentIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20936,7 +20935,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessPaymentIntent
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessSetupIntentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessSetupIntentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -20976,7 +20975,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderProcessSetupIntentWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderRefundPaymentWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderRefundPaymentWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21016,7 +21015,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderRefundPaymentWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderSetReaderDisplayWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderSetReaderDisplayWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21056,7 +21055,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderSetReaderDisplayWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersReaderWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21096,7 +21095,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersReaderWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalReadersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalReadersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTerminalReadersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21120,7 +21119,7 @@ func (ic *InterfaceClient) dispatchPostTerminalReadersWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTerminalRefundsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTerminalRefundsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTerminalRefundsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21144,7 +21143,7 @@ func (ic *InterfaceClient) dispatchPostTerminalRefundsWithFormdataBodyWithRespon
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersConfirmationTokensWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersConfirmationTokensWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTestHelpersConfirmationTokensFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21168,7 +21167,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersConfirmationTokensWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21208,7 +21207,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersCustomersCustomerFundCashBalan
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21248,7 +21247,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21288,7 +21287,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21328,7 +21327,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21368,7 +21367,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21408,7 +21407,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21448,7 +21447,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsAuthoriza
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTestHelpersIssuingAuthorizationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21472,7 +21471,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingAuthorizationsWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21512,7 +21511,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingDelive
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingFailWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingFailWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21552,7 +21551,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingFailWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingReturnWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingReturnWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21592,7 +21591,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingReturn
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingShipWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingShipWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21632,7 +21631,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingShipWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21672,7 +21671,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingCardsCardShippingSubmit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21712,7 +21711,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21752,7 +21751,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21792,7 +21791,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingPersonalizationDesignsP
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21832,7 +21831,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingSettlementsSettlementCo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingSettlementsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingSettlementsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTestHelpersIssuingSettlementsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21856,7 +21855,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingSettlementsWithFormdata
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTestHelpersIssuingTransactionsCreateForceCaptureFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21880,7 +21879,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsCreateForce
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTestHelpersIssuingTransactionsCreateUnlinkedRefundFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -21904,7 +21903,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsCreateUnlin
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21944,7 +21943,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersIssuingTransactionsTransaction
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersRefundsRefundExpireWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersRefundsRefundExpireWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -21984,7 +21983,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersRefundsRefundExpireWithFormdat
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22024,7 +22023,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderPresentPa
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22064,7 +22063,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderSucceedIn
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22104,7 +22103,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTerminalReadersReaderTimeoutIn
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksTestClockAdvanceWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksTestClockAdvanceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22144,7 +22143,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksTestClockAdvanceWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTestHelpersTestClocksFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22168,7 +22167,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTestClocksWithFormdataBodyWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22208,7 +22207,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdFail
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22248,7 +22247,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdRetu
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22288,7 +22287,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryInboundTransfersIdSucc
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22328,7 +22327,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdFail
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22368,7 +22367,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdPost
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22408,7 +22407,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdRetu
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22448,7 +22447,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundPaymentsIdWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22488,7 +22487,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22528,7 +22527,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22568,7 +22567,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22608,7 +22607,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryOutboundTransfersOutbo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryReceivedCreditsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryReceivedCreditsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTestHelpersTreasuryReceivedCreditsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22632,7 +22631,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryReceivedCreditsWithFor
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryReceivedDebitsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryReceivedDebitsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTestHelpersTreasuryReceivedDebitsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22656,7 +22655,7 @@ func (ic *InterfaceClient) dispatchPostTestHelpersTreasuryReceivedDebitsWithForm
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22696,7 +22695,7 @@ func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthentication
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22736,7 +22735,7 @@ func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsAuthentication
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostThreeDSecureAuthenticationsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22760,7 +22759,7 @@ func (ic *InterfaceClient) dispatchPostThreeDSecureAuthenticationsWithFormdataBo
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTokensWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTokensWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTokensFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22784,7 +22783,7 @@ func (ic *InterfaceClient) dispatchPostTokensWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTopupsTopupCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTopupsTopupCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22824,7 +22823,7 @@ func (ic *InterfaceClient) dispatchPostTopupsTopupCancelWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTopupsTopupWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTopupsTopupWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22864,7 +22863,7 @@ func (ic *InterfaceClient) dispatchPostTopupsTopupWithFormdataBodyWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTopupsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTopupsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTopupsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -22888,7 +22887,7 @@ func (ic *InterfaceClient) dispatchPostTopupsWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTransfersIdReversalsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTransfersIdReversalsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22928,7 +22927,7 @@ func (ic *InterfaceClient) dispatchPostTransfersIdReversalsWithFormdataBodyWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -22977,7 +22976,7 @@ func (ic *InterfaceClient) dispatchPostTransfersTransferReversalsIdWithFormdataB
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTransfersTransferWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTransfersTransferWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -23017,7 +23016,7 @@ func (ic *InterfaceClient) dispatchPostTransfersTransferWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTransfersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTransfersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTransfersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23041,7 +23040,7 @@ func (ic *InterfaceClient) dispatchPostTransfersWithFormdataBodyWithResponse(ctx
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryCreditReversalsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryCreditReversalsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTreasuryCreditReversalsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23065,7 +23064,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryCreditReversalsWithFormdataBodyWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryDebitReversalsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryDebitReversalsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTreasuryDebitReversalsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23089,7 +23088,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryDebitReversalsWithFormdataBodyWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -23129,7 +23128,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccount
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -23169,7 +23168,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccount
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -23209,7 +23208,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsFinancialAccount
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTreasuryFinancialAccountsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23233,7 +23232,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryFinancialAccountsWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -23273,7 +23272,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersInboundTransferCa
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTreasuryInboundTransfersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23297,7 +23296,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryInboundTransfersWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsIdCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsIdCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -23337,7 +23336,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsIdCancelWithFormd
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTreasuryOutboundPaymentsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23361,7 +23360,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryOutboundPaymentsWithFormdataBodyW
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -23401,7 +23400,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersOutboundTransfer
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostTreasuryOutboundTransfersFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -23425,7 +23424,7 @@ func (ic *InterfaceClient) dispatchPostTreasuryOutboundTransfersWithFormdataBody
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs map[string]json.RawMessage
 
 	pathErr := json.Unmarshal(inputs, &pathArgs)
@@ -23465,7 +23464,7 @@ func (ic *InterfaceClient) dispatchPostWebhookEndpointsWebhookEndpointWithFormda
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostWebhookEndpointsWithFormdataBodyWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostWebhookEndpointsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostWebhookEndpointsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
