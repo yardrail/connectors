@@ -1,0 +1,21 @@
+connector:
+  id: officernd
+  name: OfficeRnD
+  description: Manage coworking spaces, members, bookings, and billing in OfficeRnD.
+
+security_schemes:
+  oauth2:
+    type: http
+    scheme: bearer
+
+interfaces:
+  - id: oauth
+    name: OfficeRnD OAuth
+    protocol: rest
+    auth_method: oauth2_user
+    auth_scope: org
+    security_scheme: oauth2
+    capabilities: [member.read, member.write, booking.read, booking.write, resource.read, billing.read, billing.write]
+    source:
+      openapi: spec/openapi.json
+      client: github.com/yardrail/connectors/officernd/officernd/client

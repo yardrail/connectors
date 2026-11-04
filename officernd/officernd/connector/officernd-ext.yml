@@ -1,0 +1,3548 @@
+$base: "https://yardrail.com/cwl/officernd#"
+$namespaces:
+  officernd: "https://yardrail.com/cwl/officernd#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: AmenitiesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AmenitiesControllerGetItemApiv2"]
+
+  - name: AmenitiesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AmenitiesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AmenitiesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AmenitiesControllerGetItemsApiv2"]
+
+  - name: AmenitiesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AmenitiesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AssignmentsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AssignmentsControllerAddItemApiv2"]
+
+  - name: AssignmentsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AssignmentsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AssignmentsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AssignmentsControllerDeleteItemApiv2"]
+
+  - name: AssignmentsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AssignmentsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AssignmentsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AssignmentsControllerGetItemsApiv2"]
+
+  - name: AssignmentsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AssignmentsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AuthControllerImpersonateMemberApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AuthControllerImpersonateMemberApiv2"]
+
+  - name: AuthControllerImpersonateMemberApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AuthControllerImpersonateMemberApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AuthControllerSigninApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AuthControllerSigninApiv2"]
+
+  - name: AuthControllerSigninApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AuthControllerSigninApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AuthControllerSignupApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AuthControllerSignupApiv2"]
+
+  - name: AuthControllerSignupApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AuthControllerSignupApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AuthControllerVerifyTokenApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:AuthControllerVerifyTokenApiv2"]
+
+  - name: AuthControllerVerifyTokenApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#AuthControllerVerifyTokenApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BenefitsControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BenefitsControllerCountApiv2"]
+
+  - name: BenefitsControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BenefitsControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BenefitsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BenefitsControllerGetItemApiv2"]
+
+  - name: BenefitsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BenefitsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BenefitsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BenefitsControllerGetItemsApiv2"]
+
+  - name: BenefitsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BenefitsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BillingSettingsControllerGetBillingSettingsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BillingSettingsControllerGetBillingSettingsApiv2"]
+
+  - name: BillingSettingsControllerGetBillingSettingsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BillingSettingsControllerGetBillingSettingsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerAddItemApiv2"]
+
+  - name: BookingsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerCancelBookingApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerCancelBookingApiv2"]
+
+  - name: BookingsControllerCancelBookingApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerCancelBookingApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerCountApiv2"]
+
+  - name: BookingsControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerDeleteItemApiv2"]
+
+  - name: BookingsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerGetItemApiv2"]
+
+  - name: BookingsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerGetItemsApiv2"]
+
+  - name: BookingsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerGetOccurrencesApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerGetOccurrencesApiv2"]
+
+  - name: BookingsControllerGetOccurrencesApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerGetOccurrencesApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerUpdateItemApiv2"]
+
+  - name: BookingsControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BookingsControllerValidateBookingApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BookingsControllerValidateBookingApiv2"]
+
+  - name: BookingsControllerValidateBookingApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BookingsControllerValidateBookingApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: BusinessHoursControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:BusinessHoursControllerGetItemsApiv2"]
+
+  - name: BusinessHoursControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#BusinessHoursControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChargesControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ChargesControllerAddItemApiv2"]
+
+  - name: ChargesControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChargesControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChargesControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ChargesControllerDeleteItemApiv2"]
+
+  - name: ChargesControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChargesControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChargesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ChargesControllerGetItemsApiv2"]
+
+  - name: ChargesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChargesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChargesControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ChargesControllerUpdateItemApiv2"]
+
+  - name: ChargesControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ChargesControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CheckinsControllerCheckinMemberApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CheckinsControllerCheckinMemberApiv2"]
+
+  - name: CheckinsControllerCheckinMemberApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CheckinsControllerCheckinMemberApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CheckinsControllerCheckoutApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CheckinsControllerCheckoutApiv2"]
+
+  - name: CheckinsControllerCheckoutApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CheckinsControllerCheckoutApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CheckinsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CheckinsControllerGetItemApiv2"]
+
+  - name: CheckinsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CheckinsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CheckinsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CheckinsControllerGetItemsApiv2"]
+
+  - name: CheckinsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CheckinsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CheckinsControllerGetVisitorCheckinsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CheckinsControllerGetVisitorCheckinsApiv2"]
+
+  - name: CheckinsControllerGetVisitorCheckinsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CheckinsControllerGetVisitorCheckinsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CheckoutControllerCheckoutApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CheckoutControllerCheckoutApiv2"]
+
+  - name: CheckoutControllerCheckoutApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CheckoutControllerCheckoutApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CheckoutControllerGetCheckoutSummaryApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CheckoutControllerGetCheckoutSummaryApiv2"]
+
+  - name: CheckoutControllerGetCheckoutSummaryApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CheckoutControllerGetCheckoutSummaryApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CoinsControllerGetCoinStatsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CoinsControllerGetCoinStatsApiv2"]
+
+  - name: CoinsControllerGetCoinStatsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CoinsControllerGetCoinStatsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CompaniesControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CompaniesControllerAddItemApiv2"]
+
+  - name: CompaniesControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CompaniesControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CompaniesControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CompaniesControllerDeleteItemApiv2"]
+
+  - name: CompaniesControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CompaniesControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CompaniesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CompaniesControllerGetItemApiv2"]
+
+  - name: CompaniesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CompaniesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CompaniesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CompaniesControllerGetItemsApiv2"]
+
+  - name: CompaniesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CompaniesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CompaniesControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CompaniesControllerUpdateItemApiv2"]
+
+  - name: CompaniesControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CompaniesControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ContractsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ContractsControllerAddItemApiv2"]
+
+  - name: ContractsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ContractsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ContractsControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ContractsControllerCountApiv2"]
+
+  - name: ContractsControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ContractsControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ContractsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ContractsControllerDeleteItemApiv2"]
+
+  - name: ContractsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ContractsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ContractsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ContractsControllerGetItemApiv2"]
+
+  - name: ContractsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ContractsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ContractsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ContractsControllerGetItemsApiv2"]
+
+  - name: ContractsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ContractsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ContractsControllerSignItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ContractsControllerSignItemApiv2"]
+
+  - name: ContractsControllerSignItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ContractsControllerSignItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ContractsControllerTerminateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ContractsControllerTerminateItemApiv2"]
+
+  - name: ContractsControllerTerminateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ContractsControllerTerminateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ContractsControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ContractsControllerUpdateItemApiv2"]
+
+  - name: ContractsControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ContractsControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreditsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CreditsControllerAddItemApiv2"]
+
+  - name: CreditsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreditsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreditsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CreditsControllerDeleteItemApiv2"]
+
+  - name: CreditsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreditsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreditsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CreditsControllerGetItemApiv2"]
+
+  - name: CreditsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreditsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreditsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CreditsControllerGetItemsApiv2"]
+
+  - name: CreditsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreditsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreditsControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CreditsControllerUpdateItemApiv2"]
+
+  - name: CreditsControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CreditsControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CustomPropertiesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:CustomPropertiesControllerGetItemsApiv2"]
+
+  - name: CustomPropertiesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#CustomPropertiesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:EventsControllerAddItemApiv2"]
+
+  - name: EventsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#EventsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:EventsControllerCountApiv2"]
+
+  - name: EventsControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#EventsControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:EventsControllerDeleteItemApiv2"]
+
+  - name: EventsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#EventsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:EventsControllerGetItemApiv2"]
+
+  - name: EventsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#EventsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:EventsControllerGetItemsApiv2"]
+
+  - name: EventsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#EventsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:EventsControllerUpdateItemApiv2"]
+
+  - name: EventsControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#EventsControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FeesControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:FeesControllerAddItemApiv2"]
+
+  - name: FeesControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FeesControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FeesControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:FeesControllerCountApiv2"]
+
+  - name: FeesControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FeesControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FeesControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:FeesControllerDeleteItemApiv2"]
+
+  - name: FeesControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FeesControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FeesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:FeesControllerGetItemApiv2"]
+
+  - name: FeesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FeesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FeesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:FeesControllerGetItemsApiv2"]
+
+  - name: FeesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FeesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FeesControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:FeesControllerUpdateItemApiv2"]
+
+  - name: FeesControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FeesControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FloorsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:FloorsControllerGetItemApiv2"]
+
+  - name: FloorsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FloorsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FloorsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:FloorsControllerGetItemsApiv2"]
+
+  - name: FloorsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#FloorsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: IntegrationsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:IntegrationsControllerGetItemApiv2"]
+
+  - name: IntegrationsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#IntegrationsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: LocationsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:LocationsControllerGetItemApiv2"]
+
+  - name: LocationsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#LocationsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: LocationsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:LocationsControllerGetItemsApiv2"]
+
+  - name: LocationsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#LocationsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerAddItemApiv2"]
+
+  - name: MembersControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerCountByApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerCountByApiv2"]
+
+  - name: MembersControllerCountByApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerCountByApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerDeleteItemApiv2"]
+
+  - name: MembersControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerGetItemApiv2"]
+
+  - name: MembersControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerGetItemsApiv2"]
+
+  - name: MembersControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerManagePortalAccessApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerManagePortalAccessApiv2"]
+
+  - name: MembersControllerManagePortalAccessApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerManagePortalAccessApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerUpdateCompanyApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerUpdateCompanyApiv2"]
+
+  - name: MembersControllerUpdateCompanyApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerUpdateCompanyApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerUpdateItemApiv2"]
+
+  - name: MembersControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembersControllerUpdateStatusApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembersControllerUpdateStatusApiv2"]
+
+  - name: MembersControllerUpdateStatusApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembersControllerUpdateStatusApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembershipsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembershipsControllerAddItemApiv2"]
+
+  - name: MembershipsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembershipsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembershipsControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembershipsControllerCountApiv2"]
+
+  - name: MembershipsControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembershipsControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembershipsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembershipsControllerDeleteItemApiv2"]
+
+  - name: MembershipsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembershipsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembershipsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembershipsControllerGetItemApiv2"]
+
+  - name: MembershipsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembershipsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembershipsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembershipsControllerGetItemsApiv2"]
+
+  - name: MembershipsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembershipsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MembershipsControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:MembershipsControllerUpdateItemApiv2"]
+
+  - name: MembershipsControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#MembershipsControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OpportunitiesControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:OpportunitiesControllerAddItemApiv2"]
+
+  - name: OpportunitiesControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OpportunitiesControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OpportunitiesControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:OpportunitiesControllerCountApiv2"]
+
+  - name: OpportunitiesControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OpportunitiesControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OpportunitiesControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:OpportunitiesControllerDeleteItemApiv2"]
+
+  - name: OpportunitiesControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OpportunitiesControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OpportunitiesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:OpportunitiesControllerGetItemApiv2"]
+
+  - name: OpportunitiesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OpportunitiesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OpportunitiesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:OpportunitiesControllerGetItemsApiv2"]
+
+  - name: OpportunitiesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OpportunitiesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OpportunitiesControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:OpportunitiesControllerUpdateItemApiv2"]
+
+  - name: OpportunitiesControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OpportunitiesControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OpportunityStatusesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:OpportunityStatusesControllerGetItemsApiv2"]
+
+  - name: OpportunityStatusesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OpportunityStatusesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OrganizationsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:OrganizationsControllerGetItemApiv2"]
+
+  - name: OrganizationsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#OrganizationsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: POSTGenerateTokenWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:POSTGenerateTokenWithFormdataBody"]
+
+  - name: POSTGenerateTokenWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#POSTGenerateTokenWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PassesControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PassesControllerAddItemApiv2"]
+
+  - name: PassesControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PassesControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PassesControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PassesControllerDeleteItemApiv2"]
+
+  - name: PassesControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PassesControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PassesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PassesControllerGetItemApiv2"]
+
+  - name: PassesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PassesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PassesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PassesControllerGetItemsApiv2"]
+
+  - name: PassesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PassesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PassesControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PassesControllerUpdateItemApiv2"]
+
+  - name: PassesControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PassesControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PasswordControllerChangePasswordApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PasswordControllerChangePasswordApiv2"]
+
+  - name: PasswordControllerChangePasswordApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PasswordControllerChangePasswordApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PasswordControllerResetPasswordApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PasswordControllerResetPasswordApiv2"]
+
+  - name: PasswordControllerResetPasswordApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PasswordControllerResetPasswordApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentDetailsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentDetailsControllerAddItemApiv2"]
+
+  - name: PaymentDetailsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentDetailsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentDetailsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentDetailsControllerDeleteItemApiv2"]
+
+  - name: PaymentDetailsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentDetailsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentDetailsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentDetailsControllerGetItemsApiv2"]
+
+  - name: PaymentDetailsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentDetailsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentDetailsControllerRegisterItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentDetailsControllerRegisterItemApiv2"]
+
+  - name: PaymentDetailsControllerRegisterItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentDetailsControllerRegisterItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentGatewaysControllerAuthorizeApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentGatewaysControllerAuthorizeApiv2"]
+
+  - name: PaymentGatewaysControllerAuthorizeApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentGatewaysControllerAuthorizeApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerAddCreditAllocationApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerAddCreditAllocationApiv2"]
+
+  - name: PaymentsControllerAddCreditAllocationApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerAddCreditAllocationApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerAddOverpaymentApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerAddOverpaymentApiv2"]
+
+  - name: PaymentsControllerAddOverpaymentApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerAddOverpaymentApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerCountApiv2"]
+
+  - name: PaymentsControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerGetItemApiv2"]
+
+  - name: PaymentsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerGetItemsApiv2"]
+
+  - name: PaymentsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerGetPaymentDocumentsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerGetPaymentDocumentsApiv2"]
+
+  - name: PaymentsControllerGetPaymentDocumentsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerGetPaymentDocumentsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerGetPaymentMethodsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerGetPaymentMethodsApiv2"]
+
+  - name: PaymentsControllerGetPaymentMethodsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerGetPaymentMethodsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerUpdateAllocationAccountingApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerUpdateAllocationAccountingApiv2"]
+
+  - name: PaymentsControllerUpdateAllocationAccountingApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerUpdateAllocationAccountingApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PaymentsControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PaymentsControllerUpdateItemApiv2"]
+
+  - name: PaymentsControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PaymentsControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PlansControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PlansControllerCountApiv2"]
+
+  - name: PlansControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PlansControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PlansControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PlansControllerGetItemApiv2"]
+
+  - name: PlansControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PlansControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PlansControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PlansControllerGetItemsApiv2"]
+
+  - name: PlansControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PlansControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PostsControllerAddItemApiv2"]
+
+  - name: PostsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PostsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PostsControllerDeleteItemApiv2"]
+
+  - name: PostsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PostsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PostsControllerGetItemApiv2"]
+
+  - name: PostsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PostsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:PostsControllerGetItemsApiv2"]
+
+  - name: PostsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#PostsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReceptionFlowsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ReceptionFlowsControllerGetItemsApiv2"]
+
+  - name: ReceptionFlowsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ReceptionFlowsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourceRatesControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourceRatesControllerCountApiv2"]
+
+  - name: ResourceRatesControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourceRatesControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourceRatesControllerGetCancellationPolicyApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourceRatesControllerGetCancellationPolicyApiv2"]
+
+  - name: ResourceRatesControllerGetCancellationPolicyApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourceRatesControllerGetCancellationPolicyApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourceRatesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourceRatesControllerGetItemApiv2"]
+
+  - name: ResourceRatesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourceRatesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourceRatesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourceRatesControllerGetItemsApiv2"]
+
+  - name: ResourceRatesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourceRatesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourceTypesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourceTypesControllerGetItemsApiv2"]
+
+  - name: ResourceTypesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourceTypesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourcesControllerCountApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourcesControllerCountApiv2"]
+
+  - name: ResourcesControllerCountApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourcesControllerCountApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourcesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourcesControllerGetItemApiv2"]
+
+  - name: ResourcesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourcesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourcesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourcesControllerGetItemsApiv2"]
+
+  - name: ResourcesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourcesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ResourcesControllerGetResourceStatusApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:ResourcesControllerGetResourceStatusApiv2"]
+
+  - name: ResourcesControllerGetResourceStatusApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#ResourcesControllerGetResourceStatusApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RevenueAccountsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:RevenueAccountsControllerGetItemApiv2"]
+
+  - name: RevenueAccountsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RevenueAccountsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RevenueAccountsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:RevenueAccountsControllerGetItemsApiv2"]
+
+  - name: RevenueAccountsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#RevenueAccountsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SecondaryCurrenciesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:SecondaryCurrenciesControllerGetItemApiv2"]
+
+  - name: SecondaryCurrenciesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SecondaryCurrenciesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SecondaryCurrenciesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:SecondaryCurrenciesControllerGetItemsApiv2"]
+
+  - name: SecondaryCurrenciesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SecondaryCurrenciesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SecondaryCurrenciesControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:SecondaryCurrenciesControllerUpdateItemApiv2"]
+
+  - name: SecondaryCurrenciesControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#SecondaryCurrenciesControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TaxRatesControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TaxRatesControllerGetItemApiv2"]
+
+  - name: TaxRatesControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TaxRatesControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TaxRatesControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TaxRatesControllerGetItemsApiv2"]
+
+  - name: TaxRatesControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TaxRatesControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TicketCommentsControllerAddCommentApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TicketCommentsControllerAddCommentApiv2"]
+
+  - name: TicketCommentsControllerAddCommentApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TicketCommentsControllerAddCommentApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TicketCommentsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TicketCommentsControllerGetItemsApiv2"]
+
+  - name: TicketCommentsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TicketCommentsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TicketOptionsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TicketOptionsControllerGetItemsApiv2"]
+
+  - name: TicketOptionsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TicketOptionsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TicketsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TicketsControllerAddItemApiv2"]
+
+  - name: TicketsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TicketsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TicketsControllerCountByApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TicketsControllerCountByApiv2"]
+
+  - name: TicketsControllerCountByApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TicketsControllerCountByApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TicketsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TicketsControllerGetItemApiv2"]
+
+  - name: TicketsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TicketsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TicketsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TicketsControllerGetItemsApiv2"]
+
+  - name: TicketsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TicketsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TicketsControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:TicketsControllerUpdateItemApiv2"]
+
+  - name: TicketsControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#TicketsControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VisitorsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:VisitorsControllerAddItemApiv2"]
+
+  - name: VisitorsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VisitorsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VisitorsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:VisitorsControllerDeleteItemApiv2"]
+
+  - name: VisitorsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VisitorsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VisitorsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:VisitorsControllerGetItemApiv2"]
+
+  - name: VisitorsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VisitorsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VisitorsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:VisitorsControllerGetItemsApiv2"]
+
+  - name: VisitorsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VisitorsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VisitsControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:VisitsControllerAddItemApiv2"]
+
+  - name: VisitsControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VisitsControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VisitsControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:VisitsControllerDeleteItemApiv2"]
+
+  - name: VisitsControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VisitsControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VisitsControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:VisitsControllerGetItemApiv2"]
+
+  - name: VisitsControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VisitsControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VisitsControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:VisitsControllerGetItemsApiv2"]
+
+  - name: VisitsControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#VisitsControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: WebhooksControllerAddItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:WebhooksControllerAddItemApiv2"]
+
+  - name: WebhooksControllerAddItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#WebhooksControllerAddItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: WebhooksControllerDeleteItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:WebhooksControllerDeleteItemApiv2"]
+
+  - name: WebhooksControllerDeleteItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#WebhooksControllerDeleteItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: WebhooksControllerGetItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:WebhooksControllerGetItemApiv2"]
+
+  - name: WebhooksControllerGetItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#WebhooksControllerGetItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: WebhooksControllerGetItemsApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:WebhooksControllerGetItemsApiv2"]
+
+  - name: WebhooksControllerGetItemsApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#WebhooksControllerGetItemsApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: WebhooksControllerUpdateItemApiv2_class
+    type: enum
+    inVocab: false
+    symbols: ["officernd:WebhooksControllerUpdateItemApiv2"]
+
+  - name: WebhooksControllerUpdateItemApiv2
+    type: record
+    inVocab: false
+    extends: cwl:Process
+    documentRoot: true
+    specialize:
+      - specializeFrom: cwl:InputParameter
+        specializeTo: cwl:OperationInputParameter
+      - specializeFrom: cwl:OutputParameter
+        specializeTo: cwl:OperationOutputParameter
+    fields:
+      - name: class
+        type: "#WebhooksControllerUpdateItemApiv2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
