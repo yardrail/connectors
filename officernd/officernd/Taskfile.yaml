@@ -14,10 +14,16 @@ tasks:
       - mise exec -- go mod tidy
 
   connector:
-    desc: "OfficeRnD connector codegen (no manifest yet)"
+    desc: "Generate connector code"
     deps: [client]
+    dir: "{{.ROOT_DIR}}/tools"
     cmds:
-      - echo "no manifest.yaml — connector codegen not yet configured"
+      - >-
+        mise exec -- go run ./cmd/yardrail-connector-codegen
+        -manifest {{.TASKFILE_DIR}}/manifest.yaml
+        -out {{.TASKFILE_DIR}}/connector/
+        -pkgname connector
+      - cd {{.TASKFILE_DIR}} && mise exec -- go mod tidy -e
   build:
     desc: "Build"
     cmds:
