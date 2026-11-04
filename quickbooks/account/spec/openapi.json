@@ -2676,11 +2676,7 @@
             "type": "string"
           },
           "Entitlement": {
-            "items": {
-              "description": "`Entitlement.id`--Integer. Name of the entitlement. `Entitlement.name`--String. Name of the entitlement. `Entitlement.Term`--Boolean. Availability of entitlement: `On` or `Off`.",
-              "type": "string"
-            },
-            "type": "array"
+            "$ref": "#/components/schemas/TelephoneNumber"
           },
           "FiscalYearStartMonth": {
             "$ref": "#/components/schemas/MonthEnum"
