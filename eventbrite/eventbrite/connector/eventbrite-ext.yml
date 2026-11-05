@@ -1,0 +1,1842 @@
+$base: "https://yardrail.com/cwl/eventbrite#"
+$namespaces:
+  eventbrite: "https://yardrail.com/cwl/eventbrite#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: AddATicketClassToTicketGroups_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:AddATicketClassToTicketGroups"]
+
+  - name: AddATicketClassToTicketGroups
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add a Ticket Class to  Ticket Groups"
+    fields:
+      - name: class
+        type: "#AddATicketClassToTicketGroups_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalculateItems_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CalculateItems"]
+
+  - name: CalculateItems
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Calculate Items"
+    fields:
+      - name: class
+        type: "#CalculateItems_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CancelAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CancelAnEvent"]
+
+  - name: CancelAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Cancel an Event"
+    fields:
+      - name: class
+        type: "#CancelAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CategoryByID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CategoryByID"]
+
+  - name: CategoryByID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Category by ID"
+    fields:
+      - name: class
+        type: "#CategoryByID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CopyAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CopyAnEvent"]
+
+  - name: CopyAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Copy an Event"
+    fields:
+      - name: class
+        type: "#CopyAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateACustomQuestionForAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateACustomQuestionForAnEvent"]
+
+  - name: CreateACustomQuestionForAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a Custom question for an Event"
+    fields:
+      - name: class
+        type: "#CreateACustomQuestionForAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateADefaultQuestionForAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateADefaultQuestionForAnEvent"]
+
+  - name: CreateADefaultQuestionForAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a Default Question for an Event"
+    fields:
+      - name: class
+        type: "#CreateADefaultQuestionForAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateADiscount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateADiscount"]
+
+  - name: CreateADiscount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a Discount"
+    fields:
+      - name: class
+        type: "#CreateADiscount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateATeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateATeam"]
+
+  - name: CreateATeam
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a Team"
+    fields:
+      - name: class
+        type: "#CreateATeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateATicketClass_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateATicketClass"]
+
+  - name: CreateATicketClass
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a Ticket Class"
+    fields:
+      - name: class
+        type: "#CreateATicketClass_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateATicketGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateATicketGroup"]
+
+  - name: CreateATicketGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a Ticket Group"
+    fields:
+      - name: class
+        type: "#CreateATicketGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateAVenue_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateAVenue"]
+
+  - name: CreateAVenue
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a Venue"
+    fields:
+      - name: class
+        type: "#CreateAVenue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateAnEvent"]
+
+  - name: CreateAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create an Event"
+    fields:
+      - name: class
+        type: "#CreateAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateAnEventSchedule_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateAnEventSchedule"]
+
+  - name: CreateAnEventSchedule
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create an event schedule"
+    fields:
+      - name: class
+        type: "#CreateAnEventSchedule_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateSeatMapForEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateSeatMapForEvent"]
+
+  - name: CreateSeatMapForEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Seat Map For Event"
+    fields:
+      - name: class
+        type: "#CreateSeatMapForEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateTextOverrides_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateTextOverrides"]
+
+  - name: CreateTextOverrides
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Text Overrides"
+    fields:
+      - name: class
+        type: "#CreateTextOverrides_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateWebhooksByOrganizationID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateWebhooksByOrganizationID"]
+
+  - name: CreateWebhooksByOrganizationID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Webhooks by Organization ID"
+    fields:
+      - name: class
+        type: "#CreateWebhooksByOrganizationID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateWebhooksDeprecated_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:CreateWebhooksDeprecated"]
+
+  - name: CreateWebhooksDeprecated
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Webhooks - deprecated"
+    fields:
+      - name: class
+        type: "#CreateWebhooksDeprecated_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteACustomQuestionForAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteACustomQuestionForAnEvent"]
+
+  - name: DeleteACustomQuestionForAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a Custom Question for an Event"
+    fields:
+      - name: class
+        type: "#DeleteACustomQuestionForAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteADiscount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteADiscount"]
+
+  - name: DeleteADiscount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a Discount"
+    fields:
+      - name: class
+        type: "#DeleteADiscount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteATicketGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteATicketGroup"]
+
+  - name: DeleteATicketGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a Ticket Group"
+    fields:
+      - name: class
+        type: "#DeleteATicketGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteAnEvent"]
+
+  - name: DeleteAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete an Event"
+    fields:
+      - name: class
+        type: "#DeleteAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteAnInventoryTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteAnInventoryTier"]
+
+  - name: DeleteAnInventoryTier
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete an Inventory Tier"
+    fields:
+      - name: class
+        type: "#DeleteAnInventoryTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteDefaultQuestionById_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteDefaultQuestionById"]
+
+  - name: DeleteDefaultQuestionById
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete Default Question by Id"
+    fields:
+      - name: class
+        type: "#DeleteDefaultQuestionById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteWebhookByID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:DeleteWebhookByID"]
+
+  - name: DeleteWebhookByID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete Webhook by ID"
+    fields:
+      - name: class
+        type: "#DeleteWebhookByID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCustomQuestionById_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:GetCustomQuestionById"]
+
+  - name: GetCustomQuestionById
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Custom Question by Id"
+    fields:
+      - name: class
+        type: "#GetCustomQuestionById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetDefaultQuestionById_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:GetDefaultQuestionById"]
+
+  - name: GetDefaultQuestionById
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Default Question by Id"
+    fields:
+      - name: class
+        type: "#GetDefaultQuestionById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetRefundRetentionPolicy_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:GetRefundRetentionPolicy"]
+
+  - name: GetRefundRetentionPolicy
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get refund retention policy"
+    fields:
+      - name: class
+        type: "#GetRefundRetentionPolicy_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListAttendeesByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListAttendeesByEvent"]
+
+  - name: ListAttendeesByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Attendees by Event"
+    fields:
+      - name: class
+        type: "#ListAttendeesByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListAttendeesByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListAttendeesByOrganization"]
+
+  - name: ListAttendeesByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Attendees by Organization"
+    fields:
+      - name: class
+        type: "#ListAttendeesByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListAttendeesByTeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListAttendeesByTeam"]
+
+  - name: ListAttendeesByTeam
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Attendees by Team"
+    fields:
+      - name: class
+        type: "#ListAttendeesByTeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListByEvent"]
+
+  - name: ListByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List by Event"
+    fields:
+      - name: class
+        type: "#ListByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListCustomQuestionsByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListCustomQuestionsByEvent"]
+
+  - name: ListCustomQuestionsByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Custom Questions by Event"
+    fields:
+      - name: class
+        type: "#ListCustomQuestionsByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListDefaultQuestionsByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListDefaultQuestionsByEvent"]
+
+  - name: ListDefaultQuestionsByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Default Questions by Event"
+    fields:
+      - name: class
+        type: "#ListDefaultQuestionsByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListEventsByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListEventsByOrganization"]
+
+  - name: ListEventsByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Events by Organization"
+    fields:
+      - name: class
+        type: "#ListEventsByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListEventsBySeries_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListEventsBySeries"]
+
+  - name: ListEventsBySeries
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Events by Series"
+    fields:
+      - name: class
+        type: "#ListEventsBySeries_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListEventsByVenue_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListEventsByVenue"]
+
+  - name: ListEventsByVenue
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Events by Venue"
+    fields:
+      - name: class
+        type: "#ListEventsByVenue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListFormats_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListFormats"]
+
+  - name: ListFormats
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Formats"
+    fields:
+      - name: class
+        type: "#ListFormats_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListInventoryTiersByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListInventoryTiersByEvent"]
+
+  - name: ListInventoryTiersByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Inventory Tiers by Event"
+    fields:
+      - name: class
+        type: "#ListInventoryTiersByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListMembersOfAnOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListMembersOfAnOrganization"]
+
+  - name: ListMembersOfAnOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Members of an Organization"
+    fields:
+      - name: class
+        type: "#ListMembersOfAnOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOfCategories_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOfCategories"]
+
+  - name: ListOfCategories
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List of Categories"
+    fields:
+      - name: class
+        type: "#ListOfCategories_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOfSubcategories_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOfSubcategories"]
+
+  - name: ListOfSubcategories
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List of Subcategories"
+    fields:
+      - name: class
+        type: "#ListOfSubcategories_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOfWebhooksDeprecation_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOfWebhooksDeprecation"]
+
+  - name: ListOfWebhooksDeprecation
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List of Webhooks - deprecation"
+    fields:
+      - name: class
+        type: "#ListOfWebhooksDeprecation_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOrdersByEventID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOrdersByEventID"]
+
+  - name: ListOrdersByEventID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Orders by Event ID"
+    fields:
+      - name: class
+        type: "#ListOrdersByEventID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOrdersByOrganizationID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOrdersByOrganizationID"]
+
+  - name: ListOrdersByOrganizationID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Orders by Organization ID"
+    fields:
+      - name: class
+        type: "#ListOrdersByOrganizationID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOrdersByUserID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOrdersByUserID"]
+
+  - name: ListOrdersByUserID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Orders by User ID"
+    fields:
+      - name: class
+        type: "#ListOrdersByUserID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListOrganizationsByUser_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListOrganizationsByUser"]
+
+  - name: ListOrganizationsByUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Organizations by User"
+    fields:
+      - name: class
+        type: "#ListOrganizationsByUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListPricing_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListPricing"]
+
+  - name: ListPricing
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Pricing"
+    fields:
+      - name: class
+        type: "#ListPricing_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListRolesByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListRolesByOrganization"]
+
+  - name: ListRolesByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Roles by Organization"
+    fields:
+      - name: class
+        type: "#ListRolesByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListSeatMapsByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListSeatMapsByOrganization"]
+
+  - name: ListSeatMapsByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Seat Maps by Organization"
+    fields:
+      - name: class
+        type: "#ListSeatMapsByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListTicketClassesAvailableForSaleByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListTicketClassesAvailableForSaleByEvent"]
+
+  - name: ListTicketClassesAvailableForSaleByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Ticket Classes Available For Sale by Event"
+    fields:
+      - name: class
+        type: "#ListTicketClassesAvailableForSaleByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListTicketClassesByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListTicketClassesByEvent"]
+
+  - name: ListTicketClassesByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Ticket Classes by Event"
+    fields:
+      - name: class
+        type: "#ListTicketClassesByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListTicketGroupsByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListTicketGroupsByOrganization"]
+
+  - name: ListTicketGroupsByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Ticket Groups by Organization"
+    fields:
+      - name: class
+        type: "#ListTicketGroupsByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListVenuesByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListVenuesByOrganization"]
+
+  - name: ListVenuesByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Venues by Organization"
+    fields:
+      - name: class
+        type: "#ListVenuesByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListWebhookByOrganizationID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListWebhookByOrganizationID"]
+
+  - name: ListWebhookByOrganizationID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Webhook by Organization ID"
+    fields:
+      - name: class
+        type: "#ListWebhookByOrganizationID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListYourOrganizations_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:ListYourOrganizations"]
+
+  - name: ListYourOrganizations
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List your Organizations"
+    fields:
+      - name: class
+        type: "#ListYourOrganizations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PublishAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:PublishAnEvent"]
+
+  - name: PublishAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Publish an Event"
+    fields:
+      - name: class
+        type: "#PublishAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RefundOrder_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RefundOrder"]
+
+  - name: RefundOrder
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Refund Order"
+    fields:
+      - name: class
+        type: "#RefundOrder_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RemainingBalance_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RemainingBalance"]
+
+  - name: RemainingBalance
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Remaining Balance"
+    fields:
+      - name: class
+        type: "#RemainingBalance_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAAttendeeReport_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAAttendeeReport"]
+
+  - name: RetrieveAAttendeeReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Attendee Report"
+    fields:
+      - name: class
+        type: "#RetrieveAAttendeeReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveACapacityTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveACapacityTier"]
+
+  - name: RetrieveACapacityTier
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Capacity Tier"
+    fields:
+      - name: class
+        type: "#RetrieveACapacityTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveADiscount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveADiscount"]
+
+  - name: RetrieveADiscount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Discount"
+    fields:
+      - name: class
+        type: "#RetrieveADiscount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAFormat_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAFormat"]
+
+  - name: RetrieveAFormat
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Format"
+    fields:
+      - name: class
+        type: "#RetrieveAFormat_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAMediaUpload_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAMediaUpload"]
+
+  - name: RetrieveAMediaUpload
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Media Upload"
+    fields:
+      - name: class
+        type: "#RetrieveAMediaUpload_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveASalesReport_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveASalesReport"]
+
+  - name: RetrieveASalesReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Sales Report"
+    fields:
+      - name: class
+        type: "#RetrieveASalesReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveATicketClass_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveATicketClass"]
+
+  - name: RetrieveATicketClass
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Ticket Class"
+    fields:
+      - name: class
+        type: "#RetrieveATicketClass_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveATicketGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveATicketGroup"]
+
+  - name: RetrieveATicketGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Ticket Group"
+    fields:
+      - name: class
+        type: "#RetrieveATicketGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAVenue_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAVenue"]
+
+  - name: RetrieveAVenue
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a Venue"
+    fields:
+      - name: class
+        type: "#RetrieveAVenue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAnAttendee_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAnAttendee"]
+
+  - name: RetrieveAnAttendee
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve an Attendee"
+    fields:
+      - name: class
+        type: "#RetrieveAnAttendee_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAnEvent"]
+
+  - name: RetrieveAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve an Event"
+    fields:
+      - name: class
+        type: "#RetrieveAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAnEventSeries_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAnEventSeries"]
+
+  - name: RetrieveAnEventSeries
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve an Event Series"
+    fields:
+      - name: class
+        type: "#RetrieveAnEventSeries_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAnInventoryTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveAnInventoryTier"]
+
+  - name: RetrieveAnInventoryTier
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve an Inventory Tier"
+    fields:
+      - name: class
+        type: "#RetrieveAnInventoryTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveDisplaySettings_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveDisplaySettings"]
+
+  - name: RetrieveDisplaySettings
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Display Settings"
+    fields:
+      - name: class
+        type: "#RetrieveDisplaySettings_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveFullHTMLDescription_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveFullHTMLDescription"]
+
+  - name: RetrieveFullHTMLDescription
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Full HTML Description"
+    fields:
+      - name: class
+        type: "#RetrieveFullHTMLDescription_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveInformationAboutAUserAccount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveInformationAboutAUserAccount"]
+
+  - name: RetrieveInformationAboutAUserAccount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Information about a User Account"
+    fields:
+      - name: class
+        type: "#RetrieveInformationAboutAUserAccount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveInformationAboutYourUserAccount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveInformationAboutYourUserAccount"]
+
+  - name: RetrieveInformationAboutYourUserAccount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Information About Your User Account"
+    fields:
+      - name: class
+        type: "#RetrieveInformationAboutYourUserAccount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveLatestPublishedVersionOfStructuredContentByEventId_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveLatestPublishedVersionOfStructuredContentByEventId"]
+
+  - name: RetrieveLatestPublishedVersionOfStructuredContentByEventId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Latest Published Version of Structured Content by Event Id"
+    fields:
+      - name: class
+        type: "#RetrieveLatestPublishedVersionOfStructuredContentByEventId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveLatestWorkingVersionOfStructuredContentByEventId_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveLatestWorkingVersionOfStructuredContentByEventId"]
+
+  - name: RetrieveLatestWorkingVersionOfStructuredContentByEventId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Latest Working Version of Structured Content by Event Id"
+    fields:
+      - name: class
+        type: "#RetrieveLatestWorkingVersionOfStructuredContentByEventId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveMedia_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveMedia"]
+
+  - name: RetrieveMedia
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Media"
+    fields:
+      - name: class
+        type: "#RetrieveMedia_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveOrderByID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveOrderByID"]
+
+  - name: RetrieveOrderByID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Order by ID"
+    fields:
+      - name: class
+        type: "#RetrieveOrderByID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveTeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveTeam"]
+
+  - name: RetrieveTeam
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Team"
+    fields:
+      - name: class
+        type: "#RetrieveTeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveTextOverrides_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveTextOverrides"]
+
+  - name: RetrieveTextOverrides
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Text Overrides"
+    fields:
+      - name: class
+        type: "#RetrieveTextOverrides_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveTicketBuyerSettingsByEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:RetrieveTicketBuyerSettingsByEvent"]
+
+  - name: RetrieveTicketBuyerSettingsByEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Ticket Buyer Settings by Event"
+    fields:
+      - name: class
+        type: "#RetrieveTicketBuyerSettingsByEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SearchDiscountsByOrganization_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SearchDiscountsByOrganization"]
+
+  - name: SearchDiscountsByOrganization
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search Discounts by Organization"
+    fields:
+      - name: class
+        type: "#SearchDiscountsByOrganization_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SearchEventsDeprecated_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SearchEventsDeprecated"]
+
+  - name: SearchEventsDeprecated
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search Events - deprecated"
+    fields:
+      - name: class
+        type: "#SearchEventsDeprecated_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SearchTeamsByNameTeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SearchTeamsByNameTeam"]
+
+  - name: SearchTeamsByNameTeam
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search teams by name Team"
+    fields:
+      - name: class
+        type: "#SearchTeamsByNameTeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SetStructuredContentByEventIdAndVersion_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SetStructuredContentByEventIdAndVersion"]
+
+  - name: SetStructuredContentByEventIdAndVersion
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Set Structured Content by Event Id and Version"
+    fields:
+      - name: class
+        type: "#SetStructuredContentByEventIdAndVersion_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SubcategoryByID_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:SubcategoryByID"]
+
+  - name: SubcategoryByID
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Subcategory by ID"
+    fields:
+      - name: class
+        type: "#SubcategoryByID_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UnpublishAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UnpublishAnEvent"]
+
+  - name: UnpublishAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Unpublish an Event"
+    fields:
+      - name: class
+        type: "#UnpublishAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateACapacityTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateACapacityTier"]
+
+  - name: UpdateACapacityTier
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a Capacity Tier"
+    fields:
+      - name: class
+        type: "#UpdateACapacityTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateADiscount_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateADiscount"]
+
+  - name: UpdateADiscount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a Discount"
+    fields:
+      - name: class
+        type: "#UpdateADiscount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateATicketClass_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateATicketClass"]
+
+  - name: UpdateATicketClass
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a Ticket Class"
+    fields:
+      - name: class
+        type: "#UpdateATicketClass_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateATicketGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateATicketGroup"]
+
+  - name: UpdateATicketGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a Ticket Group"
+    fields:
+      - name: class
+        type: "#UpdateATicketGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateAVenue_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateAVenue"]
+
+  - name: UpdateAVenue
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a Venue"
+    fields:
+      - name: class
+        type: "#UpdateAVenue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateAnEvent"]
+
+  - name: UpdateAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update an Event"
+    fields:
+      - name: class
+        type: "#UpdateAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateAnInventoryTier_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateAnInventoryTier"]
+
+  - name: UpdateAnInventoryTier
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update an Inventory Tier"
+    fields:
+      - name: class
+        type: "#UpdateAnInventoryTier_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateDefaultQuestionById_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateDefaultQuestionById"]
+
+  - name: UpdateDefaultQuestionById
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update Default Question by Id"
+    fields:
+      - name: class
+        type: "#UpdateDefaultQuestionById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateDisplaySettings_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateDisplaySettings"]
+
+  - name: UpdateDisplaySettings
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update Display Settings"
+    fields:
+      - name: class
+        type: "#UpdateDisplaySettings_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateMultipleInventoryTiers_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateMultipleInventoryTiers"]
+
+  - name: UpdateMultipleInventoryTiers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update Multiple Inventory Tiers"
+    fields:
+      - name: class
+        type: "#UpdateMultipleInventoryTiers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateTicketBuyerSettingsForAnEvent_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UpdateTicketBuyerSettingsForAnEvent"]
+
+  - name: UpdateTicketBuyerSettingsForAnEvent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update Ticket Buyer Settings for an Event"
+    fields:
+      - name: class
+        type: "#UpdateTicketBuyerSettingsForAnEvent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UploadAMediaFile_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:UploadAMediaFile"]
+
+  - name: UploadAMediaFile
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Upload a Media File"
+    fields:
+      - name: class
+        type: "#UploadAMediaFile_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VerifyPasswordForATeam_class
+    type: enum
+    inVocab: false
+    symbols: ["eventbrite:VerifyPasswordForATeam"]
+
+  - name: VerifyPasswordForATeam
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Verify password for a team"
+    fields:
+      - name: class
+        type: "#VerifyPasswordForATeam_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

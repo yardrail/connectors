@@ -1,0 +1,149 @@
+$base: "https://yardrail.com/cwl/monday#"
+$namespaces:
+  monday: "https://yardrail.com/cwl/monday#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: ChangeMultipleColumnValues_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:ChangeMultipleColumnValues"]
+
+  - name: ChangeMultipleColumnValues
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Changes the column values of a specific item."
+    fields:
+      - name: class
+        type: "#ChangeMultipleColumnValues_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateItem_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:CreateItem"]
+
+  - name: CreateItem
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates an item in a board group with initial column values. Uses only labels the board already has."
+    fields:
+      - name: class
+        type: "#CreateItem_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:CreateUpdate"]
+
+  - name: CreateUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#CreateUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetItem_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:GetItem"]
+
+  - name: GetItem
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get a collection of items."
+    fields:
+      - name: class
+        type: "#GetItem_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListBoardColumns_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:ListBoardColumns"]
+
+  - name: ListBoardColumns
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists a board's columns with their IDs, titles, types and settings, including status and dropdown labels."
+    fields:
+      - name: class
+        type: "#ListBoardColumns_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListBoardItems_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:ListBoardItems"]
+
+  - name: ListBoardItems
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists a board's items with their column values, optionally limited to some groups. Returns up to 500 items per group and a cursor; does not fetch further pages."
+    fields:
+      - name: class
+        type: "#ListBoardItems_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListItemsByColumnValues_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:ListItemsByColumnValues"]
+
+  - name: ListItemsByColumnValues
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Finds a board's items whose column matches any of the given values. Returns up to 500 items and a cursor; does not fetch further pages."
+    fields:
+      - name: class
+        type: "#ListItemsByColumnValues_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListUsers_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:ListUsers"]
+
+  - name: ListUsers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get users."
+    fields:
+      - name: class
+        type: "#ListUsers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

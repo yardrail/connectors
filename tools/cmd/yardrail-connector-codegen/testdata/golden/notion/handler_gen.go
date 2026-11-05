@@ -4,47 +4,120 @@ package notion
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
-// Connector wraps authenticated oapi-codegen clients per interface.
-// Use Client() for typed access to the full API surface.
-type Connector struct {
-	clients map[string]*client.ClientWithResponses
+// InterfaceClient wraps an authenticated oapi-codegen client for one interface.
+type InterfaceClient struct {
+	cl *client.ClientWithResponses
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*client.ClientWithResponses, 1)
+// Function identifies a callable operation on this connector.
+type Function string
 
-	if ifaceCreds, ok := creds["integration"]; ok {
-		baseURL := resolveBaseURL(config["integration"])
-		authFn := authEditorIntegration(ifaceCreds)
+const (
+	FnCreateADataSource       Function = "create-a-data-source"
+	FnListDataSourceTemplates Function = "list-data-source-templates"
+	FnMovePage                Function = "move-page"
+	FnQueryDataSource         Function = "query-data-source"
+	FnRetrieveADataSource     Function = "retrieve-a-data-source"
+	FnRetrieveADatabase       Function = "retrieve-a-database"
+	FnRetrievePageMarkdown    Function = "retrieve-page-markdown"
+	FnUpdateADataSource       Function = "update-a-data-source"
+	FnUpdatePageMarkdown      Function = "update-page-markdown"
+)
 
-		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
-		if httpClient != nil {
-			opts = append(opts, client.WithHTTPClient(httpClient))
-		}
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnCreateADataSource:
+		return FnCreateADataSource, nil
+	case FnListDataSourceTemplates:
+		return FnListDataSourceTemplates, nil
+	case FnMovePage:
+		return FnMovePage, nil
+	case FnQueryDataSource:
+		return FnQueryDataSource, nil
+	case FnRetrieveADataSource:
+		return FnRetrieveADataSource, nil
+	case FnRetrieveADatabase:
+		return FnRetrieveADatabase, nil
+	case FnRetrievePageMarkdown:
+		return FnRetrievePageMarkdown, nil
+	case FnUpdateADataSource:
+		return FnUpdateADataSource, nil
+	case FnUpdatePageMarkdown:
+		return FnUpdatePageMarkdown, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
 
-		c, err := client.NewClientWithResponses(baseURL, opts...)
-		if err != nil {
-			return nil, fmt.Errorf("creating integration client: %w", err)
-		}
+// Dispatch calls the named function's typed client method.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnCreateADataSource:
+		return ic.dispatchCreateADataSourceWithResponse(ctx, config, inputs)
+	case FnListDataSourceTemplates:
+		return ic.dispatchListDataSourceTemplatesWithResponse(ctx, config, inputs)
+	case FnMovePage:
+		return ic.dispatchMovePageWithResponse(ctx, config, inputs)
+	case FnQueryDataSource:
+		return ic.dispatchQueryDataSourceWithResponse(ctx, config, inputs)
+	case FnRetrieveADataSource:
+		return ic.dispatchRetrieveADataSourceWithResponse(ctx, config, inputs)
+	case FnRetrieveADatabase:
+		return ic.dispatchRetrieveADatabaseWithResponse(ctx, config, inputs)
+	case FnRetrievePageMarkdown:
+		return ic.dispatchRetrievePageMarkdownWithResponse(ctx, config, inputs)
+	case FnUpdateADataSource:
+		return ic.dispatchUpdateADataSourceWithResponse(ctx, config, inputs)
+	case FnUpdatePageMarkdown:
+		return ic.dispatchUpdatePageMarkdownWithResponse(ctx, config, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+	}
+}
 
-		clients["integration"] = c
+// Connector holds an authenticated client for one interface.
+type Connector struct {
+	client *InterfaceClient
+}
+
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
+
+// NewConnector constructs a Connector for the given interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	baseURL := resolveBaseURL(config)
+
+	var authFn func(context.Context, *http.Request) error
+	switch interfaceID {
+	case "integration":
+		authFn = authEditorIntegration(creds)
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	return &Connector{clients: clients}, nil
-}
+	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
+	if httpClient != nil {
+		opts = append(opts, client.WithHTTPClient(httpClient))
+	}
 
-// Client returns the typed oapi-codegen client for the given interface.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *client.ClientWithResponses {
-	return c.clients[interfaceID]
+	cl, err := client.NewClientWithResponses(baseURL, opts...)
+	if err != nil {
+		return nil, fmt.Errorf("creating %s client: %w", interfaceID, err)
+	}
+
+	return &Connector{client: &InterfaceClient{cl: cl}}, nil
 }
 
 func resolveBaseURL(config map[string]string) string {
@@ -55,10 +128,11 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://api.notion.com"
 }
 
-func authEditorIntegration(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorIntegration(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 		req.Header.Set("Notion-Version", "2022-06-28")
 

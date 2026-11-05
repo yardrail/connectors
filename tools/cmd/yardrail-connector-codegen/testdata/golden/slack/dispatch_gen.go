@@ -10,6 +10,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/slack/slack/client"
 )
 
@@ -18,226 +20,29 @@ var (
 	errUnknownFunction        = errors.New("slack: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"admin-apps-approve-with-formdata-body":                               dispatchAdminAppsApproveWithFormdataBodyWithResponse,
-	"admin-apps-approved-list":                                            dispatchAdminAppsApprovedListWithResponse,
-	"admin-apps-requests-list":                                            dispatchAdminAppsRequestsListWithResponse,
-	"admin-apps-restrict-with-formdata-body":                              dispatchAdminAppsRestrictWithFormdataBodyWithResponse,
-	"admin-apps-restricted-list":                                          dispatchAdminAppsRestrictedListWithResponse,
-	"admin-conversations-archive-with-formdata-body":                      dispatchAdminConversationsArchiveWithFormdataBodyWithResponse,
-	"admin-conversations-convert-to-private-with-formdata-body":           dispatchAdminConversationsConvertToPrivateWithFormdataBodyWithResponse,
-	"admin-conversations-create-with-formdata-body":                       dispatchAdminConversationsCreateWithFormdataBodyWithResponse,
-	"admin-conversations-delete-with-formdata-body":                       dispatchAdminConversationsDeleteWithFormdataBodyWithResponse,
-	"admin-conversations-disconnect-shared-with-formdata-body":            dispatchAdminConversationsDisconnectSharedWithFormdataBodyWithResponse,
-	"admin-conversations-ekm-list-original-connected-channel-info":        dispatchAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse,
-	"admin-conversations-get-conversation-prefs":                          dispatchAdminConversationsGetConversationPrefsWithResponse,
-	"admin-conversations-get-teams":                                       dispatchAdminConversationsGetTeamsWithResponse,
-	"admin-conversations-invite-with-formdata-body":                       dispatchAdminConversationsInviteWithFormdataBodyWithResponse,
-	"admin-conversations-rename-with-formdata-body":                       dispatchAdminConversationsRenameWithFormdataBodyWithResponse,
-	"admin-conversations-restrict-access-add-group-with-formdata-body":    dispatchAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse,
-	"admin-conversations-restrict-access-list-groups":                     dispatchAdminConversationsRestrictAccessListGroupsWithResponse,
-	"admin-conversations-restrict-access-remove-group-with-formdata-body": dispatchAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse,
-	"admin-conversations-search":                                          dispatchAdminConversationsSearchWithResponse,
-	"admin-conversations-set-conversation-prefs-with-formdata-body":       dispatchAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse,
-	"admin-conversations-set-teams-with-formdata-body":                    dispatchAdminConversationsSetTeamsWithFormdataBodyWithResponse,
-	"admin-conversations-unarchive-with-formdata-body":                    dispatchAdminConversationsUnarchiveWithFormdataBodyWithResponse,
-	"admin-emoji-add-alias-with-formdata-body":                            dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse,
-	"admin-emoji-add-with-formdata-body":                                  dispatchAdminEmojiAddWithFormdataBodyWithResponse,
-	"admin-emoji-list":                                                    dispatchAdminEmojiListWithResponse,
-	"admin-emoji-remove-with-formdata-body":                               dispatchAdminEmojiRemoveWithFormdataBodyWithResponse,
-	"admin-emoji-rename-with-formdata-body":                               dispatchAdminEmojiRenameWithFormdataBodyWithResponse,
-	"admin-invite-requests-approve-with-formdata-body":                    dispatchAdminInviteRequestsApproveWithFormdataBodyWithResponse,
-	"admin-invite-requests-approved-list":                                 dispatchAdminInviteRequestsApprovedListWithResponse,
-	"admin-invite-requests-denied-list":                                   dispatchAdminInviteRequestsDeniedListWithResponse,
-	"admin-invite-requests-deny-with-formdata-body":                       dispatchAdminInviteRequestsDenyWithFormdataBodyWithResponse,
-	"admin-invite-requests-list":                                          dispatchAdminInviteRequestsListWithResponse,
-	"admin-teams-admins-list":                                             dispatchAdminTeamsAdminsListWithResponse,
-	"admin-teams-create-with-formdata-body":                               dispatchAdminTeamsCreateWithFormdataBodyWithResponse,
-	"admin-teams-list":                                                    dispatchAdminTeamsListWithResponse,
-	"admin-teams-owners-list":                                             dispatchAdminTeamsOwnersListWithResponse,
-	"admin-teams-settings-info":                                           dispatchAdminTeamsSettingsInfoWithResponse,
-	"admin-teams-settings-set-default-channels-with-formdata-body":        dispatchAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse,
-	"admin-teams-settings-set-description-with-formdata-body":             dispatchAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse,
-	"admin-teams-settings-set-discoverability-with-formdata-body":         dispatchAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse,
-	"admin-teams-settings-set-icon-with-formdata-body":                    dispatchAdminTeamsSettingsSetIconWithFormdataBodyWithResponse,
-	"admin-teams-settings-set-name-with-formdata-body":                    dispatchAdminTeamsSettingsSetNameWithFormdataBodyWithResponse,
-	"admin-usergroups-add-channels-with-formdata-body":                    dispatchAdminUsergroupsAddChannelsWithFormdataBodyWithResponse,
-	"admin-usergroups-add-teams-with-formdata-body":                       dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithResponse,
-	"admin-usergroups-list-channels":                                      dispatchAdminUsergroupsListChannelsWithResponse,
-	"admin-usergroups-remove-channels-with-formdata-body":                 dispatchAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse,
-	"admin-users-assign-with-formdata-body":                               dispatchAdminUsersAssignWithFormdataBodyWithResponse,
-	"admin-users-invite-with-formdata-body":                               dispatchAdminUsersInviteWithFormdataBodyWithResponse,
-	"admin-users-list":                                                    dispatchAdminUsersListWithResponse,
-	"admin-users-remove-with-formdata-body":                               dispatchAdminUsersRemoveWithFormdataBodyWithResponse,
-	"admin-users-session-invalidate-with-formdata-body":                   dispatchAdminUsersSessionInvalidateWithFormdataBodyWithResponse,
-	"admin-users-session-reset-with-formdata-body":                        dispatchAdminUsersSessionResetWithFormdataBodyWithResponse,
-	"admin-users-set-admin-with-formdata-body":                            dispatchAdminUsersSetAdminWithFormdataBodyWithResponse,
-	"admin-users-set-expiration-with-formdata-body":                       dispatchAdminUsersSetExpirationWithFormdataBodyWithResponse,
-	"admin-users-set-owner-with-formdata-body":                            dispatchAdminUsersSetOwnerWithFormdataBodyWithResponse,
-	"admin-users-set-regular-with-formdata-body":                          dispatchAdminUsersSetRegularWithFormdataBodyWithResponse,
-	"api-test":                                         dispatchApiTestWithResponse,
-	"apps-event-authorizations-list":                   dispatchAppsEventAuthorizationsListWithResponse,
-	"apps-permissions-info":                            dispatchAppsPermissionsInfoWithResponse,
-	"apps-permissions-request":                         dispatchAppsPermissionsRequestWithResponse,
-	"apps-permissions-resources-list":                  dispatchAppsPermissionsResourcesListWithResponse,
-	"apps-permissions-scopes-list":                     dispatchAppsPermissionsScopesListWithResponse,
-	"apps-permissions-users-list":                      dispatchAppsPermissionsUsersListWithResponse,
-	"apps-permissions-users-request":                   dispatchAppsPermissionsUsersRequestWithResponse,
-	"apps-uninstall":                                   dispatchAppsUninstallWithResponse,
-	"auth-revoke":                                      dispatchAuthRevokeWithResponse,
-	"auth-test":                                        dispatchAuthTestWithResponse,
-	"bots-info":                                        dispatchBotsInfoWithResponse,
-	"calls-add-with-formdata-body":                     dispatchCallsAddWithFormdataBodyWithResponse,
-	"calls-end-with-formdata-body":                     dispatchCallsEndWithFormdataBodyWithResponse,
-	"calls-info":                                       dispatchCallsInfoWithResponse,
-	"calls-participants-add-with-formdata-body":        dispatchCallsParticipantsAddWithFormdataBodyWithResponse,
-	"calls-participants-remove-with-formdata-body":     dispatchCallsParticipantsRemoveWithFormdataBodyWithResponse,
-	"calls-update-with-formdata-body":                  dispatchCallsUpdateWithFormdataBodyWithResponse,
-	"chat-delete-scheduled-message-with-formdata-body": dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse,
-	"chat-delete-with-formdata-body":                   dispatchChatDeleteWithFormdataBodyWithResponse,
-	"chat-get-permalink":                               dispatchChatGetPermalinkWithResponse,
-	"chat-me-message-with-formdata-body":               dispatchChatMeMessageWithFormdataBodyWithResponse,
-	"chat-post-ephemeral-with-formdata-body":           dispatchChatPostEphemeralWithFormdataBodyWithResponse,
-	"chat-post-message-with-formdata-body":             dispatchChatPostMessageWithFormdataBodyWithResponse,
-	"chat-schedule-message-with-formdata-body":         dispatchChatScheduleMessageWithFormdataBodyWithResponse,
-	"chat-scheduled-messages-list":                     dispatchChatScheduledMessagesListWithResponse,
-	"chat-unfurl-with-formdata-body":                   dispatchChatUnfurlWithFormdataBodyWithResponse,
-	"chat-update-with-formdata-body":                   dispatchChatUpdateWithFormdataBodyWithResponse,
-	"conversations-archive-with-formdata-body":         dispatchConversationsArchiveWithFormdataBodyWithResponse,
-	"conversations-close-with-formdata-body":           dispatchConversationsCloseWithFormdataBodyWithResponse,
-	"conversations-create-with-formdata-body":          dispatchConversationsCreateWithFormdataBodyWithResponse,
-	"conversations-history":                            dispatchConversationsHistoryWithResponse,
-	"conversations-info":                               dispatchConversationsInfoWithResponse,
-	"conversations-invite-with-formdata-body":          dispatchConversationsInviteWithFormdataBodyWithResponse,
-	"conversations-join-with-formdata-body":            dispatchConversationsJoinWithFormdataBodyWithResponse,
-	"conversations-kick-with-formdata-body":            dispatchConversationsKickWithFormdataBodyWithResponse,
-	"conversations-leave-with-formdata-body":           dispatchConversationsLeaveWithFormdataBodyWithResponse,
-	"conversations-list":                               dispatchConversationsListWithResponse,
-	"conversations-mark-with-formdata-body":            dispatchConversationsMarkWithFormdataBodyWithResponse,
-	"conversations-members":                            dispatchConversationsMembersWithResponse,
-	"conversations-open-with-formdata-body":            dispatchConversationsOpenWithFormdataBodyWithResponse,
-	"conversations-rename-with-formdata-body":          dispatchConversationsRenameWithFormdataBodyWithResponse,
-	"conversations-replies":                            dispatchConversationsRepliesWithResponse,
-	"conversations-set-purpose-with-formdata-body":     dispatchConversationsSetPurposeWithFormdataBodyWithResponse,
-	"conversations-set-topic-with-formdata-body":       dispatchConversationsSetTopicWithFormdataBodyWithResponse,
-	"conversations-unarchive-with-formdata-body":       dispatchConversationsUnarchiveWithFormdataBodyWithResponse,
-	"dialog-open":                                      dispatchDialogOpenWithResponse,
-	"dnd-end-dnd":                                      dispatchDndEndDndWithResponse,
-	"dnd-end-snooze":                                   dispatchDndEndSnoozeWithResponse,
-	"dnd-info":                                         dispatchDndInfoWithResponse,
-	"dnd-set-snooze-with-formdata-body":                dispatchDndSetSnoozeWithFormdataBodyWithResponse,
-	"dnd-team-info":                                    dispatchDndTeamInfoWithResponse,
-	"emoji-list":                                       dispatchEmojiListWithResponse,
-	"files-comments-delete-with-formdata-body":         dispatchFilesCommentsDeleteWithFormdataBodyWithResponse,
-	"files-delete-with-formdata-body":                  dispatchFilesDeleteWithFormdataBodyWithResponse,
-	"files-info":                                       dispatchFilesInfoWithResponse,
-	"files-list":                                       dispatchFilesListWithResponse,
-	"files-remote-add-with-formdata-body":              dispatchFilesRemoteAddWithFormdataBodyWithResponse,
-	"files-remote-info":                                dispatchFilesRemoteInfoWithResponse,
-	"files-remote-list":                                dispatchFilesRemoteListWithResponse,
-	"files-remote-remove-with-formdata-body":           dispatchFilesRemoteRemoveWithFormdataBodyWithResponse,
-	"files-remote-share":                               dispatchFilesRemoteShareWithResponse,
-	"files-remote-update-with-formdata-body":           dispatchFilesRemoteUpdateWithFormdataBodyWithResponse,
-	"files-revoke-public-u-r-l-with-formdata-body":     dispatchFilesRevokePublicURLWithFormdataBodyWithResponse,
-	"files-shared-public-u-r-l-with-formdata-body":     dispatchFilesSharedPublicURLWithFormdataBodyWithResponse,
-	"files-upload-with-formdata-body":                  dispatchFilesUploadWithFormdataBodyWithResponse,
-	"migration-exchange":                               dispatchMigrationExchangeWithResponse,
-	"oauth-access":                                     dispatchOauthAccessWithResponse,
-	"oauth-token":                                      dispatchOauthTokenWithResponse,
-	"oauth-v2-access":                                  dispatchOauthV2AccessWithResponse,
-	"pins-add-with-formdata-body":                      dispatchPinsAddWithFormdataBodyWithResponse,
-	"pins-list":                                        dispatchPinsListWithResponse,
-	"pins-remove-with-formdata-body":                   dispatchPinsRemoveWithFormdataBodyWithResponse,
-	"reactions-add-with-formdata-body":                 dispatchReactionsAddWithFormdataBodyWithResponse,
-	"reactions-get":                                    dispatchReactionsGetWithResponse,
-	"reactions-list":                                   dispatchReactionsListWithResponse,
-	"reactions-remove-with-formdata-body":              dispatchReactionsRemoveWithFormdataBodyWithResponse,
-	"reminders-add-with-formdata-body":                 dispatchRemindersAddWithFormdataBodyWithResponse,
-	"reminders-complete-with-formdata-body":            dispatchRemindersCompleteWithFormdataBodyWithResponse,
-	"reminders-delete-with-formdata-body":              dispatchRemindersDeleteWithFormdataBodyWithResponse,
-	"reminders-info":                                   dispatchRemindersInfoWithResponse,
-	"reminders-list":                                   dispatchRemindersListWithResponse,
-	"rtm-connect":                                      dispatchRtmConnectWithResponse,
-	"search-messages":                                  dispatchSearchMessagesWithResponse,
-	"stars-add-with-formdata-body":                     dispatchStarsAddWithFormdataBodyWithResponse,
-	"stars-list":                                       dispatchStarsListWithResponse,
-	"stars-remove-with-formdata-body":                  dispatchStarsRemoveWithFormdataBodyWithResponse,
-	"team-access-logs":                                 dispatchTeamAccessLogsWithResponse,
-	"team-billable-info":                               dispatchTeamBillableInfoWithResponse,
-	"team-info":                                        dispatchTeamInfoWithResponse,
-	"team-integration-logs":                            dispatchTeamIntegrationLogsWithResponse,
-	"team-profile-get":                                 dispatchTeamProfileGetWithResponse,
-	"usergroups-create-with-formdata-body":             dispatchUsergroupsCreateWithFormdataBodyWithResponse,
-	"usergroups-disable-with-formdata-body":            dispatchUsergroupsDisableWithFormdataBodyWithResponse,
-	"usergroups-enable-with-formdata-body":             dispatchUsergroupsEnableWithFormdataBodyWithResponse,
-	"usergroups-list":                                  dispatchUsergroupsListWithResponse,
-	"usergroups-update-with-formdata-body":             dispatchUsergroupsUpdateWithFormdataBodyWithResponse,
-	"usergroups-users-list":                            dispatchUsergroupsUsersListWithResponse,
-	"usergroups-users-update-with-formdata-body":       dispatchUsergroupsUsersUpdateWithFormdataBodyWithResponse,
-	"users-conversations":                              dispatchUsersConversationsWithResponse,
-	"users-delete-photo-with-formdata-body":            dispatchUsersDeletePhotoWithFormdataBodyWithResponse,
-	"users-get-presence":                               dispatchUsersGetPresenceWithResponse,
-	"users-identity":                                   dispatchUsersIdentityWithResponse,
-	"users-info":                                       dispatchUsersInfoWithResponse,
-	"users-list":                                       dispatchUsersListWithResponse,
-	"users-lookup-by-email":                            dispatchUsersLookupByEmailWithResponse,
-	"users-profile-get":                                dispatchUsersProfileGetWithResponse,
-	"users-profile-set-with-formdata-body":             dispatchUsersProfileSetWithFormdataBodyWithResponse,
-	"users-set-active":                                 dispatchUsersSetActiveWithResponse,
-	"users-set-photo-with-formdata-body":               dispatchUsersSetPhotoWithFormdataBodyWithResponse,
-	"users-set-presence-with-formdata-body":            dispatchUsersSetPresenceWithFormdataBodyWithResponse,
-	"views-open":                                       dispatchViewsOpenWithResponse,
-	"views-publish":                                    dispatchViewsPublishWithResponse,
-	"views-push":                                       dispatchViewsPushWithResponse,
-	"views-update":                                     dispatchViewsUpdateWithResponse,
-	"workflows-step-completed":                         dispatchWorkflowsStepCompletedWithResponse,
-	"workflows-step-failed":                            dispatchWorkflowsStepFailedWithResponse,
-	"workflows-update-step":                            dispatchWorkflowsUpdateStepWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
-	creds, config map[string]string,
+	creds connector.Credentials,
+	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	fn, err := ParseFunction(function)
 	if err != nil {
 		return nil, err
 	}
 
-	cl := c.Client(interfaceID)
-	if cl == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
-	}
-
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	c, err := NewConnector(interfaceID, creds, config, httpClient)
+	if err != nil {
+		return nil, err
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
 }
 
-func dispatchAdminAppsApproveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsApproveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminAppsApproveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -252,7 +57,7 @@ func dispatchAdminAppsApproveWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.admin-apps-approve-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminAppsApproveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminAppsApproveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -268,7 +73,7 @@ func dispatchAdminAppsApproveWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminAppsApprovedListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsApprovedListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminAppsApprovedListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -276,7 +81,7 @@ func dispatchAdminAppsApprovedListWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("slack.admin-apps-approved-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminAppsApprovedListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminAppsApprovedListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -292,7 +97,7 @@ func dispatchAdminAppsApprovedListWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminAppsRequestsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsRequestsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminAppsRequestsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -300,7 +105,7 @@ func dispatchAdminAppsRequestsListWithResponse(ctx context.Context, cl *client.C
 		return nil, fmt.Errorf("slack.admin-apps-requests-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminAppsRequestsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminAppsRequestsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -316,7 +121,7 @@ func dispatchAdminAppsRequestsListWithResponse(ctx context.Context, cl *client.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminAppsRestrictWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsRestrictWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminAppsRestrictFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -331,7 +136,7 @@ func dispatchAdminAppsRestrictWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.admin-apps-restrict-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminAppsRestrictWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminAppsRestrictWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -347,7 +152,7 @@ func dispatchAdminAppsRestrictWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminAppsRestrictedListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminAppsRestrictedListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminAppsRestrictedListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -355,7 +160,7 @@ func dispatchAdminAppsRestrictedListWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("slack.admin-apps-restricted-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminAppsRestrictedListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminAppsRestrictedListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -371,7 +176,7 @@ func dispatchAdminAppsRestrictedListWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsArchiveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsArchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsArchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -386,7 +191,7 @@ func dispatchAdminConversationsArchiveWithFormdataBodyWithResponse(ctx context.C
 		return nil, fmt.Errorf("slack.admin-conversations-archive-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsArchiveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsArchiveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -402,7 +207,7 @@ func dispatchAdminConversationsArchiveWithFormdataBodyWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsConvertToPrivateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -417,7 +222,7 @@ func dispatchAdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx 
 		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -433,7 +238,7 @@ func dispatchAdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsCreateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsCreateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsCreateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -448,7 +253,7 @@ func dispatchAdminConversationsCreateWithFormdataBodyWithResponse(ctx context.Co
 		return nil, fmt.Errorf("slack.admin-conversations-create-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsCreateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsCreateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -464,7 +269,7 @@ func dispatchAdminConversationsCreateWithFormdataBodyWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -479,7 +284,7 @@ func dispatchAdminConversationsDeleteWithFormdataBodyWithResponse(ctx context.Co
 		return nil, fmt.Errorf("slack.admin-conversations-delete-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsDeleteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsDeleteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -495,7 +300,7 @@ func dispatchAdminConversationsDeleteWithFormdataBodyWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsDisconnectSharedFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -510,7 +315,7 @@ func dispatchAdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx 
 		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -526,7 +331,7 @@ func dispatchAdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsEkmListOriginalConnectedChannelInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -534,7 +339,7 @@ func dispatchAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(c
 		return nil, fmt.Errorf("slack.admin-conversations-ekm-list-original-connected-channel-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -550,7 +355,7 @@ func dispatchAdminConversationsEkmListOriginalConnectedChannelInfoWithResponse(c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsGetConversationPrefsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsGetConversationPrefsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsGetConversationPrefsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -558,7 +363,7 @@ func dispatchAdminConversationsGetConversationPrefsWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("slack.admin-conversations-get-conversation-prefs: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsGetConversationPrefsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminConversationsGetConversationPrefsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -574,7 +379,7 @@ func dispatchAdminConversationsGetConversationPrefsWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsGetTeamsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsGetTeamsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsGetTeamsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -582,7 +387,7 @@ func dispatchAdminConversationsGetTeamsWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("slack.admin-conversations-get-teams: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsGetTeamsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminConversationsGetTeamsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -598,7 +403,7 @@ func dispatchAdminConversationsGetTeamsWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsInviteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsInviteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsInviteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -613,7 +418,7 @@ func dispatchAdminConversationsInviteWithFormdataBodyWithResponse(ctx context.Co
 		return nil, fmt.Errorf("slack.admin-conversations-invite-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsInviteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsInviteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -629,7 +434,7 @@ func dispatchAdminConversationsInviteWithFormdataBodyWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsRenameWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsRenameWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsRenameFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -644,7 +449,7 @@ func dispatchAdminConversationsRenameWithFormdataBodyWithResponse(ctx context.Co
 		return nil, fmt.Errorf("slack.admin-conversations-rename-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsRenameWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsRenameWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -660,7 +465,7 @@ func dispatchAdminConversationsRenameWithFormdataBodyWithResponse(ctx context.Co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsRestrictAccessAddGroupFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -668,7 +473,7 @@ func dispatchAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithRespons
 		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-add-group-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.AdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -684,7 +489,7 @@ func dispatchAdminConversationsRestrictAccessAddGroupWithFormdataBodyWithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsRestrictAccessListGroupsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessListGroupsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsRestrictAccessListGroupsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -692,7 +497,7 @@ func dispatchAdminConversationsRestrictAccessListGroupsWithResponse(ctx context.
 		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-list-groups: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsRestrictAccessListGroupsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminConversationsRestrictAccessListGroupsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -708,7 +513,7 @@ func dispatchAdminConversationsRestrictAccessListGroupsWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsRestrictAccessRemoveGroupFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -716,7 +521,7 @@ func dispatchAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResp
 		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-remove-group-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.AdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -732,7 +537,7 @@ func dispatchAdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsSearchWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsSearchWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminConversationsSearchParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -740,7 +545,7 @@ func dispatchAdminConversationsSearchWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("slack.admin-conversations-search: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsSearchWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminConversationsSearchWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -756,7 +561,7 @@ func dispatchAdminConversationsSearchWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsSetConversationPrefsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -771,7 +576,7 @@ func dispatchAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(
 		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -787,7 +592,7 @@ func dispatchAdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsSetTeamsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -802,7 +607,7 @@ func dispatchAdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx context.
 		return nil, fmt.Errorf("slack.admin-conversations-set-teams-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -818,7 +623,7 @@ func dispatchAdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminConversationsUnarchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -833,7 +638,7 @@ func dispatchAdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx context
 		return nil, fmt.Errorf("slack.admin-conversations-unarchive-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -849,7 +654,7 @@ func dispatchAdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminEmojiAddAliasFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -857,7 +662,7 @@ func dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("slack.admin-emoji-add-alias-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdminEmojiAddAliasWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.AdminEmojiAddAliasWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -873,7 +678,7 @@ func dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminEmojiAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -881,7 +686,7 @@ func dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("slack.admin-emoji-add-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdminEmojiAddWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.AdminEmojiAddWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -897,7 +702,7 @@ func dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminEmojiListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminEmojiListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -905,7 +710,7 @@ func dispatchAdminEmojiListWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("slack.admin-emoji-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminEmojiListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminEmojiListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -921,7 +726,7 @@ func dispatchAdminEmojiListWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminEmojiRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -929,7 +734,7 @@ func dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.admin-emoji-remove-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdminEmojiRemoveWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.AdminEmojiRemoveWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -945,7 +750,7 @@ func dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminEmojiRenameWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminEmojiRenameWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminEmojiRenameFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -953,7 +758,7 @@ func dispatchAdminEmojiRenameWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.admin-emoji-rename-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdminEmojiRenameWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.AdminEmojiRenameWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -969,7 +774,7 @@ func dispatchAdminEmojiRenameWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminInviteRequestsApproveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -984,7 +789,7 @@ func dispatchAdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx context.
 		return nil, fmt.Errorf("slack.admin-invite-requests-approve-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1000,7 +805,7 @@ func dispatchAdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminInviteRequestsApprovedListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsApprovedListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminInviteRequestsApprovedListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1008,7 +813,7 @@ func dispatchAdminInviteRequestsApprovedListWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("slack.admin-invite-requests-approved-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminInviteRequestsApprovedListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminInviteRequestsApprovedListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1024,7 +829,7 @@ func dispatchAdminInviteRequestsApprovedListWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminInviteRequestsDeniedListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsDeniedListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminInviteRequestsDeniedListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1032,7 +837,7 @@ func dispatchAdminInviteRequestsDeniedListWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("slack.admin-invite-requests-denied-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminInviteRequestsDeniedListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminInviteRequestsDeniedListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1048,7 +853,7 @@ func dispatchAdminInviteRequestsDeniedListWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminInviteRequestsDenyFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1063,7 +868,7 @@ func dispatchAdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx context.Con
 		return nil, fmt.Errorf("slack.admin-invite-requests-deny-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1079,7 +884,7 @@ func dispatchAdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminInviteRequestsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminInviteRequestsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminInviteRequestsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1087,7 +892,7 @@ func dispatchAdminInviteRequestsListWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("slack.admin-invite-requests-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminInviteRequestsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminInviteRequestsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1103,7 +908,7 @@ func dispatchAdminInviteRequestsListWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsAdminsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsAdminsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminTeamsAdminsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1111,7 +916,7 @@ func dispatchAdminTeamsAdminsListWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("slack.admin-teams-admins-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminTeamsAdminsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminTeamsAdminsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1127,7 +932,7 @@ func dispatchAdminTeamsAdminsListWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsCreateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsCreateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsCreateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1142,7 +947,7 @@ func dispatchAdminTeamsCreateWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.admin-teams-create-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminTeamsCreateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminTeamsCreateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1158,7 +963,7 @@ func dispatchAdminTeamsCreateWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminTeamsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1166,7 +971,7 @@ func dispatchAdminTeamsListWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("slack.admin-teams-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminTeamsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminTeamsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1182,7 +987,7 @@ func dispatchAdminTeamsListWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsOwnersListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsOwnersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminTeamsOwnersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1190,7 +995,7 @@ func dispatchAdminTeamsOwnersListWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("slack.admin-teams-owners-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminTeamsOwnersListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminTeamsOwnersListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1206,7 +1011,7 @@ func dispatchAdminTeamsOwnersListWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsSettingsInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminTeamsSettingsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1214,7 +1019,7 @@ func dispatchAdminTeamsSettingsInfoWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("slack.admin-teams-settings-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminTeamsSettingsInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminTeamsSettingsInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1230,7 +1035,7 @@ func dispatchAdminTeamsSettingsInfoWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetDefaultChannelsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1238,7 +1043,7 @@ func dispatchAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ct
 		return nil, fmt.Errorf("slack.admin-teams-settings-set-default-channels-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.AdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1254,7 +1059,7 @@ func dispatchAdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetDescriptionFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1269,7 +1074,7 @@ func dispatchAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx co
 		return nil, fmt.Errorf("slack.admin-teams-settings-set-description-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1285,7 +1090,7 @@ func dispatchAdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx co
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetDiscoverabilityFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1300,7 +1105,7 @@ func dispatchAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ct
 		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1316,7 +1121,7 @@ func dispatchAdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ct
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetIconFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1324,7 +1129,7 @@ func dispatchAdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx context.C
 		return nil, fmt.Errorf("slack.admin-teams-settings-set-icon-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.AdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.AdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1340,7 +1145,7 @@ func dispatchAdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminTeamsSettingsSetNameFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1355,7 +1160,7 @@ func dispatchAdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx context.C
 		return nil, fmt.Errorf("slack.admin-teams-settings-set-name-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1371,7 +1176,7 @@ func dispatchAdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx context.C
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsergroupsAddChannelsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1386,7 +1191,7 @@ func dispatchAdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx context.
 		return nil, fmt.Errorf("slack.admin-usergroups-add-channels-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1402,7 +1207,7 @@ func dispatchAdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsergroupsAddTeamsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1417,7 +1222,7 @@ func dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx context.Con
 		return nil, fmt.Errorf("slack.admin-usergroups-add-teams-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1433,7 +1238,7 @@ func dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsergroupsListChannelsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsergroupsListChannelsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminUsergroupsListChannelsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1441,7 +1246,7 @@ func dispatchAdminUsergroupsListChannelsWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("slack.admin-usergroups-list-channels: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsergroupsListChannelsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminUsergroupsListChannelsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1457,7 +1262,7 @@ func dispatchAdminUsergroupsListChannelsWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsergroupsRemoveChannelsFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1472,7 +1277,7 @@ func dispatchAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx conte
 		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1488,7 +1293,7 @@ func dispatchAdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersAssignWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersAssignWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersAssignFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1503,7 +1308,7 @@ func dispatchAdminUsersAssignWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.admin-users-assign-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersAssignWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersAssignWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1519,7 +1324,7 @@ func dispatchAdminUsersAssignWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersInviteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersInviteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersInviteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1534,7 +1339,7 @@ func dispatchAdminUsersInviteWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.admin-users-invite-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersInviteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersInviteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1550,7 +1355,7 @@ func dispatchAdminUsersInviteWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AdminUsersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1558,7 +1363,7 @@ func dispatchAdminUsersListWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("slack.admin-users-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AdminUsersListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1574,7 +1379,7 @@ func dispatchAdminUsersListWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1589,7 +1394,7 @@ func dispatchAdminUsersRemoveWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.admin-users-remove-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersRemoveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersRemoveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1605,7 +1410,7 @@ func dispatchAdminUsersRemoveWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSessionInvalidateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1620,7 +1425,7 @@ func dispatchAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx context
 		return nil, fmt.Errorf("slack.admin-users-session-invalidate-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1636,7 +1441,7 @@ func dispatchAdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersSessionResetWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSessionResetWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSessionResetFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1651,7 +1456,7 @@ func dispatchAdminUsersSessionResetWithFormdataBodyWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("slack.admin-users-session-reset-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersSessionResetWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersSessionResetWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1667,7 +1472,7 @@ func dispatchAdminUsersSessionResetWithFormdataBodyWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersSetAdminWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSetAdminWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSetAdminFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1682,7 +1487,7 @@ func dispatchAdminUsersSetAdminWithFormdataBodyWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("slack.admin-users-set-admin-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersSetAdminWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersSetAdminWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1698,7 +1503,7 @@ func dispatchAdminUsersSetAdminWithFormdataBodyWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersSetExpirationWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSetExpirationWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSetExpirationFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1713,7 +1518,7 @@ func dispatchAdminUsersSetExpirationWithFormdataBodyWithResponse(ctx context.Con
 		return nil, fmt.Errorf("slack.admin-users-set-expiration-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersSetExpirationWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersSetExpirationWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1729,7 +1534,7 @@ func dispatchAdminUsersSetExpirationWithFormdataBodyWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersSetOwnerWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSetOwnerWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSetOwnerFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1744,7 +1549,7 @@ func dispatchAdminUsersSetOwnerWithFormdataBodyWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("slack.admin-users-set-owner-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersSetOwnerWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersSetOwnerWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1760,7 +1565,7 @@ func dispatchAdminUsersSetOwnerWithFormdataBodyWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAdminUsersSetRegularWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAdminUsersSetRegularWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.AdminUsersSetRegularFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -1775,7 +1580,7 @@ func dispatchAdminUsersSetRegularWithFormdataBodyWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("slack.admin-users-set-regular-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AdminUsersSetRegularWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.AdminUsersSetRegularWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1791,7 +1596,7 @@ func dispatchAdminUsersSetRegularWithFormdataBodyWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchApiTestWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchApiTestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ApiTestParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1799,7 +1604,7 @@ func dispatchApiTestWithResponse(ctx context.Context, cl *client.ClientWithRespo
 		return nil, fmt.Errorf("slack.api-test: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ApiTestWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ApiTestWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1815,7 +1620,7 @@ func dispatchApiTestWithResponse(ctx context.Context, cl *client.ClientWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAppsEventAuthorizationsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsEventAuthorizationsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsEventAuthorizationsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1823,7 +1628,7 @@ func dispatchAppsEventAuthorizationsListWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("slack.apps-event-authorizations-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AppsEventAuthorizationsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AppsEventAuthorizationsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1839,7 +1644,7 @@ func dispatchAppsEventAuthorizationsListWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAppsPermissionsInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1847,7 +1652,7 @@ func dispatchAppsPermissionsInfoWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("slack.apps-permissions-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AppsPermissionsInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AppsPermissionsInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1863,7 +1668,7 @@ func dispatchAppsPermissionsInfoWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAppsPermissionsRequestWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsRequestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsRequestParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1871,7 +1676,7 @@ func dispatchAppsPermissionsRequestWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("slack.apps-permissions-request: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AppsPermissionsRequestWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AppsPermissionsRequestWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1887,7 +1692,7 @@ func dispatchAppsPermissionsRequestWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAppsPermissionsResourcesListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsResourcesListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsResourcesListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1895,7 +1700,7 @@ func dispatchAppsPermissionsResourcesListWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("slack.apps-permissions-resources-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AppsPermissionsResourcesListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AppsPermissionsResourcesListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1911,7 +1716,7 @@ func dispatchAppsPermissionsResourcesListWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAppsPermissionsScopesListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsScopesListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsScopesListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1919,7 +1724,7 @@ func dispatchAppsPermissionsScopesListWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("slack.apps-permissions-scopes-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AppsPermissionsScopesListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AppsPermissionsScopesListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1935,7 +1740,7 @@ func dispatchAppsPermissionsScopesListWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAppsPermissionsUsersListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsUsersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsUsersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1943,7 +1748,7 @@ func dispatchAppsPermissionsUsersListWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("slack.apps-permissions-users-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AppsPermissionsUsersListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AppsPermissionsUsersListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1959,7 +1764,7 @@ func dispatchAppsPermissionsUsersListWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAppsPermissionsUsersRequestWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsPermissionsUsersRequestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsPermissionsUsersRequestParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1967,7 +1772,7 @@ func dispatchAppsPermissionsUsersRequestWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("slack.apps-permissions-users-request: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AppsPermissionsUsersRequestWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AppsPermissionsUsersRequestWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -1983,7 +1788,7 @@ func dispatchAppsPermissionsUsersRequestWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAppsUninstallWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAppsUninstallWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AppsUninstallParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -1991,7 +1796,7 @@ func dispatchAppsUninstallWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("slack.apps-uninstall: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AppsUninstallWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AppsUninstallWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2007,7 +1812,7 @@ func dispatchAppsUninstallWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAuthRevokeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAuthRevokeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AuthRevokeParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2015,7 +1820,7 @@ func dispatchAuthRevokeWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("slack.auth-revoke: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AuthRevokeWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AuthRevokeWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2031,7 +1836,7 @@ func dispatchAuthRevokeWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchAuthTestWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAuthTestWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.AuthTestParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2039,7 +1844,7 @@ func dispatchAuthTestWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("slack.auth-test: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.AuthTestWithResponse(ctx, &params)
+	resp, callErr := ic.cl.AuthTestWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2055,7 +1860,7 @@ func dispatchAuthTestWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchBotsInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBotsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.BotsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2063,7 +1868,7 @@ func dispatchBotsInfoWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("slack.bots-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.BotsInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.BotsInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2079,7 +1884,7 @@ func dispatchBotsInfoWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCallsAddWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2094,7 +1899,7 @@ func dispatchCallsAddWithFormdataBodyWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("slack.calls-add-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CallsAddWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.CallsAddWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2110,7 +1915,7 @@ func dispatchCallsAddWithFormdataBodyWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCallsEndWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsEndWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsEndFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2125,7 +1930,7 @@ func dispatchCallsEndWithFormdataBodyWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("slack.calls-end-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CallsEndWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.CallsEndWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2141,7 +1946,7 @@ func dispatchCallsEndWithFormdataBodyWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCallsInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.CallsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2149,7 +1954,7 @@ func dispatchCallsInfoWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.calls-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CallsInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.CallsInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2165,7 +1970,7 @@ func dispatchCallsInfoWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCallsParticipantsAddWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsParticipantsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsParticipantsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2180,7 +1985,7 @@ func dispatchCallsParticipantsAddWithFormdataBodyWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("slack.calls-participants-add-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CallsParticipantsAddWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.CallsParticipantsAddWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2196,7 +2001,7 @@ func dispatchCallsParticipantsAddWithFormdataBodyWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsParticipantsRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2211,7 +2016,7 @@ func dispatchCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx context.Con
 		return nil, fmt.Errorf("slack.calls-participants-remove-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CallsParticipantsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.CallsParticipantsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2227,7 +2032,7 @@ func dispatchCallsParticipantsRemoveWithFormdataBodyWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchCallsUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCallsUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CallsUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2242,7 +2047,7 @@ func dispatchCallsUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("slack.calls-update-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CallsUpdateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.CallsUpdateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2258,7 +2063,7 @@ func dispatchCallsUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatDeleteScheduledMessageFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2273,7 +2078,7 @@ func dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx context.
 		return nil, fmt.Errorf("slack.chat-delete-scheduled-message-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2289,7 +2094,7 @@ func dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx context.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2304,7 +2109,7 @@ func dispatchChatDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("slack.chat-delete-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatDeleteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ChatDeleteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2320,7 +2125,7 @@ func dispatchChatDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatGetPermalinkWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatGetPermalinkWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ChatGetPermalinkParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2328,7 +2133,7 @@ func dispatchChatGetPermalinkWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("slack.chat-get-permalink: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatGetPermalinkWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ChatGetPermalinkWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2344,7 +2149,7 @@ func dispatchChatGetPermalinkWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatMeMessageWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatMeMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatMeMessageFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2359,7 +2164,7 @@ func dispatchChatMeMessageWithFormdataBodyWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("slack.chat-me-message-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatMeMessageWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ChatMeMessageWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2375,7 +2180,7 @@ func dispatchChatMeMessageWithFormdataBodyWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatPostEphemeralWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatPostEphemeralWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatPostEphemeralFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2390,7 +2195,7 @@ func dispatchChatPostEphemeralWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.chat-post-ephemeral-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatPostEphemeralWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ChatPostEphemeralWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2406,7 +2211,7 @@ func dispatchChatPostEphemeralWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatPostMessageWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatPostMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatPostMessageFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2421,7 +2226,7 @@ func dispatchChatPostMessageWithFormdataBodyWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("slack.chat-post-message-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatPostMessageWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ChatPostMessageWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2437,7 +2242,7 @@ func dispatchChatPostMessageWithFormdataBodyWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatScheduleMessageWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatScheduleMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatScheduleMessageFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2452,7 +2257,7 @@ func dispatchChatScheduleMessageWithFormdataBodyWithResponse(ctx context.Context
 		return nil, fmt.Errorf("slack.chat-schedule-message-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatScheduleMessageWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ChatScheduleMessageWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2468,7 +2273,7 @@ func dispatchChatScheduleMessageWithFormdataBodyWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatScheduledMessagesListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatScheduledMessagesListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ChatScheduledMessagesListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2476,7 +2281,7 @@ func dispatchChatScheduledMessagesListWithResponse(ctx context.Context, cl *clie
 		return nil, fmt.Errorf("slack.chat-scheduled-messages-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatScheduledMessagesListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ChatScheduledMessagesListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2492,7 +2297,7 @@ func dispatchChatScheduledMessagesListWithResponse(ctx context.Context, cl *clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatUnfurlWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatUnfurlWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatUnfurlFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2507,7 +2312,7 @@ func dispatchChatUnfurlWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("slack.chat-unfurl-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatUnfurlWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ChatUnfurlWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2523,7 +2328,7 @@ func dispatchChatUnfurlWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchChatUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChatUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ChatUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2538,7 +2343,7 @@ func dispatchChatUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("slack.chat-update-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ChatUpdateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ChatUpdateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2554,7 +2359,7 @@ func dispatchChatUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsArchiveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsArchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsArchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2569,7 +2374,7 @@ func dispatchConversationsArchiveWithFormdataBodyWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("slack.conversations-archive-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsArchiveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsArchiveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2585,7 +2390,7 @@ func dispatchConversationsArchiveWithFormdataBodyWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsCloseWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsCloseWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsCloseFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2600,7 +2405,7 @@ func dispatchConversationsCloseWithFormdataBodyWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("slack.conversations-close-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsCloseWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsCloseWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2616,7 +2421,7 @@ func dispatchConversationsCloseWithFormdataBodyWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsCreateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsCreateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsCreateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2631,7 +2436,7 @@ func dispatchConversationsCreateWithFormdataBodyWithResponse(ctx context.Context
 		return nil, fmt.Errorf("slack.conversations-create-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsCreateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsCreateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2647,7 +2452,7 @@ func dispatchConversationsCreateWithFormdataBodyWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsHistoryWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsHistoryWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsHistoryParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2655,7 +2460,7 @@ func dispatchConversationsHistoryWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("slack.conversations-history: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsHistoryWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ConversationsHistoryWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2671,7 +2476,7 @@ func dispatchConversationsHistoryWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2679,7 +2484,7 @@ func dispatchConversationsInfoWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("slack.conversations-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ConversationsInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2695,7 +2500,7 @@ func dispatchConversationsInfoWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsInviteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsInviteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsInviteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2710,7 +2515,7 @@ func dispatchConversationsInviteWithFormdataBodyWithResponse(ctx context.Context
 		return nil, fmt.Errorf("slack.conversations-invite-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsInviteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsInviteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2726,7 +2531,7 @@ func dispatchConversationsInviteWithFormdataBodyWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsJoinWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsJoinWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsJoinFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2741,7 +2546,7 @@ func dispatchConversationsJoinWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.conversations-join-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsJoinWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsJoinWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2757,7 +2562,7 @@ func dispatchConversationsJoinWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsKickWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsKickWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsKickFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2772,7 +2577,7 @@ func dispatchConversationsKickWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.conversations-kick-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsKickWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsKickWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2788,7 +2593,7 @@ func dispatchConversationsKickWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsLeaveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsLeaveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsLeaveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2803,7 +2608,7 @@ func dispatchConversationsLeaveWithFormdataBodyWithResponse(ctx context.Context,
 		return nil, fmt.Errorf("slack.conversations-leave-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsLeaveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsLeaveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2819,7 +2624,7 @@ func dispatchConversationsLeaveWithFormdataBodyWithResponse(ctx context.Context,
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2827,7 +2632,7 @@ func dispatchConversationsListWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("slack.conversations-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ConversationsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2843,7 +2648,7 @@ func dispatchConversationsListWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsMarkWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsMarkWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsMarkFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2858,7 +2663,7 @@ func dispatchConversationsMarkWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.conversations-mark-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsMarkWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsMarkWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2874,7 +2679,7 @@ func dispatchConversationsMarkWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsMembersWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsMembersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsMembersParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2882,7 +2687,7 @@ func dispatchConversationsMembersWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("slack.conversations-members: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsMembersWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ConversationsMembersWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2898,7 +2703,7 @@ func dispatchConversationsMembersWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsOpenWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsOpenWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsOpenFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2913,7 +2718,7 @@ func dispatchConversationsOpenWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.conversations-open-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsOpenWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsOpenWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2929,7 +2734,7 @@ func dispatchConversationsOpenWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsRenameWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsRenameWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsRenameFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2944,7 +2749,7 @@ func dispatchConversationsRenameWithFormdataBodyWithResponse(ctx context.Context
 		return nil, fmt.Errorf("slack.conversations-rename-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsRenameWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsRenameWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2960,7 +2765,7 @@ func dispatchConversationsRenameWithFormdataBodyWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsRepliesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsRepliesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ConversationsRepliesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -2968,7 +2773,7 @@ func dispatchConversationsRepliesWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("slack.conversations-replies: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsRepliesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ConversationsRepliesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -2984,7 +2789,7 @@ func dispatchConversationsRepliesWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsSetPurposeWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsSetPurposeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsSetPurposeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -2999,7 +2804,7 @@ func dispatchConversationsSetPurposeWithFormdataBodyWithResponse(ctx context.Con
 		return nil, fmt.Errorf("slack.conversations-set-purpose-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsSetPurposeWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsSetPurposeWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3015,7 +2820,7 @@ func dispatchConversationsSetPurposeWithFormdataBodyWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsSetTopicWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsSetTopicWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsSetTopicFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3030,7 +2835,7 @@ func dispatchConversationsSetTopicWithFormdataBodyWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("slack.conversations-set-topic-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsSetTopicWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsSetTopicWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3046,7 +2851,7 @@ func dispatchConversationsSetTopicWithFormdataBodyWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ConversationsUnarchiveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3061,7 +2866,7 @@ func dispatchConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Cont
 		return nil, fmt.Errorf("slack.conversations-unarchive-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ConversationsUnarchiveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ConversationsUnarchiveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3077,7 +2882,7 @@ func dispatchConversationsUnarchiveWithFormdataBodyWithResponse(ctx context.Cont
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDialogOpenWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDialogOpenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DialogOpenParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3085,7 +2890,7 @@ func dispatchDialogOpenWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("slack.dialog-open: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.DialogOpenWithResponse(ctx, &params)
+	resp, callErr := ic.cl.DialogOpenWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3101,7 +2906,7 @@ func dispatchDialogOpenWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDndEndDndWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndEndDndWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DndEndDndParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3109,7 +2914,7 @@ func dispatchDndEndDndWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.dnd-end-dnd: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.DndEndDndWithResponse(ctx, &params)
+	resp, callErr := ic.cl.DndEndDndWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3125,7 +2930,7 @@ func dispatchDndEndDndWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDndEndSnoozeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndEndSnoozeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DndEndSnoozeParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3133,7 +2938,7 @@ func dispatchDndEndSnoozeWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("slack.dnd-end-snooze: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.DndEndSnoozeWithResponse(ctx, &params)
+	resp, callErr := ic.cl.DndEndSnoozeWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3149,7 +2954,7 @@ func dispatchDndEndSnoozeWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDndInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DndInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3157,7 +2962,7 @@ func dispatchDndInfoWithResponse(ctx context.Context, cl *client.ClientWithRespo
 		return nil, fmt.Errorf("slack.dnd-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.DndInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.DndInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3173,7 +2978,7 @@ func dispatchDndInfoWithResponse(ctx context.Context, cl *client.ClientWithRespo
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.DndSetSnoozeFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3181,7 +2986,7 @@ func dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("slack.dnd-set-snooze-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.DndSetSnoozeWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.DndSetSnoozeWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3197,7 +3002,7 @@ func dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchDndTeamInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchDndTeamInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.DndTeamInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3205,7 +3010,7 @@ func dispatchDndTeamInfoWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("slack.dnd-team-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.DndTeamInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.DndTeamInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3221,7 +3026,7 @@ func dispatchDndTeamInfoWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchEmojiListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchEmojiListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.EmojiListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3229,7 +3034,7 @@ func dispatchEmojiListWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.emoji-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.EmojiListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.EmojiListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3245,7 +3050,7 @@ func dispatchEmojiListWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesCommentsDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesCommentsDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesCommentsDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3260,7 +3065,7 @@ func dispatchFilesCommentsDeleteWithFormdataBodyWithResponse(ctx context.Context
 		return nil, fmt.Errorf("slack.files-comments-delete-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesCommentsDeleteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.FilesCommentsDeleteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3276,7 +3081,7 @@ func dispatchFilesCommentsDeleteWithFormdataBodyWithResponse(ctx context.Context
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3291,7 +3096,7 @@ func dispatchFilesDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("slack.files-delete-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesDeleteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.FilesDeleteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3307,7 +3112,7 @@ func dispatchFilesDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3315,7 +3120,7 @@ func dispatchFilesInfoWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.files-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.FilesInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3331,7 +3136,7 @@ func dispatchFilesInfoWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3339,7 +3144,7 @@ func dispatchFilesListWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.files-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.FilesListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3355,7 +3160,7 @@ func dispatchFilesListWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesRemoteAddWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesRemoteAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3363,7 +3168,7 @@ func dispatchFilesRemoteAddWithFormdataBodyWithResponse(ctx context.Context, cl 
 		return nil, fmt.Errorf("slack.files-remote-add-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.FilesRemoteAddWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.FilesRemoteAddWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3379,7 +3184,7 @@ func dispatchFilesRemoteAddWithFormdataBodyWithResponse(ctx context.Context, cl 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesRemoteInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesRemoteInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3387,7 +3192,7 @@ func dispatchFilesRemoteInfoWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("slack.files-remote-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesRemoteInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.FilesRemoteInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3403,7 +3208,7 @@ func dispatchFilesRemoteInfoWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesRemoteListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesRemoteListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3411,7 +3216,7 @@ func dispatchFilesRemoteListWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("slack.files-remote-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesRemoteListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.FilesRemoteListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3427,7 +3232,7 @@ func dispatchFilesRemoteListWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesRemoteRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesRemoteRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3435,7 +3240,7 @@ func dispatchFilesRemoteRemoveWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.files-remote-remove-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.FilesRemoteRemoveWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.FilesRemoteRemoveWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3451,7 +3256,7 @@ func dispatchFilesRemoteRemoveWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesRemoteShareWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteShareWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.FilesRemoteShareParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3459,7 +3264,7 @@ func dispatchFilesRemoteShareWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("slack.files-remote-share: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesRemoteShareWithResponse(ctx, &params)
+	resp, callErr := ic.cl.FilesRemoteShareWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3475,7 +3280,7 @@ func dispatchFilesRemoteShareWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesRemoteUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRemoteUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesRemoteUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3483,7 +3288,7 @@ func dispatchFilesRemoteUpdateWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.files-remote-update-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.FilesRemoteUpdateWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.FilesRemoteUpdateWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3499,7 +3304,7 @@ func dispatchFilesRemoteUpdateWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesRevokePublicURLWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesRevokePublicURLWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesRevokePublicURLFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3514,7 +3319,7 @@ func dispatchFilesRevokePublicURLWithFormdataBodyWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesRevokePublicURLWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.FilesRevokePublicURLWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3530,7 +3335,7 @@ func dispatchFilesRevokePublicURLWithFormdataBodyWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesSharedPublicURLWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesSharedPublicURLWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesSharedPublicURLFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3545,7 +3350,7 @@ func dispatchFilesSharedPublicURLWithFormdataBodyWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("slack.files-shared-public-u-r-l-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.FilesSharedPublicURLWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.FilesSharedPublicURLWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3561,7 +3366,7 @@ func dispatchFilesSharedPublicURLWithFormdataBodyWithResponse(ctx context.Contex
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchFilesUploadWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFilesUploadWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.FilesUploadFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3569,7 +3374,7 @@ func dispatchFilesUploadWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("slack.files-upload-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.FilesUploadWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.FilesUploadWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3585,7 +3390,7 @@ func dispatchFilesUploadWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchMigrationExchangeWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMigrationExchangeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.MigrationExchangeParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3593,7 +3398,7 @@ func dispatchMigrationExchangeWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("slack.migration-exchange: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.MigrationExchangeWithResponse(ctx, &params)
+	resp, callErr := ic.cl.MigrationExchangeWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3609,7 +3414,7 @@ func dispatchMigrationExchangeWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchOauthAccessWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOauthAccessWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.OauthAccessParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3617,7 +3422,7 @@ func dispatchOauthAccessWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("slack.oauth-access: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.OauthAccessWithResponse(ctx, &params)
+	resp, callErr := ic.cl.OauthAccessWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3633,7 +3438,7 @@ func dispatchOauthAccessWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchOauthTokenWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOauthTokenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.OauthTokenParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3641,7 +3446,7 @@ func dispatchOauthTokenWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("slack.oauth-token: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.OauthTokenWithResponse(ctx, &params)
+	resp, callErr := ic.cl.OauthTokenWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3657,7 +3462,7 @@ func dispatchOauthTokenWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchOauthV2AccessWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOauthV2AccessWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.OauthV2AccessParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3665,7 +3470,7 @@ func dispatchOauthV2AccessWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("slack.oauth-v2-access: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.OauthV2AccessWithResponse(ctx, &params)
+	resp, callErr := ic.cl.OauthV2AccessWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3681,7 +3486,7 @@ func dispatchOauthV2AccessWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPinsAddWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPinsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PinsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3696,7 +3501,7 @@ func dispatchPinsAddWithFormdataBodyWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("slack.pins-add-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PinsAddWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.PinsAddWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3712,7 +3517,7 @@ func dispatchPinsAddWithFormdataBodyWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPinsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPinsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.PinsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3720,7 +3525,7 @@ func dispatchPinsListWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("slack.pins-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PinsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.PinsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3736,7 +3541,7 @@ func dispatchPinsListWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchPinsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPinsRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PinsRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3751,7 +3556,7 @@ func dispatchPinsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 		return nil, fmt.Errorf("slack.pins-remove-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.PinsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.PinsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3767,7 +3572,7 @@ func dispatchPinsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReactionsAddWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReactionsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ReactionsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3782,7 +3587,7 @@ func dispatchReactionsAddWithFormdataBodyWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("slack.reactions-add-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReactionsAddWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ReactionsAddWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3798,7 +3603,7 @@ func dispatchReactionsAddWithFormdataBodyWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReactionsGetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReactionsGetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ReactionsGetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3806,7 +3611,7 @@ func dispatchReactionsGetWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("slack.reactions-get: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReactionsGetWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ReactionsGetWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3822,7 +3627,7 @@ func dispatchReactionsGetWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReactionsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReactionsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ReactionsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3830,7 +3635,7 @@ func dispatchReactionsListWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("slack.reactions-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReactionsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ReactionsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3846,7 +3651,7 @@ func dispatchReactionsListWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchReactionsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReactionsRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.ReactionsRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3861,7 +3666,7 @@ func dispatchReactionsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("slack.reactions-remove-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ReactionsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.ReactionsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3877,7 +3682,7 @@ func dispatchReactionsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRemindersAddWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RemindersAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3892,7 +3697,7 @@ func dispatchRemindersAddWithFormdataBodyWithResponse(ctx context.Context, cl *c
 		return nil, fmt.Errorf("slack.reminders-add-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RemindersAddWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.RemindersAddWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3908,7 +3713,7 @@ func dispatchRemindersAddWithFormdataBodyWithResponse(ctx context.Context, cl *c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRemindersCompleteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersCompleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RemindersCompleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3923,7 +3728,7 @@ func dispatchRemindersCompleteWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.reminders-complete-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RemindersCompleteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.RemindersCompleteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3939,7 +3744,7 @@ func dispatchRemindersCompleteWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRemindersDeleteWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersDeleteWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.RemindersDeleteFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -3954,7 +3759,7 @@ func dispatchRemindersDeleteWithFormdataBodyWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("slack.reminders-delete-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RemindersDeleteWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.RemindersDeleteWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3970,7 +3775,7 @@ func dispatchRemindersDeleteWithFormdataBodyWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRemindersInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.RemindersInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -3978,7 +3783,7 @@ func dispatchRemindersInfoWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("slack.reminders-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RemindersInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.RemindersInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -3994,7 +3799,7 @@ func dispatchRemindersInfoWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRemindersListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRemindersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.RemindersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4002,7 +3807,7 @@ func dispatchRemindersListWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("slack.reminders-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RemindersListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.RemindersListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4018,7 +3823,7 @@ func dispatchRemindersListWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRtmConnectWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRtmConnectWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.RtmConnectParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4026,7 +3831,7 @@ func dispatchRtmConnectWithResponse(ctx context.Context, cl *client.ClientWithRe
 		return nil, fmt.Errorf("slack.rtm-connect: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RtmConnectWithResponse(ctx, &params)
+	resp, callErr := ic.cl.RtmConnectWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4042,7 +3847,7 @@ func dispatchRtmConnectWithResponse(ctx context.Context, cl *client.ClientWithRe
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchSearchMessagesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSearchMessagesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.SearchMessagesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4050,7 +3855,7 @@ func dispatchSearchMessagesWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("slack.search-messages: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.SearchMessagesWithResponse(ctx, &params)
+	resp, callErr := ic.cl.SearchMessagesWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4066,7 +3871,7 @@ func dispatchSearchMessagesWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchStarsAddWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchStarsAddWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.StarsAddFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4081,7 +3886,7 @@ func dispatchStarsAddWithFormdataBodyWithResponse(ctx context.Context, cl *clien
 		return nil, fmt.Errorf("slack.stars-add-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.StarsAddWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.StarsAddWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4097,7 +3902,7 @@ func dispatchStarsAddWithFormdataBodyWithResponse(ctx context.Context, cl *clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchStarsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchStarsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.StarsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4105,7 +3910,7 @@ func dispatchStarsListWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.stars-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.StarsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.StarsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4121,7 +3926,7 @@ func dispatchStarsListWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchStarsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchStarsRemoveWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.StarsRemoveFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4136,7 +3941,7 @@ func dispatchStarsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 		return nil, fmt.Errorf("slack.stars-remove-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.StarsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.StarsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4152,7 +3957,7 @@ func dispatchStarsRemoveWithFormdataBodyWithResponse(ctx context.Context, cl *cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchTeamAccessLogsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamAccessLogsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamAccessLogsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4160,7 +3965,7 @@ func dispatchTeamAccessLogsWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("slack.team-access-logs: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.TeamAccessLogsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.TeamAccessLogsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4176,7 +3981,7 @@ func dispatchTeamAccessLogsWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchTeamBillableInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamBillableInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamBillableInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4184,7 +3989,7 @@ func dispatchTeamBillableInfoWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("slack.team-billable-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.TeamBillableInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.TeamBillableInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4200,7 +4005,7 @@ func dispatchTeamBillableInfoWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchTeamInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4208,7 +4013,7 @@ func dispatchTeamInfoWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("slack.team-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.TeamInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.TeamInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4224,7 +4029,7 @@ func dispatchTeamInfoWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchTeamIntegrationLogsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamIntegrationLogsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamIntegrationLogsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4232,7 +4037,7 @@ func dispatchTeamIntegrationLogsWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("slack.team-integration-logs: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.TeamIntegrationLogsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.TeamIntegrationLogsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4248,7 +4053,7 @@ func dispatchTeamIntegrationLogsWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchTeamProfileGetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTeamProfileGetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.TeamProfileGetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4256,7 +4061,7 @@ func dispatchTeamProfileGetWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("slack.team-profile-get: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.TeamProfileGetWithResponse(ctx, &params)
+	resp, callErr := ic.cl.TeamProfileGetWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4272,7 +4077,7 @@ func dispatchTeamProfileGetWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsergroupsCreateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsCreateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsCreateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4287,7 +4092,7 @@ func dispatchUsergroupsCreateWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.usergroups-create-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsergroupsCreateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.UsergroupsCreateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4303,7 +4108,7 @@ func dispatchUsergroupsCreateWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsergroupsDisableWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsDisableWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsDisableFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4318,7 +4123,7 @@ func dispatchUsergroupsDisableWithFormdataBodyWithResponse(ctx context.Context, 
 		return nil, fmt.Errorf("slack.usergroups-disable-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsergroupsDisableWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.UsergroupsDisableWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4334,7 +4139,7 @@ func dispatchUsergroupsDisableWithFormdataBodyWithResponse(ctx context.Context, 
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsergroupsEnableWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsEnableWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsEnableFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4349,7 +4154,7 @@ func dispatchUsergroupsEnableWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.usergroups-enable-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsergroupsEnableWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.UsergroupsEnableWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4365,7 +4170,7 @@ func dispatchUsergroupsEnableWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsergroupsListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsergroupsListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4373,7 +4178,7 @@ func dispatchUsergroupsListWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("slack.usergroups-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsergroupsListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsergroupsListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4389,7 +4194,7 @@ func dispatchUsergroupsListWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsergroupsUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4404,7 +4209,7 @@ func dispatchUsergroupsUpdateWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.usergroups-update-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsergroupsUpdateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.UsergroupsUpdateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4420,7 +4225,7 @@ func dispatchUsergroupsUpdateWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsergroupsUsersListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsUsersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsergroupsUsersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4428,7 +4233,7 @@ func dispatchUsergroupsUsersListWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("slack.usergroups-users-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsergroupsUsersListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsergroupsUsersListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4444,7 +4249,7 @@ func dispatchUsergroupsUsersListWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsergroupsUsersUpdateFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4459,7 +4264,7 @@ func dispatchUsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx context.Conte
 		return nil, fmt.Errorf("slack.usergroups-users-update-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.UsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4475,7 +4280,7 @@ func dispatchUsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx context.Conte
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersConversationsWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersConversationsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersConversationsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4483,7 +4288,7 @@ func dispatchUsersConversationsWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("slack.users-conversations: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersConversationsWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsersConversationsWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4499,7 +4304,7 @@ func dispatchUsersConversationsWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersDeletePhotoWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersDeletePhotoWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsersDeletePhotoFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4507,7 +4312,7 @@ func dispatchUsersDeletePhotoWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.users-delete-photo-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UsersDeletePhotoWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.UsersDeletePhotoWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4523,7 +4328,7 @@ func dispatchUsersDeletePhotoWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersGetPresenceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersGetPresenceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersGetPresenceParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4531,7 +4336,7 @@ func dispatchUsersGetPresenceWithResponse(ctx context.Context, cl *client.Client
 		return nil, fmt.Errorf("slack.users-get-presence: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersGetPresenceWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsersGetPresenceWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4547,7 +4352,7 @@ func dispatchUsersGetPresenceWithResponse(ctx context.Context, cl *client.Client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersIdentityWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersIdentityWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersIdentityParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4555,7 +4360,7 @@ func dispatchUsersIdentityWithResponse(ctx context.Context, cl *client.ClientWit
 		return nil, fmt.Errorf("slack.users-identity: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersIdentityWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsersIdentityWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4571,7 +4376,7 @@ func dispatchUsersIdentityWithResponse(ctx context.Context, cl *client.ClientWit
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersInfoWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersInfoWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersInfoParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4579,7 +4384,7 @@ func dispatchUsersInfoWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.users-info: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersInfoWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsersInfoWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4595,7 +4400,7 @@ func dispatchUsersInfoWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersListWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersListWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersListParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4603,7 +4408,7 @@ func dispatchUsersListWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.users-list: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersListWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsersListWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4619,7 +4424,7 @@ func dispatchUsersListWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersLookupByEmailWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersLookupByEmailWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersLookupByEmailParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4627,7 +4432,7 @@ func dispatchUsersLookupByEmailWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("slack.users-lookup-by-email: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersLookupByEmailWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsersLookupByEmailWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4643,7 +4448,7 @@ func dispatchUsersLookupByEmailWithResponse(ctx context.Context, cl *client.Clie
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersProfileGetWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersProfileGetWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersProfileGetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4651,7 +4456,7 @@ func dispatchUsersProfileGetWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("slack.users-profile-get: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersProfileGetWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsersProfileGetWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4667,7 +4472,7 @@ func dispatchUsersProfileGetWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersProfileSetWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersProfileSetWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsersProfileSetFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4682,7 +4487,7 @@ func dispatchUsersProfileSetWithFormdataBodyWithResponse(ctx context.Context, cl
 		return nil, fmt.Errorf("slack.users-profile-set-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersProfileSetWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.UsersProfileSetWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4698,7 +4503,7 @@ func dispatchUsersProfileSetWithFormdataBodyWithResponse(ctx context.Context, cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersSetActiveWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersSetActiveWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.UsersSetActiveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4706,7 +4511,7 @@ func dispatchUsersSetActiveWithResponse(ctx context.Context, cl *client.ClientWi
 		return nil, fmt.Errorf("slack.users-set-active: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersSetActiveWithResponse(ctx, &params)
+	resp, callErr := ic.cl.UsersSetActiveWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4722,7 +4527,7 @@ func dispatchUsersSetActiveWithResponse(ctx context.Context, cl *client.ClientWi
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsersSetPhotoFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4730,7 +4535,7 @@ func dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx context.Context, cl *
 		return nil, fmt.Errorf("slack.users-set-photo-with-formdata-body: %w", bodyErr)
 	}
 
-	resp, callErr := cl.UsersSetPhotoWithFormdataBodyWithResponse(ctx, body)
+	resp, callErr := ic.cl.UsersSetPhotoWithFormdataBodyWithResponse(ctx, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4746,7 +4551,7 @@ func dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx context.Context, cl *
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUsersSetPresenceWithFormdataBodyWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchUsersSetPresenceWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.UsersSetPresenceFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -4761,7 +4566,7 @@ func dispatchUsersSetPresenceWithFormdataBodyWithResponse(ctx context.Context, c
 		return nil, fmt.Errorf("slack.users-set-presence-with-formdata-body: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UsersSetPresenceWithFormdataBodyWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.UsersSetPresenceWithFormdataBodyWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4777,7 +4582,7 @@ func dispatchUsersSetPresenceWithFormdataBodyWithResponse(ctx context.Context, c
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchViewsOpenWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchViewsOpenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ViewsOpenParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4785,7 +4590,7 @@ func dispatchViewsOpenWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.views-open: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ViewsOpenWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ViewsOpenWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4801,7 +4606,7 @@ func dispatchViewsOpenWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchViewsPublishWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchViewsPublishWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ViewsPublishParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4809,7 +4614,7 @@ func dispatchViewsPublishWithResponse(ctx context.Context, cl *client.ClientWith
 		return nil, fmt.Errorf("slack.views-publish: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ViewsPublishWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ViewsPublishWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4825,7 +4630,7 @@ func dispatchViewsPublishWithResponse(ctx context.Context, cl *client.ClientWith
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchViewsPushWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchViewsPushWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ViewsPushParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4833,7 +4638,7 @@ func dispatchViewsPushWithResponse(ctx context.Context, cl *client.ClientWithRes
 		return nil, fmt.Errorf("slack.views-push: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ViewsPushWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ViewsPushWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4849,7 +4654,7 @@ func dispatchViewsPushWithResponse(ctx context.Context, cl *client.ClientWithRes
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchViewsUpdateWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchViewsUpdateWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.ViewsUpdateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4857,7 +4662,7 @@ func dispatchViewsUpdateWithResponse(ctx context.Context, cl *client.ClientWithR
 		return nil, fmt.Errorf("slack.views-update: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ViewsUpdateWithResponse(ctx, &params)
+	resp, callErr := ic.cl.ViewsUpdateWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4873,7 +4678,7 @@ func dispatchViewsUpdateWithResponse(ctx context.Context, cl *client.ClientWithR
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchWorkflowsStepCompletedWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWorkflowsStepCompletedWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.WorkflowsStepCompletedParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4881,7 +4686,7 @@ func dispatchWorkflowsStepCompletedWithResponse(ctx context.Context, cl *client.
 		return nil, fmt.Errorf("slack.workflows-step-completed: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.WorkflowsStepCompletedWithResponse(ctx, &params)
+	resp, callErr := ic.cl.WorkflowsStepCompletedWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4897,7 +4702,7 @@ func dispatchWorkflowsStepCompletedWithResponse(ctx context.Context, cl *client.
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchWorkflowsStepFailedWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWorkflowsStepFailedWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.WorkflowsStepFailedParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4905,7 +4710,7 @@ func dispatchWorkflowsStepFailedWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("slack.workflows-step-failed: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.WorkflowsStepFailedWithResponse(ctx, &params)
+	resp, callErr := ic.cl.WorkflowsStepFailedWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -4921,7 +4726,7 @@ func dispatchWorkflowsStepFailedWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchWorkflowsUpdateStepWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWorkflowsUpdateStepWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var params client.WorkflowsUpdateStepParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -4929,7 +4734,7 @@ func dispatchWorkflowsUpdateStepWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("slack.workflows-update-step: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.WorkflowsUpdateStepWithResponse(ctx, &params)
+	resp, callErr := ic.cl.WorkflowsUpdateStepWithResponse(ctx, &params)
 	if callErr != nil {
 		return nil, callErr
 	}

@@ -16,6 +16,7 @@ func TestRenderCWLSchema(t *testing.T) {
 		methods      []introspect.MethodInfo
 		operations   map[string]*OperationInfo
 		wantContains []string
+		wantAbsent   []string
 	}{
 		{
 			name:        "single method",
@@ -31,9 +32,12 @@ func TestRenderCWLSchema(t *testing.T) {
 				"name: ChatPostMessage",
 				"inVocab: false",
 				`symbols: ["slack:ChatPostMessage"]`,
-				"extends: cwl:Process",
+				"extends: cwl:Operation",
 				"documentRoot: true",
 				`type: "#ChatPostMessage_class"`,
+			},
+			wantAbsent: []string{
+				"name: text",
 			},
 		},
 		{
@@ -84,30 +88,11 @@ func TestRenderCWLSchema(t *testing.T) {
 					t.Errorf("output missing %q\n---output---\n%s", want, s)
 				}
 			}
-		})
-	}
-}
 
-func TestOpenAPIToCWLType(t *testing.T) {
-	t.Parallel()
-
-	tests := []struct{ input, want string }{
-		{"string", "string"},
-		{"integer", "int"},
-		{"number", "float"},
-		{"boolean", "boolean"},
-		{"array", "Any"},
-		{"object", "Any"},
-		{"", "Any"},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.input, func(t *testing.T) {
-			t.Parallel()
-
-			got := openAPIToCWLType(tt.input)
-			if got != tt.want {
-				t.Errorf("openAPIToCWLType(%q) = %q, want %q", tt.input, got, tt.want)
+			for _, absent := range tt.wantAbsent {
+				if strings.Contains(s, absent) {
+					t.Errorf("output should not contain %q\n---output---\n%s", absent, s)
+				}
 			}
 		})
 	}

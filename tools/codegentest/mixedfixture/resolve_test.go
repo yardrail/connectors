@@ -6,6 +6,8 @@ import (
 	"errors"
 	"io"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 	"net/http/httptest"
 	"sync"
 	"testing"
@@ -70,7 +72,7 @@ func TestResolveGraphQLInterface(t *testing.T) {
 
 	srv, last := newServer(t, `{"data":{"widget":{"id":"7"}}}`)
 
-	fn, err := Resolve("gql", "get-widget", map[string]string{"token": "gql-token"}, map[string]string{"base_url": srv.URL}, nil)
+	fn, err := Resolve("gql", "get-widget", connector.APIKeyCredentials{Key: "gql-token"}, map[string]string{"base_url": srv.URL}, nil)
 	if err != nil {
 		t.Fatalf("Resolve: %v", err)
 	}
@@ -99,7 +101,7 @@ func TestResolveRESTInterface(t *testing.T) {
 
 	srv, last := newServer(t, `{"object":"database","id":"db1"}`)
 
-	fn, err := Resolve("rest", "retrieve-a-database", map[string]string{"token": "rest-token"}, map[string]string{"base_url": srv.URL}, nil)
+	fn, err := Resolve("rest", "retrieve-a-database", connector.BearerCredentials{Token: "rest-token"}, map[string]string{"base_url": srv.URL}, nil)
 	if err != nil {
 		t.Fatalf("Resolve: %v", err)
 	}
@@ -138,20 +140,30 @@ func TestResolveErrors(t *testing.T) {
 		name        string
 		interfaceID string
 		function    string
+		creds       connector.Credentials
 		wantErr     error
 	}{
-		{"GraphQL function on REST interface", "rest", "get-widget", errUnknownFunction},
-		{"REST function on GraphQL interface", "gql", "retrieve-a-database", errUnknownFunction},
-		{"unknown interface", "other", "get-widget", errInterfaceNotConfigured},
+		{"GraphQL function on REST interface", "rest", "get-widget", connector.BearerCredentials{Token: "t"}, errUnknownFunction},
+		{"REST function on GraphQL interface", "gql", "retrieve-a-database", connector.APIKeyCredentials{Key: "t"}, errUnknownFunction},
+		{"unknown interface", "other", "get-widget", connector.APIKeyCredentials{Key: "t"}, errInterfaceNotConfigured},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			_, err := Resolve(tt.interfaceID, tt.function, map[string]string{"token": "t"}, nil, nil)
+			fn, err := Resolve(tt.interfaceID, tt.function, tt.creds, nil, nil)
+			if err != nil {
+				if !errors.Is(err, tt.wantErr) {
+					t.Errorf("Resolve error = %v, want %v", err, tt.wantErr)
+				}
+
+				return
+			}
+
+			_, err = fn(context.Background(), nil)
 			if !errors.Is(err, tt.wantErr) {
-				t.Errorf("Resolve error = %v, want %v", err, tt.wantErr)
+				t.Errorf("Dispatch error = %v, want %v", err, tt.wantErr)
 			}
 		})
 	}

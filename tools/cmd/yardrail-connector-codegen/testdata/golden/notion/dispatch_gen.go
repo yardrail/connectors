@@ -12,75 +12,39 @@ import (
 
 	"github.com/google/uuid"
 
+	"github.com/yardrail/connectors/connector"
+
 	"github.com/yardrail/connectors/notion/notion/client"
 )
-
-func parseUUID(s string) uuid.UUID {
-	id, _ := uuid.Parse(s)
-
-	return id
-}
 
 var (
 	errInterfaceNotConfigured = errors.New("notion: interface not configured")
 	errUnknownFunction        = errors.New("notion: unknown function")
 )
 
-// Dispatcher deserializes JSON inputs into typed args, calls a typed client
-// method, and returns the typed response. This is the serialization boundary
-// for Temporal/CWL — typed callers use Client() directly instead.
-type Dispatcher func(
-	ctx context.Context,
-	cl *client.ClientWithResponses,
-	config map[string]string,
-	inputs json.RawMessage,
-) (any, error)
-
-// Dispatchers maps function names to their typed dispatch functions.
-var Dispatchers = map[string]Dispatcher{
-	"create-a-data-source":       dispatchCreateADataSourceWithResponse,
-	"list-data-source-templates": dispatchListDataSourceTemplatesWithResponse,
-	"move-page":                  dispatchMovePageWithResponse,
-	"query-data-source":          dispatchQueryDataSourceWithResponse,
-	"retrieve-a-data-source":     dispatchRetrieveADataSourceWithResponse,
-	"retrieve-a-database":        dispatchRetrieveADatabaseWithResponse,
-	"retrieve-page-markdown":     dispatchRetrievePageMarkdownWithResponse,
-	"update-a-data-source":       dispatchUpdateADataSourceWithResponse,
-	"update-page-markdown":       dispatchUpdatePageMarkdownWithResponse,
-}
-
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function deserializes JSON
-// inputs and calls the typed client method.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
-	creds, config map[string]string,
+	creds connector.Credentials,
+	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	fn, err := ParseFunction(function)
 	if err != nil {
 		return nil, err
 	}
 
-	cl := c.Client(interfaceID)
-	if cl == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
-	}
-
-	d, ok := Dispatchers[function]
-	if !ok {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	c, err := NewConnector(interfaceID, creds, config, httpClient)
+	if err != nil {
+		return nil, err
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return d(ctx, cl, config, inputs)
+		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
 }
 
-func dispatchCreateADataSourceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreateADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateADataSourceJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -95,7 +59,7 @@ func dispatchCreateADataSourceWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("notion.create-a-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.CreateADataSourceWithResponse(ctx, &params, body)
+	resp, callErr := ic.cl.CreateADataSourceWithResponse(ctx, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -111,23 +75,14 @@ func dispatchCreateADataSourceWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchListDataSourceTemplatesWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("notion.list-data-source-templates: %w", pathErr)
+func (ic *InterfaceClient) dispatchListDataSourceTemplatesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		DataSourceId string `json:"dataSourceId"`
 	}
 
-	var dataSourceId string
-
-	if raw, ok := pathArgs["dataSourceId"]; ok {
-		paramErr := json.Unmarshal(raw, &dataSourceId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("notion.list-data-source-templates: param dataSourceId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.list-data-source-templates: %w", err)
 	}
-
 	var params client.ListDataSourceTemplatesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -135,7 +90,7 @@ func dispatchListDataSourceTemplatesWithResponse(ctx context.Context, cl *client
 		return nil, fmt.Errorf("notion.list-data-source-templates: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.ListDataSourceTemplatesWithResponse(ctx, dataSourceId, &params)
+	resp, callErr := ic.cl.ListDataSourceTemplatesWithResponse(ctx, pathArgs.DataSourceId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -151,23 +106,14 @@ func dispatchListDataSourceTemplatesWithResponse(ctx context.Context, cl *client
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchMovePageWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("notion.move-page: %w", pathErr)
+func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		PageId uuid.UUID `json:"pageId"`
 	}
 
-	var pageId string
-
-	if raw, ok := pathArgs["pageId"]; ok {
-		paramErr := json.Unmarshal(raw, &pageId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("notion.move-page: param pageId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.move-page: %w", err)
 	}
-
 	var body client.MovePageJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -182,7 +128,7 @@ func dispatchMovePageWithResponse(ctx context.Context, cl *client.ClientWithResp
 		return nil, fmt.Errorf("notion.move-page: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.MovePageWithResponse(ctx, parseUUID(pageId), &params, body)
+	resp, callErr := ic.cl.MovePageWithResponse(ctx, pathArgs.PageId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -198,23 +144,14 @@ func dispatchMovePageWithResponse(ctx context.Context, cl *client.ClientWithResp
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchQueryDataSourceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("notion.query-data-source: %w", pathErr)
+func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		DataSourceId string `json:"dataSourceId"`
 	}
 
-	var dataSourceId string
-
-	if raw, ok := pathArgs["dataSourceId"]; ok {
-		paramErr := json.Unmarshal(raw, &dataSourceId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("notion.query-data-source: param dataSourceId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.query-data-source: %w", err)
 	}
-
 	var body client.QueryDataSourceJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -229,7 +166,7 @@ func dispatchQueryDataSourceWithResponse(ctx context.Context, cl *client.ClientW
 		return nil, fmt.Errorf("notion.query-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.QueryDataSourceWithResponse(ctx, dataSourceId, &params, body)
+	resp, callErr := ic.cl.QueryDataSourceWithResponse(ctx, pathArgs.DataSourceId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -245,23 +182,14 @@ func dispatchQueryDataSourceWithResponse(ctx context.Context, cl *client.ClientW
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveADataSourceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("notion.retrieve-a-data-source: %w", pathErr)
+func (ic *InterfaceClient) dispatchRetrieveADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		DataSourceId string `json:"dataSourceId"`
 	}
 
-	var dataSourceId string
-
-	if raw, ok := pathArgs["dataSourceId"]; ok {
-		paramErr := json.Unmarshal(raw, &dataSourceId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("notion.retrieve-a-data-source: param dataSourceId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-data-source: %w", err)
 	}
-
 	var params client.RetrieveADataSourceParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -269,7 +197,7 @@ func dispatchRetrieveADataSourceWithResponse(ctx context.Context, cl *client.Cli
 		return nil, fmt.Errorf("notion.retrieve-a-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrieveADataSourceWithResponse(ctx, dataSourceId, &params)
+	resp, callErr := ic.cl.RetrieveADataSourceWithResponse(ctx, pathArgs.DataSourceId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -285,23 +213,14 @@ func dispatchRetrieveADataSourceWithResponse(ctx context.Context, cl *client.Cli
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrieveADatabaseWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("notion.retrieve-a-database: %w", pathErr)
+func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		DatabaseId string `json:"databaseId"`
 	}
 
-	var databaseId string
-
-	if raw, ok := pathArgs["databaseId"]; ok {
-		paramErr := json.Unmarshal(raw, &databaseId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("notion.retrieve-a-database: param databaseId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-database: %w", err)
 	}
-
 	var params client.RetrieveADatabaseParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -309,7 +228,7 @@ func dispatchRetrieveADatabaseWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("notion.retrieve-a-database: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrieveADatabaseWithResponse(ctx, databaseId, &params)
+	resp, callErr := ic.cl.RetrieveADatabaseWithResponse(ctx, pathArgs.DatabaseId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -325,23 +244,14 @@ func dispatchRetrieveADatabaseWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchRetrievePageMarkdownWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("notion.retrieve-page-markdown: %w", pathErr)
+func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		PageId uuid.UUID `json:"pageId"`
 	}
 
-	var pageId string
-
-	if raw, ok := pathArgs["pageId"]; ok {
-		paramErr := json.Unmarshal(raw, &pageId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("notion.retrieve-page-markdown: param pageId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.retrieve-page-markdown: %w", err)
 	}
-
 	var params client.RetrievePageMarkdownParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
@@ -349,7 +259,7 @@ func dispatchRetrievePageMarkdownWithResponse(ctx context.Context, cl *client.Cl
 		return nil, fmt.Errorf("notion.retrieve-page-markdown: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.RetrievePageMarkdownWithResponse(ctx, parseUUID(pageId), &params)
+	resp, callErr := ic.cl.RetrievePageMarkdownWithResponse(ctx, pathArgs.PageId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -365,23 +275,14 @@ func dispatchRetrievePageMarkdownWithResponse(ctx context.Context, cl *client.Cl
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdateADataSourceWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("notion.update-a-data-source: %w", pathErr)
+func (ic *InterfaceClient) dispatchUpdateADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		DataSourceId string `json:"dataSourceId"`
 	}
 
-	var dataSourceId string
-
-	if raw, ok := pathArgs["dataSourceId"]; ok {
-		paramErr := json.Unmarshal(raw, &dataSourceId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("notion.update-a-data-source: param dataSourceId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.update-a-data-source: %w", err)
 	}
-
 	var body client.UpdateADataSourceJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -396,7 +297,7 @@ func dispatchUpdateADataSourceWithResponse(ctx context.Context, cl *client.Clien
 		return nil, fmt.Errorf("notion.update-a-data-source: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UpdateADataSourceWithResponse(ctx, dataSourceId, &params, body)
+	resp, callErr := ic.cl.UpdateADataSourceWithResponse(ctx, pathArgs.DataSourceId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
@@ -412,23 +313,14 @@ func dispatchUpdateADataSourceWithResponse(ctx context.Context, cl *client.Clien
 	return json.RawMessage(resp.Body), nil
 }
 
-func dispatchUpdatePageMarkdownWithResponse(ctx context.Context, cl *client.ClientWithResponses, config map[string]string, inputs json.RawMessage) (any, error) {
-	var pathArgs map[string]json.RawMessage
-
-	pathErr := json.Unmarshal(inputs, &pathArgs)
-	if pathErr != nil {
-		return nil, fmt.Errorf("notion.update-page-markdown: %w", pathErr)
+func (ic *InterfaceClient) dispatchUpdatePageMarkdownWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		PageId uuid.UUID `json:"pageId"`
 	}
 
-	var pageId string
-
-	if raw, ok := pathArgs["pageId"]; ok {
-		paramErr := json.Unmarshal(raw, &pageId)
-		if paramErr != nil {
-			return nil, fmt.Errorf("notion.update-page-markdown: param pageId: %w", paramErr)
-		}
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.update-page-markdown: %w", err)
 	}
-
 	var body client.UpdatePageMarkdownJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
@@ -443,7 +335,7 @@ func dispatchUpdatePageMarkdownWithResponse(ctx context.Context, cl *client.Clie
 		return nil, fmt.Errorf("notion.update-page-markdown: params: %w", paramsErr)
 	}
 
-	resp, callErr := cl.UpdatePageMarkdownWithResponse(ctx, parseUUID(pageId), &params, body)
+	resp, callErr := ic.cl.UpdatePageMarkdownWithResponse(ctx, pathArgs.PageId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}

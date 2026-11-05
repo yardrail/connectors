@@ -4,49 +4,160 @@ package mixedfixture
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 
 	"github.com/yardrail/connectors/notion/notion/client"
 )
 
-// Connector holds an authenticated oapi-codegen client for each configured
-// REST interface and an endpoint for each configured GraphQL interface.
-// Use Client() for typed access to the REST API surface.
-type Connector struct {
-	clients   map[string]*client.ClientWithResponses
-	endpoints map[string]*endpoint
+// InterfaceClient wraps an authenticated client for one interface (REST or GraphQL).
+type InterfaceClient struct {
+	cl *client.ClientWithResponses
+	ep *endpoint
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	clients := make(map[string]*client.ClientWithResponses, 1)
+// Function identifies a callable operation on this connector.
+type Function string
 
-	if ifaceCreds, ok := creds["rest"]; ok {
-		baseURL := resolveBaseURL(config["rest"])
-		authFn := authEditorRest(ifaceCreds)
+const (
+	FnCreateADataSource       Function = "create-a-data-source"
+	FnGetWidget               Function = "get-widget"
+	FnListDataSourceTemplates Function = "list-data-source-templates"
+	FnMovePage                Function = "move-page"
+	FnQueryDataSource         Function = "query-data-source"
+	FnRetrieveADataSource     Function = "retrieve-a-data-source"
+	FnRetrieveADatabase       Function = "retrieve-a-database"
+	FnRetrievePageMarkdown    Function = "retrieve-page-markdown"
+	FnUpdateADataSource       Function = "update-a-data-source"
+	FnUpdatePageMarkdown      Function = "update-page-markdown"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnCreateADataSource:
+		return FnCreateADataSource, nil
+	case FnGetWidget:
+		return FnGetWidget, nil
+	case FnListDataSourceTemplates:
+		return FnListDataSourceTemplates, nil
+	case FnMovePage:
+		return FnMovePage, nil
+	case FnQueryDataSource:
+		return FnQueryDataSource, nil
+	case FnRetrieveADataSource:
+		return FnRetrieveADataSource, nil
+	case FnRetrieveADatabase:
+		return FnRetrieveADatabase, nil
+	case FnRetrievePageMarkdown:
+		return FnRetrievePageMarkdown, nil
+	case FnUpdateADataSource:
+		return FnUpdateADataSource, nil
+	case FnUpdatePageMarkdown:
+		return FnUpdatePageMarkdown, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
+// Dispatch calls the named function using the appropriate protocol.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnCreateADataSource:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchCreateADataSourceWithResponse(ctx, config, inputs)
+	case FnGetWidget:
+		if ic.ep == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.ep.call(ctx, string(fn), queryGetWidget, inputs)
+	case FnListDataSourceTemplates:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchListDataSourceTemplatesWithResponse(ctx, config, inputs)
+	case FnMovePage:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchMovePageWithResponse(ctx, config, inputs)
+	case FnQueryDataSource:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchQueryDataSourceWithResponse(ctx, config, inputs)
+	case FnRetrieveADataSource:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchRetrieveADataSourceWithResponse(ctx, config, inputs)
+	case FnRetrieveADatabase:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchRetrieveADatabaseWithResponse(ctx, config, inputs)
+	case FnRetrievePageMarkdown:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchRetrievePageMarkdownWithResponse(ctx, config, inputs)
+	case FnUpdateADataSource:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchUpdateADataSourceWithResponse(ctx, config, inputs)
+	case FnUpdatePageMarkdown:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatchUpdatePageMarkdownWithResponse(ctx, config, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+	}
+}
+
+// Connector holds an authenticated client for one interface.
+type Connector struct {
+	client *InterfaceClient
+}
+
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
+
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	switch interfaceID {
+	case "rest":
+		baseURL := resolveBaseURL(config)
+		authFn := authEditorRest(creds)
 
 		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
 		if httpClient != nil {
 			opts = append(opts, client.WithHTTPClient(httpClient))
 		}
 
-		c, err := client.NewClientWithResponses(baseURL, opts...)
+		cl, err := client.NewClientWithResponses(baseURL, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("creating rest client: %w", err)
 		}
 
-		clients["rest"] = c
+		return &Connector{client: &InterfaceClient{cl: cl}}, nil
+	case "gql":
+		ep := &endpoint{
+			url:        resolveEndpoint(config, "https://mixed.invalid/graphql"),
+			auth:       authEditorGql(creds),
+			httpClient: httpClient,
+		}
+
+		return &Connector{client: &InterfaceClient{ep: ep}}, nil
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
-
-	return &Connector{clients: clients, endpoints: newEndpoints(creds, config, httpClient)}, nil
-}
-
-// Client returns the typed oapi-codegen client for the given interface.
-// Returns nil if the interface was not configured with credentials.
-func (c *Connector) Client(interfaceID string) *client.ClientWithResponses {
-	return c.clients[interfaceID]
 }
 
 func resolveBaseURL(config map[string]string) string {
@@ -64,20 +175,6 @@ type endpoint struct {
 	httpClient *http.Client
 }
 
-func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
-	endpoints := make(map[string]*endpoint, 1)
-
-	if ifaceCreds, ok := creds["gql"]; ok {
-		endpoints["gql"] = &endpoint{
-			url:        resolveEndpoint(config["gql"], "https://mixed.invalid/graphql"),
-			auth:       authEditorGql(ifaceCreds),
-			httpClient: httpClient,
-		}
-	}
-
-	return endpoints
-}
-
 // resolveEndpoint returns config["base_url"] when set, otherwise the
 // interface's endpoint from the manifest.
 func resolveEndpoint(config map[string]string, defaultURL string) string {
@@ -88,10 +185,11 @@ func resolveEndpoint(config map[string]string, defaultURL string) string {
 	return defaultURL
 }
 
-func authEditorRest(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorRest(creds connector.Credentials) func(context.Context, *http.Request) error {
+	bc := creds.(connector.BearerCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if token := creds["token"]; token != "" {
-			req.Header.Set("Authorization", "Bearer "+token)
+		if bc.Token != "" {
+			req.Header.Set("Authorization", "Bearer "+bc.Token)
 		}
 		req.Header.Set("Notion-Version", "2022-06-28")
 
@@ -99,10 +197,11 @@ func authEditorRest(creds map[string]string) func(context.Context, *http.Request
 	}
 }
 
-func authEditorGql(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorGql(creds connector.Credentials) func(context.Context, *http.Request) error {
+	ac := creds.(connector.APIKeyCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if key := creds["token"]; key != "" {
-			req.Header.Set("Authorization", key)
+		if ac.Key != "" {
+			req.Header.Set("Authorization", ac.Key)
 		}
 
 		return nil

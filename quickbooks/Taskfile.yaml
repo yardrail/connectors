@@ -1,0 +1,29 @@
+version: "3"
+
+includes:
+  account:
+    taskfile: account/Taskfile.yaml
+    dir: account
+
+tasks:
+  spec:
+    cmds:
+      - task: account:spec
+  client:
+    cmds:
+      - task: account:client
+  connector:
+    cmds:
+      - task: account:connector
+  build:
+    cmds:
+      - task: account:build
+  test:
+    cmds:
+      - task: account:test
+  vet:
+    cmds:
+      - task: account:vet
+  lint:
+    cmds:
+      - task: account:lint

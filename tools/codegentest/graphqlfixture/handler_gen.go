@@ -4,19 +4,80 @@ package graphqlfixture
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 )
 
-// Connector holds the GraphQL endpoint for each configured interface.
-type Connector struct {
-	endpoints  map[string]*endpoint
-	httpClient *http.Client
+// InterfaceClient wraps an authenticated GraphQL endpoint for one interface.
+type InterfaceClient struct {
+	ep *endpoint
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	return &Connector{endpoints: newEndpoints(creds, config, httpClient), httpClient: httpClient}, nil
+// Function identifies a callable operation on this connector.
+type Function string
+
+const (
+	FnGetWidget    Function = "get-widget"
+	FnRenameWidget Function = "rename-widget"
+)
+
+// ParseFunction validates a function name and returns the typed Function value.
+func ParseFunction(s string) (Function, error) {
+	switch Function(s) {
+	case FnGetWidget:
+		return FnGetWidget, nil
+	case FnRenameWidget:
+		return FnRenameWidget, nil
+	default:
+		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
+	}
+}
+
+// Dispatch calls the named GraphQL operation.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+	case FnGetWidget:
+		return ic.ep.call(ctx, string(fn), queryGetWidget, inputs)
+	case FnRenameWidget:
+		return ic.ep.call(ctx, string(fn), queryRenameWidget, inputs)
+	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+	}
+}
+
+// Connector holds an authenticated client for one interface.
+type Connector struct {
+	client *InterfaceClient
+}
+
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
+
+// NewConnector constructs a Connector for the given GraphQL interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	var defaultURL string
+	var authFn func(context.Context, *http.Request) error
+
+	switch interfaceID {
+	case "api":
+		defaultURL = "https://fixture.invalid/graphql"
+		authFn = authEditorApi(creds)
+	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	ep := &endpoint{
+		url:        resolveEndpoint(config, defaultURL),
+		auth:       authFn,
+		httpClient: httpClient,
+	}
+
+	return &Connector{client: &InterfaceClient{ep: ep}}, nil
 }
 
 // endpoint is a GraphQL interface's HTTP endpoint with its auth applied.
@@ -24,20 +85,6 @@ type endpoint struct {
 	url        string
 	auth       func(context.Context, *http.Request) error
 	httpClient *http.Client
-}
-
-func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
-	endpoints := make(map[string]*endpoint, 1)
-
-	if ifaceCreds, ok := creds["api"]; ok {
-		endpoints["api"] = &endpoint{
-			url:        resolveEndpoint(config["api"], "https://fixture.invalid/graphql"),
-			auth:       authEditorApi(ifaceCreds),
-			httpClient: httpClient,
-		}
-	}
-
-	return endpoints
 }
 
 // resolveEndpoint returns config["base_url"] when set, otherwise the
@@ -50,10 +97,11 @@ func resolveEndpoint(config map[string]string, defaultURL string) string {
 	return defaultURL
 }
 
-func authEditorApi(creds map[string]string) func(context.Context, *http.Request) error {
+func authEditorApi(creds connector.Credentials) func(context.Context, *http.Request) error {
+	ac := creds.(connector.APIKeyCredentials)
 	return func(_ context.Context, req *http.Request) error {
-		if key := creds["token"]; key != "" {
-			req.Header.Set("Authorization", key)
+		if ac.Key != "" {
+			req.Header.Set("Authorization", ac.Key)
 		}
 		req.Header.Set("API-Version", "2026-01")
 

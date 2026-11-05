@@ -1,0 +1,51 @@
+version: "3"
+
+tasks:
+  spec:
+    desc: "Convert Eventbrite API Blueprint to OpenAPI 3.0"
+    dir: "{{.TASKFILE_DIR}}/spec"
+    cmds:
+      - mise exec -- npx --yes api-spec-converter@2 --from api_blueprint --to swagger_2 eventbrite-api-v3-public.apib > swagger2.json
+      - python3 fixup.py swagger2 swagger2.json swagger2-fixed.json
+      - mise exec -- npx --yes swagger2openapi@7 --patch swagger2-fixed.json -o openapi.json
+      - python3 fixup.py openapi3 openapi.json
+      - rm swagger2.json swagger2-fixed.json
+
+  client:
+    desc: "Generate Eventbrite Go client from OpenAPI spec"
+    deps: [spec]
+    cmds:
+      - mise exec -- go generate ./client/...
+
+  connector:
+    desc: "Generate connector code"
+    deps: [client]
+    dir: "{{.ROOT_DIR}}/tools"
+    cmds:
+      - >-
+        mise exec -- go run ./cmd/yardrail-connector-codegen
+        -manifest {{.TASKFILE_DIR}}/manifest.yaml
+        -out {{.TASKFILE_DIR}}/connector/
+        -pkgname connector
+      - cd {{.TASKFILE_DIR}} && mise exec -- go mod tidy -e
+  build:
+    desc: "Build"
+    cmds:
+      - mise exec -- go build ./...
+
+  test:
+    desc: "Run tests"
+    cmds:
+      - mise exec -- go test ./...
+
+  vet:
+    desc: "Run go vet"
+    cmds:
+      - mise exec -- go vet ./...
+
+  lint:
+    desc: "Run all checks"
+    cmds:
+      - task: vet
+      - task: build
+      - task: test

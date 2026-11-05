@@ -1,0 +1,24 @@
+$base: "https://yardrail.com/cwl/microsoft-outlook#"
+$namespaces:
+  microsoft-outlook: "https://yardrail.com/cwl/microsoft-outlook#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: ListEvents_class
+    type: enum
+    inVocab: false
+    symbols: ["microsoft-outlook:ListEvents"]
+
+  - name: ListEvents
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists events on a mailbox's calendar between two times, including attendees. Read-only; does not return event bodies."
+    fields:
+      - name: class
+        type: "#ListEvents_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

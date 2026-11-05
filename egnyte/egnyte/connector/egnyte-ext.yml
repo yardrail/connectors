@@ -1,0 +1,3207 @@
+$base: "https://yardrail.com/cwl/egnyte#"
+$namespaces:
+  egnyte: "https://yardrail.com/cwl/egnyte#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: ActivateMspTrial_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ActivateMspTrial"]
+
+  - name: ActivateMspTrial
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Activate Trial"
+    fields:
+      - name: class
+        type: "#ActivateMspTrial_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AddComment_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AddComment"]
+
+  - name: AddComment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add Comment"
+    fields:
+      - name: class
+        type: "#AddComment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AddDocument_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AddDocument"]
+
+  - name: AddDocument
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add Documents"
+    fields:
+      - name: class
+        type: "#AddDocument_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AdvancedSearchV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AdvancedSearchV1"]
+
+  - name: AdvancedSearchV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Advanced search (v1)"
+    fields:
+      - name: class
+        type: "#AdvancedSearchV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AllocateMspDomainPowerUsers_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AllocateMspDomainPowerUsers"]
+
+  - name: AllocateMspDomainPowerUsers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Allocate Power Users to Domain"
+    fields:
+      - name: class
+        type: "#AllocateMspDomainPowerUsers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AskAgent_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AskAgent"]
+
+  - name: AskAgent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Ask a question to an agent"
+    fields:
+      - name: class
+        type: "#AskAgent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AskAssistant_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AskAssistant"]
+
+  - name: AskAssistant
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Ask AI Assistant a question (async)"
+    fields:
+      - name: class
+        type: "#AskAssistant_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AskCopilot_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AskCopilot"]
+
+  - name: AskCopilot
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Ask Copilot a question (deprecated)"
+    fields:
+      - name: class
+        type: "#AskCopilot_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AskDocument_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AskDocument"]
+
+  - name: AskDocument
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Ask a question about a document"
+    fields:
+      - name: class
+        type: "#AskDocument_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AskKb_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:AskKb"]
+
+  - name: AskKb
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Ask a question about a knowledge base"
+    fields:
+      - name: class
+        type: "#AskKb_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CancelSignatureRequest_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CancelSignatureRequest"]
+
+  - name: CancelSignatureRequest
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Cancel Signature Request"
+    fields:
+      - name: class
+        type: "#CancelSignatureRequest_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CancelWorkflow_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CancelWorkflow"]
+
+  - name: CancelWorkflow
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Cancel a workflow"
+    fields:
+      - name: class
+        type: "#CancelWorkflow_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CheckAuditReportStatus_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CheckAuditReportStatus"]
+
+  - name: CheckAuditReportStatus
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Check Audit Report Generation Status"
+    fields:
+      - name: class
+        type: "#CheckAuditReportStatus_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CompleteWebhookTask_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CompleteWebhookTask"]
+
+  - name: CompleteWebhookTask
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send completion signal for a webhook task"
+    fields:
+      - name: class
+        type: "#CompleteWebhookTask_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateBookmark_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateBookmark"]
+
+  - name: CreateBookmark
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Bookmark"
+    fields:
+      - name: class
+        type: "#CreateBookmark_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateConfigurationSettingsAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateConfigurationSettingsAuditReport"]
+
+  - name: CreateConfigurationSettingsAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Configuration Settings Audit Report"
+    fields:
+      - name: class
+        type: "#CreateConfigurationSettingsAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateEtmfAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateEtmfAuditReport"]
+
+  - name: CreateEtmfAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create eTMF Audit Report"
+    fields:
+      - name: class
+        type: "#CreateEtmfAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateFileAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateFileAuditReport"]
+
+  - name: CreateFileAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create File Audit Report"
+    fields:
+      - name: class
+        type: "#CreateFileAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateGroupProvisioningAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateGroupProvisioningAuditReport"]
+
+  - name: CreateGroupProvisioningAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Group Provisioning Audit Report"
+    fields:
+      - name: class
+        type: "#CreateGroupProvisioningAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateLoginAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateLoginAuditReport"]
+
+  - name: CreateLoginAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Login Audit Report"
+    fields:
+      - name: class
+        type: "#CreateLoginAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateMspTrial_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateMspTrial"]
+
+  - name: CreateMspTrial
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Start New Trial"
+    fields:
+      - name: class
+        type: "#CreateMspTrial_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateMspWebhook_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateMspWebhook"]
+
+  - name: CreateMspWebhook
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Register a Webhook"
+    fields:
+      - name: class
+        type: "#CreateMspWebhook_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreatePermissionsAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreatePermissionsAuditReport"]
+
+  - name: CreatePermissionsAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Permissions Audit Report"
+    fields:
+      - name: class
+        type: "#CreatePermissionsAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateQualityDocsAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateQualityDocsAuditReport"]
+
+  - name: CreateQualityDocsAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Quality Docs Audit Report"
+    fields:
+      - name: class
+        type: "#CreateQualityDocsAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateQualityDocsCategoriesAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateQualityDocsCategoriesAuditReport"]
+
+  - name: CreateQualityDocsCategoriesAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Quality Docs Categories Audit Report"
+    fields:
+      - name: class
+        type: "#CreateQualityDocsCategoriesAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateQualityDocsCoursesAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateQualityDocsCoursesAuditReport"]
+
+  - name: CreateQualityDocsCoursesAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Quality Docs Courses Audit Report"
+    fields:
+      - name: class
+        type: "#CreateQualityDocsCoursesAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateScimGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateScimGroup"]
+
+  - name: CreateScimGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create group"
+    fields:
+      - name: class
+        type: "#CreateScimGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateScimUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateScimUser"]
+
+  - name: CreateScimUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create user"
+    fields:
+      - name: class
+        type: "#CreateScimUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateSignatureRequest_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateSignatureRequest"]
+
+  - name: CreateSignatureRequest
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Signature Request"
+    fields:
+      - name: class
+        type: "#CreateSignatureRequest_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateSnapshotRestoreAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateSnapshotRestoreAuditReport"]
+
+  - name: CreateSnapshotRestoreAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Snapshot Restore Audit Report"
+    fields:
+      - name: class
+        type: "#CreateSnapshotRestoreAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateSyncWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateSyncWithFormdataBody"]
+
+  - name: CreateSyncWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#CreateSyncWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateUploadRequest_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateUploadRequest"]
+
+  - name: CreateUploadRequest
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Upload Request"
+    fields:
+      - name: class
+        type: "#CreateUploadRequest_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateUploadRequestsAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateUploadRequestsAuditReport"]
+
+  - name: CreateUploadRequestsAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Upload Requests Audit Report"
+    fields:
+      - name: class
+        type: "#CreateUploadRequestsAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateUser"]
+
+  - name: CreateUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a user"
+    fields:
+      - name: class
+        type: "#CreateUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateUserProvisioningAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateUserProvisioningAuditReport"]
+
+  - name: CreateUserProvisioningAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create User Provisioning Audit Report"
+    fields:
+      - name: class
+        type: "#CreateUserProvisioningAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateWorkflow_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateWorkflow"]
+
+  - name: CreateWorkflow
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a workflow"
+    fields:
+      - name: class
+        type: "#CreateWorkflow_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateWorkflowAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateWorkflowAuditReport"]
+
+  - name: CreateWorkflowAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Workflow Audit Report"
+    fields:
+      - name: class
+        type: "#CreateWorkflowAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateWorkflowTemplatesAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateWorkflowTemplatesAuditReport"]
+
+  - name: CreateWorkflowTemplatesAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Workflow Templates Audit Report"
+    fields:
+      - name: class
+        type: "#CreateWorkflowTemplatesAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateWorkspace_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:CreateWorkspace"]
+
+  - name: CreateWorkspace
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Workspace"
+    fields:
+      - name: class
+        type: "#CreateWorkspace_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteBookmark_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:DeleteBookmark"]
+
+  - name: DeleteBookmark
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete Bookmark"
+    fields:
+      - name: class
+        type: "#DeleteBookmark_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteComment_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:DeleteComment"]
+
+  - name: DeleteComment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete Comment"
+    fields:
+      - name: class
+        type: "#DeleteComment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteMspWebhook_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:DeleteMspWebhook"]
+
+  - name: DeleteMspWebhook
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Unregister a Webhook"
+    fields:
+      - name: class
+        type: "#DeleteMspWebhook_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteScimGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:DeleteScimGroup"]
+
+  - name: DeleteScimGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete group"
+    fields:
+      - name: class
+        type: "#DeleteScimGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteScimUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:DeleteScimUser"]
+
+  - name: DeleteScimUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete user"
+    fields:
+      - name: class
+        type: "#DeleteScimUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:DeleteUser"]
+
+  - name: DeleteUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a user"
+    fields:
+      - name: class
+        type: "#DeleteUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteWebhook_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:DeleteWebhook"]
+
+  - name: DeleteWebhook
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Unregister a webhook"
+    fields:
+      - name: class
+        type: "#DeleteWebhook_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAgentAskStatus_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetAgentAskStatus"]
+
+  - name: GetAgentAskStatus
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get agent execution status"
+    fields:
+      - name: class
+        type: "#GetAgentAskStatus_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAssistantStatus_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetAssistantStatus"]
+
+  - name: GetAssistantStatus
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get AI Assistant execution status"
+    fields:
+      - name: class
+        type: "#GetAssistantStatus_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetBookmark_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetBookmark"]
+
+  - name: GetBookmark
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Bookmark by ID"
+    fields:
+      - name: class
+        type: "#GetBookmark_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetComment_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetComment"]
+
+  - name: GetComment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Show Comment"
+    fields:
+      - name: class
+        type: "#GetComment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetMspDomain_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetMspDomain"]
+
+  - name: GetMspDomain
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Domain Details"
+    fields:
+      - name: class
+        type: "#GetMspDomain_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetMspPowerUsersQuote_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetMspPowerUsersQuote"]
+
+  - name: GetMspPowerUsersQuote
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Power Users Quote"
+    fields:
+      - name: class
+        type: "#GetMspPowerUsersQuote_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetMspTenant_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetMspTenant"]
+
+  - name: GetMspTenant
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Tenant Details"
+    fields:
+      - name: class
+        type: "#GetMspTenant_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetMspWebhook_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetMspWebhook"]
+
+  - name: GetMspWebhook
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Webhook Details"
+    fields:
+      - name: class
+        type: "#GetMspWebhook_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetProjectDetails_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetProjectDetails"]
+
+  - name: GetProjectDetails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get project details"
+    fields:
+      - name: class
+        type: "#GetProjectDetails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetScimGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetScimGroup"]
+
+  - name: GetScimGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get group"
+    fields:
+      - name: class
+        type: "#GetScimGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetScimUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetScimUser"]
+
+  - name: GetScimUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get user"
+    fields:
+      - name: class
+        type: "#GetScimUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSettings_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetSettings"]
+
+  - name: GetSettings
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Document Portal Settings"
+    fields:
+      - name: class
+        type: "#GetSettings_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSfdcFolderMap_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetSfdcFolderMap"]
+
+  - name: GetSfdcFolderMap
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get folder mapping for a Salesforce record"
+    fields:
+      - name: class
+        type: "#GetSfdcFolderMap_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSignTemplate_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetSignTemplate"]
+
+  - name: GetSignTemplate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Template Details"
+    fields:
+      - name: class
+        type: "#GetSignTemplate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetTrashTotalCount_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetTrashTotalCount"]
+
+  - name: GetTrashTotalCount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Trash Total Count"
+    fields:
+      - name: class
+        type: "#GetTrashTotalCount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetUser"]
+
+  - name: GetUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get a single user"
+    fields:
+      - name: class
+        type: "#GetUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetUserDetails_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetUserDetails"]
+
+  - name: GetUserDetails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get user details"
+    fields:
+      - name: class
+        type: "#GetUserDetails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetUserLogs_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetUserLogs"]
+
+  - name: GetUserLogs
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get user activity logs"
+    fields:
+      - name: class
+        type: "#GetUserLogs_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetUserinfo_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetUserinfo"]
+
+  - name: GetUserinfo
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get user information for a token"
+    fields:
+      - name: class
+        type: "#GetUserinfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetUsersList_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetUsersList"]
+
+  - name: GetUsersList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get list of users"
+    fields:
+      - name: class
+        type: "#GetUsersList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetWebhookDetails_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetWebhookDetails"]
+
+  - name: GetWebhookDetails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get webhook details"
+    fields:
+      - name: class
+        type: "#GetWebhookDetails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetWebhookStatus_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetWebhookStatus"]
+
+  - name: GetWebhookStatus
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get webhook status"
+    fields:
+      - name: class
+        type: "#GetWebhookStatus_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetWorkflow_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetWorkflow"]
+
+  - name: GetWorkflow
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get workflow details"
+    fields:
+      - name: class
+        type: "#GetWorkflow_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: HybridSearch_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:HybridSearch"]
+
+  - name: HybridSearch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Hybrid semantic and keyword search"
+    fields:
+      - name: class
+        type: "#HybridSearch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ImportDocument_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ImportDocument"]
+
+  - name: ImportDocument
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Import a Document"
+    fields:
+      - name: class
+        type: "#ImportDocument_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ImportTrainingAssignment_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ImportTrainingAssignment"]
+
+  - name: ImportTrainingAssignment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Import Training Assignments"
+    fields:
+      - name: class
+        type: "#ImportTrainingAssignment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListAgents_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListAgents"]
+
+  - name: ListAgents
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List agents"
+    fields:
+      - name: class
+        type: "#ListAgents_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListArtifacts_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListArtifacts"]
+
+  - name: ListArtifacts
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Artifacts and Milestones"
+    fields:
+      - name: class
+        type: "#ListArtifacts_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListBookmarks_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListBookmarks"]
+
+  - name: ListBookmarks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Bookmarks"
+    fields:
+      - name: class
+        type: "#ListBookmarks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListComments_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListComments"]
+
+  - name: ListComments
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Comments"
+    fields:
+      - name: class
+        type: "#ListComments_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListDocuments_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListDocuments"]
+
+  - name: ListDocuments
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Documents"
+    fields:
+      - name: class
+        type: "#ListDocuments_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListFilingLevels_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListFilingLevels"]
+
+  - name: ListFilingLevels
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Filing Levels"
+    fields:
+      - name: class
+        type: "#ListFilingLevels_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListKb_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListKb"]
+
+  - name: ListKb
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List knowledge bases"
+    fields:
+      - name: class
+        type: "#ListKb_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListMspDomains_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListMspDomains"]
+
+  - name: ListMspDomains
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Domains"
+    fields:
+      - name: class
+        type: "#ListMspDomains_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListMspPlans_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListMspPlans"]
+
+  - name: ListMspPlans
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Plans"
+    fields:
+      - name: class
+        type: "#ListMspPlans_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListMspTenants_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListMspTenants"]
+
+  - name: ListMspTenants
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Tenants"
+    fields:
+      - name: class
+        type: "#ListMspTenants_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListMspWebhooks_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListMspWebhooks"]
+
+  - name: ListMspWebhooks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Webhooks"
+    fields:
+      - name: class
+        type: "#ListMspWebhooks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListMySignatureRequests_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListMySignatureRequests"]
+
+  - name: ListMySignatureRequests
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Assigned Signature Requests"
+    fields:
+      - name: class
+        type: "#ListMySignatureRequests_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListProcoreProjects_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListProcoreProjects"]
+
+  - name: ListProcoreProjects
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Procore projects"
+    fields:
+      - name: class
+        type: "#ListProcoreProjects_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListProjectFolders_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListProjectFolders"]
+
+  - name: ListProjectFolders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List all projects"
+    fields:
+      - name: class
+        type: "#ListProjectFolders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListScimGroups_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListScimGroups"]
+
+  - name: ListScimGroups
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List groups"
+    fields:
+      - name: class
+        type: "#ListScimGroups_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListScimUsers_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListScimUsers"]
+
+  - name: ListScimUsers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List users"
+    fields:
+      - name: class
+        type: "#ListScimUsers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListSentSignatureRequests_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListSentSignatureRequests"]
+
+  - name: ListSentSignatureRequests
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Sent Signature Requests"
+    fields:
+      - name: class
+        type: "#ListSentSignatureRequests_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListSignTemplates_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListSignTemplates"]
+
+  - name: ListSignTemplates
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Templates"
+    fields:
+      - name: class
+        type: "#ListSignTemplates_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListStudies_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListStudies"]
+
+  - name: ListStudies
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Studies"
+    fields:
+      - name: class
+        type: "#ListStudies_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListSyncedProjects_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListSyncedProjects"]
+
+  - name: ListSyncedProjects
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List synced projects"
+    fields:
+      - name: class
+        type: "#ListSyncedProjects_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListTasks_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListTasks"]
+
+  - name: ListTasks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List tasks assigned to the current user"
+    fields:
+      - name: class
+        type: "#ListTasks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListTrashV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListTrashV1"]
+
+  - name: ListTrashV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Trash Contents (v1)"
+    fields:
+      - name: class
+        type: "#ListTrashV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListTrashV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListTrashV2"]
+
+  - name: ListTrashV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Trash Contents (v2)"
+    fields:
+      - name: class
+        type: "#ListTrashV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListUploadRequestTemplates_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListUploadRequestTemplates"]
+
+  - name: ListUploadRequestTemplates
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Templates"
+    fields:
+      - name: class
+        type: "#ListUploadRequestTemplates_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListUsers_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListUsers"]
+
+  - name: ListUsers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List users"
+    fields:
+      - name: class
+        type: "#ListUsers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListUsersV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListUsersV1"]
+
+  - name: ListUsersV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List users (legacy)"
+    fields:
+      - name: class
+        type: "#ListUsersV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListWebhooks_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListWebhooks"]
+
+  - name: ListWebhooks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List registered webhooks"
+    fields:
+      - name: class
+        type: "#ListWebhooks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListWorkflows_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListWorkflows"]
+
+  - name: ListWorkflows
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List workflows"
+    fields:
+      - name: class
+        type: "#ListWorkflows_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ListWorkspaces_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ListWorkspaces"]
+
+  - name: ListWorkspaces
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List Workspaces"
+    fields:
+      - name: class
+        type: "#ListWorkspaces_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: MarkFolderAsProject_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:MarkFolderAsProject"]
+
+  - name: MarkFolderAsProject
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Mark folder as project"
+    fields:
+      - name: class
+        type: "#MarkFolderAsProject_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: NavigatePostV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:NavigatePostV1"]
+
+  - name: NavigatePostV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Launch a Navigate session (v1 – deprecated)"
+    fields:
+      - name: class
+        type: "#NavigatePostV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: NavigatePostV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:NavigatePostV2"]
+
+  - name: NavigatePostV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Launch a Navigate session (v2)"
+    fields:
+      - name: class
+        type: "#NavigatePostV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: NotesDeleteByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:NotesDeleteByIdV1"]
+
+  - name: NotesDeleteByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a comment"
+    fields:
+      - name: class
+        type: "#NotesDeleteByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: NotesGetByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:NotesGetByIdV1"]
+
+  - name: NotesGetByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get comment details"
+    fields:
+      - name: class
+        type: "#NotesGetByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchScimGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PatchScimGroup"]
+
+  - name: PatchScimGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update group"
+    fields:
+      - name: class
+        type: "#PatchScimGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchScimUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PatchScimUser"]
+
+  - name: PatchScimUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update user"
+    fields:
+      - name: class
+        type: "#PatchScimUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteFsByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteFsByIdV1"]
+
+  - name: PortalProdDeleteFsByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a file or folder by ID"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteFsByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteFsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteFsV1"]
+
+  - name: PortalProdDeleteFsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a file or folder"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteFsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteFsV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteFsV2"]
+
+  - name: PortalProdDeleteFsV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a file or folder (v2)"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteFsV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteGroupsByIdV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteGroupsByIdV2"]
+
+  - name: PortalProdDeleteGroupsByIdV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a group"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteGroupsByIdV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteLinksByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteLinksByIdV1"]
+
+  - name: PortalProdDeleteLinksByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a link"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteLinksByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteLinksByIdV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteLinksByIdV2"]
+
+  - name: PortalProdDeleteLinksByIdV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a link (v2)"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteLinksByIdV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteMetadataKeyV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteMetadataKeyV1"]
+
+  - name: PortalProdDeleteMetadataKeyV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a metadata key"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteMetadataKeyV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteNamespaceV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteNamespaceV1"]
+
+  - name: PortalProdDeleteNamespaceV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a namespace"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteNamespaceV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdDeleteProjectCustomFieldV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdDeleteProjectCustomFieldV1"]
+
+  - name: PortalProdDeleteProjectCustomFieldV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a custom field definition"
+    fields:
+      - name: class
+        type: "#PortalProdDeleteProjectCustomFieldV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetEventsCursorV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetEventsCursorV1"]
+
+  - name: PortalProdGetEventsCursorV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get a cursor for the events stream"
+    fields:
+      - name: class
+        type: "#PortalProdGetEventsCursorV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetEventsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetEventsV1"]
+
+  - name: PortalProdGetEventsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List events (version\u00a01)"
+    fields:
+      - name: class
+        type: "#PortalProdGetEventsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetEventsV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetEventsV2"]
+
+  - name: PortalProdGetEventsV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List events (version\u00a02)"
+    fields:
+      - name: class
+        type: "#PortalProdGetEventsV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetFileMetadataV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetFileMetadataV1"]
+
+  - name: PortalProdGetFileMetadataV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get metadata values for a file or file version"
+    fields:
+      - name: class
+        type: "#PortalProdGetFileMetadataV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetFolderMetadataV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetFolderMetadataV1"]
+
+  - name: PortalProdGetFolderMetadataV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get metadata values for a folder"
+    fields:
+      - name: class
+        type: "#PortalProdGetFolderMetadataV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetFsByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetFsByIdV1"]
+
+  - name: PortalProdGetFsByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve file or folder metadata by ID"
+    fields:
+      - name: class
+        type: "#PortalProdGetFsByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetFsContentByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetFsContentByIdV1"]
+
+  - name: PortalProdGetFsContentByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Download file content by file ID"
+    fields:
+      - name: class
+        type: "#PortalProdGetFsContentByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetFsContentByPathV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetFsContentByPathV1"]
+
+  - name: PortalProdGetFsContentByPathV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Download file content by path"
+    fields:
+      - name: class
+        type: "#PortalProdGetFsContentByPathV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetFsFolderStatsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetFsFolderStatsV1"]
+
+  - name: PortalProdGetFsFolderStatsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get folder statistics by ID"
+    fields:
+      - name: class
+        type: "#PortalProdGetFsFolderStatsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetFsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetFsV1"]
+
+  - name: PortalProdGetFsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve file or folder metadata"
+    fields:
+      - name: class
+        type: "#PortalProdGetFsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetFsV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetFsV2"]
+
+  - name: PortalProdGetFsV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve file or folder metadata (v2)"
+    fields:
+      - name: class
+        type: "#PortalProdGetFsV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetGroupsByIdV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetGroupsByIdV2"]
+
+  - name: PortalProdGetGroupsByIdV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get group details"
+    fields:
+      - name: class
+        type: "#PortalProdGetGroupsByIdV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetGroupsV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetGroupsV2"]
+
+  - name: PortalProdGetGroupsV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List groups"
+    fields:
+      - name: class
+        type: "#PortalProdGetGroupsV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetInsightsFilesV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetInsightsFilesV1"]
+
+  - name: PortalProdGetInsightsFilesV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List recently accessed files"
+    fields:
+      - name: class
+        type: "#PortalProdGetInsightsFilesV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetLinksByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetLinksByIdV1"]
+
+  - name: PortalProdGetLinksByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get link details"
+    fields:
+      - name: class
+        type: "#PortalProdGetLinksByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetLinksByIdV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetLinksByIdV2"]
+
+  - name: PortalProdGetLinksByIdV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get link details (v2)"
+    fields:
+      - name: class
+        type: "#PortalProdGetLinksByIdV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetLinksV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetLinksV1"]
+
+  - name: PortalProdGetLinksV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List links"
+    fields:
+      - name: class
+        type: "#PortalProdGetLinksV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetLinksV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetLinksV2"]
+
+  - name: PortalProdGetLinksV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List links (v2)"
+    fields:
+      - name: class
+        type: "#PortalProdGetLinksV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetNamespaceV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetNamespaceV1"]
+
+  - name: PortalProdGetNamespaceV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get namespace keys"
+    fields:
+      - name: class
+        type: "#PortalProdGetNamespaceV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetNamespacesV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetNamespacesV1"]
+
+  - name: PortalProdGetNamespacesV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List namespaces"
+    fields:
+      - name: class
+        type: "#PortalProdGetNamespacesV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdGetProjectCustomFieldsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdGetProjectCustomFieldsV1"]
+
+  - name: PortalProdGetProjectCustomFieldsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List all custom field definitions"
+    fields:
+      - name: class
+        type: "#PortalProdGetProjectCustomFieldsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPatchGroupsByIdV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPatchGroupsByIdV2"]
+
+  - name: PortalProdPatchGroupsByIdV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Partially update a group"
+    fields:
+      - name: class
+        type: "#PortalProdPatchGroupsByIdV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPatchMetadataKeyDataV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPatchMetadataKeyDataV1"]
+
+  - name: PortalProdPatchMetadataKeyDataV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete data for a single key"
+    fields:
+      - name: class
+        type: "#PortalProdPatchMetadataKeyDataV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPatchMetadataKeyV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPatchMetadataKeyV1"]
+
+  - name: PortalProdPatchMetadataKeyV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a metadata key"
+    fields:
+      - name: class
+        type: "#PortalProdPatchMetadataKeyV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPatchMetadataKeysDataV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPatchMetadataKeysDataV1"]
+
+  - name: PortalProdPatchMetadataKeysDataV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete data for multiple keys"
+    fields:
+      - name: class
+        type: "#PortalProdPatchMetadataKeysDataV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPatchNamespaceV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPatchNamespaceV1"]
+
+  - name: PortalProdPatchNamespaceV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update namespace attributes"
+    fields:
+      - name: class
+        type: "#PortalProdPatchNamespaceV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPatchProjectCustomFieldDataV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPatchProjectCustomFieldDataV1"]
+
+  - name: PortalProdPatchProjectCustomFieldDataV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete custom field definition data"
+    fields:
+      - name: class
+        type: "#PortalProdPatchProjectCustomFieldDataV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPatchProjectCustomFieldV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPatchProjectCustomFieldV1"]
+
+  - name: PortalProdPatchProjectCustomFieldV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a custom field definition"
+    fields:
+      - name: class
+        type: "#PortalProdPatchProjectCustomFieldV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostFsByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostFsByIdV1"]
+
+  - name: PortalProdPostFsByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Perform a file or folder operation by ID"
+    fields:
+      - name: class
+        type: "#PortalProdPostFsByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostFsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostFsV1"]
+
+  - name: PortalProdPostFsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Perform a file or folder operation"
+    fields:
+      - name: class
+        type: "#PortalProdPostFsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostFsV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostFsV2"]
+
+  - name: PortalProdPostFsV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Perform a file or folder operation (v2)"
+    fields:
+      - name: class
+        type: "#PortalProdPostFsV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostGroupsV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostGroupsV2"]
+
+  - name: PortalProdPostGroupsV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a group"
+    fields:
+      - name: class
+        type: "#PortalProdPostGroupsV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostLinksV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostLinksV1"]
+
+  - name: PortalProdPostLinksV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a link"
+    fields:
+      - name: class
+        type: "#PortalProdPostLinksV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostLinksV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostLinksV2"]
+
+  - name: PortalProdPostLinksV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a link (v2)"
+    fields:
+      - name: class
+        type: "#PortalProdPostLinksV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostMetadataKeyV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostMetadataKeyV1"]
+
+  - name: PortalProdPostMetadataKeyV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a metadata key"
+    fields:
+      - name: class
+        type: "#PortalProdPostMetadataKeyV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostNamespaceV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostNamespaceV1"]
+
+  - name: PortalProdPostNamespaceV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a namespace"
+    fields:
+      - name: class
+        type: "#PortalProdPostNamespaceV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostProjectCustomFieldV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostProjectCustomFieldV1"]
+
+  - name: PortalProdPostProjectCustomFieldV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a custom field definition"
+    fields:
+      - name: class
+        type: "#PortalProdPostProjectCustomFieldV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostSearchMetadataV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostSearchMetadataV1"]
+
+  - name: PortalProdPostSearchMetadataV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search metadata"
+    fields:
+      - name: class
+        type: "#PortalProdPostSearchMetadataV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPutFileMetadataV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPutFileMetadataV1"]
+
+  - name: PortalProdPutFileMetadataV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Set metadata values on a file or file version"
+    fields:
+      - name: class
+        type: "#PortalProdPutFileMetadataV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPutFolderMetadataV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPutFolderMetadataV1"]
+
+  - name: PortalProdPutFolderMetadataV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Set metadata values on a folder"
+    fields:
+      - name: class
+        type: "#PortalProdPutFolderMetadataV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPutGroupsByIdV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPutGroupsByIdV2"]
+
+  - name: PortalProdPutGroupsByIdV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a group"
+    fields:
+      - name: class
+        type: "#PortalProdPutGroupsByIdV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PurchaseMspPowerUsers_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PurchaseMspPowerUsers"]
+
+  - name: PurchaseMspPowerUsers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Purchase Power Users"
+    fields:
+      - name: class
+        type: "#PurchaseMspPowerUsers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RegisterWebhook_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:RegisterWebhook"]
+
+  - name: RegisterWebhook
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Register a webhook"
+    fields:
+      - name: class
+        type: "#RegisterWebhook_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RemoveSync_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:RemoveSync"]
+
+  - name: RemoveSync
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Remove sync project"
+    fields:
+      - name: class
+        type: "#RemoveSync_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReplaceScimGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ReplaceScimGroup"]
+
+  - name: ReplaceScimGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Replace group"
+    fields:
+      - name: class
+        type: "#ReplaceScimGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReplaceScimUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:ReplaceScimUser"]
+
+  - name: ReplaceScimUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Replace user"
+    fields:
+      - name: class
+        type: "#ReplaceScimUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAuditReport_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:RetrieveAuditReport"]
+
+  - name: RetrieveAuditReport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Audit Report"
+    fields:
+      - name: class
+        type: "#RetrieveAuditReport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RevokeTokenWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:RevokeTokenWithFormdataBody"]
+
+  - name: RevokeTokenWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#RevokeTokenWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SearchV1Get_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:SearchV1Get"]
+
+  - name: SearchV1Get
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search files and folders (v1)"
+    fields:
+      - name: class
+        type: "#SearchV1Get_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SearchV2Post_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:SearchV2Post"]
+
+  - name: SearchV2Post
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search with custom metadata (v2)"
+    fields:
+      - name: class
+        type: "#SearchV2Post_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SetWebhookStatus_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:SetWebhookStatus"]
+
+  - name: SetWebhookStatus
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Set webhook status"
+    fields:
+      - name: class
+        type: "#SetWebhookStatus_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: StreamAuditEventsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:StreamAuditEventsGet"]
+
+  - name: StreamAuditEventsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Audit Events (stream via GET)"
+    fields:
+      - name: class
+        type: "#StreamAuditEventsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: StreamAuditEventsPost_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:StreamAuditEventsPost"]
+
+  - name: StreamAuditEventsPost
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve Audit Events (stream via POST)"
+    fields:
+      - name: class
+        type: "#StreamAuditEventsPost_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SummarizeDocument_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:SummarizeDocument"]
+
+  - name: SummarizeDocument
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Summarize a document"
+    fields:
+      - name: class
+        type: "#SummarizeDocument_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SyncedProjectsDetails_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:SyncedProjectsDetails"]
+
+  - name: SyncedProjectsDetails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Synced project details"
+    fields:
+      - name: class
+        type: "#SyncedProjectsDetails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TrashAction_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:TrashAction"]
+
+  - name: TrashAction
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Restore or Permanently Delete Items from Trash"
+    fields:
+      - name: class
+        type: "#TrashAction_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateMspWebhook_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:UpdateMspWebhook"]
+
+  - name: UpdateMspWebhook
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a Webhook"
+    fields:
+      - name: class
+        type: "#UpdateMspWebhook_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateSyncWithFormdataBody_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:UpdateSyncWithFormdataBody"]
+
+  - name: UpdateSyncWithFormdataBody
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#UpdateSyncWithFormdataBody_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:UpdateUser"]
+
+  - name: UpdateUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a user"
+    fields:
+      - name: class
+        type: "#UpdateUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateWebhook_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:UpdateWebhook"]
+
+  - name: UpdateWebhook
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a webhook"
+    fields:
+      - name: class
+        type: "#UpdateWebhook_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Whoami_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:Whoami"]
+
+  - name: Whoami
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get basic information about the caller"
+    fields:
+      - name: class
+        type: "#Whoami_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

@@ -1,198 +1,185 @@
 version: "3"
 
+includes:
+  slack:
+    taskfile: slack/Taskfile.yaml
+    dir: slack
+  canva:
+    taskfile: canva/Taskfile.yaml
+    dir: canva
+  egnyte:
+    taskfile: egnyte/Taskfile.yaml
+    dir: egnyte
+  notion:
+    taskfile: notion/Taskfile.yaml
+    dir: notion
+  stripe:
+    taskfile: stripe/Taskfile.yaml
+    dir: stripe
+  microsoft:
+    taskfile: microsoft/Taskfile.yaml
+    dir: microsoft
+  hubspot:
+    taskfile: hubspot/Taskfile.yaml
+    dir: hubspot
+  mailchimp:
+    taskfile: mailchimp/Taskfile.yaml
+    dir: mailchimp
+  officernd:
+    taskfile: officernd/Taskfile.yaml
+    dir: officernd
+  quickbooks:
+    taskfile: quickbooks/Taskfile.yaml
+    dir: quickbooks
+  eventbrite:
+    taskfile: eventbrite/Taskfile.yaml
+    dir: eventbrite
+  fireflies:
+    taskfile: fireflies/Taskfile.yaml
+    dir: fireflies
+  monday:
+    taskfile: monday/Taskfile.yaml
+    dir: monday
+
 tasks:
+  spec:all:
+    desc: Run spec acquisition for all connectors
+    cmds:
+      - task: slack:spec
+      - task: canva:spec
+      - task: egnyte:spec
+      - task: notion:spec
+      - task: stripe:spec
+      - task: microsoft:spec
+      - task: hubspot:spec
+      - task: mailchimp:spec
+      - task: officernd:spec
+      - task: quickbooks:spec
+      - task: eventbrite:spec
+      - task: fireflies:spec
+      - task: monday:spec
+
+  client:all:
+    desc: Generate clients for all connectors
+    cmds:
+      - task: slack:client
+      - task: canva:client
+      - task: egnyte:client
+      - task: notion:client
+      - task: stripe:client
+      - task: microsoft:client
+      - task: hubspot:client
+      - task: mailchimp:client
+      - task: officernd:client
+      - task: quickbooks:client
+      - task: eventbrite:client
+      - task: fireflies:client
+      - task: monday:client
+
+  connector:all:
+    desc: Generate connector code for all connectors
+    cmds:
+      - task: slack:connector
+      - task: canva:connector
+      - task: egnyte:connector
+      - task: notion:connector
+      - task: stripe:connector
+      - task: microsoft:connector
+      - task: hubspot:connector
+      - task: mailchimp:connector
+      - task: officernd:connector
+      - task: quickbooks:connector
+      - task: eventbrite:connector
+      - task: fireflies:connector
+      - task: monday:connector
+
+  build:all:
+    desc: Build all connectors
+    cmds:
+      - task: slack:build
+      - task: canva:build
+      - task: egnyte:build
+      - task: notion:build
+      - task: stripe:build
+      - task: microsoft:build
+      - task: hubspot:build
+      - task: mailchimp:build
+      - task: officernd:build
+      - task: quickbooks:build
+      - task: eventbrite:build
+      - task: fireflies:build
+      - task: monday:build
+
+  test:all:
+    desc: Run tests across all connectors
+    cmds:
+      - task: slack:test
+      - task: canva:test
+      - task: egnyte:test
+      - task: notion:test
+      - task: stripe:test
+      - task: microsoft:test
+      - task: hubspot:test
+      - task: mailchimp:test
+      - task: officernd:test
+      - task: quickbooks:test
+      - task: eventbrite:test
+      - task: fireflies:test
+      - task: monday:test
+
+  vet:all:
+    desc: Run go vet across all connectors
+    cmds:
+      - task: slack:vet
+      - task: canva:vet
+      - task: egnyte:vet
+      - task: notion:vet
+      - task: stripe:vet
+      - task: microsoft:vet
+      - task: hubspot:vet
+      - task: mailchimp:vet
+      - task: officernd:vet
+      - task: quickbooks:vet
+      - task: eventbrite:vet
+      - task: fireflies:vet
+      - task: monday:vet
+
+  lint:all:
+    desc: Run all checks across all connectors
+    cmds:
+      - task: slack:lint
+      - task: canva:lint
+      - task: egnyte:lint
+      - task: notion:lint
+      - task: stripe:lint
+      - task: microsoft:lint
+      - task: hubspot:lint
+      - task: mailchimp:lint
+      - task: officernd:lint
+      - task: quickbooks:lint
+      - task: eventbrite:lint
+      - task: fireflies:lint
+      - task: monday:lint
+
   build:tools:
     desc: Build all codegen tools
-    dir: tools
     cmds:
-      - go build ./cmd/...
+      - cd tools && mise exec -- go build ./cmd/...
+      - cd quickbooks/tools && mise exec -- go build ./cmd/...
+      - cd google/tools && mise exec -- go build ./cmd/...
 
-  generate:connector:
-    desc: Generate yardrail connector code from a manifest into the yardrail repo layout
-    dir: tools
-    requires:
-      vars: [MANIFEST, NAME]
-    vars:
-      YARDRAIL_ROOT:
-        sh: 'realpath "${YARDRAIL_DIR:-{{.ROOT_DIR}}/../yardrail}"'
+  test:tools:
+    desc: Run tests for all codegen tools
     cmds:
-      - >-
-        go run ./cmd/yardrail-connector-codegen
-        -manifest {{.MANIFEST}}
-        -out {{.YARDRAIL_ROOT}}/internal/connectors/{{.NAME}}
-        -catalog {{.YARDRAIL_ROOT}}/internal/connector/catalog_{{.NAME}}_gen.go
-        -pkgname {{.NAME}}
-        -cwl-schema {{.YARDRAIL_ROOT}}/pkg/workflows/schema/{{.NAME}}-ext.yml
-        -cwl-mapping {{.YARDRAIL_ROOT}}/pkg/workflows/connector_{{.NAME}}_gen.go
-
-  generate:connector:slack:
-    desc: Generate yardrail Slack connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/slack/slack/manifest.yaml"
-          NAME: slack
-
-  generate:connector:hubspot:
-    desc: Generate yardrail HubSpot CRM Contacts connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/hubspot/crm-contacts/v3/manifest.yaml"
-          NAME: hubspot
-
-  generate:connector:notion:
-    desc: Generate yardrail Notion connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/notion/notion/manifest.yaml"
-          NAME: notion
-
-  generate:connector:canva:
-    desc: Generate yardrail Canva connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/canva/canva/manifest.yaml"
-          NAME: canva
-
-  generate:connector:egnyte:
-    desc: Generate yardrail Egnyte connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/egnyte/egnyte/manifest.yaml"
-          NAME: egnyte
-
-  generate:connector:mailchimp:
-    desc: Generate yardrail Mailchimp connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/mailchimp/marketing/v3/manifest.yaml"
-          NAME: mailchimp
-
-  generate:connector:stripe:
-    desc: Generate yardrail Stripe connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/stripe/stripe/manifest.yaml"
-          NAME: stripe
-
-  generate:connector:quickbooks:
-    desc: Generate yardrail QuickBooks Account connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/quickbooks/account/manifest.yaml"
-          NAME: quickbooks
-
-  generate:connector:monday:
-    desc: Generate yardrail monday.com connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/monday/monday/v2/manifest.yaml"
-          NAME: monday
-
-  spec:eventbrite:
-    desc: Convert Eventbrite API Blueprint to OpenAPI 3.0
-    dir: eventbrite/eventbrite/spec
-    cmds:
-      - npx --yes api-spec-converter@2 --from api_blueprint --to swagger_2 eventbrite-api-v3-public.apib > swagger2.json
-      - python3 fixup.py swagger2 swagger2.json swagger2-fixed.json
-      - npx --yes swagger2openapi@7 --patch swagger2-fixed.json -o openapi.json
-      - python3 fixup.py openapi3 openapi.json
-      - rm swagger2.json swagger2-fixed.json
-
-  generate:connector:eventbrite:
-    desc: Generate yardrail Eventbrite connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/eventbrite/eventbrite/manifest.yaml"
-          NAME: eventbrite
-
-  generate:connector:fireflies:
-    desc: Generate yardrail Fireflies connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/fireflies/fireflies/manifest.yaml"
-          NAME: fireflies
-
-  generate:connector:outlook:
-    desc: Generate yardrail Microsoft Outlook connector code
-    cmds:
-      - task: generate:connector
-        vars:
-          MANIFEST: "{{.ROOT_DIR}}/microsoft/outlook/manifest.yaml"
-          NAME: outlook
+      - cd tools && mise exec -- go test ./...
+      - cd quickbooks/tools && mise exec -- go test ./...
+      - cd google/tools && mise exec -- go test ./...
 
   docs:readme:
     desc: Regenerate README.md from template
     dir: tools
     cmds:
-      - go run ./cmd/gen-readme
-
-  generate:
-    desc: Run go generate across all service modules
-    cmds:
-      - |
-        for mod in $(find . -name 'go.mod' -not -path './.claude/*' -not -path './tools/*' -not -path './go.work' | sort); do
-          dir=$(dirname "$mod")
-          echo "==> generate $dir"
-          (cd "$dir" && go generate ./...)
-        done
-
-  tidy:
-    desc: Run go mod tidy across all modules
-    cmds:
-      - |
-        for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
-          dir=$(dirname "$mod")
-          echo "==> tidy $dir"
-          (cd "$dir" && go mod tidy)
-        done
-
-  build:
-    desc: Build all service modules
-    cmds:
-      - |
-        for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
-          dir=$(dirname "$mod")
-          echo "==> build $dir"
-          (cd "$dir" && go build ./...)
-        done
-
-  test:
-    desc: Run tests across all modules
-    cmds:
-      - |
-        for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
-          dir=$(dirname "$mod")
-          echo "==> test $dir"
-          (cd "$dir" && go test ./...)
-        done
-
-  vet:
-    desc: Run go vet across all modules
-    cmds:
-      - |
-        for mod in $(find . -name 'go.mod' -not -path './.claude/*' | sort); do
-          dir=$(dirname "$mod")
-          echo "==> vet $dir"
-          (cd "$dir" && go vet ./...)
-        done
-
-  lint:
-    desc: Run all checks (vet + build + test)
-    cmds:
-      - task: vet
-      - task: build
-      - task: test
+      - mise exec -- go run ./cmd/gen-readme
 
   list:modules:
     desc: List all Go modules in the repo

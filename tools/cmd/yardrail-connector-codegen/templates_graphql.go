@@ -24,20 +24,6 @@ type endpoint struct {
 	httpClient *http.Client
 }
 
-func newEndpoints(creds, config map[string]map[string]string, httpClient *http.Client) map[string]*endpoint {
-	endpoints := make(map[string]*endpoint, {{len .GraphQLIfaces}})
-{{range .GraphQLIfaces}}
-	if ifaceCreds, ok := creds["{{.ID}}"]; ok {
-		endpoints["{{.ID}}"] = &endpoint{
-			url:        resolveEndpoint(config["{{.ID}}"], "{{.Source.Endpoint}}"),
-			auth:       authEditor{{goIdent .ID}}(ifaceCreds),
-			httpClient: httpClient,
-		}
-	}
-{{end}}
-	return endpoints
-}
-
 // resolveEndpoint returns config["base_url"] when set, otherwise the
 // interface's endpoint from the manifest.
 func resolveEndpoint(config map[string]string, defaultURL string) string {
@@ -56,41 +42,73 @@ package {{.PkgName}}
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 )
 
-// Connector holds the GraphQL endpoint for each configured interface.
-type Connector struct {
-	endpoints  map[string]*endpoint
-	httpClient *http.Client
+// InterfaceClient wraps an authenticated GraphQL endpoint for one interface.
+type InterfaceClient struct {
+	ep *endpoint
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-	return &Connector{endpoints: newEndpoints(creds, config, httpClient), httpClient: httpClient}, nil
+` + functionEnumTemplate + graphqlDispatchSwitchTemplate + `
+
+// Connector holds an authenticated client for one interface.
+type Connector struct {
+	client *InterfaceClient
+}
+
+// Client returns the interface client.
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
+}
+
+// NewConnector constructs a Connector for the given GraphQL interface.
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	var defaultURL string
+	var authFn func(context.Context, *http.Request) error
+
+	switch interfaceID {
+{{range .GraphQLIfaces}}	case "{{.ID}}":
+		defaultURL = "{{.Source.Endpoint}}"
+		authFn = authEditor{{goIdent .ID}}(creds)
+{{end}}	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	ep := &endpoint{
+		url:        resolveEndpoint(config, defaultURL),
+		auth:       authFn,
+		httpClient: httpClient,
+	}
+
+	return &Connector{client: &InterfaceClient{ep: ep}}, nil
 }
 
 ` + graphqlEndpointsTemplate + authEditorsTemplate
 
-// graphqlCallTemplate renders the operation table and the HTTP call that
-// executes one operation. It expects .GraphQLFunctions.
-const graphqlCallTemplate = `// operation is a GraphQL function: the interface that serves it and the
-// operation text sent as the request's query.
-type operation struct {
-	interfaceID string
-	query       string
+const graphqlDispatchSwitchTemplate = `// Dispatch calls the named GraphQL operation.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+{{range .Functions}}	case Fn{{goIdent .Name}}:
+		return ic.ep.call(ctx, string(fn), query{{.ClassName}}, inputs)
+{{end}}	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+	}
 }
+`
 
-// operations maps function names to their GraphQL operations.
-var operations = map[string]operation{
-{{- range .GraphQLFunctions}}
-	"{{.Name}}": {interfaceID: "{{.InterfaceID}}", query: query{{.ClassName}}},
-{{- end}}
-}
-{{range .GraphQLFunctions}}
+// graphqlQueryConstsTemplate renders the query constants.
+const graphqlQueryConstsTemplate = `{{range .GraphQLFunctions}}
 const query{{.ClassName}} = {{goString .Query}}
 {{end}}
+`
+
+// graphqlCallTemplate renders the HTTP call that executes one GraphQL operation.
+const graphqlCallTemplate = `
 type graphqlRequest struct {
 	Query     string          ` + "`" + `json:"query"` + "`" + `
 	Variables json.RawMessage ` + "`" + `json:"variables,omitempty"` + "`" + `
@@ -185,6 +203,8 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/yardrail/connectors/connector"
 )
 
 var (
@@ -193,69 +213,89 @@ var (
 	errGraphQL                = errors.New("{{.ConnectorID}}: graphql errors")
 )
 
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function sends the
-// function's operation with the JSON inputs as its variables.
-func Resolve(
-	interfaceID, function string,
-	creds, config map[string]string,
-	httpClient *http.Client,
-) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
+` + resolveTemplate + graphqlQueryConstsTemplate + graphqlCallTemplate
 
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
-	if err != nil {
-		return nil, err
-	}
-
-	ep := c.endpoints[interfaceID]
-	if ep == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
-	}
-
-	op, ok := operations[function]
-	if !ok || op.interfaceID != interfaceID {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-	}
-
-	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return ep.call(ctx, function, op.query, inputs)
-	}, nil
-}
-
-` + graphqlCallTemplate
-
-// mixedHandlerTemplate serves connectors with both OpenAPI and GraphQL
-// interfaces: oapi-codegen clients for .RESTIfaces, endpoints for
-// .GraphQLIfaces.
 const mixedHandlerTemplate = `// Code generated by yardrail-connector-codegen. DO NOT EDIT.
 
 package {{.PkgName}}
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 
 	"{{.ClientPkgPath}}"
 )
 
-// Connector holds an authenticated oapi-codegen client for each configured
-// REST interface and an endpoint for each configured GraphQL interface.
-// Use Client() for typed access to the REST API surface.
+// InterfaceClient wraps an authenticated client for one interface (REST or GraphQL).
+type InterfaceClient struct {
+	cl *{{clientPkgName .ClientPkgPath}}.ClientWithResponses
+	ep *endpoint
+}
+
+` + functionEnumTemplate + mixedDispatchSwitchTemplate + `
+// Connector holds an authenticated client for one interface.
 type Connector struct {
-	clients   map[string]*{{clientPkgName .ClientPkgPath}}.ClientWithResponses
-	endpoints map[string]*endpoint
+	client *InterfaceClient
 }
 
-// NewConnector constructs a Connector from per-interface credentials and config.
-// When httpClient is non-nil it is used for all outbound HTTP calls.
-func NewConnector(creds, config map[string]map[string]string, httpClient *http.Client) (*Connector, error) {
-` + openAPIClientsTemplate + `	return &Connector{clients: clients, endpoints: newEndpoints(creds, config, httpClient)}, nil
+func (c *Connector) Client() *InterfaceClient {
+	return c.client
 }
 
-` + openAPIAccessorsTemplate + graphqlEndpointsTemplate + authEditorsTemplate
+func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
+	switch interfaceID {
+{{range .RESTIfaces}}	case "{{.ID}}":
+		baseURL := resolveBaseURL(config)
+		authFn := authEditor{{goIdent .ID}}(creds)
+
+		opts := []{{clientPkgName $.ClientPkgPath}}.ClientOption{ {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn)}
+		if httpClient != nil {
+			opts = append(opts, {{clientPkgName $.ClientPkgPath}}.WithHTTPClient(httpClient))
+		}
+
+		cl, err := {{clientPkgName $.ClientPkgPath}}.NewClientWithResponses(baseURL, opts...)
+		if err != nil {
+			return nil, fmt.Errorf("creating {{.ID}} client: %w", err)
+		}
+
+		return &Connector{client: &InterfaceClient{cl: cl}}, nil
+{{end}}{{range .GraphQLIfaces}}	case "{{.ID}}":
+		ep := &endpoint{
+			url:        resolveEndpoint(config, "{{.Source.Endpoint}}"),
+			auth:       authEditor{{goIdent .ID}}(creds),
+			httpClient: httpClient,
+		}
+
+		return &Connector{client: &InterfaceClient{ep: ep}}, nil
+{{end}}	default:
+		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+}
+
+` + openAPIAccessorsBaseURLTemplate + graphqlEndpointsTemplate + authEditorsTemplate
+
+const mixedDispatchSwitchTemplate = `// Dispatch calls the named function using the appropriate protocol.
+func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
+	switch fn {
+{{range .Functions}}{{if .MethodName}}	case Fn{{goIdent .Name}}:
+		if ic.cl == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.dispatch{{.MethodName}}(ctx, config, inputs)
+{{else}}	case Fn{{goIdent .Name}}:
+		if ic.ep == nil {
+			return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+		}
+		return ic.ep.call(ctx, string(fn), query{{.ClassName}}, inputs)
+{{end}}{{end}}	default:
+		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
+	}
+}
+`
 
 const mixedDispatchTemplate = `// Code generated by yardrail-connector-codegen. DO NOT EDIT.
 
@@ -276,55 +316,15 @@ import (
 	"github.com/google/uuid"
 {{- end}}
 
+	"github.com/yardrail/connectors/connector"
+
 	"{{.ClientPkgPath}}"
 )
 
-` + openAPIUUIDTemplate + `
 var (
 	errInterfaceNotConfigured = errors.New("{{.ConnectorID}}: interface not configured")
 	errUnknownFunction        = errors.New("{{.ConnectorID}}: unknown function")
 	errGraphQL                = errors.New("{{.ConnectorID}}: graphql errors")
 )
 
-` + openAPIDispatchersTemplate + `// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. Only the requested interface's client or
-// endpoint is built, and the function must belong to that interface.
-func Resolve(
-	interfaceID, function string,
-	creds, config map[string]string,
-	httpClient *http.Client,
-) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
-	if err != nil {
-		return nil, err
-	}
-
-	if cl := c.Client(interfaceID); cl != nil {
-		d, ok := Dispatchers[function]
-		if !ok {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-		}
-
-		return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-			return d(ctx, cl, config, inputs)
-		}, nil
-	}
-
-	if ep := c.endpoints[interfaceID]; ep != nil {
-		op, ok := operations[function]
-		if !ok || op.interfaceID != interfaceID {
-			return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
-		}
-
-		return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-			return ep.call(ctx, function, op.query, inputs)
-		}, nil
-	}
-
-	return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
-}
-
-` + openAPIMethodsTemplate + graphqlCallTemplate
+` + resolveTemplate + graphqlQueryConstsTemplate + openAPIMethodsTemplate + graphqlCallTemplate

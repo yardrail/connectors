@@ -1,0 +1,1626 @@
+$base: "https://yardrail.com/cwl/quickbooks-account#"
+$namespaces:
+  quickbooks-account: "https://yardrail.com/cwl/quickbooks-account#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: CreateAccount_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateAccount"]
+
+  - name: CreateAccount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Account"
+    fields:
+      - name: class
+        type: "#CreateAccount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateAttachable_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateAttachable"]
+
+  - name: CreateAttachable
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Attachable"
+    fields:
+      - name: class
+        type: "#CreateAttachable_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateBill_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateBill"]
+
+  - name: CreateBill
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Bill"
+    fields:
+      - name: class
+        type: "#CreateBill_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateBillPayment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateBillPayment"]
+
+  - name: CreateBillPayment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create BillPayment"
+    fields:
+      - name: class
+        type: "#CreateBillPayment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateBudget_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateBudget"]
+
+  - name: CreateBudget
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Budget"
+    fields:
+      - name: class
+        type: "#CreateBudget_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateChangeOrder_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateChangeOrder"]
+
+  - name: CreateChangeOrder
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create ChangeOrder"
+    fields:
+      - name: class
+        type: "#CreateChangeOrder_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateClass_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateClass"]
+
+  - name: CreateClass
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Class"
+    fields:
+      - name: class
+        type: "#CreateClass_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateCompanyCurrency_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateCompanyCurrency"]
+
+  - name: CreateCompanyCurrency
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create CompanyCurrency"
+    fields:
+      - name: class
+        type: "#CreateCompanyCurrency_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateCreditCardPaymentTxn_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateCreditCardPaymentTxn"]
+
+  - name: CreateCreditCardPaymentTxn
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create CreditCardPaymentTxn"
+    fields:
+      - name: class
+        type: "#CreateCreditCardPaymentTxn_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateCreditMemo_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateCreditMemo"]
+
+  - name: CreateCreditMemo
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create CreditMemo"
+    fields:
+      - name: class
+        type: "#CreateCreditMemo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateCustomer_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateCustomer"]
+
+  - name: CreateCustomer
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Customer"
+    fields:
+      - name: class
+        type: "#CreateCustomer_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateDepartment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateDepartment"]
+
+  - name: CreateDepartment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Department"
+    fields:
+      - name: class
+        type: "#CreateDepartment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateDeposit_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateDeposit"]
+
+  - name: CreateDeposit
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Deposit"
+    fields:
+      - name: class
+        type: "#CreateDeposit_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateEmployee_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateEmployee"]
+
+  - name: CreateEmployee
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Employee"
+    fields:
+      - name: class
+        type: "#CreateEmployee_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateEstimate_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateEstimate"]
+
+  - name: CreateEstimate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Estimate"
+    fields:
+      - name: class
+        type: "#CreateEstimate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateInventoryAdjustment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateInventoryAdjustment"]
+
+  - name: CreateInventoryAdjustment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create InventoryAdjustment"
+    fields:
+      - name: class
+        type: "#CreateInventoryAdjustment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateInvoice_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateInvoice"]
+
+  - name: CreateInvoice
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Invoice"
+    fields:
+      - name: class
+        type: "#CreateInvoice_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateItem_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateItem"]
+
+  - name: CreateItem
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Item"
+    fields:
+      - name: class
+        type: "#CreateItem_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateJournalCode_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateJournalCode"]
+
+  - name: CreateJournalCode
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create JournalCode"
+    fields:
+      - name: class
+        type: "#CreateJournalCode_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateJournalEntry_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateJournalEntry"]
+
+  - name: CreateJournalEntry
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create JournalEntry"
+    fields:
+      - name: class
+        type: "#CreateJournalEntry_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreatePayment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreatePayment"]
+
+  - name: CreatePayment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Payment"
+    fields:
+      - name: class
+        type: "#CreatePayment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreatePaymentMethod_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreatePaymentMethod"]
+
+  - name: CreatePaymentMethod
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create PaymentMethod"
+    fields:
+      - name: class
+        type: "#CreatePaymentMethod_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreatePurchase_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreatePurchase"]
+
+  - name: CreatePurchase
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Purchase"
+    fields:
+      - name: class
+        type: "#CreatePurchase_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreatePurchaseOrder_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreatePurchaseOrder"]
+
+  - name: CreatePurchaseOrder
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create PurchaseOrder"
+    fields:
+      - name: class
+        type: "#CreatePurchaseOrder_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateRecurringTransaction_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateRecurringTransaction"]
+
+  - name: CreateRecurringTransaction
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create RecurringTransaction"
+    fields:
+      - name: class
+        type: "#CreateRecurringTransaction_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateRefundReceipt_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateRefundReceipt"]
+
+  - name: CreateRefundReceipt
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create RefundReceipt"
+    fields:
+      - name: class
+        type: "#CreateRefundReceipt_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateSalesReceipt_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateSalesReceipt"]
+
+  - name: CreateSalesReceipt
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create SalesReceipt"
+    fields:
+      - name: class
+        type: "#CreateSalesReceipt_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateTaxAgency_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateTaxAgency"]
+
+  - name: CreateTaxAgency
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create TaxAgency"
+    fields:
+      - name: class
+        type: "#CreateTaxAgency_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateTaxservice_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateTaxservice"]
+
+  - name: CreateTaxservice
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Taxservice"
+    fields:
+      - name: class
+        type: "#CreateTaxservice_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateTerm_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateTerm"]
+
+  - name: CreateTerm
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Term"
+    fields:
+      - name: class
+        type: "#CreateTerm_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateTimeActivity_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateTimeActivity"]
+
+  - name: CreateTimeActivity
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create TimeActivity"
+    fields:
+      - name: class
+        type: "#CreateTimeActivity_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateTransfer_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateTransfer"]
+
+  - name: CreateTransfer
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Transfer"
+    fields:
+      - name: class
+        type: "#CreateTransfer_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateVendor_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateVendor"]
+
+  - name: CreateVendor
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create Vendor"
+    fields:
+      - name: class
+        type: "#CreateVendor_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateVendorCredit_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:CreateVendorCredit"]
+
+  - name: CreateVendorCredit
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create VendorCredit"
+    fields:
+      - name: class
+        type: "#CreateVendorCredit_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEstimatePDF_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:GetEstimatePDF"]
+
+  - name: GetEstimatePDF
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Estimate as PDF"
+    fields:
+      - name: class
+        type: "#GetEstimatePDF_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetInvoicePDF_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:GetInvoicePDF"]
+
+  - name: GetInvoicePDF
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Invoice as PDF"
+    fields:
+      - name: class
+        type: "#GetInvoicePDF_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSalesReceiptPDF_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:GetSalesReceiptPDF"]
+
+  - name: GetSalesReceiptPDF
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get SalesReceipt as PDF"
+    fields:
+      - name: class
+        type: "#GetSalesReceiptPDF_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: QueryAccount_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:QueryAccount"]
+
+  - name: QueryAccount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Query Account"
+    fields:
+      - name: class
+        type: "#QueryAccount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadAccount_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadAccount"]
+
+  - name: ReadAccount
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Account"
+    fields:
+      - name: class
+        type: "#ReadAccount_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadAttachable_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadAttachable"]
+
+  - name: ReadAttachable
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Attachable"
+    fields:
+      - name: class
+        type: "#ReadAttachable_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadBill_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadBill"]
+
+  - name: ReadBill
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Bill"
+    fields:
+      - name: class
+        type: "#ReadBill_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadBillPayment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadBillPayment"]
+
+  - name: ReadBillPayment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read BillPayment"
+    fields:
+      - name: class
+        type: "#ReadBillPayment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadBudget_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadBudget"]
+
+  - name: ReadBudget
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Budget"
+    fields:
+      - name: class
+        type: "#ReadBudget_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadChangeOrder_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadChangeOrder"]
+
+  - name: ReadChangeOrder
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read ChangeOrder"
+    fields:
+      - name: class
+        type: "#ReadChangeOrder_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadClass_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadClass"]
+
+  - name: ReadClass
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Class"
+    fields:
+      - name: class
+        type: "#ReadClass_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadCompanyCurrency_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadCompanyCurrency"]
+
+  - name: ReadCompanyCurrency
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read CompanyCurrency"
+    fields:
+      - name: class
+        type: "#ReadCompanyCurrency_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadCompanyInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadCompanyInfo"]
+
+  - name: ReadCompanyInfo
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read CompanyInfo"
+    fields:
+      - name: class
+        type: "#ReadCompanyInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadCreditCardPaymentTxn_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadCreditCardPaymentTxn"]
+
+  - name: ReadCreditCardPaymentTxn
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read CreditCardPaymentTxn"
+    fields:
+      - name: class
+        type: "#ReadCreditCardPaymentTxn_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadCreditMemo_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadCreditMemo"]
+
+  - name: ReadCreditMemo
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read CreditMemo"
+    fields:
+      - name: class
+        type: "#ReadCreditMemo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadCustomer_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadCustomer"]
+
+  - name: ReadCustomer
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Customer"
+    fields:
+      - name: class
+        type: "#ReadCustomer_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadCustomerType_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadCustomerType"]
+
+  - name: ReadCustomerType
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read CustomerType"
+    fields:
+      - name: class
+        type: "#ReadCustomerType_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadDepartment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadDepartment"]
+
+  - name: ReadDepartment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Department"
+    fields:
+      - name: class
+        type: "#ReadDepartment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadDeposit_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadDeposit"]
+
+  - name: ReadDeposit
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Deposit"
+    fields:
+      - name: class
+        type: "#ReadDeposit_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadEmployee_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadEmployee"]
+
+  - name: ReadEmployee
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Employee"
+    fields:
+      - name: class
+        type: "#ReadEmployee_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadEntitlements_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadEntitlements"]
+
+  - name: ReadEntitlements
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Entitlements"
+    fields:
+      - name: class
+        type: "#ReadEntitlements_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadEstimate_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadEstimate"]
+
+  - name: ReadEstimate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Estimate"
+    fields:
+      - name: class
+        type: "#ReadEstimate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadInventoryAdjustment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadInventoryAdjustment"]
+
+  - name: ReadInventoryAdjustment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read InventoryAdjustment"
+    fields:
+      - name: class
+        type: "#ReadInventoryAdjustment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadInvoice_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadInvoice"]
+
+  - name: ReadInvoice
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Invoice"
+    fields:
+      - name: class
+        type: "#ReadInvoice_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadItem_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadItem"]
+
+  - name: ReadItem
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Item"
+    fields:
+      - name: class
+        type: "#ReadItem_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadJournalCode_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadJournalCode"]
+
+  - name: ReadJournalCode
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read JournalCode"
+    fields:
+      - name: class
+        type: "#ReadJournalCode_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadJournalEntry_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadJournalEntry"]
+
+  - name: ReadJournalEntry
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read JournalEntry"
+    fields:
+      - name: class
+        type: "#ReadJournalEntry_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadPayment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadPayment"]
+
+  - name: ReadPayment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Payment"
+    fields:
+      - name: class
+        type: "#ReadPayment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadPaymentMethod_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadPaymentMethod"]
+
+  - name: ReadPaymentMethod
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read PaymentMethod"
+    fields:
+      - name: class
+        type: "#ReadPaymentMethod_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadPreferences_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadPreferences"]
+
+  - name: ReadPreferences
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Preferences"
+    fields:
+      - name: class
+        type: "#ReadPreferences_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadPurchase_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadPurchase"]
+
+  - name: ReadPurchase
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Purchase"
+    fields:
+      - name: class
+        type: "#ReadPurchase_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadPurchaseOrder_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadPurchaseOrder"]
+
+  - name: ReadPurchaseOrder
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read PurchaseOrder"
+    fields:
+      - name: class
+        type: "#ReadPurchaseOrder_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadRecurringTransaction_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadRecurringTransaction"]
+
+  - name: ReadRecurringTransaction
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read RecurringTransaction"
+    fields:
+      - name: class
+        type: "#ReadRecurringTransaction_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadRefundReceipt_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadRefundReceipt"]
+
+  - name: ReadRefundReceipt
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read RefundReceipt"
+    fields:
+      - name: class
+        type: "#ReadRefundReceipt_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadReimburseCharge_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadReimburseCharge"]
+
+  - name: ReadReimburseCharge
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read ReimburseCharge"
+    fields:
+      - name: class
+        type: "#ReadReimburseCharge_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadSalesReceipt_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadSalesReceipt"]
+
+  - name: ReadSalesReceipt
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read SalesReceipt"
+    fields:
+      - name: class
+        type: "#ReadSalesReceipt_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadTaxAgency_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadTaxAgency"]
+
+  - name: ReadTaxAgency
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read TaxAgency"
+    fields:
+      - name: class
+        type: "#ReadTaxAgency_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadTaxClassification_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadTaxClassification"]
+
+  - name: ReadTaxClassification
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read TaxClassification"
+    fields:
+      - name: class
+        type: "#ReadTaxClassification_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadTaxCode_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadTaxCode"]
+
+  - name: ReadTaxCode
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read TaxCode"
+    fields:
+      - name: class
+        type: "#ReadTaxCode_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadTaxPayment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadTaxPayment"]
+
+  - name: ReadTaxPayment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read TaxPayment"
+    fields:
+      - name: class
+        type: "#ReadTaxPayment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadTaxRate_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadTaxRate"]
+
+  - name: ReadTaxRate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read TaxRate"
+    fields:
+      - name: class
+        type: "#ReadTaxRate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadTerm_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadTerm"]
+
+  - name: ReadTerm
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Term"
+    fields:
+      - name: class
+        type: "#ReadTerm_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadTimeActivity_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadTimeActivity"]
+
+  - name: ReadTimeActivity
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read TimeActivity"
+    fields:
+      - name: class
+        type: "#ReadTimeActivity_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadTransfer_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadTransfer"]
+
+  - name: ReadTransfer
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Transfer"
+    fields:
+      - name: class
+        type: "#ReadTransfer_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadVendor_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadVendor"]
+
+  - name: ReadVendor
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read Vendor"
+    fields:
+      - name: class
+        type: "#ReadVendor_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ReadVendorCredit_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:ReadVendorCredit"]
+
+  - name: ReadVendorCredit
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Read VendorCredit"
+    fields:
+      - name: class
+        type: "#ReadVendorCredit_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SendCreditMemo_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:SendCreditMemo"]
+
+  - name: SendCreditMemo
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send CreditMemo"
+    fields:
+      - name: class
+        type: "#SendCreditMemo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SendEstimate_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:SendEstimate"]
+
+  - name: SendEstimate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send Estimate"
+    fields:
+      - name: class
+        type: "#SendEstimate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SendInvoice_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:SendInvoice"]
+
+  - name: SendInvoice
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send Invoice"
+    fields:
+      - name: class
+        type: "#SendInvoice_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SendPayment_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:SendPayment"]
+
+  - name: SendPayment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send Payment"
+    fields:
+      - name: class
+        type: "#SendPayment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SendPurchaseOrder_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:SendPurchaseOrder"]
+
+  - name: SendPurchaseOrder
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send PurchaseOrder"
+    fields:
+      - name: class
+        type: "#SendPurchaseOrder_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SendRefundReceipt_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:SendRefundReceipt"]
+
+  - name: SendRefundReceipt
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send RefundReceipt"
+    fields:
+      - name: class
+        type: "#SendRefundReceipt_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SendSalesReceipt_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:SendSalesReceipt"]
+
+  - name: SendSalesReceipt
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send SalesReceipt"
+    fields:
+      - name: class
+        type: "#SendSalesReceipt_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateCompanyInfo_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:UpdateCompanyInfo"]
+
+  - name: UpdateCompanyInfo
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update CompanyInfo"
+    fields:
+      - name: class
+        type: "#UpdateCompanyInfo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateExchangeRate_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:UpdateExchangeRate"]
+
+  - name: UpdateExchangeRate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update ExchangeRate"
+    fields:
+      - name: class
+        type: "#UpdateExchangeRate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdatePreferences_class
+    type: enum
+    inVocab: false
+    symbols: ["quickbooks-account:UpdatePreferences"]
+
+  - name: UpdatePreferences
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update Preferences"
+    fields:
+      - name: class
+        type: "#UpdatePreferences_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

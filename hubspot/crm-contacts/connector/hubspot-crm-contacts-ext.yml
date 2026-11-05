@@ -1,0 +1,227 @@
+$base: "https://yardrail.com/cwl/hubspot-crm-contacts#"
+$namespaces:
+  hubspot-crm-contacts: "https://yardrail.com/cwl/hubspot-crm-contacts#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: Deletecrmv3objectscontactsContactIdArchive_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Deletecrmv3objectscontactsContactIdArchive"]
+
+  - name: Deletecrmv3objectscontactsContactIdArchive
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Deletecrmv3objectscontactsContactIdArchive_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Getcrmv3objectscontactsContactIdGetById_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Getcrmv3objectscontactsContactIdGetById"]
+
+  - name: Getcrmv3objectscontactsContactIdGetById
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Getcrmv3objectscontactsContactIdGetById_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Getcrmv3objectscontactsGetPage_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Getcrmv3objectscontactsGetPage"]
+
+  - name: Getcrmv3objectscontactsGetPage
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Getcrmv3objectscontactsGetPage_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Patchcrmv3objectscontactsContactIdUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Patchcrmv3objectscontactsContactIdUpdate"]
+
+  - name: Patchcrmv3objectscontactsContactIdUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Patchcrmv3objectscontactsContactIdUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactsCreate_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactsCreate"]
+
+  - name: Postcrmv3objectscontactsCreate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactsCreate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactsbatcharchiveArchive_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactsbatcharchiveArchive"]
+
+  - name: Postcrmv3objectscontactsbatcharchiveArchive
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactsbatcharchiveArchive_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactsbatchcreateCreate_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactsbatchcreateCreate"]
+
+  - name: Postcrmv3objectscontactsbatchcreateCreate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactsbatchcreateCreate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactsbatchreadRead_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactsbatchreadRead"]
+
+  - name: Postcrmv3objectscontactsbatchreadRead
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactsbatchreadRead_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactsbatchupdateUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactsbatchupdateUpdate"]
+
+  - name: Postcrmv3objectscontactsbatchupdateUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactsbatchupdateUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactsbatchupsertUpsert_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactsbatchupsertUpsert"]
+
+  - name: Postcrmv3objectscontactsbatchupsertUpsert
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactsbatchupsertUpsert_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactsgdprDeletePurge_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactsgdprDeletePurge"]
+
+  - name: Postcrmv3objectscontactsgdprDeletePurge
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactsgdprDeletePurge_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactsmergeMerge_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactsmergeMerge"]
+
+  - name: Postcrmv3objectscontactsmergeMerge
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactsmergeMerge_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: Postcrmv3objectscontactssearchDoSearch_class
+    type: enum
+    inVocab: false
+    symbols: ["hubspot-crm-contacts:Postcrmv3objectscontactssearchDoSearch"]
+
+  - name: Postcrmv3objectscontactssearchDoSearch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    fields:
+      - name: class
+        type: "#Postcrmv3objectscontactssearchDoSearch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

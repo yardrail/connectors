@@ -1,0 +1,5370 @@
+$base: "https://yardrail.com/cwl/mailchimp#"
+$namespaces:
+  mailchimp: "https://yardrail.com/cwl/mailchimp#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: ArchiveAutomations_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:ArchiveAutomations"]
+
+  - name: ArchiveAutomations
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Archive automation"
+    fields:
+      - name: class
+        type: "#ArchiveAutomations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateAudienceContact_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:CreateAudienceContact"]
+
+  - name: CreateAudienceContact
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add Contact"
+    fields:
+      - name: class
+        type: "#CreateAudienceContact_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateVerifiedDomain_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:CreateVerifiedDomain"]
+
+  - name: CreateVerifiedDomain
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add domain to account"
+    fields:
+      - name: class
+        type: "#CreateVerifiedDomain_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteAutomationsIdEmailsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteAutomationsIdEmailsId"]
+
+  - name: DeleteAutomationsIdEmailsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete workflow email"
+    fields:
+      - name: class
+        type: "#DeleteAutomationsIdEmailsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteBatchWebhookId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteBatchWebhookId"]
+
+  - name: DeleteBatchWebhookId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete batch webhook"
+    fields:
+      - name: class
+        type: "#DeleteBatchWebhookId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteBatchesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteBatchesId"]
+
+  - name: DeleteBatchesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete batch request"
+    fields:
+      - name: class
+        type: "#DeleteBatchesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteCampaignFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteCampaignFoldersId"]
+
+  - name: DeleteCampaignFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete campaign folder"
+    fields:
+      - name: class
+        type: "#DeleteCampaignFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteCampaignsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteCampaignsId"]
+
+  - name: DeleteCampaignsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete campaign"
+    fields:
+      - name: class
+        type: "#DeleteCampaignsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteCampaignsIdFeedbackId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteCampaignsIdFeedbackId"]
+
+  - name: DeleteCampaignsIdFeedbackId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete campaign feedback message"
+    fields:
+      - name: class
+        type: "#DeleteCampaignsIdFeedbackId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteConnectedSitesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteConnectedSitesId"]
+
+  - name: DeleteConnectedSitesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete connected site"
+    fields:
+      - name: class
+        type: "#DeleteConnectedSitesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresId"]
+
+  - name: DeleteEcommerceStoresId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete store"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdCartsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdCartsId"]
+
+  - name: DeleteEcommerceStoresIdCartsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete cart"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdCartsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdCartsLinesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdCartsLinesId"]
+
+  - name: DeleteEcommerceStoresIdCartsLinesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete cart line item"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdCartsLinesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdCustomersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdCustomersId"]
+
+  - name: DeleteEcommerceStoresIdCustomersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete customer"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdCustomersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdOrdersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdOrdersId"]
+
+  - name: DeleteEcommerceStoresIdOrdersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete order"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdOrdersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdOrdersIdLinesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdOrdersIdLinesId"]
+
+  - name: DeleteEcommerceStoresIdOrdersIdLinesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete order line item"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdOrdersIdLinesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdProductsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdProductsId"]
+
+  - name: DeleteEcommerceStoresIdProductsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete product"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdProductsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdProductsIdImagesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdProductsIdImagesId"]
+
+  - name: DeleteEcommerceStoresIdProductsIdImagesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete product image"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdProductsIdImagesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdProductsIdVariantsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdProductsIdVariantsId"]
+
+  - name: DeleteEcommerceStoresIdProductsIdVariantsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete product variant"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdProductsIdVariantsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdPromocodesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdPromocodesId"]
+
+  - name: DeleteEcommerceStoresIdPromocodesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete promo code"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdPromocodesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteEcommerceStoresIdPromorulesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteEcommerceStoresIdPromorulesId"]
+
+  - name: DeleteEcommerceStoresIdPromorulesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete promo rule"
+    fields:
+      - name: class
+        type: "#DeleteEcommerceStoresIdPromorulesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteFileManagerFilesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteFileManagerFilesId"]
+
+  - name: DeleteFileManagerFilesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete file"
+    fields:
+      - name: class
+        type: "#DeleteFileManagerFilesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteFileManagerFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteFileManagerFoldersId"]
+
+  - name: DeleteFileManagerFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete folder"
+    fields:
+      - name: class
+        type: "#DeleteFileManagerFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteLandingPageId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteLandingPageId"]
+
+  - name: DeleteLandingPageId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete landing page"
+    fields:
+      - name: class
+        type: "#DeleteLandingPageId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsId"]
+
+  - name: DeleteListsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete list"
+    fields:
+      - name: class
+        type: "#DeleteListsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdInterestCategoriesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdInterestCategoriesId"]
+
+  - name: DeleteListsIdInterestCategoriesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete interest category"
+    fields:
+      - name: class
+        type: "#DeleteListsIdInterestCategoriesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdInterestCategoriesIdInterestsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdInterestCategoriesIdInterestsId"]
+
+  - name: DeleteListsIdInterestCategoriesIdInterestsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete interest in category"
+    fields:
+      - name: class
+        type: "#DeleteListsIdInterestCategoriesIdInterestsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdMembersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdMembersId"]
+
+  - name: DeleteListsIdMembersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Archive list member"
+    fields:
+      - name: class
+        type: "#DeleteListsIdMembersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdMembersIdNotesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdMembersIdNotesId"]
+
+  - name: DeleteListsIdMembersIdNotesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete note"
+    fields:
+      - name: class
+        type: "#DeleteListsIdMembersIdNotesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdMergeFieldsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdMergeFieldsId"]
+
+  - name: DeleteListsIdMergeFieldsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete merge field"
+    fields:
+      - name: class
+        type: "#DeleteListsIdMergeFieldsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdSegmentsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdSegmentsId"]
+
+  - name: DeleteListsIdSegmentsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete segment"
+    fields:
+      - name: class
+        type: "#DeleteListsIdSegmentsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdSegmentsIdMembersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdSegmentsIdMembersId"]
+
+  - name: DeleteListsIdSegmentsIdMembersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Remove list member from segment"
+    fields:
+      - name: class
+        type: "#DeleteListsIdSegmentsIdMembersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdSurveysId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdSurveysId"]
+
+  - name: DeleteListsIdSurveysId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete survey"
+    fields:
+      - name: class
+        type: "#DeleteListsIdSurveysId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteListsIdWebhooksId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteListsIdWebhooksId"]
+
+  - name: DeleteListsIdWebhooksId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete webhook"
+    fields:
+      - name: class
+        type: "#DeleteListsIdWebhooksId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteSmsCampaignsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteSmsCampaignsId"]
+
+  - name: DeleteSmsCampaignsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete SMS campaign"
+    fields:
+      - name: class
+        type: "#DeleteSmsCampaignsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteTemplateFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteTemplateFoldersId"]
+
+  - name: DeleteTemplateFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete template folder"
+    fields:
+      - name: class
+        type: "#DeleteTemplateFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteTemplatesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteTemplatesId"]
+
+  - name: DeleteTemplatesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete template"
+    fields:
+      - name: class
+        type: "#DeleteTemplatesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteVerifiedDomain_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:DeleteVerifiedDomain"]
+
+  - name: DeleteVerifiedDomain
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete domain"
+    fields:
+      - name: class
+        type: "#DeleteVerifiedDomain_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAccountExportId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAccountExportId"]
+
+  - name: GetAccountExportId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get account export info"
+    fields:
+      - name: class
+        type: "#GetAccountExportId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAccountExports_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAccountExports"]
+
+  - name: GetAccountExports
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List account exports"
+    fields:
+      - name: class
+        type: "#GetAccountExports_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetActivityFeedChimpChatter_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetActivityFeedChimpChatter"]
+
+  - name: GetActivityFeedChimpChatter
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get latest chimp chatter"
+    fields:
+      - name: class
+        type: "#GetActivityFeedChimpChatter_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAllFacebookAds_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAllFacebookAds"]
+
+  - name: GetAllFacebookAds
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List facebook ads"
+    fields:
+      - name: class
+        type: "#GetAllFacebookAds_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAllLandingPages_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAllLandingPages"]
+
+  - name: GetAllLandingPages
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List landing pages"
+    fields:
+      - name: class
+        type: "#GetAllLandingPages_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAudienceContact_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAudienceContact"]
+
+  - name: GetAudienceContact
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Contact"
+    fields:
+      - name: class
+        type: "#GetAudienceContact_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAudienceContactList_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAudienceContactList"]
+
+  - name: GetAudienceContactList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Contacts"
+    fields:
+      - name: class
+        type: "#GetAudienceContactList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAudienceContacts_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAudienceContacts"]
+
+  - name: GetAudienceContacts
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get a list of audiences"
+    fields:
+      - name: class
+        type: "#GetAudienceContacts_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAudienceId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAudienceId"]
+
+  - name: GetAudienceId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get audience info"
+    fields:
+      - name: class
+        type: "#GetAudienceId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAuthorizedApps_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAuthorizedApps"]
+
+  - name: GetAuthorizedApps
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List authorized apps"
+    fields:
+      - name: class
+        type: "#GetAuthorizedApps_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAuthorizedAppsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAuthorizedAppsId"]
+
+  - name: GetAuthorizedAppsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get authorized app info"
+    fields:
+      - name: class
+        type: "#GetAuthorizedAppsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAutomations_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAutomations"]
+
+  - name: GetAutomations
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List automations"
+    fields:
+      - name: class
+        type: "#GetAutomations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAutomationsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAutomationsId"]
+
+  - name: GetAutomationsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get automation info"
+    fields:
+      - name: class
+        type: "#GetAutomationsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAutomationsIdEmails_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAutomationsIdEmails"]
+
+  - name: GetAutomationsIdEmails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List automated emails"
+    fields:
+      - name: class
+        type: "#GetAutomationsIdEmails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAutomationsIdEmailsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAutomationsIdEmailsId"]
+
+  - name: GetAutomationsIdEmailsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get workflow email info"
+    fields:
+      - name: class
+        type: "#GetAutomationsIdEmailsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAutomationsIdEmailsIdQueue_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAutomationsIdEmailsIdQueue"]
+
+  - name: GetAutomationsIdEmailsIdQueue
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List automated email subscribers"
+    fields:
+      - name: class
+        type: "#GetAutomationsIdEmailsIdQueue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAutomationsIdEmailsIdQueueId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAutomationsIdEmailsIdQueueId"]
+
+  - name: GetAutomationsIdEmailsIdQueueId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get automated email subscriber"
+    fields:
+      - name: class
+        type: "#GetAutomationsIdEmailsIdQueueId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAutomationsIdRemovedSubscribers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAutomationsIdRemovedSubscribers"]
+
+  - name: GetAutomationsIdRemovedSubscribers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List subscribers removed from workflow"
+    fields:
+      - name: class
+        type: "#GetAutomationsIdRemovedSubscribers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetAutomationsIdRemovedSubscribersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetAutomationsIdRemovedSubscribersId"]
+
+  - name: GetAutomationsIdRemovedSubscribersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get subscriber removed from workflow"
+    fields:
+      - name: class
+        type: "#GetAutomationsIdRemovedSubscribersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetBatchWebhook_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetBatchWebhook"]
+
+  - name: GetBatchWebhook
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get batch webhook info"
+    fields:
+      - name: class
+        type: "#GetBatchWebhook_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetBatchWebhooks_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetBatchWebhooks"]
+
+  - name: GetBatchWebhooks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List batch webhooks"
+    fields:
+      - name: class
+        type: "#GetBatchWebhooks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetBatches_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetBatches"]
+
+  - name: GetBatches
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List batch requests"
+    fields:
+      - name: class
+        type: "#GetBatches_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetBatchesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetBatchesId"]
+
+  - name: GetBatchesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get batch operation status"
+    fields:
+      - name: class
+        type: "#GetBatchesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCampaignFolders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetCampaignFolders"]
+
+  - name: GetCampaignFolders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaign folders"
+    fields:
+      - name: class
+        type: "#GetCampaignFolders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCampaignFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetCampaignFoldersId"]
+
+  - name: GetCampaignFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get campaign folder"
+    fields:
+      - name: class
+        type: "#GetCampaignFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCampaigns_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetCampaigns"]
+
+  - name: GetCampaigns
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaigns"
+    fields:
+      - name: class
+        type: "#GetCampaigns_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCampaignsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetCampaignsId"]
+
+  - name: GetCampaignsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get campaign info"
+    fields:
+      - name: class
+        type: "#GetCampaignsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCampaignsIdContent_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetCampaignsIdContent"]
+
+  - name: GetCampaignsIdContent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get campaign content"
+    fields:
+      - name: class
+        type: "#GetCampaignsIdContent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCampaignsIdFeedback_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetCampaignsIdFeedback"]
+
+  - name: GetCampaignsIdFeedback
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaign feedback"
+    fields:
+      - name: class
+        type: "#GetCampaignsIdFeedback_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCampaignsIdFeedbackId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetCampaignsIdFeedbackId"]
+
+  - name: GetCampaignsIdFeedbackId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get campaign feedback message"
+    fields:
+      - name: class
+        type: "#GetCampaignsIdFeedbackId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetCampaignsIdSendChecklist_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetCampaignsIdSendChecklist"]
+
+  - name: GetCampaignsIdSendChecklist
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get campaign send checklist"
+    fields:
+      - name: class
+        type: "#GetCampaignsIdSendChecklist_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetConnectedSites_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetConnectedSites"]
+
+  - name: GetConnectedSites
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List connected sites"
+    fields:
+      - name: class
+        type: "#GetConnectedSites_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetConnectedSitesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetConnectedSitesId"]
+
+  - name: GetConnectedSitesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get connected site"
+    fields:
+      - name: class
+        type: "#GetConnectedSitesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetConversations_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetConversations"]
+
+  - name: GetConversations
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List conversations"
+    fields:
+      - name: class
+        type: "#GetConversations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetConversationsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetConversationsId"]
+
+  - name: GetConversationsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get conversation"
+    fields:
+      - name: class
+        type: "#GetConversationsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetConversationsIdMessages_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetConversationsIdMessages"]
+
+  - name: GetConversationsIdMessages
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List messages"
+    fields:
+      - name: class
+        type: "#GetConversationsIdMessages_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetConversationsIdMessagesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetConversationsIdMessagesId"]
+
+  - name: GetConversationsIdMessagesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get message"
+    fields:
+      - name: class
+        type: "#GetConversationsIdMessagesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceOrders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceOrders"]
+
+  - name: GetEcommerceOrders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List account orders"
+    fields:
+      - name: class
+        type: "#GetEcommerceOrders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStores_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStores"]
+
+  - name: GetEcommerceStores
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List stores"
+    fields:
+      - name: class
+        type: "#GetEcommerceStores_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresId"]
+
+  - name: GetEcommerceStoresId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get store info"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdCarts_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdCarts"]
+
+  - name: GetEcommerceStoresIdCarts
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List carts"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdCarts_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdCartsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdCartsId"]
+
+  - name: GetEcommerceStoresIdCartsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get cart info"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdCartsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdCartsIdLines_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdCartsIdLines"]
+
+  - name: GetEcommerceStoresIdCartsIdLines
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List cart line items"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdCartsIdLines_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdCartsIdLinesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdCartsIdLinesId"]
+
+  - name: GetEcommerceStoresIdCartsIdLinesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get cart line item"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdCartsIdLinesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdCustomers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdCustomers"]
+
+  - name: GetEcommerceStoresIdCustomers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List customers"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdCustomers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdCustomersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdCustomersId"]
+
+  - name: GetEcommerceStoresIdCustomersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get customer info"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdCustomersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdOrders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdOrders"]
+
+  - name: GetEcommerceStoresIdOrders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List orders"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdOrders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdOrdersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdOrdersId"]
+
+  - name: GetEcommerceStoresIdOrdersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get order info"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdOrdersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdOrdersIdLines_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdOrdersIdLines"]
+
+  - name: GetEcommerceStoresIdOrdersIdLines
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List order line items"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdOrdersIdLines_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdOrdersIdLinesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdOrdersIdLinesId"]
+
+  - name: GetEcommerceStoresIdOrdersIdLinesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get order line item"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdOrdersIdLinesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdProducts_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdProducts"]
+
+  - name: GetEcommerceStoresIdProducts
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List product"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdProducts_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdProductsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdProductsId"]
+
+  - name: GetEcommerceStoresIdProductsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get product info"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdProductsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdProductsIdImages_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdProductsIdImages"]
+
+  - name: GetEcommerceStoresIdProductsIdImages
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List product images"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdProductsIdImages_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdProductsIdImagesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdProductsIdImagesId"]
+
+  - name: GetEcommerceStoresIdProductsIdImagesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get product image info"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdProductsIdImagesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdProductsIdVariants_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdProductsIdVariants"]
+
+  - name: GetEcommerceStoresIdProductsIdVariants
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List product variants"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdProductsIdVariants_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdProductsIdVariantsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdProductsIdVariantsId"]
+
+  - name: GetEcommerceStoresIdProductsIdVariantsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get product variant info"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdProductsIdVariantsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdPromocodes_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdPromocodes"]
+
+  - name: GetEcommerceStoresIdPromocodes
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List promo codes"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdPromocodes_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdPromocodesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdPromocodesId"]
+
+  - name: GetEcommerceStoresIdPromocodesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get promo code"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdPromocodesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdPromorules_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdPromorules"]
+
+  - name: GetEcommerceStoresIdPromorules
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List promo rules"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdPromorules_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetEcommerceStoresIdPromorulesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetEcommerceStoresIdPromorulesId"]
+
+  - name: GetEcommerceStoresIdPromorulesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get promo rule"
+    fields:
+      - name: class
+        type: "#GetEcommerceStoresIdPromorulesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetFacebookAdsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetFacebookAdsId"]
+
+  - name: GetFacebookAdsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get facebook ad info"
+    fields:
+      - name: class
+        type: "#GetFacebookAdsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetFileManagerFiles_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetFileManagerFiles"]
+
+  - name: GetFileManagerFiles
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List stored files"
+    fields:
+      - name: class
+        type: "#GetFileManagerFiles_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetFileManagerFilesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetFileManagerFilesId"]
+
+  - name: GetFileManagerFilesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get file"
+    fields:
+      - name: class
+        type: "#GetFileManagerFilesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetFileManagerFolders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetFileManagerFolders"]
+
+  - name: GetFileManagerFolders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List folders"
+    fields:
+      - name: class
+        type: "#GetFileManagerFolders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetFileManagerFoldersFiles_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetFileManagerFoldersFiles"]
+
+  - name: GetFileManagerFoldersFiles
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List stored files"
+    fields:
+      - name: class
+        type: "#GetFileManagerFoldersFiles_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetFileManagerFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetFileManagerFoldersId"]
+
+  - name: GetFileManagerFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get folder"
+    fields:
+      - name: class
+        type: "#GetFileManagerFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetLandingPageId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetLandingPageId"]
+
+  - name: GetLandingPageId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get landing page info"
+    fields:
+      - name: class
+        type: "#GetLandingPageId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetLandingPageIdContent_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetLandingPageIdContent"]
+
+  - name: GetLandingPageIdContent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get landing page content"
+    fields:
+      - name: class
+        type: "#GetLandingPageIdContent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListMemberTags_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListMemberTags"]
+
+  - name: GetListMemberTags
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List member tags"
+    fields:
+      - name: class
+        type: "#GetListMemberTags_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetLists_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetLists"]
+
+  - name: GetLists
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get lists info"
+    fields:
+      - name: class
+        type: "#GetLists_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsId"]
+
+  - name: GetListsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get list info"
+    fields:
+      - name: class
+        type: "#GetListsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdAbuseReports_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdAbuseReports"]
+
+  - name: GetListsIdAbuseReports
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List abuse reports"
+    fields:
+      - name: class
+        type: "#GetListsIdAbuseReports_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdAbuseReportsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdAbuseReportsId"]
+
+  - name: GetListsIdAbuseReportsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get abuse report"
+    fields:
+      - name: class
+        type: "#GetListsIdAbuseReportsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdActivity_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdActivity"]
+
+  - name: GetListsIdActivity
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List recent activity"
+    fields:
+      - name: class
+        type: "#GetListsIdActivity_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdClients_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdClients"]
+
+  - name: GetListsIdClients
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List top email clients"
+    fields:
+      - name: class
+        type: "#GetListsIdClients_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdGrowthHistory_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdGrowthHistory"]
+
+  - name: GetListsIdGrowthHistory
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List growth history data"
+    fields:
+      - name: class
+        type: "#GetListsIdGrowthHistory_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdGrowthHistoryId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdGrowthHistoryId"]
+
+  - name: GetListsIdGrowthHistoryId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get growth history by month"
+    fields:
+      - name: class
+        type: "#GetListsIdGrowthHistoryId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdInterestCategories_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdInterestCategories"]
+
+  - name: GetListsIdInterestCategories
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List interest categories"
+    fields:
+      - name: class
+        type: "#GetListsIdInterestCategories_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdInterestCategoriesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdInterestCategoriesId"]
+
+  - name: GetListsIdInterestCategoriesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get interest category info"
+    fields:
+      - name: class
+        type: "#GetListsIdInterestCategoriesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdInterestCategoriesIdInterests_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdInterestCategoriesIdInterests"]
+
+  - name: GetListsIdInterestCategoriesIdInterests
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List interests in category"
+    fields:
+      - name: class
+        type: "#GetListsIdInterestCategoriesIdInterests_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdInterestCategoriesIdInterestsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdInterestCategoriesIdInterestsId"]
+
+  - name: GetListsIdInterestCategoriesIdInterestsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get interest in category"
+    fields:
+      - name: class
+        type: "#GetListsIdInterestCategoriesIdInterestsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdLocations_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdLocations"]
+
+  - name: GetListsIdLocations
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List locations"
+    fields:
+      - name: class
+        type: "#GetListsIdLocations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMembers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMembers"]
+
+  - name: GetListsIdMembers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List members info"
+    fields:
+      - name: class
+        type: "#GetListsIdMembers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMembersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMembersId"]
+
+  - name: GetListsIdMembersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get member info"
+    fields:
+      - name: class
+        type: "#GetListsIdMembersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMembersIdActivity_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMembersIdActivity"]
+
+  - name: GetListsIdMembersIdActivity
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "View recent activity 50"
+    fields:
+      - name: class
+        type: "#GetListsIdMembersIdActivity_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMembersIdActivityFeed_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMembersIdActivityFeed"]
+
+  - name: GetListsIdMembersIdActivityFeed
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "View recent activity"
+    fields:
+      - name: class
+        type: "#GetListsIdMembersIdActivityFeed_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMembersIdEvents_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMembersIdEvents"]
+
+  - name: GetListsIdMembersIdEvents
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List member events"
+    fields:
+      - name: class
+        type: "#GetListsIdMembersIdEvents_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMembersIdGoals_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMembersIdGoals"]
+
+  - name: GetListsIdMembersIdGoals
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List member goal events"
+    fields:
+      - name: class
+        type: "#GetListsIdMembersIdGoals_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMembersIdNotes_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMembersIdNotes"]
+
+  - name: GetListsIdMembersIdNotes
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List recent member notes"
+    fields:
+      - name: class
+        type: "#GetListsIdMembersIdNotes_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMembersIdNotesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMembersIdNotesId"]
+
+  - name: GetListsIdMembersIdNotesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get member note"
+    fields:
+      - name: class
+        type: "#GetListsIdMembersIdNotesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMergeFields_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMergeFields"]
+
+  - name: GetListsIdMergeFields
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List merge fields"
+    fields:
+      - name: class
+        type: "#GetListsIdMergeFields_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdMergeFieldsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdMergeFieldsId"]
+
+  - name: GetListsIdMergeFieldsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get merge field"
+    fields:
+      - name: class
+        type: "#GetListsIdMergeFieldsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdSegmentsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdSegmentsId"]
+
+  - name: GetListsIdSegmentsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get segment info"
+    fields:
+      - name: class
+        type: "#GetListsIdSegmentsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdSegmentsIdMembers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdSegmentsIdMembers"]
+
+  - name: GetListsIdSegmentsIdMembers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List members in segment"
+    fields:
+      - name: class
+        type: "#GetListsIdSegmentsIdMembers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdSignupForms_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdSignupForms"]
+
+  - name: GetListsIdSignupForms
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List signup forms"
+    fields:
+      - name: class
+        type: "#GetListsIdSignupForms_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdSurveys_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdSurveys"]
+
+  - name: GetListsIdSurveys
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get information about all surveys for a list"
+    fields:
+      - name: class
+        type: "#GetListsIdSurveys_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdSurveysId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdSurveysId"]
+
+  - name: GetListsIdSurveysId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get survey"
+    fields:
+      - name: class
+        type: "#GetListsIdSurveysId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdWebhooks_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdWebhooks"]
+
+  - name: GetListsIdWebhooks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List webhooks"
+    fields:
+      - name: class
+        type: "#GetListsIdWebhooks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetListsIdWebhooksId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetListsIdWebhooksId"]
+
+  - name: GetListsIdWebhooksId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get webhook info"
+    fields:
+      - name: class
+        type: "#GetListsIdWebhooksId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetPing_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetPing"]
+
+  - name: GetPing
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Ping"
+    fields:
+      - name: class
+        type: "#GetPing_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingFacebookAds_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingFacebookAds"]
+
+  - name: GetReportingFacebookAds
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List facebook ads reports"
+    fields:
+      - name: class
+        type: "#GetReportingFacebookAds_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingFacebookAdsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingFacebookAdsId"]
+
+  - name: GetReportingFacebookAdsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get facebook ad report"
+    fields:
+      - name: class
+        type: "#GetReportingFacebookAdsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingFacebookAdsIdEcommerceProductActivity_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingFacebookAdsIdEcommerceProductActivity"]
+
+  - name: GetReportingFacebookAdsIdEcommerceProductActivity
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List facebook ecommerce report"
+    fields:
+      - name: class
+        type: "#GetReportingFacebookAdsIdEcommerceProductActivity_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingLandingPages_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingLandingPages"]
+
+  - name: GetReportingLandingPages
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List landing pages reports"
+    fields:
+      - name: class
+        type: "#GetReportingLandingPages_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingLandingPagesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingLandingPagesId"]
+
+  - name: GetReportingLandingPagesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get landing page report"
+    fields:
+      - name: class
+        type: "#GetReportingLandingPagesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingSurveys_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingSurveys"]
+
+  - name: GetReportingSurveys
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List survey reports"
+    fields:
+      - name: class
+        type: "#GetReportingSurveys_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingSurveysId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingSurveysId"]
+
+  - name: GetReportingSurveysId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get survey report"
+    fields:
+      - name: class
+        type: "#GetReportingSurveysId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingSurveysIdQuestions_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingSurveysIdQuestions"]
+
+  - name: GetReportingSurveysIdQuestions
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List survey question reports"
+    fields:
+      - name: class
+        type: "#GetReportingSurveysIdQuestions_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingSurveysIdQuestionsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingSurveysIdQuestionsId"]
+
+  - name: GetReportingSurveysIdQuestionsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get survey question report"
+    fields:
+      - name: class
+        type: "#GetReportingSurveysIdQuestionsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingSurveysIdQuestionsIdAnswers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingSurveysIdQuestionsIdAnswers"]
+
+  - name: GetReportingSurveysIdQuestionsIdAnswers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List answers for question"
+    fields:
+      - name: class
+        type: "#GetReportingSurveysIdQuestionsIdAnswers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingSurveysIdResponses_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingSurveysIdResponses"]
+
+  - name: GetReportingSurveysIdResponses
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List survey responses"
+    fields:
+      - name: class
+        type: "#GetReportingSurveysIdResponses_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportingSurveysIdResponsesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportingSurveysIdResponsesId"]
+
+  - name: GetReportingSurveysIdResponsesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get survey response"
+    fields:
+      - name: class
+        type: "#GetReportingSurveysIdResponsesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReports_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReports"]
+
+  - name: GetReports
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaign reports"
+    fields:
+      - name: class
+        type: "#GetReports_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsId"]
+
+  - name: GetReportsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get campaign report"
+    fields:
+      - name: class
+        type: "#GetReportsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdAbuseReportsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdAbuseReportsId"]
+
+  - name: GetReportsIdAbuseReportsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List abuse reports"
+    fields:
+      - name: class
+        type: "#GetReportsIdAbuseReportsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdAbuseReportsIdId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdAbuseReportsIdId"]
+
+  - name: GetReportsIdAbuseReportsIdId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get abuse report"
+    fields:
+      - name: class
+        type: "#GetReportsIdAbuseReportsIdId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdAdvice_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdAdvice"]
+
+  - name: GetReportsIdAdvice
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaign feedback"
+    fields:
+      - name: class
+        type: "#GetReportsIdAdvice_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdClickDetails_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdClickDetails"]
+
+  - name: GetReportsIdClickDetails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaign details"
+    fields:
+      - name: class
+        type: "#GetReportsIdClickDetails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdClickDetailsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdClickDetailsId"]
+
+  - name: GetReportsIdClickDetailsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get campaign link details"
+    fields:
+      - name: class
+        type: "#GetReportsIdClickDetailsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdClickDetailsIdMembers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdClickDetailsIdMembers"]
+
+  - name: GetReportsIdClickDetailsIdMembers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List clicked link subscribers"
+    fields:
+      - name: class
+        type: "#GetReportsIdClickDetailsIdMembers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdClickDetailsIdMembersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdClickDetailsIdMembersId"]
+
+  - name: GetReportsIdClickDetailsIdMembersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get clicked link subscriber"
+    fields:
+      - name: class
+        type: "#GetReportsIdClickDetailsIdMembersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdDomainPerformance_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdDomainPerformance"]
+
+  - name: GetReportsIdDomainPerformance
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List domain performance stats"
+    fields:
+      - name: class
+        type: "#GetReportsIdDomainPerformance_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdEcommerceProductActivity_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdEcommerceProductActivity"]
+
+  - name: GetReportsIdEcommerceProductActivity
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaign product activity"
+    fields:
+      - name: class
+        type: "#GetReportsIdEcommerceProductActivity_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdEepurl_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdEepurl"]
+
+  - name: GetReportsIdEepurl
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List EepURL activity"
+    fields:
+      - name: class
+        type: "#GetReportsIdEepurl_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdEmailActivity_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdEmailActivity"]
+
+  - name: GetReportsIdEmailActivity
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List email activity"
+    fields:
+      - name: class
+        type: "#GetReportsIdEmailActivity_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdEmailActivityId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdEmailActivityId"]
+
+  - name: GetReportsIdEmailActivityId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get subscriber email activity"
+    fields:
+      - name: class
+        type: "#GetReportsIdEmailActivityId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdLocations_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdLocations"]
+
+  - name: GetReportsIdLocations
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List top open activities"
+    fields:
+      - name: class
+        type: "#GetReportsIdLocations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdOpenDetails_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdOpenDetails"]
+
+  - name: GetReportsIdOpenDetails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaign open details"
+    fields:
+      - name: class
+        type: "#GetReportsIdOpenDetails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdOpenDetailsIdMembersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdOpenDetailsIdMembersId"]
+
+  - name: GetReportsIdOpenDetailsIdMembersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get opened campaign subscriber"
+    fields:
+      - name: class
+        type: "#GetReportsIdOpenDetailsIdMembersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdSentTo_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdSentTo"]
+
+  - name: GetReportsIdSentTo
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List campaign recipients"
+    fields:
+      - name: class
+        type: "#GetReportsIdSentTo_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdSentToId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdSentToId"]
+
+  - name: GetReportsIdSentToId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get campaign recipient info"
+    fields:
+      - name: class
+        type: "#GetReportsIdSentToId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdSubReportsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdSubReportsId"]
+
+  - name: GetReportsIdSubReportsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List child campaign reports"
+    fields:
+      - name: class
+        type: "#GetReportsIdSubReportsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdUnsubscribed_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdUnsubscribed"]
+
+  - name: GetReportsIdUnsubscribed
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List unsubscribed members"
+    fields:
+      - name: class
+        type: "#GetReportsIdUnsubscribed_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetReportsIdUnsubscribedId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetReportsIdUnsubscribedId"]
+
+  - name: GetReportsIdUnsubscribedId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get unsubscribed member"
+    fields:
+      - name: class
+        type: "#GetReportsIdUnsubscribedId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetRoot_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetRoot"]
+
+  - name: GetRoot
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List api root resources"
+    fields:
+      - name: class
+        type: "#GetRoot_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSearchCampaigns_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetSearchCampaigns"]
+
+  - name: GetSearchCampaigns
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search campaigns"
+    fields:
+      - name: class
+        type: "#GetSearchCampaigns_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSearchMembers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetSearchMembers"]
+
+  - name: GetSearchMembers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search members"
+    fields:
+      - name: class
+        type: "#GetSearchMembers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSmsCampaigns_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetSmsCampaigns"]
+
+  - name: GetSmsCampaigns
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List SMS campaigns"
+    fields:
+      - name: class
+        type: "#GetSmsCampaigns_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSmsCampaignsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetSmsCampaignsId"]
+
+  - name: GetSmsCampaignsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get SMS campaign info"
+    fields:
+      - name: class
+        type: "#GetSmsCampaignsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSmsCampaignsIdContent_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetSmsCampaignsIdContent"]
+
+  - name: GetSmsCampaignsIdContent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get SMS campaign content"
+    fields:
+      - name: class
+        type: "#GetSmsCampaignsIdContent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetTemplateFolders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetTemplateFolders"]
+
+  - name: GetTemplateFolders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List template folders"
+    fields:
+      - name: class
+        type: "#GetTemplateFolders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetTemplateFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetTemplateFoldersId"]
+
+  - name: GetTemplateFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get template folder"
+    fields:
+      - name: class
+        type: "#GetTemplateFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetTemplates_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetTemplates"]
+
+  - name: GetTemplates
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List templates"
+    fields:
+      - name: class
+        type: "#GetTemplates_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetTemplatesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetTemplatesId"]
+
+  - name: GetTemplatesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get template info"
+    fields:
+      - name: class
+        type: "#GetTemplatesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetTemplatesIdDefaultContent_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetTemplatesIdDefaultContent"]
+
+  - name: GetTemplatesIdDefaultContent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "View default content"
+    fields:
+      - name: class
+        type: "#GetTemplatesIdDefaultContent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetVerifiedDomain_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetVerifiedDomain"]
+
+  - name: GetVerifiedDomain
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get domain info"
+    fields:
+      - name: class
+        type: "#GetVerifiedDomain_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetVerifiedDomains_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:GetVerifiedDomains"]
+
+  - name: GetVerifiedDomains
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List sending domains"
+    fields:
+      - name: class
+        type: "#GetVerifiedDomains_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchAudienceContact_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchAudienceContact"]
+
+  - name: PatchAudienceContact
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update Contact"
+    fields:
+      - name: class
+        type: "#PatchAudienceContact_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchAutomationEmailWorkflowId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchAutomationEmailWorkflowId"]
+
+  - name: PatchAutomationEmailWorkflowId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update workflow email"
+    fields:
+      - name: class
+        type: "#PatchAutomationEmailWorkflowId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchBatchWebhooks_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchBatchWebhooks"]
+
+  - name: PatchBatchWebhooks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update batch webhook"
+    fields:
+      - name: class
+        type: "#PatchBatchWebhooks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchCampaignFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchCampaignFoldersId"]
+
+  - name: PatchCampaignFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update campaign folder"
+    fields:
+      - name: class
+        type: "#PatchCampaignFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchCampaignsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchCampaignsId"]
+
+  - name: PatchCampaignsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update campaign settings"
+    fields:
+      - name: class
+        type: "#PatchCampaignsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchCampaignsIdFeedbackId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchCampaignsIdFeedbackId"]
+
+  - name: PatchCampaignsIdFeedbackId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update campaign feedback message"
+    fields:
+      - name: class
+        type: "#PatchCampaignsIdFeedbackId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresId"]
+
+  - name: PatchEcommerceStoresId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update store"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdCartsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdCartsId"]
+
+  - name: PatchEcommerceStoresIdCartsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update cart"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdCartsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdCartsIdLinesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdCartsIdLinesId"]
+
+  - name: PatchEcommerceStoresIdCartsIdLinesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update cart line item"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdCartsIdLinesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdCustomersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdCustomersId"]
+
+  - name: PatchEcommerceStoresIdCustomersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update customer"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdCustomersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdOrdersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdOrdersId"]
+
+  - name: PatchEcommerceStoresIdOrdersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update order"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdOrdersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdOrdersIdLinesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdOrdersIdLinesId"]
+
+  - name: PatchEcommerceStoresIdOrdersIdLinesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update order line item"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdOrdersIdLinesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdProductsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdProductsId"]
+
+  - name: PatchEcommerceStoresIdProductsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update product"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdProductsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdProductsIdImagesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdProductsIdImagesId"]
+
+  - name: PatchEcommerceStoresIdProductsIdImagesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update product image"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdProductsIdImagesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdProductsIdVariantsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdProductsIdVariantsId"]
+
+  - name: PatchEcommerceStoresIdProductsIdVariantsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update product variant"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdProductsIdVariantsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdPromocodesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdPromocodesId"]
+
+  - name: PatchEcommerceStoresIdPromocodesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update promo code"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdPromocodesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchEcommerceStoresIdPromorulesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchEcommerceStoresIdPromorulesId"]
+
+  - name: PatchEcommerceStoresIdPromorulesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update promo rule"
+    fields:
+      - name: class
+        type: "#PatchEcommerceStoresIdPromorulesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchFileManagerFilesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchFileManagerFilesId"]
+
+  - name: PatchFileManagerFilesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update file"
+    fields:
+      - name: class
+        type: "#PatchFileManagerFilesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchFileManagerFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchFileManagerFoldersId"]
+
+  - name: PatchFileManagerFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update folder"
+    fields:
+      - name: class
+        type: "#PatchFileManagerFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchLandingPageId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchLandingPageId"]
+
+  - name: PatchLandingPageId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update landing page"
+    fields:
+      - name: class
+        type: "#PatchLandingPageId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsId"]
+
+  - name: PatchListsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update lists"
+    fields:
+      - name: class
+        type: "#PatchListsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsIdInterestCategoriesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsIdInterestCategoriesId"]
+
+  - name: PatchListsIdInterestCategoriesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update interest category"
+    fields:
+      - name: class
+        type: "#PatchListsIdInterestCategoriesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsIdInterestCategoriesIdInterestsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsIdInterestCategoriesIdInterestsId"]
+
+  - name: PatchListsIdInterestCategoriesIdInterestsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update interest in category"
+    fields:
+      - name: class
+        type: "#PatchListsIdInterestCategoriesIdInterestsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsIdMembersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsIdMembersId"]
+
+  - name: PatchListsIdMembersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update list member"
+    fields:
+      - name: class
+        type: "#PatchListsIdMembersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsIdMembersIdNotesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsIdMembersIdNotesId"]
+
+  - name: PatchListsIdMembersIdNotesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update note"
+    fields:
+      - name: class
+        type: "#PatchListsIdMembersIdNotesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsIdMergeFieldsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsIdMergeFieldsId"]
+
+  - name: PatchListsIdMergeFieldsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update merge field"
+    fields:
+      - name: class
+        type: "#PatchListsIdMergeFieldsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsIdSegmentsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsIdSegmentsId"]
+
+  - name: PatchListsIdSegmentsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update segment"
+    fields:
+      - name: class
+        type: "#PatchListsIdSegmentsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsIdSurveysId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsIdSurveysId"]
+
+  - name: PatchListsIdSurveysId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update survey"
+    fields:
+      - name: class
+        type: "#PatchListsIdSurveysId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchListsIdWebhooksId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchListsIdWebhooksId"]
+
+  - name: PatchListsIdWebhooksId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update webhook"
+    fields:
+      - name: class
+        type: "#PatchListsIdWebhooksId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchSmsCampaignsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchSmsCampaignsId"]
+
+  - name: PatchSmsCampaignsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update SMS campaign settings"
+    fields:
+      - name: class
+        type: "#PatchSmsCampaignsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchTemplateFoldersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchTemplateFoldersId"]
+
+  - name: PatchTemplateFoldersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update template folder"
+    fields:
+      - name: class
+        type: "#PatchTemplateFoldersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchTemplatesId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PatchTemplatesId"]
+
+  - name: PatchTemplatesId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update template"
+    fields:
+      - name: class
+        type: "#PatchTemplatesId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAccountExport_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAccountExport"]
+
+  - name: PostAccountExport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add export"
+    fields:
+      - name: class
+        type: "#PostAccountExport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAllLandingPages_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAllLandingPages"]
+
+  - name: PostAllLandingPages
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add landing page"
+    fields:
+      - name: class
+        type: "#PostAllLandingPages_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAudiencesContactsActionsArchive_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAudiencesContactsActionsArchive"]
+
+  - name: PostAudiencesContactsActionsArchive
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Archive Contact"
+    fields:
+      - name: class
+        type: "#PostAudiencesContactsActionsArchive_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAudiencesContactsActionsForget_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAudiencesContactsActionsForget"]
+
+  - name: PostAudiencesContactsActionsForget
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Forget Contact"
+    fields:
+      - name: class
+        type: "#PostAudiencesContactsActionsForget_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAutomations_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAutomations"]
+
+  - name: PostAutomations
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add automation"
+    fields:
+      - name: class
+        type: "#PostAutomations_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAutomationsIdActionsPauseAllEmails_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAutomationsIdActionsPauseAllEmails"]
+
+  - name: PostAutomationsIdActionsPauseAllEmails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Pause automation emails"
+    fields:
+      - name: class
+        type: "#PostAutomationsIdActionsPauseAllEmails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAutomationsIdActionsStartAllEmails_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAutomationsIdActionsStartAllEmails"]
+
+  - name: PostAutomationsIdActionsStartAllEmails
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Start automation emails"
+    fields:
+      - name: class
+        type: "#PostAutomationsIdActionsStartAllEmails_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAutomationsIdEmailsIdActionsPause_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAutomationsIdEmailsIdActionsPause"]
+
+  - name: PostAutomationsIdEmailsIdActionsPause
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Pause automated email"
+    fields:
+      - name: class
+        type: "#PostAutomationsIdEmailsIdActionsPause_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAutomationsIdEmailsIdActionsStart_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAutomationsIdEmailsIdActionsStart"]
+
+  - name: PostAutomationsIdEmailsIdActionsStart
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Start automated email"
+    fields:
+      - name: class
+        type: "#PostAutomationsIdEmailsIdActionsStart_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAutomationsIdEmailsIdQueue_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAutomationsIdEmailsIdQueue"]
+
+  - name: PostAutomationsIdEmailsIdQueue
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add subscriber to workflow email"
+    fields:
+      - name: class
+        type: "#PostAutomationsIdEmailsIdQueue_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostAutomationsIdRemovedSubscribers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostAutomationsIdRemovedSubscribers"]
+
+  - name: PostAutomationsIdRemovedSubscribers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Remove subscriber from workflow"
+    fields:
+      - name: class
+        type: "#PostAutomationsIdRemovedSubscribers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostBatchWebhooks_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostBatchWebhooks"]
+
+  - name: PostBatchWebhooks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add batch webhook"
+    fields:
+      - name: class
+        type: "#PostBatchWebhooks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostBatches_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostBatches"]
+
+  - name: PostBatches
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Start batch operation"
+    fields:
+      - name: class
+        type: "#PostBatches_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignFolders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignFolders"]
+
+  - name: PostCampaignFolders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add campaign folder"
+    fields:
+      - name: class
+        type: "#PostCampaignFolders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaigns_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaigns"]
+
+  - name: PostCampaigns
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add campaign"
+    fields:
+      - name: class
+        type: "#PostCampaigns_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsCancelSend_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsCancelSend"]
+
+  - name: PostCampaignsIdActionsCancelSend
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Cancel campaign"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsCancelSend_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsCreateResend_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsCreateResend"]
+
+  - name: PostCampaignsIdActionsCreateResend
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Resend campaign"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsCreateResend_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsPause_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsPause"]
+
+  - name: PostCampaignsIdActionsPause
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Pause rss campaign"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsPause_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsReplicate_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsReplicate"]
+
+  - name: PostCampaignsIdActionsReplicate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Replicate campaign"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsReplicate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsResume_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsResume"]
+
+  - name: PostCampaignsIdActionsResume
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Resume rss campaign"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsResume_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsSchedule_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsSchedule"]
+
+  - name: PostCampaignsIdActionsSchedule
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Schedule campaign"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsSchedule_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsSend_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsSend"]
+
+  - name: PostCampaignsIdActionsSend
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send campaign"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsSend_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsTest_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsTest"]
+
+  - name: PostCampaignsIdActionsTest
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send test email"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsTest_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdActionsUnschedule_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdActionsUnschedule"]
+
+  - name: PostCampaignsIdActionsUnschedule
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Unschedule campaign"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdActionsUnschedule_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCampaignsIdFeedback_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCampaignsIdFeedback"]
+
+  - name: PostCampaignsIdFeedback
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add campaign feedback"
+    fields:
+      - name: class
+        type: "#PostCampaignsIdFeedback_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostConnectedSites_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostConnectedSites"]
+
+  - name: PostConnectedSites
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add connected site"
+    fields:
+      - name: class
+        type: "#PostConnectedSites_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostConnectedSitesIdActionsDisablePixel_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostConnectedSitesIdActionsDisablePixel"]
+
+  - name: PostConnectedSitesIdActionsDisablePixel
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Disable pixel for connected site"
+    fields:
+      - name: class
+        type: "#PostConnectedSitesIdActionsDisablePixel_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostConnectedSitesIdActionsEnablePixel_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostConnectedSitesIdActionsEnablePixel"]
+
+  - name: PostConnectedSitesIdActionsEnablePixel
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Enable pixel for connected site"
+    fields:
+      - name: class
+        type: "#PostConnectedSitesIdActionsEnablePixel_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostConnectedSitesIdActionsVerifyScriptInstallation_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostConnectedSitesIdActionsVerifyScriptInstallation"]
+
+  - name: PostConnectedSitesIdActionsVerifyScriptInstallation
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Verify connected site script"
+    fields:
+      - name: class
+        type: "#PostConnectedSitesIdActionsVerifyScriptInstallation_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostCustomerJourneysJourneysIdStepsIdActionsTrigger_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostCustomerJourneysJourneysIdStepsIdActionsTrigger"]
+
+  - name: PostCustomerJourneysJourneysIdStepsIdActionsTrigger
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Customer Journeys API trigger for a contact"
+    fields:
+      - name: class
+        type: "#PostCustomerJourneysJourneysIdStepsIdActionsTrigger_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStores_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStores"]
+
+  - name: PostEcommerceStores
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add store"
+    fields:
+      - name: class
+        type: "#PostEcommerceStores_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdCarts_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdCarts"]
+
+  - name: PostEcommerceStoresIdCarts
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add cart"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdCarts_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdCartsIdLines_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdCartsIdLines"]
+
+  - name: PostEcommerceStoresIdCartsIdLines
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add cart line item"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdCartsIdLines_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdCustomers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdCustomers"]
+
+  - name: PostEcommerceStoresIdCustomers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add customer"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdCustomers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdOrders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdOrders"]
+
+  - name: PostEcommerceStoresIdOrders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add order"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdOrders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdOrdersIdLines_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdOrdersIdLines"]
+
+  - name: PostEcommerceStoresIdOrdersIdLines
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add order line item"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdOrdersIdLines_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdProducts_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdProducts"]
+
+  - name: PostEcommerceStoresIdProducts
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add product"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdProducts_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdProductsIdImages_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdProductsIdImages"]
+
+  - name: PostEcommerceStoresIdProductsIdImages
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add product image"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdProductsIdImages_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdProductsIdVariants_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdProductsIdVariants"]
+
+  - name: PostEcommerceStoresIdProductsIdVariants
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add product variant"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdProductsIdVariants_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdPromocodes_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdPromocodes"]
+
+  - name: PostEcommerceStoresIdPromocodes
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add promo code"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdPromocodes_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostEcommerceStoresIdPromorules_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostEcommerceStoresIdPromorules"]
+
+  - name: PostEcommerceStoresIdPromorules
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add promo rule"
+    fields:
+      - name: class
+        type: "#PostEcommerceStoresIdPromorules_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostFileManagerFiles_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostFileManagerFiles"]
+
+  - name: PostFileManagerFiles
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add file"
+    fields:
+      - name: class
+        type: "#PostFileManagerFiles_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostFileManagerFolders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostFileManagerFolders"]
+
+  - name: PostFileManagerFolders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add folder"
+    fields:
+      - name: class
+        type: "#PostFileManagerFolders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostLandingPageIdActionsPublish_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostLandingPageIdActionsPublish"]
+
+  - name: PostLandingPageIdActionsPublish
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Publish landing page"
+    fields:
+      - name: class
+        type: "#PostLandingPageIdActionsPublish_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostLandingPageIdActionsUnpublish_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostLandingPageIdActionsUnpublish"]
+
+  - name: PostLandingPageIdActionsUnpublish
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Unpublish landing page"
+    fields:
+      - name: class
+        type: "#PostLandingPageIdActionsUnpublish_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListMemberEvents_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListMemberEvents"]
+
+  - name: PostListMemberEvents
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add event"
+    fields:
+      - name: class
+        type: "#PostListMemberEvents_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListMemberTags_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListMemberTags"]
+
+  - name: PostListMemberTags
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add or remove member tags"
+    fields:
+      - name: class
+        type: "#PostListMemberTags_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostLists_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostLists"]
+
+  - name: PostLists
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add list"
+    fields:
+      - name: class
+        type: "#PostLists_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsId"]
+
+  - name: PostListsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Batch subscribe or unsubscribe"
+    fields:
+      - name: class
+        type: "#PostListsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdInterestCategories_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdInterestCategories"]
+
+  - name: PostListsIdInterestCategories
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add interest category"
+    fields:
+      - name: class
+        type: "#PostListsIdInterestCategories_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdInterestCategoriesIdInterests_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdInterestCategoriesIdInterests"]
+
+  - name: PostListsIdInterestCategoriesIdInterests
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add interest in category"
+    fields:
+      - name: class
+        type: "#PostListsIdInterestCategoriesIdInterests_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdMembers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdMembers"]
+
+  - name: PostListsIdMembers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add member to list"
+    fields:
+      - name: class
+        type: "#PostListsIdMembers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdMembersHashActionsDeletePermanent_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdMembersHashActionsDeletePermanent"]
+
+  - name: PostListsIdMembersHashActionsDeletePermanent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete list member"
+    fields:
+      - name: class
+        type: "#PostListsIdMembersHashActionsDeletePermanent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdMembersIdNotes_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdMembersIdNotes"]
+
+  - name: PostListsIdMembersIdNotes
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add member note"
+    fields:
+      - name: class
+        type: "#PostListsIdMembersIdNotes_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdMergeFields_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdMergeFields"]
+
+  - name: PostListsIdMergeFields
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add merge field"
+    fields:
+      - name: class
+        type: "#PostListsIdMergeFields_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSegments_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSegments"]
+
+  - name: PostListsIdSegments
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add segment"
+    fields:
+      - name: class
+        type: "#PostListsIdSegments_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSegmentsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSegmentsId"]
+
+  - name: PostListsIdSegmentsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Batch add or remove members"
+    fields:
+      - name: class
+        type: "#PostListsIdSegmentsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSegmentsIdMembers_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSegmentsIdMembers"]
+
+  - name: PostListsIdSegmentsIdMembers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add member to segment"
+    fields:
+      - name: class
+        type: "#PostListsIdSegmentsIdMembers_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSignupForms_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSignupForms"]
+
+  - name: PostListsIdSignupForms
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Customize signup form"
+    fields:
+      - name: class
+        type: "#PostListsIdSignupForms_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSurveys_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSurveys"]
+
+  - name: PostListsIdSurveys
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create survey"
+    fields:
+      - name: class
+        type: "#PostListsIdSurveys_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSurveysIdActionsCreateEmail_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSurveysIdActionsCreateEmail"]
+
+  - name: PostListsIdSurveysIdActionsCreateEmail
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a Survey Campaign"
+    fields:
+      - name: class
+        type: "#PostListsIdSurveysIdActionsCreateEmail_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSurveysIdActionsPublish_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSurveysIdActionsPublish"]
+
+  - name: PostListsIdSurveysIdActionsPublish
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Publish a Survey"
+    fields:
+      - name: class
+        type: "#PostListsIdSurveysIdActionsPublish_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSurveysIdActionsReplicate_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSurveysIdActionsReplicate"]
+
+  - name: PostListsIdSurveysIdActionsReplicate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Replicate survey"
+    fields:
+      - name: class
+        type: "#PostListsIdSurveysIdActionsReplicate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdSurveysIdActionsUnpublish_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdSurveysIdActionsUnpublish"]
+
+  - name: PostListsIdSurveysIdActionsUnpublish
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Unpublish a Survey"
+    fields:
+      - name: class
+        type: "#PostListsIdSurveysIdActionsUnpublish_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostListsIdWebhooks_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostListsIdWebhooks"]
+
+  - name: PostListsIdWebhooks
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add webhook"
+    fields:
+      - name: class
+        type: "#PostListsIdWebhooks_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostSmsCampaigns_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostSmsCampaigns"]
+
+  - name: PostSmsCampaigns
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add SMS campaign"
+    fields:
+      - name: class
+        type: "#PostSmsCampaigns_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostSmsCampaignsIdActionsCancelSend_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostSmsCampaignsIdActionsCancelSend"]
+
+  - name: PostSmsCampaignsIdActionsCancelSend
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Cancel SMS campaign send"
+    fields:
+      - name: class
+        type: "#PostSmsCampaignsIdActionsCancelSend_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostSmsCampaignsIdActionsSchedule_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostSmsCampaignsIdActionsSchedule"]
+
+  - name: PostSmsCampaignsIdActionsSchedule
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Schedule SMS campaign"
+    fields:
+      - name: class
+        type: "#PostSmsCampaignsIdActionsSchedule_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostSmsCampaignsIdActionsSend_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostSmsCampaignsIdActionsSend"]
+
+  - name: PostSmsCampaignsIdActionsSend
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Send SMS campaign"
+    fields:
+      - name: class
+        type: "#PostSmsCampaignsIdActionsSend_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostTemplateFolders_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostTemplateFolders"]
+
+  - name: PostTemplateFolders
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add template folder"
+    fields:
+      - name: class
+        type: "#PostTemplateFolders_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostTemplates_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PostTemplates"]
+
+  - name: PostTemplates
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add template"
+    fields:
+      - name: class
+        type: "#PostTemplates_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PreviewASegment_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PreviewASegment"]
+
+  - name: PreviewASegment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List segments"
+    fields:
+      - name: class
+        type: "#PreviewASegment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PutCampaignsIdContent_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PutCampaignsIdContent"]
+
+  - name: PutCampaignsIdContent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Set campaign content"
+    fields:
+      - name: class
+        type: "#PutCampaignsIdContent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PutEcommerceStoresIdCustomersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PutEcommerceStoresIdCustomersId"]
+
+  - name: PutEcommerceStoresIdCustomersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add or update customer"
+    fields:
+      - name: class
+        type: "#PutEcommerceStoresIdCustomersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PutEcommerceStoresIdOrdersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PutEcommerceStoresIdOrdersId"]
+
+  - name: PutEcommerceStoresIdOrdersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add or update order"
+    fields:
+      - name: class
+        type: "#PutEcommerceStoresIdOrdersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PutEcommerceStoresIdProductsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PutEcommerceStoresIdProductsId"]
+
+  - name: PutEcommerceStoresIdProductsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create or update product"
+    fields:
+      - name: class
+        type: "#PutEcommerceStoresIdProductsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PutEcommerceStoresIdProductsIdVariantsId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PutEcommerceStoresIdProductsIdVariantsId"]
+
+  - name: PutEcommerceStoresIdProductsIdVariantsId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add or update product variant"
+    fields:
+      - name: class
+        type: "#PutEcommerceStoresIdProductsIdVariantsId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PutListsIdMembersId_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PutListsIdMembersId"]
+
+  - name: PutListsIdMembersId
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Add or update list member"
+    fields:
+      - name: class
+        type: "#PutListsIdMembersId_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PutSmsCampaignsIdContent_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:PutSmsCampaignsIdContent"]
+
+  - name: PutSmsCampaignsIdContent
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Set SMS campaign content"
+    fields:
+      - name: class
+        type: "#PutSmsCampaignsIdContent_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SearchTagsByName_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:SearchTagsByName"]
+
+  - name: SearchTagsByName
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search for tags on a list by name."
+    fields:
+      - name: class
+        type: "#SearchTagsByName_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: VerifyDomain_class
+    type: enum
+    inVocab: false
+    symbols: ["mailchimp:VerifyDomain"]
+
+  - name: VerifyDomain
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Verify domain"
+    fields:
+      - name: class
+        type: "#VerifyDomain_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

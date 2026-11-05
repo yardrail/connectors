@@ -12,6 +12,8 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/yardrail/connectors/connector"
 )
 
 var (
@@ -20,48 +22,26 @@ var (
 	errGraphQL                = errors.New("graphqlfixture: graphql errors")
 )
 
-// Resolve constructs a Connector and returns a ready-to-call function for the
-// given interface and function name. The returned function sends the
-// function's operation with the JSON inputs as its variables.
+// Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
 	interfaceID, function string,
-	creds, config map[string]string,
+	creds connector.Credentials,
+	config map[string]string,
 	httpClient *http.Client,
 ) (func(context.Context, json.RawMessage) (any, error), error) {
-	perIfaceCreds := map[string]map[string]string{interfaceID: creds}
-	perIfaceConfig := map[string]map[string]string{interfaceID: config}
-
-	c, err := NewConnector(perIfaceCreds, perIfaceConfig, httpClient)
+	fn, err := ParseFunction(function)
 	if err != nil {
 		return nil, err
 	}
 
-	ep := c.endpoints[interfaceID]
-	if ep == nil {
-		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
-	}
-
-	op, ok := operations[function]
-	if !ok || op.interfaceID != interfaceID {
-		return nil, fmt.Errorf("%w: %q", errUnknownFunction, function)
+	c, err := NewConnector(interfaceID, creds, config, httpClient)
+	if err != nil {
+		return nil, err
 	}
 
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
-		return ep.call(ctx, function, op.query, inputs)
+		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
-}
-
-// operation is a GraphQL function: the interface that serves it and the
-// operation text sent as the request's query.
-type operation struct {
-	interfaceID string
-	query       string
-}
-
-// operations maps function names to their GraphQL operations.
-var operations = map[string]operation{
-	"get-widget":    {interfaceID: "api", query: queryGetWidget},
-	"rename-widget": {interfaceID: "api", query: queryRenameWidget},
 }
 
 const queryGetWidget = `query GetWidget($widgetId: ID!) {

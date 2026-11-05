@@ -27,3 +27,5 @@ Thumbs.db
 # mise
 .mise.local.toml
 .mise.*.toml
+google/tools/mcp-google-codegen
+quickbooks/tools/specgen

@@ -6,6 +6,8 @@ import (
 	"errors"
 	"io"
 	"net/http"
+
+	"github.com/yardrail/connectors/connector"
 	"net/http/httptest"
 	"strings"
 	"sync"
@@ -65,7 +67,7 @@ func newServer(t *testing.T, status int, body string) (*httptest.Server, func() 
 func call(t *testing.T, srv *httptest.Server, function, inputs string) (any, error) {
 	t.Helper()
 
-	fn, err := Resolve("api", function, map[string]string{"token": "secret-token"}, map[string]string{"base_url": srv.URL}, nil)
+	fn, err := Resolve("api", function, connector.APIKeyCredentials{Key: "secret-token"}, map[string]string{"base_url": srv.URL}, nil)
 	if err != nil {
 		t.Fatalf("Resolve: %v", err)
 	}
@@ -185,9 +187,18 @@ func TestResolveErrors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			_, err := Resolve(tt.interfaceID, tt.function, map[string]string{"token": "t"}, nil, nil)
+			fn, err := Resolve(tt.interfaceID, tt.function, connector.APIKeyCredentials{Key: "t"}, nil, nil)
+			if err != nil {
+				if !errors.Is(err, tt.wantErr) {
+					t.Errorf("Resolve error = %v, want %v", err, tt.wantErr)
+				}
+
+				return
+			}
+
+			_, err = fn(context.Background(), nil)
 			if !errors.Is(err, tt.wantErr) {
-				t.Errorf("Resolve error = %v, want %v", err, tt.wantErr)
+				t.Errorf("Dispatch error = %v, want %v", err, tt.wantErr)
 			}
 		})
 	}
