@@ -22,1844 +22,1844 @@ type InterfaceClient struct {
 type Function string
 
 const (
-	FnDeleteAccountsAccountBankAccountsIdWithFormdataBody                                         Function = "delete-accounts-account-bank-accounts-id-with-formdata-body"
-	FnDeleteAccountsAccountExternalAccountsIdWithFormdataBody                                     Function = "delete-accounts-account-external-accounts-id-with-formdata-body"
-	FnDeleteAccountsAccountPeoplePersonWithFormdataBody                                           Function = "delete-accounts-account-people-person-with-formdata-body"
-	FnDeleteAccountsAccountPersonsPersonWithFormdataBody                                          Function = "delete-accounts-account-persons-person-with-formdata-body"
-	FnDeleteAccountsAccountWithFormdataBody                                                       Function = "delete-accounts-account-with-formdata-body"
-	FnDeleteApplePayDomainsDomainWithFormdataBody                                                 Function = "delete-apple-pay-domains-domain-with-formdata-body"
-	FnDeleteCouponsCouponWithFormdataBody                                                         Function = "delete-coupons-coupon-with-formdata-body"
-	FnDeleteCustomersCustomerBankAccountsIdWithFormdataBody                                       Function = "delete-customers-customer-bank-accounts-id-with-formdata-body"
-	FnDeleteCustomersCustomerCardsIdWithFormdataBody                                              Function = "delete-customers-customer-cards-id-with-formdata-body"
-	FnDeleteCustomersCustomerDiscountWithFormdataBody                                             Function = "delete-customers-customer-discount-with-formdata-body"
-	FnDeleteCustomersCustomerSourcesIdWithFormdataBody                                            Function = "delete-customers-customer-sources-id-with-formdata-body"
-	FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody           Function = "delete-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body"
-	FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody                   Function = "delete-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body"
-	FnDeleteCustomersCustomerTaxIdsIdWithFormdataBody                                             Function = "delete-customers-customer-tax-ids-id-with-formdata-body"
-	FnDeleteCustomersCustomerWithFormdataBody                                                     Function = "delete-customers-customer-with-formdata-body"
-	FnDeleteEphemeralKeysKeyWithFormdataBody                                                      Function = "delete-ephemeral-keys-key-with-formdata-body"
-	FnDeleteInvoiceitemsInvoiceitemWithFormdataBody                                               Function = "delete-invoiceitems-invoiceitem-with-formdata-body"
-	FnDeleteInvoicesInvoiceWithFormdataBody                                                       Function = "delete-invoices-invoice-with-formdata-body"
-	FnDeletePlansPlanWithFormdataBody                                                             Function = "delete-plans-plan-with-formdata-body"
-	FnDeleteProductsIdWithFormdataBody                                                            Function = "delete-products-id-with-formdata-body"
-	FnDeleteProductsProductFeaturesIdWithFormdataBody                                             Function = "delete-products-product-features-id-with-formdata-body"
-	FnDeleteRadarValueListItemsItemWithFormdataBody                                               Function = "delete-radar-value-list-items-item-with-formdata-body"
-	FnDeleteRadarValueListsValueListWithFormdataBody                                              Function = "delete-radar-value-lists-value-list-with-formdata-body"
-	FnDeleteSubscriptionItemsItemWithFormdataBody                                                 Function = "delete-subscription-items-item-with-formdata-body"
-	FnDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody                            Function = "delete-subscriptions-subscription-exposed-id-discount-with-formdata-body"
-	FnDeleteSubscriptionsSubscriptionExposedIdWithFormdataBody                                    Function = "delete-subscriptions-subscription-exposed-id-with-formdata-body"
-	FnDeleteTaxIdsIdWithFormdataBody                                                              Function = "delete-tax-ids-id-with-formdata-body"
-	FnDeleteTerminalConfigurationsConfigurationWithFormdataBody                                   Function = "delete-terminal-configurations-configuration-with-formdata-body"
-	FnDeleteTerminalLocationsLocationWithFormdataBody                                             Function = "delete-terminal-locations-location-with-formdata-body"
-	FnDeleteTerminalReadersReaderWithFormdataBody                                                 Function = "delete-terminal-readers-reader-with-formdata-body"
-	FnDeleteTestHelpersTestClocksTestClockWithFormdataBody                                        Function = "delete-test-helpers-test-clocks-test-clock-with-formdata-body"
-	FnDeleteWebhookEndpointsWebhookEndpointWithFormdataBody                                       Function = "delete-webhook-endpoints-webhook-endpoint-with-formdata-body"
-	FnGetAccountWithFormdataBody                                                                  Function = "get-account-with-formdata-body"
-	FnGetAccountsAccountBankAccountsIdWithFormdataBody                                            Function = "get-accounts-account-bank-accounts-id-with-formdata-body"
-	FnGetAccountsAccountCapabilitiesCapabilityWithFormdataBody                                    Function = "get-accounts-account-capabilities-capability-with-formdata-body"
-	FnGetAccountsAccountCapabilitiesWithFormdataBody                                              Function = "get-accounts-account-capabilities-with-formdata-body"
-	FnGetAccountsAccountExternalAccountsIdWithFormdataBody                                        Function = "get-accounts-account-external-accounts-id-with-formdata-body"
-	FnGetAccountsAccountExternalAccountsWithFormdataBody                                          Function = "get-accounts-account-external-accounts-with-formdata-body"
-	FnGetAccountsAccountPeoplePersonWithFormdataBody                                              Function = "get-accounts-account-people-person-with-formdata-body"
-	FnGetAccountsAccountPeopleWithFormdataBody                                                    Function = "get-accounts-account-people-with-formdata-body"
-	FnGetAccountsAccountPersonsPersonWithFormdataBody                                             Function = "get-accounts-account-persons-person-with-formdata-body"
-	FnGetAccountsAccountPersonsWithFormdataBody                                                   Function = "get-accounts-account-persons-with-formdata-body"
-	FnGetAccountsAccountWithFormdataBody                                                          Function = "get-accounts-account-with-formdata-body"
-	FnGetAccountsWithFormdataBody                                                                 Function = "get-accounts-with-formdata-body"
-	FnGetApplePayDomainsDomainWithFormdataBody                                                    Function = "get-apple-pay-domains-domain-with-formdata-body"
-	FnGetApplePayDomainsWithFormdataBody                                                          Function = "get-apple-pay-domains-with-formdata-body"
-	FnGetApplicationFeesFeeRefundsIdWithFormdataBody                                              Function = "get-application-fees-fee-refunds-id-with-formdata-body"
-	FnGetApplicationFeesIdRefundsWithFormdataBody                                                 Function = "get-application-fees-id-refunds-with-formdata-body"
-	FnGetApplicationFeesIdWithFormdataBody                                                        Function = "get-application-fees-id-with-formdata-body"
-	FnGetApplicationFeesWithFormdataBody                                                          Function = "get-application-fees-with-formdata-body"
-	FnGetAppsInstallsIdWithFormdataBody                                                           Function = "get-apps-installs-id-with-formdata-body"
-	FnGetAppsInstallsWithFormdataBody                                                             Function = "get-apps-installs-with-formdata-body"
-	FnGetAppsSecretsFindWithFormdataBody                                                          Function = "get-apps-secrets-find-with-formdata-body"
-	FnGetAppsSecretsWithFormdataBody                                                              Function = "get-apps-secrets-with-formdata-body"
-	FnGetBalanceHistoryIdWithFormdataBody                                                         Function = "get-balance-history-id-with-formdata-body"
-	FnGetBalanceHistoryWithFormdataBody                                                           Function = "get-balance-history-with-formdata-body"
-	FnGetBalanceSettingsWithFormdataBody                                                          Function = "get-balance-settings-with-formdata-body"
-	FnGetBalanceTransactionsIdWithFormdataBody                                                    Function = "get-balance-transactions-id-with-formdata-body"
-	FnGetBalanceTransactionsWithFormdataBody                                                      Function = "get-balance-transactions-with-formdata-body"
-	FnGetBalanceWithFormdataBody                                                                  Function = "get-balance-with-formdata-body"
-	FnGetBillingAlertsIdWithFormdataBody                                                          Function = "get-billing-alerts-id-with-formdata-body"
-	FnGetBillingAlertsWithFormdataBody                                                            Function = "get-billing-alerts-with-formdata-body"
-	FnGetBillingCreditBalanceSummaryWithFormdataBody                                              Function = "get-billing-credit-balance-summary-with-formdata-body"
-	FnGetBillingCreditBalanceTransactionsIdWithFormdataBody                                       Function = "get-billing-credit-balance-transactions-id-with-formdata-body"
-	FnGetBillingCreditBalanceTransactionsWithFormdataBody                                         Function = "get-billing-credit-balance-transactions-with-formdata-body"
-	FnGetBillingCreditGrantsIdWithFormdataBody                                                    Function = "get-billing-credit-grants-id-with-formdata-body"
-	FnGetBillingCreditGrantsWithFormdataBody                                                      Function = "get-billing-credit-grants-with-formdata-body"
-	FnGetBillingFeedbackOptionsIdWithFormdataBody                                                 Function = "get-billing-feedback-options-id-with-formdata-body"
-	FnGetBillingFeedbackOptionsWithFormdataBody                                                   Function = "get-billing-feedback-options-with-formdata-body"
-	FnGetBillingMetersIdEventSummariesWithFormdataBody                                            Function = "get-billing-meters-id-event-summaries-with-formdata-body"
-	FnGetBillingMetersIdWithFormdataBody                                                          Function = "get-billing-meters-id-with-formdata-body"
-	FnGetBillingMetersWithFormdataBody                                                            Function = "get-billing-meters-with-formdata-body"
-	FnGetBillingPortalConfigurationsConfigurationWithFormdataBody                                 Function = "get-billing-portal-configurations-configuration-with-formdata-body"
-	FnGetBillingPortalConfigurationsWithFormdataBody                                              Function = "get-billing-portal-configurations-with-formdata-body"
-	FnGetChargesChargeDisputeWithFormdataBody                                                     Function = "get-charges-charge-dispute-with-formdata-body"
-	FnGetChargesChargeRefundsRefundWithFormdataBody                                               Function = "get-charges-charge-refunds-refund-with-formdata-body"
-	FnGetChargesChargeRefundsWithFormdataBody                                                     Function = "get-charges-charge-refunds-with-formdata-body"
-	FnGetChargesChargeWithFormdataBody                                                            Function = "get-charges-charge-with-formdata-body"
-	FnGetChargesSearchWithFormdataBody                                                            Function = "get-charges-search-with-formdata-body"
-	FnGetChargesWithFormdataBody                                                                  Function = "get-charges-with-formdata-body"
-	FnGetCheckoutSessionsSessionLineItemsWithFormdataBody                                         Function = "get-checkout-sessions-session-line-items-with-formdata-body"
-	FnGetCheckoutSessionsSessionWithFormdataBody                                                  Function = "get-checkout-sessions-session-with-formdata-body"
-	FnGetCheckoutSessionsWithFormdataBody                                                         Function = "get-checkout-sessions-with-formdata-body"
-	FnGetClimateOrdersOrderWithFormdataBody                                                       Function = "get-climate-orders-order-with-formdata-body"
-	FnGetClimateOrdersWithFormdataBody                                                            Function = "get-climate-orders-with-formdata-body"
-	FnGetClimateProductsProductWithFormdataBody                                                   Function = "get-climate-products-product-with-formdata-body"
-	FnGetClimateProductsWithFormdataBody                                                          Function = "get-climate-products-with-formdata-body"
-	FnGetClimateSuppliersSupplierWithFormdataBody                                                 Function = "get-climate-suppliers-supplier-with-formdata-body"
-	FnGetClimateSuppliersWithFormdataBody                                                         Function = "get-climate-suppliers-with-formdata-body"
-	FnGetConfirmationTokensConfirmationTokenWithFormdataBody                                      Function = "get-confirmation-tokens-confirmation-token-with-formdata-body"
-	FnGetCountrySpecsCountryWithFormdataBody                                                      Function = "get-country-specs-country-with-formdata-body"
-	FnGetCountrySpecsWithFormdataBody                                                             Function = "get-country-specs-with-formdata-body"
-	FnGetCouponsCouponWithFormdataBody                                                            Function = "get-coupons-coupon-with-formdata-body"
-	FnGetCouponsWithFormdataBody                                                                  Function = "get-coupons-with-formdata-body"
-	FnGetCreditNotesCreditNoteLinesWithFormdataBody                                               Function = "get-credit-notes-credit-note-lines-with-formdata-body"
-	FnGetCreditNotesIdWithFormdataBody                                                            Function = "get-credit-notes-id-with-formdata-body"
-	FnGetCreditNotesPreviewLinesWithFormdataBody                                                  Function = "get-credit-notes-preview-lines-with-formdata-body"
-	FnGetCreditNotesPreviewWithFormdataBody                                                       Function = "get-credit-notes-preview-with-formdata-body"
-	FnGetCreditNotesWithFormdataBody                                                              Function = "get-credit-notes-with-formdata-body"
-	FnGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBody                          Function = "get-customers-customer-balance-transactions-transaction-with-formdata-body"
-	FnGetCustomersCustomerBalanceTransactionsWithFormdataBody                                     Function = "get-customers-customer-balance-transactions-with-formdata-body"
-	FnGetCustomersCustomerBankAccountsIdWithFormdataBody                                          Function = "get-customers-customer-bank-accounts-id-with-formdata-body"
-	FnGetCustomersCustomerBankAccountsWithFormdataBody                                            Function = "get-customers-customer-bank-accounts-with-formdata-body"
-	FnGetCustomersCustomerCardsIdWithFormdataBody                                                 Function = "get-customers-customer-cards-id-with-formdata-body"
-	FnGetCustomersCustomerCardsWithFormdataBody                                                   Function = "get-customers-customer-cards-with-formdata-body"
-	FnGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBody                      Function = "get-customers-customer-cash-balance-transactions-transaction-with-formdata-body"
-	FnGetCustomersCustomerCashBalanceTransactionsWithFormdataBody                                 Function = "get-customers-customer-cash-balance-transactions-with-formdata-body"
-	FnGetCustomersCustomerCashBalanceWithFormdataBody                                             Function = "get-customers-customer-cash-balance-with-formdata-body"
-	FnGetCustomersCustomerDiscountWithFormdataBody                                                Function = "get-customers-customer-discount-with-formdata-body"
-	FnGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBody                             Function = "get-customers-customer-payment-methods-payment-method-with-formdata-body"
-	FnGetCustomersCustomerPaymentMethodsWithFormdataBody                                          Function = "get-customers-customer-payment-methods-with-formdata-body"
-	FnGetCustomersCustomerSourcesIdWithFormdataBody                                               Function = "get-customers-customer-sources-id-with-formdata-body"
-	FnGetCustomersCustomerSourcesWithFormdataBody                                                 Function = "get-customers-customer-sources-with-formdata-body"
-	FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody              Function = "get-customers-customer-subscriptions-subscription-exposed-id-discount-with-formdata-body"
-	FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody                      Function = "get-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body"
-	FnGetCustomersCustomerSubscriptionsWithFormdataBody                                           Function = "get-customers-customer-subscriptions-with-formdata-body"
-	FnGetCustomersCustomerTaxIdsIdWithFormdataBody                                                Function = "get-customers-customer-tax-ids-id-with-formdata-body"
-	FnGetCustomersCustomerTaxIdsWithFormdataBody                                                  Function = "get-customers-customer-tax-ids-with-formdata-body"
-	FnGetCustomersCustomerWithFormdataBody                                                        Function = "get-customers-customer-with-formdata-body"
-	FnGetCustomersSearchWithFormdataBody                                                          Function = "get-customers-search-with-formdata-body"
-	FnGetCustomersWithFormdataBody                                                                Function = "get-customers-with-formdata-body"
-	FnGetDisputesDisputeWithFormdataBody                                                          Function = "get-disputes-dispute-with-formdata-body"
-	FnGetDisputesWithFormdataBody                                                                 Function = "get-disputes-with-formdata-body"
-	FnGetEntitlementsActiveEntitlementsIdWithFormdataBody                                         Function = "get-entitlements-active-entitlements-id-with-formdata-body"
-	FnGetEntitlementsActiveEntitlementsWithFormdataBody                                           Function = "get-entitlements-active-entitlements-with-formdata-body"
-	FnGetEntitlementsFeaturesIdWithFormdataBody                                                   Function = "get-entitlements-features-id-with-formdata-body"
-	FnGetEntitlementsFeaturesWithFormdataBody                                                     Function = "get-entitlements-features-with-formdata-body"
-	FnGetEventsIdWithFormdataBody                                                                 Function = "get-events-id-with-formdata-body"
-	FnGetEventsWithFormdataBody                                                                   Function = "get-events-with-formdata-body"
-	FnGetExchangeRatesRateIdWithFormdataBody                                                      Function = "get-exchange-rates-rate-id-with-formdata-body"
-	FnGetExchangeRatesWithFormdataBody                                                            Function = "get-exchange-rates-with-formdata-body"
-	FnGetFileLinksLinkWithFormdataBody                                                            Function = "get-file-links-link-with-formdata-body"
-	FnGetFileLinksWithFormdataBody                                                                Function = "get-file-links-with-formdata-body"
-	FnGetFilesFileWithFormdataBody                                                                Function = "get-files-file-with-formdata-body"
-	FnGetFilesWithFormdataBody                                                                    Function = "get-files-with-formdata-body"
-	FnGetFinancialConnectionsAccountsAccountOwnersWithFormdataBody                                Function = "get-financial-connections-accounts-account-owners-with-formdata-body"
-	FnGetFinancialConnectionsAccountsAccountWithFormdataBody                                      Function = "get-financial-connections-accounts-account-with-formdata-body"
-	FnGetFinancialConnectionsAccountsWithFormdataBody                                             Function = "get-financial-connections-accounts-with-formdata-body"
-	FnGetFinancialConnectionsSessionsSessionWithFormdataBody                                      Function = "get-financial-connections-sessions-session-with-formdata-body"
-	FnGetFinancialConnectionsTransactionsTransactionWithFormdataBody                              Function = "get-financial-connections-transactions-transaction-with-formdata-body"
-	FnGetFinancialConnectionsTransactionsWithFormdataBody                                         Function = "get-financial-connections-transactions-with-formdata-body"
-	FnGetForwardingRequestsIdWithFormdataBody                                                     Function = "get-forwarding-requests-id-with-formdata-body"
-	FnGetForwardingRequestsWithFormdataBody                                                       Function = "get-forwarding-requests-with-formdata-body"
-	FnGetIdentityVerificationReportsReportWithFormdataBody                                        Function = "get-identity-verification-reports-report-with-formdata-body"
-	FnGetIdentityVerificationReportsWithFormdataBody                                              Function = "get-identity-verification-reports-with-formdata-body"
-	FnGetIdentityVerificationSessionsSessionWithFormdataBody                                      Function = "get-identity-verification-sessions-session-with-formdata-body"
-	FnGetIdentityVerificationSessionsWithFormdataBody                                             Function = "get-identity-verification-sessions-with-formdata-body"
-	FnGetInvoicePaymentsInvoicePaymentWithFormdataBody                                            Function = "get-invoice-payments-invoice-payment-with-formdata-body"
-	FnGetInvoicePaymentsWithFormdataBody                                                          Function = "get-invoice-payments-with-formdata-body"
-	FnGetInvoiceRenderingTemplatesTemplateWithFormdataBody                                        Function = "get-invoice-rendering-templates-template-with-formdata-body"
-	FnGetInvoiceRenderingTemplatesWithFormdataBody                                                Function = "get-invoice-rendering-templates-with-formdata-body"
-	FnGetInvoiceitemsInvoiceitemWithFormdataBody                                                  Function = "get-invoiceitems-invoiceitem-with-formdata-body"
-	FnGetInvoiceitemsWithFormdataBody                                                             Function = "get-invoiceitems-with-formdata-body"
-	FnGetInvoicesInvoiceLinesWithFormdataBody                                                     Function = "get-invoices-invoice-lines-with-formdata-body"
-	FnGetInvoicesInvoiceWithFormdataBody                                                          Function = "get-invoices-invoice-with-formdata-body"
-	FnGetInvoicesSearchWithFormdataBody                                                           Function = "get-invoices-search-with-formdata-body"
-	FnGetInvoicesWithFormdataBody                                                                 Function = "get-invoices-with-formdata-body"
-	FnGetIssuingAuthorizationsAuthorizationWithFormdataBody                                       Function = "get-issuing-authorizations-authorization-with-formdata-body"
-	FnGetIssuingAuthorizationsWithFormdataBody                                                    Function = "get-issuing-authorizations-with-formdata-body"
-	FnGetIssuingCardholdersCardholderWithFormdataBody                                             Function = "get-issuing-cardholders-cardholder-with-formdata-body"
-	FnGetIssuingCardholdersWithFormdataBody                                                       Function = "get-issuing-cardholders-with-formdata-body"
-	FnGetIssuingCardsCardWithFormdataBody                                                         Function = "get-issuing-cards-card-with-formdata-body"
-	FnGetIssuingCardsWithFormdataBody                                                             Function = "get-issuing-cards-with-formdata-body"
-	FnGetIssuingDisputesDisputeWithFormdataBody                                                   Function = "get-issuing-disputes-dispute-with-formdata-body"
-	FnGetIssuingDisputesWithFormdataBody                                                          Function = "get-issuing-disputes-with-formdata-body"
-	FnGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody                       Function = "get-issuing-personalization-designs-personalization-design-with-formdata-body"
-	FnGetIssuingPersonalizationDesignsWithFormdataBody                                            Function = "get-issuing-personalization-designs-with-formdata-body"
-	FnGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBody                                     Function = "get-issuing-physical-bundles-physical-bundle-with-formdata-body"
-	FnGetIssuingPhysicalBundlesWithFormdataBody                                                   Function = "get-issuing-physical-bundles-with-formdata-body"
-	FnGetIssuingSettlementsSettlementWithFormdataBody                                             Function = "get-issuing-settlements-settlement-with-formdata-body"
-	FnGetIssuingTokensTokenWithFormdataBody                                                       Function = "get-issuing-tokens-token-with-formdata-body"
-	FnGetIssuingTokensWithFormdataBody                                                            Function = "get-issuing-tokens-with-formdata-body"
-	FnGetIssuingTransactionsTransactionWithFormdataBody                                           Function = "get-issuing-transactions-transaction-with-formdata-body"
-	FnGetIssuingTransactionsWithFormdataBody                                                      Function = "get-issuing-transactions-with-formdata-body"
-	FnGetLinkAccountSessionsSessionWithFormdataBody                                               Function = "get-link-account-sessions-session-with-formdata-body"
-	FnGetLinkedAccountsAccountOwnersWithFormdataBody                                              Function = "get-linked-accounts-account-owners-with-formdata-body"
-	FnGetLinkedAccountsAccountWithFormdataBody                                                    Function = "get-linked-accounts-account-with-formdata-body"
-	FnGetLinkedAccountsWithFormdataBody                                                           Function = "get-linked-accounts-with-formdata-body"
-	FnGetMandatesMandateWithFormdataBody                                                          Function = "get-mandates-mandate-with-formdata-body"
-	FnGetPaymentAttemptRecordsIdWithFormdataBody                                                  Function = "get-payment-attempt-records-id-with-formdata-body"
-	FnGetPaymentAttemptRecordsWithFormdataBody                                                    Function = "get-payment-attempt-records-with-formdata-body"
-	FnGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBody                               Function = "get-payment-intents-intent-amount-details-line-items-with-formdata-body"
-	FnGetPaymentIntentsIntentWithFormdataBody                                                     Function = "get-payment-intents-intent-with-formdata-body"
-	FnGetPaymentIntentsSearchWithFormdataBody                                                     Function = "get-payment-intents-search-with-formdata-body"
-	FnGetPaymentIntentsWithFormdataBody                                                           Function = "get-payment-intents-with-formdata-body"
-	FnGetPaymentLinksPaymentLinkLineItemsWithFormdataBody                                         Function = "get-payment-links-payment-link-line-items-with-formdata-body"
-	FnGetPaymentLinksPaymentLinkWithFormdataBody                                                  Function = "get-payment-links-payment-link-with-formdata-body"
-	FnGetPaymentLinksWithFormdataBody                                                             Function = "get-payment-links-with-formdata-body"
-	FnGetPaymentMethodConfigurationsConfigurationWithFormdataBody                                 Function = "get-payment-method-configurations-configuration-with-formdata-body"
-	FnGetPaymentMethodConfigurationsWithFormdataBody                                              Function = "get-payment-method-configurations-with-formdata-body"
-	FnGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBody                                  Function = "get-payment-method-domains-payment-method-domain-with-formdata-body"
-	FnGetPaymentMethodDomainsWithFormdataBody                                                     Function = "get-payment-method-domains-with-formdata-body"
-	FnGetPaymentMethodsPaymentMethodWithFormdataBody                                              Function = "get-payment-methods-payment-method-with-formdata-body"
-	FnGetPaymentMethodsWithFormdataBody                                                           Function = "get-payment-methods-with-formdata-body"
-	FnGetPaymentRecordsIdWithFormdataBody                                                         Function = "get-payment-records-id-with-formdata-body"
-	FnGetPaymentRecordsWithFormdataBody                                                           Function = "get-payment-records-with-formdata-body"
-	FnGetPayoutsPayoutWithFormdataBody                                                            Function = "get-payouts-payout-with-formdata-body"
-	FnGetPayoutsWithFormdataBody                                                                  Function = "get-payouts-with-formdata-body"
-	FnGetPlansPlanWithFormdataBody                                                                Function = "get-plans-plan-with-formdata-body"
-	FnGetPlansWithFormdataBody                                                                    Function = "get-plans-with-formdata-body"
-	FnGetPricesPriceWithFormdataBody                                                              Function = "get-prices-price-with-formdata-body"
-	FnGetPricesSearchWithFormdataBody                                                             Function = "get-prices-search-with-formdata-body"
-	FnGetPricesWithFormdataBody                                                                   Function = "get-prices-with-formdata-body"
-	FnGetProductCatalogTrialOffersIdWithFormdataBody                                              Function = "get-product-catalog-trial-offers-id-with-formdata-body"
-	FnGetProductCatalogTrialOffersWithFormdataBody                                                Function = "get-product-catalog-trial-offers-with-formdata-body"
-	FnGetProductsIdWithFormdataBody                                                               Function = "get-products-id-with-formdata-body"
-	FnGetProductsProductFeaturesIdWithFormdataBody                                                Function = "get-products-product-features-id-with-formdata-body"
-	FnGetProductsProductFeaturesWithFormdataBody                                                  Function = "get-products-product-features-with-formdata-body"
-	FnGetProductsSearchWithFormdataBody                                                           Function = "get-products-search-with-formdata-body"
-	FnGetProductsWithFormdataBody                                                                 Function = "get-products-with-formdata-body"
-	FnGetPromotionCodesPromotionCodeWithFormdataBody                                              Function = "get-promotion-codes-promotion-code-with-formdata-body"
-	FnGetPromotionCodesWithFormdataBody                                                           Function = "get-promotion-codes-with-formdata-body"
-	FnGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBody                                      Function = "get-quotes-quote-computed-upfront-line-items-with-formdata-body"
-	FnGetQuotesQuoteLineItemsWithFormdataBody                                                     Function = "get-quotes-quote-line-items-with-formdata-body"
-	FnGetQuotesQuotePdfWithFormdataBody                                                           Function = "get-quotes-quote-pdf-with-formdata-body"
-	FnGetQuotesQuoteWithFormdataBody                                                              Function = "get-quotes-quote-with-formdata-body"
-	FnGetQuotesWithFormdataBody                                                                   Function = "get-quotes-with-formdata-body"
-	FnGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBody                                 Function = "get-radar-early-fraud-warnings-early-fraud-warning-with-formdata-body"
-	FnGetRadarEarlyFraudWarningsWithFormdataBody                                                  Function = "get-radar-early-fraud-warnings-with-formdata-body"
-	FnGetRadarValueListItemsItemWithFormdataBody                                                  Function = "get-radar-value-list-items-item-with-formdata-body"
-	FnGetRadarValueListItemsWithFormdataBody                                                      Function = "get-radar-value-list-items-with-formdata-body"
-	FnGetRadarValueListsValueListWithFormdataBody                                                 Function = "get-radar-value-lists-value-list-with-formdata-body"
-	FnGetRadarValueListsWithFormdataBody                                                          Function = "get-radar-value-lists-with-formdata-body"
-	FnGetRefundsRefundWithFormdataBody                                                            Function = "get-refunds-refund-with-formdata-body"
-	FnGetRefundsWithFormdataBody                                                                  Function = "get-refunds-with-formdata-body"
-	FnGetReportingReportRunsReportRunWithFormdataBody                                             Function = "get-reporting-report-runs-report-run-with-formdata-body"
-	FnGetReportingReportRunsWithFormdataBody                                                      Function = "get-reporting-report-runs-with-formdata-body"
-	FnGetReportingReportTypesReportTypeWithFormdataBody                                           Function = "get-reporting-report-types-report-type-with-formdata-body"
-	FnGetReportingReportTypesWithFormdataBody                                                     Function = "get-reporting-report-types-with-formdata-body"
-	FnGetReviewsReviewWithFormdataBody                                                            Function = "get-reviews-review-with-formdata-body"
-	FnGetReviewsWithFormdataBody                                                                  Function = "get-reviews-with-formdata-body"
-	FnGetSetupAttemptsWithFormdataBody                                                            Function = "get-setup-attempts-with-formdata-body"
-	FnGetSetupIntentsIntentWithFormdataBody                                                       Function = "get-setup-intents-intent-with-formdata-body"
-	FnGetSetupIntentsWithFormdataBody                                                             Function = "get-setup-intents-with-formdata-body"
-	FnGetShippingRatesShippingRateTokenWithFormdataBody                                           Function = "get-shipping-rates-shipping-rate-token-with-formdata-body"
-	FnGetShippingRatesWithFormdataBody                                                            Function = "get-shipping-rates-with-formdata-body"
-	FnGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBody                                 Function = "get-sigma-scheduled-query-runs-scheduled-query-run-with-formdata-body"
-	FnGetSigmaScheduledQueryRunsWithFormdataBody                                                  Function = "get-sigma-scheduled-query-runs-with-formdata-body"
-	FnGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBody                     Function = "get-sources-source-mandate-notifications-mandate-notification-with-formdata-body"
-	FnGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBody                         Function = "get-sources-source-source-transactions-source-transaction-with-formdata-body"
-	FnGetSourcesSourceSourceTransactionsWithFormdataBody                                          Function = "get-sources-source-source-transactions-with-formdata-body"
-	FnGetSourcesSourceWithFormdataBody                                                            Function = "get-sources-source-with-formdata-body"
-	FnGetSubscriptionItemsItemWithFormdataBody                                                    Function = "get-subscription-items-item-with-formdata-body"
-	FnGetSubscriptionItemsWithFormdataBody                                                        Function = "get-subscription-items-with-formdata-body"
-	FnGetSubscriptionSchedulesScheduleWithFormdataBody                                            Function = "get-subscription-schedules-schedule-with-formdata-body"
-	FnGetSubscriptionSchedulesWithFormdataBody                                                    Function = "get-subscription-schedules-with-formdata-body"
-	FnGetSubscriptionsSearchWithFormdataBody                                                      Function = "get-subscriptions-search-with-formdata-body"
-	FnGetSubscriptionsSubscriptionExposedIdWithFormdataBody                                       Function = "get-subscriptions-subscription-exposed-id-with-formdata-body"
-	FnGetSubscriptionsWithFormdataBody                                                            Function = "get-subscriptions-with-formdata-body"
-	FnGetTaxAssociationsFindWithFormdataBody                                                      Function = "get-tax-associations-find-with-formdata-body"
-	FnGetTaxCalculationsCalculationLineItemsWithFormdataBody                                      Function = "get-tax-calculations-calculation-line-items-with-formdata-body"
-	FnGetTaxCalculationsCalculationWithFormdataBody                                               Function = "get-tax-calculations-calculation-with-formdata-body"
-	FnGetTaxCodesIdWithFormdataBody                                                               Function = "get-tax-codes-id-with-formdata-body"
-	FnGetTaxCodesWithFormdataBody                                                                 Function = "get-tax-codes-with-formdata-body"
-	FnGetTaxIdsIdWithFormdataBody                                                                 Function = "get-tax-ids-id-with-formdata-body"
-	FnGetTaxIdsWithFormdataBody                                                                   Function = "get-tax-ids-with-formdata-body"
-	FnGetTaxLocationsLocationWithFormdataBody                                                     Function = "get-tax-locations-location-with-formdata-body"
-	FnGetTaxLocationsWithFormdataBody                                                             Function = "get-tax-locations-with-formdata-body"
-	FnGetTaxRatesTaxRateWithFormdataBody                                                          Function = "get-tax-rates-tax-rate-with-formdata-body"
-	FnGetTaxRatesWithFormdataBody                                                                 Function = "get-tax-rates-with-formdata-body"
-	FnGetTaxRegistrationsIdWithFormdataBody                                                       Function = "get-tax-registrations-id-with-formdata-body"
-	FnGetTaxRegistrationsWithFormdataBody                                                         Function = "get-tax-registrations-with-formdata-body"
-	FnGetTaxSettingsWithFormdataBody                                                              Function = "get-tax-settings-with-formdata-body"
-	FnGetTaxTransactionsTransactionLineItemsWithFormdataBody                                      Function = "get-tax-transactions-transaction-line-items-with-formdata-body"
-	FnGetTaxTransactionsTransactionWithFormdataBody                                               Function = "get-tax-transactions-transaction-with-formdata-body"
-	FnGetTerminalConfigurationsConfigurationWithFormdataBody                                      Function = "get-terminal-configurations-configuration-with-formdata-body"
-	FnGetTerminalConfigurationsWithFormdataBody                                                   Function = "get-terminal-configurations-with-formdata-body"
-	FnGetTerminalLocationsLocationWithFormdataBody                                                Function = "get-terminal-locations-location-with-formdata-body"
-	FnGetTerminalLocationsWithFormdataBody                                                        Function = "get-terminal-locations-with-formdata-body"
-	FnGetTerminalReadersReaderWithFormdataBody                                                    Function = "get-terminal-readers-reader-with-formdata-body"
-	FnGetTerminalReadersWithFormdataBody                                                          Function = "get-terminal-readers-with-formdata-body"
-	FnGetTestHelpersTestClocksTestClockWithFormdataBody                                           Function = "get-test-helpers-test-clocks-test-clock-with-formdata-body"
-	FnGetTestHelpersTestClocksWithFormdataBody                                                    Function = "get-test-helpers-test-clocks-with-formdata-body"
-	FnGetThreeDSecureAuthenticationsAuthenticationWithFormdataBody                                Function = "get-three-d-secure-authentications-authentication-with-formdata-body"
-	FnGetThreeDSecureAuthenticationsWithFormdataBody                                              Function = "get-three-d-secure-authentications-with-formdata-body"
-	FnGetTokensTokenWithFormdataBody                                                              Function = "get-tokens-token-with-formdata-body"
-	FnGetTopupsTopupWithFormdataBody                                                              Function = "get-topups-topup-with-formdata-body"
-	FnGetTopupsWithFormdataBody                                                                   Function = "get-topups-with-formdata-body"
-	FnGetTransfersIdReversalsWithFormdataBody                                                     Function = "get-transfers-id-reversals-with-formdata-body"
-	FnGetTransfersTransferReversalsIdWithFormdataBody                                             Function = "get-transfers-transfer-reversals-id-with-formdata-body"
-	FnGetTransfersTransferWithFormdataBody                                                        Function = "get-transfers-transfer-with-formdata-body"
-	FnGetTransfersWithFormdataBody                                                                Function = "get-transfers-with-formdata-body"
-	FnGetTreasuryCreditReversalsCreditReversalWithFormdataBody                                    Function = "get-treasury-credit-reversals-credit-reversal-with-formdata-body"
-	FnGetTreasuryCreditReversalsWithFormdataBody                                                  Function = "get-treasury-credit-reversals-with-formdata-body"
-	FnGetTreasuryDebitReversalsDebitReversalWithFormdataBody                                      Function = "get-treasury-debit-reversals-debit-reversal-with-formdata-body"
-	FnGetTreasuryDebitReversalsWithFormdataBody                                                   Function = "get-treasury-debit-reversals-with-formdata-body"
-	FnGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody                        Function = "get-treasury-financial-accounts-financial-account-features-with-formdata-body"
-	FnGetTreasuryFinancialAccountsFinancialAccountWithFormdataBody                                Function = "get-treasury-financial-accounts-financial-account-with-formdata-body"
-	FnGetTreasuryFinancialAccountsWithFormdataBody                                                Function = "get-treasury-financial-accounts-with-formdata-body"
-	FnGetTreasuryInboundTransfersIdWithFormdataBody                                               Function = "get-treasury-inbound-transfers-id-with-formdata-body"
-	FnGetTreasuryInboundTransfersWithFormdataBody                                                 Function = "get-treasury-inbound-transfers-with-formdata-body"
-	FnGetTreasuryOutboundPaymentsIdWithFormdataBody                                               Function = "get-treasury-outbound-payments-id-with-formdata-body"
-	FnGetTreasuryOutboundPaymentsWithFormdataBody                                                 Function = "get-treasury-outbound-payments-with-formdata-body"
-	FnGetTreasuryOutboundTransfersOutboundTransferWithFormdataBody                                Function = "get-treasury-outbound-transfers-outbound-transfer-with-formdata-body"
-	FnGetTreasuryOutboundTransfersWithFormdataBody                                                Function = "get-treasury-outbound-transfers-with-formdata-body"
-	FnGetTreasuryReceivedCreditsIdWithFormdataBody                                                Function = "get-treasury-received-credits-id-with-formdata-body"
-	FnGetTreasuryReceivedCreditsWithFormdataBody                                                  Function = "get-treasury-received-credits-with-formdata-body"
-	FnGetTreasuryReceivedDebitsIdWithFormdataBody                                                 Function = "get-treasury-received-debits-id-with-formdata-body"
-	FnGetTreasuryReceivedDebitsWithFormdataBody                                                   Function = "get-treasury-received-debits-with-formdata-body"
-	FnGetTreasuryTransactionEntriesIdWithFormdataBody                                             Function = "get-treasury-transaction-entries-id-with-formdata-body"
-	FnGetTreasuryTransactionEntriesWithFormdataBody                                               Function = "get-treasury-transaction-entries-with-formdata-body"
-	FnGetTreasuryTransactionsIdWithFormdataBody                                                   Function = "get-treasury-transactions-id-with-formdata-body"
-	FnGetTreasuryTransactionsWithFormdataBody                                                     Function = "get-treasury-transactions-with-formdata-body"
-	FnGetWebhookEndpointsWebhookEndpointWithFormdataBody                                          Function = "get-webhook-endpoints-webhook-endpoint-with-formdata-body"
-	FnGetWebhookEndpointsWithFormdataBody                                                         Function = "get-webhook-endpoints-with-formdata-body"
-	FnPostAccountLinksWithFormdataBody                                                            Function = "post-account-links-with-formdata-body"
-	FnPostAccountSessionsWithFormdataBody                                                         Function = "post-account-sessions-with-formdata-body"
-	FnPostAccountsAccountBankAccountsIdWithFormdataBody                                           Function = "post-accounts-account-bank-accounts-id-with-formdata-body"
-	FnPostAccountsAccountBankAccountsWithFormdataBody                                             Function = "post-accounts-account-bank-accounts-with-formdata-body"
-	FnPostAccountsAccountCapabilitiesCapabilityWithFormdataBody                                   Function = "post-accounts-account-capabilities-capability-with-formdata-body"
-	FnPostAccountsAccountExternalAccountsIdWithFormdataBody                                       Function = "post-accounts-account-external-accounts-id-with-formdata-body"
-	FnPostAccountsAccountExternalAccountsWithFormdataBody                                         Function = "post-accounts-account-external-accounts-with-formdata-body"
-	FnPostAccountsAccountLoginLinksWithFormdataBody                                               Function = "post-accounts-account-login-links-with-formdata-body"
-	FnPostAccountsAccountPeoplePersonWithFormdataBody                                             Function = "post-accounts-account-people-person-with-formdata-body"
-	FnPostAccountsAccountPeopleWithFormdataBody                                                   Function = "post-accounts-account-people-with-formdata-body"
-	FnPostAccountsAccountPersonsPersonWithFormdataBody                                            Function = "post-accounts-account-persons-person-with-formdata-body"
-	FnPostAccountsAccountPersonsWithFormdataBody                                                  Function = "post-accounts-account-persons-with-formdata-body"
-	FnPostAccountsAccountRejectWithFormdataBody                                                   Function = "post-accounts-account-reject-with-formdata-body"
-	FnPostAccountsAccountUnrejectWithFormdataBody                                                 Function = "post-accounts-account-unreject-with-formdata-body"
-	FnPostAccountsAccountWithFormdataBody                                                         Function = "post-accounts-account-with-formdata-body"
-	FnPostAccountsWithFormdataBody                                                                Function = "post-accounts-with-formdata-body"
-	FnPostApplePayDomainsWithFormdataBody                                                         Function = "post-apple-pay-domains-with-formdata-body"
-	FnPostApplicationFeesFeeRefundsIdWithFormdataBody                                             Function = "post-application-fees-fee-refunds-id-with-formdata-body"
-	FnPostApplicationFeesIdRefundWithFormdataBody                                                 Function = "post-application-fees-id-refund-with-formdata-body"
-	FnPostApplicationFeesIdRefundsWithFormdataBody                                                Function = "post-application-fees-id-refunds-with-formdata-body"
-	FnPostAppsInstallsIdUninstallWithFormdataBody                                                 Function = "post-apps-installs-id-uninstall-with-formdata-body"
-	FnPostAppsInstallsIdWithFormdataBody                                                          Function = "post-apps-installs-id-with-formdata-body"
-	FnPostAppsInstallsWithFormdataBody                                                            Function = "post-apps-installs-with-formdata-body"
-	FnPostAppsSecretsDeleteWithFormdataBody                                                       Function = "post-apps-secrets-delete-with-formdata-body"
-	FnPostAppsSecretsWithFormdataBody                                                             Function = "post-apps-secrets-with-formdata-body"
-	FnPostBalanceSettingsWithFormdataBody                                                         Function = "post-balance-settings-with-formdata-body"
-	FnPostBillingAlertsIdActivateWithFormdataBody                                                 Function = "post-billing-alerts-id-activate-with-formdata-body"
-	FnPostBillingAlertsIdArchiveWithFormdataBody                                                  Function = "post-billing-alerts-id-archive-with-formdata-body"
-	FnPostBillingAlertsIdDeactivateWithFormdataBody                                               Function = "post-billing-alerts-id-deactivate-with-formdata-body"
-	FnPostBillingAlertsWithFormdataBody                                                           Function = "post-billing-alerts-with-formdata-body"
-	FnPostBillingCreditGrantsIdExpireWithFormdataBody                                             Function = "post-billing-credit-grants-id-expire-with-formdata-body"
-	FnPostBillingCreditGrantsIdVoidWithFormdataBody                                               Function = "post-billing-credit-grants-id-void-with-formdata-body"
-	FnPostBillingCreditGrantsIdWithFormdataBody                                                   Function = "post-billing-credit-grants-id-with-formdata-body"
-	FnPostBillingCreditGrantsWithFormdataBody                                                     Function = "post-billing-credit-grants-with-formdata-body"
-	FnPostBillingFeedbackOptionsIdDeactivateWithFormdataBody                                      Function = "post-billing-feedback-options-id-deactivate-with-formdata-body"
-	FnPostBillingFeedbackOptionsIdWithFormdataBody                                                Function = "post-billing-feedback-options-id-with-formdata-body"
-	FnPostBillingFeedbackOptionsWithFormdataBody                                                  Function = "post-billing-feedback-options-with-formdata-body"
-	FnPostBillingMeterEventAdjustmentsWithFormdataBody                                            Function = "post-billing-meter-event-adjustments-with-formdata-body"
-	FnPostBillingMeterEventsWithFormdataBody                                                      Function = "post-billing-meter-events-with-formdata-body"
-	FnPostBillingMetersIdDeactivateWithFormdataBody                                               Function = "post-billing-meters-id-deactivate-with-formdata-body"
-	FnPostBillingMetersIdReactivateWithFormdataBody                                               Function = "post-billing-meters-id-reactivate-with-formdata-body"
-	FnPostBillingMetersIdWithFormdataBody                                                         Function = "post-billing-meters-id-with-formdata-body"
-	FnPostBillingMetersWithFormdataBody                                                           Function = "post-billing-meters-with-formdata-body"
-	FnPostBillingPortalConfigurationsConfigurationWithFormdataBody                                Function = "post-billing-portal-configurations-configuration-with-formdata-body"
-	FnPostBillingPortalConfigurationsWithFormdataBody                                             Function = "post-billing-portal-configurations-with-formdata-body"
-	FnPostBillingPortalSessionsWithFormdataBody                                                   Function = "post-billing-portal-sessions-with-formdata-body"
-	FnPostChargesChargeCaptureWithFormdataBody                                                    Function = "post-charges-charge-capture-with-formdata-body"
-	FnPostChargesChargeDisputeCloseWithFormdataBody                                               Function = "post-charges-charge-dispute-close-with-formdata-body"
-	FnPostChargesChargeDisputeWithFormdataBody                                                    Function = "post-charges-charge-dispute-with-formdata-body"
-	FnPostChargesChargeRefundWithFormdataBody                                                     Function = "post-charges-charge-refund-with-formdata-body"
-	FnPostChargesChargeRefundsRefundWithFormdataBody                                              Function = "post-charges-charge-refunds-refund-with-formdata-body"
-	FnPostChargesChargeRefundsWithFormdataBody                                                    Function = "post-charges-charge-refunds-with-formdata-body"
-	FnPostChargesChargeWithFormdataBody                                                           Function = "post-charges-charge-with-formdata-body"
-	FnPostChargesWithFormdataBody                                                                 Function = "post-charges-with-formdata-body"
-	FnPostCheckoutSessionsSessionExpireWithFormdataBody                                           Function = "post-checkout-sessions-session-expire-with-formdata-body"
-	FnPostCheckoutSessionsSessionWithFormdataBody                                                 Function = "post-checkout-sessions-session-with-formdata-body"
-	FnPostCheckoutSessionsWithFormdataBody                                                        Function = "post-checkout-sessions-with-formdata-body"
-	FnPostClimateOrdersOrderCancelWithFormdataBody                                                Function = "post-climate-orders-order-cancel-with-formdata-body"
-	FnPostClimateOrdersOrderWithFormdataBody                                                      Function = "post-climate-orders-order-with-formdata-body"
-	FnPostClimateOrdersWithFormdataBody                                                           Function = "post-climate-orders-with-formdata-body"
-	FnPostCouponsCouponWithFormdataBody                                                           Function = "post-coupons-coupon-with-formdata-body"
-	FnPostCouponsWithFormdataBody                                                                 Function = "post-coupons-with-formdata-body"
-	FnPostCreditNotesIdVoidWithFormdataBody                                                       Function = "post-credit-notes-id-void-with-formdata-body"
-	FnPostCreditNotesIdWithFormdataBody                                                           Function = "post-credit-notes-id-with-formdata-body"
-	FnPostCreditNotesWithFormdataBody                                                             Function = "post-credit-notes-with-formdata-body"
-	FnPostCustomerSessionsWithFormdataBody                                                        Function = "post-customer-sessions-with-formdata-body"
-	FnPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBody                         Function = "post-customers-customer-balance-transactions-transaction-with-formdata-body"
-	FnPostCustomersCustomerBalanceTransactionsWithFormdataBody                                    Function = "post-customers-customer-balance-transactions-with-formdata-body"
-	FnPostCustomersCustomerBankAccountsIdVerifyWithFormdataBody                                   Function = "post-customers-customer-bank-accounts-id-verify-with-formdata-body"
-	FnPostCustomersCustomerBankAccountsIdWithFormdataBody                                         Function = "post-customers-customer-bank-accounts-id-with-formdata-body"
-	FnPostCustomersCustomerBankAccountsWithFormdataBody                                           Function = "post-customers-customer-bank-accounts-with-formdata-body"
-	FnPostCustomersCustomerCardsIdWithFormdataBody                                                Function = "post-customers-customer-cards-id-with-formdata-body"
-	FnPostCustomersCustomerCardsWithFormdataBody                                                  Function = "post-customers-customer-cards-with-formdata-body"
-	FnPostCustomersCustomerCashBalanceWithFormdataBody                                            Function = "post-customers-customer-cash-balance-with-formdata-body"
-	FnPostCustomersCustomerFundingInstructionsWithFormdataBody                                    Function = "post-customers-customer-funding-instructions-with-formdata-body"
-	FnPostCustomersCustomerSourcesIdVerifyWithFormdataBody                                        Function = "post-customers-customer-sources-id-verify-with-formdata-body"
-	FnPostCustomersCustomerSourcesIdWithFormdataBody                                              Function = "post-customers-customer-sources-id-with-formdata-body"
-	FnPostCustomersCustomerSourcesWithFormdataBody                                                Function = "post-customers-customer-sources-with-formdata-body"
-	FnPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody                     Function = "post-customers-customer-subscriptions-subscription-exposed-id-with-formdata-body"
-	FnPostCustomersCustomerSubscriptionsWithFormdataBody                                          Function = "post-customers-customer-subscriptions-with-formdata-body"
-	FnPostCustomersCustomerTaxIdsWithFormdataBody                                                 Function = "post-customers-customer-tax-ids-with-formdata-body"
-	FnPostCustomersCustomerWithFormdataBody                                                       Function = "post-customers-customer-with-formdata-body"
-	FnPostCustomersWithFormdataBody                                                               Function = "post-customers-with-formdata-body"
-	FnPostDisputesDisputeCloseWithFormdataBody                                                    Function = "post-disputes-dispute-close-with-formdata-body"
-	FnPostDisputesDisputeWithFormdataBody                                                         Function = "post-disputes-dispute-with-formdata-body"
-	FnPostEntitlementsFeaturesIdWithFormdataBody                                                  Function = "post-entitlements-features-id-with-formdata-body"
-	FnPostEntitlementsFeaturesWithFormdataBody                                                    Function = "post-entitlements-features-with-formdata-body"
-	FnPostEphemeralKeysWithFormdataBody                                                           Function = "post-ephemeral-keys-with-formdata-body"
-	FnPostExternalAccountsIdWithFormdataBody                                                      Function = "post-external-accounts-id-with-formdata-body"
-	FnPostFileLinksLinkWithFormdataBody                                                           Function = "post-file-links-link-with-formdata-body"
-	FnPostFileLinksWithFormdataBody                                                               Function = "post-file-links-with-formdata-body"
-	FnPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBody                           Function = "post-financial-connections-accounts-account-disconnect-with-formdata-body"
-	FnPostFinancialConnectionsAccountsAccountRefreshWithFormdataBody                              Function = "post-financial-connections-accounts-account-refresh-with-formdata-body"
-	FnPostFinancialConnectionsAccountsAccountSubscribeWithFormdataBody                            Function = "post-financial-connections-accounts-account-subscribe-with-formdata-body"
-	FnPostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBody                          Function = "post-financial-connections-accounts-account-unsubscribe-with-formdata-body"
-	FnPostFinancialConnectionsSessionsWithFormdataBody                                            Function = "post-financial-connections-sessions-with-formdata-body"
-	FnPostForwardingRequestsWithFormdataBody                                                      Function = "post-forwarding-requests-with-formdata-body"
-	FnPostIdentityVerificationSessionsSessionCancelWithFormdataBody                               Function = "post-identity-verification-sessions-session-cancel-with-formdata-body"
-	FnPostIdentityVerificationSessionsSessionRedactWithFormdataBody                               Function = "post-identity-verification-sessions-session-redact-with-formdata-body"
-	FnPostIdentityVerificationSessionsSessionWithFormdataBody                                     Function = "post-identity-verification-sessions-session-with-formdata-body"
-	FnPostIdentityVerificationSessionsWithFormdataBody                                            Function = "post-identity-verification-sessions-with-formdata-body"
-	FnPostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBody                                Function = "post-invoice-rendering-templates-template-archive-with-formdata-body"
-	FnPostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBody                              Function = "post-invoice-rendering-templates-template-unarchive-with-formdata-body"
-	FnPostInvoiceitemsInvoiceitemWithFormdataBody                                                 Function = "post-invoiceitems-invoiceitem-with-formdata-body"
-	FnPostInvoiceitemsWithFormdataBody                                                            Function = "post-invoiceitems-with-formdata-body"
-	FnPostInvoicesCreatePreviewWithFormdataBody                                                   Function = "post-invoices-create-preview-with-formdata-body"
-	FnPostInvoicesInvoiceAddLinesWithFormdataBody                                                 Function = "post-invoices-invoice-add-lines-with-formdata-body"
-	FnPostInvoicesInvoiceAttachPaymentWithFormdataBody                                            Function = "post-invoices-invoice-attach-payment-with-formdata-body"
-	FnPostInvoicesInvoiceFinalizeWithFormdataBody                                                 Function = "post-invoices-invoice-finalize-with-formdata-body"
-	FnPostInvoicesInvoiceLinesLineItemIdWithFormdataBody                                          Function = "post-invoices-invoice-lines-line-item-id-with-formdata-body"
-	FnPostInvoicesInvoiceMarkUncollectibleWithFormdataBody                                        Function = "post-invoices-invoice-mark-uncollectible-with-formdata-body"
-	FnPostInvoicesInvoicePayWithFormdataBody                                                      Function = "post-invoices-invoice-pay-with-formdata-body"
-	FnPostInvoicesInvoiceRemoveLinesWithFormdataBody                                              Function = "post-invoices-invoice-remove-lines-with-formdata-body"
-	FnPostInvoicesInvoiceSendWithFormdataBody                                                     Function = "post-invoices-invoice-send-with-formdata-body"
-	FnPostInvoicesInvoiceUpdateLinesWithFormdataBody                                              Function = "post-invoices-invoice-update-lines-with-formdata-body"
-	FnPostInvoicesInvoiceVoidWithFormdataBody                                                     Function = "post-invoices-invoice-void-with-formdata-body"
-	FnPostInvoicesInvoiceWithFormdataBody                                                         Function = "post-invoices-invoice-with-formdata-body"
-	FnPostInvoicesWithFormdataBody                                                                Function = "post-invoices-with-formdata-body"
-	FnPostIssuingAuthorizationsAuthorizationApproveWithFormdataBody                               Function = "post-issuing-authorizations-authorization-approve-with-formdata-body"
-	FnPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBody                               Function = "post-issuing-authorizations-authorization-decline-with-formdata-body"
-	FnPostIssuingAuthorizationsAuthorizationWithFormdataBody                                      Function = "post-issuing-authorizations-authorization-with-formdata-body"
-	FnPostIssuingCardholdersCardholderWithFormdataBody                                            Function = "post-issuing-cardholders-cardholder-with-formdata-body"
-	FnPostIssuingCardholdersWithFormdataBody                                                      Function = "post-issuing-cardholders-with-formdata-body"
-	FnPostIssuingCardsCardWithFormdataBody                                                        Function = "post-issuing-cards-card-with-formdata-body"
-	FnPostIssuingCardsWithFormdataBody                                                            Function = "post-issuing-cards-with-formdata-body"
-	FnPostIssuingDisputesDisputeSubmitWithFormdataBody                                            Function = "post-issuing-disputes-dispute-submit-with-formdata-body"
-	FnPostIssuingDisputesDisputeWithFormdataBody                                                  Function = "post-issuing-disputes-dispute-with-formdata-body"
-	FnPostIssuingDisputesWithFormdataBody                                                         Function = "post-issuing-disputes-with-formdata-body"
-	FnPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody                      Function = "post-issuing-personalization-designs-personalization-design-with-formdata-body"
-	FnPostIssuingPersonalizationDesignsWithFormdataBody                                           Function = "post-issuing-personalization-designs-with-formdata-body"
-	FnPostIssuingSettlementsSettlementWithFormdataBody                                            Function = "post-issuing-settlements-settlement-with-formdata-body"
-	FnPostIssuingTokensTokenWithFormdataBody                                                      Function = "post-issuing-tokens-token-with-formdata-body"
-	FnPostIssuingTransactionsTransactionWithFormdataBody                                          Function = "post-issuing-transactions-transaction-with-formdata-body"
-	FnPostLinkAccountSessionsWithFormdataBody                                                     Function = "post-link-account-sessions-with-formdata-body"
-	FnPostLinkedAccountsAccountDisconnectWithFormdataBody                                         Function = "post-linked-accounts-account-disconnect-with-formdata-body"
-	FnPostLinkedAccountsAccountRefreshWithFormdataBody                                            Function = "post-linked-accounts-account-refresh-with-formdata-body"
-	FnPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBody                                Function = "post-payment-intents-intent-apply-customer-balance-with-formdata-body"
-	FnPostPaymentIntentsIntentCancelWithFormdataBody                                              Function = "post-payment-intents-intent-cancel-with-formdata-body"
-	FnPostPaymentIntentsIntentCaptureWithFormdataBody                                             Function = "post-payment-intents-intent-capture-with-formdata-body"
-	FnPostPaymentIntentsIntentConfirmWithFormdataBody                                             Function = "post-payment-intents-intent-confirm-with-formdata-body"
-	FnPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBody                              Function = "post-payment-intents-intent-increment-authorization-with-formdata-body"
-	FnPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBody                                 Function = "post-payment-intents-intent-verify-microdeposits-with-formdata-body"
-	FnPostPaymentIntentsIntentWithFormdataBody                                                    Function = "post-payment-intents-intent-with-formdata-body"
-	FnPostPaymentIntentsWithFormdataBody                                                          Function = "post-payment-intents-with-formdata-body"
-	FnPostPaymentLinksPaymentLinkWithFormdataBody                                                 Function = "post-payment-links-payment-link-with-formdata-body"
-	FnPostPaymentLinksWithFormdataBody                                                            Function = "post-payment-links-with-formdata-body"
-	FnPostPaymentMethodConfigurationsConfigurationWithFormdataBody                                Function = "post-payment-method-configurations-configuration-with-formdata-body"
-	FnPostPaymentMethodConfigurationsWithFormdataBody                                             Function = "post-payment-method-configurations-with-formdata-body"
-	FnPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBody                         Function = "post-payment-method-domains-payment-method-domain-validate-with-formdata-body"
-	FnPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBody                                 Function = "post-payment-method-domains-payment-method-domain-with-formdata-body"
-	FnPostPaymentMethodDomainsWithFormdataBody                                                    Function = "post-payment-method-domains-with-formdata-body"
-	FnPostPaymentMethodsPaymentMethodAttachWithFormdataBody                                       Function = "post-payment-methods-payment-method-attach-with-formdata-body"
-	FnPostPaymentMethodsPaymentMethodDetachWithFormdataBody                                       Function = "post-payment-methods-payment-method-detach-with-formdata-body"
-	FnPostPaymentMethodsPaymentMethodWithFormdataBody                                             Function = "post-payment-methods-payment-method-with-formdata-body"
-	FnPostPaymentMethodsWithFormdataBody                                                          Function = "post-payment-methods-with-formdata-body"
-	FnPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBody                            Function = "post-payment-records-id-report-payment-attempt-canceled-with-formdata-body"
-	FnPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBody                              Function = "post-payment-records-id-report-payment-attempt-failed-with-formdata-body"
-	FnPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBody                          Function = "post-payment-records-id-report-payment-attempt-guaranteed-with-formdata-body"
-	FnPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBody                       Function = "post-payment-records-id-report-payment-attempt-informational-with-formdata-body"
-	FnPostPaymentRecordsIdReportPaymentAttemptWithFormdataBody                                    Function = "post-payment-records-id-report-payment-attempt-with-formdata-body"
-	FnPostPaymentRecordsIdReportRefundWithFormdataBody                                            Function = "post-payment-records-id-report-refund-with-formdata-body"
-	FnPostPaymentRecordsReportPaymentWithFormdataBody                                             Function = "post-payment-records-report-payment-with-formdata-body"
-	FnPostPayoutsPayoutCancelWithFormdataBody                                                     Function = "post-payouts-payout-cancel-with-formdata-body"
-	FnPostPayoutsPayoutReverseWithFormdataBody                                                    Function = "post-payouts-payout-reverse-with-formdata-body"
-	FnPostPayoutsPayoutWithFormdataBody                                                           Function = "post-payouts-payout-with-formdata-body"
-	FnPostPayoutsWithFormdataBody                                                                 Function = "post-payouts-with-formdata-body"
-	FnPostPlansPlanWithFormdataBody                                                               Function = "post-plans-plan-with-formdata-body"
-	FnPostPlansWithFormdataBody                                                                   Function = "post-plans-with-formdata-body"
-	FnPostPricesPriceWithFormdataBody                                                             Function = "post-prices-price-with-formdata-body"
-	FnPostPricesWithFormdataBody                                                                  Function = "post-prices-with-formdata-body"
-	FnPostProductCatalogTrialOffersIdWithFormdataBody                                             Function = "post-product-catalog-trial-offers-id-with-formdata-body"
-	FnPostProductCatalogTrialOffersWithFormdataBody                                               Function = "post-product-catalog-trial-offers-with-formdata-body"
-	FnPostProductsIdWithFormdataBody                                                              Function = "post-products-id-with-formdata-body"
-	FnPostProductsProductFeaturesWithFormdataBody                                                 Function = "post-products-product-features-with-formdata-body"
-	FnPostProductsWithFormdataBody                                                                Function = "post-products-with-formdata-body"
-	FnPostPromotionCodesPromotionCodeWithFormdataBody                                             Function = "post-promotion-codes-promotion-code-with-formdata-body"
-	FnPostPromotionCodesWithFormdataBody                                                          Function = "post-promotion-codes-with-formdata-body"
-	FnPostQuotesQuoteAcceptWithFormdataBody                                                       Function = "post-quotes-quote-accept-with-formdata-body"
-	FnPostQuotesQuoteCancelWithFormdataBody                                                       Function = "post-quotes-quote-cancel-with-formdata-body"
-	FnPostQuotesQuoteFinalizeWithFormdataBody                                                     Function = "post-quotes-quote-finalize-with-formdata-body"
-	FnPostQuotesQuoteWithFormdataBody                                                             Function = "post-quotes-quote-with-formdata-body"
-	FnPostQuotesWithFormdataBody                                                                  Function = "post-quotes-with-formdata-body"
-	FnPostRadarPaymentEvaluationsWithFormdataBody                                                 Function = "post-radar-payment-evaluations-with-formdata-body"
-	FnPostRadarValueListItemsWithFormdataBody                                                     Function = "post-radar-value-list-items-with-formdata-body"
-	FnPostRadarValueListsValueListWithFormdataBody                                                Function = "post-radar-value-lists-value-list-with-formdata-body"
-	FnPostRadarValueListsWithFormdataBody                                                         Function = "post-radar-value-lists-with-formdata-body"
-	FnPostRefundsRefundCancelWithFormdataBody                                                     Function = "post-refunds-refund-cancel-with-formdata-body"
-	FnPostRefundsRefundWithFormdataBody                                                           Function = "post-refunds-refund-with-formdata-body"
-	FnPostRefundsWithFormdataBody                                                                 Function = "post-refunds-with-formdata-body"
-	FnPostReportingReportRunsWithFormdataBody                                                     Function = "post-reporting-report-runs-with-formdata-body"
-	FnPostReviewsReviewApproveWithFormdataBody                                                    Function = "post-reviews-review-approve-with-formdata-body"
-	FnPostSetupIntentsIntentCancelWithFormdataBody                                                Function = "post-setup-intents-intent-cancel-with-formdata-body"
-	FnPostSetupIntentsIntentConfirmWithFormdataBody                                               Function = "post-setup-intents-intent-confirm-with-formdata-body"
-	FnPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBody                                   Function = "post-setup-intents-intent-verify-microdeposits-with-formdata-body"
-	FnPostSetupIntentsIntentWithFormdataBody                                                      Function = "post-setup-intents-intent-with-formdata-body"
-	FnPostSetupIntentsWithFormdataBody                                                            Function = "post-setup-intents-with-formdata-body"
-	FnPostShippingRatesShippingRateTokenWithFormdataBody                                          Function = "post-shipping-rates-shipping-rate-token-with-formdata-body"
-	FnPostShippingRatesWithFormdataBody                                                           Function = "post-shipping-rates-with-formdata-body"
-	FnPostSigmaSavedQueriesIdWithFormdataBody                                                     Function = "post-sigma-saved-queries-id-with-formdata-body"
-	FnPostSourcesSourceVerifyWithFormdataBody                                                     Function = "post-sources-source-verify-with-formdata-body"
-	FnPostSourcesSourceWithFormdataBody                                                           Function = "post-sources-source-with-formdata-body"
-	FnPostSourcesWithFormdataBody                                                                 Function = "post-sources-with-formdata-body"
-	FnPostSubscriptionItemsItemWithFormdataBody                                                   Function = "post-subscription-items-item-with-formdata-body"
-	FnPostSubscriptionItemsWithFormdataBody                                                       Function = "post-subscription-items-with-formdata-body"
-	FnPostSubscriptionSchedulesScheduleCancelWithFormdataBody                                     Function = "post-subscription-schedules-schedule-cancel-with-formdata-body"
-	FnPostSubscriptionSchedulesScheduleReleaseWithFormdataBody                                    Function = "post-subscription-schedules-schedule-release-with-formdata-body"
-	FnPostSubscriptionSchedulesScheduleWithFormdataBody                                           Function = "post-subscription-schedules-schedule-with-formdata-body"
-	FnPostSubscriptionSchedulesWithFormdataBody                                                   Function = "post-subscription-schedules-with-formdata-body"
-	FnPostSubscriptionsSubscriptionExposedIdWithFormdataBody                                      Function = "post-subscriptions-subscription-exposed-id-with-formdata-body"
-	FnPostSubscriptionsSubscriptionMigrateWithFormdataBody                                        Function = "post-subscriptions-subscription-migrate-with-formdata-body"
-	FnPostSubscriptionsSubscriptionPauseWithFormdataBody                                          Function = "post-subscriptions-subscription-pause-with-formdata-body"
-	FnPostSubscriptionsSubscriptionResumeWithFormdataBody                                         Function = "post-subscriptions-subscription-resume-with-formdata-body"
-	FnPostSubscriptionsWithFormdataBody                                                           Function = "post-subscriptions-with-formdata-body"
-	FnPostTaxCalculationsWithFormdataBody                                                         Function = "post-tax-calculations-with-formdata-body"
-	FnPostTaxIdsWithFormdataBody                                                                  Function = "post-tax-ids-with-formdata-body"
-	FnPostTaxLocationsWithFormdataBody                                                            Function = "post-tax-locations-with-formdata-body"
-	FnPostTaxRatesTaxRateWithFormdataBody                                                         Function = "post-tax-rates-tax-rate-with-formdata-body"
-	FnPostTaxRatesWithFormdataBody                                                                Function = "post-tax-rates-with-formdata-body"
-	FnPostTaxRegistrationsIdWithFormdataBody                                                      Function = "post-tax-registrations-id-with-formdata-body"
-	FnPostTaxRegistrationsWithFormdataBody                                                        Function = "post-tax-registrations-with-formdata-body"
-	FnPostTaxSettingsWithFormdataBody                                                             Function = "post-tax-settings-with-formdata-body"
-	FnPostTaxTransactionsCreateFromCalculationWithFormdataBody                                    Function = "post-tax-transactions-create-from-calculation-with-formdata-body"
-	FnPostTaxTransactionsCreateReversalWithFormdataBody                                           Function = "post-tax-transactions-create-reversal-with-formdata-body"
-	FnPostTerminalConfigurationsConfigurationWithFormdataBody                                     Function = "post-terminal-configurations-configuration-with-formdata-body"
-	FnPostTerminalConfigurationsWithFormdataBody                                                  Function = "post-terminal-configurations-with-formdata-body"
-	FnPostTerminalConnectionTokensWithFormdataBody                                                Function = "post-terminal-connection-tokens-with-formdata-body"
-	FnPostTerminalLocationsLocationWithFormdataBody                                               Function = "post-terminal-locations-location-with-formdata-body"
-	FnPostTerminalLocationsWithFormdataBody                                                       Function = "post-terminal-locations-with-formdata-body"
-	FnPostTerminalOnboardingLinksWithFormdataBody                                                 Function = "post-terminal-onboarding-links-with-formdata-body"
-	FnPostTerminalReadersReaderCancelActionWithFormdataBody                                       Function = "post-terminal-readers-reader-cancel-action-with-formdata-body"
-	FnPostTerminalReadersReaderCollectInputsWithFormdataBody                                      Function = "post-terminal-readers-reader-collect-inputs-with-formdata-body"
-	FnPostTerminalReadersReaderCollectPaymentMethodWithFormdataBody                               Function = "post-terminal-readers-reader-collect-payment-method-with-formdata-body"
-	FnPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBody                               Function = "post-terminal-readers-reader-confirm-payment-intent-with-formdata-body"
-	FnPostTerminalReadersReaderProcessPaymentIntentWithFormdataBody                               Function = "post-terminal-readers-reader-process-payment-intent-with-formdata-body"
-	FnPostTerminalReadersReaderProcessSetupIntentWithFormdataBody                                 Function = "post-terminal-readers-reader-process-setup-intent-with-formdata-body"
-	FnPostTerminalReadersReaderRefundPaymentWithFormdataBody                                      Function = "post-terminal-readers-reader-refund-payment-with-formdata-body"
-	FnPostTerminalReadersReaderSetReaderDisplayWithFormdataBody                                   Function = "post-terminal-readers-reader-set-reader-display-with-formdata-body"
-	FnPostTerminalReadersReaderWithFormdataBody                                                   Function = "post-terminal-readers-reader-with-formdata-body"
-	FnPostTerminalReadersWithFormdataBody                                                         Function = "post-terminal-readers-with-formdata-body"
-	FnPostTerminalRefundsWithFormdataBody                                                         Function = "post-terminal-refunds-with-formdata-body"
-	FnPostTestHelpersConfirmationTokensWithFormdataBody                                           Function = "post-test-helpers-confirmation-tokens-with-formdata-body"
-	FnPostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBody                             Function = "post-test-helpers-customers-customer-fund-cash-balance-with-formdata-body"
-	FnPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBody                    Function = "post-test-helpers-issuing-authorizations-authorization-capture-with-formdata-body"
-	FnPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBody                     Function = "post-test-helpers-issuing-authorizations-authorization-expire-with-formdata-body"
-	FnPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBody             Function = "post-test-helpers-issuing-authorizations-authorization-finalize-amount-with-formdata-body"
-	FnPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBody     Function = "post-test-helpers-issuing-authorizations-authorization-fraud-challenges-respond-with-formdata-body"
-	FnPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBody                  Function = "post-test-helpers-issuing-authorizations-authorization-increment-with-formdata-body"
-	FnPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBody                    Function = "post-test-helpers-issuing-authorizations-authorization-reverse-with-formdata-body"
-	FnPostTestHelpersIssuingAuthorizationsWithFormdataBody                                        Function = "post-test-helpers-issuing-authorizations-with-formdata-body"
-	FnPostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBody                              Function = "post-test-helpers-issuing-cards-card-shipping-deliver-with-formdata-body"
-	FnPostTestHelpersIssuingCardsCardShippingFailWithFormdataBody                                 Function = "post-test-helpers-issuing-cards-card-shipping-fail-with-formdata-body"
-	FnPostTestHelpersIssuingCardsCardShippingReturnWithFormdataBody                               Function = "post-test-helpers-issuing-cards-card-shipping-return-with-formdata-body"
-	FnPostTestHelpersIssuingCardsCardShippingShipWithFormdataBody                                 Function = "post-test-helpers-issuing-cards-card-shipping-ship-with-formdata-body"
-	FnPostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBody                               Function = "post-test-helpers-issuing-cards-card-shipping-submit-with-formdata-body"
-	FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBody   Function = "post-test-helpers-issuing-personalization-designs-personalization-design-activate-with-formdata-body"
-	FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBody Function = "post-test-helpers-issuing-personalization-designs-personalization-design-deactivate-with-formdata-body"
-	FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBody     Function = "post-test-helpers-issuing-personalization-designs-personalization-design-reject-with-formdata-body"
-	FnPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBody                         Function = "post-test-helpers-issuing-settlements-settlement-complete-with-formdata-body"
-	FnPostTestHelpersIssuingSettlementsWithFormdataBody                                           Function = "post-test-helpers-issuing-settlements-with-formdata-body"
-	FnPostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBody                        Function = "post-test-helpers-issuing-transactions-create-force-capture-with-formdata-body"
-	FnPostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBody                      Function = "post-test-helpers-issuing-transactions-create-unlinked-refund-with-formdata-body"
-	FnPostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBody                         Function = "post-test-helpers-issuing-transactions-transaction-refund-with-formdata-body"
-	FnPostTestHelpersRefundsRefundExpireWithFormdataBody                                          Function = "post-test-helpers-refunds-refund-expire-with-formdata-body"
-	FnPostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBody                    Function = "post-test-helpers-terminal-readers-reader-present-payment-method-with-formdata-body"
-	FnPostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBody                  Function = "post-test-helpers-terminal-readers-reader-succeed-input-collection-with-formdata-body"
-	FnPostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBody                  Function = "post-test-helpers-terminal-readers-reader-timeout-input-collection-with-formdata-body"
-	FnPostTestHelpersTestClocksTestClockAdvanceWithFormdataBody                                   Function = "post-test-helpers-test-clocks-test-clock-advance-with-formdata-body"
-	FnPostTestHelpersTestClocksWithFormdataBody                                                   Function = "post-test-helpers-test-clocks-with-formdata-body"
-	FnPostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBody                               Function = "post-test-helpers-treasury-inbound-transfers-id-fail-with-formdata-body"
-	FnPostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBody                             Function = "post-test-helpers-treasury-inbound-transfers-id-return-with-formdata-body"
-	FnPostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBody                            Function = "post-test-helpers-treasury-inbound-transfers-id-succeed-with-formdata-body"
-	FnPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBody                               Function = "post-test-helpers-treasury-outbound-payments-id-fail-with-formdata-body"
-	FnPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBody                               Function = "post-test-helpers-treasury-outbound-payments-id-post-with-formdata-body"
-	FnPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBody                             Function = "post-test-helpers-treasury-outbound-payments-id-return-with-formdata-body"
-	FnPostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBody                                   Function = "post-test-helpers-treasury-outbound-payments-id-with-formdata-body"
-	FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBody                Function = "post-test-helpers-treasury-outbound-transfers-outbound-transfer-fail-with-formdata-body"
-	FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBody                Function = "post-test-helpers-treasury-outbound-transfers-outbound-transfer-post-with-formdata-body"
-	FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBody              Function = "post-test-helpers-treasury-outbound-transfers-outbound-transfer-return-with-formdata-body"
-	FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBody                    Function = "post-test-helpers-treasury-outbound-transfers-outbound-transfer-with-formdata-body"
-	FnPostTestHelpersTreasuryReceivedCreditsWithFormdataBody                                      Function = "post-test-helpers-treasury-received-credits-with-formdata-body"
-	FnPostTestHelpersTreasuryReceivedDebitsWithFormdataBody                                       Function = "post-test-helpers-treasury-received-debits-with-formdata-body"
-	FnPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBody                         Function = "post-three-d-secure-authentications-authentication-cancel-with-formdata-body"
-	FnPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBody                         Function = "post-three-d-secure-authentications-authentication-submit-with-formdata-body"
-	FnPostThreeDSecureAuthenticationsWithFormdataBody                                             Function = "post-three-d-secure-authentications-with-formdata-body"
-	FnPostTokensWithFormdataBody                                                                  Function = "post-tokens-with-formdata-body"
-	FnPostTopupsTopupCancelWithFormdataBody                                                       Function = "post-topups-topup-cancel-with-formdata-body"
-	FnPostTopupsTopupWithFormdataBody                                                             Function = "post-topups-topup-with-formdata-body"
-	FnPostTopupsWithFormdataBody                                                                  Function = "post-topups-with-formdata-body"
-	FnPostTransfersIdReversalsWithFormdataBody                                                    Function = "post-transfers-id-reversals-with-formdata-body"
-	FnPostTransfersTransferReversalsIdWithFormdataBody                                            Function = "post-transfers-transfer-reversals-id-with-formdata-body"
-	FnPostTransfersTransferWithFormdataBody                                                       Function = "post-transfers-transfer-with-formdata-body"
-	FnPostTransfersWithFormdataBody                                                               Function = "post-transfers-with-formdata-body"
-	FnPostTreasuryCreditReversalsWithFormdataBody                                                 Function = "post-treasury-credit-reversals-with-formdata-body"
-	FnPostTreasuryDebitReversalsWithFormdataBody                                                  Function = "post-treasury-debit-reversals-with-formdata-body"
-	FnPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBody                          Function = "post-treasury-financial-accounts-financial-account-close-with-formdata-body"
-	FnPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody                       Function = "post-treasury-financial-accounts-financial-account-features-with-formdata-body"
-	FnPostTreasuryFinancialAccountsFinancialAccountWithFormdataBody                               Function = "post-treasury-financial-accounts-financial-account-with-formdata-body"
-	FnPostTreasuryFinancialAccountsWithFormdataBody                                               Function = "post-treasury-financial-accounts-with-formdata-body"
-	FnPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBody                           Function = "post-treasury-inbound-transfers-inbound-transfer-cancel-with-formdata-body"
-	FnPostTreasuryInboundTransfersWithFormdataBody                                                Function = "post-treasury-inbound-transfers-with-formdata-body"
-	FnPostTreasuryOutboundPaymentsIdCancelWithFormdataBody                                        Function = "post-treasury-outbound-payments-id-cancel-with-formdata-body"
-	FnPostTreasuryOutboundPaymentsWithFormdataBody                                                Function = "post-treasury-outbound-payments-with-formdata-body"
-	FnPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBody                         Function = "post-treasury-outbound-transfers-outbound-transfer-cancel-with-formdata-body"
-	FnPostTreasuryOutboundTransfersWithFormdataBody                                               Function = "post-treasury-outbound-transfers-with-formdata-body"
-	FnPostWebhookEndpointsWebhookEndpointWithFormdataBody                                         Function = "post-webhook-endpoints-webhook-endpoint-with-formdata-body"
-	FnPostWebhookEndpointsWithFormdataBody                                                        Function = "post-webhook-endpoints-with-formdata-body"
+	FnDeleteAccountsAccount                                                       Function = "delete-accounts-account"
+	FnDeleteAccountsAccountBankAccountsId                                         Function = "delete-accounts-account-bank-accounts-id"
+	FnDeleteAccountsAccountExternalAccountsId                                     Function = "delete-accounts-account-external-accounts-id"
+	FnDeleteAccountsAccountPeoplePerson                                           Function = "delete-accounts-account-people-person"
+	FnDeleteAccountsAccountPersonsPerson                                          Function = "delete-accounts-account-persons-person"
+	FnDeleteApplePayDomainsDomain                                                 Function = "delete-apple-pay-domains-domain"
+	FnDeleteCouponsCoupon                                                         Function = "delete-coupons-coupon"
+	FnDeleteCustomersCustomer                                                     Function = "delete-customers-customer"
+	FnDeleteCustomersCustomerBankAccountsId                                       Function = "delete-customers-customer-bank-accounts-id"
+	FnDeleteCustomersCustomerCardsId                                              Function = "delete-customers-customer-cards-id"
+	FnDeleteCustomersCustomerDiscount                                             Function = "delete-customers-customer-discount"
+	FnDeleteCustomersCustomerSourcesId                                            Function = "delete-customers-customer-sources-id"
+	FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedId                   Function = "delete-customers-customer-subscriptions-subscription-exposed-id"
+	FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount           Function = "delete-customers-customer-subscriptions-subscription-exposed-id-discount"
+	FnDeleteCustomersCustomerTaxIdsId                                             Function = "delete-customers-customer-tax-ids-id"
+	FnDeleteEphemeralKeysKey                                                      Function = "delete-ephemeral-keys-key"
+	FnDeleteInvoiceitemsInvoiceitem                                               Function = "delete-invoiceitems-invoiceitem"
+	FnDeleteInvoicesInvoice                                                       Function = "delete-invoices-invoice"
+	FnDeletePlansPlan                                                             Function = "delete-plans-plan"
+	FnDeleteProductsId                                                            Function = "delete-products-id"
+	FnDeleteProductsProductFeaturesId                                             Function = "delete-products-product-features-id"
+	FnDeleteRadarValueListItemsItem                                               Function = "delete-radar-value-list-items-item"
+	FnDeleteRadarValueListsValueList                                              Function = "delete-radar-value-lists-value-list"
+	FnDeleteSubscriptionItemsItem                                                 Function = "delete-subscription-items-item"
+	FnDeleteSubscriptionsSubscriptionExposedId                                    Function = "delete-subscriptions-subscription-exposed-id"
+	FnDeleteSubscriptionsSubscriptionExposedIdDiscount                            Function = "delete-subscriptions-subscription-exposed-id-discount"
+	FnDeleteTaxIdsId                                                              Function = "delete-tax-ids-id"
+	FnDeleteTerminalConfigurationsConfiguration                                   Function = "delete-terminal-configurations-configuration"
+	FnDeleteTerminalLocationsLocation                                             Function = "delete-terminal-locations-location"
+	FnDeleteTerminalReadersReader                                                 Function = "delete-terminal-readers-reader"
+	FnDeleteTestHelpersTestClocksTestClock                                        Function = "delete-test-helpers-test-clocks-test-clock"
+	FnDeleteWebhookEndpointsWebhookEndpoint                                       Function = "delete-webhook-endpoints-webhook-endpoint"
+	FnGetAccount                                                                  Function = "get-account"
+	FnGetAccounts                                                                 Function = "get-accounts"
+	FnGetAccountsAccount                                                          Function = "get-accounts-account"
+	FnGetAccountsAccountBankAccountsId                                            Function = "get-accounts-account-bank-accounts-id"
+	FnGetAccountsAccountCapabilities                                              Function = "get-accounts-account-capabilities"
+	FnGetAccountsAccountCapabilitiesCapability                                    Function = "get-accounts-account-capabilities-capability"
+	FnGetAccountsAccountExternalAccounts                                          Function = "get-accounts-account-external-accounts"
+	FnGetAccountsAccountExternalAccountsId                                        Function = "get-accounts-account-external-accounts-id"
+	FnGetAccountsAccountPeople                                                    Function = "get-accounts-account-people"
+	FnGetAccountsAccountPeoplePerson                                              Function = "get-accounts-account-people-person"
+	FnGetAccountsAccountPersons                                                   Function = "get-accounts-account-persons"
+	FnGetAccountsAccountPersonsPerson                                             Function = "get-accounts-account-persons-person"
+	FnGetApplePayDomains                                                          Function = "get-apple-pay-domains"
+	FnGetApplePayDomainsDomain                                                    Function = "get-apple-pay-domains-domain"
+	FnGetApplicationFees                                                          Function = "get-application-fees"
+	FnGetApplicationFeesFeeRefundsId                                              Function = "get-application-fees-fee-refunds-id"
+	FnGetApplicationFeesId                                                        Function = "get-application-fees-id"
+	FnGetApplicationFeesIdRefunds                                                 Function = "get-application-fees-id-refunds"
+	FnGetAppsInstalls                                                             Function = "get-apps-installs"
+	FnGetAppsInstallsId                                                           Function = "get-apps-installs-id"
+	FnGetAppsSecrets                                                              Function = "get-apps-secrets"
+	FnGetAppsSecretsFind                                                          Function = "get-apps-secrets-find"
+	FnGetBalance                                                                  Function = "get-balance"
+	FnGetBalanceHistory                                                           Function = "get-balance-history"
+	FnGetBalanceHistoryId                                                         Function = "get-balance-history-id"
+	FnGetBalanceSettings                                                          Function = "get-balance-settings"
+	FnGetBalanceTransactions                                                      Function = "get-balance-transactions"
+	FnGetBalanceTransactionsId                                                    Function = "get-balance-transactions-id"
+	FnGetBillingAlerts                                                            Function = "get-billing-alerts"
+	FnGetBillingAlertsId                                                          Function = "get-billing-alerts-id"
+	FnGetBillingCreditBalanceSummary                                              Function = "get-billing-credit-balance-summary"
+	FnGetBillingCreditBalanceTransactions                                         Function = "get-billing-credit-balance-transactions"
+	FnGetBillingCreditBalanceTransactionsId                                       Function = "get-billing-credit-balance-transactions-id"
+	FnGetBillingCreditGrants                                                      Function = "get-billing-credit-grants"
+	FnGetBillingCreditGrantsId                                                    Function = "get-billing-credit-grants-id"
+	FnGetBillingFeedbackOptions                                                   Function = "get-billing-feedback-options"
+	FnGetBillingFeedbackOptionsId                                                 Function = "get-billing-feedback-options-id"
+	FnGetBillingMeters                                                            Function = "get-billing-meters"
+	FnGetBillingMetersId                                                          Function = "get-billing-meters-id"
+	FnGetBillingMetersIdEventSummaries                                            Function = "get-billing-meters-id-event-summaries"
+	FnGetBillingPortalConfigurations                                              Function = "get-billing-portal-configurations"
+	FnGetBillingPortalConfigurationsConfiguration                                 Function = "get-billing-portal-configurations-configuration"
+	FnGetCharges                                                                  Function = "get-charges"
+	FnGetChargesCharge                                                            Function = "get-charges-charge"
+	FnGetChargesChargeDispute                                                     Function = "get-charges-charge-dispute"
+	FnGetChargesChargeRefunds                                                     Function = "get-charges-charge-refunds"
+	FnGetChargesChargeRefundsRefund                                               Function = "get-charges-charge-refunds-refund"
+	FnGetChargesSearch                                                            Function = "get-charges-search"
+	FnGetCheckoutSessions                                                         Function = "get-checkout-sessions"
+	FnGetCheckoutSessionsSession                                                  Function = "get-checkout-sessions-session"
+	FnGetCheckoutSessionsSessionLineItems                                         Function = "get-checkout-sessions-session-line-items"
+	FnGetClimateOrders                                                            Function = "get-climate-orders"
+	FnGetClimateOrdersOrder                                                       Function = "get-climate-orders-order"
+	FnGetClimateProducts                                                          Function = "get-climate-products"
+	FnGetClimateProductsProduct                                                   Function = "get-climate-products-product"
+	FnGetClimateSuppliers                                                         Function = "get-climate-suppliers"
+	FnGetClimateSuppliersSupplier                                                 Function = "get-climate-suppliers-supplier"
+	FnGetConfirmationTokensConfirmationToken                                      Function = "get-confirmation-tokens-confirmation-token"
+	FnGetCountrySpecs                                                             Function = "get-country-specs"
+	FnGetCountrySpecsCountry                                                      Function = "get-country-specs-country"
+	FnGetCoupons                                                                  Function = "get-coupons"
+	FnGetCouponsCoupon                                                            Function = "get-coupons-coupon"
+	FnGetCreditNotes                                                              Function = "get-credit-notes"
+	FnGetCreditNotesCreditNoteLines                                               Function = "get-credit-notes-credit-note-lines"
+	FnGetCreditNotesId                                                            Function = "get-credit-notes-id"
+	FnGetCreditNotesPreview                                                       Function = "get-credit-notes-preview"
+	FnGetCreditNotesPreviewLines                                                  Function = "get-credit-notes-preview-lines"
+	FnGetCustomers                                                                Function = "get-customers"
+	FnGetCustomersCustomer                                                        Function = "get-customers-customer"
+	FnGetCustomersCustomerBalanceTransactions                                     Function = "get-customers-customer-balance-transactions"
+	FnGetCustomersCustomerBalanceTransactionsTransaction                          Function = "get-customers-customer-balance-transactions-transaction"
+	FnGetCustomersCustomerBankAccounts                                            Function = "get-customers-customer-bank-accounts"
+	FnGetCustomersCustomerBankAccountsId                                          Function = "get-customers-customer-bank-accounts-id"
+	FnGetCustomersCustomerCards                                                   Function = "get-customers-customer-cards"
+	FnGetCustomersCustomerCardsId                                                 Function = "get-customers-customer-cards-id"
+	FnGetCustomersCustomerCashBalance                                             Function = "get-customers-customer-cash-balance"
+	FnGetCustomersCustomerCashBalanceTransactions                                 Function = "get-customers-customer-cash-balance-transactions"
+	FnGetCustomersCustomerCashBalanceTransactionsTransaction                      Function = "get-customers-customer-cash-balance-transactions-transaction"
+	FnGetCustomersCustomerDiscount                                                Function = "get-customers-customer-discount"
+	FnGetCustomersCustomerPaymentMethods                                          Function = "get-customers-customer-payment-methods"
+	FnGetCustomersCustomerPaymentMethodsPaymentMethod                             Function = "get-customers-customer-payment-methods-payment-method"
+	FnGetCustomersCustomerSources                                                 Function = "get-customers-customer-sources"
+	FnGetCustomersCustomerSourcesId                                               Function = "get-customers-customer-sources-id"
+	FnGetCustomersCustomerSubscriptions                                           Function = "get-customers-customer-subscriptions"
+	FnGetCustomersCustomerSubscriptionsSubscriptionExposedId                      Function = "get-customers-customer-subscriptions-subscription-exposed-id"
+	FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount              Function = "get-customers-customer-subscriptions-subscription-exposed-id-discount"
+	FnGetCustomersCustomerTaxIds                                                  Function = "get-customers-customer-tax-ids"
+	FnGetCustomersCustomerTaxIdsId                                                Function = "get-customers-customer-tax-ids-id"
+	FnGetCustomersSearch                                                          Function = "get-customers-search"
+	FnGetDisputes                                                                 Function = "get-disputes"
+	FnGetDisputesDispute                                                          Function = "get-disputes-dispute"
+	FnGetEntitlementsActiveEntitlements                                           Function = "get-entitlements-active-entitlements"
+	FnGetEntitlementsActiveEntitlementsId                                         Function = "get-entitlements-active-entitlements-id"
+	FnGetEntitlementsFeatures                                                     Function = "get-entitlements-features"
+	FnGetEntitlementsFeaturesId                                                   Function = "get-entitlements-features-id"
+	FnGetEvents                                                                   Function = "get-events"
+	FnGetEventsId                                                                 Function = "get-events-id"
+	FnGetExchangeRates                                                            Function = "get-exchange-rates"
+	FnGetExchangeRatesRateId                                                      Function = "get-exchange-rates-rate-id"
+	FnGetFileLinks                                                                Function = "get-file-links"
+	FnGetFileLinksLink                                                            Function = "get-file-links-link"
+	FnGetFiles                                                                    Function = "get-files"
+	FnGetFilesFile                                                                Function = "get-files-file"
+	FnGetFinancialConnectionsAccounts                                             Function = "get-financial-connections-accounts"
+	FnGetFinancialConnectionsAccountsAccount                                      Function = "get-financial-connections-accounts-account"
+	FnGetFinancialConnectionsAccountsAccountOwners                                Function = "get-financial-connections-accounts-account-owners"
+	FnGetFinancialConnectionsSessionsSession                                      Function = "get-financial-connections-sessions-session"
+	FnGetFinancialConnectionsTransactions                                         Function = "get-financial-connections-transactions"
+	FnGetFinancialConnectionsTransactionsTransaction                              Function = "get-financial-connections-transactions-transaction"
+	FnGetForwardingRequests                                                       Function = "get-forwarding-requests"
+	FnGetForwardingRequestsId                                                     Function = "get-forwarding-requests-id"
+	FnGetIdentityVerificationReports                                              Function = "get-identity-verification-reports"
+	FnGetIdentityVerificationReportsReport                                        Function = "get-identity-verification-reports-report"
+	FnGetIdentityVerificationSessions                                             Function = "get-identity-verification-sessions"
+	FnGetIdentityVerificationSessionsSession                                      Function = "get-identity-verification-sessions-session"
+	FnGetInvoicePayments                                                          Function = "get-invoice-payments"
+	FnGetInvoicePaymentsInvoicePayment                                            Function = "get-invoice-payments-invoice-payment"
+	FnGetInvoiceRenderingTemplates                                                Function = "get-invoice-rendering-templates"
+	FnGetInvoiceRenderingTemplatesTemplate                                        Function = "get-invoice-rendering-templates-template"
+	FnGetInvoiceitems                                                             Function = "get-invoiceitems"
+	FnGetInvoiceitemsInvoiceitem                                                  Function = "get-invoiceitems-invoiceitem"
+	FnGetInvoices                                                                 Function = "get-invoices"
+	FnGetInvoicesInvoice                                                          Function = "get-invoices-invoice"
+	FnGetInvoicesInvoiceLines                                                     Function = "get-invoices-invoice-lines"
+	FnGetInvoicesSearch                                                           Function = "get-invoices-search"
+	FnGetIssuingAuthorizations                                                    Function = "get-issuing-authorizations"
+	FnGetIssuingAuthorizationsAuthorization                                       Function = "get-issuing-authorizations-authorization"
+	FnGetIssuingCardholders                                                       Function = "get-issuing-cardholders"
+	FnGetIssuingCardholdersCardholder                                             Function = "get-issuing-cardholders-cardholder"
+	FnGetIssuingCards                                                             Function = "get-issuing-cards"
+	FnGetIssuingCardsCard                                                         Function = "get-issuing-cards-card"
+	FnGetIssuingDisputes                                                          Function = "get-issuing-disputes"
+	FnGetIssuingDisputesDispute                                                   Function = "get-issuing-disputes-dispute"
+	FnGetIssuingPersonalizationDesigns                                            Function = "get-issuing-personalization-designs"
+	FnGetIssuingPersonalizationDesignsPersonalizationDesign                       Function = "get-issuing-personalization-designs-personalization-design"
+	FnGetIssuingPhysicalBundles                                                   Function = "get-issuing-physical-bundles"
+	FnGetIssuingPhysicalBundlesPhysicalBundle                                     Function = "get-issuing-physical-bundles-physical-bundle"
+	FnGetIssuingSettlementsSettlement                                             Function = "get-issuing-settlements-settlement"
+	FnGetIssuingTokens                                                            Function = "get-issuing-tokens"
+	FnGetIssuingTokensToken                                                       Function = "get-issuing-tokens-token"
+	FnGetIssuingTransactions                                                      Function = "get-issuing-transactions"
+	FnGetIssuingTransactionsTransaction                                           Function = "get-issuing-transactions-transaction"
+	FnGetLinkAccountSessionsSession                                               Function = "get-link-account-sessions-session"
+	FnGetLinkedAccounts                                                           Function = "get-linked-accounts"
+	FnGetLinkedAccountsAccount                                                    Function = "get-linked-accounts-account"
+	FnGetLinkedAccountsAccountOwners                                              Function = "get-linked-accounts-account-owners"
+	FnGetMandatesMandate                                                          Function = "get-mandates-mandate"
+	FnGetPaymentAttemptRecords                                                    Function = "get-payment-attempt-records"
+	FnGetPaymentAttemptRecordsId                                                  Function = "get-payment-attempt-records-id"
+	FnGetPaymentIntents                                                           Function = "get-payment-intents"
+	FnGetPaymentIntentsIntent                                                     Function = "get-payment-intents-intent"
+	FnGetPaymentIntentsIntentAmountDetailsLineItems                               Function = "get-payment-intents-intent-amount-details-line-items"
+	FnGetPaymentIntentsSearch                                                     Function = "get-payment-intents-search"
+	FnGetPaymentLinks                                                             Function = "get-payment-links"
+	FnGetPaymentLinksPaymentLink                                                  Function = "get-payment-links-payment-link"
+	FnGetPaymentLinksPaymentLinkLineItems                                         Function = "get-payment-links-payment-link-line-items"
+	FnGetPaymentMethodConfigurations                                              Function = "get-payment-method-configurations"
+	FnGetPaymentMethodConfigurationsConfiguration                                 Function = "get-payment-method-configurations-configuration"
+	FnGetPaymentMethodDomains                                                     Function = "get-payment-method-domains"
+	FnGetPaymentMethodDomainsPaymentMethodDomain                                  Function = "get-payment-method-domains-payment-method-domain"
+	FnGetPaymentMethods                                                           Function = "get-payment-methods"
+	FnGetPaymentMethodsPaymentMethod                                              Function = "get-payment-methods-payment-method"
+	FnGetPaymentRecords                                                           Function = "get-payment-records"
+	FnGetPaymentRecordsId                                                         Function = "get-payment-records-id"
+	FnGetPayouts                                                                  Function = "get-payouts"
+	FnGetPayoutsPayout                                                            Function = "get-payouts-payout"
+	FnGetPlans                                                                    Function = "get-plans"
+	FnGetPlansPlan                                                                Function = "get-plans-plan"
+	FnGetPrices                                                                   Function = "get-prices"
+	FnGetPricesPrice                                                              Function = "get-prices-price"
+	FnGetPricesSearch                                                             Function = "get-prices-search"
+	FnGetProductCatalogTrialOffers                                                Function = "get-product-catalog-trial-offers"
+	FnGetProductCatalogTrialOffersId                                              Function = "get-product-catalog-trial-offers-id"
+	FnGetProducts                                                                 Function = "get-products"
+	FnGetProductsId                                                               Function = "get-products-id"
+	FnGetProductsProductFeatures                                                  Function = "get-products-product-features"
+	FnGetProductsProductFeaturesId                                                Function = "get-products-product-features-id"
+	FnGetProductsSearch                                                           Function = "get-products-search"
+	FnGetPromotionCodes                                                           Function = "get-promotion-codes"
+	FnGetPromotionCodesPromotionCode                                              Function = "get-promotion-codes-promotion-code"
+	FnGetQuotes                                                                   Function = "get-quotes"
+	FnGetQuotesQuote                                                              Function = "get-quotes-quote"
+	FnGetQuotesQuoteComputedUpfrontLineItems                                      Function = "get-quotes-quote-computed-upfront-line-items"
+	FnGetQuotesQuoteLineItems                                                     Function = "get-quotes-quote-line-items"
+	FnGetQuotesQuotePdf                                                           Function = "get-quotes-quote-pdf"
+	FnGetRadarEarlyFraudWarnings                                                  Function = "get-radar-early-fraud-warnings"
+	FnGetRadarEarlyFraudWarningsEarlyFraudWarning                                 Function = "get-radar-early-fraud-warnings-early-fraud-warning"
+	FnGetRadarValueListItems                                                      Function = "get-radar-value-list-items"
+	FnGetRadarValueListItemsItem                                                  Function = "get-radar-value-list-items-item"
+	FnGetRadarValueLists                                                          Function = "get-radar-value-lists"
+	FnGetRadarValueListsValueList                                                 Function = "get-radar-value-lists-value-list"
+	FnGetRefunds                                                                  Function = "get-refunds"
+	FnGetRefundsRefund                                                            Function = "get-refunds-refund"
+	FnGetReportingReportRuns                                                      Function = "get-reporting-report-runs"
+	FnGetReportingReportRunsReportRun                                             Function = "get-reporting-report-runs-report-run"
+	FnGetReportingReportTypes                                                     Function = "get-reporting-report-types"
+	FnGetReportingReportTypesReportType                                           Function = "get-reporting-report-types-report-type"
+	FnGetReviews                                                                  Function = "get-reviews"
+	FnGetReviewsReview                                                            Function = "get-reviews-review"
+	FnGetSetupAttempts                                                            Function = "get-setup-attempts"
+	FnGetSetupIntents                                                             Function = "get-setup-intents"
+	FnGetSetupIntentsIntent                                                       Function = "get-setup-intents-intent"
+	FnGetShippingRates                                                            Function = "get-shipping-rates"
+	FnGetShippingRatesShippingRateToken                                           Function = "get-shipping-rates-shipping-rate-token"
+	FnGetSigmaScheduledQueryRuns                                                  Function = "get-sigma-scheduled-query-runs"
+	FnGetSigmaScheduledQueryRunsScheduledQueryRun                                 Function = "get-sigma-scheduled-query-runs-scheduled-query-run"
+	FnGetSourcesSource                                                            Function = "get-sources-source"
+	FnGetSourcesSourceMandateNotificationsMandateNotification                     Function = "get-sources-source-mandate-notifications-mandate-notification"
+	FnGetSourcesSourceSourceTransactions                                          Function = "get-sources-source-source-transactions"
+	FnGetSourcesSourceSourceTransactionsSourceTransaction                         Function = "get-sources-source-source-transactions-source-transaction"
+	FnGetSubscriptionItems                                                        Function = "get-subscription-items"
+	FnGetSubscriptionItemsItem                                                    Function = "get-subscription-items-item"
+	FnGetSubscriptionSchedules                                                    Function = "get-subscription-schedules"
+	FnGetSubscriptionSchedulesSchedule                                            Function = "get-subscription-schedules-schedule"
+	FnGetSubscriptions                                                            Function = "get-subscriptions"
+	FnGetSubscriptionsSearch                                                      Function = "get-subscriptions-search"
+	FnGetSubscriptionsSubscriptionExposedId                                       Function = "get-subscriptions-subscription-exposed-id"
+	FnGetTaxAssociationsFind                                                      Function = "get-tax-associations-find"
+	FnGetTaxCalculationsCalculation                                               Function = "get-tax-calculations-calculation"
+	FnGetTaxCalculationsCalculationLineItems                                      Function = "get-tax-calculations-calculation-line-items"
+	FnGetTaxCodes                                                                 Function = "get-tax-codes"
+	FnGetTaxCodesId                                                               Function = "get-tax-codes-id"
+	FnGetTaxIds                                                                   Function = "get-tax-ids"
+	FnGetTaxIdsId                                                                 Function = "get-tax-ids-id"
+	FnGetTaxLocations                                                             Function = "get-tax-locations"
+	FnGetTaxLocationsLocation                                                     Function = "get-tax-locations-location"
+	FnGetTaxRates                                                                 Function = "get-tax-rates"
+	FnGetTaxRatesTaxRate                                                          Function = "get-tax-rates-tax-rate"
+	FnGetTaxRegistrations                                                         Function = "get-tax-registrations"
+	FnGetTaxRegistrationsId                                                       Function = "get-tax-registrations-id"
+	FnGetTaxSettings                                                              Function = "get-tax-settings"
+	FnGetTaxTransactionsTransaction                                               Function = "get-tax-transactions-transaction"
+	FnGetTaxTransactionsTransactionLineItems                                      Function = "get-tax-transactions-transaction-line-items"
+	FnGetTerminalConfigurations                                                   Function = "get-terminal-configurations"
+	FnGetTerminalConfigurationsConfiguration                                      Function = "get-terminal-configurations-configuration"
+	FnGetTerminalLocations                                                        Function = "get-terminal-locations"
+	FnGetTerminalLocationsLocation                                                Function = "get-terminal-locations-location"
+	FnGetTerminalReaders                                                          Function = "get-terminal-readers"
+	FnGetTerminalReadersReader                                                    Function = "get-terminal-readers-reader"
+	FnGetTestHelpersTestClocks                                                    Function = "get-test-helpers-test-clocks"
+	FnGetTestHelpersTestClocksTestClock                                           Function = "get-test-helpers-test-clocks-test-clock"
+	FnGetThreeDSecureAuthentications                                              Function = "get-three-d-secure-authentications"
+	FnGetThreeDSecureAuthenticationsAuthentication                                Function = "get-three-d-secure-authentications-authentication"
+	FnGetTokensToken                                                              Function = "get-tokens-token"
+	FnGetTopups                                                                   Function = "get-topups"
+	FnGetTopupsTopup                                                              Function = "get-topups-topup"
+	FnGetTransfers                                                                Function = "get-transfers"
+	FnGetTransfersIdReversals                                                     Function = "get-transfers-id-reversals"
+	FnGetTransfersTransfer                                                        Function = "get-transfers-transfer"
+	FnGetTransfersTransferReversalsId                                             Function = "get-transfers-transfer-reversals-id"
+	FnGetTreasuryCreditReversals                                                  Function = "get-treasury-credit-reversals"
+	FnGetTreasuryCreditReversalsCreditReversal                                    Function = "get-treasury-credit-reversals-credit-reversal"
+	FnGetTreasuryDebitReversals                                                   Function = "get-treasury-debit-reversals"
+	FnGetTreasuryDebitReversalsDebitReversal                                      Function = "get-treasury-debit-reversals-debit-reversal"
+	FnGetTreasuryFinancialAccounts                                                Function = "get-treasury-financial-accounts"
+	FnGetTreasuryFinancialAccountsFinancialAccount                                Function = "get-treasury-financial-accounts-financial-account"
+	FnGetTreasuryFinancialAccountsFinancialAccountFeatures                        Function = "get-treasury-financial-accounts-financial-account-features"
+	FnGetTreasuryInboundTransfers                                                 Function = "get-treasury-inbound-transfers"
+	FnGetTreasuryInboundTransfersId                                               Function = "get-treasury-inbound-transfers-id"
+	FnGetTreasuryOutboundPayments                                                 Function = "get-treasury-outbound-payments"
+	FnGetTreasuryOutboundPaymentsId                                               Function = "get-treasury-outbound-payments-id"
+	FnGetTreasuryOutboundTransfers                                                Function = "get-treasury-outbound-transfers"
+	FnGetTreasuryOutboundTransfersOutboundTransfer                                Function = "get-treasury-outbound-transfers-outbound-transfer"
+	FnGetTreasuryReceivedCredits                                                  Function = "get-treasury-received-credits"
+	FnGetTreasuryReceivedCreditsId                                                Function = "get-treasury-received-credits-id"
+	FnGetTreasuryReceivedDebits                                                   Function = "get-treasury-received-debits"
+	FnGetTreasuryReceivedDebitsId                                                 Function = "get-treasury-received-debits-id"
+	FnGetTreasuryTransactionEntries                                               Function = "get-treasury-transaction-entries"
+	FnGetTreasuryTransactionEntriesId                                             Function = "get-treasury-transaction-entries-id"
+	FnGetTreasuryTransactions                                                     Function = "get-treasury-transactions"
+	FnGetTreasuryTransactionsId                                                   Function = "get-treasury-transactions-id"
+	FnGetWebhookEndpoints                                                         Function = "get-webhook-endpoints"
+	FnGetWebhookEndpointsWebhookEndpoint                                          Function = "get-webhook-endpoints-webhook-endpoint"
+	FnPostAccountLinks                                                            Function = "post-account-links"
+	FnPostAccountSessions                                                         Function = "post-account-sessions"
+	FnPostAccounts                                                                Function = "post-accounts"
+	FnPostAccountsAccount                                                         Function = "post-accounts-account"
+	FnPostAccountsAccountBankAccounts                                             Function = "post-accounts-account-bank-accounts"
+	FnPostAccountsAccountBankAccountsId                                           Function = "post-accounts-account-bank-accounts-id"
+	FnPostAccountsAccountCapabilitiesCapability                                   Function = "post-accounts-account-capabilities-capability"
+	FnPostAccountsAccountExternalAccounts                                         Function = "post-accounts-account-external-accounts"
+	FnPostAccountsAccountExternalAccountsId                                       Function = "post-accounts-account-external-accounts-id"
+	FnPostAccountsAccountLoginLinks                                               Function = "post-accounts-account-login-links"
+	FnPostAccountsAccountPeople                                                   Function = "post-accounts-account-people"
+	FnPostAccountsAccountPeoplePerson                                             Function = "post-accounts-account-people-person"
+	FnPostAccountsAccountPersons                                                  Function = "post-accounts-account-persons"
+	FnPostAccountsAccountPersonsPerson                                            Function = "post-accounts-account-persons-person"
+	FnPostAccountsAccountReject                                                   Function = "post-accounts-account-reject"
+	FnPostAccountsAccountUnreject                                                 Function = "post-accounts-account-unreject"
+	FnPostApplePayDomains                                                         Function = "post-apple-pay-domains"
+	FnPostApplicationFeesFeeRefundsId                                             Function = "post-application-fees-fee-refunds-id"
+	FnPostApplicationFeesIdRefund                                                 Function = "post-application-fees-id-refund"
+	FnPostApplicationFeesIdRefunds                                                Function = "post-application-fees-id-refunds"
+	FnPostAppsInstalls                                                            Function = "post-apps-installs"
+	FnPostAppsInstallsId                                                          Function = "post-apps-installs-id"
+	FnPostAppsInstallsIdUninstall                                                 Function = "post-apps-installs-id-uninstall"
+	FnPostAppsSecrets                                                             Function = "post-apps-secrets"
+	FnPostAppsSecretsDelete                                                       Function = "post-apps-secrets-delete"
+	FnPostBalanceSettings                                                         Function = "post-balance-settings"
+	FnPostBillingAlerts                                                           Function = "post-billing-alerts"
+	FnPostBillingAlertsIdActivate                                                 Function = "post-billing-alerts-id-activate"
+	FnPostBillingAlertsIdArchive                                                  Function = "post-billing-alerts-id-archive"
+	FnPostBillingAlertsIdDeactivate                                               Function = "post-billing-alerts-id-deactivate"
+	FnPostBillingCreditGrants                                                     Function = "post-billing-credit-grants"
+	FnPostBillingCreditGrantsId                                                   Function = "post-billing-credit-grants-id"
+	FnPostBillingCreditGrantsIdExpire                                             Function = "post-billing-credit-grants-id-expire"
+	FnPostBillingCreditGrantsIdVoid                                               Function = "post-billing-credit-grants-id-void"
+	FnPostBillingFeedbackOptions                                                  Function = "post-billing-feedback-options"
+	FnPostBillingFeedbackOptionsId                                                Function = "post-billing-feedback-options-id"
+	FnPostBillingFeedbackOptionsIdDeactivate                                      Function = "post-billing-feedback-options-id-deactivate"
+	FnPostBillingMeterEventAdjustments                                            Function = "post-billing-meter-event-adjustments"
+	FnPostBillingMeterEvents                                                      Function = "post-billing-meter-events"
+	FnPostBillingMeters                                                           Function = "post-billing-meters"
+	FnPostBillingMetersId                                                         Function = "post-billing-meters-id"
+	FnPostBillingMetersIdDeactivate                                               Function = "post-billing-meters-id-deactivate"
+	FnPostBillingMetersIdReactivate                                               Function = "post-billing-meters-id-reactivate"
+	FnPostBillingPortalConfigurations                                             Function = "post-billing-portal-configurations"
+	FnPostBillingPortalConfigurationsConfiguration                                Function = "post-billing-portal-configurations-configuration"
+	FnPostBillingPortalSessions                                                   Function = "post-billing-portal-sessions"
+	FnPostCharges                                                                 Function = "post-charges"
+	FnPostChargesCharge                                                           Function = "post-charges-charge"
+	FnPostChargesChargeCapture                                                    Function = "post-charges-charge-capture"
+	FnPostChargesChargeDispute                                                    Function = "post-charges-charge-dispute"
+	FnPostChargesChargeDisputeClose                                               Function = "post-charges-charge-dispute-close"
+	FnPostChargesChargeRefund                                                     Function = "post-charges-charge-refund"
+	FnPostChargesChargeRefunds                                                    Function = "post-charges-charge-refunds"
+	FnPostChargesChargeRefundsRefund                                              Function = "post-charges-charge-refunds-refund"
+	FnPostCheckoutSessions                                                        Function = "post-checkout-sessions"
+	FnPostCheckoutSessionsSession                                                 Function = "post-checkout-sessions-session"
+	FnPostCheckoutSessionsSessionExpire                                           Function = "post-checkout-sessions-session-expire"
+	FnPostClimateOrders                                                           Function = "post-climate-orders"
+	FnPostClimateOrdersOrder                                                      Function = "post-climate-orders-order"
+	FnPostClimateOrdersOrderCancel                                                Function = "post-climate-orders-order-cancel"
+	FnPostCoupons                                                                 Function = "post-coupons"
+	FnPostCouponsCoupon                                                           Function = "post-coupons-coupon"
+	FnPostCreditNotes                                                             Function = "post-credit-notes"
+	FnPostCreditNotesId                                                           Function = "post-credit-notes-id"
+	FnPostCreditNotesIdVoid                                                       Function = "post-credit-notes-id-void"
+	FnPostCustomerSessions                                                        Function = "post-customer-sessions"
+	FnPostCustomers                                                               Function = "post-customers"
+	FnPostCustomersCustomer                                                       Function = "post-customers-customer"
+	FnPostCustomersCustomerBalanceTransactions                                    Function = "post-customers-customer-balance-transactions"
+	FnPostCustomersCustomerBalanceTransactionsTransaction                         Function = "post-customers-customer-balance-transactions-transaction"
+	FnPostCustomersCustomerBankAccounts                                           Function = "post-customers-customer-bank-accounts"
+	FnPostCustomersCustomerBankAccountsId                                         Function = "post-customers-customer-bank-accounts-id"
+	FnPostCustomersCustomerBankAccountsIdVerify                                   Function = "post-customers-customer-bank-accounts-id-verify"
+	FnPostCustomersCustomerCards                                                  Function = "post-customers-customer-cards"
+	FnPostCustomersCustomerCardsId                                                Function = "post-customers-customer-cards-id"
+	FnPostCustomersCustomerCashBalance                                            Function = "post-customers-customer-cash-balance"
+	FnPostCustomersCustomerFundingInstructions                                    Function = "post-customers-customer-funding-instructions"
+	FnPostCustomersCustomerSources                                                Function = "post-customers-customer-sources"
+	FnPostCustomersCustomerSourcesId                                              Function = "post-customers-customer-sources-id"
+	FnPostCustomersCustomerSourcesIdVerify                                        Function = "post-customers-customer-sources-id-verify"
+	FnPostCustomersCustomerSubscriptions                                          Function = "post-customers-customer-subscriptions"
+	FnPostCustomersCustomerSubscriptionsSubscriptionExposedId                     Function = "post-customers-customer-subscriptions-subscription-exposed-id"
+	FnPostCustomersCustomerTaxIds                                                 Function = "post-customers-customer-tax-ids"
+	FnPostDisputesDispute                                                         Function = "post-disputes-dispute"
+	FnPostDisputesDisputeClose                                                    Function = "post-disputes-dispute-close"
+	FnPostEntitlementsFeatures                                                    Function = "post-entitlements-features"
+	FnPostEntitlementsFeaturesId                                                  Function = "post-entitlements-features-id"
+	FnPostEphemeralKeys                                                           Function = "post-ephemeral-keys"
+	FnPostExternalAccountsId                                                      Function = "post-external-accounts-id"
+	FnPostFileLinks                                                               Function = "post-file-links"
+	FnPostFileLinksLink                                                           Function = "post-file-links-link"
+	FnPostFinancialConnectionsAccountsAccountDisconnect                           Function = "post-financial-connections-accounts-account-disconnect"
+	FnPostFinancialConnectionsAccountsAccountRefresh                              Function = "post-financial-connections-accounts-account-refresh"
+	FnPostFinancialConnectionsAccountsAccountSubscribe                            Function = "post-financial-connections-accounts-account-subscribe"
+	FnPostFinancialConnectionsAccountsAccountUnsubscribe                          Function = "post-financial-connections-accounts-account-unsubscribe"
+	FnPostFinancialConnectionsSessions                                            Function = "post-financial-connections-sessions"
+	FnPostForwardingRequests                                                      Function = "post-forwarding-requests"
+	FnPostIdentityVerificationSessions                                            Function = "post-identity-verification-sessions"
+	FnPostIdentityVerificationSessionsSession                                     Function = "post-identity-verification-sessions-session"
+	FnPostIdentityVerificationSessionsSessionCancel                               Function = "post-identity-verification-sessions-session-cancel"
+	FnPostIdentityVerificationSessionsSessionRedact                               Function = "post-identity-verification-sessions-session-redact"
+	FnPostInvoiceRenderingTemplatesTemplateArchive                                Function = "post-invoice-rendering-templates-template-archive"
+	FnPostInvoiceRenderingTemplatesTemplateUnarchive                              Function = "post-invoice-rendering-templates-template-unarchive"
+	FnPostInvoiceitems                                                            Function = "post-invoiceitems"
+	FnPostInvoiceitemsInvoiceitem                                                 Function = "post-invoiceitems-invoiceitem"
+	FnPostInvoices                                                                Function = "post-invoices"
+	FnPostInvoicesCreatePreview                                                   Function = "post-invoices-create-preview"
+	FnPostInvoicesInvoice                                                         Function = "post-invoices-invoice"
+	FnPostInvoicesInvoiceAddLines                                                 Function = "post-invoices-invoice-add-lines"
+	FnPostInvoicesInvoiceAttachPayment                                            Function = "post-invoices-invoice-attach-payment"
+	FnPostInvoicesInvoiceFinalize                                                 Function = "post-invoices-invoice-finalize"
+	FnPostInvoicesInvoiceLinesLineItemId                                          Function = "post-invoices-invoice-lines-line-item-id"
+	FnPostInvoicesInvoiceMarkUncollectible                                        Function = "post-invoices-invoice-mark-uncollectible"
+	FnPostInvoicesInvoicePay                                                      Function = "post-invoices-invoice-pay"
+	FnPostInvoicesInvoiceRemoveLines                                              Function = "post-invoices-invoice-remove-lines"
+	FnPostInvoicesInvoiceSend                                                     Function = "post-invoices-invoice-send"
+	FnPostInvoicesInvoiceUpdateLines                                              Function = "post-invoices-invoice-update-lines"
+	FnPostInvoicesInvoiceVoid                                                     Function = "post-invoices-invoice-void"
+	FnPostIssuingAuthorizationsAuthorization                                      Function = "post-issuing-authorizations-authorization"
+	FnPostIssuingAuthorizationsAuthorizationApprove                               Function = "post-issuing-authorizations-authorization-approve"
+	FnPostIssuingAuthorizationsAuthorizationDecline                               Function = "post-issuing-authorizations-authorization-decline"
+	FnPostIssuingCardholders                                                      Function = "post-issuing-cardholders"
+	FnPostIssuingCardholdersCardholder                                            Function = "post-issuing-cardholders-cardholder"
+	FnPostIssuingCards                                                            Function = "post-issuing-cards"
+	FnPostIssuingCardsCard                                                        Function = "post-issuing-cards-card"
+	FnPostIssuingDisputes                                                         Function = "post-issuing-disputes"
+	FnPostIssuingDisputesDispute                                                  Function = "post-issuing-disputes-dispute"
+	FnPostIssuingDisputesDisputeSubmit                                            Function = "post-issuing-disputes-dispute-submit"
+	FnPostIssuingPersonalizationDesigns                                           Function = "post-issuing-personalization-designs"
+	FnPostIssuingPersonalizationDesignsPersonalizationDesign                      Function = "post-issuing-personalization-designs-personalization-design"
+	FnPostIssuingSettlementsSettlement                                            Function = "post-issuing-settlements-settlement"
+	FnPostIssuingTokensToken                                                      Function = "post-issuing-tokens-token"
+	FnPostIssuingTransactionsTransaction                                          Function = "post-issuing-transactions-transaction"
+	FnPostLinkAccountSessions                                                     Function = "post-link-account-sessions"
+	FnPostLinkedAccountsAccountDisconnect                                         Function = "post-linked-accounts-account-disconnect"
+	FnPostLinkedAccountsAccountRefresh                                            Function = "post-linked-accounts-account-refresh"
+	FnPostPaymentIntents                                                          Function = "post-payment-intents"
+	FnPostPaymentIntentsIntent                                                    Function = "post-payment-intents-intent"
+	FnPostPaymentIntentsIntentApplyCustomerBalance                                Function = "post-payment-intents-intent-apply-customer-balance"
+	FnPostPaymentIntentsIntentCancel                                              Function = "post-payment-intents-intent-cancel"
+	FnPostPaymentIntentsIntentCapture                                             Function = "post-payment-intents-intent-capture"
+	FnPostPaymentIntentsIntentConfirm                                             Function = "post-payment-intents-intent-confirm"
+	FnPostPaymentIntentsIntentIncrementAuthorization                              Function = "post-payment-intents-intent-increment-authorization"
+	FnPostPaymentIntentsIntentVerifyMicrodeposits                                 Function = "post-payment-intents-intent-verify-microdeposits"
+	FnPostPaymentLinks                                                            Function = "post-payment-links"
+	FnPostPaymentLinksPaymentLink                                                 Function = "post-payment-links-payment-link"
+	FnPostPaymentMethodConfigurations                                             Function = "post-payment-method-configurations"
+	FnPostPaymentMethodConfigurationsConfiguration                                Function = "post-payment-method-configurations-configuration"
+	FnPostPaymentMethodDomains                                                    Function = "post-payment-method-domains"
+	FnPostPaymentMethodDomainsPaymentMethodDomain                                 Function = "post-payment-method-domains-payment-method-domain"
+	FnPostPaymentMethodDomainsPaymentMethodDomainValidate                         Function = "post-payment-method-domains-payment-method-domain-validate"
+	FnPostPaymentMethods                                                          Function = "post-payment-methods"
+	FnPostPaymentMethodsPaymentMethod                                             Function = "post-payment-methods-payment-method"
+	FnPostPaymentMethodsPaymentMethodAttach                                       Function = "post-payment-methods-payment-method-attach"
+	FnPostPaymentMethodsPaymentMethodDetach                                       Function = "post-payment-methods-payment-method-detach"
+	FnPostPaymentRecordsIdReportPaymentAttempt                                    Function = "post-payment-records-id-report-payment-attempt"
+	FnPostPaymentRecordsIdReportPaymentAttemptCanceled                            Function = "post-payment-records-id-report-payment-attempt-canceled"
+	FnPostPaymentRecordsIdReportPaymentAttemptFailed                              Function = "post-payment-records-id-report-payment-attempt-failed"
+	FnPostPaymentRecordsIdReportPaymentAttemptGuaranteed                          Function = "post-payment-records-id-report-payment-attempt-guaranteed"
+	FnPostPaymentRecordsIdReportPaymentAttemptInformational                       Function = "post-payment-records-id-report-payment-attempt-informational"
+	FnPostPaymentRecordsIdReportRefund                                            Function = "post-payment-records-id-report-refund"
+	FnPostPaymentRecordsReportPayment                                             Function = "post-payment-records-report-payment"
+	FnPostPayouts                                                                 Function = "post-payouts"
+	FnPostPayoutsPayout                                                           Function = "post-payouts-payout"
+	FnPostPayoutsPayoutCancel                                                     Function = "post-payouts-payout-cancel"
+	FnPostPayoutsPayoutReverse                                                    Function = "post-payouts-payout-reverse"
+	FnPostPlans                                                                   Function = "post-plans"
+	FnPostPlansPlan                                                               Function = "post-plans-plan"
+	FnPostPrices                                                                  Function = "post-prices"
+	FnPostPricesPrice                                                             Function = "post-prices-price"
+	FnPostProductCatalogTrialOffers                                               Function = "post-product-catalog-trial-offers"
+	FnPostProductCatalogTrialOffersId                                             Function = "post-product-catalog-trial-offers-id"
+	FnPostProducts                                                                Function = "post-products"
+	FnPostProductsId                                                              Function = "post-products-id"
+	FnPostProductsProductFeatures                                                 Function = "post-products-product-features"
+	FnPostPromotionCodes                                                          Function = "post-promotion-codes"
+	FnPostPromotionCodesPromotionCode                                             Function = "post-promotion-codes-promotion-code"
+	FnPostQuotes                                                                  Function = "post-quotes"
+	FnPostQuotesQuote                                                             Function = "post-quotes-quote"
+	FnPostQuotesQuoteAccept                                                       Function = "post-quotes-quote-accept"
+	FnPostQuotesQuoteCancel                                                       Function = "post-quotes-quote-cancel"
+	FnPostQuotesQuoteFinalize                                                     Function = "post-quotes-quote-finalize"
+	FnPostRadarPaymentEvaluations                                                 Function = "post-radar-payment-evaluations"
+	FnPostRadarValueListItems                                                     Function = "post-radar-value-list-items"
+	FnPostRadarValueLists                                                         Function = "post-radar-value-lists"
+	FnPostRadarValueListsValueList                                                Function = "post-radar-value-lists-value-list"
+	FnPostRefunds                                                                 Function = "post-refunds"
+	FnPostRefundsRefund                                                           Function = "post-refunds-refund"
+	FnPostRefundsRefundCancel                                                     Function = "post-refunds-refund-cancel"
+	FnPostReportingReportRuns                                                     Function = "post-reporting-report-runs"
+	FnPostReviewsReviewApprove                                                    Function = "post-reviews-review-approve"
+	FnPostSetupIntents                                                            Function = "post-setup-intents"
+	FnPostSetupIntentsIntent                                                      Function = "post-setup-intents-intent"
+	FnPostSetupIntentsIntentCancel                                                Function = "post-setup-intents-intent-cancel"
+	FnPostSetupIntentsIntentConfirm                                               Function = "post-setup-intents-intent-confirm"
+	FnPostSetupIntentsIntentVerifyMicrodeposits                                   Function = "post-setup-intents-intent-verify-microdeposits"
+	FnPostShippingRates                                                           Function = "post-shipping-rates"
+	FnPostShippingRatesShippingRateToken                                          Function = "post-shipping-rates-shipping-rate-token"
+	FnPostSigmaSavedQueriesId                                                     Function = "post-sigma-saved-queries-id"
+	FnPostSources                                                                 Function = "post-sources"
+	FnPostSourcesSource                                                           Function = "post-sources-source"
+	FnPostSourcesSourceVerify                                                     Function = "post-sources-source-verify"
+	FnPostSubscriptionItems                                                       Function = "post-subscription-items"
+	FnPostSubscriptionItemsItem                                                   Function = "post-subscription-items-item"
+	FnPostSubscriptionSchedules                                                   Function = "post-subscription-schedules"
+	FnPostSubscriptionSchedulesSchedule                                           Function = "post-subscription-schedules-schedule"
+	FnPostSubscriptionSchedulesScheduleCancel                                     Function = "post-subscription-schedules-schedule-cancel"
+	FnPostSubscriptionSchedulesScheduleRelease                                    Function = "post-subscription-schedules-schedule-release"
+	FnPostSubscriptions                                                           Function = "post-subscriptions"
+	FnPostSubscriptionsSubscriptionExposedId                                      Function = "post-subscriptions-subscription-exposed-id"
+	FnPostSubscriptionsSubscriptionMigrate                                        Function = "post-subscriptions-subscription-migrate"
+	FnPostSubscriptionsSubscriptionPause                                          Function = "post-subscriptions-subscription-pause"
+	FnPostSubscriptionsSubscriptionResume                                         Function = "post-subscriptions-subscription-resume"
+	FnPostTaxCalculations                                                         Function = "post-tax-calculations"
+	FnPostTaxIds                                                                  Function = "post-tax-ids"
+	FnPostTaxLocations                                                            Function = "post-tax-locations"
+	FnPostTaxRates                                                                Function = "post-tax-rates"
+	FnPostTaxRatesTaxRate                                                         Function = "post-tax-rates-tax-rate"
+	FnPostTaxRegistrations                                                        Function = "post-tax-registrations"
+	FnPostTaxRegistrationsId                                                      Function = "post-tax-registrations-id"
+	FnPostTaxSettings                                                             Function = "post-tax-settings"
+	FnPostTaxTransactionsCreateFromCalculation                                    Function = "post-tax-transactions-create-from-calculation"
+	FnPostTaxTransactionsCreateReversal                                           Function = "post-tax-transactions-create-reversal"
+	FnPostTerminalConfigurations                                                  Function = "post-terminal-configurations"
+	FnPostTerminalConfigurationsConfiguration                                     Function = "post-terminal-configurations-configuration"
+	FnPostTerminalConnectionTokens                                                Function = "post-terminal-connection-tokens"
+	FnPostTerminalLocations                                                       Function = "post-terminal-locations"
+	FnPostTerminalLocationsLocation                                               Function = "post-terminal-locations-location"
+	FnPostTerminalOnboardingLinks                                                 Function = "post-terminal-onboarding-links"
+	FnPostTerminalReaders                                                         Function = "post-terminal-readers"
+	FnPostTerminalReadersReader                                                   Function = "post-terminal-readers-reader"
+	FnPostTerminalReadersReaderCancelAction                                       Function = "post-terminal-readers-reader-cancel-action"
+	FnPostTerminalReadersReaderCollectInputs                                      Function = "post-terminal-readers-reader-collect-inputs"
+	FnPostTerminalReadersReaderCollectPaymentMethod                               Function = "post-terminal-readers-reader-collect-payment-method"
+	FnPostTerminalReadersReaderConfirmPaymentIntent                               Function = "post-terminal-readers-reader-confirm-payment-intent"
+	FnPostTerminalReadersReaderProcessPaymentIntent                               Function = "post-terminal-readers-reader-process-payment-intent"
+	FnPostTerminalReadersReaderProcessSetupIntent                                 Function = "post-terminal-readers-reader-process-setup-intent"
+	FnPostTerminalReadersReaderRefundPayment                                      Function = "post-terminal-readers-reader-refund-payment"
+	FnPostTerminalReadersReaderSetReaderDisplay                                   Function = "post-terminal-readers-reader-set-reader-display"
+	FnPostTerminalRefunds                                                         Function = "post-terminal-refunds"
+	FnPostTestHelpersConfirmationTokens                                           Function = "post-test-helpers-confirmation-tokens"
+	FnPostTestHelpersCustomersCustomerFundCashBalance                             Function = "post-test-helpers-customers-customer-fund-cash-balance"
+	FnPostTestHelpersIssuingAuthorizations                                        Function = "post-test-helpers-issuing-authorizations"
+	FnPostTestHelpersIssuingAuthorizationsAuthorizationCapture                    Function = "post-test-helpers-issuing-authorizations-authorization-capture"
+	FnPostTestHelpersIssuingAuthorizationsAuthorizationExpire                     Function = "post-test-helpers-issuing-authorizations-authorization-expire"
+	FnPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount             Function = "post-test-helpers-issuing-authorizations-authorization-finalize-amount"
+	FnPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond     Function = "post-test-helpers-issuing-authorizations-authorization-fraud-challenges-respond"
+	FnPostTestHelpersIssuingAuthorizationsAuthorizationIncrement                  Function = "post-test-helpers-issuing-authorizations-authorization-increment"
+	FnPostTestHelpersIssuingAuthorizationsAuthorizationReverse                    Function = "post-test-helpers-issuing-authorizations-authorization-reverse"
+	FnPostTestHelpersIssuingCardsCardShippingDeliver                              Function = "post-test-helpers-issuing-cards-card-shipping-deliver"
+	FnPostTestHelpersIssuingCardsCardShippingFail                                 Function = "post-test-helpers-issuing-cards-card-shipping-fail"
+	FnPostTestHelpersIssuingCardsCardShippingReturn                               Function = "post-test-helpers-issuing-cards-card-shipping-return"
+	FnPostTestHelpersIssuingCardsCardShippingShip                                 Function = "post-test-helpers-issuing-cards-card-shipping-ship"
+	FnPostTestHelpersIssuingCardsCardShippingSubmit                               Function = "post-test-helpers-issuing-cards-card-shipping-submit"
+	FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate   Function = "post-test-helpers-issuing-personalization-designs-personalization-design-activate"
+	FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate Function = "post-test-helpers-issuing-personalization-designs-personalization-design-deactivate"
+	FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject     Function = "post-test-helpers-issuing-personalization-designs-personalization-design-reject"
+	FnPostTestHelpersIssuingSettlements                                           Function = "post-test-helpers-issuing-settlements"
+	FnPostTestHelpersIssuingSettlementsSettlementComplete                         Function = "post-test-helpers-issuing-settlements-settlement-complete"
+	FnPostTestHelpersIssuingTransactionsCreateForceCapture                        Function = "post-test-helpers-issuing-transactions-create-force-capture"
+	FnPostTestHelpersIssuingTransactionsCreateUnlinkedRefund                      Function = "post-test-helpers-issuing-transactions-create-unlinked-refund"
+	FnPostTestHelpersIssuingTransactionsTransactionRefund                         Function = "post-test-helpers-issuing-transactions-transaction-refund"
+	FnPostTestHelpersRefundsRefundExpire                                          Function = "post-test-helpers-refunds-refund-expire"
+	FnPostTestHelpersTerminalReadersReaderPresentPaymentMethod                    Function = "post-test-helpers-terminal-readers-reader-present-payment-method"
+	FnPostTestHelpersTerminalReadersReaderSucceedInputCollection                  Function = "post-test-helpers-terminal-readers-reader-succeed-input-collection"
+	FnPostTestHelpersTerminalReadersReaderTimeoutInputCollection                  Function = "post-test-helpers-terminal-readers-reader-timeout-input-collection"
+	FnPostTestHelpersTestClocks                                                   Function = "post-test-helpers-test-clocks"
+	FnPostTestHelpersTestClocksTestClockAdvance                                   Function = "post-test-helpers-test-clocks-test-clock-advance"
+	FnPostTestHelpersTreasuryInboundTransfersIdFail                               Function = "post-test-helpers-treasury-inbound-transfers-id-fail"
+	FnPostTestHelpersTreasuryInboundTransfersIdReturn                             Function = "post-test-helpers-treasury-inbound-transfers-id-return"
+	FnPostTestHelpersTreasuryInboundTransfersIdSucceed                            Function = "post-test-helpers-treasury-inbound-transfers-id-succeed"
+	FnPostTestHelpersTreasuryOutboundPaymentsId                                   Function = "post-test-helpers-treasury-outbound-payments-id"
+	FnPostTestHelpersTreasuryOutboundPaymentsIdFail                               Function = "post-test-helpers-treasury-outbound-payments-id-fail"
+	FnPostTestHelpersTreasuryOutboundPaymentsIdPost                               Function = "post-test-helpers-treasury-outbound-payments-id-post"
+	FnPostTestHelpersTreasuryOutboundPaymentsIdReturn                             Function = "post-test-helpers-treasury-outbound-payments-id-return"
+	FnPostTestHelpersTreasuryOutboundTransfersOutboundTransfer                    Function = "post-test-helpers-treasury-outbound-transfers-outbound-transfer"
+	FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferFail                Function = "post-test-helpers-treasury-outbound-transfers-outbound-transfer-fail"
+	FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferPost                Function = "post-test-helpers-treasury-outbound-transfers-outbound-transfer-post"
+	FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn              Function = "post-test-helpers-treasury-outbound-transfers-outbound-transfer-return"
+	FnPostTestHelpersTreasuryReceivedCredits                                      Function = "post-test-helpers-treasury-received-credits"
+	FnPostTestHelpersTreasuryReceivedDebits                                       Function = "post-test-helpers-treasury-received-debits"
+	FnPostThreeDSecureAuthentications                                             Function = "post-three-d-secure-authentications"
+	FnPostThreeDSecureAuthenticationsAuthenticationCancel                         Function = "post-three-d-secure-authentications-authentication-cancel"
+	FnPostThreeDSecureAuthenticationsAuthenticationSubmit                         Function = "post-three-d-secure-authentications-authentication-submit"
+	FnPostTokens                                                                  Function = "post-tokens"
+	FnPostTopups                                                                  Function = "post-topups"
+	FnPostTopupsTopup                                                             Function = "post-topups-topup"
+	FnPostTopupsTopupCancel                                                       Function = "post-topups-topup-cancel"
+	FnPostTransfers                                                               Function = "post-transfers"
+	FnPostTransfersIdReversals                                                    Function = "post-transfers-id-reversals"
+	FnPostTransfersTransfer                                                       Function = "post-transfers-transfer"
+	FnPostTransfersTransferReversalsId                                            Function = "post-transfers-transfer-reversals-id"
+	FnPostTreasuryCreditReversals                                                 Function = "post-treasury-credit-reversals"
+	FnPostTreasuryDebitReversals                                                  Function = "post-treasury-debit-reversals"
+	FnPostTreasuryFinancialAccounts                                               Function = "post-treasury-financial-accounts"
+	FnPostTreasuryFinancialAccountsFinancialAccount                               Function = "post-treasury-financial-accounts-financial-account"
+	FnPostTreasuryFinancialAccountsFinancialAccountClose                          Function = "post-treasury-financial-accounts-financial-account-close"
+	FnPostTreasuryFinancialAccountsFinancialAccountFeatures                       Function = "post-treasury-financial-accounts-financial-account-features"
+	FnPostTreasuryInboundTransfers                                                Function = "post-treasury-inbound-transfers"
+	FnPostTreasuryInboundTransfersInboundTransferCancel                           Function = "post-treasury-inbound-transfers-inbound-transfer-cancel"
+	FnPostTreasuryOutboundPayments                                                Function = "post-treasury-outbound-payments"
+	FnPostTreasuryOutboundPaymentsIdCancel                                        Function = "post-treasury-outbound-payments-id-cancel"
+	FnPostTreasuryOutboundTransfers                                               Function = "post-treasury-outbound-transfers"
+	FnPostTreasuryOutboundTransfersOutboundTransferCancel                         Function = "post-treasury-outbound-transfers-outbound-transfer-cancel"
+	FnPostWebhookEndpoints                                                        Function = "post-webhook-endpoints"
+	FnPostWebhookEndpointsWebhookEndpoint                                         Function = "post-webhook-endpoints-webhook-endpoint"
 )
 
 // ParseFunction validates a function name and returns the typed Function value.
 func ParseFunction(s string) (Function, error) {
 	switch Function(s) {
-	case FnDeleteAccountsAccountBankAccountsIdWithFormdataBody:
-		return FnDeleteAccountsAccountBankAccountsIdWithFormdataBody, nil
-	case FnDeleteAccountsAccountExternalAccountsIdWithFormdataBody:
-		return FnDeleteAccountsAccountExternalAccountsIdWithFormdataBody, nil
-	case FnDeleteAccountsAccountPeoplePersonWithFormdataBody:
-		return FnDeleteAccountsAccountPeoplePersonWithFormdataBody, nil
-	case FnDeleteAccountsAccountPersonsPersonWithFormdataBody:
-		return FnDeleteAccountsAccountPersonsPersonWithFormdataBody, nil
-	case FnDeleteAccountsAccountWithFormdataBody:
-		return FnDeleteAccountsAccountWithFormdataBody, nil
-	case FnDeleteApplePayDomainsDomainWithFormdataBody:
-		return FnDeleteApplePayDomainsDomainWithFormdataBody, nil
-	case FnDeleteCouponsCouponWithFormdataBody:
-		return FnDeleteCouponsCouponWithFormdataBody, nil
-	case FnDeleteCustomersCustomerBankAccountsIdWithFormdataBody:
-		return FnDeleteCustomersCustomerBankAccountsIdWithFormdataBody, nil
-	case FnDeleteCustomersCustomerCardsIdWithFormdataBody:
-		return FnDeleteCustomersCustomerCardsIdWithFormdataBody, nil
-	case FnDeleteCustomersCustomerDiscountWithFormdataBody:
-		return FnDeleteCustomersCustomerDiscountWithFormdataBody, nil
-	case FnDeleteCustomersCustomerSourcesIdWithFormdataBody:
-		return FnDeleteCustomersCustomerSourcesIdWithFormdataBody, nil
-	case FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody:
-		return FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody, nil
-	case FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody, nil
-	case FnDeleteCustomersCustomerTaxIdsIdWithFormdataBody:
-		return FnDeleteCustomersCustomerTaxIdsIdWithFormdataBody, nil
-	case FnDeleteCustomersCustomerWithFormdataBody:
-		return FnDeleteCustomersCustomerWithFormdataBody, nil
-	case FnDeleteEphemeralKeysKeyWithFormdataBody:
-		return FnDeleteEphemeralKeysKeyWithFormdataBody, nil
-	case FnDeleteInvoiceitemsInvoiceitemWithFormdataBody:
-		return FnDeleteInvoiceitemsInvoiceitemWithFormdataBody, nil
-	case FnDeleteInvoicesInvoiceWithFormdataBody:
-		return FnDeleteInvoicesInvoiceWithFormdataBody, nil
-	case FnDeletePlansPlanWithFormdataBody:
-		return FnDeletePlansPlanWithFormdataBody, nil
-	case FnDeleteProductsIdWithFormdataBody:
-		return FnDeleteProductsIdWithFormdataBody, nil
-	case FnDeleteProductsProductFeaturesIdWithFormdataBody:
-		return FnDeleteProductsProductFeaturesIdWithFormdataBody, nil
-	case FnDeleteRadarValueListItemsItemWithFormdataBody:
-		return FnDeleteRadarValueListItemsItemWithFormdataBody, nil
-	case FnDeleteRadarValueListsValueListWithFormdataBody:
-		return FnDeleteRadarValueListsValueListWithFormdataBody, nil
-	case FnDeleteSubscriptionItemsItemWithFormdataBody:
-		return FnDeleteSubscriptionItemsItemWithFormdataBody, nil
-	case FnDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody:
-		return FnDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody, nil
-	case FnDeleteSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return FnDeleteSubscriptionsSubscriptionExposedIdWithFormdataBody, nil
-	case FnDeleteTaxIdsIdWithFormdataBody:
-		return FnDeleteTaxIdsIdWithFormdataBody, nil
-	case FnDeleteTerminalConfigurationsConfigurationWithFormdataBody:
-		return FnDeleteTerminalConfigurationsConfigurationWithFormdataBody, nil
-	case FnDeleteTerminalLocationsLocationWithFormdataBody:
-		return FnDeleteTerminalLocationsLocationWithFormdataBody, nil
-	case FnDeleteTerminalReadersReaderWithFormdataBody:
-		return FnDeleteTerminalReadersReaderWithFormdataBody, nil
-	case FnDeleteTestHelpersTestClocksTestClockWithFormdataBody:
-		return FnDeleteTestHelpersTestClocksTestClockWithFormdataBody, nil
-	case FnDeleteWebhookEndpointsWebhookEndpointWithFormdataBody:
-		return FnDeleteWebhookEndpointsWebhookEndpointWithFormdataBody, nil
-	case FnGetAccountWithFormdataBody:
-		return FnGetAccountWithFormdataBody, nil
-	case FnGetAccountsAccountBankAccountsIdWithFormdataBody:
-		return FnGetAccountsAccountBankAccountsIdWithFormdataBody, nil
-	case FnGetAccountsAccountCapabilitiesCapabilityWithFormdataBody:
-		return FnGetAccountsAccountCapabilitiesCapabilityWithFormdataBody, nil
-	case FnGetAccountsAccountCapabilitiesWithFormdataBody:
-		return FnGetAccountsAccountCapabilitiesWithFormdataBody, nil
-	case FnGetAccountsAccountExternalAccountsIdWithFormdataBody:
-		return FnGetAccountsAccountExternalAccountsIdWithFormdataBody, nil
-	case FnGetAccountsAccountExternalAccountsWithFormdataBody:
-		return FnGetAccountsAccountExternalAccountsWithFormdataBody, nil
-	case FnGetAccountsAccountPeoplePersonWithFormdataBody:
-		return FnGetAccountsAccountPeoplePersonWithFormdataBody, nil
-	case FnGetAccountsAccountPeopleWithFormdataBody:
-		return FnGetAccountsAccountPeopleWithFormdataBody, nil
-	case FnGetAccountsAccountPersonsPersonWithFormdataBody:
-		return FnGetAccountsAccountPersonsPersonWithFormdataBody, nil
-	case FnGetAccountsAccountPersonsWithFormdataBody:
-		return FnGetAccountsAccountPersonsWithFormdataBody, nil
-	case FnGetAccountsAccountWithFormdataBody:
-		return FnGetAccountsAccountWithFormdataBody, nil
-	case FnGetAccountsWithFormdataBody:
-		return FnGetAccountsWithFormdataBody, nil
-	case FnGetApplePayDomainsDomainWithFormdataBody:
-		return FnGetApplePayDomainsDomainWithFormdataBody, nil
-	case FnGetApplePayDomainsWithFormdataBody:
-		return FnGetApplePayDomainsWithFormdataBody, nil
-	case FnGetApplicationFeesFeeRefundsIdWithFormdataBody:
-		return FnGetApplicationFeesFeeRefundsIdWithFormdataBody, nil
-	case FnGetApplicationFeesIdRefundsWithFormdataBody:
-		return FnGetApplicationFeesIdRefundsWithFormdataBody, nil
-	case FnGetApplicationFeesIdWithFormdataBody:
-		return FnGetApplicationFeesIdWithFormdataBody, nil
-	case FnGetApplicationFeesWithFormdataBody:
-		return FnGetApplicationFeesWithFormdataBody, nil
-	case FnGetAppsInstallsIdWithFormdataBody:
-		return FnGetAppsInstallsIdWithFormdataBody, nil
-	case FnGetAppsInstallsWithFormdataBody:
-		return FnGetAppsInstallsWithFormdataBody, nil
-	case FnGetAppsSecretsFindWithFormdataBody:
-		return FnGetAppsSecretsFindWithFormdataBody, nil
-	case FnGetAppsSecretsWithFormdataBody:
-		return FnGetAppsSecretsWithFormdataBody, nil
-	case FnGetBalanceHistoryIdWithFormdataBody:
-		return FnGetBalanceHistoryIdWithFormdataBody, nil
-	case FnGetBalanceHistoryWithFormdataBody:
-		return FnGetBalanceHistoryWithFormdataBody, nil
-	case FnGetBalanceSettingsWithFormdataBody:
-		return FnGetBalanceSettingsWithFormdataBody, nil
-	case FnGetBalanceTransactionsIdWithFormdataBody:
-		return FnGetBalanceTransactionsIdWithFormdataBody, nil
-	case FnGetBalanceTransactionsWithFormdataBody:
-		return FnGetBalanceTransactionsWithFormdataBody, nil
-	case FnGetBalanceWithFormdataBody:
-		return FnGetBalanceWithFormdataBody, nil
-	case FnGetBillingAlertsIdWithFormdataBody:
-		return FnGetBillingAlertsIdWithFormdataBody, nil
-	case FnGetBillingAlertsWithFormdataBody:
-		return FnGetBillingAlertsWithFormdataBody, nil
-	case FnGetBillingCreditBalanceSummaryWithFormdataBody:
-		return FnGetBillingCreditBalanceSummaryWithFormdataBody, nil
-	case FnGetBillingCreditBalanceTransactionsIdWithFormdataBody:
-		return FnGetBillingCreditBalanceTransactionsIdWithFormdataBody, nil
-	case FnGetBillingCreditBalanceTransactionsWithFormdataBody:
-		return FnGetBillingCreditBalanceTransactionsWithFormdataBody, nil
-	case FnGetBillingCreditGrantsIdWithFormdataBody:
-		return FnGetBillingCreditGrantsIdWithFormdataBody, nil
-	case FnGetBillingCreditGrantsWithFormdataBody:
-		return FnGetBillingCreditGrantsWithFormdataBody, nil
-	case FnGetBillingFeedbackOptionsIdWithFormdataBody:
-		return FnGetBillingFeedbackOptionsIdWithFormdataBody, nil
-	case FnGetBillingFeedbackOptionsWithFormdataBody:
-		return FnGetBillingFeedbackOptionsWithFormdataBody, nil
-	case FnGetBillingMetersIdEventSummariesWithFormdataBody:
-		return FnGetBillingMetersIdEventSummariesWithFormdataBody, nil
-	case FnGetBillingMetersIdWithFormdataBody:
-		return FnGetBillingMetersIdWithFormdataBody, nil
-	case FnGetBillingMetersWithFormdataBody:
-		return FnGetBillingMetersWithFormdataBody, nil
-	case FnGetBillingPortalConfigurationsConfigurationWithFormdataBody:
-		return FnGetBillingPortalConfigurationsConfigurationWithFormdataBody, nil
-	case FnGetBillingPortalConfigurationsWithFormdataBody:
-		return FnGetBillingPortalConfigurationsWithFormdataBody, nil
-	case FnGetChargesChargeDisputeWithFormdataBody:
-		return FnGetChargesChargeDisputeWithFormdataBody, nil
-	case FnGetChargesChargeRefundsRefundWithFormdataBody:
-		return FnGetChargesChargeRefundsRefundWithFormdataBody, nil
-	case FnGetChargesChargeRefundsWithFormdataBody:
-		return FnGetChargesChargeRefundsWithFormdataBody, nil
-	case FnGetChargesChargeWithFormdataBody:
-		return FnGetChargesChargeWithFormdataBody, nil
-	case FnGetChargesSearchWithFormdataBody:
-		return FnGetChargesSearchWithFormdataBody, nil
-	case FnGetChargesWithFormdataBody:
-		return FnGetChargesWithFormdataBody, nil
-	case FnGetCheckoutSessionsSessionLineItemsWithFormdataBody:
-		return FnGetCheckoutSessionsSessionLineItemsWithFormdataBody, nil
-	case FnGetCheckoutSessionsSessionWithFormdataBody:
-		return FnGetCheckoutSessionsSessionWithFormdataBody, nil
-	case FnGetCheckoutSessionsWithFormdataBody:
-		return FnGetCheckoutSessionsWithFormdataBody, nil
-	case FnGetClimateOrdersOrderWithFormdataBody:
-		return FnGetClimateOrdersOrderWithFormdataBody, nil
-	case FnGetClimateOrdersWithFormdataBody:
-		return FnGetClimateOrdersWithFormdataBody, nil
-	case FnGetClimateProductsProductWithFormdataBody:
-		return FnGetClimateProductsProductWithFormdataBody, nil
-	case FnGetClimateProductsWithFormdataBody:
-		return FnGetClimateProductsWithFormdataBody, nil
-	case FnGetClimateSuppliersSupplierWithFormdataBody:
-		return FnGetClimateSuppliersSupplierWithFormdataBody, nil
-	case FnGetClimateSuppliersWithFormdataBody:
-		return FnGetClimateSuppliersWithFormdataBody, nil
-	case FnGetConfirmationTokensConfirmationTokenWithFormdataBody:
-		return FnGetConfirmationTokensConfirmationTokenWithFormdataBody, nil
-	case FnGetCountrySpecsCountryWithFormdataBody:
-		return FnGetCountrySpecsCountryWithFormdataBody, nil
-	case FnGetCountrySpecsWithFormdataBody:
-		return FnGetCountrySpecsWithFormdataBody, nil
-	case FnGetCouponsCouponWithFormdataBody:
-		return FnGetCouponsCouponWithFormdataBody, nil
-	case FnGetCouponsWithFormdataBody:
-		return FnGetCouponsWithFormdataBody, nil
-	case FnGetCreditNotesCreditNoteLinesWithFormdataBody:
-		return FnGetCreditNotesCreditNoteLinesWithFormdataBody, nil
-	case FnGetCreditNotesIdWithFormdataBody:
-		return FnGetCreditNotesIdWithFormdataBody, nil
-	case FnGetCreditNotesPreviewLinesWithFormdataBody:
-		return FnGetCreditNotesPreviewLinesWithFormdataBody, nil
-	case FnGetCreditNotesPreviewWithFormdataBody:
-		return FnGetCreditNotesPreviewWithFormdataBody, nil
-	case FnGetCreditNotesWithFormdataBody:
-		return FnGetCreditNotesWithFormdataBody, nil
-	case FnGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBody:
-		return FnGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBody, nil
-	case FnGetCustomersCustomerBalanceTransactionsWithFormdataBody:
-		return FnGetCustomersCustomerBalanceTransactionsWithFormdataBody, nil
-	case FnGetCustomersCustomerBankAccountsIdWithFormdataBody:
-		return FnGetCustomersCustomerBankAccountsIdWithFormdataBody, nil
-	case FnGetCustomersCustomerBankAccountsWithFormdataBody:
-		return FnGetCustomersCustomerBankAccountsWithFormdataBody, nil
-	case FnGetCustomersCustomerCardsIdWithFormdataBody:
-		return FnGetCustomersCustomerCardsIdWithFormdataBody, nil
-	case FnGetCustomersCustomerCardsWithFormdataBody:
-		return FnGetCustomersCustomerCardsWithFormdataBody, nil
-	case FnGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBody:
-		return FnGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBody, nil
-	case FnGetCustomersCustomerCashBalanceTransactionsWithFormdataBody:
-		return FnGetCustomersCustomerCashBalanceTransactionsWithFormdataBody, nil
-	case FnGetCustomersCustomerCashBalanceWithFormdataBody:
-		return FnGetCustomersCustomerCashBalanceWithFormdataBody, nil
-	case FnGetCustomersCustomerDiscountWithFormdataBody:
-		return FnGetCustomersCustomerDiscountWithFormdataBody, nil
-	case FnGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBody:
-		return FnGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBody, nil
-	case FnGetCustomersCustomerPaymentMethodsWithFormdataBody:
-		return FnGetCustomersCustomerPaymentMethodsWithFormdataBody, nil
-	case FnGetCustomersCustomerSourcesIdWithFormdataBody:
-		return FnGetCustomersCustomerSourcesIdWithFormdataBody, nil
-	case FnGetCustomersCustomerSourcesWithFormdataBody:
-		return FnGetCustomersCustomerSourcesWithFormdataBody, nil
-	case FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody:
-		return FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody, nil
-	case FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody, nil
-	case FnGetCustomersCustomerSubscriptionsWithFormdataBody:
-		return FnGetCustomersCustomerSubscriptionsWithFormdataBody, nil
-	case FnGetCustomersCustomerTaxIdsIdWithFormdataBody:
-		return FnGetCustomersCustomerTaxIdsIdWithFormdataBody, nil
-	case FnGetCustomersCustomerTaxIdsWithFormdataBody:
-		return FnGetCustomersCustomerTaxIdsWithFormdataBody, nil
-	case FnGetCustomersCustomerWithFormdataBody:
-		return FnGetCustomersCustomerWithFormdataBody, nil
-	case FnGetCustomersSearchWithFormdataBody:
-		return FnGetCustomersSearchWithFormdataBody, nil
-	case FnGetCustomersWithFormdataBody:
-		return FnGetCustomersWithFormdataBody, nil
-	case FnGetDisputesDisputeWithFormdataBody:
-		return FnGetDisputesDisputeWithFormdataBody, nil
-	case FnGetDisputesWithFormdataBody:
-		return FnGetDisputesWithFormdataBody, nil
-	case FnGetEntitlementsActiveEntitlementsIdWithFormdataBody:
-		return FnGetEntitlementsActiveEntitlementsIdWithFormdataBody, nil
-	case FnGetEntitlementsActiveEntitlementsWithFormdataBody:
-		return FnGetEntitlementsActiveEntitlementsWithFormdataBody, nil
-	case FnGetEntitlementsFeaturesIdWithFormdataBody:
-		return FnGetEntitlementsFeaturesIdWithFormdataBody, nil
-	case FnGetEntitlementsFeaturesWithFormdataBody:
-		return FnGetEntitlementsFeaturesWithFormdataBody, nil
-	case FnGetEventsIdWithFormdataBody:
-		return FnGetEventsIdWithFormdataBody, nil
-	case FnGetEventsWithFormdataBody:
-		return FnGetEventsWithFormdataBody, nil
-	case FnGetExchangeRatesRateIdWithFormdataBody:
-		return FnGetExchangeRatesRateIdWithFormdataBody, nil
-	case FnGetExchangeRatesWithFormdataBody:
-		return FnGetExchangeRatesWithFormdataBody, nil
-	case FnGetFileLinksLinkWithFormdataBody:
-		return FnGetFileLinksLinkWithFormdataBody, nil
-	case FnGetFileLinksWithFormdataBody:
-		return FnGetFileLinksWithFormdataBody, nil
-	case FnGetFilesFileWithFormdataBody:
-		return FnGetFilesFileWithFormdataBody, nil
-	case FnGetFilesWithFormdataBody:
-		return FnGetFilesWithFormdataBody, nil
-	case FnGetFinancialConnectionsAccountsAccountOwnersWithFormdataBody:
-		return FnGetFinancialConnectionsAccountsAccountOwnersWithFormdataBody, nil
-	case FnGetFinancialConnectionsAccountsAccountWithFormdataBody:
-		return FnGetFinancialConnectionsAccountsAccountWithFormdataBody, nil
-	case FnGetFinancialConnectionsAccountsWithFormdataBody:
-		return FnGetFinancialConnectionsAccountsWithFormdataBody, nil
-	case FnGetFinancialConnectionsSessionsSessionWithFormdataBody:
-		return FnGetFinancialConnectionsSessionsSessionWithFormdataBody, nil
-	case FnGetFinancialConnectionsTransactionsTransactionWithFormdataBody:
-		return FnGetFinancialConnectionsTransactionsTransactionWithFormdataBody, nil
-	case FnGetFinancialConnectionsTransactionsWithFormdataBody:
-		return FnGetFinancialConnectionsTransactionsWithFormdataBody, nil
-	case FnGetForwardingRequestsIdWithFormdataBody:
-		return FnGetForwardingRequestsIdWithFormdataBody, nil
-	case FnGetForwardingRequestsWithFormdataBody:
-		return FnGetForwardingRequestsWithFormdataBody, nil
-	case FnGetIdentityVerificationReportsReportWithFormdataBody:
-		return FnGetIdentityVerificationReportsReportWithFormdataBody, nil
-	case FnGetIdentityVerificationReportsWithFormdataBody:
-		return FnGetIdentityVerificationReportsWithFormdataBody, nil
-	case FnGetIdentityVerificationSessionsSessionWithFormdataBody:
-		return FnGetIdentityVerificationSessionsSessionWithFormdataBody, nil
-	case FnGetIdentityVerificationSessionsWithFormdataBody:
-		return FnGetIdentityVerificationSessionsWithFormdataBody, nil
-	case FnGetInvoicePaymentsInvoicePaymentWithFormdataBody:
-		return FnGetInvoicePaymentsInvoicePaymentWithFormdataBody, nil
-	case FnGetInvoicePaymentsWithFormdataBody:
-		return FnGetInvoicePaymentsWithFormdataBody, nil
-	case FnGetInvoiceRenderingTemplatesTemplateWithFormdataBody:
-		return FnGetInvoiceRenderingTemplatesTemplateWithFormdataBody, nil
-	case FnGetInvoiceRenderingTemplatesWithFormdataBody:
-		return FnGetInvoiceRenderingTemplatesWithFormdataBody, nil
-	case FnGetInvoiceitemsInvoiceitemWithFormdataBody:
-		return FnGetInvoiceitemsInvoiceitemWithFormdataBody, nil
-	case FnGetInvoiceitemsWithFormdataBody:
-		return FnGetInvoiceitemsWithFormdataBody, nil
-	case FnGetInvoicesInvoiceLinesWithFormdataBody:
-		return FnGetInvoicesInvoiceLinesWithFormdataBody, nil
-	case FnGetInvoicesInvoiceWithFormdataBody:
-		return FnGetInvoicesInvoiceWithFormdataBody, nil
-	case FnGetInvoicesSearchWithFormdataBody:
-		return FnGetInvoicesSearchWithFormdataBody, nil
-	case FnGetInvoicesWithFormdataBody:
-		return FnGetInvoicesWithFormdataBody, nil
-	case FnGetIssuingAuthorizationsAuthorizationWithFormdataBody:
-		return FnGetIssuingAuthorizationsAuthorizationWithFormdataBody, nil
-	case FnGetIssuingAuthorizationsWithFormdataBody:
-		return FnGetIssuingAuthorizationsWithFormdataBody, nil
-	case FnGetIssuingCardholdersCardholderWithFormdataBody:
-		return FnGetIssuingCardholdersCardholderWithFormdataBody, nil
-	case FnGetIssuingCardholdersWithFormdataBody:
-		return FnGetIssuingCardholdersWithFormdataBody, nil
-	case FnGetIssuingCardsCardWithFormdataBody:
-		return FnGetIssuingCardsCardWithFormdataBody, nil
-	case FnGetIssuingCardsWithFormdataBody:
-		return FnGetIssuingCardsWithFormdataBody, nil
-	case FnGetIssuingDisputesDisputeWithFormdataBody:
-		return FnGetIssuingDisputesDisputeWithFormdataBody, nil
-	case FnGetIssuingDisputesWithFormdataBody:
-		return FnGetIssuingDisputesWithFormdataBody, nil
-	case FnGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody:
-		return FnGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody, nil
-	case FnGetIssuingPersonalizationDesignsWithFormdataBody:
-		return FnGetIssuingPersonalizationDesignsWithFormdataBody, nil
-	case FnGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBody:
-		return FnGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBody, nil
-	case FnGetIssuingPhysicalBundlesWithFormdataBody:
-		return FnGetIssuingPhysicalBundlesWithFormdataBody, nil
-	case FnGetIssuingSettlementsSettlementWithFormdataBody:
-		return FnGetIssuingSettlementsSettlementWithFormdataBody, nil
-	case FnGetIssuingTokensTokenWithFormdataBody:
-		return FnGetIssuingTokensTokenWithFormdataBody, nil
-	case FnGetIssuingTokensWithFormdataBody:
-		return FnGetIssuingTokensWithFormdataBody, nil
-	case FnGetIssuingTransactionsTransactionWithFormdataBody:
-		return FnGetIssuingTransactionsTransactionWithFormdataBody, nil
-	case FnGetIssuingTransactionsWithFormdataBody:
-		return FnGetIssuingTransactionsWithFormdataBody, nil
-	case FnGetLinkAccountSessionsSessionWithFormdataBody:
-		return FnGetLinkAccountSessionsSessionWithFormdataBody, nil
-	case FnGetLinkedAccountsAccountOwnersWithFormdataBody:
-		return FnGetLinkedAccountsAccountOwnersWithFormdataBody, nil
-	case FnGetLinkedAccountsAccountWithFormdataBody:
-		return FnGetLinkedAccountsAccountWithFormdataBody, nil
-	case FnGetLinkedAccountsWithFormdataBody:
-		return FnGetLinkedAccountsWithFormdataBody, nil
-	case FnGetMandatesMandateWithFormdataBody:
-		return FnGetMandatesMandateWithFormdataBody, nil
-	case FnGetPaymentAttemptRecordsIdWithFormdataBody:
-		return FnGetPaymentAttemptRecordsIdWithFormdataBody, nil
-	case FnGetPaymentAttemptRecordsWithFormdataBody:
-		return FnGetPaymentAttemptRecordsWithFormdataBody, nil
-	case FnGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBody:
-		return FnGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBody, nil
-	case FnGetPaymentIntentsIntentWithFormdataBody:
-		return FnGetPaymentIntentsIntentWithFormdataBody, nil
-	case FnGetPaymentIntentsSearchWithFormdataBody:
-		return FnGetPaymentIntentsSearchWithFormdataBody, nil
-	case FnGetPaymentIntentsWithFormdataBody:
-		return FnGetPaymentIntentsWithFormdataBody, nil
-	case FnGetPaymentLinksPaymentLinkLineItemsWithFormdataBody:
-		return FnGetPaymentLinksPaymentLinkLineItemsWithFormdataBody, nil
-	case FnGetPaymentLinksPaymentLinkWithFormdataBody:
-		return FnGetPaymentLinksPaymentLinkWithFormdataBody, nil
-	case FnGetPaymentLinksWithFormdataBody:
-		return FnGetPaymentLinksWithFormdataBody, nil
-	case FnGetPaymentMethodConfigurationsConfigurationWithFormdataBody:
-		return FnGetPaymentMethodConfigurationsConfigurationWithFormdataBody, nil
-	case FnGetPaymentMethodConfigurationsWithFormdataBody:
-		return FnGetPaymentMethodConfigurationsWithFormdataBody, nil
-	case FnGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBody:
-		return FnGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBody, nil
-	case FnGetPaymentMethodDomainsWithFormdataBody:
-		return FnGetPaymentMethodDomainsWithFormdataBody, nil
-	case FnGetPaymentMethodsPaymentMethodWithFormdataBody:
-		return FnGetPaymentMethodsPaymentMethodWithFormdataBody, nil
-	case FnGetPaymentMethodsWithFormdataBody:
-		return FnGetPaymentMethodsWithFormdataBody, nil
-	case FnGetPaymentRecordsIdWithFormdataBody:
-		return FnGetPaymentRecordsIdWithFormdataBody, nil
-	case FnGetPaymentRecordsWithFormdataBody:
-		return FnGetPaymentRecordsWithFormdataBody, nil
-	case FnGetPayoutsPayoutWithFormdataBody:
-		return FnGetPayoutsPayoutWithFormdataBody, nil
-	case FnGetPayoutsWithFormdataBody:
-		return FnGetPayoutsWithFormdataBody, nil
-	case FnGetPlansPlanWithFormdataBody:
-		return FnGetPlansPlanWithFormdataBody, nil
-	case FnGetPlansWithFormdataBody:
-		return FnGetPlansWithFormdataBody, nil
-	case FnGetPricesPriceWithFormdataBody:
-		return FnGetPricesPriceWithFormdataBody, nil
-	case FnGetPricesSearchWithFormdataBody:
-		return FnGetPricesSearchWithFormdataBody, nil
-	case FnGetPricesWithFormdataBody:
-		return FnGetPricesWithFormdataBody, nil
-	case FnGetProductCatalogTrialOffersIdWithFormdataBody:
-		return FnGetProductCatalogTrialOffersIdWithFormdataBody, nil
-	case FnGetProductCatalogTrialOffersWithFormdataBody:
-		return FnGetProductCatalogTrialOffersWithFormdataBody, nil
-	case FnGetProductsIdWithFormdataBody:
-		return FnGetProductsIdWithFormdataBody, nil
-	case FnGetProductsProductFeaturesIdWithFormdataBody:
-		return FnGetProductsProductFeaturesIdWithFormdataBody, nil
-	case FnGetProductsProductFeaturesWithFormdataBody:
-		return FnGetProductsProductFeaturesWithFormdataBody, nil
-	case FnGetProductsSearchWithFormdataBody:
-		return FnGetProductsSearchWithFormdataBody, nil
-	case FnGetProductsWithFormdataBody:
-		return FnGetProductsWithFormdataBody, nil
-	case FnGetPromotionCodesPromotionCodeWithFormdataBody:
-		return FnGetPromotionCodesPromotionCodeWithFormdataBody, nil
-	case FnGetPromotionCodesWithFormdataBody:
-		return FnGetPromotionCodesWithFormdataBody, nil
-	case FnGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBody:
-		return FnGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBody, nil
-	case FnGetQuotesQuoteLineItemsWithFormdataBody:
-		return FnGetQuotesQuoteLineItemsWithFormdataBody, nil
-	case FnGetQuotesQuotePdfWithFormdataBody:
-		return FnGetQuotesQuotePdfWithFormdataBody, nil
-	case FnGetQuotesQuoteWithFormdataBody:
-		return FnGetQuotesQuoteWithFormdataBody, nil
-	case FnGetQuotesWithFormdataBody:
-		return FnGetQuotesWithFormdataBody, nil
-	case FnGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBody:
-		return FnGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBody, nil
-	case FnGetRadarEarlyFraudWarningsWithFormdataBody:
-		return FnGetRadarEarlyFraudWarningsWithFormdataBody, nil
-	case FnGetRadarValueListItemsItemWithFormdataBody:
-		return FnGetRadarValueListItemsItemWithFormdataBody, nil
-	case FnGetRadarValueListItemsWithFormdataBody:
-		return FnGetRadarValueListItemsWithFormdataBody, nil
-	case FnGetRadarValueListsValueListWithFormdataBody:
-		return FnGetRadarValueListsValueListWithFormdataBody, nil
-	case FnGetRadarValueListsWithFormdataBody:
-		return FnGetRadarValueListsWithFormdataBody, nil
-	case FnGetRefundsRefundWithFormdataBody:
-		return FnGetRefundsRefundWithFormdataBody, nil
-	case FnGetRefundsWithFormdataBody:
-		return FnGetRefundsWithFormdataBody, nil
-	case FnGetReportingReportRunsReportRunWithFormdataBody:
-		return FnGetReportingReportRunsReportRunWithFormdataBody, nil
-	case FnGetReportingReportRunsWithFormdataBody:
-		return FnGetReportingReportRunsWithFormdataBody, nil
-	case FnGetReportingReportTypesReportTypeWithFormdataBody:
-		return FnGetReportingReportTypesReportTypeWithFormdataBody, nil
-	case FnGetReportingReportTypesWithFormdataBody:
-		return FnGetReportingReportTypesWithFormdataBody, nil
-	case FnGetReviewsReviewWithFormdataBody:
-		return FnGetReviewsReviewWithFormdataBody, nil
-	case FnGetReviewsWithFormdataBody:
-		return FnGetReviewsWithFormdataBody, nil
-	case FnGetSetupAttemptsWithFormdataBody:
-		return FnGetSetupAttemptsWithFormdataBody, nil
-	case FnGetSetupIntentsIntentWithFormdataBody:
-		return FnGetSetupIntentsIntentWithFormdataBody, nil
-	case FnGetSetupIntentsWithFormdataBody:
-		return FnGetSetupIntentsWithFormdataBody, nil
-	case FnGetShippingRatesShippingRateTokenWithFormdataBody:
-		return FnGetShippingRatesShippingRateTokenWithFormdataBody, nil
-	case FnGetShippingRatesWithFormdataBody:
-		return FnGetShippingRatesWithFormdataBody, nil
-	case FnGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBody:
-		return FnGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBody, nil
-	case FnGetSigmaScheduledQueryRunsWithFormdataBody:
-		return FnGetSigmaScheduledQueryRunsWithFormdataBody, nil
-	case FnGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBody:
-		return FnGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBody, nil
-	case FnGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBody:
-		return FnGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBody, nil
-	case FnGetSourcesSourceSourceTransactionsWithFormdataBody:
-		return FnGetSourcesSourceSourceTransactionsWithFormdataBody, nil
-	case FnGetSourcesSourceWithFormdataBody:
-		return FnGetSourcesSourceWithFormdataBody, nil
-	case FnGetSubscriptionItemsItemWithFormdataBody:
-		return FnGetSubscriptionItemsItemWithFormdataBody, nil
-	case FnGetSubscriptionItemsWithFormdataBody:
-		return FnGetSubscriptionItemsWithFormdataBody, nil
-	case FnGetSubscriptionSchedulesScheduleWithFormdataBody:
-		return FnGetSubscriptionSchedulesScheduleWithFormdataBody, nil
-	case FnGetSubscriptionSchedulesWithFormdataBody:
-		return FnGetSubscriptionSchedulesWithFormdataBody, nil
-	case FnGetSubscriptionsSearchWithFormdataBody:
-		return FnGetSubscriptionsSearchWithFormdataBody, nil
-	case FnGetSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return FnGetSubscriptionsSubscriptionExposedIdWithFormdataBody, nil
-	case FnGetSubscriptionsWithFormdataBody:
-		return FnGetSubscriptionsWithFormdataBody, nil
-	case FnGetTaxAssociationsFindWithFormdataBody:
-		return FnGetTaxAssociationsFindWithFormdataBody, nil
-	case FnGetTaxCalculationsCalculationLineItemsWithFormdataBody:
-		return FnGetTaxCalculationsCalculationLineItemsWithFormdataBody, nil
-	case FnGetTaxCalculationsCalculationWithFormdataBody:
-		return FnGetTaxCalculationsCalculationWithFormdataBody, nil
-	case FnGetTaxCodesIdWithFormdataBody:
-		return FnGetTaxCodesIdWithFormdataBody, nil
-	case FnGetTaxCodesWithFormdataBody:
-		return FnGetTaxCodesWithFormdataBody, nil
-	case FnGetTaxIdsIdWithFormdataBody:
-		return FnGetTaxIdsIdWithFormdataBody, nil
-	case FnGetTaxIdsWithFormdataBody:
-		return FnGetTaxIdsWithFormdataBody, nil
-	case FnGetTaxLocationsLocationWithFormdataBody:
-		return FnGetTaxLocationsLocationWithFormdataBody, nil
-	case FnGetTaxLocationsWithFormdataBody:
-		return FnGetTaxLocationsWithFormdataBody, nil
-	case FnGetTaxRatesTaxRateWithFormdataBody:
-		return FnGetTaxRatesTaxRateWithFormdataBody, nil
-	case FnGetTaxRatesWithFormdataBody:
-		return FnGetTaxRatesWithFormdataBody, nil
-	case FnGetTaxRegistrationsIdWithFormdataBody:
-		return FnGetTaxRegistrationsIdWithFormdataBody, nil
-	case FnGetTaxRegistrationsWithFormdataBody:
-		return FnGetTaxRegistrationsWithFormdataBody, nil
-	case FnGetTaxSettingsWithFormdataBody:
-		return FnGetTaxSettingsWithFormdataBody, nil
-	case FnGetTaxTransactionsTransactionLineItemsWithFormdataBody:
-		return FnGetTaxTransactionsTransactionLineItemsWithFormdataBody, nil
-	case FnGetTaxTransactionsTransactionWithFormdataBody:
-		return FnGetTaxTransactionsTransactionWithFormdataBody, nil
-	case FnGetTerminalConfigurationsConfigurationWithFormdataBody:
-		return FnGetTerminalConfigurationsConfigurationWithFormdataBody, nil
-	case FnGetTerminalConfigurationsWithFormdataBody:
-		return FnGetTerminalConfigurationsWithFormdataBody, nil
-	case FnGetTerminalLocationsLocationWithFormdataBody:
-		return FnGetTerminalLocationsLocationWithFormdataBody, nil
-	case FnGetTerminalLocationsWithFormdataBody:
-		return FnGetTerminalLocationsWithFormdataBody, nil
-	case FnGetTerminalReadersReaderWithFormdataBody:
-		return FnGetTerminalReadersReaderWithFormdataBody, nil
-	case FnGetTerminalReadersWithFormdataBody:
-		return FnGetTerminalReadersWithFormdataBody, nil
-	case FnGetTestHelpersTestClocksTestClockWithFormdataBody:
-		return FnGetTestHelpersTestClocksTestClockWithFormdataBody, nil
-	case FnGetTestHelpersTestClocksWithFormdataBody:
-		return FnGetTestHelpersTestClocksWithFormdataBody, nil
-	case FnGetThreeDSecureAuthenticationsAuthenticationWithFormdataBody:
-		return FnGetThreeDSecureAuthenticationsAuthenticationWithFormdataBody, nil
-	case FnGetThreeDSecureAuthenticationsWithFormdataBody:
-		return FnGetThreeDSecureAuthenticationsWithFormdataBody, nil
-	case FnGetTokensTokenWithFormdataBody:
-		return FnGetTokensTokenWithFormdataBody, nil
-	case FnGetTopupsTopupWithFormdataBody:
-		return FnGetTopupsTopupWithFormdataBody, nil
-	case FnGetTopupsWithFormdataBody:
-		return FnGetTopupsWithFormdataBody, nil
-	case FnGetTransfersIdReversalsWithFormdataBody:
-		return FnGetTransfersIdReversalsWithFormdataBody, nil
-	case FnGetTransfersTransferReversalsIdWithFormdataBody:
-		return FnGetTransfersTransferReversalsIdWithFormdataBody, nil
-	case FnGetTransfersTransferWithFormdataBody:
-		return FnGetTransfersTransferWithFormdataBody, nil
-	case FnGetTransfersWithFormdataBody:
-		return FnGetTransfersWithFormdataBody, nil
-	case FnGetTreasuryCreditReversalsCreditReversalWithFormdataBody:
-		return FnGetTreasuryCreditReversalsCreditReversalWithFormdataBody, nil
-	case FnGetTreasuryCreditReversalsWithFormdataBody:
-		return FnGetTreasuryCreditReversalsWithFormdataBody, nil
-	case FnGetTreasuryDebitReversalsDebitReversalWithFormdataBody:
-		return FnGetTreasuryDebitReversalsDebitReversalWithFormdataBody, nil
-	case FnGetTreasuryDebitReversalsWithFormdataBody:
-		return FnGetTreasuryDebitReversalsWithFormdataBody, nil
-	case FnGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody:
-		return FnGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody, nil
-	case FnGetTreasuryFinancialAccountsFinancialAccountWithFormdataBody:
-		return FnGetTreasuryFinancialAccountsFinancialAccountWithFormdataBody, nil
-	case FnGetTreasuryFinancialAccountsWithFormdataBody:
-		return FnGetTreasuryFinancialAccountsWithFormdataBody, nil
-	case FnGetTreasuryInboundTransfersIdWithFormdataBody:
-		return FnGetTreasuryInboundTransfersIdWithFormdataBody, nil
-	case FnGetTreasuryInboundTransfersWithFormdataBody:
-		return FnGetTreasuryInboundTransfersWithFormdataBody, nil
-	case FnGetTreasuryOutboundPaymentsIdWithFormdataBody:
-		return FnGetTreasuryOutboundPaymentsIdWithFormdataBody, nil
-	case FnGetTreasuryOutboundPaymentsWithFormdataBody:
-		return FnGetTreasuryOutboundPaymentsWithFormdataBody, nil
-	case FnGetTreasuryOutboundTransfersOutboundTransferWithFormdataBody:
-		return FnGetTreasuryOutboundTransfersOutboundTransferWithFormdataBody, nil
-	case FnGetTreasuryOutboundTransfersWithFormdataBody:
-		return FnGetTreasuryOutboundTransfersWithFormdataBody, nil
-	case FnGetTreasuryReceivedCreditsIdWithFormdataBody:
-		return FnGetTreasuryReceivedCreditsIdWithFormdataBody, nil
-	case FnGetTreasuryReceivedCreditsWithFormdataBody:
-		return FnGetTreasuryReceivedCreditsWithFormdataBody, nil
-	case FnGetTreasuryReceivedDebitsIdWithFormdataBody:
-		return FnGetTreasuryReceivedDebitsIdWithFormdataBody, nil
-	case FnGetTreasuryReceivedDebitsWithFormdataBody:
-		return FnGetTreasuryReceivedDebitsWithFormdataBody, nil
-	case FnGetTreasuryTransactionEntriesIdWithFormdataBody:
-		return FnGetTreasuryTransactionEntriesIdWithFormdataBody, nil
-	case FnGetTreasuryTransactionEntriesWithFormdataBody:
-		return FnGetTreasuryTransactionEntriesWithFormdataBody, nil
-	case FnGetTreasuryTransactionsIdWithFormdataBody:
-		return FnGetTreasuryTransactionsIdWithFormdataBody, nil
-	case FnGetTreasuryTransactionsWithFormdataBody:
-		return FnGetTreasuryTransactionsWithFormdataBody, nil
-	case FnGetWebhookEndpointsWebhookEndpointWithFormdataBody:
-		return FnGetWebhookEndpointsWebhookEndpointWithFormdataBody, nil
-	case FnGetWebhookEndpointsWithFormdataBody:
-		return FnGetWebhookEndpointsWithFormdataBody, nil
-	case FnPostAccountLinksWithFormdataBody:
-		return FnPostAccountLinksWithFormdataBody, nil
-	case FnPostAccountSessionsWithFormdataBody:
-		return FnPostAccountSessionsWithFormdataBody, nil
-	case FnPostAccountsAccountBankAccountsIdWithFormdataBody:
-		return FnPostAccountsAccountBankAccountsIdWithFormdataBody, nil
-	case FnPostAccountsAccountBankAccountsWithFormdataBody:
-		return FnPostAccountsAccountBankAccountsWithFormdataBody, nil
-	case FnPostAccountsAccountCapabilitiesCapabilityWithFormdataBody:
-		return FnPostAccountsAccountCapabilitiesCapabilityWithFormdataBody, nil
-	case FnPostAccountsAccountExternalAccountsIdWithFormdataBody:
-		return FnPostAccountsAccountExternalAccountsIdWithFormdataBody, nil
-	case FnPostAccountsAccountExternalAccountsWithFormdataBody:
-		return FnPostAccountsAccountExternalAccountsWithFormdataBody, nil
-	case FnPostAccountsAccountLoginLinksWithFormdataBody:
-		return FnPostAccountsAccountLoginLinksWithFormdataBody, nil
-	case FnPostAccountsAccountPeoplePersonWithFormdataBody:
-		return FnPostAccountsAccountPeoplePersonWithFormdataBody, nil
-	case FnPostAccountsAccountPeopleWithFormdataBody:
-		return FnPostAccountsAccountPeopleWithFormdataBody, nil
-	case FnPostAccountsAccountPersonsPersonWithFormdataBody:
-		return FnPostAccountsAccountPersonsPersonWithFormdataBody, nil
-	case FnPostAccountsAccountPersonsWithFormdataBody:
-		return FnPostAccountsAccountPersonsWithFormdataBody, nil
-	case FnPostAccountsAccountRejectWithFormdataBody:
-		return FnPostAccountsAccountRejectWithFormdataBody, nil
-	case FnPostAccountsAccountUnrejectWithFormdataBody:
-		return FnPostAccountsAccountUnrejectWithFormdataBody, nil
-	case FnPostAccountsAccountWithFormdataBody:
-		return FnPostAccountsAccountWithFormdataBody, nil
-	case FnPostAccountsWithFormdataBody:
-		return FnPostAccountsWithFormdataBody, nil
-	case FnPostApplePayDomainsWithFormdataBody:
-		return FnPostApplePayDomainsWithFormdataBody, nil
-	case FnPostApplicationFeesFeeRefundsIdWithFormdataBody:
-		return FnPostApplicationFeesFeeRefundsIdWithFormdataBody, nil
-	case FnPostApplicationFeesIdRefundWithFormdataBody:
-		return FnPostApplicationFeesIdRefundWithFormdataBody, nil
-	case FnPostApplicationFeesIdRefundsWithFormdataBody:
-		return FnPostApplicationFeesIdRefundsWithFormdataBody, nil
-	case FnPostAppsInstallsIdUninstallWithFormdataBody:
-		return FnPostAppsInstallsIdUninstallWithFormdataBody, nil
-	case FnPostAppsInstallsIdWithFormdataBody:
-		return FnPostAppsInstallsIdWithFormdataBody, nil
-	case FnPostAppsInstallsWithFormdataBody:
-		return FnPostAppsInstallsWithFormdataBody, nil
-	case FnPostAppsSecretsDeleteWithFormdataBody:
-		return FnPostAppsSecretsDeleteWithFormdataBody, nil
-	case FnPostAppsSecretsWithFormdataBody:
-		return FnPostAppsSecretsWithFormdataBody, nil
-	case FnPostBalanceSettingsWithFormdataBody:
-		return FnPostBalanceSettingsWithFormdataBody, nil
-	case FnPostBillingAlertsIdActivateWithFormdataBody:
-		return FnPostBillingAlertsIdActivateWithFormdataBody, nil
-	case FnPostBillingAlertsIdArchiveWithFormdataBody:
-		return FnPostBillingAlertsIdArchiveWithFormdataBody, nil
-	case FnPostBillingAlertsIdDeactivateWithFormdataBody:
-		return FnPostBillingAlertsIdDeactivateWithFormdataBody, nil
-	case FnPostBillingAlertsWithFormdataBody:
-		return FnPostBillingAlertsWithFormdataBody, nil
-	case FnPostBillingCreditGrantsIdExpireWithFormdataBody:
-		return FnPostBillingCreditGrantsIdExpireWithFormdataBody, nil
-	case FnPostBillingCreditGrantsIdVoidWithFormdataBody:
-		return FnPostBillingCreditGrantsIdVoidWithFormdataBody, nil
-	case FnPostBillingCreditGrantsIdWithFormdataBody:
-		return FnPostBillingCreditGrantsIdWithFormdataBody, nil
-	case FnPostBillingCreditGrantsWithFormdataBody:
-		return FnPostBillingCreditGrantsWithFormdataBody, nil
-	case FnPostBillingFeedbackOptionsIdDeactivateWithFormdataBody:
-		return FnPostBillingFeedbackOptionsIdDeactivateWithFormdataBody, nil
-	case FnPostBillingFeedbackOptionsIdWithFormdataBody:
-		return FnPostBillingFeedbackOptionsIdWithFormdataBody, nil
-	case FnPostBillingFeedbackOptionsWithFormdataBody:
-		return FnPostBillingFeedbackOptionsWithFormdataBody, nil
-	case FnPostBillingMeterEventAdjustmentsWithFormdataBody:
-		return FnPostBillingMeterEventAdjustmentsWithFormdataBody, nil
-	case FnPostBillingMeterEventsWithFormdataBody:
-		return FnPostBillingMeterEventsWithFormdataBody, nil
-	case FnPostBillingMetersIdDeactivateWithFormdataBody:
-		return FnPostBillingMetersIdDeactivateWithFormdataBody, nil
-	case FnPostBillingMetersIdReactivateWithFormdataBody:
-		return FnPostBillingMetersIdReactivateWithFormdataBody, nil
-	case FnPostBillingMetersIdWithFormdataBody:
-		return FnPostBillingMetersIdWithFormdataBody, nil
-	case FnPostBillingMetersWithFormdataBody:
-		return FnPostBillingMetersWithFormdataBody, nil
-	case FnPostBillingPortalConfigurationsConfigurationWithFormdataBody:
-		return FnPostBillingPortalConfigurationsConfigurationWithFormdataBody, nil
-	case FnPostBillingPortalConfigurationsWithFormdataBody:
-		return FnPostBillingPortalConfigurationsWithFormdataBody, nil
-	case FnPostBillingPortalSessionsWithFormdataBody:
-		return FnPostBillingPortalSessionsWithFormdataBody, nil
-	case FnPostChargesChargeCaptureWithFormdataBody:
-		return FnPostChargesChargeCaptureWithFormdataBody, nil
-	case FnPostChargesChargeDisputeCloseWithFormdataBody:
-		return FnPostChargesChargeDisputeCloseWithFormdataBody, nil
-	case FnPostChargesChargeDisputeWithFormdataBody:
-		return FnPostChargesChargeDisputeWithFormdataBody, nil
-	case FnPostChargesChargeRefundWithFormdataBody:
-		return FnPostChargesChargeRefundWithFormdataBody, nil
-	case FnPostChargesChargeRefundsRefundWithFormdataBody:
-		return FnPostChargesChargeRefundsRefundWithFormdataBody, nil
-	case FnPostChargesChargeRefundsWithFormdataBody:
-		return FnPostChargesChargeRefundsWithFormdataBody, nil
-	case FnPostChargesChargeWithFormdataBody:
-		return FnPostChargesChargeWithFormdataBody, nil
-	case FnPostChargesWithFormdataBody:
-		return FnPostChargesWithFormdataBody, nil
-	case FnPostCheckoutSessionsSessionExpireWithFormdataBody:
-		return FnPostCheckoutSessionsSessionExpireWithFormdataBody, nil
-	case FnPostCheckoutSessionsSessionWithFormdataBody:
-		return FnPostCheckoutSessionsSessionWithFormdataBody, nil
-	case FnPostCheckoutSessionsWithFormdataBody:
-		return FnPostCheckoutSessionsWithFormdataBody, nil
-	case FnPostClimateOrdersOrderCancelWithFormdataBody:
-		return FnPostClimateOrdersOrderCancelWithFormdataBody, nil
-	case FnPostClimateOrdersOrderWithFormdataBody:
-		return FnPostClimateOrdersOrderWithFormdataBody, nil
-	case FnPostClimateOrdersWithFormdataBody:
-		return FnPostClimateOrdersWithFormdataBody, nil
-	case FnPostCouponsCouponWithFormdataBody:
-		return FnPostCouponsCouponWithFormdataBody, nil
-	case FnPostCouponsWithFormdataBody:
-		return FnPostCouponsWithFormdataBody, nil
-	case FnPostCreditNotesIdVoidWithFormdataBody:
-		return FnPostCreditNotesIdVoidWithFormdataBody, nil
-	case FnPostCreditNotesIdWithFormdataBody:
-		return FnPostCreditNotesIdWithFormdataBody, nil
-	case FnPostCreditNotesWithFormdataBody:
-		return FnPostCreditNotesWithFormdataBody, nil
-	case FnPostCustomerSessionsWithFormdataBody:
-		return FnPostCustomerSessionsWithFormdataBody, nil
-	case FnPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBody:
-		return FnPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBody, nil
-	case FnPostCustomersCustomerBalanceTransactionsWithFormdataBody:
-		return FnPostCustomersCustomerBalanceTransactionsWithFormdataBody, nil
-	case FnPostCustomersCustomerBankAccountsIdVerifyWithFormdataBody:
-		return FnPostCustomersCustomerBankAccountsIdVerifyWithFormdataBody, nil
-	case FnPostCustomersCustomerBankAccountsIdWithFormdataBody:
-		return FnPostCustomersCustomerBankAccountsIdWithFormdataBody, nil
-	case FnPostCustomersCustomerBankAccountsWithFormdataBody:
-		return FnPostCustomersCustomerBankAccountsWithFormdataBody, nil
-	case FnPostCustomersCustomerCardsIdWithFormdataBody:
-		return FnPostCustomersCustomerCardsIdWithFormdataBody, nil
-	case FnPostCustomersCustomerCardsWithFormdataBody:
-		return FnPostCustomersCustomerCardsWithFormdataBody, nil
-	case FnPostCustomersCustomerCashBalanceWithFormdataBody:
-		return FnPostCustomersCustomerCashBalanceWithFormdataBody, nil
-	case FnPostCustomersCustomerFundingInstructionsWithFormdataBody:
-		return FnPostCustomersCustomerFundingInstructionsWithFormdataBody, nil
-	case FnPostCustomersCustomerSourcesIdVerifyWithFormdataBody:
-		return FnPostCustomersCustomerSourcesIdVerifyWithFormdataBody, nil
-	case FnPostCustomersCustomerSourcesIdWithFormdataBody:
-		return FnPostCustomersCustomerSourcesIdWithFormdataBody, nil
-	case FnPostCustomersCustomerSourcesWithFormdataBody:
-		return FnPostCustomersCustomerSourcesWithFormdataBody, nil
-	case FnPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return FnPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody, nil
-	case FnPostCustomersCustomerSubscriptionsWithFormdataBody:
-		return FnPostCustomersCustomerSubscriptionsWithFormdataBody, nil
-	case FnPostCustomersCustomerTaxIdsWithFormdataBody:
-		return FnPostCustomersCustomerTaxIdsWithFormdataBody, nil
-	case FnPostCustomersCustomerWithFormdataBody:
-		return FnPostCustomersCustomerWithFormdataBody, nil
-	case FnPostCustomersWithFormdataBody:
-		return FnPostCustomersWithFormdataBody, nil
-	case FnPostDisputesDisputeCloseWithFormdataBody:
-		return FnPostDisputesDisputeCloseWithFormdataBody, nil
-	case FnPostDisputesDisputeWithFormdataBody:
-		return FnPostDisputesDisputeWithFormdataBody, nil
-	case FnPostEntitlementsFeaturesIdWithFormdataBody:
-		return FnPostEntitlementsFeaturesIdWithFormdataBody, nil
-	case FnPostEntitlementsFeaturesWithFormdataBody:
-		return FnPostEntitlementsFeaturesWithFormdataBody, nil
-	case FnPostEphemeralKeysWithFormdataBody:
-		return FnPostEphemeralKeysWithFormdataBody, nil
-	case FnPostExternalAccountsIdWithFormdataBody:
-		return FnPostExternalAccountsIdWithFormdataBody, nil
-	case FnPostFileLinksLinkWithFormdataBody:
-		return FnPostFileLinksLinkWithFormdataBody, nil
-	case FnPostFileLinksWithFormdataBody:
-		return FnPostFileLinksWithFormdataBody, nil
-	case FnPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBody:
-		return FnPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBody, nil
-	case FnPostFinancialConnectionsAccountsAccountRefreshWithFormdataBody:
-		return FnPostFinancialConnectionsAccountsAccountRefreshWithFormdataBody, nil
-	case FnPostFinancialConnectionsAccountsAccountSubscribeWithFormdataBody:
-		return FnPostFinancialConnectionsAccountsAccountSubscribeWithFormdataBody, nil
-	case FnPostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBody:
-		return FnPostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBody, nil
-	case FnPostFinancialConnectionsSessionsWithFormdataBody:
-		return FnPostFinancialConnectionsSessionsWithFormdataBody, nil
-	case FnPostForwardingRequestsWithFormdataBody:
-		return FnPostForwardingRequestsWithFormdataBody, nil
-	case FnPostIdentityVerificationSessionsSessionCancelWithFormdataBody:
-		return FnPostIdentityVerificationSessionsSessionCancelWithFormdataBody, nil
-	case FnPostIdentityVerificationSessionsSessionRedactWithFormdataBody:
-		return FnPostIdentityVerificationSessionsSessionRedactWithFormdataBody, nil
-	case FnPostIdentityVerificationSessionsSessionWithFormdataBody:
-		return FnPostIdentityVerificationSessionsSessionWithFormdataBody, nil
-	case FnPostIdentityVerificationSessionsWithFormdataBody:
-		return FnPostIdentityVerificationSessionsWithFormdataBody, nil
-	case FnPostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBody:
-		return FnPostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBody, nil
-	case FnPostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBody:
-		return FnPostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBody, nil
-	case FnPostInvoiceitemsInvoiceitemWithFormdataBody:
-		return FnPostInvoiceitemsInvoiceitemWithFormdataBody, nil
-	case FnPostInvoiceitemsWithFormdataBody:
-		return FnPostInvoiceitemsWithFormdataBody, nil
-	case FnPostInvoicesCreatePreviewWithFormdataBody:
-		return FnPostInvoicesCreatePreviewWithFormdataBody, nil
-	case FnPostInvoicesInvoiceAddLinesWithFormdataBody:
-		return FnPostInvoicesInvoiceAddLinesWithFormdataBody, nil
-	case FnPostInvoicesInvoiceAttachPaymentWithFormdataBody:
-		return FnPostInvoicesInvoiceAttachPaymentWithFormdataBody, nil
-	case FnPostInvoicesInvoiceFinalizeWithFormdataBody:
-		return FnPostInvoicesInvoiceFinalizeWithFormdataBody, nil
-	case FnPostInvoicesInvoiceLinesLineItemIdWithFormdataBody:
-		return FnPostInvoicesInvoiceLinesLineItemIdWithFormdataBody, nil
-	case FnPostInvoicesInvoiceMarkUncollectibleWithFormdataBody:
-		return FnPostInvoicesInvoiceMarkUncollectibleWithFormdataBody, nil
-	case FnPostInvoicesInvoicePayWithFormdataBody:
-		return FnPostInvoicesInvoicePayWithFormdataBody, nil
-	case FnPostInvoicesInvoiceRemoveLinesWithFormdataBody:
-		return FnPostInvoicesInvoiceRemoveLinesWithFormdataBody, nil
-	case FnPostInvoicesInvoiceSendWithFormdataBody:
-		return FnPostInvoicesInvoiceSendWithFormdataBody, nil
-	case FnPostInvoicesInvoiceUpdateLinesWithFormdataBody:
-		return FnPostInvoicesInvoiceUpdateLinesWithFormdataBody, nil
-	case FnPostInvoicesInvoiceVoidWithFormdataBody:
-		return FnPostInvoicesInvoiceVoidWithFormdataBody, nil
-	case FnPostInvoicesInvoiceWithFormdataBody:
-		return FnPostInvoicesInvoiceWithFormdataBody, nil
-	case FnPostInvoicesWithFormdataBody:
-		return FnPostInvoicesWithFormdataBody, nil
-	case FnPostIssuingAuthorizationsAuthorizationApproveWithFormdataBody:
-		return FnPostIssuingAuthorizationsAuthorizationApproveWithFormdataBody, nil
-	case FnPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBody:
-		return FnPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBody, nil
-	case FnPostIssuingAuthorizationsAuthorizationWithFormdataBody:
-		return FnPostIssuingAuthorizationsAuthorizationWithFormdataBody, nil
-	case FnPostIssuingCardholdersCardholderWithFormdataBody:
-		return FnPostIssuingCardholdersCardholderWithFormdataBody, nil
-	case FnPostIssuingCardholdersWithFormdataBody:
-		return FnPostIssuingCardholdersWithFormdataBody, nil
-	case FnPostIssuingCardsCardWithFormdataBody:
-		return FnPostIssuingCardsCardWithFormdataBody, nil
-	case FnPostIssuingCardsWithFormdataBody:
-		return FnPostIssuingCardsWithFormdataBody, nil
-	case FnPostIssuingDisputesDisputeSubmitWithFormdataBody:
-		return FnPostIssuingDisputesDisputeSubmitWithFormdataBody, nil
-	case FnPostIssuingDisputesDisputeWithFormdataBody:
-		return FnPostIssuingDisputesDisputeWithFormdataBody, nil
-	case FnPostIssuingDisputesWithFormdataBody:
-		return FnPostIssuingDisputesWithFormdataBody, nil
-	case FnPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody:
-		return FnPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody, nil
-	case FnPostIssuingPersonalizationDesignsWithFormdataBody:
-		return FnPostIssuingPersonalizationDesignsWithFormdataBody, nil
-	case FnPostIssuingSettlementsSettlementWithFormdataBody:
-		return FnPostIssuingSettlementsSettlementWithFormdataBody, nil
-	case FnPostIssuingTokensTokenWithFormdataBody:
-		return FnPostIssuingTokensTokenWithFormdataBody, nil
-	case FnPostIssuingTransactionsTransactionWithFormdataBody:
-		return FnPostIssuingTransactionsTransactionWithFormdataBody, nil
-	case FnPostLinkAccountSessionsWithFormdataBody:
-		return FnPostLinkAccountSessionsWithFormdataBody, nil
-	case FnPostLinkedAccountsAccountDisconnectWithFormdataBody:
-		return FnPostLinkedAccountsAccountDisconnectWithFormdataBody, nil
-	case FnPostLinkedAccountsAccountRefreshWithFormdataBody:
-		return FnPostLinkedAccountsAccountRefreshWithFormdataBody, nil
-	case FnPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBody:
-		return FnPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBody, nil
-	case FnPostPaymentIntentsIntentCancelWithFormdataBody:
-		return FnPostPaymentIntentsIntentCancelWithFormdataBody, nil
-	case FnPostPaymentIntentsIntentCaptureWithFormdataBody:
-		return FnPostPaymentIntentsIntentCaptureWithFormdataBody, nil
-	case FnPostPaymentIntentsIntentConfirmWithFormdataBody:
-		return FnPostPaymentIntentsIntentConfirmWithFormdataBody, nil
-	case FnPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBody:
-		return FnPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBody, nil
-	case FnPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBody:
-		return FnPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBody, nil
-	case FnPostPaymentIntentsIntentWithFormdataBody:
-		return FnPostPaymentIntentsIntentWithFormdataBody, nil
-	case FnPostPaymentIntentsWithFormdataBody:
-		return FnPostPaymentIntentsWithFormdataBody, nil
-	case FnPostPaymentLinksPaymentLinkWithFormdataBody:
-		return FnPostPaymentLinksPaymentLinkWithFormdataBody, nil
-	case FnPostPaymentLinksWithFormdataBody:
-		return FnPostPaymentLinksWithFormdataBody, nil
-	case FnPostPaymentMethodConfigurationsConfigurationWithFormdataBody:
-		return FnPostPaymentMethodConfigurationsConfigurationWithFormdataBody, nil
-	case FnPostPaymentMethodConfigurationsWithFormdataBody:
-		return FnPostPaymentMethodConfigurationsWithFormdataBody, nil
-	case FnPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBody:
-		return FnPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBody, nil
-	case FnPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBody:
-		return FnPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBody, nil
-	case FnPostPaymentMethodDomainsWithFormdataBody:
-		return FnPostPaymentMethodDomainsWithFormdataBody, nil
-	case FnPostPaymentMethodsPaymentMethodAttachWithFormdataBody:
-		return FnPostPaymentMethodsPaymentMethodAttachWithFormdataBody, nil
-	case FnPostPaymentMethodsPaymentMethodDetachWithFormdataBody:
-		return FnPostPaymentMethodsPaymentMethodDetachWithFormdataBody, nil
-	case FnPostPaymentMethodsPaymentMethodWithFormdataBody:
-		return FnPostPaymentMethodsPaymentMethodWithFormdataBody, nil
-	case FnPostPaymentMethodsWithFormdataBody:
-		return FnPostPaymentMethodsWithFormdataBody, nil
-	case FnPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBody:
-		return FnPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBody, nil
-	case FnPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBody:
-		return FnPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBody, nil
-	case FnPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBody:
-		return FnPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBody, nil
-	case FnPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBody:
-		return FnPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBody, nil
-	case FnPostPaymentRecordsIdReportPaymentAttemptWithFormdataBody:
-		return FnPostPaymentRecordsIdReportPaymentAttemptWithFormdataBody, nil
-	case FnPostPaymentRecordsIdReportRefundWithFormdataBody:
-		return FnPostPaymentRecordsIdReportRefundWithFormdataBody, nil
-	case FnPostPaymentRecordsReportPaymentWithFormdataBody:
-		return FnPostPaymentRecordsReportPaymentWithFormdataBody, nil
-	case FnPostPayoutsPayoutCancelWithFormdataBody:
-		return FnPostPayoutsPayoutCancelWithFormdataBody, nil
-	case FnPostPayoutsPayoutReverseWithFormdataBody:
-		return FnPostPayoutsPayoutReverseWithFormdataBody, nil
-	case FnPostPayoutsPayoutWithFormdataBody:
-		return FnPostPayoutsPayoutWithFormdataBody, nil
-	case FnPostPayoutsWithFormdataBody:
-		return FnPostPayoutsWithFormdataBody, nil
-	case FnPostPlansPlanWithFormdataBody:
-		return FnPostPlansPlanWithFormdataBody, nil
-	case FnPostPlansWithFormdataBody:
-		return FnPostPlansWithFormdataBody, nil
-	case FnPostPricesPriceWithFormdataBody:
-		return FnPostPricesPriceWithFormdataBody, nil
-	case FnPostPricesWithFormdataBody:
-		return FnPostPricesWithFormdataBody, nil
-	case FnPostProductCatalogTrialOffersIdWithFormdataBody:
-		return FnPostProductCatalogTrialOffersIdWithFormdataBody, nil
-	case FnPostProductCatalogTrialOffersWithFormdataBody:
-		return FnPostProductCatalogTrialOffersWithFormdataBody, nil
-	case FnPostProductsIdWithFormdataBody:
-		return FnPostProductsIdWithFormdataBody, nil
-	case FnPostProductsProductFeaturesWithFormdataBody:
-		return FnPostProductsProductFeaturesWithFormdataBody, nil
-	case FnPostProductsWithFormdataBody:
-		return FnPostProductsWithFormdataBody, nil
-	case FnPostPromotionCodesPromotionCodeWithFormdataBody:
-		return FnPostPromotionCodesPromotionCodeWithFormdataBody, nil
-	case FnPostPromotionCodesWithFormdataBody:
-		return FnPostPromotionCodesWithFormdataBody, nil
-	case FnPostQuotesQuoteAcceptWithFormdataBody:
-		return FnPostQuotesQuoteAcceptWithFormdataBody, nil
-	case FnPostQuotesQuoteCancelWithFormdataBody:
-		return FnPostQuotesQuoteCancelWithFormdataBody, nil
-	case FnPostQuotesQuoteFinalizeWithFormdataBody:
-		return FnPostQuotesQuoteFinalizeWithFormdataBody, nil
-	case FnPostQuotesQuoteWithFormdataBody:
-		return FnPostQuotesQuoteWithFormdataBody, nil
-	case FnPostQuotesWithFormdataBody:
-		return FnPostQuotesWithFormdataBody, nil
-	case FnPostRadarPaymentEvaluationsWithFormdataBody:
-		return FnPostRadarPaymentEvaluationsWithFormdataBody, nil
-	case FnPostRadarValueListItemsWithFormdataBody:
-		return FnPostRadarValueListItemsWithFormdataBody, nil
-	case FnPostRadarValueListsValueListWithFormdataBody:
-		return FnPostRadarValueListsValueListWithFormdataBody, nil
-	case FnPostRadarValueListsWithFormdataBody:
-		return FnPostRadarValueListsWithFormdataBody, nil
-	case FnPostRefundsRefundCancelWithFormdataBody:
-		return FnPostRefundsRefundCancelWithFormdataBody, nil
-	case FnPostRefundsRefundWithFormdataBody:
-		return FnPostRefundsRefundWithFormdataBody, nil
-	case FnPostRefundsWithFormdataBody:
-		return FnPostRefundsWithFormdataBody, nil
-	case FnPostReportingReportRunsWithFormdataBody:
-		return FnPostReportingReportRunsWithFormdataBody, nil
-	case FnPostReviewsReviewApproveWithFormdataBody:
-		return FnPostReviewsReviewApproveWithFormdataBody, nil
-	case FnPostSetupIntentsIntentCancelWithFormdataBody:
-		return FnPostSetupIntentsIntentCancelWithFormdataBody, nil
-	case FnPostSetupIntentsIntentConfirmWithFormdataBody:
-		return FnPostSetupIntentsIntentConfirmWithFormdataBody, nil
-	case FnPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBody:
-		return FnPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBody, nil
-	case FnPostSetupIntentsIntentWithFormdataBody:
-		return FnPostSetupIntentsIntentWithFormdataBody, nil
-	case FnPostSetupIntentsWithFormdataBody:
-		return FnPostSetupIntentsWithFormdataBody, nil
-	case FnPostShippingRatesShippingRateTokenWithFormdataBody:
-		return FnPostShippingRatesShippingRateTokenWithFormdataBody, nil
-	case FnPostShippingRatesWithFormdataBody:
-		return FnPostShippingRatesWithFormdataBody, nil
-	case FnPostSigmaSavedQueriesIdWithFormdataBody:
-		return FnPostSigmaSavedQueriesIdWithFormdataBody, nil
-	case FnPostSourcesSourceVerifyWithFormdataBody:
-		return FnPostSourcesSourceVerifyWithFormdataBody, nil
-	case FnPostSourcesSourceWithFormdataBody:
-		return FnPostSourcesSourceWithFormdataBody, nil
-	case FnPostSourcesWithFormdataBody:
-		return FnPostSourcesWithFormdataBody, nil
-	case FnPostSubscriptionItemsItemWithFormdataBody:
-		return FnPostSubscriptionItemsItemWithFormdataBody, nil
-	case FnPostSubscriptionItemsWithFormdataBody:
-		return FnPostSubscriptionItemsWithFormdataBody, nil
-	case FnPostSubscriptionSchedulesScheduleCancelWithFormdataBody:
-		return FnPostSubscriptionSchedulesScheduleCancelWithFormdataBody, nil
-	case FnPostSubscriptionSchedulesScheduleReleaseWithFormdataBody:
-		return FnPostSubscriptionSchedulesScheduleReleaseWithFormdataBody, nil
-	case FnPostSubscriptionSchedulesScheduleWithFormdataBody:
-		return FnPostSubscriptionSchedulesScheduleWithFormdataBody, nil
-	case FnPostSubscriptionSchedulesWithFormdataBody:
-		return FnPostSubscriptionSchedulesWithFormdataBody, nil
-	case FnPostSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return FnPostSubscriptionsSubscriptionExposedIdWithFormdataBody, nil
-	case FnPostSubscriptionsSubscriptionMigrateWithFormdataBody:
-		return FnPostSubscriptionsSubscriptionMigrateWithFormdataBody, nil
-	case FnPostSubscriptionsSubscriptionPauseWithFormdataBody:
-		return FnPostSubscriptionsSubscriptionPauseWithFormdataBody, nil
-	case FnPostSubscriptionsSubscriptionResumeWithFormdataBody:
-		return FnPostSubscriptionsSubscriptionResumeWithFormdataBody, nil
-	case FnPostSubscriptionsWithFormdataBody:
-		return FnPostSubscriptionsWithFormdataBody, nil
-	case FnPostTaxCalculationsWithFormdataBody:
-		return FnPostTaxCalculationsWithFormdataBody, nil
-	case FnPostTaxIdsWithFormdataBody:
-		return FnPostTaxIdsWithFormdataBody, nil
-	case FnPostTaxLocationsWithFormdataBody:
-		return FnPostTaxLocationsWithFormdataBody, nil
-	case FnPostTaxRatesTaxRateWithFormdataBody:
-		return FnPostTaxRatesTaxRateWithFormdataBody, nil
-	case FnPostTaxRatesWithFormdataBody:
-		return FnPostTaxRatesWithFormdataBody, nil
-	case FnPostTaxRegistrationsIdWithFormdataBody:
-		return FnPostTaxRegistrationsIdWithFormdataBody, nil
-	case FnPostTaxRegistrationsWithFormdataBody:
-		return FnPostTaxRegistrationsWithFormdataBody, nil
-	case FnPostTaxSettingsWithFormdataBody:
-		return FnPostTaxSettingsWithFormdataBody, nil
-	case FnPostTaxTransactionsCreateFromCalculationWithFormdataBody:
-		return FnPostTaxTransactionsCreateFromCalculationWithFormdataBody, nil
-	case FnPostTaxTransactionsCreateReversalWithFormdataBody:
-		return FnPostTaxTransactionsCreateReversalWithFormdataBody, nil
-	case FnPostTerminalConfigurationsConfigurationWithFormdataBody:
-		return FnPostTerminalConfigurationsConfigurationWithFormdataBody, nil
-	case FnPostTerminalConfigurationsWithFormdataBody:
-		return FnPostTerminalConfigurationsWithFormdataBody, nil
-	case FnPostTerminalConnectionTokensWithFormdataBody:
-		return FnPostTerminalConnectionTokensWithFormdataBody, nil
-	case FnPostTerminalLocationsLocationWithFormdataBody:
-		return FnPostTerminalLocationsLocationWithFormdataBody, nil
-	case FnPostTerminalLocationsWithFormdataBody:
-		return FnPostTerminalLocationsWithFormdataBody, nil
-	case FnPostTerminalOnboardingLinksWithFormdataBody:
-		return FnPostTerminalOnboardingLinksWithFormdataBody, nil
-	case FnPostTerminalReadersReaderCancelActionWithFormdataBody:
-		return FnPostTerminalReadersReaderCancelActionWithFormdataBody, nil
-	case FnPostTerminalReadersReaderCollectInputsWithFormdataBody:
-		return FnPostTerminalReadersReaderCollectInputsWithFormdataBody, nil
-	case FnPostTerminalReadersReaderCollectPaymentMethodWithFormdataBody:
-		return FnPostTerminalReadersReaderCollectPaymentMethodWithFormdataBody, nil
-	case FnPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBody:
-		return FnPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBody, nil
-	case FnPostTerminalReadersReaderProcessPaymentIntentWithFormdataBody:
-		return FnPostTerminalReadersReaderProcessPaymentIntentWithFormdataBody, nil
-	case FnPostTerminalReadersReaderProcessSetupIntentWithFormdataBody:
-		return FnPostTerminalReadersReaderProcessSetupIntentWithFormdataBody, nil
-	case FnPostTerminalReadersReaderRefundPaymentWithFormdataBody:
-		return FnPostTerminalReadersReaderRefundPaymentWithFormdataBody, nil
-	case FnPostTerminalReadersReaderSetReaderDisplayWithFormdataBody:
-		return FnPostTerminalReadersReaderSetReaderDisplayWithFormdataBody, nil
-	case FnPostTerminalReadersReaderWithFormdataBody:
-		return FnPostTerminalReadersReaderWithFormdataBody, nil
-	case FnPostTerminalReadersWithFormdataBody:
-		return FnPostTerminalReadersWithFormdataBody, nil
-	case FnPostTerminalRefundsWithFormdataBody:
-		return FnPostTerminalRefundsWithFormdataBody, nil
-	case FnPostTestHelpersConfirmationTokensWithFormdataBody:
-		return FnPostTestHelpersConfirmationTokensWithFormdataBody, nil
-	case FnPostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBody:
-		return FnPostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBody, nil
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBody:
-		return FnPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBody, nil
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBody:
-		return FnPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBody, nil
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBody:
-		return FnPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBody, nil
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBody:
-		return FnPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBody, nil
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBody:
-		return FnPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBody, nil
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBody:
-		return FnPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBody, nil
-	case FnPostTestHelpersIssuingAuthorizationsWithFormdataBody:
-		return FnPostTestHelpersIssuingAuthorizationsWithFormdataBody, nil
-	case FnPostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBody:
-		return FnPostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBody, nil
-	case FnPostTestHelpersIssuingCardsCardShippingFailWithFormdataBody:
-		return FnPostTestHelpersIssuingCardsCardShippingFailWithFormdataBody, nil
-	case FnPostTestHelpersIssuingCardsCardShippingReturnWithFormdataBody:
-		return FnPostTestHelpersIssuingCardsCardShippingReturnWithFormdataBody, nil
-	case FnPostTestHelpersIssuingCardsCardShippingShipWithFormdataBody:
-		return FnPostTestHelpersIssuingCardsCardShippingShipWithFormdataBody, nil
-	case FnPostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBody:
-		return FnPostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBody, nil
-	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBody:
-		return FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBody, nil
-	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBody:
-		return FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBody, nil
-	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBody:
-		return FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBody, nil
-	case FnPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBody:
-		return FnPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBody, nil
-	case FnPostTestHelpersIssuingSettlementsWithFormdataBody:
-		return FnPostTestHelpersIssuingSettlementsWithFormdataBody, nil
-	case FnPostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBody:
-		return FnPostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBody, nil
-	case FnPostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBody:
-		return FnPostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBody, nil
-	case FnPostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBody:
-		return FnPostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBody, nil
-	case FnPostTestHelpersRefundsRefundExpireWithFormdataBody:
-		return FnPostTestHelpersRefundsRefundExpireWithFormdataBody, nil
-	case FnPostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBody:
-		return FnPostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBody, nil
-	case FnPostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBody:
-		return FnPostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBody, nil
-	case FnPostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBody:
-		return FnPostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBody, nil
-	case FnPostTestHelpersTestClocksTestClockAdvanceWithFormdataBody:
-		return FnPostTestHelpersTestClocksTestClockAdvanceWithFormdataBody, nil
-	case FnPostTestHelpersTestClocksWithFormdataBody:
-		return FnPostTestHelpersTestClocksWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBody:
-		return FnPostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBody:
-		return FnPostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBody:
-		return FnPostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBody:
-		return FnPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBody:
-		return FnPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBody:
-		return FnPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBody:
-		return FnPostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBody:
-		return FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBody:
-		return FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBody:
-		return FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBody:
-		return FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryReceivedCreditsWithFormdataBody:
-		return FnPostTestHelpersTreasuryReceivedCreditsWithFormdataBody, nil
-	case FnPostTestHelpersTreasuryReceivedDebitsWithFormdataBody:
-		return FnPostTestHelpersTreasuryReceivedDebitsWithFormdataBody, nil
-	case FnPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBody:
-		return FnPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBody, nil
-	case FnPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBody:
-		return FnPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBody, nil
-	case FnPostThreeDSecureAuthenticationsWithFormdataBody:
-		return FnPostThreeDSecureAuthenticationsWithFormdataBody, nil
-	case FnPostTokensWithFormdataBody:
-		return FnPostTokensWithFormdataBody, nil
-	case FnPostTopupsTopupCancelWithFormdataBody:
-		return FnPostTopupsTopupCancelWithFormdataBody, nil
-	case FnPostTopupsTopupWithFormdataBody:
-		return FnPostTopupsTopupWithFormdataBody, nil
-	case FnPostTopupsWithFormdataBody:
-		return FnPostTopupsWithFormdataBody, nil
-	case FnPostTransfersIdReversalsWithFormdataBody:
-		return FnPostTransfersIdReversalsWithFormdataBody, nil
-	case FnPostTransfersTransferReversalsIdWithFormdataBody:
-		return FnPostTransfersTransferReversalsIdWithFormdataBody, nil
-	case FnPostTransfersTransferWithFormdataBody:
-		return FnPostTransfersTransferWithFormdataBody, nil
-	case FnPostTransfersWithFormdataBody:
-		return FnPostTransfersWithFormdataBody, nil
-	case FnPostTreasuryCreditReversalsWithFormdataBody:
-		return FnPostTreasuryCreditReversalsWithFormdataBody, nil
-	case FnPostTreasuryDebitReversalsWithFormdataBody:
-		return FnPostTreasuryDebitReversalsWithFormdataBody, nil
-	case FnPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBody:
-		return FnPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBody, nil
-	case FnPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody:
-		return FnPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody, nil
-	case FnPostTreasuryFinancialAccountsFinancialAccountWithFormdataBody:
-		return FnPostTreasuryFinancialAccountsFinancialAccountWithFormdataBody, nil
-	case FnPostTreasuryFinancialAccountsWithFormdataBody:
-		return FnPostTreasuryFinancialAccountsWithFormdataBody, nil
-	case FnPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBody:
-		return FnPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBody, nil
-	case FnPostTreasuryInboundTransfersWithFormdataBody:
-		return FnPostTreasuryInboundTransfersWithFormdataBody, nil
-	case FnPostTreasuryOutboundPaymentsIdCancelWithFormdataBody:
-		return FnPostTreasuryOutboundPaymentsIdCancelWithFormdataBody, nil
-	case FnPostTreasuryOutboundPaymentsWithFormdataBody:
-		return FnPostTreasuryOutboundPaymentsWithFormdataBody, nil
-	case FnPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBody:
-		return FnPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBody, nil
-	case FnPostTreasuryOutboundTransfersWithFormdataBody:
-		return FnPostTreasuryOutboundTransfersWithFormdataBody, nil
-	case FnPostWebhookEndpointsWebhookEndpointWithFormdataBody:
-		return FnPostWebhookEndpointsWebhookEndpointWithFormdataBody, nil
-	case FnPostWebhookEndpointsWithFormdataBody:
-		return FnPostWebhookEndpointsWithFormdataBody, nil
+	case FnDeleteAccountsAccount:
+		return FnDeleteAccountsAccount, nil
+	case FnDeleteAccountsAccountBankAccountsId:
+		return FnDeleteAccountsAccountBankAccountsId, nil
+	case FnDeleteAccountsAccountExternalAccountsId:
+		return FnDeleteAccountsAccountExternalAccountsId, nil
+	case FnDeleteAccountsAccountPeoplePerson:
+		return FnDeleteAccountsAccountPeoplePerson, nil
+	case FnDeleteAccountsAccountPersonsPerson:
+		return FnDeleteAccountsAccountPersonsPerson, nil
+	case FnDeleteApplePayDomainsDomain:
+		return FnDeleteApplePayDomainsDomain, nil
+	case FnDeleteCouponsCoupon:
+		return FnDeleteCouponsCoupon, nil
+	case FnDeleteCustomersCustomer:
+		return FnDeleteCustomersCustomer, nil
+	case FnDeleteCustomersCustomerBankAccountsId:
+		return FnDeleteCustomersCustomerBankAccountsId, nil
+	case FnDeleteCustomersCustomerCardsId:
+		return FnDeleteCustomersCustomerCardsId, nil
+	case FnDeleteCustomersCustomerDiscount:
+		return FnDeleteCustomersCustomerDiscount, nil
+	case FnDeleteCustomersCustomerSourcesId:
+		return FnDeleteCustomersCustomerSourcesId, nil
+	case FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedId:
+		return FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedId, nil
+	case FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount:
+		return FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount, nil
+	case FnDeleteCustomersCustomerTaxIdsId:
+		return FnDeleteCustomersCustomerTaxIdsId, nil
+	case FnDeleteEphemeralKeysKey:
+		return FnDeleteEphemeralKeysKey, nil
+	case FnDeleteInvoiceitemsInvoiceitem:
+		return FnDeleteInvoiceitemsInvoiceitem, nil
+	case FnDeleteInvoicesInvoice:
+		return FnDeleteInvoicesInvoice, nil
+	case FnDeletePlansPlan:
+		return FnDeletePlansPlan, nil
+	case FnDeleteProductsId:
+		return FnDeleteProductsId, nil
+	case FnDeleteProductsProductFeaturesId:
+		return FnDeleteProductsProductFeaturesId, nil
+	case FnDeleteRadarValueListItemsItem:
+		return FnDeleteRadarValueListItemsItem, nil
+	case FnDeleteRadarValueListsValueList:
+		return FnDeleteRadarValueListsValueList, nil
+	case FnDeleteSubscriptionItemsItem:
+		return FnDeleteSubscriptionItemsItem, nil
+	case FnDeleteSubscriptionsSubscriptionExposedId:
+		return FnDeleteSubscriptionsSubscriptionExposedId, nil
+	case FnDeleteSubscriptionsSubscriptionExposedIdDiscount:
+		return FnDeleteSubscriptionsSubscriptionExposedIdDiscount, nil
+	case FnDeleteTaxIdsId:
+		return FnDeleteTaxIdsId, nil
+	case FnDeleteTerminalConfigurationsConfiguration:
+		return FnDeleteTerminalConfigurationsConfiguration, nil
+	case FnDeleteTerminalLocationsLocation:
+		return FnDeleteTerminalLocationsLocation, nil
+	case FnDeleteTerminalReadersReader:
+		return FnDeleteTerminalReadersReader, nil
+	case FnDeleteTestHelpersTestClocksTestClock:
+		return FnDeleteTestHelpersTestClocksTestClock, nil
+	case FnDeleteWebhookEndpointsWebhookEndpoint:
+		return FnDeleteWebhookEndpointsWebhookEndpoint, nil
+	case FnGetAccount:
+		return FnGetAccount, nil
+	case FnGetAccounts:
+		return FnGetAccounts, nil
+	case FnGetAccountsAccount:
+		return FnGetAccountsAccount, nil
+	case FnGetAccountsAccountBankAccountsId:
+		return FnGetAccountsAccountBankAccountsId, nil
+	case FnGetAccountsAccountCapabilities:
+		return FnGetAccountsAccountCapabilities, nil
+	case FnGetAccountsAccountCapabilitiesCapability:
+		return FnGetAccountsAccountCapabilitiesCapability, nil
+	case FnGetAccountsAccountExternalAccounts:
+		return FnGetAccountsAccountExternalAccounts, nil
+	case FnGetAccountsAccountExternalAccountsId:
+		return FnGetAccountsAccountExternalAccountsId, nil
+	case FnGetAccountsAccountPeople:
+		return FnGetAccountsAccountPeople, nil
+	case FnGetAccountsAccountPeoplePerson:
+		return FnGetAccountsAccountPeoplePerson, nil
+	case FnGetAccountsAccountPersons:
+		return FnGetAccountsAccountPersons, nil
+	case FnGetAccountsAccountPersonsPerson:
+		return FnGetAccountsAccountPersonsPerson, nil
+	case FnGetApplePayDomains:
+		return FnGetApplePayDomains, nil
+	case FnGetApplePayDomainsDomain:
+		return FnGetApplePayDomainsDomain, nil
+	case FnGetApplicationFees:
+		return FnGetApplicationFees, nil
+	case FnGetApplicationFeesFeeRefundsId:
+		return FnGetApplicationFeesFeeRefundsId, nil
+	case FnGetApplicationFeesId:
+		return FnGetApplicationFeesId, nil
+	case FnGetApplicationFeesIdRefunds:
+		return FnGetApplicationFeesIdRefunds, nil
+	case FnGetAppsInstalls:
+		return FnGetAppsInstalls, nil
+	case FnGetAppsInstallsId:
+		return FnGetAppsInstallsId, nil
+	case FnGetAppsSecrets:
+		return FnGetAppsSecrets, nil
+	case FnGetAppsSecretsFind:
+		return FnGetAppsSecretsFind, nil
+	case FnGetBalance:
+		return FnGetBalance, nil
+	case FnGetBalanceHistory:
+		return FnGetBalanceHistory, nil
+	case FnGetBalanceHistoryId:
+		return FnGetBalanceHistoryId, nil
+	case FnGetBalanceSettings:
+		return FnGetBalanceSettings, nil
+	case FnGetBalanceTransactions:
+		return FnGetBalanceTransactions, nil
+	case FnGetBalanceTransactionsId:
+		return FnGetBalanceTransactionsId, nil
+	case FnGetBillingAlerts:
+		return FnGetBillingAlerts, nil
+	case FnGetBillingAlertsId:
+		return FnGetBillingAlertsId, nil
+	case FnGetBillingCreditBalanceSummary:
+		return FnGetBillingCreditBalanceSummary, nil
+	case FnGetBillingCreditBalanceTransactions:
+		return FnGetBillingCreditBalanceTransactions, nil
+	case FnGetBillingCreditBalanceTransactionsId:
+		return FnGetBillingCreditBalanceTransactionsId, nil
+	case FnGetBillingCreditGrants:
+		return FnGetBillingCreditGrants, nil
+	case FnGetBillingCreditGrantsId:
+		return FnGetBillingCreditGrantsId, nil
+	case FnGetBillingFeedbackOptions:
+		return FnGetBillingFeedbackOptions, nil
+	case FnGetBillingFeedbackOptionsId:
+		return FnGetBillingFeedbackOptionsId, nil
+	case FnGetBillingMeters:
+		return FnGetBillingMeters, nil
+	case FnGetBillingMetersId:
+		return FnGetBillingMetersId, nil
+	case FnGetBillingMetersIdEventSummaries:
+		return FnGetBillingMetersIdEventSummaries, nil
+	case FnGetBillingPortalConfigurations:
+		return FnGetBillingPortalConfigurations, nil
+	case FnGetBillingPortalConfigurationsConfiguration:
+		return FnGetBillingPortalConfigurationsConfiguration, nil
+	case FnGetCharges:
+		return FnGetCharges, nil
+	case FnGetChargesCharge:
+		return FnGetChargesCharge, nil
+	case FnGetChargesChargeDispute:
+		return FnGetChargesChargeDispute, nil
+	case FnGetChargesChargeRefunds:
+		return FnGetChargesChargeRefunds, nil
+	case FnGetChargesChargeRefundsRefund:
+		return FnGetChargesChargeRefundsRefund, nil
+	case FnGetChargesSearch:
+		return FnGetChargesSearch, nil
+	case FnGetCheckoutSessions:
+		return FnGetCheckoutSessions, nil
+	case FnGetCheckoutSessionsSession:
+		return FnGetCheckoutSessionsSession, nil
+	case FnGetCheckoutSessionsSessionLineItems:
+		return FnGetCheckoutSessionsSessionLineItems, nil
+	case FnGetClimateOrders:
+		return FnGetClimateOrders, nil
+	case FnGetClimateOrdersOrder:
+		return FnGetClimateOrdersOrder, nil
+	case FnGetClimateProducts:
+		return FnGetClimateProducts, nil
+	case FnGetClimateProductsProduct:
+		return FnGetClimateProductsProduct, nil
+	case FnGetClimateSuppliers:
+		return FnGetClimateSuppliers, nil
+	case FnGetClimateSuppliersSupplier:
+		return FnGetClimateSuppliersSupplier, nil
+	case FnGetConfirmationTokensConfirmationToken:
+		return FnGetConfirmationTokensConfirmationToken, nil
+	case FnGetCountrySpecs:
+		return FnGetCountrySpecs, nil
+	case FnGetCountrySpecsCountry:
+		return FnGetCountrySpecsCountry, nil
+	case FnGetCoupons:
+		return FnGetCoupons, nil
+	case FnGetCouponsCoupon:
+		return FnGetCouponsCoupon, nil
+	case FnGetCreditNotes:
+		return FnGetCreditNotes, nil
+	case FnGetCreditNotesCreditNoteLines:
+		return FnGetCreditNotesCreditNoteLines, nil
+	case FnGetCreditNotesId:
+		return FnGetCreditNotesId, nil
+	case FnGetCreditNotesPreview:
+		return FnGetCreditNotesPreview, nil
+	case FnGetCreditNotesPreviewLines:
+		return FnGetCreditNotesPreviewLines, nil
+	case FnGetCustomers:
+		return FnGetCustomers, nil
+	case FnGetCustomersCustomer:
+		return FnGetCustomersCustomer, nil
+	case FnGetCustomersCustomerBalanceTransactions:
+		return FnGetCustomersCustomerBalanceTransactions, nil
+	case FnGetCustomersCustomerBalanceTransactionsTransaction:
+		return FnGetCustomersCustomerBalanceTransactionsTransaction, nil
+	case FnGetCustomersCustomerBankAccounts:
+		return FnGetCustomersCustomerBankAccounts, nil
+	case FnGetCustomersCustomerBankAccountsId:
+		return FnGetCustomersCustomerBankAccountsId, nil
+	case FnGetCustomersCustomerCards:
+		return FnGetCustomersCustomerCards, nil
+	case FnGetCustomersCustomerCardsId:
+		return FnGetCustomersCustomerCardsId, nil
+	case FnGetCustomersCustomerCashBalance:
+		return FnGetCustomersCustomerCashBalance, nil
+	case FnGetCustomersCustomerCashBalanceTransactions:
+		return FnGetCustomersCustomerCashBalanceTransactions, nil
+	case FnGetCustomersCustomerCashBalanceTransactionsTransaction:
+		return FnGetCustomersCustomerCashBalanceTransactionsTransaction, nil
+	case FnGetCustomersCustomerDiscount:
+		return FnGetCustomersCustomerDiscount, nil
+	case FnGetCustomersCustomerPaymentMethods:
+		return FnGetCustomersCustomerPaymentMethods, nil
+	case FnGetCustomersCustomerPaymentMethodsPaymentMethod:
+		return FnGetCustomersCustomerPaymentMethodsPaymentMethod, nil
+	case FnGetCustomersCustomerSources:
+		return FnGetCustomersCustomerSources, nil
+	case FnGetCustomersCustomerSourcesId:
+		return FnGetCustomersCustomerSourcesId, nil
+	case FnGetCustomersCustomerSubscriptions:
+		return FnGetCustomersCustomerSubscriptions, nil
+	case FnGetCustomersCustomerSubscriptionsSubscriptionExposedId:
+		return FnGetCustomersCustomerSubscriptionsSubscriptionExposedId, nil
+	case FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount:
+		return FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount, nil
+	case FnGetCustomersCustomerTaxIds:
+		return FnGetCustomersCustomerTaxIds, nil
+	case FnGetCustomersCustomerTaxIdsId:
+		return FnGetCustomersCustomerTaxIdsId, nil
+	case FnGetCustomersSearch:
+		return FnGetCustomersSearch, nil
+	case FnGetDisputes:
+		return FnGetDisputes, nil
+	case FnGetDisputesDispute:
+		return FnGetDisputesDispute, nil
+	case FnGetEntitlementsActiveEntitlements:
+		return FnGetEntitlementsActiveEntitlements, nil
+	case FnGetEntitlementsActiveEntitlementsId:
+		return FnGetEntitlementsActiveEntitlementsId, nil
+	case FnGetEntitlementsFeatures:
+		return FnGetEntitlementsFeatures, nil
+	case FnGetEntitlementsFeaturesId:
+		return FnGetEntitlementsFeaturesId, nil
+	case FnGetEvents:
+		return FnGetEvents, nil
+	case FnGetEventsId:
+		return FnGetEventsId, nil
+	case FnGetExchangeRates:
+		return FnGetExchangeRates, nil
+	case FnGetExchangeRatesRateId:
+		return FnGetExchangeRatesRateId, nil
+	case FnGetFileLinks:
+		return FnGetFileLinks, nil
+	case FnGetFileLinksLink:
+		return FnGetFileLinksLink, nil
+	case FnGetFiles:
+		return FnGetFiles, nil
+	case FnGetFilesFile:
+		return FnGetFilesFile, nil
+	case FnGetFinancialConnectionsAccounts:
+		return FnGetFinancialConnectionsAccounts, nil
+	case FnGetFinancialConnectionsAccountsAccount:
+		return FnGetFinancialConnectionsAccountsAccount, nil
+	case FnGetFinancialConnectionsAccountsAccountOwners:
+		return FnGetFinancialConnectionsAccountsAccountOwners, nil
+	case FnGetFinancialConnectionsSessionsSession:
+		return FnGetFinancialConnectionsSessionsSession, nil
+	case FnGetFinancialConnectionsTransactions:
+		return FnGetFinancialConnectionsTransactions, nil
+	case FnGetFinancialConnectionsTransactionsTransaction:
+		return FnGetFinancialConnectionsTransactionsTransaction, nil
+	case FnGetForwardingRequests:
+		return FnGetForwardingRequests, nil
+	case FnGetForwardingRequestsId:
+		return FnGetForwardingRequestsId, nil
+	case FnGetIdentityVerificationReports:
+		return FnGetIdentityVerificationReports, nil
+	case FnGetIdentityVerificationReportsReport:
+		return FnGetIdentityVerificationReportsReport, nil
+	case FnGetIdentityVerificationSessions:
+		return FnGetIdentityVerificationSessions, nil
+	case FnGetIdentityVerificationSessionsSession:
+		return FnGetIdentityVerificationSessionsSession, nil
+	case FnGetInvoicePayments:
+		return FnGetInvoicePayments, nil
+	case FnGetInvoicePaymentsInvoicePayment:
+		return FnGetInvoicePaymentsInvoicePayment, nil
+	case FnGetInvoiceRenderingTemplates:
+		return FnGetInvoiceRenderingTemplates, nil
+	case FnGetInvoiceRenderingTemplatesTemplate:
+		return FnGetInvoiceRenderingTemplatesTemplate, nil
+	case FnGetInvoiceitems:
+		return FnGetInvoiceitems, nil
+	case FnGetInvoiceitemsInvoiceitem:
+		return FnGetInvoiceitemsInvoiceitem, nil
+	case FnGetInvoices:
+		return FnGetInvoices, nil
+	case FnGetInvoicesInvoice:
+		return FnGetInvoicesInvoice, nil
+	case FnGetInvoicesInvoiceLines:
+		return FnGetInvoicesInvoiceLines, nil
+	case FnGetInvoicesSearch:
+		return FnGetInvoicesSearch, nil
+	case FnGetIssuingAuthorizations:
+		return FnGetIssuingAuthorizations, nil
+	case FnGetIssuingAuthorizationsAuthorization:
+		return FnGetIssuingAuthorizationsAuthorization, nil
+	case FnGetIssuingCardholders:
+		return FnGetIssuingCardholders, nil
+	case FnGetIssuingCardholdersCardholder:
+		return FnGetIssuingCardholdersCardholder, nil
+	case FnGetIssuingCards:
+		return FnGetIssuingCards, nil
+	case FnGetIssuingCardsCard:
+		return FnGetIssuingCardsCard, nil
+	case FnGetIssuingDisputes:
+		return FnGetIssuingDisputes, nil
+	case FnGetIssuingDisputesDispute:
+		return FnGetIssuingDisputesDispute, nil
+	case FnGetIssuingPersonalizationDesigns:
+		return FnGetIssuingPersonalizationDesigns, nil
+	case FnGetIssuingPersonalizationDesignsPersonalizationDesign:
+		return FnGetIssuingPersonalizationDesignsPersonalizationDesign, nil
+	case FnGetIssuingPhysicalBundles:
+		return FnGetIssuingPhysicalBundles, nil
+	case FnGetIssuingPhysicalBundlesPhysicalBundle:
+		return FnGetIssuingPhysicalBundlesPhysicalBundle, nil
+	case FnGetIssuingSettlementsSettlement:
+		return FnGetIssuingSettlementsSettlement, nil
+	case FnGetIssuingTokens:
+		return FnGetIssuingTokens, nil
+	case FnGetIssuingTokensToken:
+		return FnGetIssuingTokensToken, nil
+	case FnGetIssuingTransactions:
+		return FnGetIssuingTransactions, nil
+	case FnGetIssuingTransactionsTransaction:
+		return FnGetIssuingTransactionsTransaction, nil
+	case FnGetLinkAccountSessionsSession:
+		return FnGetLinkAccountSessionsSession, nil
+	case FnGetLinkedAccounts:
+		return FnGetLinkedAccounts, nil
+	case FnGetLinkedAccountsAccount:
+		return FnGetLinkedAccountsAccount, nil
+	case FnGetLinkedAccountsAccountOwners:
+		return FnGetLinkedAccountsAccountOwners, nil
+	case FnGetMandatesMandate:
+		return FnGetMandatesMandate, nil
+	case FnGetPaymentAttemptRecords:
+		return FnGetPaymentAttemptRecords, nil
+	case FnGetPaymentAttemptRecordsId:
+		return FnGetPaymentAttemptRecordsId, nil
+	case FnGetPaymentIntents:
+		return FnGetPaymentIntents, nil
+	case FnGetPaymentIntentsIntent:
+		return FnGetPaymentIntentsIntent, nil
+	case FnGetPaymentIntentsIntentAmountDetailsLineItems:
+		return FnGetPaymentIntentsIntentAmountDetailsLineItems, nil
+	case FnGetPaymentIntentsSearch:
+		return FnGetPaymentIntentsSearch, nil
+	case FnGetPaymentLinks:
+		return FnGetPaymentLinks, nil
+	case FnGetPaymentLinksPaymentLink:
+		return FnGetPaymentLinksPaymentLink, nil
+	case FnGetPaymentLinksPaymentLinkLineItems:
+		return FnGetPaymentLinksPaymentLinkLineItems, nil
+	case FnGetPaymentMethodConfigurations:
+		return FnGetPaymentMethodConfigurations, nil
+	case FnGetPaymentMethodConfigurationsConfiguration:
+		return FnGetPaymentMethodConfigurationsConfiguration, nil
+	case FnGetPaymentMethodDomains:
+		return FnGetPaymentMethodDomains, nil
+	case FnGetPaymentMethodDomainsPaymentMethodDomain:
+		return FnGetPaymentMethodDomainsPaymentMethodDomain, nil
+	case FnGetPaymentMethods:
+		return FnGetPaymentMethods, nil
+	case FnGetPaymentMethodsPaymentMethod:
+		return FnGetPaymentMethodsPaymentMethod, nil
+	case FnGetPaymentRecords:
+		return FnGetPaymentRecords, nil
+	case FnGetPaymentRecordsId:
+		return FnGetPaymentRecordsId, nil
+	case FnGetPayouts:
+		return FnGetPayouts, nil
+	case FnGetPayoutsPayout:
+		return FnGetPayoutsPayout, nil
+	case FnGetPlans:
+		return FnGetPlans, nil
+	case FnGetPlansPlan:
+		return FnGetPlansPlan, nil
+	case FnGetPrices:
+		return FnGetPrices, nil
+	case FnGetPricesPrice:
+		return FnGetPricesPrice, nil
+	case FnGetPricesSearch:
+		return FnGetPricesSearch, nil
+	case FnGetProductCatalogTrialOffers:
+		return FnGetProductCatalogTrialOffers, nil
+	case FnGetProductCatalogTrialOffersId:
+		return FnGetProductCatalogTrialOffersId, nil
+	case FnGetProducts:
+		return FnGetProducts, nil
+	case FnGetProductsId:
+		return FnGetProductsId, nil
+	case FnGetProductsProductFeatures:
+		return FnGetProductsProductFeatures, nil
+	case FnGetProductsProductFeaturesId:
+		return FnGetProductsProductFeaturesId, nil
+	case FnGetProductsSearch:
+		return FnGetProductsSearch, nil
+	case FnGetPromotionCodes:
+		return FnGetPromotionCodes, nil
+	case FnGetPromotionCodesPromotionCode:
+		return FnGetPromotionCodesPromotionCode, nil
+	case FnGetQuotes:
+		return FnGetQuotes, nil
+	case FnGetQuotesQuote:
+		return FnGetQuotesQuote, nil
+	case FnGetQuotesQuoteComputedUpfrontLineItems:
+		return FnGetQuotesQuoteComputedUpfrontLineItems, nil
+	case FnGetQuotesQuoteLineItems:
+		return FnGetQuotesQuoteLineItems, nil
+	case FnGetQuotesQuotePdf:
+		return FnGetQuotesQuotePdf, nil
+	case FnGetRadarEarlyFraudWarnings:
+		return FnGetRadarEarlyFraudWarnings, nil
+	case FnGetRadarEarlyFraudWarningsEarlyFraudWarning:
+		return FnGetRadarEarlyFraudWarningsEarlyFraudWarning, nil
+	case FnGetRadarValueListItems:
+		return FnGetRadarValueListItems, nil
+	case FnGetRadarValueListItemsItem:
+		return FnGetRadarValueListItemsItem, nil
+	case FnGetRadarValueLists:
+		return FnGetRadarValueLists, nil
+	case FnGetRadarValueListsValueList:
+		return FnGetRadarValueListsValueList, nil
+	case FnGetRefunds:
+		return FnGetRefunds, nil
+	case FnGetRefundsRefund:
+		return FnGetRefundsRefund, nil
+	case FnGetReportingReportRuns:
+		return FnGetReportingReportRuns, nil
+	case FnGetReportingReportRunsReportRun:
+		return FnGetReportingReportRunsReportRun, nil
+	case FnGetReportingReportTypes:
+		return FnGetReportingReportTypes, nil
+	case FnGetReportingReportTypesReportType:
+		return FnGetReportingReportTypesReportType, nil
+	case FnGetReviews:
+		return FnGetReviews, nil
+	case FnGetReviewsReview:
+		return FnGetReviewsReview, nil
+	case FnGetSetupAttempts:
+		return FnGetSetupAttempts, nil
+	case FnGetSetupIntents:
+		return FnGetSetupIntents, nil
+	case FnGetSetupIntentsIntent:
+		return FnGetSetupIntentsIntent, nil
+	case FnGetShippingRates:
+		return FnGetShippingRates, nil
+	case FnGetShippingRatesShippingRateToken:
+		return FnGetShippingRatesShippingRateToken, nil
+	case FnGetSigmaScheduledQueryRuns:
+		return FnGetSigmaScheduledQueryRuns, nil
+	case FnGetSigmaScheduledQueryRunsScheduledQueryRun:
+		return FnGetSigmaScheduledQueryRunsScheduledQueryRun, nil
+	case FnGetSourcesSource:
+		return FnGetSourcesSource, nil
+	case FnGetSourcesSourceMandateNotificationsMandateNotification:
+		return FnGetSourcesSourceMandateNotificationsMandateNotification, nil
+	case FnGetSourcesSourceSourceTransactions:
+		return FnGetSourcesSourceSourceTransactions, nil
+	case FnGetSourcesSourceSourceTransactionsSourceTransaction:
+		return FnGetSourcesSourceSourceTransactionsSourceTransaction, nil
+	case FnGetSubscriptionItems:
+		return FnGetSubscriptionItems, nil
+	case FnGetSubscriptionItemsItem:
+		return FnGetSubscriptionItemsItem, nil
+	case FnGetSubscriptionSchedules:
+		return FnGetSubscriptionSchedules, nil
+	case FnGetSubscriptionSchedulesSchedule:
+		return FnGetSubscriptionSchedulesSchedule, nil
+	case FnGetSubscriptions:
+		return FnGetSubscriptions, nil
+	case FnGetSubscriptionsSearch:
+		return FnGetSubscriptionsSearch, nil
+	case FnGetSubscriptionsSubscriptionExposedId:
+		return FnGetSubscriptionsSubscriptionExposedId, nil
+	case FnGetTaxAssociationsFind:
+		return FnGetTaxAssociationsFind, nil
+	case FnGetTaxCalculationsCalculation:
+		return FnGetTaxCalculationsCalculation, nil
+	case FnGetTaxCalculationsCalculationLineItems:
+		return FnGetTaxCalculationsCalculationLineItems, nil
+	case FnGetTaxCodes:
+		return FnGetTaxCodes, nil
+	case FnGetTaxCodesId:
+		return FnGetTaxCodesId, nil
+	case FnGetTaxIds:
+		return FnGetTaxIds, nil
+	case FnGetTaxIdsId:
+		return FnGetTaxIdsId, nil
+	case FnGetTaxLocations:
+		return FnGetTaxLocations, nil
+	case FnGetTaxLocationsLocation:
+		return FnGetTaxLocationsLocation, nil
+	case FnGetTaxRates:
+		return FnGetTaxRates, nil
+	case FnGetTaxRatesTaxRate:
+		return FnGetTaxRatesTaxRate, nil
+	case FnGetTaxRegistrations:
+		return FnGetTaxRegistrations, nil
+	case FnGetTaxRegistrationsId:
+		return FnGetTaxRegistrationsId, nil
+	case FnGetTaxSettings:
+		return FnGetTaxSettings, nil
+	case FnGetTaxTransactionsTransaction:
+		return FnGetTaxTransactionsTransaction, nil
+	case FnGetTaxTransactionsTransactionLineItems:
+		return FnGetTaxTransactionsTransactionLineItems, nil
+	case FnGetTerminalConfigurations:
+		return FnGetTerminalConfigurations, nil
+	case FnGetTerminalConfigurationsConfiguration:
+		return FnGetTerminalConfigurationsConfiguration, nil
+	case FnGetTerminalLocations:
+		return FnGetTerminalLocations, nil
+	case FnGetTerminalLocationsLocation:
+		return FnGetTerminalLocationsLocation, nil
+	case FnGetTerminalReaders:
+		return FnGetTerminalReaders, nil
+	case FnGetTerminalReadersReader:
+		return FnGetTerminalReadersReader, nil
+	case FnGetTestHelpersTestClocks:
+		return FnGetTestHelpersTestClocks, nil
+	case FnGetTestHelpersTestClocksTestClock:
+		return FnGetTestHelpersTestClocksTestClock, nil
+	case FnGetThreeDSecureAuthentications:
+		return FnGetThreeDSecureAuthentications, nil
+	case FnGetThreeDSecureAuthenticationsAuthentication:
+		return FnGetThreeDSecureAuthenticationsAuthentication, nil
+	case FnGetTokensToken:
+		return FnGetTokensToken, nil
+	case FnGetTopups:
+		return FnGetTopups, nil
+	case FnGetTopupsTopup:
+		return FnGetTopupsTopup, nil
+	case FnGetTransfers:
+		return FnGetTransfers, nil
+	case FnGetTransfersIdReversals:
+		return FnGetTransfersIdReversals, nil
+	case FnGetTransfersTransfer:
+		return FnGetTransfersTransfer, nil
+	case FnGetTransfersTransferReversalsId:
+		return FnGetTransfersTransferReversalsId, nil
+	case FnGetTreasuryCreditReversals:
+		return FnGetTreasuryCreditReversals, nil
+	case FnGetTreasuryCreditReversalsCreditReversal:
+		return FnGetTreasuryCreditReversalsCreditReversal, nil
+	case FnGetTreasuryDebitReversals:
+		return FnGetTreasuryDebitReversals, nil
+	case FnGetTreasuryDebitReversalsDebitReversal:
+		return FnGetTreasuryDebitReversalsDebitReversal, nil
+	case FnGetTreasuryFinancialAccounts:
+		return FnGetTreasuryFinancialAccounts, nil
+	case FnGetTreasuryFinancialAccountsFinancialAccount:
+		return FnGetTreasuryFinancialAccountsFinancialAccount, nil
+	case FnGetTreasuryFinancialAccountsFinancialAccountFeatures:
+		return FnGetTreasuryFinancialAccountsFinancialAccountFeatures, nil
+	case FnGetTreasuryInboundTransfers:
+		return FnGetTreasuryInboundTransfers, nil
+	case FnGetTreasuryInboundTransfersId:
+		return FnGetTreasuryInboundTransfersId, nil
+	case FnGetTreasuryOutboundPayments:
+		return FnGetTreasuryOutboundPayments, nil
+	case FnGetTreasuryOutboundPaymentsId:
+		return FnGetTreasuryOutboundPaymentsId, nil
+	case FnGetTreasuryOutboundTransfers:
+		return FnGetTreasuryOutboundTransfers, nil
+	case FnGetTreasuryOutboundTransfersOutboundTransfer:
+		return FnGetTreasuryOutboundTransfersOutboundTransfer, nil
+	case FnGetTreasuryReceivedCredits:
+		return FnGetTreasuryReceivedCredits, nil
+	case FnGetTreasuryReceivedCreditsId:
+		return FnGetTreasuryReceivedCreditsId, nil
+	case FnGetTreasuryReceivedDebits:
+		return FnGetTreasuryReceivedDebits, nil
+	case FnGetTreasuryReceivedDebitsId:
+		return FnGetTreasuryReceivedDebitsId, nil
+	case FnGetTreasuryTransactionEntries:
+		return FnGetTreasuryTransactionEntries, nil
+	case FnGetTreasuryTransactionEntriesId:
+		return FnGetTreasuryTransactionEntriesId, nil
+	case FnGetTreasuryTransactions:
+		return FnGetTreasuryTransactions, nil
+	case FnGetTreasuryTransactionsId:
+		return FnGetTreasuryTransactionsId, nil
+	case FnGetWebhookEndpoints:
+		return FnGetWebhookEndpoints, nil
+	case FnGetWebhookEndpointsWebhookEndpoint:
+		return FnGetWebhookEndpointsWebhookEndpoint, nil
+	case FnPostAccountLinks:
+		return FnPostAccountLinks, nil
+	case FnPostAccountSessions:
+		return FnPostAccountSessions, nil
+	case FnPostAccounts:
+		return FnPostAccounts, nil
+	case FnPostAccountsAccount:
+		return FnPostAccountsAccount, nil
+	case FnPostAccountsAccountBankAccounts:
+		return FnPostAccountsAccountBankAccounts, nil
+	case FnPostAccountsAccountBankAccountsId:
+		return FnPostAccountsAccountBankAccountsId, nil
+	case FnPostAccountsAccountCapabilitiesCapability:
+		return FnPostAccountsAccountCapabilitiesCapability, nil
+	case FnPostAccountsAccountExternalAccounts:
+		return FnPostAccountsAccountExternalAccounts, nil
+	case FnPostAccountsAccountExternalAccountsId:
+		return FnPostAccountsAccountExternalAccountsId, nil
+	case FnPostAccountsAccountLoginLinks:
+		return FnPostAccountsAccountLoginLinks, nil
+	case FnPostAccountsAccountPeople:
+		return FnPostAccountsAccountPeople, nil
+	case FnPostAccountsAccountPeoplePerson:
+		return FnPostAccountsAccountPeoplePerson, nil
+	case FnPostAccountsAccountPersons:
+		return FnPostAccountsAccountPersons, nil
+	case FnPostAccountsAccountPersonsPerson:
+		return FnPostAccountsAccountPersonsPerson, nil
+	case FnPostAccountsAccountReject:
+		return FnPostAccountsAccountReject, nil
+	case FnPostAccountsAccountUnreject:
+		return FnPostAccountsAccountUnreject, nil
+	case FnPostApplePayDomains:
+		return FnPostApplePayDomains, nil
+	case FnPostApplicationFeesFeeRefundsId:
+		return FnPostApplicationFeesFeeRefundsId, nil
+	case FnPostApplicationFeesIdRefund:
+		return FnPostApplicationFeesIdRefund, nil
+	case FnPostApplicationFeesIdRefunds:
+		return FnPostApplicationFeesIdRefunds, nil
+	case FnPostAppsInstalls:
+		return FnPostAppsInstalls, nil
+	case FnPostAppsInstallsId:
+		return FnPostAppsInstallsId, nil
+	case FnPostAppsInstallsIdUninstall:
+		return FnPostAppsInstallsIdUninstall, nil
+	case FnPostAppsSecrets:
+		return FnPostAppsSecrets, nil
+	case FnPostAppsSecretsDelete:
+		return FnPostAppsSecretsDelete, nil
+	case FnPostBalanceSettings:
+		return FnPostBalanceSettings, nil
+	case FnPostBillingAlerts:
+		return FnPostBillingAlerts, nil
+	case FnPostBillingAlertsIdActivate:
+		return FnPostBillingAlertsIdActivate, nil
+	case FnPostBillingAlertsIdArchive:
+		return FnPostBillingAlertsIdArchive, nil
+	case FnPostBillingAlertsIdDeactivate:
+		return FnPostBillingAlertsIdDeactivate, nil
+	case FnPostBillingCreditGrants:
+		return FnPostBillingCreditGrants, nil
+	case FnPostBillingCreditGrantsId:
+		return FnPostBillingCreditGrantsId, nil
+	case FnPostBillingCreditGrantsIdExpire:
+		return FnPostBillingCreditGrantsIdExpire, nil
+	case FnPostBillingCreditGrantsIdVoid:
+		return FnPostBillingCreditGrantsIdVoid, nil
+	case FnPostBillingFeedbackOptions:
+		return FnPostBillingFeedbackOptions, nil
+	case FnPostBillingFeedbackOptionsId:
+		return FnPostBillingFeedbackOptionsId, nil
+	case FnPostBillingFeedbackOptionsIdDeactivate:
+		return FnPostBillingFeedbackOptionsIdDeactivate, nil
+	case FnPostBillingMeterEventAdjustments:
+		return FnPostBillingMeterEventAdjustments, nil
+	case FnPostBillingMeterEvents:
+		return FnPostBillingMeterEvents, nil
+	case FnPostBillingMeters:
+		return FnPostBillingMeters, nil
+	case FnPostBillingMetersId:
+		return FnPostBillingMetersId, nil
+	case FnPostBillingMetersIdDeactivate:
+		return FnPostBillingMetersIdDeactivate, nil
+	case FnPostBillingMetersIdReactivate:
+		return FnPostBillingMetersIdReactivate, nil
+	case FnPostBillingPortalConfigurations:
+		return FnPostBillingPortalConfigurations, nil
+	case FnPostBillingPortalConfigurationsConfiguration:
+		return FnPostBillingPortalConfigurationsConfiguration, nil
+	case FnPostBillingPortalSessions:
+		return FnPostBillingPortalSessions, nil
+	case FnPostCharges:
+		return FnPostCharges, nil
+	case FnPostChargesCharge:
+		return FnPostChargesCharge, nil
+	case FnPostChargesChargeCapture:
+		return FnPostChargesChargeCapture, nil
+	case FnPostChargesChargeDispute:
+		return FnPostChargesChargeDispute, nil
+	case FnPostChargesChargeDisputeClose:
+		return FnPostChargesChargeDisputeClose, nil
+	case FnPostChargesChargeRefund:
+		return FnPostChargesChargeRefund, nil
+	case FnPostChargesChargeRefunds:
+		return FnPostChargesChargeRefunds, nil
+	case FnPostChargesChargeRefundsRefund:
+		return FnPostChargesChargeRefundsRefund, nil
+	case FnPostCheckoutSessions:
+		return FnPostCheckoutSessions, nil
+	case FnPostCheckoutSessionsSession:
+		return FnPostCheckoutSessionsSession, nil
+	case FnPostCheckoutSessionsSessionExpire:
+		return FnPostCheckoutSessionsSessionExpire, nil
+	case FnPostClimateOrders:
+		return FnPostClimateOrders, nil
+	case FnPostClimateOrdersOrder:
+		return FnPostClimateOrdersOrder, nil
+	case FnPostClimateOrdersOrderCancel:
+		return FnPostClimateOrdersOrderCancel, nil
+	case FnPostCoupons:
+		return FnPostCoupons, nil
+	case FnPostCouponsCoupon:
+		return FnPostCouponsCoupon, nil
+	case FnPostCreditNotes:
+		return FnPostCreditNotes, nil
+	case FnPostCreditNotesId:
+		return FnPostCreditNotesId, nil
+	case FnPostCreditNotesIdVoid:
+		return FnPostCreditNotesIdVoid, nil
+	case FnPostCustomerSessions:
+		return FnPostCustomerSessions, nil
+	case FnPostCustomers:
+		return FnPostCustomers, nil
+	case FnPostCustomersCustomer:
+		return FnPostCustomersCustomer, nil
+	case FnPostCustomersCustomerBalanceTransactions:
+		return FnPostCustomersCustomerBalanceTransactions, nil
+	case FnPostCustomersCustomerBalanceTransactionsTransaction:
+		return FnPostCustomersCustomerBalanceTransactionsTransaction, nil
+	case FnPostCustomersCustomerBankAccounts:
+		return FnPostCustomersCustomerBankAccounts, nil
+	case FnPostCustomersCustomerBankAccountsId:
+		return FnPostCustomersCustomerBankAccountsId, nil
+	case FnPostCustomersCustomerBankAccountsIdVerify:
+		return FnPostCustomersCustomerBankAccountsIdVerify, nil
+	case FnPostCustomersCustomerCards:
+		return FnPostCustomersCustomerCards, nil
+	case FnPostCustomersCustomerCardsId:
+		return FnPostCustomersCustomerCardsId, nil
+	case FnPostCustomersCustomerCashBalance:
+		return FnPostCustomersCustomerCashBalance, nil
+	case FnPostCustomersCustomerFundingInstructions:
+		return FnPostCustomersCustomerFundingInstructions, nil
+	case FnPostCustomersCustomerSources:
+		return FnPostCustomersCustomerSources, nil
+	case FnPostCustomersCustomerSourcesId:
+		return FnPostCustomersCustomerSourcesId, nil
+	case FnPostCustomersCustomerSourcesIdVerify:
+		return FnPostCustomersCustomerSourcesIdVerify, nil
+	case FnPostCustomersCustomerSubscriptions:
+		return FnPostCustomersCustomerSubscriptions, nil
+	case FnPostCustomersCustomerSubscriptionsSubscriptionExposedId:
+		return FnPostCustomersCustomerSubscriptionsSubscriptionExposedId, nil
+	case FnPostCustomersCustomerTaxIds:
+		return FnPostCustomersCustomerTaxIds, nil
+	case FnPostDisputesDispute:
+		return FnPostDisputesDispute, nil
+	case FnPostDisputesDisputeClose:
+		return FnPostDisputesDisputeClose, nil
+	case FnPostEntitlementsFeatures:
+		return FnPostEntitlementsFeatures, nil
+	case FnPostEntitlementsFeaturesId:
+		return FnPostEntitlementsFeaturesId, nil
+	case FnPostEphemeralKeys:
+		return FnPostEphemeralKeys, nil
+	case FnPostExternalAccountsId:
+		return FnPostExternalAccountsId, nil
+	case FnPostFileLinks:
+		return FnPostFileLinks, nil
+	case FnPostFileLinksLink:
+		return FnPostFileLinksLink, nil
+	case FnPostFinancialConnectionsAccountsAccountDisconnect:
+		return FnPostFinancialConnectionsAccountsAccountDisconnect, nil
+	case FnPostFinancialConnectionsAccountsAccountRefresh:
+		return FnPostFinancialConnectionsAccountsAccountRefresh, nil
+	case FnPostFinancialConnectionsAccountsAccountSubscribe:
+		return FnPostFinancialConnectionsAccountsAccountSubscribe, nil
+	case FnPostFinancialConnectionsAccountsAccountUnsubscribe:
+		return FnPostFinancialConnectionsAccountsAccountUnsubscribe, nil
+	case FnPostFinancialConnectionsSessions:
+		return FnPostFinancialConnectionsSessions, nil
+	case FnPostForwardingRequests:
+		return FnPostForwardingRequests, nil
+	case FnPostIdentityVerificationSessions:
+		return FnPostIdentityVerificationSessions, nil
+	case FnPostIdentityVerificationSessionsSession:
+		return FnPostIdentityVerificationSessionsSession, nil
+	case FnPostIdentityVerificationSessionsSessionCancel:
+		return FnPostIdentityVerificationSessionsSessionCancel, nil
+	case FnPostIdentityVerificationSessionsSessionRedact:
+		return FnPostIdentityVerificationSessionsSessionRedact, nil
+	case FnPostInvoiceRenderingTemplatesTemplateArchive:
+		return FnPostInvoiceRenderingTemplatesTemplateArchive, nil
+	case FnPostInvoiceRenderingTemplatesTemplateUnarchive:
+		return FnPostInvoiceRenderingTemplatesTemplateUnarchive, nil
+	case FnPostInvoiceitems:
+		return FnPostInvoiceitems, nil
+	case FnPostInvoiceitemsInvoiceitem:
+		return FnPostInvoiceitemsInvoiceitem, nil
+	case FnPostInvoices:
+		return FnPostInvoices, nil
+	case FnPostInvoicesCreatePreview:
+		return FnPostInvoicesCreatePreview, nil
+	case FnPostInvoicesInvoice:
+		return FnPostInvoicesInvoice, nil
+	case FnPostInvoicesInvoiceAddLines:
+		return FnPostInvoicesInvoiceAddLines, nil
+	case FnPostInvoicesInvoiceAttachPayment:
+		return FnPostInvoicesInvoiceAttachPayment, nil
+	case FnPostInvoicesInvoiceFinalize:
+		return FnPostInvoicesInvoiceFinalize, nil
+	case FnPostInvoicesInvoiceLinesLineItemId:
+		return FnPostInvoicesInvoiceLinesLineItemId, nil
+	case FnPostInvoicesInvoiceMarkUncollectible:
+		return FnPostInvoicesInvoiceMarkUncollectible, nil
+	case FnPostInvoicesInvoicePay:
+		return FnPostInvoicesInvoicePay, nil
+	case FnPostInvoicesInvoiceRemoveLines:
+		return FnPostInvoicesInvoiceRemoveLines, nil
+	case FnPostInvoicesInvoiceSend:
+		return FnPostInvoicesInvoiceSend, nil
+	case FnPostInvoicesInvoiceUpdateLines:
+		return FnPostInvoicesInvoiceUpdateLines, nil
+	case FnPostInvoicesInvoiceVoid:
+		return FnPostInvoicesInvoiceVoid, nil
+	case FnPostIssuingAuthorizationsAuthorization:
+		return FnPostIssuingAuthorizationsAuthorization, nil
+	case FnPostIssuingAuthorizationsAuthorizationApprove:
+		return FnPostIssuingAuthorizationsAuthorizationApprove, nil
+	case FnPostIssuingAuthorizationsAuthorizationDecline:
+		return FnPostIssuingAuthorizationsAuthorizationDecline, nil
+	case FnPostIssuingCardholders:
+		return FnPostIssuingCardholders, nil
+	case FnPostIssuingCardholdersCardholder:
+		return FnPostIssuingCardholdersCardholder, nil
+	case FnPostIssuingCards:
+		return FnPostIssuingCards, nil
+	case FnPostIssuingCardsCard:
+		return FnPostIssuingCardsCard, nil
+	case FnPostIssuingDisputes:
+		return FnPostIssuingDisputes, nil
+	case FnPostIssuingDisputesDispute:
+		return FnPostIssuingDisputesDispute, nil
+	case FnPostIssuingDisputesDisputeSubmit:
+		return FnPostIssuingDisputesDisputeSubmit, nil
+	case FnPostIssuingPersonalizationDesigns:
+		return FnPostIssuingPersonalizationDesigns, nil
+	case FnPostIssuingPersonalizationDesignsPersonalizationDesign:
+		return FnPostIssuingPersonalizationDesignsPersonalizationDesign, nil
+	case FnPostIssuingSettlementsSettlement:
+		return FnPostIssuingSettlementsSettlement, nil
+	case FnPostIssuingTokensToken:
+		return FnPostIssuingTokensToken, nil
+	case FnPostIssuingTransactionsTransaction:
+		return FnPostIssuingTransactionsTransaction, nil
+	case FnPostLinkAccountSessions:
+		return FnPostLinkAccountSessions, nil
+	case FnPostLinkedAccountsAccountDisconnect:
+		return FnPostLinkedAccountsAccountDisconnect, nil
+	case FnPostLinkedAccountsAccountRefresh:
+		return FnPostLinkedAccountsAccountRefresh, nil
+	case FnPostPaymentIntents:
+		return FnPostPaymentIntents, nil
+	case FnPostPaymentIntentsIntent:
+		return FnPostPaymentIntentsIntent, nil
+	case FnPostPaymentIntentsIntentApplyCustomerBalance:
+		return FnPostPaymentIntentsIntentApplyCustomerBalance, nil
+	case FnPostPaymentIntentsIntentCancel:
+		return FnPostPaymentIntentsIntentCancel, nil
+	case FnPostPaymentIntentsIntentCapture:
+		return FnPostPaymentIntentsIntentCapture, nil
+	case FnPostPaymentIntentsIntentConfirm:
+		return FnPostPaymentIntentsIntentConfirm, nil
+	case FnPostPaymentIntentsIntentIncrementAuthorization:
+		return FnPostPaymentIntentsIntentIncrementAuthorization, nil
+	case FnPostPaymentIntentsIntentVerifyMicrodeposits:
+		return FnPostPaymentIntentsIntentVerifyMicrodeposits, nil
+	case FnPostPaymentLinks:
+		return FnPostPaymentLinks, nil
+	case FnPostPaymentLinksPaymentLink:
+		return FnPostPaymentLinksPaymentLink, nil
+	case FnPostPaymentMethodConfigurations:
+		return FnPostPaymentMethodConfigurations, nil
+	case FnPostPaymentMethodConfigurationsConfiguration:
+		return FnPostPaymentMethodConfigurationsConfiguration, nil
+	case FnPostPaymentMethodDomains:
+		return FnPostPaymentMethodDomains, nil
+	case FnPostPaymentMethodDomainsPaymentMethodDomain:
+		return FnPostPaymentMethodDomainsPaymentMethodDomain, nil
+	case FnPostPaymentMethodDomainsPaymentMethodDomainValidate:
+		return FnPostPaymentMethodDomainsPaymentMethodDomainValidate, nil
+	case FnPostPaymentMethods:
+		return FnPostPaymentMethods, nil
+	case FnPostPaymentMethodsPaymentMethod:
+		return FnPostPaymentMethodsPaymentMethod, nil
+	case FnPostPaymentMethodsPaymentMethodAttach:
+		return FnPostPaymentMethodsPaymentMethodAttach, nil
+	case FnPostPaymentMethodsPaymentMethodDetach:
+		return FnPostPaymentMethodsPaymentMethodDetach, nil
+	case FnPostPaymentRecordsIdReportPaymentAttempt:
+		return FnPostPaymentRecordsIdReportPaymentAttempt, nil
+	case FnPostPaymentRecordsIdReportPaymentAttemptCanceled:
+		return FnPostPaymentRecordsIdReportPaymentAttemptCanceled, nil
+	case FnPostPaymentRecordsIdReportPaymentAttemptFailed:
+		return FnPostPaymentRecordsIdReportPaymentAttemptFailed, nil
+	case FnPostPaymentRecordsIdReportPaymentAttemptGuaranteed:
+		return FnPostPaymentRecordsIdReportPaymentAttemptGuaranteed, nil
+	case FnPostPaymentRecordsIdReportPaymentAttemptInformational:
+		return FnPostPaymentRecordsIdReportPaymentAttemptInformational, nil
+	case FnPostPaymentRecordsIdReportRefund:
+		return FnPostPaymentRecordsIdReportRefund, nil
+	case FnPostPaymentRecordsReportPayment:
+		return FnPostPaymentRecordsReportPayment, nil
+	case FnPostPayouts:
+		return FnPostPayouts, nil
+	case FnPostPayoutsPayout:
+		return FnPostPayoutsPayout, nil
+	case FnPostPayoutsPayoutCancel:
+		return FnPostPayoutsPayoutCancel, nil
+	case FnPostPayoutsPayoutReverse:
+		return FnPostPayoutsPayoutReverse, nil
+	case FnPostPlans:
+		return FnPostPlans, nil
+	case FnPostPlansPlan:
+		return FnPostPlansPlan, nil
+	case FnPostPrices:
+		return FnPostPrices, nil
+	case FnPostPricesPrice:
+		return FnPostPricesPrice, nil
+	case FnPostProductCatalogTrialOffers:
+		return FnPostProductCatalogTrialOffers, nil
+	case FnPostProductCatalogTrialOffersId:
+		return FnPostProductCatalogTrialOffersId, nil
+	case FnPostProducts:
+		return FnPostProducts, nil
+	case FnPostProductsId:
+		return FnPostProductsId, nil
+	case FnPostProductsProductFeatures:
+		return FnPostProductsProductFeatures, nil
+	case FnPostPromotionCodes:
+		return FnPostPromotionCodes, nil
+	case FnPostPromotionCodesPromotionCode:
+		return FnPostPromotionCodesPromotionCode, nil
+	case FnPostQuotes:
+		return FnPostQuotes, nil
+	case FnPostQuotesQuote:
+		return FnPostQuotesQuote, nil
+	case FnPostQuotesQuoteAccept:
+		return FnPostQuotesQuoteAccept, nil
+	case FnPostQuotesQuoteCancel:
+		return FnPostQuotesQuoteCancel, nil
+	case FnPostQuotesQuoteFinalize:
+		return FnPostQuotesQuoteFinalize, nil
+	case FnPostRadarPaymentEvaluations:
+		return FnPostRadarPaymentEvaluations, nil
+	case FnPostRadarValueListItems:
+		return FnPostRadarValueListItems, nil
+	case FnPostRadarValueLists:
+		return FnPostRadarValueLists, nil
+	case FnPostRadarValueListsValueList:
+		return FnPostRadarValueListsValueList, nil
+	case FnPostRefunds:
+		return FnPostRefunds, nil
+	case FnPostRefundsRefund:
+		return FnPostRefundsRefund, nil
+	case FnPostRefundsRefundCancel:
+		return FnPostRefundsRefundCancel, nil
+	case FnPostReportingReportRuns:
+		return FnPostReportingReportRuns, nil
+	case FnPostReviewsReviewApprove:
+		return FnPostReviewsReviewApprove, nil
+	case FnPostSetupIntents:
+		return FnPostSetupIntents, nil
+	case FnPostSetupIntentsIntent:
+		return FnPostSetupIntentsIntent, nil
+	case FnPostSetupIntentsIntentCancel:
+		return FnPostSetupIntentsIntentCancel, nil
+	case FnPostSetupIntentsIntentConfirm:
+		return FnPostSetupIntentsIntentConfirm, nil
+	case FnPostSetupIntentsIntentVerifyMicrodeposits:
+		return FnPostSetupIntentsIntentVerifyMicrodeposits, nil
+	case FnPostShippingRates:
+		return FnPostShippingRates, nil
+	case FnPostShippingRatesShippingRateToken:
+		return FnPostShippingRatesShippingRateToken, nil
+	case FnPostSigmaSavedQueriesId:
+		return FnPostSigmaSavedQueriesId, nil
+	case FnPostSources:
+		return FnPostSources, nil
+	case FnPostSourcesSource:
+		return FnPostSourcesSource, nil
+	case FnPostSourcesSourceVerify:
+		return FnPostSourcesSourceVerify, nil
+	case FnPostSubscriptionItems:
+		return FnPostSubscriptionItems, nil
+	case FnPostSubscriptionItemsItem:
+		return FnPostSubscriptionItemsItem, nil
+	case FnPostSubscriptionSchedules:
+		return FnPostSubscriptionSchedules, nil
+	case FnPostSubscriptionSchedulesSchedule:
+		return FnPostSubscriptionSchedulesSchedule, nil
+	case FnPostSubscriptionSchedulesScheduleCancel:
+		return FnPostSubscriptionSchedulesScheduleCancel, nil
+	case FnPostSubscriptionSchedulesScheduleRelease:
+		return FnPostSubscriptionSchedulesScheduleRelease, nil
+	case FnPostSubscriptions:
+		return FnPostSubscriptions, nil
+	case FnPostSubscriptionsSubscriptionExposedId:
+		return FnPostSubscriptionsSubscriptionExposedId, nil
+	case FnPostSubscriptionsSubscriptionMigrate:
+		return FnPostSubscriptionsSubscriptionMigrate, nil
+	case FnPostSubscriptionsSubscriptionPause:
+		return FnPostSubscriptionsSubscriptionPause, nil
+	case FnPostSubscriptionsSubscriptionResume:
+		return FnPostSubscriptionsSubscriptionResume, nil
+	case FnPostTaxCalculations:
+		return FnPostTaxCalculations, nil
+	case FnPostTaxIds:
+		return FnPostTaxIds, nil
+	case FnPostTaxLocations:
+		return FnPostTaxLocations, nil
+	case FnPostTaxRates:
+		return FnPostTaxRates, nil
+	case FnPostTaxRatesTaxRate:
+		return FnPostTaxRatesTaxRate, nil
+	case FnPostTaxRegistrations:
+		return FnPostTaxRegistrations, nil
+	case FnPostTaxRegistrationsId:
+		return FnPostTaxRegistrationsId, nil
+	case FnPostTaxSettings:
+		return FnPostTaxSettings, nil
+	case FnPostTaxTransactionsCreateFromCalculation:
+		return FnPostTaxTransactionsCreateFromCalculation, nil
+	case FnPostTaxTransactionsCreateReversal:
+		return FnPostTaxTransactionsCreateReversal, nil
+	case FnPostTerminalConfigurations:
+		return FnPostTerminalConfigurations, nil
+	case FnPostTerminalConfigurationsConfiguration:
+		return FnPostTerminalConfigurationsConfiguration, nil
+	case FnPostTerminalConnectionTokens:
+		return FnPostTerminalConnectionTokens, nil
+	case FnPostTerminalLocations:
+		return FnPostTerminalLocations, nil
+	case FnPostTerminalLocationsLocation:
+		return FnPostTerminalLocationsLocation, nil
+	case FnPostTerminalOnboardingLinks:
+		return FnPostTerminalOnboardingLinks, nil
+	case FnPostTerminalReaders:
+		return FnPostTerminalReaders, nil
+	case FnPostTerminalReadersReader:
+		return FnPostTerminalReadersReader, nil
+	case FnPostTerminalReadersReaderCancelAction:
+		return FnPostTerminalReadersReaderCancelAction, nil
+	case FnPostTerminalReadersReaderCollectInputs:
+		return FnPostTerminalReadersReaderCollectInputs, nil
+	case FnPostTerminalReadersReaderCollectPaymentMethod:
+		return FnPostTerminalReadersReaderCollectPaymentMethod, nil
+	case FnPostTerminalReadersReaderConfirmPaymentIntent:
+		return FnPostTerminalReadersReaderConfirmPaymentIntent, nil
+	case FnPostTerminalReadersReaderProcessPaymentIntent:
+		return FnPostTerminalReadersReaderProcessPaymentIntent, nil
+	case FnPostTerminalReadersReaderProcessSetupIntent:
+		return FnPostTerminalReadersReaderProcessSetupIntent, nil
+	case FnPostTerminalReadersReaderRefundPayment:
+		return FnPostTerminalReadersReaderRefundPayment, nil
+	case FnPostTerminalReadersReaderSetReaderDisplay:
+		return FnPostTerminalReadersReaderSetReaderDisplay, nil
+	case FnPostTerminalRefunds:
+		return FnPostTerminalRefunds, nil
+	case FnPostTestHelpersConfirmationTokens:
+		return FnPostTestHelpersConfirmationTokens, nil
+	case FnPostTestHelpersCustomersCustomerFundCashBalance:
+		return FnPostTestHelpersCustomersCustomerFundCashBalance, nil
+	case FnPostTestHelpersIssuingAuthorizations:
+		return FnPostTestHelpersIssuingAuthorizations, nil
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationCapture:
+		return FnPostTestHelpersIssuingAuthorizationsAuthorizationCapture, nil
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationExpire:
+		return FnPostTestHelpersIssuingAuthorizationsAuthorizationExpire, nil
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount:
+		return FnPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount, nil
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond:
+		return FnPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond, nil
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationIncrement:
+		return FnPostTestHelpersIssuingAuthorizationsAuthorizationIncrement, nil
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationReverse:
+		return FnPostTestHelpersIssuingAuthorizationsAuthorizationReverse, nil
+	case FnPostTestHelpersIssuingCardsCardShippingDeliver:
+		return FnPostTestHelpersIssuingCardsCardShippingDeliver, nil
+	case FnPostTestHelpersIssuingCardsCardShippingFail:
+		return FnPostTestHelpersIssuingCardsCardShippingFail, nil
+	case FnPostTestHelpersIssuingCardsCardShippingReturn:
+		return FnPostTestHelpersIssuingCardsCardShippingReturn, nil
+	case FnPostTestHelpersIssuingCardsCardShippingShip:
+		return FnPostTestHelpersIssuingCardsCardShippingShip, nil
+	case FnPostTestHelpersIssuingCardsCardShippingSubmit:
+		return FnPostTestHelpersIssuingCardsCardShippingSubmit, nil
+	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate:
+		return FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate, nil
+	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate:
+		return FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate, nil
+	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject:
+		return FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject, nil
+	case FnPostTestHelpersIssuingSettlements:
+		return FnPostTestHelpersIssuingSettlements, nil
+	case FnPostTestHelpersIssuingSettlementsSettlementComplete:
+		return FnPostTestHelpersIssuingSettlementsSettlementComplete, nil
+	case FnPostTestHelpersIssuingTransactionsCreateForceCapture:
+		return FnPostTestHelpersIssuingTransactionsCreateForceCapture, nil
+	case FnPostTestHelpersIssuingTransactionsCreateUnlinkedRefund:
+		return FnPostTestHelpersIssuingTransactionsCreateUnlinkedRefund, nil
+	case FnPostTestHelpersIssuingTransactionsTransactionRefund:
+		return FnPostTestHelpersIssuingTransactionsTransactionRefund, nil
+	case FnPostTestHelpersRefundsRefundExpire:
+		return FnPostTestHelpersRefundsRefundExpire, nil
+	case FnPostTestHelpersTerminalReadersReaderPresentPaymentMethod:
+		return FnPostTestHelpersTerminalReadersReaderPresentPaymentMethod, nil
+	case FnPostTestHelpersTerminalReadersReaderSucceedInputCollection:
+		return FnPostTestHelpersTerminalReadersReaderSucceedInputCollection, nil
+	case FnPostTestHelpersTerminalReadersReaderTimeoutInputCollection:
+		return FnPostTestHelpersTerminalReadersReaderTimeoutInputCollection, nil
+	case FnPostTestHelpersTestClocks:
+		return FnPostTestHelpersTestClocks, nil
+	case FnPostTestHelpersTestClocksTestClockAdvance:
+		return FnPostTestHelpersTestClocksTestClockAdvance, nil
+	case FnPostTestHelpersTreasuryInboundTransfersIdFail:
+		return FnPostTestHelpersTreasuryInboundTransfersIdFail, nil
+	case FnPostTestHelpersTreasuryInboundTransfersIdReturn:
+		return FnPostTestHelpersTreasuryInboundTransfersIdReturn, nil
+	case FnPostTestHelpersTreasuryInboundTransfersIdSucceed:
+		return FnPostTestHelpersTreasuryInboundTransfersIdSucceed, nil
+	case FnPostTestHelpersTreasuryOutboundPaymentsId:
+		return FnPostTestHelpersTreasuryOutboundPaymentsId, nil
+	case FnPostTestHelpersTreasuryOutboundPaymentsIdFail:
+		return FnPostTestHelpersTreasuryOutboundPaymentsIdFail, nil
+	case FnPostTestHelpersTreasuryOutboundPaymentsIdPost:
+		return FnPostTestHelpersTreasuryOutboundPaymentsIdPost, nil
+	case FnPostTestHelpersTreasuryOutboundPaymentsIdReturn:
+		return FnPostTestHelpersTreasuryOutboundPaymentsIdReturn, nil
+	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransfer:
+		return FnPostTestHelpersTreasuryOutboundTransfersOutboundTransfer, nil
+	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferFail:
+		return FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferFail, nil
+	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferPost:
+		return FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferPost, nil
+	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn:
+		return FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn, nil
+	case FnPostTestHelpersTreasuryReceivedCredits:
+		return FnPostTestHelpersTreasuryReceivedCredits, nil
+	case FnPostTestHelpersTreasuryReceivedDebits:
+		return FnPostTestHelpersTreasuryReceivedDebits, nil
+	case FnPostThreeDSecureAuthentications:
+		return FnPostThreeDSecureAuthentications, nil
+	case FnPostThreeDSecureAuthenticationsAuthenticationCancel:
+		return FnPostThreeDSecureAuthenticationsAuthenticationCancel, nil
+	case FnPostThreeDSecureAuthenticationsAuthenticationSubmit:
+		return FnPostThreeDSecureAuthenticationsAuthenticationSubmit, nil
+	case FnPostTokens:
+		return FnPostTokens, nil
+	case FnPostTopups:
+		return FnPostTopups, nil
+	case FnPostTopupsTopup:
+		return FnPostTopupsTopup, nil
+	case FnPostTopupsTopupCancel:
+		return FnPostTopupsTopupCancel, nil
+	case FnPostTransfers:
+		return FnPostTransfers, nil
+	case FnPostTransfersIdReversals:
+		return FnPostTransfersIdReversals, nil
+	case FnPostTransfersTransfer:
+		return FnPostTransfersTransfer, nil
+	case FnPostTransfersTransferReversalsId:
+		return FnPostTransfersTransferReversalsId, nil
+	case FnPostTreasuryCreditReversals:
+		return FnPostTreasuryCreditReversals, nil
+	case FnPostTreasuryDebitReversals:
+		return FnPostTreasuryDebitReversals, nil
+	case FnPostTreasuryFinancialAccounts:
+		return FnPostTreasuryFinancialAccounts, nil
+	case FnPostTreasuryFinancialAccountsFinancialAccount:
+		return FnPostTreasuryFinancialAccountsFinancialAccount, nil
+	case FnPostTreasuryFinancialAccountsFinancialAccountClose:
+		return FnPostTreasuryFinancialAccountsFinancialAccountClose, nil
+	case FnPostTreasuryFinancialAccountsFinancialAccountFeatures:
+		return FnPostTreasuryFinancialAccountsFinancialAccountFeatures, nil
+	case FnPostTreasuryInboundTransfers:
+		return FnPostTreasuryInboundTransfers, nil
+	case FnPostTreasuryInboundTransfersInboundTransferCancel:
+		return FnPostTreasuryInboundTransfersInboundTransferCancel, nil
+	case FnPostTreasuryOutboundPayments:
+		return FnPostTreasuryOutboundPayments, nil
+	case FnPostTreasuryOutboundPaymentsIdCancel:
+		return FnPostTreasuryOutboundPaymentsIdCancel, nil
+	case FnPostTreasuryOutboundTransfers:
+		return FnPostTreasuryOutboundTransfers, nil
+	case FnPostTreasuryOutboundTransfersOutboundTransferCancel:
+		return FnPostTreasuryOutboundTransfersOutboundTransferCancel, nil
+	case FnPostWebhookEndpoints:
+		return FnPostWebhookEndpoints, nil
+	case FnPostWebhookEndpointsWebhookEndpoint:
+		return FnPostWebhookEndpointsWebhookEndpoint, nil
 	default:
 		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
 	}
@@ -1868,1228 +1868,1228 @@ func ParseFunction(s string) (Function, error) {
 // Dispatch calls the named function's typed client method.
 func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
 	switch fn {
-	case FnDeleteAccountsAccountBankAccountsIdWithFormdataBody:
-		return ic.dispatchDeleteAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteAccountsAccountExternalAccountsIdWithFormdataBody:
-		return ic.dispatchDeleteAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteAccountsAccountPeoplePersonWithFormdataBody:
-		return ic.dispatchDeleteAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteAccountsAccountPersonsPersonWithFormdataBody:
-		return ic.dispatchDeleteAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteAccountsAccountWithFormdataBody:
+	case FnDeleteAccountsAccount:
 		return ic.dispatchDeleteAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteApplePayDomainsDomainWithFormdataBody:
+	case FnDeleteAccountsAccountBankAccountsId:
+		return ic.dispatchDeleteAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteAccountsAccountExternalAccountsId:
+		return ic.dispatchDeleteAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteAccountsAccountPeoplePerson:
+		return ic.dispatchDeleteAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteAccountsAccountPersonsPerson:
+		return ic.dispatchDeleteAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteApplePayDomainsDomain:
 		return ic.dispatchDeleteApplePayDomainsDomainWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCouponsCouponWithFormdataBody:
+	case FnDeleteCouponsCoupon:
 		return ic.dispatchDeleteCouponsCouponWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCustomersCustomerBankAccountsIdWithFormdataBody:
-		return ic.dispatchDeleteCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCustomersCustomerCardsIdWithFormdataBody:
-		return ic.dispatchDeleteCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCustomersCustomerDiscountWithFormdataBody:
-		return ic.dispatchDeleteCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCustomersCustomerSourcesIdWithFormdataBody:
-		return ic.dispatchDeleteCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody:
-		return ic.dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return ic.dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCustomersCustomerTaxIdsIdWithFormdataBody:
-		return ic.dispatchDeleteCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteCustomersCustomerWithFormdataBody:
+	case FnDeleteCustomersCustomer:
 		return ic.dispatchDeleteCustomersCustomerWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteEphemeralKeysKeyWithFormdataBody:
+	case FnDeleteCustomersCustomerBankAccountsId:
+		return ic.dispatchDeleteCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteCustomersCustomerCardsId:
+		return ic.dispatchDeleteCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteCustomersCustomerDiscount:
+		return ic.dispatchDeleteCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteCustomersCustomerSourcesId:
+		return ic.dispatchDeleteCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedId:
+		return ic.dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount:
+		return ic.dispatchDeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteCustomersCustomerTaxIdsId:
+		return ic.dispatchDeleteCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteEphemeralKeysKey:
 		return ic.dispatchDeleteEphemeralKeysKeyWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteInvoiceitemsInvoiceitemWithFormdataBody:
+	case FnDeleteInvoiceitemsInvoiceitem:
 		return ic.dispatchDeleteInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteInvoicesInvoiceWithFormdataBody:
+	case FnDeleteInvoicesInvoice:
 		return ic.dispatchDeleteInvoicesInvoiceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeletePlansPlanWithFormdataBody:
+	case FnDeletePlansPlan:
 		return ic.dispatchDeletePlansPlanWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteProductsIdWithFormdataBody:
+	case FnDeleteProductsId:
 		return ic.dispatchDeleteProductsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteProductsProductFeaturesIdWithFormdataBody:
+	case FnDeleteProductsProductFeaturesId:
 		return ic.dispatchDeleteProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteRadarValueListItemsItemWithFormdataBody:
+	case FnDeleteRadarValueListItemsItem:
 		return ic.dispatchDeleteRadarValueListItemsItemWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteRadarValueListsValueListWithFormdataBody:
+	case FnDeleteRadarValueListsValueList:
 		return ic.dispatchDeleteRadarValueListsValueListWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteSubscriptionItemsItemWithFormdataBody:
+	case FnDeleteSubscriptionItemsItem:
 		return ic.dispatchDeleteSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody:
-		return ic.dispatchDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteSubscriptionsSubscriptionExposedIdWithFormdataBody:
+	case FnDeleteSubscriptionsSubscriptionExposedId:
 		return ic.dispatchDeleteSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteTaxIdsIdWithFormdataBody:
+	case FnDeleteSubscriptionsSubscriptionExposedIdDiscount:
+		return ic.dispatchDeleteSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnDeleteTaxIdsId:
 		return ic.dispatchDeleteTaxIdsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteTerminalConfigurationsConfigurationWithFormdataBody:
+	case FnDeleteTerminalConfigurationsConfiguration:
 		return ic.dispatchDeleteTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteTerminalLocationsLocationWithFormdataBody:
+	case FnDeleteTerminalLocationsLocation:
 		return ic.dispatchDeleteTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteTerminalReadersReaderWithFormdataBody:
+	case FnDeleteTerminalReadersReader:
 		return ic.dispatchDeleteTerminalReadersReaderWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteTestHelpersTestClocksTestClockWithFormdataBody:
+	case FnDeleteTestHelpersTestClocksTestClock:
 		return ic.dispatchDeleteTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnDeleteWebhookEndpointsWebhookEndpointWithFormdataBody:
+	case FnDeleteWebhookEndpointsWebhookEndpoint:
 		return ic.dispatchDeleteWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountWithFormdataBody:
+	case FnGetAccount:
 		return ic.dispatchGetAccountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountBankAccountsIdWithFormdataBody:
-		return ic.dispatchGetAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountCapabilitiesCapabilityWithFormdataBody:
-		return ic.dispatchGetAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountCapabilitiesWithFormdataBody:
-		return ic.dispatchGetAccountsAccountCapabilitiesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountExternalAccountsIdWithFormdataBody:
-		return ic.dispatchGetAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountExternalAccountsWithFormdataBody:
-		return ic.dispatchGetAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountPeoplePersonWithFormdataBody:
-		return ic.dispatchGetAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountPeopleWithFormdataBody:
-		return ic.dispatchGetAccountsAccountPeopleWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountPersonsPersonWithFormdataBody:
-		return ic.dispatchGetAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountPersonsWithFormdataBody:
-		return ic.dispatchGetAccountsAccountPersonsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsAccountWithFormdataBody:
-		return ic.dispatchGetAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAccountsWithFormdataBody:
+	case FnGetAccounts:
 		return ic.dispatchGetAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetApplePayDomainsDomainWithFormdataBody:
-		return ic.dispatchGetApplePayDomainsDomainWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetApplePayDomainsWithFormdataBody:
+	case FnGetAccountsAccount:
+		return ic.dispatchGetAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountBankAccountsId:
+		return ic.dispatchGetAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountCapabilities:
+		return ic.dispatchGetAccountsAccountCapabilitiesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountCapabilitiesCapability:
+		return ic.dispatchGetAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountExternalAccounts:
+		return ic.dispatchGetAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountExternalAccountsId:
+		return ic.dispatchGetAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountPeople:
+		return ic.dispatchGetAccountsAccountPeopleWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountPeoplePerson:
+		return ic.dispatchGetAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountPersons:
+		return ic.dispatchGetAccountsAccountPersonsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAccountsAccountPersonsPerson:
+		return ic.dispatchGetAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetApplePayDomains:
 		return ic.dispatchGetApplePayDomainsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetApplicationFeesFeeRefundsIdWithFormdataBody:
-		return ic.dispatchGetApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetApplicationFeesIdRefundsWithFormdataBody:
-		return ic.dispatchGetApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetApplicationFeesIdWithFormdataBody:
-		return ic.dispatchGetApplicationFeesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetApplicationFeesWithFormdataBody:
+	case FnGetApplePayDomainsDomain:
+		return ic.dispatchGetApplePayDomainsDomainWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetApplicationFees:
 		return ic.dispatchGetApplicationFeesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAppsInstallsIdWithFormdataBody:
-		return ic.dispatchGetAppsInstallsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAppsInstallsWithFormdataBody:
+	case FnGetApplicationFeesFeeRefundsId:
+		return ic.dispatchGetApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetApplicationFeesId:
+		return ic.dispatchGetApplicationFeesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetApplicationFeesIdRefunds:
+		return ic.dispatchGetApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAppsInstalls:
 		return ic.dispatchGetAppsInstallsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAppsSecretsFindWithFormdataBody:
-		return ic.dispatchGetAppsSecretsFindWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetAppsSecretsWithFormdataBody:
+	case FnGetAppsInstallsId:
+		return ic.dispatchGetAppsInstallsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetAppsSecrets:
 		return ic.dispatchGetAppsSecretsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBalanceHistoryIdWithFormdataBody:
-		return ic.dispatchGetBalanceHistoryIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBalanceHistoryWithFormdataBody:
-		return ic.dispatchGetBalanceHistoryWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBalanceSettingsWithFormdataBody:
-		return ic.dispatchGetBalanceSettingsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBalanceTransactionsIdWithFormdataBody:
-		return ic.dispatchGetBalanceTransactionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBalanceTransactionsWithFormdataBody:
-		return ic.dispatchGetBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBalanceWithFormdataBody:
+	case FnGetAppsSecretsFind:
+		return ic.dispatchGetAppsSecretsFindWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBalance:
 		return ic.dispatchGetBalanceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingAlertsIdWithFormdataBody:
-		return ic.dispatchGetBillingAlertsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingAlertsWithFormdataBody:
+	case FnGetBalanceHistory:
+		return ic.dispatchGetBalanceHistoryWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBalanceHistoryId:
+		return ic.dispatchGetBalanceHistoryIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBalanceSettings:
+		return ic.dispatchGetBalanceSettingsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBalanceTransactions:
+		return ic.dispatchGetBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBalanceTransactionsId:
+		return ic.dispatchGetBalanceTransactionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBillingAlerts:
 		return ic.dispatchGetBillingAlertsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingCreditBalanceSummaryWithFormdataBody:
+	case FnGetBillingAlertsId:
+		return ic.dispatchGetBillingAlertsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBillingCreditBalanceSummary:
 		return ic.dispatchGetBillingCreditBalanceSummaryWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingCreditBalanceTransactionsIdWithFormdataBody:
-		return ic.dispatchGetBillingCreditBalanceTransactionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingCreditBalanceTransactionsWithFormdataBody:
+	case FnGetBillingCreditBalanceTransactions:
 		return ic.dispatchGetBillingCreditBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingCreditGrantsIdWithFormdataBody:
-		return ic.dispatchGetBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingCreditGrantsWithFormdataBody:
+	case FnGetBillingCreditBalanceTransactionsId:
+		return ic.dispatchGetBillingCreditBalanceTransactionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBillingCreditGrants:
 		return ic.dispatchGetBillingCreditGrantsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingFeedbackOptionsIdWithFormdataBody:
-		return ic.dispatchGetBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingFeedbackOptionsWithFormdataBody:
+	case FnGetBillingCreditGrantsId:
+		return ic.dispatchGetBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBillingFeedbackOptions:
 		return ic.dispatchGetBillingFeedbackOptionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingMetersIdEventSummariesWithFormdataBody:
-		return ic.dispatchGetBillingMetersIdEventSummariesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingMetersIdWithFormdataBody:
-		return ic.dispatchGetBillingMetersIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingMetersWithFormdataBody:
+	case FnGetBillingFeedbackOptionsId:
+		return ic.dispatchGetBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBillingMeters:
 		return ic.dispatchGetBillingMetersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingPortalConfigurationsConfigurationWithFormdataBody:
-		return ic.dispatchGetBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetBillingPortalConfigurationsWithFormdataBody:
+	case FnGetBillingMetersId:
+		return ic.dispatchGetBillingMetersIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBillingMetersIdEventSummaries:
+		return ic.dispatchGetBillingMetersIdEventSummariesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetBillingPortalConfigurations:
 		return ic.dispatchGetBillingPortalConfigurationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetChargesChargeDisputeWithFormdataBody:
-		return ic.dispatchGetChargesChargeDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetChargesChargeRefundsRefundWithFormdataBody:
-		return ic.dispatchGetChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetChargesChargeRefundsWithFormdataBody:
-		return ic.dispatchGetChargesChargeRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetChargesChargeWithFormdataBody:
-		return ic.dispatchGetChargesChargeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetChargesSearchWithFormdataBody:
-		return ic.dispatchGetChargesSearchWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetChargesWithFormdataBody:
+	case FnGetBillingPortalConfigurationsConfiguration:
+		return ic.dispatchGetBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCharges:
 		return ic.dispatchGetChargesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCheckoutSessionsSessionLineItemsWithFormdataBody:
-		return ic.dispatchGetCheckoutSessionsSessionLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCheckoutSessionsSessionWithFormdataBody:
-		return ic.dispatchGetCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCheckoutSessionsWithFormdataBody:
+	case FnGetChargesCharge:
+		return ic.dispatchGetChargesChargeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetChargesChargeDispute:
+		return ic.dispatchGetChargesChargeDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetChargesChargeRefunds:
+		return ic.dispatchGetChargesChargeRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetChargesChargeRefundsRefund:
+		return ic.dispatchGetChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetChargesSearch:
+		return ic.dispatchGetChargesSearchWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCheckoutSessions:
 		return ic.dispatchGetCheckoutSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetClimateOrdersOrderWithFormdataBody:
-		return ic.dispatchGetClimateOrdersOrderWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetClimateOrdersWithFormdataBody:
+	case FnGetCheckoutSessionsSession:
+		return ic.dispatchGetCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCheckoutSessionsSessionLineItems:
+		return ic.dispatchGetCheckoutSessionsSessionLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetClimateOrders:
 		return ic.dispatchGetClimateOrdersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetClimateProductsProductWithFormdataBody:
-		return ic.dispatchGetClimateProductsProductWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetClimateProductsWithFormdataBody:
+	case FnGetClimateOrdersOrder:
+		return ic.dispatchGetClimateOrdersOrderWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetClimateProducts:
 		return ic.dispatchGetClimateProductsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetClimateSuppliersSupplierWithFormdataBody:
-		return ic.dispatchGetClimateSuppliersSupplierWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetClimateSuppliersWithFormdataBody:
+	case FnGetClimateProductsProduct:
+		return ic.dispatchGetClimateProductsProductWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetClimateSuppliers:
 		return ic.dispatchGetClimateSuppliersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetConfirmationTokensConfirmationTokenWithFormdataBody:
+	case FnGetClimateSuppliersSupplier:
+		return ic.dispatchGetClimateSuppliersSupplierWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetConfirmationTokensConfirmationToken:
 		return ic.dispatchGetConfirmationTokensConfirmationTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCountrySpecsCountryWithFormdataBody:
-		return ic.dispatchGetCountrySpecsCountryWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCountrySpecsWithFormdataBody:
+	case FnGetCountrySpecs:
 		return ic.dispatchGetCountrySpecsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCouponsCouponWithFormdataBody:
-		return ic.dispatchGetCouponsCouponWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCouponsWithFormdataBody:
+	case FnGetCountrySpecsCountry:
+		return ic.dispatchGetCountrySpecsCountryWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCoupons:
 		return ic.dispatchGetCouponsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCreditNotesCreditNoteLinesWithFormdataBody:
-		return ic.dispatchGetCreditNotesCreditNoteLinesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCreditNotesIdWithFormdataBody:
-		return ic.dispatchGetCreditNotesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCreditNotesPreviewLinesWithFormdataBody:
-		return ic.dispatchGetCreditNotesPreviewLinesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCreditNotesPreviewWithFormdataBody:
-		return ic.dispatchGetCreditNotesPreviewWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCreditNotesWithFormdataBody:
+	case FnGetCouponsCoupon:
+		return ic.dispatchGetCouponsCouponWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCreditNotes:
 		return ic.dispatchGetCreditNotesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerBalanceTransactionsWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerBankAccountsIdWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerBankAccountsWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerCardsIdWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerCardsWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerCardsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerCashBalanceTransactionsWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerCashBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerCashBalanceWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerDiscountWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerPaymentMethodsWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerPaymentMethodsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerSourcesIdWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerSourcesWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerSubscriptionsWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerTaxIdsIdWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerTaxIdsWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersCustomerWithFormdataBody:
-		return ic.dispatchGetCustomersCustomerWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersSearchWithFormdataBody:
-		return ic.dispatchGetCustomersSearchWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetCustomersWithFormdataBody:
+	case FnGetCreditNotesCreditNoteLines:
+		return ic.dispatchGetCreditNotesCreditNoteLinesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCreditNotesId:
+		return ic.dispatchGetCreditNotesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCreditNotesPreview:
+		return ic.dispatchGetCreditNotesPreviewWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCreditNotesPreviewLines:
+		return ic.dispatchGetCreditNotesPreviewLinesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomers:
 		return ic.dispatchGetCustomersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetDisputesDisputeWithFormdataBody:
-		return ic.dispatchGetDisputesDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetDisputesWithFormdataBody:
+	case FnGetCustomersCustomer:
+		return ic.dispatchGetCustomersCustomerWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerBalanceTransactions:
+		return ic.dispatchGetCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerBalanceTransactionsTransaction:
+		return ic.dispatchGetCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerBankAccounts:
+		return ic.dispatchGetCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerBankAccountsId:
+		return ic.dispatchGetCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerCards:
+		return ic.dispatchGetCustomersCustomerCardsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerCardsId:
+		return ic.dispatchGetCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerCashBalance:
+		return ic.dispatchGetCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerCashBalanceTransactions:
+		return ic.dispatchGetCustomersCustomerCashBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerCashBalanceTransactionsTransaction:
+		return ic.dispatchGetCustomersCustomerCashBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerDiscount:
+		return ic.dispatchGetCustomersCustomerDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerPaymentMethods:
+		return ic.dispatchGetCustomersCustomerPaymentMethodsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerPaymentMethodsPaymentMethod:
+		return ic.dispatchGetCustomersCustomerPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerSources:
+		return ic.dispatchGetCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerSourcesId:
+		return ic.dispatchGetCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerSubscriptions:
+		return ic.dispatchGetCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerSubscriptionsSubscriptionExposedId:
+		return ic.dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount:
+		return ic.dispatchGetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerTaxIds:
+		return ic.dispatchGetCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersCustomerTaxIdsId:
+		return ic.dispatchGetCustomersCustomerTaxIdsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetCustomersSearch:
+		return ic.dispatchGetCustomersSearchWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetDisputes:
 		return ic.dispatchGetDisputesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetEntitlementsActiveEntitlementsIdWithFormdataBody:
-		return ic.dispatchGetEntitlementsActiveEntitlementsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetEntitlementsActiveEntitlementsWithFormdataBody:
+	case FnGetDisputesDispute:
+		return ic.dispatchGetDisputesDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetEntitlementsActiveEntitlements:
 		return ic.dispatchGetEntitlementsActiveEntitlementsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetEntitlementsFeaturesIdWithFormdataBody:
-		return ic.dispatchGetEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetEntitlementsFeaturesWithFormdataBody:
+	case FnGetEntitlementsActiveEntitlementsId:
+		return ic.dispatchGetEntitlementsActiveEntitlementsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetEntitlementsFeatures:
 		return ic.dispatchGetEntitlementsFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetEventsIdWithFormdataBody:
-		return ic.dispatchGetEventsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetEventsWithFormdataBody:
+	case FnGetEntitlementsFeaturesId:
+		return ic.dispatchGetEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetEvents:
 		return ic.dispatchGetEventsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetExchangeRatesRateIdWithFormdataBody:
-		return ic.dispatchGetExchangeRatesRateIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetExchangeRatesWithFormdataBody:
+	case FnGetEventsId:
+		return ic.dispatchGetEventsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetExchangeRates:
 		return ic.dispatchGetExchangeRatesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFileLinksLinkWithFormdataBody:
-		return ic.dispatchGetFileLinksLinkWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFileLinksWithFormdataBody:
+	case FnGetExchangeRatesRateId:
+		return ic.dispatchGetExchangeRatesRateIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetFileLinks:
 		return ic.dispatchGetFileLinksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFilesFileWithFormdataBody:
-		return ic.dispatchGetFilesFileWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFilesWithFormdataBody:
+	case FnGetFileLinksLink:
+		return ic.dispatchGetFileLinksLinkWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetFiles:
 		return ic.dispatchGetFilesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFinancialConnectionsAccountsAccountOwnersWithFormdataBody:
-		return ic.dispatchGetFinancialConnectionsAccountsAccountOwnersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFinancialConnectionsAccountsAccountWithFormdataBody:
-		return ic.dispatchGetFinancialConnectionsAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFinancialConnectionsAccountsWithFormdataBody:
+	case FnGetFilesFile:
+		return ic.dispatchGetFilesFileWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetFinancialConnectionsAccounts:
 		return ic.dispatchGetFinancialConnectionsAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFinancialConnectionsSessionsSessionWithFormdataBody:
+	case FnGetFinancialConnectionsAccountsAccount:
+		return ic.dispatchGetFinancialConnectionsAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetFinancialConnectionsAccountsAccountOwners:
+		return ic.dispatchGetFinancialConnectionsAccountsAccountOwnersWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetFinancialConnectionsSessionsSession:
 		return ic.dispatchGetFinancialConnectionsSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFinancialConnectionsTransactionsTransactionWithFormdataBody:
-		return ic.dispatchGetFinancialConnectionsTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetFinancialConnectionsTransactionsWithFormdataBody:
+	case FnGetFinancialConnectionsTransactions:
 		return ic.dispatchGetFinancialConnectionsTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetForwardingRequestsIdWithFormdataBody:
-		return ic.dispatchGetForwardingRequestsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetForwardingRequestsWithFormdataBody:
+	case FnGetFinancialConnectionsTransactionsTransaction:
+		return ic.dispatchGetFinancialConnectionsTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetForwardingRequests:
 		return ic.dispatchGetForwardingRequestsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIdentityVerificationReportsReportWithFormdataBody:
-		return ic.dispatchGetIdentityVerificationReportsReportWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIdentityVerificationReportsWithFormdataBody:
+	case FnGetForwardingRequestsId:
+		return ic.dispatchGetForwardingRequestsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIdentityVerificationReports:
 		return ic.dispatchGetIdentityVerificationReportsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIdentityVerificationSessionsSessionWithFormdataBody:
-		return ic.dispatchGetIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIdentityVerificationSessionsWithFormdataBody:
+	case FnGetIdentityVerificationReportsReport:
+		return ic.dispatchGetIdentityVerificationReportsReportWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIdentityVerificationSessions:
 		return ic.dispatchGetIdentityVerificationSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoicePaymentsInvoicePaymentWithFormdataBody:
-		return ic.dispatchGetInvoicePaymentsInvoicePaymentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoicePaymentsWithFormdataBody:
+	case FnGetIdentityVerificationSessionsSession:
+		return ic.dispatchGetIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetInvoicePayments:
 		return ic.dispatchGetInvoicePaymentsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoiceRenderingTemplatesTemplateWithFormdataBody:
-		return ic.dispatchGetInvoiceRenderingTemplatesTemplateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoiceRenderingTemplatesWithFormdataBody:
+	case FnGetInvoicePaymentsInvoicePayment:
+		return ic.dispatchGetInvoicePaymentsInvoicePaymentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetInvoiceRenderingTemplates:
 		return ic.dispatchGetInvoiceRenderingTemplatesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoiceitemsInvoiceitemWithFormdataBody:
-		return ic.dispatchGetInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoiceitemsWithFormdataBody:
+	case FnGetInvoiceRenderingTemplatesTemplate:
+		return ic.dispatchGetInvoiceRenderingTemplatesTemplateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetInvoiceitems:
 		return ic.dispatchGetInvoiceitemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoicesInvoiceLinesWithFormdataBody:
-		return ic.dispatchGetInvoicesInvoiceLinesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoicesInvoiceWithFormdataBody:
-		return ic.dispatchGetInvoicesInvoiceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoicesSearchWithFormdataBody:
-		return ic.dispatchGetInvoicesSearchWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetInvoicesWithFormdataBody:
+	case FnGetInvoiceitemsInvoiceitem:
+		return ic.dispatchGetInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetInvoices:
 		return ic.dispatchGetInvoicesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingAuthorizationsAuthorizationWithFormdataBody:
-		return ic.dispatchGetIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingAuthorizationsWithFormdataBody:
+	case FnGetInvoicesInvoice:
+		return ic.dispatchGetInvoicesInvoiceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetInvoicesInvoiceLines:
+		return ic.dispatchGetInvoicesInvoiceLinesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetInvoicesSearch:
+		return ic.dispatchGetInvoicesSearchWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIssuingAuthorizations:
 		return ic.dispatchGetIssuingAuthorizationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingCardholdersCardholderWithFormdataBody:
-		return ic.dispatchGetIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingCardholdersWithFormdataBody:
+	case FnGetIssuingAuthorizationsAuthorization:
+		return ic.dispatchGetIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIssuingCardholders:
 		return ic.dispatchGetIssuingCardholdersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingCardsCardWithFormdataBody:
-		return ic.dispatchGetIssuingCardsCardWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingCardsWithFormdataBody:
+	case FnGetIssuingCardholdersCardholder:
+		return ic.dispatchGetIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIssuingCards:
 		return ic.dispatchGetIssuingCardsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingDisputesDisputeWithFormdataBody:
-		return ic.dispatchGetIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingDisputesWithFormdataBody:
+	case FnGetIssuingCardsCard:
+		return ic.dispatchGetIssuingCardsCardWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIssuingDisputes:
 		return ic.dispatchGetIssuingDisputesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody:
-		return ic.dispatchGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingPersonalizationDesignsWithFormdataBody:
+	case FnGetIssuingDisputesDispute:
+		return ic.dispatchGetIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIssuingPersonalizationDesigns:
 		return ic.dispatchGetIssuingPersonalizationDesignsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBody:
-		return ic.dispatchGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingPhysicalBundlesWithFormdataBody:
+	case FnGetIssuingPersonalizationDesignsPersonalizationDesign:
+		return ic.dispatchGetIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIssuingPhysicalBundles:
 		return ic.dispatchGetIssuingPhysicalBundlesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingSettlementsSettlementWithFormdataBody:
+	case FnGetIssuingPhysicalBundlesPhysicalBundle:
+		return ic.dispatchGetIssuingPhysicalBundlesPhysicalBundleWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIssuingSettlementsSettlement:
 		return ic.dispatchGetIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingTokensTokenWithFormdataBody:
-		return ic.dispatchGetIssuingTokensTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingTokensWithFormdataBody:
+	case FnGetIssuingTokens:
 		return ic.dispatchGetIssuingTokensWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingTransactionsTransactionWithFormdataBody:
-		return ic.dispatchGetIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetIssuingTransactionsWithFormdataBody:
+	case FnGetIssuingTokensToken:
+		return ic.dispatchGetIssuingTokensTokenWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetIssuingTransactions:
 		return ic.dispatchGetIssuingTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetLinkAccountSessionsSessionWithFormdataBody:
+	case FnGetIssuingTransactionsTransaction:
+		return ic.dispatchGetIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetLinkAccountSessionsSession:
 		return ic.dispatchGetLinkAccountSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetLinkedAccountsAccountOwnersWithFormdataBody:
-		return ic.dispatchGetLinkedAccountsAccountOwnersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetLinkedAccountsAccountWithFormdataBody:
-		return ic.dispatchGetLinkedAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetLinkedAccountsWithFormdataBody:
+	case FnGetLinkedAccounts:
 		return ic.dispatchGetLinkedAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetMandatesMandateWithFormdataBody:
+	case FnGetLinkedAccountsAccount:
+		return ic.dispatchGetLinkedAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetLinkedAccountsAccountOwners:
+		return ic.dispatchGetLinkedAccountsAccountOwnersWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetMandatesMandate:
 		return ic.dispatchGetMandatesMandateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentAttemptRecordsIdWithFormdataBody:
-		return ic.dispatchGetPaymentAttemptRecordsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentAttemptRecordsWithFormdataBody:
+	case FnGetPaymentAttemptRecords:
 		return ic.dispatchGetPaymentAttemptRecordsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBody:
-		return ic.dispatchGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentIntentsIntentWithFormdataBody:
-		return ic.dispatchGetPaymentIntentsIntentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentIntentsSearchWithFormdataBody:
-		return ic.dispatchGetPaymentIntentsSearchWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentIntentsWithFormdataBody:
+	case FnGetPaymentAttemptRecordsId:
+		return ic.dispatchGetPaymentAttemptRecordsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentIntents:
 		return ic.dispatchGetPaymentIntentsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentLinksPaymentLinkLineItemsWithFormdataBody:
-		return ic.dispatchGetPaymentLinksPaymentLinkLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentLinksPaymentLinkWithFormdataBody:
-		return ic.dispatchGetPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentLinksWithFormdataBody:
+	case FnGetPaymentIntentsIntent:
+		return ic.dispatchGetPaymentIntentsIntentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentIntentsIntentAmountDetailsLineItems:
+		return ic.dispatchGetPaymentIntentsIntentAmountDetailsLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentIntentsSearch:
+		return ic.dispatchGetPaymentIntentsSearchWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentLinks:
 		return ic.dispatchGetPaymentLinksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentMethodConfigurationsConfigurationWithFormdataBody:
-		return ic.dispatchGetPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentMethodConfigurationsWithFormdataBody:
+	case FnGetPaymentLinksPaymentLink:
+		return ic.dispatchGetPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentLinksPaymentLinkLineItems:
+		return ic.dispatchGetPaymentLinksPaymentLinkLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentMethodConfigurations:
 		return ic.dispatchGetPaymentMethodConfigurationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBody:
-		return ic.dispatchGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentMethodDomainsWithFormdataBody:
+	case FnGetPaymentMethodConfigurationsConfiguration:
+		return ic.dispatchGetPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentMethodDomains:
 		return ic.dispatchGetPaymentMethodDomainsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentMethodsPaymentMethodWithFormdataBody:
-		return ic.dispatchGetPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentMethodsWithFormdataBody:
+	case FnGetPaymentMethodDomainsPaymentMethodDomain:
+		return ic.dispatchGetPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentMethods:
 		return ic.dispatchGetPaymentMethodsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentRecordsIdWithFormdataBody:
-		return ic.dispatchGetPaymentRecordsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPaymentRecordsWithFormdataBody:
+	case FnGetPaymentMethodsPaymentMethod:
+		return ic.dispatchGetPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPaymentRecords:
 		return ic.dispatchGetPaymentRecordsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPayoutsPayoutWithFormdataBody:
-		return ic.dispatchGetPayoutsPayoutWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPayoutsWithFormdataBody:
+	case FnGetPaymentRecordsId:
+		return ic.dispatchGetPaymentRecordsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPayouts:
 		return ic.dispatchGetPayoutsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPlansPlanWithFormdataBody:
-		return ic.dispatchGetPlansPlanWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPlansWithFormdataBody:
+	case FnGetPayoutsPayout:
+		return ic.dispatchGetPayoutsPayoutWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPlans:
 		return ic.dispatchGetPlansWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPricesPriceWithFormdataBody:
-		return ic.dispatchGetPricesPriceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPricesSearchWithFormdataBody:
-		return ic.dispatchGetPricesSearchWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPricesWithFormdataBody:
+	case FnGetPlansPlan:
+		return ic.dispatchGetPlansPlanWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPrices:
 		return ic.dispatchGetPricesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetProductCatalogTrialOffersIdWithFormdataBody:
-		return ic.dispatchGetProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetProductCatalogTrialOffersWithFormdataBody:
+	case FnGetPricesPrice:
+		return ic.dispatchGetPricesPriceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPricesSearch:
+		return ic.dispatchGetPricesSearchWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetProductCatalogTrialOffers:
 		return ic.dispatchGetProductCatalogTrialOffersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetProductsIdWithFormdataBody:
-		return ic.dispatchGetProductsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetProductsProductFeaturesIdWithFormdataBody:
-		return ic.dispatchGetProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetProductsProductFeaturesWithFormdataBody:
-		return ic.dispatchGetProductsProductFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetProductsSearchWithFormdataBody:
-		return ic.dispatchGetProductsSearchWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetProductsWithFormdataBody:
+	case FnGetProductCatalogTrialOffersId:
+		return ic.dispatchGetProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetProducts:
 		return ic.dispatchGetProductsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPromotionCodesPromotionCodeWithFormdataBody:
-		return ic.dispatchGetPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetPromotionCodesWithFormdataBody:
+	case FnGetProductsId:
+		return ic.dispatchGetProductsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetProductsProductFeatures:
+		return ic.dispatchGetProductsProductFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetProductsProductFeaturesId:
+		return ic.dispatchGetProductsProductFeaturesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetProductsSearch:
+		return ic.dispatchGetProductsSearchWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetPromotionCodes:
 		return ic.dispatchGetPromotionCodesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBody:
-		return ic.dispatchGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetQuotesQuoteLineItemsWithFormdataBody:
-		return ic.dispatchGetQuotesQuoteLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetQuotesQuotePdfWithFormdataBody:
-		return ic.dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetQuotesQuoteWithFormdataBody:
-		return ic.dispatchGetQuotesQuoteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetQuotesWithFormdataBody:
+	case FnGetPromotionCodesPromotionCode:
+		return ic.dispatchGetPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetQuotes:
 		return ic.dispatchGetQuotesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBody:
-		return ic.dispatchGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetRadarEarlyFraudWarningsWithFormdataBody:
+	case FnGetQuotesQuote:
+		return ic.dispatchGetQuotesQuoteWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetQuotesQuoteComputedUpfrontLineItems:
+		return ic.dispatchGetQuotesQuoteComputedUpfrontLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetQuotesQuoteLineItems:
+		return ic.dispatchGetQuotesQuoteLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetQuotesQuotePdf:
+		return ic.dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetRadarEarlyFraudWarnings:
 		return ic.dispatchGetRadarEarlyFraudWarningsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetRadarValueListItemsItemWithFormdataBody:
-		return ic.dispatchGetRadarValueListItemsItemWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetRadarValueListItemsWithFormdataBody:
+	case FnGetRadarEarlyFraudWarningsEarlyFraudWarning:
+		return ic.dispatchGetRadarEarlyFraudWarningsEarlyFraudWarningWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetRadarValueListItems:
 		return ic.dispatchGetRadarValueListItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetRadarValueListsValueListWithFormdataBody:
-		return ic.dispatchGetRadarValueListsValueListWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetRadarValueListsWithFormdataBody:
+	case FnGetRadarValueListItemsItem:
+		return ic.dispatchGetRadarValueListItemsItemWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetRadarValueLists:
 		return ic.dispatchGetRadarValueListsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetRefundsRefundWithFormdataBody:
-		return ic.dispatchGetRefundsRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetRefundsWithFormdataBody:
+	case FnGetRadarValueListsValueList:
+		return ic.dispatchGetRadarValueListsValueListWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetRefunds:
 		return ic.dispatchGetRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetReportingReportRunsReportRunWithFormdataBody:
-		return ic.dispatchGetReportingReportRunsReportRunWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetReportingReportRunsWithFormdataBody:
+	case FnGetRefundsRefund:
+		return ic.dispatchGetRefundsRefundWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetReportingReportRuns:
 		return ic.dispatchGetReportingReportRunsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetReportingReportTypesReportTypeWithFormdataBody:
-		return ic.dispatchGetReportingReportTypesReportTypeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetReportingReportTypesWithFormdataBody:
+	case FnGetReportingReportRunsReportRun:
+		return ic.dispatchGetReportingReportRunsReportRunWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetReportingReportTypes:
 		return ic.dispatchGetReportingReportTypesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetReviewsReviewWithFormdataBody:
-		return ic.dispatchGetReviewsReviewWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetReviewsWithFormdataBody:
+	case FnGetReportingReportTypesReportType:
+		return ic.dispatchGetReportingReportTypesReportTypeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetReviews:
 		return ic.dispatchGetReviewsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSetupAttemptsWithFormdataBody:
+	case FnGetReviewsReview:
+		return ic.dispatchGetReviewsReviewWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSetupAttempts:
 		return ic.dispatchGetSetupAttemptsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSetupIntentsIntentWithFormdataBody:
-		return ic.dispatchGetSetupIntentsIntentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSetupIntentsWithFormdataBody:
+	case FnGetSetupIntents:
 		return ic.dispatchGetSetupIntentsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetShippingRatesShippingRateTokenWithFormdataBody:
-		return ic.dispatchGetShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetShippingRatesWithFormdataBody:
+	case FnGetSetupIntentsIntent:
+		return ic.dispatchGetSetupIntentsIntentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetShippingRates:
 		return ic.dispatchGetShippingRatesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBody:
-		return ic.dispatchGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSigmaScheduledQueryRunsWithFormdataBody:
+	case FnGetShippingRatesShippingRateToken:
+		return ic.dispatchGetShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSigmaScheduledQueryRuns:
 		return ic.dispatchGetSigmaScheduledQueryRunsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBody:
-		return ic.dispatchGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBody:
-		return ic.dispatchGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSourcesSourceSourceTransactionsWithFormdataBody:
-		return ic.dispatchGetSourcesSourceSourceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSourcesSourceWithFormdataBody:
+	case FnGetSigmaScheduledQueryRunsScheduledQueryRun:
+		return ic.dispatchGetSigmaScheduledQueryRunsScheduledQueryRunWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSourcesSource:
 		return ic.dispatchGetSourcesSourceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSubscriptionItemsItemWithFormdataBody:
-		return ic.dispatchGetSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSubscriptionItemsWithFormdataBody:
+	case FnGetSourcesSourceMandateNotificationsMandateNotification:
+		return ic.dispatchGetSourcesSourceMandateNotificationsMandateNotificationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSourcesSourceSourceTransactions:
+		return ic.dispatchGetSourcesSourceSourceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSourcesSourceSourceTransactionsSourceTransaction:
+		return ic.dispatchGetSourcesSourceSourceTransactionsSourceTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSubscriptionItems:
 		return ic.dispatchGetSubscriptionItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSubscriptionSchedulesScheduleWithFormdataBody:
-		return ic.dispatchGetSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSubscriptionSchedulesWithFormdataBody:
+	case FnGetSubscriptionItemsItem:
+		return ic.dispatchGetSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSubscriptionSchedules:
 		return ic.dispatchGetSubscriptionSchedulesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSubscriptionsSearchWithFormdataBody:
-		return ic.dispatchGetSubscriptionsSearchWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return ic.dispatchGetSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetSubscriptionsWithFormdataBody:
+	case FnGetSubscriptionSchedulesSchedule:
+		return ic.dispatchGetSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSubscriptions:
 		return ic.dispatchGetSubscriptionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxAssociationsFindWithFormdataBody:
+	case FnGetSubscriptionsSearch:
+		return ic.dispatchGetSubscriptionsSearchWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetSubscriptionsSubscriptionExposedId:
+		return ic.dispatchGetSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTaxAssociationsFind:
 		return ic.dispatchGetTaxAssociationsFindWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxCalculationsCalculationLineItemsWithFormdataBody:
-		return ic.dispatchGetTaxCalculationsCalculationLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxCalculationsCalculationWithFormdataBody:
+	case FnGetTaxCalculationsCalculation:
 		return ic.dispatchGetTaxCalculationsCalculationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxCodesIdWithFormdataBody:
-		return ic.dispatchGetTaxCodesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxCodesWithFormdataBody:
+	case FnGetTaxCalculationsCalculationLineItems:
+		return ic.dispatchGetTaxCalculationsCalculationLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTaxCodes:
 		return ic.dispatchGetTaxCodesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxIdsIdWithFormdataBody:
-		return ic.dispatchGetTaxIdsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxIdsWithFormdataBody:
+	case FnGetTaxCodesId:
+		return ic.dispatchGetTaxCodesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTaxIds:
 		return ic.dispatchGetTaxIdsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxLocationsLocationWithFormdataBody:
-		return ic.dispatchGetTaxLocationsLocationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxLocationsWithFormdataBody:
+	case FnGetTaxIdsId:
+		return ic.dispatchGetTaxIdsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTaxLocations:
 		return ic.dispatchGetTaxLocationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxRatesTaxRateWithFormdataBody:
-		return ic.dispatchGetTaxRatesTaxRateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxRatesWithFormdataBody:
+	case FnGetTaxLocationsLocation:
+		return ic.dispatchGetTaxLocationsLocationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTaxRates:
 		return ic.dispatchGetTaxRatesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxRegistrationsIdWithFormdataBody:
-		return ic.dispatchGetTaxRegistrationsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxRegistrationsWithFormdataBody:
+	case FnGetTaxRatesTaxRate:
+		return ic.dispatchGetTaxRatesTaxRateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTaxRegistrations:
 		return ic.dispatchGetTaxRegistrationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxSettingsWithFormdataBody:
+	case FnGetTaxRegistrationsId:
+		return ic.dispatchGetTaxRegistrationsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTaxSettings:
 		return ic.dispatchGetTaxSettingsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxTransactionsTransactionLineItemsWithFormdataBody:
-		return ic.dispatchGetTaxTransactionsTransactionLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTaxTransactionsTransactionWithFormdataBody:
+	case FnGetTaxTransactionsTransaction:
 		return ic.dispatchGetTaxTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTerminalConfigurationsConfigurationWithFormdataBody:
-		return ic.dispatchGetTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTerminalConfigurationsWithFormdataBody:
+	case FnGetTaxTransactionsTransactionLineItems:
+		return ic.dispatchGetTaxTransactionsTransactionLineItemsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTerminalConfigurations:
 		return ic.dispatchGetTerminalConfigurationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTerminalLocationsLocationWithFormdataBody:
-		return ic.dispatchGetTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTerminalLocationsWithFormdataBody:
+	case FnGetTerminalConfigurationsConfiguration:
+		return ic.dispatchGetTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTerminalLocations:
 		return ic.dispatchGetTerminalLocationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTerminalReadersReaderWithFormdataBody:
-		return ic.dispatchGetTerminalReadersReaderWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTerminalReadersWithFormdataBody:
+	case FnGetTerminalLocationsLocation:
+		return ic.dispatchGetTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTerminalReaders:
 		return ic.dispatchGetTerminalReadersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTestHelpersTestClocksTestClockWithFormdataBody:
-		return ic.dispatchGetTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTestHelpersTestClocksWithFormdataBody:
+	case FnGetTerminalReadersReader:
+		return ic.dispatchGetTerminalReadersReaderWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTestHelpersTestClocks:
 		return ic.dispatchGetTestHelpersTestClocksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetThreeDSecureAuthenticationsAuthenticationWithFormdataBody:
-		return ic.dispatchGetThreeDSecureAuthenticationsAuthenticationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetThreeDSecureAuthenticationsWithFormdataBody:
+	case FnGetTestHelpersTestClocksTestClock:
+		return ic.dispatchGetTestHelpersTestClocksTestClockWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetThreeDSecureAuthentications:
 		return ic.dispatchGetThreeDSecureAuthenticationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTokensTokenWithFormdataBody:
+	case FnGetThreeDSecureAuthenticationsAuthentication:
+		return ic.dispatchGetThreeDSecureAuthenticationsAuthenticationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTokensToken:
 		return ic.dispatchGetTokensTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTopupsTopupWithFormdataBody:
-		return ic.dispatchGetTopupsTopupWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTopupsWithFormdataBody:
+	case FnGetTopups:
 		return ic.dispatchGetTopupsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTransfersIdReversalsWithFormdataBody:
-		return ic.dispatchGetTransfersIdReversalsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTransfersTransferReversalsIdWithFormdataBody:
-		return ic.dispatchGetTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTransfersTransferWithFormdataBody:
-		return ic.dispatchGetTransfersTransferWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTransfersWithFormdataBody:
+	case FnGetTopupsTopup:
+		return ic.dispatchGetTopupsTopupWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTransfers:
 		return ic.dispatchGetTransfersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryCreditReversalsCreditReversalWithFormdataBody:
-		return ic.dispatchGetTreasuryCreditReversalsCreditReversalWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryCreditReversalsWithFormdataBody:
+	case FnGetTransfersIdReversals:
+		return ic.dispatchGetTransfersIdReversalsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTransfersTransfer:
+		return ic.dispatchGetTransfersTransferWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTransfersTransferReversalsId:
+		return ic.dispatchGetTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryCreditReversals:
 		return ic.dispatchGetTreasuryCreditReversalsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryDebitReversalsDebitReversalWithFormdataBody:
-		return ic.dispatchGetTreasuryDebitReversalsDebitReversalWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryDebitReversalsWithFormdataBody:
+	case FnGetTreasuryCreditReversalsCreditReversal:
+		return ic.dispatchGetTreasuryCreditReversalsCreditReversalWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryDebitReversals:
 		return ic.dispatchGetTreasuryDebitReversalsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody:
-		return ic.dispatchGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryFinancialAccountsFinancialAccountWithFormdataBody:
-		return ic.dispatchGetTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryFinancialAccountsWithFormdataBody:
+	case FnGetTreasuryDebitReversalsDebitReversal:
+		return ic.dispatchGetTreasuryDebitReversalsDebitReversalWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryFinancialAccounts:
 		return ic.dispatchGetTreasuryFinancialAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryInboundTransfersIdWithFormdataBody:
-		return ic.dispatchGetTreasuryInboundTransfersIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryInboundTransfersWithFormdataBody:
+	case FnGetTreasuryFinancialAccountsFinancialAccount:
+		return ic.dispatchGetTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryFinancialAccountsFinancialAccountFeatures:
+		return ic.dispatchGetTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryInboundTransfers:
 		return ic.dispatchGetTreasuryInboundTransfersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryOutboundPaymentsIdWithFormdataBody:
-		return ic.dispatchGetTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryOutboundPaymentsWithFormdataBody:
+	case FnGetTreasuryInboundTransfersId:
+		return ic.dispatchGetTreasuryInboundTransfersIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryOutboundPayments:
 		return ic.dispatchGetTreasuryOutboundPaymentsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryOutboundTransfersOutboundTransferWithFormdataBody:
-		return ic.dispatchGetTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryOutboundTransfersWithFormdataBody:
+	case FnGetTreasuryOutboundPaymentsId:
+		return ic.dispatchGetTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryOutboundTransfers:
 		return ic.dispatchGetTreasuryOutboundTransfersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryReceivedCreditsIdWithFormdataBody:
-		return ic.dispatchGetTreasuryReceivedCreditsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryReceivedCreditsWithFormdataBody:
+	case FnGetTreasuryOutboundTransfersOutboundTransfer:
+		return ic.dispatchGetTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryReceivedCredits:
 		return ic.dispatchGetTreasuryReceivedCreditsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryReceivedDebitsIdWithFormdataBody:
-		return ic.dispatchGetTreasuryReceivedDebitsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryReceivedDebitsWithFormdataBody:
+	case FnGetTreasuryReceivedCreditsId:
+		return ic.dispatchGetTreasuryReceivedCreditsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryReceivedDebits:
 		return ic.dispatchGetTreasuryReceivedDebitsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryTransactionEntriesIdWithFormdataBody:
-		return ic.dispatchGetTreasuryTransactionEntriesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryTransactionEntriesWithFormdataBody:
+	case FnGetTreasuryReceivedDebitsId:
+		return ic.dispatchGetTreasuryReceivedDebitsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryTransactionEntries:
 		return ic.dispatchGetTreasuryTransactionEntriesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryTransactionsIdWithFormdataBody:
-		return ic.dispatchGetTreasuryTransactionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetTreasuryTransactionsWithFormdataBody:
+	case FnGetTreasuryTransactionEntriesId:
+		return ic.dispatchGetTreasuryTransactionEntriesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetTreasuryTransactions:
 		return ic.dispatchGetTreasuryTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetWebhookEndpointsWebhookEndpointWithFormdataBody:
-		return ic.dispatchGetWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnGetWebhookEndpointsWithFormdataBody:
+	case FnGetTreasuryTransactionsId:
+		return ic.dispatchGetTreasuryTransactionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnGetWebhookEndpoints:
 		return ic.dispatchGetWebhookEndpointsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountLinksWithFormdataBody:
+	case FnGetWebhookEndpointsWebhookEndpoint:
+		return ic.dispatchGetWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountLinks:
 		return ic.dispatchPostAccountLinksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountSessionsWithFormdataBody:
+	case FnPostAccountSessions:
 		return ic.dispatchPostAccountSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountBankAccountsIdWithFormdataBody:
-		return ic.dispatchPostAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountBankAccountsWithFormdataBody:
-		return ic.dispatchPostAccountsAccountBankAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountCapabilitiesCapabilityWithFormdataBody:
-		return ic.dispatchPostAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountExternalAccountsIdWithFormdataBody:
-		return ic.dispatchPostAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountExternalAccountsWithFormdataBody:
-		return ic.dispatchPostAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountLoginLinksWithFormdataBody:
-		return ic.dispatchPostAccountsAccountLoginLinksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountPeoplePersonWithFormdataBody:
-		return ic.dispatchPostAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountPeopleWithFormdataBody:
-		return ic.dispatchPostAccountsAccountPeopleWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountPersonsPersonWithFormdataBody:
-		return ic.dispatchPostAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountPersonsWithFormdataBody:
-		return ic.dispatchPostAccountsAccountPersonsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountRejectWithFormdataBody:
-		return ic.dispatchPostAccountsAccountRejectWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountUnrejectWithFormdataBody:
-		return ic.dispatchPostAccountsAccountUnrejectWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsAccountWithFormdataBody:
-		return ic.dispatchPostAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAccountsWithFormdataBody:
+	case FnPostAccounts:
 		return ic.dispatchPostAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostApplePayDomainsWithFormdataBody:
+	case FnPostAccountsAccount:
+		return ic.dispatchPostAccountsAccountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountBankAccounts:
+		return ic.dispatchPostAccountsAccountBankAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountBankAccountsId:
+		return ic.dispatchPostAccountsAccountBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountCapabilitiesCapability:
+		return ic.dispatchPostAccountsAccountCapabilitiesCapabilityWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountExternalAccounts:
+		return ic.dispatchPostAccountsAccountExternalAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountExternalAccountsId:
+		return ic.dispatchPostAccountsAccountExternalAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountLoginLinks:
+		return ic.dispatchPostAccountsAccountLoginLinksWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountPeople:
+		return ic.dispatchPostAccountsAccountPeopleWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountPeoplePerson:
+		return ic.dispatchPostAccountsAccountPeoplePersonWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountPersons:
+		return ic.dispatchPostAccountsAccountPersonsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountPersonsPerson:
+		return ic.dispatchPostAccountsAccountPersonsPersonWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountReject:
+		return ic.dispatchPostAccountsAccountRejectWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAccountsAccountUnreject:
+		return ic.dispatchPostAccountsAccountUnrejectWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostApplePayDomains:
 		return ic.dispatchPostApplePayDomainsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostApplicationFeesFeeRefundsIdWithFormdataBody:
+	case FnPostApplicationFeesFeeRefundsId:
 		return ic.dispatchPostApplicationFeesFeeRefundsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostApplicationFeesIdRefundWithFormdataBody:
+	case FnPostApplicationFeesIdRefund:
 		return ic.dispatchPostApplicationFeesIdRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostApplicationFeesIdRefundsWithFormdataBody:
+	case FnPostApplicationFeesIdRefunds:
 		return ic.dispatchPostApplicationFeesIdRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAppsInstallsIdUninstallWithFormdataBody:
-		return ic.dispatchPostAppsInstallsIdUninstallWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAppsInstallsIdWithFormdataBody:
-		return ic.dispatchPostAppsInstallsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAppsInstallsWithFormdataBody:
+	case FnPostAppsInstalls:
 		return ic.dispatchPostAppsInstallsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAppsSecretsDeleteWithFormdataBody:
-		return ic.dispatchPostAppsSecretsDeleteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostAppsSecretsWithFormdataBody:
+	case FnPostAppsInstallsId:
+		return ic.dispatchPostAppsInstallsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAppsInstallsIdUninstall:
+		return ic.dispatchPostAppsInstallsIdUninstallWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostAppsSecrets:
 		return ic.dispatchPostAppsSecretsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBalanceSettingsWithFormdataBody:
+	case FnPostAppsSecretsDelete:
+		return ic.dispatchPostAppsSecretsDeleteWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBalanceSettings:
 		return ic.dispatchPostBalanceSettingsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingAlertsIdActivateWithFormdataBody:
-		return ic.dispatchPostBillingAlertsIdActivateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingAlertsIdArchiveWithFormdataBody:
-		return ic.dispatchPostBillingAlertsIdArchiveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingAlertsIdDeactivateWithFormdataBody:
-		return ic.dispatchPostBillingAlertsIdDeactivateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingAlertsWithFormdataBody:
+	case FnPostBillingAlerts:
 		return ic.dispatchPostBillingAlertsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingCreditGrantsIdExpireWithFormdataBody:
-		return ic.dispatchPostBillingCreditGrantsIdExpireWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingCreditGrantsIdVoidWithFormdataBody:
-		return ic.dispatchPostBillingCreditGrantsIdVoidWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingCreditGrantsIdWithFormdataBody:
-		return ic.dispatchPostBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingCreditGrantsWithFormdataBody:
+	case FnPostBillingAlertsIdActivate:
+		return ic.dispatchPostBillingAlertsIdActivateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingAlertsIdArchive:
+		return ic.dispatchPostBillingAlertsIdArchiveWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingAlertsIdDeactivate:
+		return ic.dispatchPostBillingAlertsIdDeactivateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingCreditGrants:
 		return ic.dispatchPostBillingCreditGrantsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingFeedbackOptionsIdDeactivateWithFormdataBody:
-		return ic.dispatchPostBillingFeedbackOptionsIdDeactivateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingFeedbackOptionsIdWithFormdataBody:
-		return ic.dispatchPostBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingFeedbackOptionsWithFormdataBody:
+	case FnPostBillingCreditGrantsId:
+		return ic.dispatchPostBillingCreditGrantsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingCreditGrantsIdExpire:
+		return ic.dispatchPostBillingCreditGrantsIdExpireWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingCreditGrantsIdVoid:
+		return ic.dispatchPostBillingCreditGrantsIdVoidWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingFeedbackOptions:
 		return ic.dispatchPostBillingFeedbackOptionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingMeterEventAdjustmentsWithFormdataBody:
+	case FnPostBillingFeedbackOptionsId:
+		return ic.dispatchPostBillingFeedbackOptionsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingFeedbackOptionsIdDeactivate:
+		return ic.dispatchPostBillingFeedbackOptionsIdDeactivateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingMeterEventAdjustments:
 		return ic.dispatchPostBillingMeterEventAdjustmentsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingMeterEventsWithFormdataBody:
+	case FnPostBillingMeterEvents:
 		return ic.dispatchPostBillingMeterEventsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingMetersIdDeactivateWithFormdataBody:
-		return ic.dispatchPostBillingMetersIdDeactivateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingMetersIdReactivateWithFormdataBody:
-		return ic.dispatchPostBillingMetersIdReactivateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingMetersIdWithFormdataBody:
-		return ic.dispatchPostBillingMetersIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingMetersWithFormdataBody:
+	case FnPostBillingMeters:
 		return ic.dispatchPostBillingMetersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingPortalConfigurationsConfigurationWithFormdataBody:
-		return ic.dispatchPostBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingPortalConfigurationsWithFormdataBody:
+	case FnPostBillingMetersId:
+		return ic.dispatchPostBillingMetersIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingMetersIdDeactivate:
+		return ic.dispatchPostBillingMetersIdDeactivateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingMetersIdReactivate:
+		return ic.dispatchPostBillingMetersIdReactivateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingPortalConfigurations:
 		return ic.dispatchPostBillingPortalConfigurationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostBillingPortalSessionsWithFormdataBody:
+	case FnPostBillingPortalConfigurationsConfiguration:
+		return ic.dispatchPostBillingPortalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostBillingPortalSessions:
 		return ic.dispatchPostBillingPortalSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostChargesChargeCaptureWithFormdataBody:
-		return ic.dispatchPostChargesChargeCaptureWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostChargesChargeDisputeCloseWithFormdataBody:
-		return ic.dispatchPostChargesChargeDisputeCloseWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostChargesChargeDisputeWithFormdataBody:
-		return ic.dispatchPostChargesChargeDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostChargesChargeRefundWithFormdataBody:
-		return ic.dispatchPostChargesChargeRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostChargesChargeRefundsRefundWithFormdataBody:
-		return ic.dispatchPostChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostChargesChargeRefundsWithFormdataBody:
-		return ic.dispatchPostChargesChargeRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostChargesChargeWithFormdataBody:
-		return ic.dispatchPostChargesChargeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostChargesWithFormdataBody:
+	case FnPostCharges:
 		return ic.dispatchPostChargesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCheckoutSessionsSessionExpireWithFormdataBody:
-		return ic.dispatchPostCheckoutSessionsSessionExpireWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCheckoutSessionsSessionWithFormdataBody:
-		return ic.dispatchPostCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCheckoutSessionsWithFormdataBody:
+	case FnPostChargesCharge:
+		return ic.dispatchPostChargesChargeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostChargesChargeCapture:
+		return ic.dispatchPostChargesChargeCaptureWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostChargesChargeDispute:
+		return ic.dispatchPostChargesChargeDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostChargesChargeDisputeClose:
+		return ic.dispatchPostChargesChargeDisputeCloseWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostChargesChargeRefund:
+		return ic.dispatchPostChargesChargeRefundWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostChargesChargeRefunds:
+		return ic.dispatchPostChargesChargeRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostChargesChargeRefundsRefund:
+		return ic.dispatchPostChargesChargeRefundsRefundWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCheckoutSessions:
 		return ic.dispatchPostCheckoutSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostClimateOrdersOrderCancelWithFormdataBody:
-		return ic.dispatchPostClimateOrdersOrderCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostClimateOrdersOrderWithFormdataBody:
-		return ic.dispatchPostClimateOrdersOrderWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostClimateOrdersWithFormdataBody:
+	case FnPostCheckoutSessionsSession:
+		return ic.dispatchPostCheckoutSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCheckoutSessionsSessionExpire:
+		return ic.dispatchPostCheckoutSessionsSessionExpireWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostClimateOrders:
 		return ic.dispatchPostClimateOrdersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCouponsCouponWithFormdataBody:
-		return ic.dispatchPostCouponsCouponWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCouponsWithFormdataBody:
+	case FnPostClimateOrdersOrder:
+		return ic.dispatchPostClimateOrdersOrderWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostClimateOrdersOrderCancel:
+		return ic.dispatchPostClimateOrdersOrderCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCoupons:
 		return ic.dispatchPostCouponsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCreditNotesIdVoidWithFormdataBody:
-		return ic.dispatchPostCreditNotesIdVoidWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCreditNotesIdWithFormdataBody:
-		return ic.dispatchPostCreditNotesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCreditNotesWithFormdataBody:
+	case FnPostCouponsCoupon:
+		return ic.dispatchPostCouponsCouponWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCreditNotes:
 		return ic.dispatchPostCreditNotesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomerSessionsWithFormdataBody:
+	case FnPostCreditNotesId:
+		return ic.dispatchPostCreditNotesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCreditNotesIdVoid:
+		return ic.dispatchPostCreditNotesIdVoidWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomerSessions:
 		return ic.dispatchPostCustomerSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerBalanceTransactionsWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerBankAccountsIdVerifyWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerBankAccountsIdVerifyWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerBankAccountsIdWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerBankAccountsWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerCardsIdWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerCardsWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerCardsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerCashBalanceWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerFundingInstructionsWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerFundingInstructionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerSourcesIdVerifyWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerSourcesIdVerifyWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerSourcesIdWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerSourcesWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerSubscriptionsWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerTaxIdsWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersCustomerWithFormdataBody:
-		return ic.dispatchPostCustomersCustomerWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostCustomersWithFormdataBody:
+	case FnPostCustomers:
 		return ic.dispatchPostCustomersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostDisputesDisputeCloseWithFormdataBody:
-		return ic.dispatchPostDisputesDisputeCloseWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostDisputesDisputeWithFormdataBody:
+	case FnPostCustomersCustomer:
+		return ic.dispatchPostCustomersCustomerWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerBalanceTransactions:
+		return ic.dispatchPostCustomersCustomerBalanceTransactionsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerBalanceTransactionsTransaction:
+		return ic.dispatchPostCustomersCustomerBalanceTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerBankAccounts:
+		return ic.dispatchPostCustomersCustomerBankAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerBankAccountsId:
+		return ic.dispatchPostCustomersCustomerBankAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerBankAccountsIdVerify:
+		return ic.dispatchPostCustomersCustomerBankAccountsIdVerifyWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerCards:
+		return ic.dispatchPostCustomersCustomerCardsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerCardsId:
+		return ic.dispatchPostCustomersCustomerCardsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerCashBalance:
+		return ic.dispatchPostCustomersCustomerCashBalanceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerFundingInstructions:
+		return ic.dispatchPostCustomersCustomerFundingInstructionsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerSources:
+		return ic.dispatchPostCustomersCustomerSourcesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerSourcesId:
+		return ic.dispatchPostCustomersCustomerSourcesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerSourcesIdVerify:
+		return ic.dispatchPostCustomersCustomerSourcesIdVerifyWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerSubscriptions:
+		return ic.dispatchPostCustomersCustomerSubscriptionsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerSubscriptionsSubscriptionExposedId:
+		return ic.dispatchPostCustomersCustomerSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostCustomersCustomerTaxIds:
+		return ic.dispatchPostCustomersCustomerTaxIdsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostDisputesDispute:
 		return ic.dispatchPostDisputesDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostEntitlementsFeaturesIdWithFormdataBody:
-		return ic.dispatchPostEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostEntitlementsFeaturesWithFormdataBody:
+	case FnPostDisputesDisputeClose:
+		return ic.dispatchPostDisputesDisputeCloseWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostEntitlementsFeatures:
 		return ic.dispatchPostEntitlementsFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostEphemeralKeysWithFormdataBody:
+	case FnPostEntitlementsFeaturesId:
+		return ic.dispatchPostEntitlementsFeaturesIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostEphemeralKeys:
 		return ic.dispatchPostEphemeralKeysWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostExternalAccountsIdWithFormdataBody:
+	case FnPostExternalAccountsId:
 		return ic.dispatchPostExternalAccountsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostFileLinksLinkWithFormdataBody:
-		return ic.dispatchPostFileLinksLinkWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostFileLinksWithFormdataBody:
+	case FnPostFileLinks:
 		return ic.dispatchPostFileLinksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBody:
+	case FnPostFileLinksLink:
+		return ic.dispatchPostFileLinksLinkWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostFinancialConnectionsAccountsAccountDisconnect:
 		return ic.dispatchPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostFinancialConnectionsAccountsAccountRefreshWithFormdataBody:
+	case FnPostFinancialConnectionsAccountsAccountRefresh:
 		return ic.dispatchPostFinancialConnectionsAccountsAccountRefreshWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostFinancialConnectionsAccountsAccountSubscribeWithFormdataBody:
+	case FnPostFinancialConnectionsAccountsAccountSubscribe:
 		return ic.dispatchPostFinancialConnectionsAccountsAccountSubscribeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBody:
+	case FnPostFinancialConnectionsAccountsAccountUnsubscribe:
 		return ic.dispatchPostFinancialConnectionsAccountsAccountUnsubscribeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostFinancialConnectionsSessionsWithFormdataBody:
+	case FnPostFinancialConnectionsSessions:
 		return ic.dispatchPostFinancialConnectionsSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostForwardingRequestsWithFormdataBody:
+	case FnPostForwardingRequests:
 		return ic.dispatchPostForwardingRequestsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIdentityVerificationSessionsSessionCancelWithFormdataBody:
-		return ic.dispatchPostIdentityVerificationSessionsSessionCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIdentityVerificationSessionsSessionRedactWithFormdataBody:
-		return ic.dispatchPostIdentityVerificationSessionsSessionRedactWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIdentityVerificationSessionsSessionWithFormdataBody:
-		return ic.dispatchPostIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIdentityVerificationSessionsWithFormdataBody:
+	case FnPostIdentityVerificationSessions:
 		return ic.dispatchPostIdentityVerificationSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBody:
+	case FnPostIdentityVerificationSessionsSession:
+		return ic.dispatchPostIdentityVerificationSessionsSessionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIdentityVerificationSessionsSessionCancel:
+		return ic.dispatchPostIdentityVerificationSessionsSessionCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIdentityVerificationSessionsSessionRedact:
+		return ic.dispatchPostIdentityVerificationSessionsSessionRedactWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoiceRenderingTemplatesTemplateArchive:
 		return ic.dispatchPostInvoiceRenderingTemplatesTemplateArchiveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBody:
+	case FnPostInvoiceRenderingTemplatesTemplateUnarchive:
 		return ic.dispatchPostInvoiceRenderingTemplatesTemplateUnarchiveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoiceitemsInvoiceitemWithFormdataBody:
-		return ic.dispatchPostInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoiceitemsWithFormdataBody:
+	case FnPostInvoiceitems:
 		return ic.dispatchPostInvoiceitemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesCreatePreviewWithFormdataBody:
-		return ic.dispatchPostInvoicesCreatePreviewWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceAddLinesWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceAddLinesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceAttachPaymentWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceAttachPaymentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceFinalizeWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceFinalizeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceLinesLineItemIdWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceLinesLineItemIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceMarkUncollectibleWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceMarkUncollectibleWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoicePayWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoicePayWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceRemoveLinesWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceRemoveLinesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceSendWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceSendWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceUpdateLinesWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceUpdateLinesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceVoidWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceVoidWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesInvoiceWithFormdataBody:
-		return ic.dispatchPostInvoicesInvoiceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostInvoicesWithFormdataBody:
+	case FnPostInvoiceitemsInvoiceitem:
+		return ic.dispatchPostInvoiceitemsInvoiceitemWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoices:
 		return ic.dispatchPostInvoicesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingAuthorizationsAuthorizationApproveWithFormdataBody:
-		return ic.dispatchPostIssuingAuthorizationsAuthorizationApproveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBody:
-		return ic.dispatchPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingAuthorizationsAuthorizationWithFormdataBody:
+	case FnPostInvoicesCreatePreview:
+		return ic.dispatchPostInvoicesCreatePreviewWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoice:
+		return ic.dispatchPostInvoicesInvoiceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceAddLines:
+		return ic.dispatchPostInvoicesInvoiceAddLinesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceAttachPayment:
+		return ic.dispatchPostInvoicesInvoiceAttachPaymentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceFinalize:
+		return ic.dispatchPostInvoicesInvoiceFinalizeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceLinesLineItemId:
+		return ic.dispatchPostInvoicesInvoiceLinesLineItemIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceMarkUncollectible:
+		return ic.dispatchPostInvoicesInvoiceMarkUncollectibleWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoicePay:
+		return ic.dispatchPostInvoicesInvoicePayWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceRemoveLines:
+		return ic.dispatchPostInvoicesInvoiceRemoveLinesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceSend:
+		return ic.dispatchPostInvoicesInvoiceSendWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceUpdateLines:
+		return ic.dispatchPostInvoicesInvoiceUpdateLinesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostInvoicesInvoiceVoid:
+		return ic.dispatchPostInvoicesInvoiceVoidWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIssuingAuthorizationsAuthorization:
 		return ic.dispatchPostIssuingAuthorizationsAuthorizationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingCardholdersCardholderWithFormdataBody:
-		return ic.dispatchPostIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingCardholdersWithFormdataBody:
+	case FnPostIssuingAuthorizationsAuthorizationApprove:
+		return ic.dispatchPostIssuingAuthorizationsAuthorizationApproveWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIssuingAuthorizationsAuthorizationDecline:
+		return ic.dispatchPostIssuingAuthorizationsAuthorizationDeclineWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIssuingCardholders:
 		return ic.dispatchPostIssuingCardholdersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingCardsCardWithFormdataBody:
-		return ic.dispatchPostIssuingCardsCardWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingCardsWithFormdataBody:
+	case FnPostIssuingCardholdersCardholder:
+		return ic.dispatchPostIssuingCardholdersCardholderWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIssuingCards:
 		return ic.dispatchPostIssuingCardsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingDisputesDisputeSubmitWithFormdataBody:
-		return ic.dispatchPostIssuingDisputesDisputeSubmitWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingDisputesDisputeWithFormdataBody:
-		return ic.dispatchPostIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingDisputesWithFormdataBody:
+	case FnPostIssuingCardsCard:
+		return ic.dispatchPostIssuingCardsCardWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIssuingDisputes:
 		return ic.dispatchPostIssuingDisputesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBody:
-		return ic.dispatchPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingPersonalizationDesignsWithFormdataBody:
+	case FnPostIssuingDisputesDispute:
+		return ic.dispatchPostIssuingDisputesDisputeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIssuingDisputesDisputeSubmit:
+		return ic.dispatchPostIssuingDisputesDisputeSubmitWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIssuingPersonalizationDesigns:
 		return ic.dispatchPostIssuingPersonalizationDesignsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingSettlementsSettlementWithFormdataBody:
+	case FnPostIssuingPersonalizationDesignsPersonalizationDesign:
+		return ic.dispatchPostIssuingPersonalizationDesignsPersonalizationDesignWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostIssuingSettlementsSettlement:
 		return ic.dispatchPostIssuingSettlementsSettlementWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingTokensTokenWithFormdataBody:
+	case FnPostIssuingTokensToken:
 		return ic.dispatchPostIssuingTokensTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostIssuingTransactionsTransactionWithFormdataBody:
+	case FnPostIssuingTransactionsTransaction:
 		return ic.dispatchPostIssuingTransactionsTransactionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostLinkAccountSessionsWithFormdataBody:
+	case FnPostLinkAccountSessions:
 		return ic.dispatchPostLinkAccountSessionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostLinkedAccountsAccountDisconnectWithFormdataBody:
+	case FnPostLinkedAccountsAccountDisconnect:
 		return ic.dispatchPostLinkedAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostLinkedAccountsAccountRefreshWithFormdataBody:
+	case FnPostLinkedAccountsAccountRefresh:
 		return ic.dispatchPostLinkedAccountsAccountRefreshWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBody:
-		return ic.dispatchPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentIntentsIntentCancelWithFormdataBody:
-		return ic.dispatchPostPaymentIntentsIntentCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentIntentsIntentCaptureWithFormdataBody:
-		return ic.dispatchPostPaymentIntentsIntentCaptureWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentIntentsIntentConfirmWithFormdataBody:
-		return ic.dispatchPostPaymentIntentsIntentConfirmWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBody:
-		return ic.dispatchPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBody:
-		return ic.dispatchPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentIntentsIntentWithFormdataBody:
-		return ic.dispatchPostPaymentIntentsIntentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentIntentsWithFormdataBody:
+	case FnPostPaymentIntents:
 		return ic.dispatchPostPaymentIntentsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentLinksPaymentLinkWithFormdataBody:
-		return ic.dispatchPostPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentLinksWithFormdataBody:
+	case FnPostPaymentIntentsIntent:
+		return ic.dispatchPostPaymentIntentsIntentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentIntentsIntentApplyCustomerBalance:
+		return ic.dispatchPostPaymentIntentsIntentApplyCustomerBalanceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentIntentsIntentCancel:
+		return ic.dispatchPostPaymentIntentsIntentCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentIntentsIntentCapture:
+		return ic.dispatchPostPaymentIntentsIntentCaptureWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentIntentsIntentConfirm:
+		return ic.dispatchPostPaymentIntentsIntentConfirmWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentIntentsIntentIncrementAuthorization:
+		return ic.dispatchPostPaymentIntentsIntentIncrementAuthorizationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentIntentsIntentVerifyMicrodeposits:
+		return ic.dispatchPostPaymentIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentLinks:
 		return ic.dispatchPostPaymentLinksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodConfigurationsConfigurationWithFormdataBody:
-		return ic.dispatchPostPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodConfigurationsWithFormdataBody:
+	case FnPostPaymentLinksPaymentLink:
+		return ic.dispatchPostPaymentLinksPaymentLinkWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentMethodConfigurations:
 		return ic.dispatchPostPaymentMethodConfigurationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBody:
-		return ic.dispatchPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBody:
-		return ic.dispatchPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodDomainsWithFormdataBody:
+	case FnPostPaymentMethodConfigurationsConfiguration:
+		return ic.dispatchPostPaymentMethodConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentMethodDomains:
 		return ic.dispatchPostPaymentMethodDomainsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodsPaymentMethodAttachWithFormdataBody:
-		return ic.dispatchPostPaymentMethodsPaymentMethodAttachWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodsPaymentMethodDetachWithFormdataBody:
-		return ic.dispatchPostPaymentMethodsPaymentMethodDetachWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodsPaymentMethodWithFormdataBody:
-		return ic.dispatchPostPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentMethodsWithFormdataBody:
+	case FnPostPaymentMethodDomainsPaymentMethodDomain:
+		return ic.dispatchPostPaymentMethodDomainsPaymentMethodDomainWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentMethodDomainsPaymentMethodDomainValidate:
+		return ic.dispatchPostPaymentMethodDomainsPaymentMethodDomainValidateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentMethods:
 		return ic.dispatchPostPaymentMethodsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBody:
-		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBody:
-		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBody:
-		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBody:
-		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentRecordsIdReportPaymentAttemptWithFormdataBody:
+	case FnPostPaymentMethodsPaymentMethod:
+		return ic.dispatchPostPaymentMethodsPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentMethodsPaymentMethodAttach:
+		return ic.dispatchPostPaymentMethodsPaymentMethodAttachWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentMethodsPaymentMethodDetach:
+		return ic.dispatchPostPaymentMethodsPaymentMethodDetachWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentRecordsIdReportPaymentAttempt:
 		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentRecordsIdReportRefundWithFormdataBody:
+	case FnPostPaymentRecordsIdReportPaymentAttemptCanceled:
+		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptCanceledWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentRecordsIdReportPaymentAttemptFailed:
+		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptFailedWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentRecordsIdReportPaymentAttemptGuaranteed:
+		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptGuaranteedWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentRecordsIdReportPaymentAttemptInformational:
+		return ic.dispatchPostPaymentRecordsIdReportPaymentAttemptInformationalWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPaymentRecordsIdReportRefund:
 		return ic.dispatchPostPaymentRecordsIdReportRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPaymentRecordsReportPaymentWithFormdataBody:
+	case FnPostPaymentRecordsReportPayment:
 		return ic.dispatchPostPaymentRecordsReportPaymentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPayoutsPayoutCancelWithFormdataBody:
-		return ic.dispatchPostPayoutsPayoutCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPayoutsPayoutReverseWithFormdataBody:
-		return ic.dispatchPostPayoutsPayoutReverseWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPayoutsPayoutWithFormdataBody:
-		return ic.dispatchPostPayoutsPayoutWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPayoutsWithFormdataBody:
+	case FnPostPayouts:
 		return ic.dispatchPostPayoutsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPlansPlanWithFormdataBody:
-		return ic.dispatchPostPlansPlanWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPlansWithFormdataBody:
+	case FnPostPayoutsPayout:
+		return ic.dispatchPostPayoutsPayoutWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPayoutsPayoutCancel:
+		return ic.dispatchPostPayoutsPayoutCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPayoutsPayoutReverse:
+		return ic.dispatchPostPayoutsPayoutReverseWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPlans:
 		return ic.dispatchPostPlansWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPricesPriceWithFormdataBody:
-		return ic.dispatchPostPricesPriceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPricesWithFormdataBody:
+	case FnPostPlansPlan:
+		return ic.dispatchPostPlansPlanWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPrices:
 		return ic.dispatchPostPricesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostProductCatalogTrialOffersIdWithFormdataBody:
-		return ic.dispatchPostProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostProductCatalogTrialOffersWithFormdataBody:
+	case FnPostPricesPrice:
+		return ic.dispatchPostPricesPriceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostProductCatalogTrialOffers:
 		return ic.dispatchPostProductCatalogTrialOffersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostProductsIdWithFormdataBody:
-		return ic.dispatchPostProductsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostProductsProductFeaturesWithFormdataBody:
-		return ic.dispatchPostProductsProductFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostProductsWithFormdataBody:
+	case FnPostProductCatalogTrialOffersId:
+		return ic.dispatchPostProductCatalogTrialOffersIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostProducts:
 		return ic.dispatchPostProductsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPromotionCodesPromotionCodeWithFormdataBody:
-		return ic.dispatchPostPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostPromotionCodesWithFormdataBody:
+	case FnPostProductsId:
+		return ic.dispatchPostProductsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostProductsProductFeatures:
+		return ic.dispatchPostProductsProductFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostPromotionCodes:
 		return ic.dispatchPostPromotionCodesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostQuotesQuoteAcceptWithFormdataBody:
-		return ic.dispatchPostQuotesQuoteAcceptWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostQuotesQuoteCancelWithFormdataBody:
-		return ic.dispatchPostQuotesQuoteCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostQuotesQuoteFinalizeWithFormdataBody:
-		return ic.dispatchPostQuotesQuoteFinalizeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostQuotesQuoteWithFormdataBody:
-		return ic.dispatchPostQuotesQuoteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostQuotesWithFormdataBody:
+	case FnPostPromotionCodesPromotionCode:
+		return ic.dispatchPostPromotionCodesPromotionCodeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostQuotes:
 		return ic.dispatchPostQuotesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostRadarPaymentEvaluationsWithFormdataBody:
+	case FnPostQuotesQuote:
+		return ic.dispatchPostQuotesQuoteWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostQuotesQuoteAccept:
+		return ic.dispatchPostQuotesQuoteAcceptWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostQuotesQuoteCancel:
+		return ic.dispatchPostQuotesQuoteCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostQuotesQuoteFinalize:
+		return ic.dispatchPostQuotesQuoteFinalizeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostRadarPaymentEvaluations:
 		return ic.dispatchPostRadarPaymentEvaluationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostRadarValueListItemsWithFormdataBody:
+	case FnPostRadarValueListItems:
 		return ic.dispatchPostRadarValueListItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostRadarValueListsValueListWithFormdataBody:
-		return ic.dispatchPostRadarValueListsValueListWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostRadarValueListsWithFormdataBody:
+	case FnPostRadarValueLists:
 		return ic.dispatchPostRadarValueListsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostRefundsRefundCancelWithFormdataBody:
-		return ic.dispatchPostRefundsRefundCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostRefundsRefundWithFormdataBody:
-		return ic.dispatchPostRefundsRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostRefundsWithFormdataBody:
+	case FnPostRadarValueListsValueList:
+		return ic.dispatchPostRadarValueListsValueListWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostRefunds:
 		return ic.dispatchPostRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostReportingReportRunsWithFormdataBody:
+	case FnPostRefundsRefund:
+		return ic.dispatchPostRefundsRefundWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostRefundsRefundCancel:
+		return ic.dispatchPostRefundsRefundCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostReportingReportRuns:
 		return ic.dispatchPostReportingReportRunsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostReviewsReviewApproveWithFormdataBody:
+	case FnPostReviewsReviewApprove:
 		return ic.dispatchPostReviewsReviewApproveWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSetupIntentsIntentCancelWithFormdataBody:
-		return ic.dispatchPostSetupIntentsIntentCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSetupIntentsIntentConfirmWithFormdataBody:
-		return ic.dispatchPostSetupIntentsIntentConfirmWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBody:
-		return ic.dispatchPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSetupIntentsIntentWithFormdataBody:
-		return ic.dispatchPostSetupIntentsIntentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSetupIntentsWithFormdataBody:
+	case FnPostSetupIntents:
 		return ic.dispatchPostSetupIntentsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostShippingRatesShippingRateTokenWithFormdataBody:
-		return ic.dispatchPostShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostShippingRatesWithFormdataBody:
+	case FnPostSetupIntentsIntent:
+		return ic.dispatchPostSetupIntentsIntentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSetupIntentsIntentCancel:
+		return ic.dispatchPostSetupIntentsIntentCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSetupIntentsIntentConfirm:
+		return ic.dispatchPostSetupIntentsIntentConfirmWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSetupIntentsIntentVerifyMicrodeposits:
+		return ic.dispatchPostSetupIntentsIntentVerifyMicrodepositsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostShippingRates:
 		return ic.dispatchPostShippingRatesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSigmaSavedQueriesIdWithFormdataBody:
+	case FnPostShippingRatesShippingRateToken:
+		return ic.dispatchPostShippingRatesShippingRateTokenWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSigmaSavedQueriesId:
 		return ic.dispatchPostSigmaSavedQueriesIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSourcesSourceVerifyWithFormdataBody:
-		return ic.dispatchPostSourcesSourceVerifyWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSourcesSourceWithFormdataBody:
-		return ic.dispatchPostSourcesSourceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSourcesWithFormdataBody:
+	case FnPostSources:
 		return ic.dispatchPostSourcesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionItemsItemWithFormdataBody:
-		return ic.dispatchPostSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionItemsWithFormdataBody:
+	case FnPostSourcesSource:
+		return ic.dispatchPostSourcesSourceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSourcesSourceVerify:
+		return ic.dispatchPostSourcesSourceVerifyWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSubscriptionItems:
 		return ic.dispatchPostSubscriptionItemsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionSchedulesScheduleCancelWithFormdataBody:
-		return ic.dispatchPostSubscriptionSchedulesScheduleCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionSchedulesScheduleReleaseWithFormdataBody:
-		return ic.dispatchPostSubscriptionSchedulesScheduleReleaseWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionSchedulesScheduleWithFormdataBody:
-		return ic.dispatchPostSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionSchedulesWithFormdataBody:
+	case FnPostSubscriptionItemsItem:
+		return ic.dispatchPostSubscriptionItemsItemWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSubscriptionSchedules:
 		return ic.dispatchPostSubscriptionSchedulesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionsSubscriptionExposedIdWithFormdataBody:
-		return ic.dispatchPostSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionsSubscriptionMigrateWithFormdataBody:
-		return ic.dispatchPostSubscriptionsSubscriptionMigrateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionsSubscriptionPauseWithFormdataBody:
-		return ic.dispatchPostSubscriptionsSubscriptionPauseWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionsSubscriptionResumeWithFormdataBody:
-		return ic.dispatchPostSubscriptionsSubscriptionResumeWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostSubscriptionsWithFormdataBody:
+	case FnPostSubscriptionSchedulesSchedule:
+		return ic.dispatchPostSubscriptionSchedulesScheduleWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSubscriptionSchedulesScheduleCancel:
+		return ic.dispatchPostSubscriptionSchedulesScheduleCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSubscriptionSchedulesScheduleRelease:
+		return ic.dispatchPostSubscriptionSchedulesScheduleReleaseWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSubscriptions:
 		return ic.dispatchPostSubscriptionsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxCalculationsWithFormdataBody:
+	case FnPostSubscriptionsSubscriptionExposedId:
+		return ic.dispatchPostSubscriptionsSubscriptionExposedIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSubscriptionsSubscriptionMigrate:
+		return ic.dispatchPostSubscriptionsSubscriptionMigrateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSubscriptionsSubscriptionPause:
+		return ic.dispatchPostSubscriptionsSubscriptionPauseWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostSubscriptionsSubscriptionResume:
+		return ic.dispatchPostSubscriptionsSubscriptionResumeWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTaxCalculations:
 		return ic.dispatchPostTaxCalculationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxIdsWithFormdataBody:
+	case FnPostTaxIds:
 		return ic.dispatchPostTaxIdsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxLocationsWithFormdataBody:
+	case FnPostTaxLocations:
 		return ic.dispatchPostTaxLocationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxRatesTaxRateWithFormdataBody:
-		return ic.dispatchPostTaxRatesTaxRateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxRatesWithFormdataBody:
+	case FnPostTaxRates:
 		return ic.dispatchPostTaxRatesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxRegistrationsIdWithFormdataBody:
-		return ic.dispatchPostTaxRegistrationsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxRegistrationsWithFormdataBody:
+	case FnPostTaxRatesTaxRate:
+		return ic.dispatchPostTaxRatesTaxRateWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTaxRegistrations:
 		return ic.dispatchPostTaxRegistrationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxSettingsWithFormdataBody:
+	case FnPostTaxRegistrationsId:
+		return ic.dispatchPostTaxRegistrationsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTaxSettings:
 		return ic.dispatchPostTaxSettingsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxTransactionsCreateFromCalculationWithFormdataBody:
+	case FnPostTaxTransactionsCreateFromCalculation:
 		return ic.dispatchPostTaxTransactionsCreateFromCalculationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTaxTransactionsCreateReversalWithFormdataBody:
+	case FnPostTaxTransactionsCreateReversal:
 		return ic.dispatchPostTaxTransactionsCreateReversalWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalConfigurationsConfigurationWithFormdataBody:
-		return ic.dispatchPostTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalConfigurationsWithFormdataBody:
+	case FnPostTerminalConfigurations:
 		return ic.dispatchPostTerminalConfigurationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalConnectionTokensWithFormdataBody:
+	case FnPostTerminalConfigurationsConfiguration:
+		return ic.dispatchPostTerminalConfigurationsConfigurationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalConnectionTokens:
 		return ic.dispatchPostTerminalConnectionTokensWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalLocationsLocationWithFormdataBody:
-		return ic.dispatchPostTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalLocationsWithFormdataBody:
+	case FnPostTerminalLocations:
 		return ic.dispatchPostTerminalLocationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalOnboardingLinksWithFormdataBody:
+	case FnPostTerminalLocationsLocation:
+		return ic.dispatchPostTerminalLocationsLocationWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalOnboardingLinks:
 		return ic.dispatchPostTerminalOnboardingLinksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderCancelActionWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderCancelActionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderCollectInputsWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderCollectInputsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderCollectPaymentMethodWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderCollectPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderProcessPaymentIntentWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderProcessPaymentIntentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderProcessSetupIntentWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderProcessSetupIntentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderRefundPaymentWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderRefundPaymentWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderSetReaderDisplayWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderSetReaderDisplayWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersReaderWithFormdataBody:
-		return ic.dispatchPostTerminalReadersReaderWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalReadersWithFormdataBody:
+	case FnPostTerminalReaders:
 		return ic.dispatchPostTerminalReadersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTerminalRefundsWithFormdataBody:
+	case FnPostTerminalReadersReader:
+		return ic.dispatchPostTerminalReadersReaderWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalReadersReaderCancelAction:
+		return ic.dispatchPostTerminalReadersReaderCancelActionWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalReadersReaderCollectInputs:
+		return ic.dispatchPostTerminalReadersReaderCollectInputsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalReadersReaderCollectPaymentMethod:
+		return ic.dispatchPostTerminalReadersReaderCollectPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalReadersReaderConfirmPaymentIntent:
+		return ic.dispatchPostTerminalReadersReaderConfirmPaymentIntentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalReadersReaderProcessPaymentIntent:
+		return ic.dispatchPostTerminalReadersReaderProcessPaymentIntentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalReadersReaderProcessSetupIntent:
+		return ic.dispatchPostTerminalReadersReaderProcessSetupIntentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalReadersReaderRefundPayment:
+		return ic.dispatchPostTerminalReadersReaderRefundPaymentWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalReadersReaderSetReaderDisplay:
+		return ic.dispatchPostTerminalReadersReaderSetReaderDisplayWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTerminalRefunds:
 		return ic.dispatchPostTerminalRefundsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersConfirmationTokensWithFormdataBody:
+	case FnPostTestHelpersConfirmationTokens:
 		return ic.dispatchPostTestHelpersConfirmationTokensWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBody:
+	case FnPostTestHelpersCustomersCustomerFundCashBalance:
 		return ic.dispatchPostTestHelpersCustomersCustomerFundCashBalanceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBody:
-		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBody:
-		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBody:
-		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBody:
-		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBody:
-		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBody:
-		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingAuthorizationsWithFormdataBody:
+	case FnPostTestHelpersIssuingAuthorizations:
 		return ic.dispatchPostTestHelpersIssuingAuthorizationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBody:
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationCapture:
+		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationCaptureWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationExpire:
+		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationExpireWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount:
+		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond:
+		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationIncrement:
+		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationIncrementWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersIssuingAuthorizationsAuthorizationReverse:
+		return ic.dispatchPostTestHelpersIssuingAuthorizationsAuthorizationReverseWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersIssuingCardsCardShippingDeliver:
 		return ic.dispatchPostTestHelpersIssuingCardsCardShippingDeliverWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingCardsCardShippingFailWithFormdataBody:
+	case FnPostTestHelpersIssuingCardsCardShippingFail:
 		return ic.dispatchPostTestHelpersIssuingCardsCardShippingFailWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingCardsCardShippingReturnWithFormdataBody:
+	case FnPostTestHelpersIssuingCardsCardShippingReturn:
 		return ic.dispatchPostTestHelpersIssuingCardsCardShippingReturnWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingCardsCardShippingShipWithFormdataBody:
+	case FnPostTestHelpersIssuingCardsCardShippingShip:
 		return ic.dispatchPostTestHelpersIssuingCardsCardShippingShipWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBody:
+	case FnPostTestHelpersIssuingCardsCardShippingSubmit:
 		return ic.dispatchPostTestHelpersIssuingCardsCardShippingSubmitWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBody:
+	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate:
 		return ic.dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBody:
+	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate:
 		return ic.dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBody:
+	case FnPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject:
 		return ic.dispatchPostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBody:
-		return ic.dispatchPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingSettlementsWithFormdataBody:
+	case FnPostTestHelpersIssuingSettlements:
 		return ic.dispatchPostTestHelpersIssuingSettlementsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBody:
+	case FnPostTestHelpersIssuingSettlementsSettlementComplete:
+		return ic.dispatchPostTestHelpersIssuingSettlementsSettlementCompleteWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersIssuingTransactionsCreateForceCapture:
 		return ic.dispatchPostTestHelpersIssuingTransactionsCreateForceCaptureWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBody:
+	case FnPostTestHelpersIssuingTransactionsCreateUnlinkedRefund:
 		return ic.dispatchPostTestHelpersIssuingTransactionsCreateUnlinkedRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBody:
+	case FnPostTestHelpersIssuingTransactionsTransactionRefund:
 		return ic.dispatchPostTestHelpersIssuingTransactionsTransactionRefundWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersRefundsRefundExpireWithFormdataBody:
+	case FnPostTestHelpersRefundsRefundExpire:
 		return ic.dispatchPostTestHelpersRefundsRefundExpireWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBody:
+	case FnPostTestHelpersTerminalReadersReaderPresentPaymentMethod:
 		return ic.dispatchPostTestHelpersTerminalReadersReaderPresentPaymentMethodWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBody:
+	case FnPostTestHelpersTerminalReadersReaderSucceedInputCollection:
 		return ic.dispatchPostTestHelpersTerminalReadersReaderSucceedInputCollectionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBody:
+	case FnPostTestHelpersTerminalReadersReaderTimeoutInputCollection:
 		return ic.dispatchPostTestHelpersTerminalReadersReaderTimeoutInputCollectionWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTestClocksTestClockAdvanceWithFormdataBody:
-		return ic.dispatchPostTestHelpersTestClocksTestClockAdvanceWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTestClocksWithFormdataBody:
+	case FnPostTestHelpersTestClocks:
 		return ic.dispatchPostTestHelpersTestClocksWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBody:
+	case FnPostTestHelpersTestClocksTestClockAdvance:
+		return ic.dispatchPostTestHelpersTestClocksTestClockAdvanceWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersTreasuryInboundTransfersIdFail:
 		return ic.dispatchPostTestHelpersTreasuryInboundTransfersIdFailWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBody:
+	case FnPostTestHelpersTreasuryInboundTransfersIdReturn:
 		return ic.dispatchPostTestHelpersTreasuryInboundTransfersIdReturnWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBody:
+	case FnPostTestHelpersTreasuryInboundTransfersIdSucceed:
 		return ic.dispatchPostTestHelpersTreasuryInboundTransfersIdSucceedWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBody:
-		return ic.dispatchPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBody:
-		return ic.dispatchPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBody:
-		return ic.dispatchPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBody:
+	case FnPostTestHelpersTreasuryOutboundPaymentsId:
 		return ic.dispatchPostTestHelpersTreasuryOutboundPaymentsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBody:
-		return ic.dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBody:
-		return ic.dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBody:
-		return ic.dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBody:
+	case FnPostTestHelpersTreasuryOutboundPaymentsIdFail:
+		return ic.dispatchPostTestHelpersTreasuryOutboundPaymentsIdFailWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersTreasuryOutboundPaymentsIdPost:
+		return ic.dispatchPostTestHelpersTreasuryOutboundPaymentsIdPostWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersTreasuryOutboundPaymentsIdReturn:
+		return ic.dispatchPostTestHelpersTreasuryOutboundPaymentsIdReturnWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransfer:
 		return ic.dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryReceivedCreditsWithFormdataBody:
+	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferFail:
+		return ic.dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferFailWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferPost:
+		return ic.dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferPostWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn:
+		return ic.dispatchPostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTestHelpersTreasuryReceivedCredits:
 		return ic.dispatchPostTestHelpersTreasuryReceivedCreditsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTestHelpersTreasuryReceivedDebitsWithFormdataBody:
+	case FnPostTestHelpersTreasuryReceivedDebits:
 		return ic.dispatchPostTestHelpersTreasuryReceivedDebitsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBody:
-		return ic.dispatchPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBody:
-		return ic.dispatchPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostThreeDSecureAuthenticationsWithFormdataBody:
+	case FnPostThreeDSecureAuthentications:
 		return ic.dispatchPostThreeDSecureAuthenticationsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTokensWithFormdataBody:
+	case FnPostThreeDSecureAuthenticationsAuthenticationCancel:
+		return ic.dispatchPostThreeDSecureAuthenticationsAuthenticationCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostThreeDSecureAuthenticationsAuthenticationSubmit:
+		return ic.dispatchPostThreeDSecureAuthenticationsAuthenticationSubmitWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTokens:
 		return ic.dispatchPostTokensWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTopupsTopupCancelWithFormdataBody:
-		return ic.dispatchPostTopupsTopupCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTopupsTopupWithFormdataBody:
-		return ic.dispatchPostTopupsTopupWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTopupsWithFormdataBody:
+	case FnPostTopups:
 		return ic.dispatchPostTopupsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTransfersIdReversalsWithFormdataBody:
-		return ic.dispatchPostTransfersIdReversalsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTransfersTransferReversalsIdWithFormdataBody:
-		return ic.dispatchPostTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTransfersTransferWithFormdataBody:
-		return ic.dispatchPostTransfersTransferWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTransfersWithFormdataBody:
+	case FnPostTopupsTopup:
+		return ic.dispatchPostTopupsTopupWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTopupsTopupCancel:
+		return ic.dispatchPostTopupsTopupCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTransfers:
 		return ic.dispatchPostTransfersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryCreditReversalsWithFormdataBody:
+	case FnPostTransfersIdReversals:
+		return ic.dispatchPostTransfersIdReversalsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTransfersTransfer:
+		return ic.dispatchPostTransfersTransferWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTransfersTransferReversalsId:
+		return ic.dispatchPostTransfersTransferReversalsIdWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTreasuryCreditReversals:
 		return ic.dispatchPostTreasuryCreditReversalsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryDebitReversalsWithFormdataBody:
+	case FnPostTreasuryDebitReversals:
 		return ic.dispatchPostTreasuryDebitReversalsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBody:
-		return ic.dispatchPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBody:
-		return ic.dispatchPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryFinancialAccountsFinancialAccountWithFormdataBody:
-		return ic.dispatchPostTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryFinancialAccountsWithFormdataBody:
+	case FnPostTreasuryFinancialAccounts:
 		return ic.dispatchPostTreasuryFinancialAccountsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBody:
-		return ic.dispatchPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryInboundTransfersWithFormdataBody:
+	case FnPostTreasuryFinancialAccountsFinancialAccount:
+		return ic.dispatchPostTreasuryFinancialAccountsFinancialAccountWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTreasuryFinancialAccountsFinancialAccountClose:
+		return ic.dispatchPostTreasuryFinancialAccountsFinancialAccountCloseWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTreasuryFinancialAccountsFinancialAccountFeatures:
+		return ic.dispatchPostTreasuryFinancialAccountsFinancialAccountFeaturesWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTreasuryInboundTransfers:
 		return ic.dispatchPostTreasuryInboundTransfersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryOutboundPaymentsIdCancelWithFormdataBody:
-		return ic.dispatchPostTreasuryOutboundPaymentsIdCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryOutboundPaymentsWithFormdataBody:
+	case FnPostTreasuryInboundTransfersInboundTransferCancel:
+		return ic.dispatchPostTreasuryInboundTransfersInboundTransferCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTreasuryOutboundPayments:
 		return ic.dispatchPostTreasuryOutboundPaymentsWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBody:
-		return ic.dispatchPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostTreasuryOutboundTransfersWithFormdataBody:
+	case FnPostTreasuryOutboundPaymentsIdCancel:
+		return ic.dispatchPostTreasuryOutboundPaymentsIdCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostTreasuryOutboundTransfers:
 		return ic.dispatchPostTreasuryOutboundTransfersWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostWebhookEndpointsWebhookEndpointWithFormdataBody:
-		return ic.dispatchPostWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPostWebhookEndpointsWithFormdataBody:
+	case FnPostTreasuryOutboundTransfersOutboundTransferCancel:
+		return ic.dispatchPostTreasuryOutboundTransfersOutboundTransferCancelWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostWebhookEndpoints:
 		return ic.dispatchPostWebhookEndpointsWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostWebhookEndpointsWebhookEndpoint:
+		return ic.dispatchPostWebhookEndpointsWebhookEndpointWithFormdataBodyWithResponse(ctx, config, inputs)
 	default:
 		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}

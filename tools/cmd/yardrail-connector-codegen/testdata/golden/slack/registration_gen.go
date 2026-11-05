@@ -40,13 +40,19 @@ func Register() connector.Registration {
 		},
 		Resolve: Resolve,
 		CWLClasses: []connector.CWLClassEntry{
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsApproveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsApprove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-apps-approve-with-formdata-body",
-				ClassName:   "AdminAppsApproveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-apps-approve",
+				ClassName:   "AdminAppsApprove",
+				Description: "Approve an app for installation on a workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "app_id", Type: "string", Required: false, Description: "The id of the app to approve."},
+					{Name: "request_id", Type: "string", Required: false, Description: "The id of the request to approve."},
+					{Name: "team_id", Type: "string", Required: false, Description: ""},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsApprovedList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -79,13 +85,19 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsRestrictWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsRestrict", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-apps-restrict-with-formdata-body",
-				ClassName:   "AdminAppsRestrictWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-apps-restrict",
+				ClassName:   "AdminAppsRestrict",
+				Description: "Restrict an app for installation on a workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "app_id", Type: "string", Required: false, Description: "The id of the app to restrict."},
+					{Name: "request_id", Type: "string", Required: false, Description: "The id of the request to restrict."},
+					{Name: "team_id", Type: "string", Required: false, Description: ""},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsRestrictedList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -103,45 +115,71 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsArchiveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsArchive", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-archive-with-formdata-body",
-				ClassName:   "AdminConversationsArchiveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-archive",
+				ClassName:   "AdminConversationsArchive",
+				Description: "Archive a public or private channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to archive."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsConvertToPrivateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsConvertToPrivate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-convert-to-private-with-formdata-body",
-				ClassName:   "AdminConversationsConvertToPrivateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-convert-to-private",
+				ClassName:   "AdminConversationsConvertToPrivate",
+				Description: "Convert a public channel to a private channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to convert to private."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsCreateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsCreate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-create-with-formdata-body",
-				ClassName:   "AdminConversationsCreateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-create",
+				ClassName:   "AdminConversationsCreate",
+				Description: "Create a public or private channel-based conversation.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "description", Type: "string", Required: false, Description: "Description of the public or private channel to create."},
+					{Name: "is_private", Type: "boolean", Required: true, Description: "When `true`, creates a private channel instead of a public channel"},
+					{Name: "name", Type: "string", Required: true, Description: "Name of the public or private channel to create."},
+					{Name: "org_wide", Type: "boolean", Required: false, Description: "When `true`, the channel will be available org-wide. Note: if the channel is not `org_wide=true`, you must specify a `team_id` for this channel"},
+					{Name: "team_id", Type: "string", Required: false, Description: "The workspace to create the channel in. Note: this argument is required unless you set `org_wide=true`."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: false, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsDeleteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsDelete", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-delete-with-formdata-body",
-				ClassName:   "AdminConversationsDeleteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-delete",
+				ClassName:   "AdminConversationsDelete",
+				Description: "Delete a public or private channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to delete."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsDisconnectSharedWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsDisconnectShared", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-disconnect-shared-with-formdata-body",
-				ClassName:   "AdminConversationsDisconnectSharedWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-disconnect-shared",
+				ClassName:   "AdminConversationsDisconnectShared",
+				Description: "Disconnect a connected channel from one or more workspaces.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to be disconnected from some workspaces."},
+					{Name: "leaving_team_ids", Type: "string", Required: false, Description: "The team to be removed from the channel. Currently only a single team id can be specified."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsEkmListOriginalConnectedChannelInfo", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -188,29 +226,46 @@ func Register() connector.Registration {
 					{Name: "team_ids", Type: "array", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsInviteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsInvite", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-invite-with-formdata-body",
-				ClassName:   "AdminConversationsInviteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-invite",
+				ClassName:   "AdminConversationsInvite",
+				Description: "Invite a user to a public or private channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel that the users will be invited to."},
+					{Name: "user_ids", Type: "string", Required: true, Description: "The users to invite."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRenameWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRename", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-rename-with-formdata-body",
-				ClassName:   "AdminConversationsRenameWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-rename",
+				ClassName:   "AdminConversationsRename",
+				Description: "Rename a public or private channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to rename."},
+					{Name: "name", Type: "string", Required: true, Description: ""},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessAddGroupWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessAddGroup", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-restrict-access-add-group-with-formdata-body",
-				ClassName:   "AdminConversationsRestrictAccessAddGroupWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-restrict-access-add-group",
+				ClassName:   "AdminConversationsRestrictAccessAddGroup",
+				Description: "Add an allowlist of IDP groups for accessing a channel",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to link this group to."},
+					{Name: "group_id", Type: "string", Required: true, Description: "The [IDP Group](https://slack.com/help/articles/115001435788-Connect-identity-provider-groups-to-your-Enterprise-Grid-org) ID to be an allowlist for the private channel."},
+					{Name: "team_id", Type: "string", Required: false, Description: "The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.conversations:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessListGroups", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -226,13 +281,20 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessRemoveGroupWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsRestrictAccessRemoveGroup", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-restrict-access-remove-group-with-formdata-body",
-				ClassName:   "AdminConversationsRestrictAccessRemoveGroupWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-restrict-access-remove-group",
+				ClassName:   "AdminConversationsRestrictAccessRemoveGroup",
+				Description: "Remove a linked IDP group linked from a private channel",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to remove the linked group from."},
+					{Name: "group_id", Type: "string", Required: true, Description: "The [IDP Group](https://slack.com/help/articles/115001435788-Connect-identity-provider-groups-to-your-Enterprise-Grid-org) ID to remove from the private channel."},
+					{Name: "team_id", Type: "string", Required: true, Description: "The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.conversations:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsSearch", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -253,45 +315,73 @@ func Register() connector.Registration {
 					{Name: "next_cursor", Type: "string", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsSetConversationPrefsWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsSetConversationPrefs", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-set-conversation-prefs-with-formdata-body",
-				ClassName:   "AdminConversationsSetConversationPrefsWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-set-conversation-prefs",
+				ClassName:   "AdminConversationsSetConversationPrefs",
+				Description: "Set the posting permissions for a public or private channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to set the prefs for"},
+					{Name: "prefs", Type: "string", Required: true, Description: "The prefs for this channel in a stringified JSON format."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsSetTeamsWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsSetTeams", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-set-teams-with-formdata-body",
-				ClassName:   "AdminConversationsSetTeamsWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-set-teams",
+				ClassName:   "AdminConversationsSetTeams",
+				Description: "Set the workspaces in an Enterprise grid org that connect to a public or private channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The encoded `channel_id` to add or remove to workspaces."},
+					{Name: "org_channel", Type: "boolean", Required: false, Description: "True if channel has to be converted to an org channel"},
+					{Name: "target_team_ids", Type: "string", Required: false, Description: "A comma-separated list of workspaces to which the channel should be shared. Not required if the channel is being shared org-wide."},
+					{Name: "team_id", Type: "string", Required: false, Description: "The workspace to which the channel belongs. Omit this argument if the channel is a cross-workspace shared channel."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsUnarchiveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminConversationsUnarchive", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-conversations-unarchive-with-formdata-body",
-				ClassName:   "AdminConversationsUnarchiveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-conversations-unarchive",
+				ClassName:   "AdminConversationsUnarchive",
+				Description: "Unarchive a public or private channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_id", Type: "string", Required: true, Description: "The channel to unarchive."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiAddAliasWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiAdd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-emoji-add-alias-with-formdata-body",
-				ClassName:   "AdminEmojiAddAliasWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-emoji-add",
+				ClassName:   "AdminEmojiAdd",
+				Description: "Add an emoji.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "name", Type: "string", Required: true, Description: "The name of the emoji to be removed. Colons (`:myemoji:`) around the value are not required, although they may be included."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:write`"},
+					{Name: "url", Type: "string", Required: true, Description: "The URL of a file to use as an image for the emoji. Square images under 128KB and with transparent backgrounds work best."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiAddWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiAddAlias", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-emoji-add-with-formdata-body",
-				ClassName:   "AdminEmojiAddWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-emoji-add-alias",
+				ClassName:   "AdminEmojiAddAlias",
+				Description: "Add an emoji alias.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "alias_for", Type: "string", Required: true, Description: "The alias of the emoji."},
+					{Name: "name", Type: "string", Required: true, Description: "The name of the emoji to be aliased. Colons (`:myemoji:`) around the value are not required, although they may be included."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -307,29 +397,42 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiRemoveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiRemove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-emoji-remove-with-formdata-body",
-				ClassName:   "AdminEmojiRemoveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-emoji-remove",
+				ClassName:   "AdminEmojiRemove",
+				Description: "Remove an emoji across an Enterprise Grid organization",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "name", Type: "string", Required: true, Description: "The name of the emoji to be removed. Colons (`:myemoji:`) around the value are not required, although they may be included."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiRenameWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminEmojiRename", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-emoji-rename-with-formdata-body",
-				ClassName:   "AdminEmojiRenameWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-emoji-rename",
+				ClassName:   "AdminEmojiRename",
+				Description: "Rename an emoji.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "name", Type: "string", Required: true, Description: "The name of the emoji to be renamed. Colons (`:myemoji:`) around the value are not required, although they may be included."},
+					{Name: "new_name", Type: "string", Required: true, Description: "The new name of the emoji."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsApproveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsApprove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-invite-requests-approve-with-formdata-body",
-				ClassName:   "AdminInviteRequestsApproveWithFormdataBody",
-				Description: "",
+				Function:    "admin-invite-requests-approve",
+				ClassName:   "AdminInviteRequestsApprove",
+				Description: "Approve a workspace invite request.",
 				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsApprovedList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -359,13 +462,15 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsDenyWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsDeny", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-invite-requests-deny-with-formdata-body",
-				ClassName:   "AdminInviteRequestsDenyWithFormdataBody",
-				Description: "",
+				Function:    "admin-invite-requests-deny",
+				ClassName:   "AdminInviteRequestsDeny",
+				Description: "Deny a workspace invite request.",
 				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminInviteRequestsList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -396,13 +501,20 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsCreateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsCreate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-teams-create-with-formdata-body",
-				ClassName:   "AdminTeamsCreateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-teams-create",
+				ClassName:   "AdminTeamsCreate",
+				Description: "Create an Enterprise team.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "team_description", Type: "string", Required: false, Description: "Description for the team."},
+					{Name: "team_discoverability", Type: "string", Required: false, Description: "Who can join the team. A team's discoverability can be `open`, `closed`, `invite_only`, or `unlisted`."},
+					{Name: "team_domain", Type: "string", Required: true, Description: "Team domain (for example, slacksoftballteam)."},
+					{Name: "team_name", Type: "string", Required: true, Description: "Team name (for example, Slack Softball Team)."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -444,61 +556,100 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDefaultChannelsWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDefaultChannels", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-teams-settings-set-default-channels-with-formdata-body",
-				ClassName:   "AdminTeamsSettingsSetDefaultChannelsWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-teams-settings-set-default-channels",
+				ClassName:   "AdminTeamsSettingsSetDefaultChannels",
+				Description: "Set the default channels of a workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_ids", Type: "string", Required: true, Description: "An array of channel IDs."},
+					{Name: "team_id", Type: "string", Required: true, Description: "ID for the workspace to set the default channel for."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDescriptionWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDescription", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-teams-settings-set-description-with-formdata-body",
-				ClassName:   "AdminTeamsSettingsSetDescriptionWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-teams-settings-set-description",
+				ClassName:   "AdminTeamsSettingsSetDescription",
+				Description: "Set the description of a given workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "description", Type: "string", Required: true, Description: "The new description for the workspace."},
+					{Name: "team_id", Type: "string", Required: true, Description: "ID for the workspace to set the description for."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDiscoverabilityWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetDiscoverability", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-teams-settings-set-discoverability-with-formdata-body",
-				ClassName:   "AdminTeamsSettingsSetDiscoverabilityWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-teams-settings-set-discoverability",
+				ClassName:   "AdminTeamsSettingsSetDiscoverability",
+				Description: "An API method that allows admins to set the discoverability of a given workspace",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "discoverability", Type: "string", Required: true, Description: "This workspace's discovery setting. It must be set to one of `open`, `invite_only`, `closed`, or `unlisted`."},
+					{Name: "team_id", Type: "string", Required: true, Description: "The ID of the workspace to set discoverability on."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetIconWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetIcon", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-teams-settings-set-icon-with-formdata-body",
-				ClassName:   "AdminTeamsSettingsSetIconWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-teams-settings-set-icon",
+				ClassName:   "AdminTeamsSettingsSetIcon",
+				Description: "Sets the icon of a workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "image_url", Type: "string", Required: true, Description: "Image URL for the icon"},
+					{Name: "team_id", Type: "string", Required: true, Description: "ID for the workspace to set the icon for."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `admin.teams:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetNameWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminTeamsSettingsSetName", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-teams-settings-set-name-with-formdata-body",
-				ClassName:   "AdminTeamsSettingsSetNameWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-teams-settings-set-name",
+				ClassName:   "AdminTeamsSettingsSetName",
+				Description: "Set the name of a given workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "name", Type: "string", Required: true, Description: "The new name of the workspace."},
+					{Name: "team_id", Type: "string", Required: true, Description: "ID for the workspace to set the name for."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsAddChannelsWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsAddChannels", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-usergroups-add-channels-with-formdata-body",
-				ClassName:   "AdminUsergroupsAddChannelsWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-usergroups-add-channels",
+				ClassName:   "AdminUsergroupsAddChannels",
+				Description: "Add one or more default channels to an IDP group.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_ids", Type: "string", Required: true, Description: "Comma separated string of channel IDs."},
+					{Name: "team_id", Type: "string", Required: false, Description: "The workspace to add default channels in."},
+					{Name: "usergroup_id", Type: "string", Required: true, Description: "ID of the IDP group to add default channels for."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsAddTeamsWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsAddTeams", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-usergroups-add-teams-with-formdata-body",
-				ClassName:   "AdminUsergroupsAddTeamsWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-usergroups-add-teams",
+				ClassName:   "AdminUsergroupsAddTeams",
+				Description: "Associate one or more default workspaces with an organization-wide IDP group.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "auto_provision", Type: "boolean", Required: false, Description: "When `true`, this method automatically creates new workspace accounts for the IDP group members."},
+					{Name: "team_ids", Type: "string", Required: true, Description: "A comma separated list of encoded team (workspace) IDs. Each workspace *MUST* belong to the organization associated with the token."},
+					{Name: "usergroup_id", Type: "string", Required: true, Description: "An encoded usergroup (IDP Group) ID."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsListChannels", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -514,29 +665,54 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsRemoveChannelsWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsergroupsRemoveChannels", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-usergroups-remove-channels-with-formdata-body",
-				ClassName:   "AdminUsergroupsRemoveChannelsWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-usergroups-remove-channels",
+				ClassName:   "AdminUsergroupsRemoveChannels",
+				Description: "Remove one or more default channels from an org-level IDP group (user group).",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_ids", Type: "string", Required: true, Description: "Comma-separated string of channel IDs"},
+					{Name: "usergroup_id", Type: "string", Required: true, Description: "ID of the IDP Group"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersAssignWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersAssign", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-assign-with-formdata-body",
-				ClassName:   "AdminUsersAssignWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-assign",
+				ClassName:   "AdminUsersAssign",
+				Description: "Add an Enterprise user to a workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_ids", Type: "string", Required: false, Description: "Comma separated values of channel IDs to add user in the new workspace."},
+					{Name: "is_restricted", Type: "boolean", Required: false, Description: "True if user should be added to the workspace as a guest."},
+					{Name: "is_ultra_restricted", Type: "boolean", Required: false, Description: "True if user should be added to the workspace as a single-channel guest."},
+					{Name: "team_id", Type: "string", Required: true, Description: "The ID (`T1234`) of the workspace."},
+					{Name: "user_id", Type: "string", Required: true, Description: "The ID of the user to add to the workspace."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersInviteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersInvite", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-invite-with-formdata-body",
-				ClassName:   "AdminUsersInviteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-invite",
+				ClassName:   "AdminUsersInvite",
+				Description: "Invite a user to a workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel_ids", Type: "string", Required: true, Description: "A comma-separated list of `channel_id`s for this user to join. At least one channel is required."},
+					{Name: "custom_message", Type: "string", Required: false, Description: "An optional message to send to the user in the invite email."},
+					{Name: "email", Type: "string", Required: true, Description: "The email address of the person to invite."},
+					{Name: "guest_expiration_ts", Type: "string", Required: false, Description: "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date."},
+					{Name: "is_restricted", Type: "boolean", Required: false, Description: "Is this user a multi-channel guest user? (default: false)"},
+					{Name: "is_ultra_restricted", Type: "boolean", Required: false, Description: "Is this user a single channel guest user? (default: false)"},
+					{Name: "real_name", Type: "string", Required: false, Description: "Full name of the user."},
+					{Name: "resend", Type: "boolean", Required: false, Description: "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)"},
+					{Name: "team_id", Type: "string", Required: true, Description: "The ID (`T1234`) of the workspace."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -552,61 +728,98 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersRemoveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersRemove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-remove-with-formdata-body",
-				ClassName:   "AdminUsersRemoveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-remove",
+				ClassName:   "AdminUsersRemove",
+				Description: "Remove a user from a workspace.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "team_id", Type: "string", Required: true, Description: "The ID (`T1234`) of the workspace."},
+					{Name: "user_id", Type: "string", Required: true, Description: "The ID of the user to remove."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSessionInvalidateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSessionInvalidate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-session-invalidate-with-formdata-body",
-				ClassName:   "AdminUsersSessionInvalidateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-session-invalidate",
+				ClassName:   "AdminUsersSessionInvalidate",
+				Description: "Invalidate a single session for a user by session_id",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "session_id", Type: "integer", Required: true, Description: ""},
+					{Name: "team_id", Type: "string", Required: true, Description: "ID of the team that the session belongs to"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSessionResetWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSessionReset", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-session-reset-with-formdata-body",
-				ClassName:   "AdminUsersSessionResetWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-session-reset",
+				ClassName:   "AdminUsersSessionReset",
+				Description: "Wipes all valid sessions on all devices for a given user",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "mobile_only", Type: "boolean", Required: false, Description: "Only expire mobile sessions (default: false)"},
+					{Name: "user_id", Type: "string", Required: true, Description: "The ID of the user to wipe sessions for"},
+					{Name: "web_only", Type: "boolean", Required: false, Description: "Only expire web sessions (default: false)"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetAdminWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetAdmin", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-set-admin-with-formdata-body",
-				ClassName:   "AdminUsersSetAdminWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-set-admin",
+				ClassName:   "AdminUsersSetAdmin",
+				Description: "Set an existing guest, regular user, or owner to be an admin user.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "team_id", Type: "string", Required: true, Description: "The ID (`T1234`) of the workspace."},
+					{Name: "user_id", Type: "string", Required: true, Description: "The ID of the user to designate as an admin."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetExpirationWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetExpiration", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-set-expiration-with-formdata-body",
-				ClassName:   "AdminUsersSetExpirationWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-set-expiration",
+				ClassName:   "AdminUsersSetExpiration",
+				Description: "Set an expiration for a guest user",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "expiration_ts", Type: "integer", Required: true, Description: "Timestamp when guest account should be disabled."},
+					{Name: "team_id", Type: "string", Required: true, Description: "The ID (`T1234`) of the workspace."},
+					{Name: "user_id", Type: "string", Required: true, Description: "The ID of the user to set an expiration for."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetOwnerWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetOwner", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-set-owner-with-formdata-body",
-				ClassName:   "AdminUsersSetOwnerWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-set-owner",
+				ClassName:   "AdminUsersSetOwner",
+				Description: "Set an existing guest, regular user, or admin user to be a workspace owner.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "team_id", Type: "string", Required: true, Description: "The ID (`T1234`) of the workspace."},
+					{Name: "user_id", Type: "string", Required: true, Description: "Id of the user to promote to owner."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetRegularWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#AdminUsersSetRegular", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "admin-users-set-regular-with-formdata-body",
-				ClassName:   "AdminUsersSetRegularWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "admin-users-set-regular",
+				ClassName:   "AdminUsersSetRegular",
+				Description: "Set an existing guest user, admin user, or owner to be a regular user.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "team_id", Type: "string", Required: true, Description: "The ID (`T1234`) of the workspace."},
+					{Name: "user_id", Type: "string", Required: true, Description: "The ID of the user to designate as a regular user."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ApiTest", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -779,21 +992,37 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#CallsAddWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#CallsAdd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "calls-add-with-formdata-body",
-				ClassName:   "CallsAddWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "calls-add",
+				ClassName:   "CallsAdd",
+				Description: "Registers a new Call.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "created_by", Type: "string", Required: false, Description: "The valid Slack user ID of the user who created this Call. When this method is called with a user token, the `created_by` field is optional and defaults to the authed user of the token. Otherwise, the field is required."},
+					{Name: "date_start", Type: "integer", Required: false, Description: "Call start time in UTC UNIX timestamp format"},
+					{Name: "desktop_app_join_url", Type: "string", Required: false, Description: "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL."},
+					{Name: "external_display_id", Type: "string", Required: false, Description: "An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object."},
+					{Name: "external_unique_id", Type: "string", Required: true, Description: "An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service."},
+					{Name: "join_url", Type: "string", Required: true, Description: "The URL required for a client to join the Call."},
+					{Name: "title", Type: "string", Required: false, Description: "The name of the Call."},
+					{Name: "users", Type: "string", Required: false, Description: "The list of users to register as participants in the Call. [Read more on how to specify users here](/apis/calls#users)."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#CallsEndWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#CallsEnd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "calls-end-with-formdata-body",
-				ClassName:   "CallsEndWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "calls-end",
+				ClassName:   "CallsEnd",
+				Description: "Ends a Call.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "duration", Type: "integer", Required: false, Description: "Call duration in seconds"},
+					{Name: "id", Type: "string", Required: true, Description: "`id` returned when registering the call using the [`calls.add`](/methods/calls.add) method."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#CallsInfo", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -807,45 +1036,76 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#CallsParticipantsAddWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#CallsParticipantsAdd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "calls-participants-add-with-formdata-body",
-				ClassName:   "CallsParticipantsAddWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "calls-participants-add",
+				ClassName:   "CallsParticipantsAdd",
+				Description: "Registers new participants added to a Call.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "id", Type: "string", Required: true, Description: "`id` returned by the [`calls.add`](/methods/calls.add) method."},
+					{Name: "users", Type: "string", Required: true, Description: "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users)."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#CallsParticipantsRemoveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#CallsParticipantsRemove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "calls-participants-remove-with-formdata-body",
-				ClassName:   "CallsParticipantsRemoveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "calls-participants-remove",
+				ClassName:   "CallsParticipantsRemove",
+				Description: "Registers participants removed from a Call.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "id", Type: "string", Required: true, Description: "`id` returned by the [`calls.add`](/methods/calls.add) method."},
+					{Name: "users", Type: "string", Required: true, Description: "The list of users to remove as participants in the Call. [Read more on how to specify users here](/apis/calls#users)."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#CallsUpdateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#CallsUpdate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "calls-update-with-formdata-body",
-				ClassName:   "CallsUpdateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "calls-update",
+				ClassName:   "CallsUpdate",
+				Description: "Updates information about a Call.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "desktop_app_join_url", Type: "string", Required: false, Description: "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL."},
+					{Name: "id", Type: "string", Required: true, Description: "`id` returned by the [`calls.add`](/methods/calls.add) method."},
+					{Name: "join_url", Type: "string", Required: false, Description: "The URL required for a client to join the Call."},
+					{Name: "title", Type: "string", Required: false, Description: "The name of the Call."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ChatDeleteScheduledMessageWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ChatDelete", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "chat-delete-scheduled-message-with-formdata-body",
-				ClassName:   "ChatDeleteScheduledMessageWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "chat-delete",
+				ClassName:   "ChatDelete",
+				Description: "Deletes a message.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "as_user", Type: "boolean", Required: false, Description: "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope."},
+					{Name: "channel", Type: "string", Required: false, Description: "Channel containing the message to be deleted."},
+					{Name: "ts", Type: "number", Required: false, Description: "Timestamp of the message to be deleted."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "ts", Type: "string", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ChatDeleteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ChatDeleteScheduledMessage", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "chat-delete-with-formdata-body",
-				ClassName:   "ChatDeleteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "chat-delete-scheduled-message",
+				ClassName:   "ChatDeleteScheduledMessage",
+				Description: "Deletes a pending scheduled message from the queue.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "as_user", Type: "boolean", Required: false, Description: "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope."},
+					{Name: "channel", Type: "string", Required: true, Description: "The channel the scheduled_message is posting to"},
+					{Name: "scheduled_message_id", Type: "string", Required: true, Description: "`scheduled_message_id` returned from call to chat.scheduleMessage"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ChatGetPermalink", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -863,37 +1123,100 @@ func Register() connector.Registration {
 					{Name: "permalink", Type: "string", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ChatMeMessageWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ChatMeMessage", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "chat-me-message-with-formdata-body",
-				ClassName:   "ChatMeMessageWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "chat-me-message",
+				ClassName:   "ChatMeMessage",
+				Description: "Share a me message into a channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Channel to send message to. Can be a public channel, private group or IM channel. Can be an encoded ID, or a name."},
+					{Name: "text", Type: "string", Required: false, Description: "Text of the message to send."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "ts", Type: "string", Required: false, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ChatPostEphemeralWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ChatPostEphemeral", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "chat-post-ephemeral-with-formdata-body",
-				ClassName:   "ChatPostEphemeralWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "chat-post-ephemeral",
+				ClassName:   "ChatPostEphemeral",
+				Description: "Sends an ephemeral message to a user in a channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "as_user", Type: "boolean", Required: false, Description: "Pass true to post the message as the authed user. Defaults to true if the chat:write:bot scope is not included. Otherwise, defaults to false."},
+					{Name: "attachments", Type: "string", Required: false, Description: "A JSON-based array of structured attachments, presented as a URL-encoded string."},
+					{Name: "blocks", Type: "string", Required: false, Description: "A JSON-based array of structured blocks, presented as a URL-encoded string."},
+					{Name: "channel", Type: "string", Required: true, Description: "Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name."},
+					{Name: "icon_emoji", Type: "string", Required: false, Description: "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below."},
+					{Name: "icon_url", Type: "string", Required: false, Description: "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."},
+					{Name: "link_names", Type: "boolean", Required: false, Description: "Find and link channel names and usernames."},
+					{Name: "parse", Type: "string", Required: false, Description: "Change how messages are treated. Defaults to `none`. See [below](#formatting)."},
+					{Name: "text", Type: "string", Required: false, Description: "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail."},
+					{Name: "thread_ts", Type: "string", Required: false, Description: "Provide another message's `ts` value to post this message in a thread. Avoid using a reply's `ts` value; use its parent's value instead. Ephemeral messages in threads are only shown if there is already an active thread."},
+					{Name: "user", Type: "string", Required: true, Description: "`id` of the user who will receive the ephemeral message. The user should be in the channel specified by the `channel` argument."},
+					{Name: "username", Type: "string", Required: false, Description: "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "message_ts", Type: "string", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ChatPostMessageWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ChatPostMessage", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "chat-post-message-with-formdata-body",
-				ClassName:   "ChatPostMessageWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "chat-post-message",
+				ClassName:   "ChatPostMessage",
+				Description: "Sends a message to a channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "as_user", Type: "string", Required: false, Description: "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [authorship](#authorship) below."},
+					{Name: "attachments", Type: "string", Required: false, Description: "A JSON-based array of structured attachments, presented as a URL-encoded string."},
+					{Name: "blocks", Type: "string", Required: false, Description: "A JSON-based array of structured blocks, presented as a URL-encoded string."},
+					{Name: "channel", Type: "string", Required: true, Description: "Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details."},
+					{Name: "icon_emoji", Type: "string", Required: false, Description: "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below."},
+					{Name: "icon_url", Type: "string", Required: false, Description: "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."},
+					{Name: "link_names", Type: "boolean", Required: false, Description: "Find and link channel names and usernames."},
+					{Name: "mrkdwn", Type: "boolean", Required: false, Description: "Disable Slack markup parsing by setting to `false`. Enabled by default."},
+					{Name: "parse", Type: "string", Required: false, Description: "Change how messages are treated. Defaults to `none`. See [below](#formatting)."},
+					{Name: "reply_broadcast", Type: "boolean", Required: false, Description: "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`."},
+					{Name: "text", Type: "string", Required: false, Description: "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail."},
+					{Name: "thread_ts", Type: "string", Required: false, Description: "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead."},
+					{Name: "unfurl_links", Type: "boolean", Required: false, Description: "Pass true to enable unfurling of primarily text-based content."},
+					{Name: "unfurl_media", Type: "boolean", Required: false, Description: "Pass false to disable unfurling of media content."},
+					{Name: "username", Type: "string", Required: false, Description: "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: true, Description: ""},
+					{Name: "message", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "ts", Type: "string", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ChatScheduleMessageWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ChatScheduleMessage", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "chat-schedule-message-with-formdata-body",
-				ClassName:   "ChatScheduleMessageWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "chat-schedule-message",
+				ClassName:   "ChatScheduleMessage",
+				Description: "Schedules a message to be sent to a channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "as_user", Type: "boolean", Required: false, Description: "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [chat.postMessage](chat.postMessage#authorship)."},
+					{Name: "attachments", Type: "string", Required: false, Description: "A JSON-based array of structured attachments, presented as a URL-encoded string."},
+					{Name: "blocks", Type: "string", Required: false, Description: "A JSON-based array of structured blocks, presented as a URL-encoded string."},
+					{Name: "channel", Type: "string", Required: false, Description: "Channel, private group, or DM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details."},
+					{Name: "link_names", Type: "boolean", Required: false, Description: "Find and link channel names and usernames."},
+					{Name: "parse", Type: "string", Required: false, Description: "Change how messages are treated. Defaults to `none`. See [chat.postMessage](chat.postMessage#formatting)."},
+					{Name: "post_at", Type: "string", Required: false, Description: "Unix EPOCH timestamp of time in future to send the message."},
+					{Name: "reply_broadcast", Type: "boolean", Required: false, Description: "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`."},
+					{Name: "text", Type: "string", Required: false, Description: "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail."},
+					{Name: "thread_ts", Type: "number", Required: false, Description: "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead."},
+					{Name: "unfurl_links", Type: "boolean", Required: false, Description: "Pass true to enable unfurling of primarily text-based content."},
+					{Name: "unfurl_media", Type: "boolean", Required: false, Description: "Pass false to disable unfurling of media content."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: true, Description: ""},
+					{Name: "message", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "post_at", Type: "integer", Required: true, Description: ""},
+					{Name: "scheduled_message_id", Type: "string", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ChatScheduledMessagesList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -913,45 +1236,85 @@ func Register() connector.Registration {
 					{Name: "scheduled_messages", Type: "array", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ChatUnfurlWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ChatUnfurl", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "chat-unfurl-with-formdata-body",
-				ClassName:   "ChatUnfurlWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "chat-unfurl",
+				ClassName:   "ChatUnfurl",
+				Description: "Provide custom unfurl behavior for user-posted URLs",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: true, Description: "Channel ID of the message"},
+					{Name: "ts", Type: "string", Required: true, Description: "Timestamp of the message to add unfurl behavior to."},
+					{Name: "unfurls", Type: "string", Required: false, Description: "URL-encoded JSON map with keys set to URLs featured in the the message, pointing to their unfurl blocks or message attachments."},
+					{Name: "user_auth_message", Type: "string", Required: false, Description: "Provide a simply-formatted string to send as an ephemeral message to the user as invitation to authenticate further and enable full unfurling behavior"},
+					{Name: "user_auth_required", Type: "boolean", Required: false, Description: "Set to `true` or `1` to indicate the user must install your Slack app to trigger unfurls for this domain"},
+					{Name: "user_auth_url", Type: "string", Required: false, Description: "Send users to this custom URL where they will complete authentication in your app to fully trigger unfurling. Value should be properly URL-encoded."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ChatUpdateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ChatUpdate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "chat-update-with-formdata-body",
-				ClassName:   "ChatUpdateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "chat-update",
+				ClassName:   "ChatUpdate",
+				Description: "Updates a message.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "as_user", Type: "string", Required: false, Description: "Pass true to update the message as the authed user. [Bot users](/bot-users) in this context are considered authed users."},
+					{Name: "attachments", Type: "string", Required: false, Description: "A JSON-based array of structured attachments, presented as a URL-encoded string. This field is required when not presenting `text`. If you don't include this field, the message's previous `attachments` will be retained. To remove previous `attachments`, include an empty array for this field."},
+					{Name: "blocks", Type: "string", Required: false, Description: "A JSON-based array of [structured blocks](/block-kit/building), presented as a URL-encoded string. If you don't include this field, the message's previous `blocks` will be retained. To remove previous `blocks`, include an empty array for this field."},
+					{Name: "channel", Type: "string", Required: true, Description: "Channel containing the message to be updated."},
+					{Name: "link_names", Type: "string", Required: false, Description: "Find and link channel names and usernames. Defaults to `none`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `none`."},
+					{Name: "parse", Type: "string", Required: false, Description: "Change how messages are treated. Defaults to `client`, unlike `chat.postMessage`. Accepts either `none` or `full`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `client`."},
+					{Name: "text", Type: "string", Required: false, Description: "New text for the message, using the [default formatting rules](/reference/surfaces/formatting). It's not required when presenting `blocks` or `attachments`."},
+					{Name: "ts", Type: "string", Required: true, Description: "Timestamp of the message to be updated."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: true, Description: ""},
+					{Name: "message", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "text", Type: "string", Required: true, Description: ""},
+					{Name: "ts", Type: "string", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsArchiveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsArchive", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-archive-with-formdata-body",
-				ClassName:   "ConversationsArchiveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-archive",
+				ClassName:   "ConversationsArchive",
+				Description: "Archives a conversation.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "ID of conversation to archive"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsCloseWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsClose", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-close-with-formdata-body",
-				ClassName:   "ConversationsCloseWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-close",
+				ClassName:   "ConversationsClose",
+				Description: "Closes a direct message or multi-person direct message.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Conversation to close."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "already_closed", Type: "boolean", Required: false, Description: ""},
+					{Name: "no_op", Type: "boolean", Required: false, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsCreateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsCreate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-create-with-formdata-body",
-				ClassName:   "ConversationsCreateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-create",
+				ClassName:   "ConversationsCreate",
+				Description: "Initiates a public or private channel-based conversation",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "is_private", Type: "boolean", Required: false, Description: "Create a private channel instead of a public one"},
+					{Name: "name", Type: "string", Required: false, Description: "Name of the public or private channel to create"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsHistory", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -992,37 +1355,60 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsInviteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsInvite", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-invite-with-formdata-body",
-				ClassName:   "ConversationsInviteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-invite",
+				ClassName:   "ConversationsInvite",
+				Description: "Invites users to a channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "The ID of the public or private channel to invite user(s) to."},
+					{Name: "users", Type: "string", Required: false, Description: "A comma separated list of user IDs. Up to 1000 users may be listed."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsJoinWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsJoin", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-join-with-formdata-body",
-				ClassName:   "ConversationsJoinWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-join",
+				ClassName:   "ConversationsJoin",
+				Description: "Joins an existing conversation.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "ID of conversation to join"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "response_metadata", Type: "object", Required: false, Description: ""},
+					{Name: "warning", Type: "string", Required: false, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsKickWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsKick", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-kick-with-formdata-body",
-				ClassName:   "ConversationsKickWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-kick",
+				ClassName:   "ConversationsKick",
+				Description: "Removes a user from a conversation.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "ID of conversation to remove user from."},
+					{Name: "user", Type: "string", Required: false, Description: "User ID to be removed."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsLeaveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsLeave", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-leave-with-formdata-body",
-				ClassName:   "ConversationsLeaveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-leave",
+				ClassName:   "ConversationsLeave",
+				Description: "Leaves a conversation.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Conversation to leave"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "not_in_channel", Type: "boolean", Required: false, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1042,13 +1428,18 @@ func Register() connector.Registration {
 					{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsMarkWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsMark", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-mark-with-formdata-body",
-				ClassName:   "ConversationsMarkWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-mark",
+				ClassName:   "ConversationsMark",
+				Description: "Sets the read cursor in a channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Channel or conversation to set the read cursor for."},
+					{Name: "ts", Type: "number", Required: false, Description: "Unique identifier of message you want marked as most recently seen in this conversation."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsMembers", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1067,21 +1458,36 @@ func Register() connector.Registration {
 					{Name: "response_metadata", Type: "object", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsOpenWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsOpen", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-open-with-formdata-body",
-				ClassName:   "ConversationsOpenWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-open",
+				ClassName:   "ConversationsOpen",
+				Description: "Opens or resumes a direct message or multi-person direct message.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Resume a conversation by supplying an `im` or `mpim`'s ID. Or provide the `users` field instead."},
+					{Name: "return_im", Type: "boolean", Required: false, Description: "Boolean, indicates you want the full IM channel definition in the response."},
+					{Name: "users", Type: "string", Required: false, Description: "Comma separated lists of users. If only one user is included, this creates a 1:1 DM.  The ordering of the users is preserved whenever a multi-person direct message is returned. Supply a `channel` when not supplying `users`."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "already_open", Type: "boolean", Required: false, Description: ""},
+					{Name: "channel", Type: "object", Required: true, Description: ""},
+					{Name: "no_op", Type: "boolean", Required: false, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsRenameWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsRename", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-rename-with-formdata-body",
-				ClassName:   "ConversationsRenameWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-rename",
+				ClassName:   "ConversationsRename",
+				Description: "Renames a conversation.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "ID of conversation to rename"},
+					{Name: "name", Type: "string", Required: false, Description: "New name for conversation."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsReplies", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1104,29 +1510,45 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsSetPurposeWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsSetPurpose", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-set-purpose-with-formdata-body",
-				ClassName:   "ConversationsSetPurposeWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-set-purpose",
+				ClassName:   "ConversationsSetPurpose",
+				Description: "Sets the purpose for a conversation.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Conversation to set the purpose of"},
+					{Name: "purpose", Type: "string", Required: false, Description: "A new, specialer purpose"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsSetTopicWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsSetTopic", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-set-topic-with-formdata-body",
-				ClassName:   "ConversationsSetTopicWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-set-topic",
+				ClassName:   "ConversationsSetTopic",
+				Description: "Sets the topic for a conversation.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Conversation to set the topic of"},
+					{Name: "topic", Type: "string", Required: false, Description: "The new topic string. Does not support formatting or linkification."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsUnarchiveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ConversationsUnarchive", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "conversations-unarchive-with-formdata-body",
-				ClassName:   "ConversationsUnarchiveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "conversations-unarchive",
+				ClassName:   "ConversationsUnarchive",
+				Description: "Reverses conversation archival.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "ID of conversation to unarchive"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#DialogOpen", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1184,13 +1606,21 @@ func Register() connector.Registration {
 					{Name: "snooze_remaining", Type: "integer", Required: false, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#DndSetSnoozeWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#DndSetSnooze", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "dnd-set-snooze-with-formdata-body",
-				ClassName:   "DndSetSnoozeWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "dnd-set-snooze",
+				ClassName:   "DndSetSnooze",
+				Description: "Turns on Do Not Disturb mode for the current user, or changes its duration.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "num_minutes", Type: "string", Required: true, Description: "Number of minutes, from now, to snooze until."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `dnd:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "snooze_enabled", Type: "boolean", Required: true, Description: ""},
+					{Name: "snooze_endtime", Type: "integer", Required: true, Description: ""},
+					{Name: "snooze_remaining", Type: "integer", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#DndTeamInfo", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1217,21 +1647,30 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#FilesCommentsDeleteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#FilesCommentsDelete", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "files-comments-delete-with-formdata-body",
-				ClassName:   "FilesCommentsDeleteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "files-comments-delete",
+				ClassName:   "FilesCommentsDelete",
+				Description: "Deletes an existing comment on a file.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "string", Required: false, Description: "File to delete a comment from."},
+					{Name: "id", Type: "string", Required: false, Description: "The comment to delete."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#FilesDeleteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#FilesDelete", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "files-delete-with-formdata-body",
-				ClassName:   "FilesDeleteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "files-delete",
+				ClassName:   "FilesDelete",
+				Description: "Deletes a file.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "string", Required: false, Description: "ID of file to delete."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#FilesInfo", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1278,13 +1717,23 @@ func Register() connector.Registration {
 					{Name: "paging", Type: "object", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteAddWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteAdd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "files-remote-add-with-formdata-body",
-				ClassName:   "FilesRemoteAddWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "files-remote-add",
+				ClassName:   "FilesRemoteAdd",
+				Description: "Adds a file from a remote service",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "external_id", Type: "string", Required: false, Description: "Creator defined GUID for the file."},
+					{Name: "external_url", Type: "string", Required: false, Description: "URL of the remote file."},
+					{Name: "filetype", Type: "string", Required: false, Description: "type of file"},
+					{Name: "indexable_file_contents", Type: "string", Required: false, Description: "A text file (txt, pdf, doc, etc.) containing textual search terms that are used to improve discovery of the remote file."},
+					{Name: "preview_image", Type: "string", Required: false, Description: "Preview of the document via `multipart/form-data`."},
+					{Name: "title", Type: "string", Required: false, Description: "Title of the file being shared."},
+					{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `remote_files:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteInfo", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1317,13 +1766,19 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteRemoveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteRemove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "files-remote-remove-with-formdata-body",
-				ClassName:   "FilesRemoteRemoveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "files-remote-remove",
+				ClassName:   "FilesRemoteRemove",
+				Description: "Remove a remote file.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "external_id", Type: "string", Required: false, Description: "Creator defined GUID for the file."},
+					{Name: "file", Type: "string", Required: false, Description: "Specify a file by providing its ID."},
+					{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `remote_files:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteShare", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1340,37 +1795,71 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteUpdateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRemoteUpdate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "files-remote-update-with-formdata-body",
-				ClassName:   "FilesRemoteUpdateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "files-remote-update",
+				ClassName:   "FilesRemoteUpdate",
+				Description: "Updates an existing remote file.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "external_id", Type: "string", Required: false, Description: "Creator defined GUID for the file."},
+					{Name: "external_url", Type: "string", Required: false, Description: "URL of the remote file."},
+					{Name: "file", Type: "string", Required: false, Description: "Specify a file by providing its ID."},
+					{Name: "filetype", Type: "string", Required: false, Description: "type of file"},
+					{Name: "indexable_file_contents", Type: "string", Required: false, Description: "File containing contents that can be used to improve searchability for the remote file."},
+					{Name: "preview_image", Type: "string", Required: false, Description: "Preview of the document via `multipart/form-data`."},
+					{Name: "title", Type: "string", Required: false, Description: "Title of the file being shared."},
+					{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `remote_files:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRevokePublicURLWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#FilesRevokePublicURL", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "files-revoke-public-u-r-l-with-formdata-body",
-				ClassName:   "FilesRevokePublicURLWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "files-revoke-public-u-r-l",
+				ClassName:   "FilesRevokePublicURL",
+				Description: "Revokes public/external sharing access for a file",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "string", Required: false, Description: "File to revoke"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#FilesSharedPublicURLWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#FilesSharedPublicURL", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "files-shared-public-u-r-l-with-formdata-body",
-				ClassName:   "FilesSharedPublicURLWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "files-shared-public-u-r-l",
+				ClassName:   "FilesSharedPublicURL",
+				Description: "Enables a file for public/external sharing.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "string", Required: false, Description: "File to share"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#FilesUploadWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#FilesUpload", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "files-upload-with-formdata-body",
-				ClassName:   "FilesUploadWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "files-upload",
+				ClassName:   "FilesUpload",
+				Description: "Uploads or creates a file.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channels", Type: "string", Required: false, Description: "Comma-separated list of channel names or IDs where the file will be shared."},
+					{Name: "content", Type: "string", Required: false, Description: "File contents via a POST variable. If omitting this parameter, you must provide a `file`."},
+					{Name: "file", Type: "string", Required: false, Description: "File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`."},
+					{Name: "filename", Type: "string", Required: false, Description: "Filename of file."},
+					{Name: "filetype", Type: "string", Required: false, Description: "A [file type](/types/file#file_types) identifier."},
+					{Name: "initial_comment", Type: "string", Required: false, Description: "The message text introducing the file in specified `channels`."},
+					{Name: "thread_ts", Type: "number", Required: false, Description: "Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead."},
+					{Name: "title", Type: "string", Required: false, Description: "Title of file."},
+					{Name: "token", Type: "string", Required: false, Description: "Authentication token. Requires scope: `files:write:user`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "object", Required: true, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#MigrationExchange", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1438,13 +1927,18 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#PinsAddWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#PinsAdd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "pins-add-with-formdata-body",
-				ClassName:   "PinsAddWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "pins-add",
+				ClassName:   "PinsAdd",
+				Description: "Pins an item to a channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: true, Description: "Channel to pin the item in."},
+					{Name: "timestamp", Type: "string", Required: false, Description: "Timestamp of the message to pin."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#PinsList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1457,21 +1951,32 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#PinsRemoveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#PinsRemove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "pins-remove-with-formdata-body",
-				ClassName:   "PinsRemoveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "pins-remove",
+				ClassName:   "PinsRemove",
+				Description: "Un-pins an item from a channel.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: true, Description: "Channel where the item is pinned to."},
+					{Name: "timestamp", Type: "string", Required: false, Description: "Timestamp of the message to un-pin."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsAddWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsAdd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "reactions-add-with-formdata-body",
-				ClassName:   "ReactionsAddWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "reactions-add",
+				ClassName:   "ReactionsAdd",
+				Description: "Adds a reaction to an item.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: true, Description: "Channel where the message to add reaction to was posted."},
+					{Name: "name", Type: "string", Required: true, Description: "Reaction (emoji) name."},
+					{Name: "timestamp", Type: "string", Required: true, Description: "Timestamp of the message to add reaction to."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsGet", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1509,37 +2014,60 @@ func Register() connector.Registration {
 					{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsRemoveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#ReactionsRemove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "reactions-remove-with-formdata-body",
-				ClassName:   "ReactionsRemoveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "reactions-remove",
+				ClassName:   "ReactionsRemove",
+				Description: "Removes a reaction from an item.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Channel where the message to remove reaction from was posted."},
+					{Name: "file", Type: "string", Required: false, Description: "File to remove reaction from."},
+					{Name: "file_comment", Type: "string", Required: false, Description: "File comment to remove reaction from."},
+					{Name: "name", Type: "string", Required: true, Description: "Reaction (emoji) name."},
+					{Name: "timestamp", Type: "string", Required: false, Description: "Timestamp of the message to remove reaction from."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#RemindersAddWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#RemindersAdd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "reminders-add-with-formdata-body",
-				ClassName:   "RemindersAddWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "reminders-add",
+				ClassName:   "RemindersAdd",
+				Description: "Creates a reminder.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "text", Type: "string", Required: true, Description: "The content of the reminder"},
+					{Name: "time", Type: "string", Required: true, Description: "When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural language description (Ex. \"in 15 minutes,\" or \"every Thursday\")"},
+					{Name: "user", Type: "string", Required: false, Description: "The user who will receive the reminder. If no user is specified, the reminder will go to user who created it."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "reminder", Type: "object", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#RemindersCompleteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#RemindersComplete", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "reminders-complete-with-formdata-body",
-				ClassName:   "RemindersCompleteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "reminders-complete",
+				ClassName:   "RemindersComplete",
+				Description: "Marks a reminder as complete.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "reminder", Type: "string", Required: false, Description: "The ID of the reminder to be marked as complete"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#RemindersDeleteWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#RemindersDelete", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "reminders-delete-with-formdata-body",
-				ClassName:   "RemindersDeleteWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "reminders-delete",
+				ClassName:   "RemindersDelete",
+				Description: "Deletes a reminder.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "reminder", Type: "string", Required: false, Description: "The ID of the reminder"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#RemindersInfo", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1603,13 +2131,20 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#StarsAddWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#StarsAdd", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "stars-add-with-formdata-body",
-				ClassName:   "StarsAddWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "stars-add",
+				ClassName:   "StarsAdd",
+				Description: "Adds a star to an item.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Channel to add star to, or channel where the message to add star to was posted (used with `timestamp`)."},
+					{Name: "file", Type: "string", Required: false, Description: "File to add star to."},
+					{Name: "file_comment", Type: "string", Required: false, Description: "File comment to add star to."},
+					{Name: "timestamp", Type: "string", Required: false, Description: "Timestamp of the message to add star to."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#StarsList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1629,13 +2164,20 @@ func Register() connector.Registration {
 					{Name: "paging", Type: "object", Required: false, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#StarsRemoveWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#StarsRemove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "stars-remove-with-formdata-body",
-				ClassName:   "StarsRemoveWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "stars-remove",
+				ClassName:   "StarsRemove",
+				Description: "Removes a star from an item.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channel", Type: "string", Required: false, Description: "Channel to remove star from, or channel where the message to remove star from was posted (used with `timestamp`)."},
+					{Name: "file", Type: "string", Required: false, Description: "File to remove star from."},
+					{Name: "file_comment", Type: "string", Required: false, Description: "File comment to remove star from."},
+					{Name: "timestamp", Type: "string", Required: false, Description: "Timestamp of the message to remove star from."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#TeamAccessLogs", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1715,29 +2257,50 @@ func Register() connector.Registration {
 					{Name: "profile", Type: "object", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsCreateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsCreate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "usergroups-create-with-formdata-body",
-				ClassName:   "UsergroupsCreateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "usergroups-create",
+				ClassName:   "UsergroupsCreate",
+				Description: "Create a User Group",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channels", Type: "string", Required: false, Description: "A comma separated string of encoded channel IDs for which the User Group uses as a default."},
+					{Name: "description", Type: "string", Required: false, Description: "A short description of the User Group."},
+					{Name: "handle", Type: "string", Required: false, Description: "A mention handle. Must be unique among channels, users and User Groups."},
+					{Name: "include_count", Type: "boolean", Required: false, Description: "Include the number of users in each User Group."},
+					{Name: "name", Type: "string", Required: true, Description: "A name for the User Group. Must be unique among User Groups."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "usergroup", Type: "object", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsDisableWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsDisable", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "usergroups-disable-with-formdata-body",
-				ClassName:   "UsergroupsDisableWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "usergroups-disable",
+				ClassName:   "UsergroupsDisable",
+				Description: "Disable an existing User Group",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "include_count", Type: "boolean", Required: false, Description: "Include the number of users in the User Group."},
+					{Name: "usergroup", Type: "string", Required: true, Description: "The encoded ID of the User Group to disable."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "usergroup", Type: "object", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsEnableWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsEnable", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "usergroups-enable-with-formdata-body",
-				ClassName:   "UsergroupsEnableWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "usergroups-enable",
+				ClassName:   "UsergroupsEnable",
+				Description: "Enable a User Group",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "include_count", Type: "boolean", Required: false, Description: "Include the number of users in the User Group."},
+					{Name: "usergroup", Type: "string", Required: true, Description: "The encoded ID of the User Group to enable."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "usergroup", Type: "object", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1755,13 +2318,23 @@ func Register() connector.Registration {
 					{Name: "usergroups", Type: "array", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsUpdateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsUpdate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "usergroups-update-with-formdata-body",
-				ClassName:   "UsergroupsUpdateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "usergroups-update",
+				ClassName:   "UsergroupsUpdate",
+				Description: "Update an existing User Group",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "channels", Type: "string", Required: false, Description: "A comma separated string of encoded channel IDs for which the User Group uses as a default."},
+					{Name: "description", Type: "string", Required: false, Description: "A short description of the User Group."},
+					{Name: "handle", Type: "string", Required: false, Description: "A mention handle. Must be unique among channels, users and User Groups."},
+					{Name: "include_count", Type: "boolean", Required: false, Description: "Include the number of users in the User Group."},
+					{Name: "name", Type: "string", Required: false, Description: "A name for the User Group. Must be unique among User Groups."},
+					{Name: "usergroup", Type: "string", Required: true, Description: "The encoded ID of the User Group to update."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "usergroup", Type: "object", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsUsersList", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1778,13 +2351,20 @@ func Register() connector.Registration {
 					{Name: "users", Type: "array", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsUsersUpdateWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsergroupsUsersUpdate", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "usergroups-users-update-with-formdata-body",
-				ClassName:   "UsergroupsUsersUpdateWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "usergroups-users-update",
+				ClassName:   "UsergroupsUsersUpdate",
+				Description: "Update the list of users for a User Group",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "include_count", Type: "boolean", Required: false, Description: "Include the number of users in the User Group."},
+					{Name: "usergroup", Type: "string", Required: true, Description: "The encoded ID of the User Group to update."},
+					{Name: "users", Type: "string", Required: true, Description: "A comma separated string of encoded user IDs that represent the entire list of users for the User Group."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "usergroup", Type: "object", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#UsersConversations", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1805,13 +2385,17 @@ func Register() connector.Registration {
 					{Name: "response_metadata", Type: "object", Required: false, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsersDeletePhotoWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsersDeletePhoto", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "users-delete-photo-with-formdata-body",
-				ClassName:   "UsersDeletePhotoWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "users-delete-photo",
+				ClassName:   "UsersDeletePhoto",
+				Description: "Delete the user profile photo",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `users.profile:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#UsersGetPresence", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1904,13 +2488,23 @@ func Register() connector.Registration {
 					{Name: "profile", Type: "object", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsersProfileSetWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsersProfileSet", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "users-profile-set-with-formdata-body",
-				ClassName:   "UsersProfileSetWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "users-profile-set",
+				ClassName:   "UsersProfileSet",
+				Description: "Set the profile information for a user.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "name", Type: "string", Required: false, Description: "Name of a single key to set. Usable only if `profile` is not passed."},
+					{Name: "profile", Type: "string", Required: false, Description: "Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters."},
+					{Name: "user", Type: "string", Required: false, Description: "ID of user to change. This argument may only be specified by team admins on paid teams."},
+					{Name: "value", Type: "string", Required: false, Description: "Value to set a single key to. Usable only if `profile` is not passed."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "email_pending", Type: "string", Required: false, Description: ""},
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "profile", Type: "object", Required: true, Description: ""},
+					{Name: "username", Type: "string", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#UsersSetActive", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
@@ -1922,21 +2516,34 @@ func Register() connector.Registration {
 					{Name: "ok", Type: "boolean", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsersSetPhotoWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsersSetPhoto", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "users-set-photo-with-formdata-body",
-				ClassName:   "UsersSetPhotoWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "users-set-photo",
+				ClassName:   "UsersSetPhoto",
+				Description: "Set the user profile photo",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "crop_w", Type: "string", Required: false, Description: "Width/height of crop box (always square)"},
+					{Name: "crop_x", Type: "string", Required: false, Description: "X coordinate of top-left corner of crop box"},
+					{Name: "crop_y", Type: "string", Required: false, Description: "Y coordinate of top-left corner of crop box"},
+					{Name: "image", Type: "string", Required: false, Description: "File contents via `multipart/form-data`."},
+					{Name: "token", Type: "string", Required: true, Description: "Authentication token. Requires scope: `users.profile:write`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+					{Name: "profile", Type: "object", Required: true, Description: ""},
+				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/slack#UsersSetPresenceWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/slack#UsersSetPresence", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",
-				Function:    "users-set-presence-with-formdata-body",
-				ClassName:   "UsersSetPresenceWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "users-set-presence",
+				ClassName:   "UsersSetPresence",
+				Description: "Manually sets user presence.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "presence", Type: "string", Required: true, Description: "Either `auto` or `away`"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "ok", Type: "boolean", Required: true, Description: ""},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/slack#ViewsOpen", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",

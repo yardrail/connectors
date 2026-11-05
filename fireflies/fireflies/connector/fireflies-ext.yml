@@ -13,14 +13,9 @@ $graph:
   - name: GetMeeting
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets a meeting's metadata and AI summary. Does not return the full transcript text."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetMeeting_class"

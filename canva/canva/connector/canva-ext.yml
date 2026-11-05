@@ -13,28 +13,15 @@ $graph:
   - name: CreateComment
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis preview API is deprecated. You should use the [Create thread](https://www.canva.dev/docs/apps/rest-apis/reference/comments/create-thread/) API instead.\n\n</Warning>\n\nCreate a new top-level comment on a design.\nFor information on comments and how they're used in the Canva UI, see the\n[Canva Help Center](https://www.canva.com/help/comments/). A design can have a maximum\nof 1000 comments."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateComment_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: assignee_id
-        type: ["null", "string"]
-        doc: "Lets you assign the comment to a Canva user using their User ID. You _must_ mention the\nassigned user in the `message`."
-      - name: attached_to
-        type: Any
-      - name: message
-        type: string
-        doc: "The comment message. This is the comment body shown in the Canva UI.\n\nYou can also mention users in your message by specifying their User ID and Team ID\nusing the format `[user_id:team_id]`. If the `assignee_id` parameter is specified, you\nmust mention the assignee in the message."
 
   - name: CreateDesign_class
     type: enum
@@ -44,14 +31,9 @@ $graph:
   - name: CreateDesign
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Creates a new Canva design. To create a new design, you can:\n\n- Use a preset design type.\n- Set height and width dimensions for a custom design.\n\n  NOTE: Custom designs can have a maximum area of 25,000,000 pixels squared (for example, 5000 × 5000 pixels). Each dimension can be between 40 and 8000 pixels, but the total area must stay within this limit.\n- Create a copy of an existing design (currently a [preview feature](https://www.canva.dev/docs/apps/rest-apis/#preview-apis)).\n- Create a new design from a brand template (currently a [preview feature](https://www.canva.dev/docs/apps/rest-apis/#preview-apis)).\n\nFor preset and custom designs, you can also provide the `asset_id` of an asset in the user's [projects](https://www.canva.com/help/find-designs-and-folders/) to add to the new design. Currently, this only supports image assets. To list the assets in a folder in the user's projects, use the [List folder items API](https://www.canva.dev/docs/apps/rest-apis/reference/folders/list-folder-items/).\n\nAn asset provided this way is placed in the design as a single flat image, which the user can move, resize, or replace, but not edit as separate elements. If you want the elements of an image to become separate editable layers in the design, use the [Create image-to-design import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/create-image-to-design-import-job/) instead.\n\nNOTE: Blank designs created with this API are automatically deleted if they're not edited within 7 days. These blank designs bypass the user's Canva trash and are permanently deleted."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateDesign_class"
@@ -67,14 +49,9 @@ $graph:
   - name: CreateDesignAutofillJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Availability>\nTo use this API, your app must act on behalf of a user that's on a Canva plan with access to autofill (such as Canva Pro, Canva Teams, or Canva Enterprise).\n</Availability>\n\nStarts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to autofill a Canva design using input data. Use the `type` field to choose the source of the design:\n\n- `create_from_brand_template`: autofill a new design from a brand template. If `type` isn't specified in the request, the request type is assumed to be `create_from_brand_template`. To get a list of input data fields for a brand template, use the [Get brand template dataset API](https://www.canva.dev/docs/apps/rest-apis/reference/brand-templates/get-brand-template-dataset/).\n- `create_from_design`: autofill a new design from an existing design that contains autofill data fields. To get the input data fields for an existing design, use the [Get design dataset\nAPI](https://www.canva.dev/docs/apps/rest-apis/reference/designs/get-design-dataset/).\n- `update_design`: autofill an existing design in place, rather than creating a new design. To get the input data fields for the design, use the [Get design dataset API](https://www.canva.dev/docs/apps/rest-apis/reference/designs/get-design-dataset/).\n\nData fields in brand templates or designs might change (for example, they might be renamed or removed). If you provide data for a field name that doesn't exist, it's silently skipped. Use the Get dataset APIs to confirm the current fields before creating an autofill job.\n\nAvailable data field types to autofill include:\n\n- Images (which you can autofill with an image or a video asset)\n- Text\n- Charts\n- Sheets\n\nNOTE: For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of autofill jobs created with this API using the [Get design autofill job API](https://www.canva.dev/docs/apps/rest-apis/reference/autofills/get-design-autofill-job/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateDesignAutofillJob_class"
@@ -90,25 +67,15 @@ $graph:
   - name: CreateDesignExportJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Starts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to export a file from Canva. Once the exported file is generated, you can download\nit using the URL(s) provided. The download URLs are only valid for 24 hours.\n\nThe request requires the design ID and the exported file format type.\n\nSupported file formats (and export file type values): JPG (`jpg`), PNG (`png`), GIF (`gif`), Microsoft PowerPoint (`pptx`), MP4 (`mp4`), PDF (`pdf`), CSV (`csv`), HTML bundle (`html_bundle`), and standalone HTML (`html_standalone`).\n\n<Note>\n\nThis endpoint has the following additional rate limits:\n\n  - **App throttle:** Each app can export a maximum of 750 times per 5-minute window, and 5,000 times per 24-hour window.\n  - **Document throttle:** Each document can be exported a maximum of 75 times per 5-minute window.\n  - **User throttle:** Each user can export a maximum of 75 times per 5-minute window, and 500 times per 24-hour window.\n\n</Note>\n<Note>\n\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of export jobs created with this API using the [Get design export job API](https://www.canva.dev/docs/apps/rest-apis/reference/exports/get-design-export-job/).\n\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateDesignExportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: design_id
-        type: string
-        doc: "The design ID."
-      - name: format
-        type: Any
 
   - name: CreateDesignMergeJob_class
     type: enum
@@ -118,14 +85,9 @@ $graph:
   - name: CreateDesignMergeJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nStarts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to merge design pages by applying page operations (such as insert, move, or delete) to produce a new design or modify an existing one.\n\nWhen the job completes successfully, the job result includes metadata for the created or updated design.\n\n<Note>\n\nAt this stage, only a single operation per request is supported by default, and passing multiple operations will fail. Contact Canva to enable multi-operation mode for your app.\n\n</Note>\n\n<Note>\n\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of jobs created with this API using the [Get design merge job API](https://www.canva.dev/docs/apps/rest-apis/reference/merges/get-design-merge-job/).\n\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateDesignMergeJob_class"
@@ -141,25 +103,15 @@ $graph:
   - name: CreateDesignResizeJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Availability>\n\nTo use this API, your app must act on behalf of a user that's on a Canva plan with premium features (such as Canva Pro).\n\nUsers on the Canva Free plan have access to a limited trial. For more information, see [Trial quotas](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#trial-quotas).\n\n</Availability>\n\nStarts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)\nto create a resized copy of a design. The new resized design is\nadded to the top level of the user's\n[projects](https://www.canva.com/help/find-designs-and-folders/) (`root` folder).\n\nTo resize a design into a new design, you can either:\n\n  - Use a preset design type.\n  - Set height and width dimensions for a custom design.\n\nNote the following behaviors and restrictions when resizing designs:\n- Designs can be resized to a maximum area of 25,000,000 pixels squared.\n- Resizing designs using the Canva REST APIs always creates a new design. In-place resizing is currently not available in the Canva REST APIs, but can be done in the Canva UI.\n- Resizing a multi-page design results in all pages of the design being resized. Resizing a section of a design is only available in the Canva UI.\n- [Canva docs](https://www.canva.com/create/documents/) and [emails](https://www.canva.com/emails/) can't be resized, and other design types can't be resized to a Canva doc or email.\n- Canva Code designs can't be resized, and other design types can't be resized to a Canva Code design.\n\n<Note>\nFor more information on the workflow for using asynchronous jobs,\nsee [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints).\nYou can check the status and get the results of resize jobs created with this API using the\n[Get design resize job API](https://www.canva.dev/docs/apps/rest-apis/reference/resizes/get-design-resize-job/).\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateDesignResizeJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: design_id
-        type: string
-        doc: "The design ID."
-      - name: design_type
-        type: Any
 
   - name: CreateFolder_class
     type: enum
@@ -169,26 +121,15 @@ $graph:
   - name: CreateFolder
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Creates a folder in one of the following locations:\n\n- The top level of a Canva user's [projects](https://www.canva.com/help/find-designs-and-folders/) (using the ID `root`),\n- The user's Uploads folder (using the ID `uploads`),\n- Another folder (using the parent folder's ID).\n\nWhen a folder is successfully created, the\nendpoint returns its folder ID, along with other information."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateFolder_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: name
-        type: string
-        doc: "The name of the folder."
-      - name: parent_folder_id
-        type: string
-        doc: "The folder ID of the parent folder. To create a new folder at the top level of a user's\n[projects](https://www.canva.com/help/find-designs-and-folders/), use the ID `root`.\nTo create it in their Uploads folder, use `uploads`."
 
   - name: CreateImageToDesignImportJob_class
     type: enum
@@ -198,25 +139,15 @@ $graph:
   - name: CreateImageToDesignImportJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public integrations that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nStarts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to convert an image into an editable design in Canva, using [Magic Layers](https://www.canva.com/magic-layers/). Elements in the image become separate editable layers in the resulting design.\n\nProvide the image as an asset that is already in the user's Canva account.\n\nThe image must be a standard photo or graphic file, such as a PNG or JPEG. Vector-based formats such as SVG, EPS, or AI files, are not supported. Video assets are not supported.\n\nThis conversion is designed for flat, non-photographic images such as posters, flyers, banners, and social graphics.\n\nStarting a job consumes the user's [AI credit allowance](https://www.canva.com/help/ai-access/). If the user has reached their AI allowance limit, the request returns a `429` error with the `credit_quota_exceeded` code. Polling for the result of a job using the [Get image-to-design import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/get-image-to-design-import-job/) doesn't consume any of the allowance.\n\nUse this API when the user wants to edit the contents of the image, such as changing its text, colors, or individual elements. If you only need to place the image into a design as a single flat image, use the [Create design API](https://www.canva.dev/docs/apps/rest-apis/reference/designs/create-design/) with an `asset_id` instead. The Create design API doesn't consume AI credits.\n\n<Note>\n\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of image-to-design import jobs created with this API using the [Get image-to-design import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/get-image-to-design-import-job/).\n\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateImageToDesignImportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: image
-        type: Any
-      - name: title
-        type: ["null", "string"]
-        doc: "A title for the created design. If not provided, Canva generates a title."
 
   - name: CreateImageTransformationJob_class
     type: enum
@@ -226,29 +157,15 @@ $graph:
   - name: CreateImageTransformationJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nStarts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to apply one or more transformations to an image asset. A successful job produces a single new image asset with all of the requested transformations applied. The source asset isn't modified, and intermediate results aren't returned.\n\nThe request requires the ID of the source asset and at least one transformation. The source asset must be an image asset, such as one created using the [Asset upload APIs](https://www.canva.dev/docs/apps/rest-apis/reference/assets/).\n\nTransformations are applied in the order provided, with each one stacked on the result of the previous one.\n\nStarting a job consumes the user's [AI credit allowance](https://www.canva.com/help/ai-access/). If the user has reached their AI allowance limit, the request returns a `429` error with the `credit_quota_exceeded` code. Polling for the result of a job using the [Get image transformation job API](https://www.canva.dev/docs/apps/rest-apis/reference/image-transformations/get-image-transformation-job/) doesn't consume any of the allowance.\n\n<Note>\n\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of image transformation jobs created with this API using the [Get image transformation job API](https://www.canva.dev/docs/apps/rest-apis/reference/image-transformations/get-image-transformation-job/).\n\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateImageTransformationJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: asset_id
-        type: string
-        doc: "The ID of the source asset to transform. The asset must be an image asset;\nreferencing any other asset type (such as a video) fails with an\n`unsupported_content_type` error.\n\nThe asset must also have finished uploading. An asset that is still uploading has no\nimage to transform yet and fails with an `asset_not_ready` error. If you've just\ncreated the asset, poll its upload job — for example with the\n[Get asset upload job](https://www.canva.dev/docs/apps/rest-apis/reference/assets/get-asset-upload-job/)\nendpoint — until it returns a `success` status before starting a transformation."
-      - name: name
-        type: ["null", "string"]
-        doc: "A name for the new image asset that the job produces. Canva doesn't localize this\nvalue, so provide a name in the user's language. When omitted, the new asset inherits\nthe name of the source asset."
-      - name: transformations
-        type: Any
-        doc: "The transformations to apply, in order. Must contain at least one transformation.\nEach transformation is stacked on the result of the previous one. The job's result\nis a single new image asset with all of the transformations applied; intermediate\nresults are not returned."
 
   - name: CreatePrintPartnerDesign_class
     type: enum
@@ -258,34 +175,15 @@ $graph:
   - name: CreatePrintPartnerDesign
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nAVAILABILITY: This API is only available to Print Partners.\n\nCreates a new Canva design using a Print Partner product ID.\n\nPrint partner proofing information (such as bleed and page constraints) can optionally be provided in the request. The design URLs that are returned include this information, which Canva applies in the editor when opening the design.\n\nNOTE: Blank designs created with this API are automatically deleted if they're not edited within 7 days. These blank designs bypass the user's Canva trash and are permanently deleted."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreatePrintPartnerDesign_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: bleed
-        type: ["null", "int"]
-        doc: "Bleed in microns to apply around the design in the editor. Bleed is the area\noutside the trim line used to avoid white edges after cutting. Use 0 for no bleed. If bleed is not\nspecified, a default of 3000 microns is used."
-      - name: design_source
-        type: Any
-      - name: max_pages
-        type: ["null", "int"]
-        doc: "Maximum number of pages the design can have in the editor. The user cannot\nadd pages beyond this value. If both min_pages and max_pages are provided,\nmin_pages must be less than or equal to max_pages."
-      - name: min_pages
-        type: ["null", "int"]
-        doc: "Minimum number of pages the design must have in the editor. The user cannot\nreduce the page count below this value. If both min_pages and max_pages are\nprovided, min_pages must be less than or equal to max_pages."
-      - name: title
-        type: ["null", "string"]
-        doc: "The name of the design."
 
   - name: CreatePrintPartnerDesignExportJob_class
     type: enum
@@ -295,30 +193,15 @@ $graph:
   - name: CreatePrintPartnerDesignExportJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nAVAILABILITY: This API is only available to Print Partners.\n\nStarts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to export a Print Partner file from Canva. Once the exported file is generated, you can download\nit using the URL(s) provided. The download URLs are only valid for 24 hours.\nThe request requires the design ID and exports a file as a print-quality PDF.\n\n<Note>\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of export jobs created with this API using the [Get design export job API](https://www.canva.dev/docs/apps/rest-apis/reference/exports/get-design-export-job/).\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreatePrintPartnerDesignExportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: design_id
-        type: string
-        doc: "The design ID."
-      - name: dimensions
-        type: ["null", "Any"]
-      - name: format
-        type: Any
-      - name: pages
-        type: ["null", "Any"]
-        doc: "To specify which pages to export in a multi-page design, provide the page\nnumbers as an array. The first page in a design is page `1`.\nIf `pages` isn't specified, all the pages are exported."
 
   - name: CreateReply_class
     type: enum
@@ -328,29 +211,15 @@ $graph:
   - name: CreateReply
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nCreates a reply to a comment or suggestion thread on a design.\nTo reply to an existing thread, you must provide the ID of the thread\nwhich is returned when a thread is created, or from the `thread_id` value\nof an existing reply in the thread. Each thread can\nhave a maximum of 100 replies created for it.\n\nFor information on comments and how they're used in the Canva UI, see the\n[Canva Help Center](https://www.canva.com/help/comments/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateReply_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: threadId
-        type: string
-        doc: "The ID of the thread."
-      - name: message_plaintext
-        type: string
-        doc: "The comment message of the reply in plaintext. This is the reply comment shown in the Canva UI.\n\nYou can also mention users in your message by specifying their User ID and Team ID\nusing the format `[user_id:team_id]`."
 
   - name: CreateThread_class
     type: enum
@@ -360,29 +229,15 @@ $graph:
   - name: CreateThread
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\nThis API is currently provided as a preview. Be aware of the following:\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n</Warning>\n\nCreates a new comment thread on a design.\nFor information on comments and how they're used in the Canva UI, see the\n[Canva Help Center](https://www.canva.com/help/comments/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateThread_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: assignee_id
-        type: ["null", "string"]
-        doc: "Lets you assign the comment to a Canva user using their User ID. You _must_ mention the\nassigned user in the `message`."
-      - name: message_plaintext
-        type: string
-        doc: "The comment message in plaintext. This is the comment body shown in the Canva UI.\n\nYou can also mention users in your message by specifying their User ID and Team ID\nusing the format `[user_id:team_id]`. If the `assignee_id` parameter is specified, you\nmust mention the assignee in the message."
 
   - name: CreateUrlAssetUploadJob_class
     type: enum
@@ -392,26 +247,15 @@ $graph:
   - name: CreateUrlAssetUploadJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nStarts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to upload an asset from a URL to the user's content library. Supported file types for assets are listed in the [Assets API overview](https://www.canva.dev/docs/apps/rest-apis/reference/assets/).\n\n<Note>\n Uploading a video asset from a URL is limited to a maximum 100MB file size. For importing larger video files, use the [Create asset upload job API](https://www.canva.dev/docs/apps/rest-apis/reference/assets/create-asset-upload-job/).\n</Note>\n\n<Note>\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of asset upload jobs created with this API using the [Get asset upload job via URL API](https://www.canva.dev/docs/apps/rest-apis/reference/assets/get-url-asset-upload-job/).\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateUrlAssetUploadJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: name
-        type: string
-        doc: "A name for the asset."
-      - name: url
-        type: string
-        doc: "The URL of the file to import. This URL must be accessible from the internet and be publicly available."
 
   - name: CreateUrlImportJob_class
     type: enum
@@ -421,29 +265,15 @@ $graph:
   - name: CreateUrlImportJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Starts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to import an external file from a URL as a new design in Canva.\n\nSupported file types for imports are listed in [Design imports overview](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/#supported-file-types).\n\n<Note>\n\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of design import jobs created with this API using the [Get URL import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/get-url-import-job/).\n\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateUrlImportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: mime_type
-        type: ["null", "string"]
-        doc: "The MIME type of the file being imported. If not provided, Canva attempts to automatically detect the type of the file."
-      - name: title
-        type: string
-        doc: "A title for the design."
-      - name: url
-        type: string
-        doc: "The URL of the file to import. This URL must be accessible from the internet and be publicly available."
 
   - name: DeleteAsset_class
     type: enum
@@ -453,23 +283,15 @@ $graph:
   - name: DeleteAsset
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "You can delete an asset by specifying its `assetId`. This operation mirrors the behavior\nin the Canva UI. Deleting an item moves it to the trash.\nDeleting an asset doesn't remove it from designs that already use it."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteAsset_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: assetId
-        type: string
-        doc: "The ID of the asset."
 
   - name: DeleteFolder_class
     type: enum
@@ -479,42 +301,30 @@ $graph:
   - name: DeleteFolder
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Deletes a folder with the specified `folderID`.\nDeleting a folder moves the user's content in the folder to the\n[Trash](https://www.canva.com/help/deleted-designs/) and content owned by\nother users is moved to the top level of the owner's\n[projects](https://www.canva.com/help/find-designs-and-folders/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteFolder_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folderId
-        type: string
-        doc: "The folder ID."
 
-  - name: ExchangeAccessTokenWithFormdataBody_class
+  - name: ExchangeAccessToken_class
     type: enum
     inVocab: false
-    symbols: ["canva:ExchangeAccessTokenWithFormdataBody"]
+    symbols: ["canva:ExchangeAccessToken"]
 
-  - name: ExchangeAccessTokenWithFormdataBody
+  - name: ExchangeAccessToken
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "This endpoint implements the OAuth 2.0 `token` endpoint, as part of the Authorization Code flow with Proof Key for Code Exchange (PKCE). For more information, see [Authentication](https://www.canva.dev/docs/apps/rest-apis/authentication/).\n\nTo generate an access token, you must provide one of the following:\n\n- An authorization code\n- A refresh token\n\nGenerating a token using either an authorization code or a refresh token allows your app to act on behalf of a user. You must first [obtain user authorization and get an authorization code](https://www.canva.dev/docs/apps/rest-apis/authentication/#obtain-user-authorization).\n\nAccess tokens may be up to 4 KB in size, and are only valid for a specified period of time. The expiry time (currently 4 hours) is shown in the endpoint response and is subject to change.\n\n**Endpoint authentication**\n\nRequests to this endpoint require authentication with your client ID and client secret, using _one_ of the following methods:\n\n- **Basic access authentication** (Recommended): For [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), the `{credentials}` string must be a Base64 encoded value of `{client id}:{client secret}`.\n- **Body parameters**: Provide your app's credentials using the `client_id` and `client_secret` body parameters.\n\nThis endpoint can't be called from a user's web-browser client because it uses client authentication with client secrets. Requests must come from your app's backend, otherwise they'll be blocked by Canva's [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy.\n\n**Generate an access token using an authorization code**\n\nTo generate an access token with an authorization code, you must:\n\n- Set `grant_type` to `authorization_code`.\n- Provide the `code_verifier` value that you generated when creating the user authorization URL.\n- Provide the authorization code you received after the user authorized the app.\n\n**Generate an access token using a refresh token**\n\nUsing the `refresh_token` value from a previous user token request, you can get a new access token with the same or smaller scope as the previous one, but with a refreshed expiry time. You will also receive a new refresh token that you can use to refresh the access token again.\n\nTo refresh an existing access token, you must:\n\n- Set `grant_type` to `refresh_token`.\n- Provide the `refresh_token` from a previous token request."
     fields:
       - name: class
-        type: "#ExchangeAccessTokenWithFormdataBody_class"
+        type: "#ExchangeAccessToken_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -527,23 +337,15 @@ $graph:
   - name: GetAppJwks
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Returns the Json Web Key Set (public keys) of an app. These keys are used to\nverify JWTs sent to app backends."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetAppJwks_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: appId
-        type: string
-        doc: "The app ID."
 
   - name: GetAsset_class
     type: enum
@@ -553,23 +355,15 @@ $graph:
   - name: GetAsset
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "You can retrieve the metadata of an asset by specifying its `assetId`."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetAsset_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: assetId
-        type: string
-        doc: "The ID of the asset."
 
   - name: GetAssetUploadJob_class
     type: enum
@@ -579,23 +373,15 @@ $graph:
   - name: GetAssetUploadJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get the result of an asset upload job that was created using the [Create asset upload job API](https://www.canva.dev/docs/apps/rest-apis/reference/assets/create-asset-upload-job/).\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetAssetUploadJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The asset upload job ID."
 
   - name: GetBrandTemplate_class
     type: enum
@@ -605,23 +391,15 @@ $graph:
   - name: GetBrandTemplate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "AVAILABILITY: To use this API, your app must act on behalf of a user that's on a Canva plan with access to brand templates (such as Canva Pro, Canva Teams, or Canva Enterprise).\n\nRetrieves the metadata for a brand template."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetBrandTemplate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: brandTemplateId
-        type: string
-        doc: "The brand template ID."
 
   - name: GetBrandTemplateDataset_class
     type: enum
@@ -631,23 +409,15 @@ $graph:
   - name: GetBrandTemplateDataset
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "AVAILABILITY: To use this API, your app must act on behalf of a user that's on a Canva plan with access to brand templates (such as Canva Pro, Canva Teams, or Canva Enterprise).\n\nGets the dataset definition of a brand template. If the brand\ntemplate contains autofill data fields, this API returns an object with the data field\nnames and the type of data they accept.\n\n<Note>\n\nTo get the dataset definition of a design, use the\n[Get design dataset API](https://www.canva.dev/docs/apps/rest-apis/reference/designs/get-design-dataset/).\n\n</Note>\n\nAvailable data field types include:\n\n- Images (which you can autofill with an image or a video asset)\n- Text\n- Charts\n- Sheets\n\nYou can autofill a brand template using the [Create a design autofill job\nAPI](https://www.canva.dev/docs/apps/rest-apis/reference/autofills/create-design-autofill-job/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetBrandTemplateDataset_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: brandTemplateId
-        type: string
-        doc: "The brand template ID."
 
   - name: GetDesign_class
     type: enum
@@ -657,23 +427,15 @@ $graph:
   - name: GetDesign
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the metadata for a design. This includes owner information, URLs for editing and viewing, and thumbnail information."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesign_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
 
   - name: GetDesignAnalytics_class
     type: enum
@@ -683,23 +445,15 @@ $graph:
   - name: GetDesignAnalytics
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\n<Availability>\nTo use this API, your app must act on behalf of a user who is a member of a [Canva Enterprise](https://www.canva.com/enterprise/) organization.\n</Availability>\n\nGets the aggregated analytics for a design.\n\nThe response includes total views, unique viewers, and view duration metrics."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignAnalytics_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
 
   - name: GetDesignAnalyticsLinks_class
     type: enum
@@ -709,29 +463,15 @@ $graph:
   - name: GetDesignAnalyticsLinks
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\n<Availability>\nTo use this API, your app must act on behalf of a user who is a member of a [Canva Enterprise](https://www.canva.com/enterprise/) organization.\n</Availability>\n\nLists trackable links and their metrics for a design."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignAnalyticsLinks_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of links to return per page."
-      - name: continuation
-        type: ["null", "string"]
-        doc: "If the success response contains a continuation token, there are more links you can list. You can use this token as a query parameter and retrieve more links from the list, for example `/v1/designs/{designId}/analytics/links?continuation={continuation}`.\n\nTo retrieve all links, you might need to make multiple requests."
 
   - name: GetDesignAnalyticsPageViews_class
     type: enum
@@ -741,34 +481,15 @@ $graph:
   - name: GetDesignAnalyticsPageViews
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\n<Availability>\nTo use this API, your app must act on behalf of a user who is a member of a [Canva Enterprise](https://www.canva.com/enterprise/) organization.\n</Availability>\n\nLists the page-level view duration data for a design.\n\nThe request body can include page filters and pagination controls."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignAnalyticsPageViews_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: continuation
-        type: ["null", "string"]
-        doc: "If the success response contains a continuation token, there are more page results you can list. You can use this token in the request body and retrieve more page results from the list.\n\nTo retrieve all page results, you might need to make multiple requests."
-      - name: filter
-        type: ["null", "Any"]
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of page results to return per page."
-      - name: page_ids
-        type: Any
-        doc: "The design page IDs to retrieve view duration data for."
 
   - name: GetDesignAnalyticsViewers_class
     type: enum
@@ -778,35 +499,15 @@ $graph:
   - name: GetDesignAnalyticsViewers
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\n<Availability>\nTo use this API, your app must act on behalf of a user who is a member of a [Canva Enterprise](https://www.canva.com/enterprise/) organization.\n</Availability>\n\nLists viewers for a design, ordered by most recent view first."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignAnalyticsViewers_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: link_id
-        type: ["null", "string"]
-        doc: "Filters viewers by a specific trackable link. If omitted, only viewers who visited the design without using a trackable link are returned."
-      - name: first_viewed_after
-        type: ["null", "int"]
-        doc: "Only returns viewers whose first view happened after this time, as a Unix timestamp (in seconds since the Unix Epoch)."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of viewers to return per page."
-      - name: continuation
-        type: ["null", "string"]
-        doc: "If the success response contains a continuation token, there are more viewers you can list. You can use this token as a query parameter and retrieve more viewers from the list, for example `/v1/designs/{designId}/analytics/viewers?continuation={continuation}`.\n\nTo retrieve all viewers, you might need to make multiple requests."
 
   - name: GetDesignAnalyticsViewsOverTime_class
     type: enum
@@ -816,38 +517,15 @@ $graph:
   - name: GetDesignAnalyticsViewsOverTime
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\n<Availability>\nTo use this API, your app must act on behalf of a user who is a member of a [Canva Enterprise](https://www.canva.com/enterprise/) organization.\n</Availability>\n\nLists the view counts over time for a design.\n\nEach response item represents one time bucket."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignAnalyticsViewsOverTime_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: start_time
-        type: ["null", "int"]
-        doc: "The inclusive start of the requested time range, as a Unix timestamp (in seconds since the Unix Epoch)."
-      - name: end_time
-        type: ["null", "int"]
-        doc: "The inclusive end of the requested time range, as a Unix timestamp (in seconds since the Unix Epoch)."
-      - name: timezone
-        type: ["null", "string"]
-        doc: "The timezone to use for bucketing, as a UTC offset in the form `+HH:MM` (for example, `+10:00`)."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of time buckets to return per page."
-      - name: continuation
-        type: ["null", "string"]
-        doc: "If the success response contains a continuation token, there are more time buckets you can list. You can use this token as a query parameter and retrieve more time buckets from the list, for example `/v1/designs/{designId}/analytics/views-over-time?continuation={continuation}`.\n\nTo retrieve all time buckets, you might need to make multiple requests."
 
   - name: GetDesignAutofillJob_class
     type: enum
@@ -857,23 +535,15 @@ $graph:
   - name: GetDesignAutofillJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Availability>\nTo use this API, your app must act on behalf of a user that's on a Canva plan with access to autofill (such as Canva Pro, Canva Teams, or Canva Enterprise).\n</Availability>\n\nGet the result of a design autofill job that was created using the [Create design autofill job\nAPI](https://www.canva.dev/docs/apps/rest-apis/reference/autofills/create-design-autofill-job/).\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignAutofillJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The design autofill job ID."
 
   - name: GetDesignDataset_class
     type: enum
@@ -883,23 +553,15 @@ $graph:
   - name: GetDesignDataset
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the dataset definition of a design. If the design contains autofill data fields, this API\nreturns an object with the data field names and the type of data they accept.\n\n<Note>\n\nTo get the dataset definition of a brand template, use the\n[Get brand template dataset API](https://www.canva.dev/docs/apps/rest-apis/reference/brand-templates/get-brand-template-dataset/).\n\n</Note>\n\nAvailable data field types include:\n\n- Images (which you can autofill with an image or a video asset)\n- Text\n- Charts\n- Sheets\n\nUse the returned field names and types to build the `data` payload for the\n[Create a design autofill job API](https://www.canva.dev/docs/apps/rest-apis/reference/autofills/create-design-autofill-job/)\nwith `type: create_from_design`."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignDataset_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
 
   - name: GetDesignExportFormats_class
     type: enum
@@ -909,23 +571,15 @@ $graph:
   - name: GetDesignExportFormats
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists the available file formats for [exporting a design](https://www.canva.dev/docs/apps/rest-apis/reference/exports/create-design-export-job/).\n\n<Note>\nThe available export formats depend on the design type and the types of pages in the design.\nEach format includes the page numbers that support it. If a format is supported by every page in the design, its `page_numbers` are omitted.\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignExportFormats_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
 
   - name: GetDesignExportJob_class
     type: enum
@@ -935,23 +589,15 @@ $graph:
   - name: GetDesignExportJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the result of a design export job that was created using the [Create design export job API](https://www.canva.dev/docs/apps/rest-apis/reference/exports/create-design-export-job/).\n\nIf the job is successful, the response includes an array\nof download URLs. Depending on the design type and export format, there is a download URL for each page in the design. The download URLs are only valid for 24 hours.\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignExportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: exportId
-        type: string
-        doc: "The export job ID."
 
   - name: GetDesignImportJob_class
     type: enum
@@ -961,23 +607,15 @@ $graph:
   - name: GetDesignImportJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the result of a design import job created using the [Create design import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/create-design-import-job/).\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignImportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The design import job ID."
 
   - name: GetDesignMergeJob_class
     type: enum
@@ -987,23 +625,15 @@ $graph:
   - name: GetDesignMergeJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nGets the result of a design merge job that was created using the [Create design merge job API](https://www.canva.dev/docs/apps/rest-apis/reference/merges/create-design-merge-job/).\n\nIf the job is successful, the response includes the job status and a `result` object with metadata for the created or updated design.\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignMergeJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The design merge job ID."
 
   - name: GetDesignPages_class
     type: enum
@@ -1013,29 +643,15 @@ $graph:
   - name: GetDesignPages
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nLists metadata for pages in a design, such as page-specific thumbnails.\n\nFor the specified design, you can provide `offset` and `limit` values to specify the range of pages to return.\n\nNOTE: Some design types don't have pages (for example, Canva docs)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignPages_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: offset
-        type: ["null", "int"]
-        doc: "The page index to start the range of pages to return.\n\nPages are indexed using one-based numbering, so the first page in a design has the index value `1`.\n"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The number of pages to return, starting at the page index specified using the `offset` parameter."
 
   - name: GetDesignResizeJob_class
     type: enum
@@ -1045,23 +661,15 @@ $graph:
   - name: GetDesignResizeJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Availability>\n\nTo use this API, your app must act on behalf of a user that's on a Canva plan with premium features (such as Canva Pro).\n\nUsers on the Canva Free plan have access to a limited trial. For more information, see [Trial quotas](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#trial-quotas).\n\n</Availability>\n\nGets the result of a design resize job that was created using the [Create design resize\njob API](https://www.canva.dev/docs/apps/rest-apis/reference/resizes/create-design-resize-job/).\n\nIf the job is successful, the response includes a summary of the new resized design, including its metadata.\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status.\nFor more information on the workflow for using asynchronous jobs,\nsee [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetDesignResizeJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The design resize job ID."
 
   - name: GetFolder_class
     type: enum
@@ -1071,23 +679,15 @@ $graph:
   - name: GetFolder
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the name and other details of a folder using a folder's `folderID`."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetFolder_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folderId
-        type: string
-        doc: "The folder ID."
 
   - name: GetImageToDesignImportJob_class
     type: enum
@@ -1097,23 +697,15 @@ $graph:
   - name: GetImageToDesignImportJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public integrations that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nGets the result of an image-to-design import job created using the [Create image-to-design import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/create-image-to-design-import-job/).\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetImageToDesignImportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The ID of the image-to-design import job."
 
   - name: GetImageTransformationJob_class
     type: enum
@@ -1123,23 +715,15 @@ $graph:
   - name: GetImageTransformationJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nGets the result of an image transformation job that was created using the [Create image transformation job API](https://www.canva.dev/docs/apps/rest-apis/reference/image-transformations/create-image-transformation-job/).\n\nIf the job is successful, the job's `result` contains the new image asset produced by the transformations.\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetImageTransformationJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The image transformation job ID."
 
   - name: GetOidcJwks_class
     type: enum
@@ -1149,14 +733,9 @@ $graph:
   - name: GetOidcJwks
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the JSON Web Key Set (public keys) for OIDC. These keys are used to verify JWTs in OpenID Connect flows."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetOidcJwks_class"
@@ -1172,32 +751,15 @@ $graph:
   - name: GetPrintPartnerDesign
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nAVAILABILITY: This API is only available to Print Partners.\n\nGets the metadata for a design. This includes owner information, URLs for editing and viewing, and thumbnail information.\n\nPrint partner proofing information (such as bleed and page constraints) isn't stored on Canva, so you can optionally provide it in the request. The design URLs that are returned include this information, which Canva applies in the editor when opening the design."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetPrintPartnerDesign_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: bleed
-        type: ["null", "int"]
-        doc: "Bleed in microns to apply around the design in the editor. Bleed is the area\noutside the trim line used to avoid white edges after cutting. Use 0 for no bleed. If bleed is not\nspecified, a default of 3000 microns is used."
-      - name: min_pages
-        type: ["null", "int"]
-        doc: "Minimum number of pages the design must have in the editor. The user cannot\nreduce the page count below this value. If both min_pages and max_pages are\nprovided, min_pages must be less than or equal to max_pages."
-      - name: max_pages
-        type: ["null", "int"]
-        doc: "Maximum number of pages the design can have in the editor. The user cannot\nadd pages beyond this value. If both min_pages and max_pages are provided,\nmin_pages must be less than or equal to max_pages."
 
   - name: GetReply_class
     type: enum
@@ -1207,29 +769,15 @@ $graph:
   - name: GetReply
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nGets a reply to a comment or suggestion thread on a design.\nFor information on comments and how they're used in the Canva UI, see the\n[Canva Help Center](https://www.canva.com/help/comments/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetReply_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: threadId
-        type: string
-        doc: "The ID of the thread."
-      - name: replyId
-        type: string
-        doc: "The ID of the reply."
 
   - name: GetSigningPublicKeys_class
     type: enum
@@ -1239,14 +787,9 @@ $graph:
   - name: GetSigningPublicKeys
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nThe Keys API (`connect/keys`) is a security measure you can use to verify the authenticity\nof webhooks you receive from the Canva REST APIs. The Keys API returns a\n[JSON Web Key (JWK)](https://www.rfc-editor.org/rfc/rfc7517#section-2), which you can use to\ndecrypt the webhook signature and verify it came from Canva and not a potentially malicious\nactor. This helps to protect your systems from\n[Replay attacks](https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/).\n\nThe keys returned by the Keys API can rotate. We recommend you cache the keys you receive\nfrom this API where possible, and only access this API when you receive a webhook signed\nwith an unrecognized key. This allows you to verify webhooks quicker than accessing this API\nevery time you receive a webhook."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetSigningPublicKeys_class"
@@ -1262,26 +805,15 @@ $graph:
   - name: GetThread
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nGets a comment or suggestion thread on a design.\nTo retrieve a reply to a comment thread, use the [Get reply](https://www.canva.dev/docs/apps/rest-apis/reference/comments/get-reply/) API.\nFor information on comments and how they're used in the Canva UI, see the\n[Canva Help Center](https://www.canva.com/help/comments/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetThread_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: threadId
-        type: string
-        doc: "The ID of the thread."
 
   - name: GetUrlAssetUploadJob_class
     type: enum
@@ -1291,23 +823,15 @@ $graph:
   - name: GetUrlAssetUploadJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nGet the result of an asset upload job that was created using the [Create asset upload job via URL API](https://www.canva.dev/docs/apps/rest-apis/reference/assets/create-url-asset-upload-job/).\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUrlAssetUploadJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The asset upload job ID."
 
   - name: GetUrlImportJob_class
     type: enum
@@ -1317,23 +841,15 @@ $graph:
   - name: GetUrlImportJob
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the result of a URL import job created using the [Create URL import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/create-url-import-job/).\n\nYou might need to make multiple requests to this endpoint until you get a `success` or `failed` status. For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUrlImportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: jobId
-        type: string
-        doc: "The ID of the URL import job."
 
   - name: GetUserCapabilities_class
     type: enum
@@ -1343,14 +859,9 @@ $graph:
   - name: GetUserCapabilities
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists the API capabilities for the user account associated with the provided access token. For more information, see [Capabilities](https://www.canva.dev/docs/apps/rest-apis/capabilities/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUserCapabilities_class"
@@ -1366,14 +877,9 @@ $graph:
   - name: GetUserProfile
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Currently, this returns the display name of the user account associated with the provided access token. More user information is expected to be included in the future."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUserProfile_class"
@@ -1381,24 +887,20 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
-  - name: IntrospectTokenWithFormdataBody_class
+  - name: IntrospectToken_class
     type: enum
     inVocab: false
-    symbols: ["canva:IntrospectTokenWithFormdataBody"]
+    symbols: ["canva:IntrospectToken"]
 
-  - name: IntrospectTokenWithFormdataBody
+  - name: IntrospectToken
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Introspect an access token to see whether it is valid and active. You can also verify some token properties, such as its claims, scopes, and validity times.\n\nRequests to this endpoint require authentication with your client ID and client secret, using _one_ of the following methods:\n\n- **Basic access authentication** (Recommended): For [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), the `{credentials}` string must be a Base64 encoded value of `{client id}:{client secret}`.\n- **Body parameters**: Provide your app's credentials using the `client_id` and `client_secret` body parameters.\n\nThis endpoint can't be called from a user's web-browser client because it uses client authentication with client secrets. Requests must come from your app's backend, otherwise they'll be blocked by Canva's [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy."
     fields:
       - name: class
-        type: "#IntrospectTokenWithFormdataBody_class"
+        type: "#IntrospectToken_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -1411,38 +913,15 @@ $graph:
   - name: ListBrandTemplates
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "AVAILABILITY: To use this API, your app must act on behalf of a user that's on a Canva plan with access to brand templates (such as Canva Pro, Canva Teams, or Canva Enterprise).\n\nGet a list of the [brand templates](https://www.canva.com/help/publish-team-template/) the user has access to."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListBrandTemplates_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: query
-        type: ["null", "string"]
-        doc: "Lets you search the brand templates available to the user using a search term or terms."
-      - name: continuation
-        type: ["null", "string"]
-        doc: "If the success response contains a continuation token, the user has access to more\nbrand templates you can list. You can use this token as a query parameter and retrieve\nmore templates from the list, for example\n`/v1/brand-templates?continuation={continuation}`.\nTo retrieve all the brand templates available to the user, you might need to make\nmultiple requests."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The number of brand templates to return."
-      - name: ownership
-        type: ["null", "string"]
-        doc: "Filter the list of brand templates based on the user's ownership of the brand templates."
-      - name: sort_by
-        type: ["null", "string"]
-        doc: "Sort the list of brand templates."
-      - name: dataset
-        type: ["null", "string"]
-        doc: "Filter the list of brand templates based on the brand templates' dataset definitions.\nBrand templates with dataset definitions are mainly used with the [Autofill APIs](https://www.canva.dev/docs/apps/rest-apis/reference/autofills/)."
 
   - name: ListDesigns_class
     type: enum
@@ -1452,35 +931,15 @@ $graph:
   - name: ListDesigns
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists metadata for all the designs in a Canva user's\n[projects](https://www.canva.com/help/find-designs-and-folders/). You can also:\n\n- Use search terms to filter the listed designs.\n- Show designs either created by, or shared with the user.\n- Sort the results."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListDesigns_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: query
-        type: ["null", "string"]
-        doc: "Lets you search the user's designs, and designs shared with the user, using a search term or terms."
-      - name: continuation
-        type: ["null", "string"]
-        doc: "If the success response contains a continuation token, the list contains more designs\nyou can list. You can use this token as a query parameter and retrieve more\ndesigns from the list, for example\n`/v1/designs?continuation={continuation}`.\n\nTo retrieve all of a user's designs, you might need to make multiple requests."
-      - name: ownership
-        type: ["null", "string"]
-        doc: "Filter the list of designs based on the user's ownership of the designs."
-      - name: sort_by
-        type: ["null", "string"]
-        doc: "Sort the list of designs."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The number of designs to return."
 
   - name: ListFolderItems_class
     type: enum
@@ -1490,37 +949,15 @@ $graph:
   - name: ListFolderItems
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists the items in a folder, including each item's `type`.\n\nFolders can contain:\n\n- Other folders.\n- Designs, such as Instagram posts, Presentations, and Documents ([Canva Docs](https://www.canva.com/create/documents/)).\n- Image assets.\n- Brand templates. To include `brand_template` items in the response, you must explicitly specify it in the `item_types` parameter.\n\n  AVAILABILITY: Brand template items are only returned for users on a Canva plan with access to brand templates (such as Canva Pro, Canva Teams, or Canva Enterprise). For more information, see [Brand templates](https://www.canva.dev/docs/apps/rest-apis/reference/brand-templates/).\n\nCurrently, video assets are not returned in the response."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListFolderItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folderId
-        type: string
-        doc: "The folder ID."
-      - name: continuation
-        type: ["null", "string"]
-        doc: "If the success response contains a continuation token, the folder contains more items\nyou can list. You can use this token as a query parameter and retrieve more\nitems from the list, for example\n`/v1/folders/{folderId}/items?continuation={continuation}`.\n\nTo retrieve all the items in a folder, you might need to make multiple requests."
-      - name: limit
-        type: ["null", "int"]
-      - name: item_types
-        type: ["null", "Any"]
-        doc: "Filter the folder items to only return specified types. The available types are:\n`design`, `folder`, `image`, and `brand_template`. To filter for more than one item type,\nprovide a comma-delimited list.\n\nIf not specified, defaults to returning `design`, `folder`, and `image` items.\nTo include `brand_template` items, you must explicitly specify it in this parameter."
-      - name: sort_by
-        type: ["null", "string"]
-        doc: "Sort the list of folder items."
-      - name: pin_status
-        type: ["null", "string"]
-        doc: "Filter the folder items by their pinned status."
 
   - name: ListReplies_class
     type: enum
@@ -1530,31 +967,15 @@ $graph:
   - name: ListReplies
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\nThis API is currently provided as a preview. Be aware of the following:\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n</Warning>\n\nRetrieves a list of replies for a comment or suggestion thread on a design.\n\nFor information on comments and how they're used in the Canva UI, see the\n[Canva Help Center](https://www.canva.com/help/comments/)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListReplies_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: designId
-        type: string
-        doc: "The design ID."
-      - name: threadId
-        type: string
-        doc: "The ID of the thread."
-      - name: limit
-        type: ["null", "int"]
-      - name: continuation
-        type: ["null", "string"]
-        doc: "If the success response contains a continuation token, the list contains more items you can list. You can use this token as a query parameter and retrieve more items from the list, for example `?continuation={continuation}`.\n\nTo retrieve all items, you might need to make multiple requests."
 
   - name: MoveFolderItem_class
     type: enum
@@ -1564,26 +985,15 @@ $graph:
   - name: MoveFolderItem
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Moves an item to another folder. You must specify the folder ID of the destination folder, as well as the ID of the item you want to move.\n\nNOTE: In some situations, a single item can exist in multiple folders. If you attempt to move an item that exists in multiple folders, the API returns an `item_in_multiple_folders` error. In this case, you must use the Canva UI to move the item to another folder."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#MoveFolderItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: item_id
-        type: string
-        doc: "The ID of the item you want to move. Currently, video assets are not supported."
-      - name: to_folder_id
-        type: string
-        doc: "The ID of the folder you want to move the item to (the destination folder).\nIf you want to move the item to the top level of a Canva user's\n[projects](https://www.canva.com/help/find-designs-and-folders/), use the ID `root`."
 
   - name: PublishBrandTemplate_class
     type: enum
@@ -1593,42 +1003,30 @@ $graph:
   - name: PublishBrandTemplate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "<Warning>\n\nThis API is currently provided as a preview. Be aware of the following:\n\n- There might be unannounced breaking changes.\n- Any breaking changes to preview APIs won't produce a new [API version](https://www.canva.dev/docs/apps/rest-apis/versions/).\n- Public apps that use preview APIs will not pass the review process, and can't be made available to all Canva users.\n\n</Warning>\n\nAVAILABILITY: To use this API, your app must act on behalf of a user that's on a Canva plan with access to brand templates (such as Canva Pro, Canva Teams, or Canva Enterprise). Additionally, the user must have one of the following [roles](https://www.canva.com/help/roles-and-permissions/): Team admin, Brand designer, Organization admin, or Organization designer.\n\nPublishes a design as a [brand template](https://www.canva.com/help/publish-team-template/). Brand templates are design templates that can be shared across a team for consistent content creation.\n\nThis API supports two workflows:\n\n- **Initial publish**: If the design is not linked to an existing brand template, a new brand template is created.\n- **Republish**: If the design is a draft of an existing brand template (created by editing an existing template), the existing template is updated with the changes.\n\nThe API returns the published brand template immediately.\n\n<Note>\nThe `thumbnail` field might be `null` immediately after publishing, as thumbnails are generated asynchronously. You can use the [Get brand template API](https://www.canva.dev/docs/apps/rest-apis/reference/brand-templates/get-brand-template/) to retrieve the thumbnail once it's ready. The brand template's `view_url` and `create_url` are available immediately.\n</Note>"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PublishBrandTemplate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: design_id
-        type: string
-        doc: "The ID of the design to publish as a brand template. If this design is a draft of an existing brand template, that template will be updated. Otherwise, a new brand template is created."
 
-  - name: RevokeTokensWithFormdataBody_class
+  - name: RevokeTokens_class
     type: enum
     inVocab: false
-    symbols: ["canva:RevokeTokensWithFormdataBody"]
+    symbols: ["canva:RevokeTokens"]
 
-  - name: RevokeTokensWithFormdataBody
+  - name: RevokeTokens
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Revoke an access token or a refresh token.\n\nIf you revoke a _refresh token_, be aware that:\n\n- The refresh token's lineage is also revoked. This means that access tokens created from that refresh token are also revoked.\n- The user's consent for your app is also revoked. This means that the user must go through the OAuth process again to use your app.\n\nRequests to this endpoint require authentication with your client ID and client secret, using _one_ of the following methods:\n\n- **Basic access authentication** (Recommended): For [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), the `{credentials}` string must be a Base64 encoded value of `{client id}:{client secret}`.\n- **Body parameters**: Provide your app's credentials using the `client_id` and `client_secret` body parameters.\n\nThis endpoint can't be called from a user's web-browser client because it uses client authentication with client secrets. Requests must come from your app's backend, otherwise they'll be blocked by Canva's [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy."
     fields:
       - name: class
-        type: "#RevokeTokensWithFormdataBody_class"
+        type: "#RevokeTokens_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -1641,29 +1039,15 @@ $graph:
   - name: UpdateAsset
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "You can update the name and tags of an asset by specifying its `assetId`. Updating the tags\nreplaces all existing tags of the asset."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UpdateAsset_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: assetId
-        type: string
-        doc: "The ID of the asset."
-      - name: name
-        type: ["null", "string"]
-        doc: "The name of the asset. This is shown in the Canva UI.\nWhen this field is undefined or empty, nothing is updated."
-      - name: tags
-        type: ["null", "Any"]
-        doc: "The replacement tags for the asset.\nWhen this field is undefined, nothing is updated."
 
   - name: UpdateFolder_class
     type: enum
@@ -1673,26 +1057,15 @@ $graph:
   - name: UpdateFolder
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Updates a folder's details using its `folderID`.\nCurrently, you can only update a folder's name."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UpdateFolder_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folderId
-        type: string
-        doc: "The folder ID."
-      - name: name
-        type: string
-        doc: "The folder name, as shown in the Canva UI."
 
   - name: UserInfo_class
     type: enum
@@ -1702,14 +1075,9 @@ $graph:
   - name: UserInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Fetches the current UserInfo claims for the authorized user. This is the same fields\nreturned by a id_token returns during authorization.\n\nThe claims returned depend on the granted scopes: `profile` claims (`name`, `given_name`,\n`family_name`) are only returned when the `profile` scope is granted, and `email` claims\n(`email`, `email_verified`) are only returned when the `email` scope is granted. The\n`openid` scope is always required."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UserInfo_class"
@@ -1725,14 +1093,9 @@ $graph:
   - name: UsersMe
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Returns the User ID and Team ID of the user\naccount associated with the provided access token."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersMe_class"

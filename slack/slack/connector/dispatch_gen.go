@@ -47,14 +47,14 @@ func (ic *InterfaceClient) dispatchAdminAppsApproveWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-apps-approve-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-apps-approve: %w", bodyErr)
 	}
 
 	var params client.AdminAppsApproveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-apps-approve-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-apps-approve: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminAppsApproveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -63,11 +63,11 @@ func (ic *InterfaceClient) dispatchAdminAppsApproveWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-apps-approve-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-apps-approve: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-apps-approve-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-apps-approve: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -126,14 +126,14 @@ func (ic *InterfaceClient) dispatchAdminAppsRestrictWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-apps-restrict-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-apps-restrict: %w", bodyErr)
 	}
 
 	var params client.AdminAppsRestrictParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-apps-restrict-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-apps-restrict: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminAppsRestrictWithFormdataBodyWithResponse(ctx, &params, body)
@@ -142,11 +142,11 @@ func (ic *InterfaceClient) dispatchAdminAppsRestrictWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-apps-restrict-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-apps-restrict: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-apps-restrict-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-apps-restrict: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -181,14 +181,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsArchiveWithFormdataBodyWith
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-archive-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-archive: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsArchiveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-archive-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-archive: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsArchiveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -197,11 +197,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsArchiveWithFormdataBodyWith
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-archive-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-archive: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-archive-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-archive: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -212,14 +212,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsConvertToPrivateWithFormdat
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsConvertToPrivateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsConvertToPrivateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -228,11 +228,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsConvertToPrivateWithFormdat
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-convert-to-private: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -243,14 +243,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsCreateWithFormdataBodyWithR
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-create-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-create: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsCreateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-create-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-create: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsCreateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -259,11 +259,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsCreateWithFormdataBodyWithR
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-create-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-create: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-create-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-create: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -274,14 +274,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsDeleteWithFormdataBodyWithR
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-delete-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-delete: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsDeleteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-delete-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-delete: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsDeleteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -290,11 +290,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsDeleteWithFormdataBodyWithR
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-delete-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-delete: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-delete-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-delete: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -305,14 +305,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsDisconnectSharedWithFormdat
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsDisconnectSharedParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsDisconnectSharedWithFormdataBodyWithResponse(ctx, &params, body)
@@ -321,11 +321,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsDisconnectSharedWithFormdat
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-disconnect-shared: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -408,14 +408,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsInviteWithFormdataBodyWithR
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-invite-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-invite: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsInviteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-invite-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-invite: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsInviteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -424,11 +424,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsInviteWithFormdataBodyWithR
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-invite-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-invite: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-invite-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-invite: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -439,14 +439,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsRenameWithFormdataBodyWithR
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-rename-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-rename: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsRenameParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-rename-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-rename: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsRenameWithFormdataBodyWithResponse(ctx, &params, body)
@@ -455,11 +455,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsRenameWithFormdataBodyWithR
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-rename-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-rename: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-rename-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-rename: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -470,7 +470,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessAddGroupWithF
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-add-group-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-add-group: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsRestrictAccessAddGroupWithFormdataBodyWithResponse(ctx, body)
@@ -479,11 +479,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessAddGroupWithF
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-add-group-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-add-group: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-add-group-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-add-group: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -518,7 +518,7 @@ func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessRemoveGroupWi
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-remove-group-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-remove-group: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsRestrictAccessRemoveGroupWithFormdataBodyWithResponse(ctx, body)
@@ -527,11 +527,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsRestrictAccessRemoveGroupWi
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-remove-group-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-remove-group: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-remove-group-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-restrict-access-remove-group: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -566,14 +566,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsSetConversationPrefsWithFor
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsSetConversationPrefsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsSetConversationPrefsWithFormdataBodyWithResponse(ctx, &params, body)
@@ -582,11 +582,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsSetConversationPrefsWithFor
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-set-conversation-prefs: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -597,14 +597,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsSetTeamsWithFormdataBodyWit
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-set-teams-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-set-teams: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsSetTeamsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-set-teams-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-set-teams: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsSetTeamsWithFormdataBodyWithResponse(ctx, &params, body)
@@ -613,11 +613,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsSetTeamsWithFormdataBodyWit
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-set-teams-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-set-teams: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-set-teams-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-set-teams: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -628,14 +628,14 @@ func (ic *InterfaceClient) dispatchAdminConversationsUnarchiveWithFormdataBodyWi
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-unarchive-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-conversations-unarchive: %w", bodyErr)
 	}
 
 	var params client.AdminConversationsUnarchiveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-conversations-unarchive-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-conversations-unarchive: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminConversationsUnarchiveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -644,35 +644,11 @@ func (ic *InterfaceClient) dispatchAdminConversationsUnarchiveWithFormdataBodyWi
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-conversations-unarchive-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-conversations-unarchive: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-conversations-unarchive-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
-	}
-
-	return json.RawMessage(resp.Body), nil
-}
-
-func (ic *InterfaceClient) dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var body client.AdminEmojiAddAliasFormdataRequestBody
-
-	bodyErr := json.Unmarshal(inputs, &body)
-	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-emoji-add-alias-with-formdata-body: %w", bodyErr)
-	}
-
-	resp, callErr := ic.cl.AdminEmojiAddAliasWithFormdataBodyWithResponse(ctx, body)
-	if callErr != nil {
-		return nil, callErr
-	}
-
-	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-emoji-add-alias-with-formdata-body: nil response")
-	}
-
-	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-emoji-add-alias-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-conversations-unarchive: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -683,7 +659,7 @@ func (ic *InterfaceClient) dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-emoji-add-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-emoji-add: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.AdminEmojiAddWithFormdataBodyWithResponse(ctx, body)
@@ -692,11 +668,35 @@ func (ic *InterfaceClient) dispatchAdminEmojiAddWithFormdataBodyWithResponse(ctx
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-emoji-add-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-emoji-add: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-emoji-add-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-emoji-add: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchAdminEmojiAddAliasWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var body client.AdminEmojiAddAliasFormdataRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("slack.admin-emoji-add-alias: %w", bodyErr)
+	}
+
+	resp, callErr := ic.cl.AdminEmojiAddAliasWithFormdataBodyWithResponse(ctx, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("slack.admin-emoji-add-alias: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("slack.admin-emoji-add-alias: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -731,7 +731,7 @@ func (ic *InterfaceClient) dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-emoji-remove-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-emoji-remove: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.AdminEmojiRemoveWithFormdataBodyWithResponse(ctx, body)
@@ -740,11 +740,11 @@ func (ic *InterfaceClient) dispatchAdminEmojiRemoveWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-emoji-remove-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-emoji-remove: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-emoji-remove-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-emoji-remove: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -755,7 +755,7 @@ func (ic *InterfaceClient) dispatchAdminEmojiRenameWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-emoji-rename-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-emoji-rename: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.AdminEmojiRenameWithFormdataBodyWithResponse(ctx, body)
@@ -764,11 +764,11 @@ func (ic *InterfaceClient) dispatchAdminEmojiRenameWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-emoji-rename-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-emoji-rename: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-emoji-rename-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-emoji-rename: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -779,14 +779,14 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsApproveWithFormdataBodyWit
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-invite-requests-approve-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-invite-requests-approve: %w", bodyErr)
 	}
 
 	var params client.AdminInviteRequestsApproveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-invite-requests-approve-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-invite-requests-approve: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminInviteRequestsApproveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -795,11 +795,11 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsApproveWithFormdataBodyWit
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-invite-requests-approve-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-invite-requests-approve: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-invite-requests-approve-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-invite-requests-approve: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -858,14 +858,14 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsDenyWithFormdataBodyWithRe
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-invite-requests-deny-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-invite-requests-deny: %w", bodyErr)
 	}
 
 	var params client.AdminInviteRequestsDenyParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-invite-requests-deny-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-invite-requests-deny: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminInviteRequestsDenyWithFormdataBodyWithResponse(ctx, &params, body)
@@ -874,11 +874,11 @@ func (ic *InterfaceClient) dispatchAdminInviteRequestsDenyWithFormdataBodyWithRe
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-invite-requests-deny-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-invite-requests-deny: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-invite-requests-deny-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-invite-requests-deny: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -937,14 +937,14 @@ func (ic *InterfaceClient) dispatchAdminTeamsCreateWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-create-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-teams-create: %w", bodyErr)
 	}
 
 	var params client.AdminTeamsCreateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-create-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-teams-create: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminTeamsCreateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -953,11 +953,11 @@ func (ic *InterfaceClient) dispatchAdminTeamsCreateWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-teams-create-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-teams-create: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-teams-create-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-teams-create: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1040,7 +1040,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDefaultChannelsWithFormd
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-default-channels-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-default-channels: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.AdminTeamsSettingsSetDefaultChannelsWithFormdataBodyWithResponse(ctx, body)
@@ -1049,11 +1049,11 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDefaultChannelsWithFormd
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-default-channels-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-default-channels: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-default-channels-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-default-channels: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1064,14 +1064,14 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDescriptionWithFormdataB
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-description-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-description: %w", bodyErr)
 	}
 
 	var params client.AdminTeamsSettingsSetDescriptionParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-description-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-description: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminTeamsSettingsSetDescriptionWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1080,11 +1080,11 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDescriptionWithFormdataB
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-description-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-description: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-description-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-description: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1095,14 +1095,14 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDiscoverabilityWithFormd
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability: %w", bodyErr)
 	}
 
 	var params client.AdminTeamsSettingsSetDiscoverabilityParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminTeamsSettingsSetDiscoverabilityWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1111,11 +1111,11 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetDiscoverabilityWithFormd
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-discoverability: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1126,7 +1126,7 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetIconWithFormdataBodyWith
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-icon-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-icon: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.AdminTeamsSettingsSetIconWithFormdataBodyWithResponse(ctx, body)
@@ -1135,11 +1135,11 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetIconWithFormdataBodyWith
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-icon-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-icon: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-icon-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-icon: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1150,14 +1150,14 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetNameWithFormdataBodyWith
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-name-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-name: %w", bodyErr)
 	}
 
 	var params client.AdminTeamsSettingsSetNameParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-name-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-name: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminTeamsSettingsSetNameWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1166,11 +1166,11 @@ func (ic *InterfaceClient) dispatchAdminTeamsSettingsSetNameWithFormdataBodyWith
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-name-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-name: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-teams-settings-set-name-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-teams-settings-set-name: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1181,14 +1181,14 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsAddChannelsWithFormdataBodyWit
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-add-channels-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-usergroups-add-channels: %w", bodyErr)
 	}
 
 	var params client.AdminUsergroupsAddChannelsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-add-channels-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-usergroups-add-channels: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsergroupsAddChannelsWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1197,11 +1197,11 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsAddChannelsWithFormdataBodyWit
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-add-channels-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-usergroups-add-channels: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-usergroups-add-channels-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-usergroups-add-channels: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1212,14 +1212,14 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithRe
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-add-teams-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-usergroups-add-teams: %w", bodyErr)
 	}
 
 	var params client.AdminUsergroupsAddTeamsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-add-teams-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-usergroups-add-teams: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsergroupsAddTeamsWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1228,11 +1228,11 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsAddTeamsWithFormdataBodyWithRe
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-add-teams-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-usergroups-add-teams: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-usergroups-add-teams-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-usergroups-add-teams: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1267,14 +1267,14 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsRemoveChannelsWithFormdataBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels: %w", bodyErr)
 	}
 
 	var params client.AdminUsergroupsRemoveChannelsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsergroupsRemoveChannelsWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1283,11 +1283,11 @@ func (ic *InterfaceClient) dispatchAdminUsergroupsRemoveChannelsWithFormdataBody
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-usergroups-remove-channels: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1298,14 +1298,14 @@ func (ic *InterfaceClient) dispatchAdminUsersAssignWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-assign-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-assign: %w", bodyErr)
 	}
 
 	var params client.AdminUsersAssignParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-assign-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-assign: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersAssignWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1314,11 +1314,11 @@ func (ic *InterfaceClient) dispatchAdminUsersAssignWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-assign-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-assign: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-assign-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-assign: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1329,14 +1329,14 @@ func (ic *InterfaceClient) dispatchAdminUsersInviteWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-invite-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-invite: %w", bodyErr)
 	}
 
 	var params client.AdminUsersInviteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-invite-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-invite: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersInviteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1345,11 +1345,11 @@ func (ic *InterfaceClient) dispatchAdminUsersInviteWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-invite-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-invite: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-invite-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-invite: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1384,14 +1384,14 @@ func (ic *InterfaceClient) dispatchAdminUsersRemoveWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-remove-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-remove: %w", bodyErr)
 	}
 
 	var params client.AdminUsersRemoveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-remove-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-remove: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersRemoveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1400,11 +1400,11 @@ func (ic *InterfaceClient) dispatchAdminUsersRemoveWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-remove-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-remove: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-remove-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-remove: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1415,14 +1415,14 @@ func (ic *InterfaceClient) dispatchAdminUsersSessionInvalidateWithFormdataBodyWi
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-session-invalidate-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-session-invalidate: %w", bodyErr)
 	}
 
 	var params client.AdminUsersSessionInvalidateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-session-invalidate-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-session-invalidate: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersSessionInvalidateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1431,11 +1431,11 @@ func (ic *InterfaceClient) dispatchAdminUsersSessionInvalidateWithFormdataBodyWi
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-session-invalidate-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-session-invalidate: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-session-invalidate-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-session-invalidate: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1446,14 +1446,14 @@ func (ic *InterfaceClient) dispatchAdminUsersSessionResetWithFormdataBodyWithRes
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-session-reset-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-session-reset: %w", bodyErr)
 	}
 
 	var params client.AdminUsersSessionResetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-session-reset-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-session-reset: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersSessionResetWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1462,11 +1462,11 @@ func (ic *InterfaceClient) dispatchAdminUsersSessionResetWithFormdataBodyWithRes
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-session-reset-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-session-reset: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-session-reset-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-session-reset: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1477,14 +1477,14 @@ func (ic *InterfaceClient) dispatchAdminUsersSetAdminWithFormdataBodyWithRespons
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-set-admin-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-set-admin: %w", bodyErr)
 	}
 
 	var params client.AdminUsersSetAdminParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-set-admin-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-set-admin: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersSetAdminWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1493,11 +1493,11 @@ func (ic *InterfaceClient) dispatchAdminUsersSetAdminWithFormdataBodyWithRespons
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-set-admin-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-set-admin: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-set-admin-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-set-admin: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1508,14 +1508,14 @@ func (ic *InterfaceClient) dispatchAdminUsersSetExpirationWithFormdataBodyWithRe
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-set-expiration-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-set-expiration: %w", bodyErr)
 	}
 
 	var params client.AdminUsersSetExpirationParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-set-expiration-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-set-expiration: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersSetExpirationWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1524,11 +1524,11 @@ func (ic *InterfaceClient) dispatchAdminUsersSetExpirationWithFormdataBodyWithRe
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-set-expiration-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-set-expiration: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-set-expiration-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-set-expiration: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1539,14 +1539,14 @@ func (ic *InterfaceClient) dispatchAdminUsersSetOwnerWithFormdataBodyWithRespons
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-set-owner-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-set-owner: %w", bodyErr)
 	}
 
 	var params client.AdminUsersSetOwnerParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-set-owner-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-set-owner: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersSetOwnerWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1555,11 +1555,11 @@ func (ic *InterfaceClient) dispatchAdminUsersSetOwnerWithFormdataBodyWithRespons
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-set-owner-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-set-owner: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-set-owner-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-set-owner: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1570,14 +1570,14 @@ func (ic *InterfaceClient) dispatchAdminUsersSetRegularWithFormdataBodyWithRespo
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-set-regular-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.admin-users-set-regular: %w", bodyErr)
 	}
 
 	var params client.AdminUsersSetRegularParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.admin-users-set-regular-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.admin-users-set-regular: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.AdminUsersSetRegularWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1586,11 +1586,11 @@ func (ic *InterfaceClient) dispatchAdminUsersSetRegularWithFormdataBodyWithRespo
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.admin-users-set-regular-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.admin-users-set-regular: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.admin-users-set-regular-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.admin-users-set-regular: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1889,14 +1889,14 @@ func (ic *InterfaceClient) dispatchCallsAddWithFormdataBodyWithResponse(ctx cont
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.calls-add-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.calls-add: %w", bodyErr)
 	}
 
 	var params client.CallsAddParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.calls-add-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.calls-add: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.CallsAddWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1905,11 +1905,11 @@ func (ic *InterfaceClient) dispatchCallsAddWithFormdataBodyWithResponse(ctx cont
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.calls-add-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.calls-add: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.calls-add-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.calls-add: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1920,14 +1920,14 @@ func (ic *InterfaceClient) dispatchCallsEndWithFormdataBodyWithResponse(ctx cont
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.calls-end-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.calls-end: %w", bodyErr)
 	}
 
 	var params client.CallsEndParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.calls-end-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.calls-end: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.CallsEndWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1936,11 +1936,11 @@ func (ic *InterfaceClient) dispatchCallsEndWithFormdataBodyWithResponse(ctx cont
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.calls-end-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.calls-end: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.calls-end-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.calls-end: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1975,14 +1975,14 @@ func (ic *InterfaceClient) dispatchCallsParticipantsAddWithFormdataBodyWithRespo
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.calls-participants-add-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.calls-participants-add: %w", bodyErr)
 	}
 
 	var params client.CallsParticipantsAddParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.calls-participants-add-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.calls-participants-add: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.CallsParticipantsAddWithFormdataBodyWithResponse(ctx, &params, body)
@@ -1991,11 +1991,11 @@ func (ic *InterfaceClient) dispatchCallsParticipantsAddWithFormdataBodyWithRespo
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.calls-participants-add-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.calls-participants-add: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.calls-participants-add-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.calls-participants-add: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2006,14 +2006,14 @@ func (ic *InterfaceClient) dispatchCallsParticipantsRemoveWithFormdataBodyWithRe
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.calls-participants-remove-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.calls-participants-remove: %w", bodyErr)
 	}
 
 	var params client.CallsParticipantsRemoveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.calls-participants-remove-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.calls-participants-remove: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.CallsParticipantsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2022,11 +2022,11 @@ func (ic *InterfaceClient) dispatchCallsParticipantsRemoveWithFormdataBodyWithRe
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.calls-participants-remove-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.calls-participants-remove: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.calls-participants-remove-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.calls-participants-remove: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2037,14 +2037,14 @@ func (ic *InterfaceClient) dispatchCallsUpdateWithFormdataBodyWithResponse(ctx c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.calls-update-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.calls-update: %w", bodyErr)
 	}
 
 	var params client.CallsUpdateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.calls-update-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.calls-update: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.CallsUpdateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2053,42 +2053,11 @@ func (ic *InterfaceClient) dispatchCallsUpdateWithFormdataBodyWithResponse(ctx c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.calls-update-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.calls-update: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.calls-update-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
-	}
-
-	return json.RawMessage(resp.Body), nil
-}
-
-func (ic *InterfaceClient) dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
-	var body client.ChatDeleteScheduledMessageFormdataRequestBody
-
-	bodyErr := json.Unmarshal(inputs, &body)
-	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.chat-delete-scheduled-message-with-formdata-body: %w", bodyErr)
-	}
-
-	var params client.ChatDeleteScheduledMessageParams
-
-	paramsErr := json.Unmarshal(inputs, &params)
-	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.chat-delete-scheduled-message-with-formdata-body: params: %w", paramsErr)
-	}
-
-	resp, callErr := ic.cl.ChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx, &params, body)
-	if callErr != nil {
-		return nil, callErr
-	}
-
-	if resp == nil {
-		return nil, fmt.Errorf("slack.chat-delete-scheduled-message-with-formdata-body: nil response")
-	}
-
-	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.chat-delete-scheduled-message-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.calls-update: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2099,14 +2068,14 @@ func (ic *InterfaceClient) dispatchChatDeleteWithFormdataBodyWithResponse(ctx co
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.chat-delete-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.chat-delete: %w", bodyErr)
 	}
 
 	var params client.ChatDeleteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.chat-delete-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.chat-delete: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ChatDeleteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2115,11 +2084,42 @@ func (ic *InterfaceClient) dispatchChatDeleteWithFormdataBodyWithResponse(ctx co
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.chat-delete-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.chat-delete: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.chat-delete-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.chat-delete: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var body client.ChatDeleteScheduledMessageFormdataRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("slack.chat-delete-scheduled-message: %w", bodyErr)
+	}
+
+	var params client.ChatDeleteScheduledMessageParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("slack.chat-delete-scheduled-message: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.ChatDeleteScheduledMessageWithFormdataBodyWithResponse(ctx, &params, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("slack.chat-delete-scheduled-message: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("slack.chat-delete-scheduled-message: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2154,14 +2154,14 @@ func (ic *InterfaceClient) dispatchChatMeMessageWithFormdataBodyWithResponse(ctx
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.chat-me-message-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.chat-me-message: %w", bodyErr)
 	}
 
 	var params client.ChatMeMessageParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.chat-me-message-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.chat-me-message: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ChatMeMessageWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2170,11 +2170,11 @@ func (ic *InterfaceClient) dispatchChatMeMessageWithFormdataBodyWithResponse(ctx
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.chat-me-message-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.chat-me-message: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.chat-me-message-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.chat-me-message: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2185,14 +2185,14 @@ func (ic *InterfaceClient) dispatchChatPostEphemeralWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.chat-post-ephemeral-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.chat-post-ephemeral: %w", bodyErr)
 	}
 
 	var params client.ChatPostEphemeralParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.chat-post-ephemeral-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.chat-post-ephemeral: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ChatPostEphemeralWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2201,11 +2201,11 @@ func (ic *InterfaceClient) dispatchChatPostEphemeralWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.chat-post-ephemeral-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.chat-post-ephemeral: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.chat-post-ephemeral-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.chat-post-ephemeral: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2216,14 +2216,14 @@ func (ic *InterfaceClient) dispatchChatPostMessageWithFormdataBodyWithResponse(c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.chat-post-message-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.chat-post-message: %w", bodyErr)
 	}
 
 	var params client.ChatPostMessageParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.chat-post-message-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.chat-post-message: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ChatPostMessageWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2232,11 +2232,11 @@ func (ic *InterfaceClient) dispatchChatPostMessageWithFormdataBodyWithResponse(c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.chat-post-message-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.chat-post-message: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.chat-post-message-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.chat-post-message: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2247,14 +2247,14 @@ func (ic *InterfaceClient) dispatchChatScheduleMessageWithFormdataBodyWithRespon
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.chat-schedule-message-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.chat-schedule-message: %w", bodyErr)
 	}
 
 	var params client.ChatScheduleMessageParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.chat-schedule-message-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.chat-schedule-message: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ChatScheduleMessageWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2263,11 +2263,11 @@ func (ic *InterfaceClient) dispatchChatScheduleMessageWithFormdataBodyWithRespon
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.chat-schedule-message-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.chat-schedule-message: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.chat-schedule-message-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.chat-schedule-message: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2302,14 +2302,14 @@ func (ic *InterfaceClient) dispatchChatUnfurlWithFormdataBodyWithResponse(ctx co
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.chat-unfurl-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.chat-unfurl: %w", bodyErr)
 	}
 
 	var params client.ChatUnfurlParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.chat-unfurl-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.chat-unfurl: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ChatUnfurlWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2318,11 +2318,11 @@ func (ic *InterfaceClient) dispatchChatUnfurlWithFormdataBodyWithResponse(ctx co
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.chat-unfurl-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.chat-unfurl: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.chat-unfurl-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.chat-unfurl: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2333,14 +2333,14 @@ func (ic *InterfaceClient) dispatchChatUpdateWithFormdataBodyWithResponse(ctx co
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.chat-update-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.chat-update: %w", bodyErr)
 	}
 
 	var params client.ChatUpdateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.chat-update-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.chat-update: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ChatUpdateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2349,11 +2349,11 @@ func (ic *InterfaceClient) dispatchChatUpdateWithFormdataBodyWithResponse(ctx co
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.chat-update-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.chat-update: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.chat-update-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.chat-update: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2364,14 +2364,14 @@ func (ic *InterfaceClient) dispatchConversationsArchiveWithFormdataBodyWithRespo
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-archive-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-archive: %w", bodyErr)
 	}
 
 	var params client.ConversationsArchiveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-archive-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-archive: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsArchiveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2380,11 +2380,11 @@ func (ic *InterfaceClient) dispatchConversationsArchiveWithFormdataBodyWithRespo
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-archive-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-archive: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-archive-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-archive: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2395,14 +2395,14 @@ func (ic *InterfaceClient) dispatchConversationsCloseWithFormdataBodyWithRespons
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-close-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-close: %w", bodyErr)
 	}
 
 	var params client.ConversationsCloseParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-close-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-close: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsCloseWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2411,11 +2411,11 @@ func (ic *InterfaceClient) dispatchConversationsCloseWithFormdataBodyWithRespons
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-close-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-close: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-close-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-close: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2426,14 +2426,14 @@ func (ic *InterfaceClient) dispatchConversationsCreateWithFormdataBodyWithRespon
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-create-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-create: %w", bodyErr)
 	}
 
 	var params client.ConversationsCreateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-create-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-create: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsCreateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2442,11 +2442,11 @@ func (ic *InterfaceClient) dispatchConversationsCreateWithFormdataBodyWithRespon
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-create-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-create: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-create-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-create: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2505,14 +2505,14 @@ func (ic *InterfaceClient) dispatchConversationsInviteWithFormdataBodyWithRespon
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-invite-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-invite: %w", bodyErr)
 	}
 
 	var params client.ConversationsInviteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-invite-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-invite: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsInviteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2521,11 +2521,11 @@ func (ic *InterfaceClient) dispatchConversationsInviteWithFormdataBodyWithRespon
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-invite-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-invite: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-invite-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-invite: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2536,14 +2536,14 @@ func (ic *InterfaceClient) dispatchConversationsJoinWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-join-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-join: %w", bodyErr)
 	}
 
 	var params client.ConversationsJoinParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-join-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-join: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsJoinWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2552,11 +2552,11 @@ func (ic *InterfaceClient) dispatchConversationsJoinWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-join-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-join: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-join-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-join: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2567,14 +2567,14 @@ func (ic *InterfaceClient) dispatchConversationsKickWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-kick-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-kick: %w", bodyErr)
 	}
 
 	var params client.ConversationsKickParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-kick-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-kick: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsKickWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2583,11 +2583,11 @@ func (ic *InterfaceClient) dispatchConversationsKickWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-kick-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-kick: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-kick-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-kick: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2598,14 +2598,14 @@ func (ic *InterfaceClient) dispatchConversationsLeaveWithFormdataBodyWithRespons
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-leave-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-leave: %w", bodyErr)
 	}
 
 	var params client.ConversationsLeaveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-leave-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-leave: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsLeaveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2614,11 +2614,11 @@ func (ic *InterfaceClient) dispatchConversationsLeaveWithFormdataBodyWithRespons
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-leave-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-leave: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-leave-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-leave: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2653,14 +2653,14 @@ func (ic *InterfaceClient) dispatchConversationsMarkWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-mark-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-mark: %w", bodyErr)
 	}
 
 	var params client.ConversationsMarkParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-mark-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-mark: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsMarkWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2669,11 +2669,11 @@ func (ic *InterfaceClient) dispatchConversationsMarkWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-mark-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-mark: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-mark-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-mark: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2708,14 +2708,14 @@ func (ic *InterfaceClient) dispatchConversationsOpenWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-open-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-open: %w", bodyErr)
 	}
 
 	var params client.ConversationsOpenParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-open-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-open: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsOpenWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2724,11 +2724,11 @@ func (ic *InterfaceClient) dispatchConversationsOpenWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-open-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-open: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-open-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-open: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2739,14 +2739,14 @@ func (ic *InterfaceClient) dispatchConversationsRenameWithFormdataBodyWithRespon
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-rename-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-rename: %w", bodyErr)
 	}
 
 	var params client.ConversationsRenameParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-rename-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-rename: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsRenameWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2755,11 +2755,11 @@ func (ic *InterfaceClient) dispatchConversationsRenameWithFormdataBodyWithRespon
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-rename-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-rename: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-rename-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-rename: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2794,14 +2794,14 @@ func (ic *InterfaceClient) dispatchConversationsSetPurposeWithFormdataBodyWithRe
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-set-purpose-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-set-purpose: %w", bodyErr)
 	}
 
 	var params client.ConversationsSetPurposeParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-set-purpose-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-set-purpose: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsSetPurposeWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2810,11 +2810,11 @@ func (ic *InterfaceClient) dispatchConversationsSetPurposeWithFormdataBodyWithRe
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-set-purpose-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-set-purpose: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-set-purpose-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-set-purpose: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2825,14 +2825,14 @@ func (ic *InterfaceClient) dispatchConversationsSetTopicWithFormdataBodyWithResp
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-set-topic-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-set-topic: %w", bodyErr)
 	}
 
 	var params client.ConversationsSetTopicParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-set-topic-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-set-topic: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsSetTopicWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2841,11 +2841,11 @@ func (ic *InterfaceClient) dispatchConversationsSetTopicWithFormdataBodyWithResp
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-set-topic-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-set-topic: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-set-topic-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-set-topic: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2856,14 +2856,14 @@ func (ic *InterfaceClient) dispatchConversationsUnarchiveWithFormdataBodyWithRes
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.conversations-unarchive-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.conversations-unarchive: %w", bodyErr)
 	}
 
 	var params client.ConversationsUnarchiveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.conversations-unarchive-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.conversations-unarchive: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ConversationsUnarchiveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -2872,11 +2872,11 @@ func (ic *InterfaceClient) dispatchConversationsUnarchiveWithFormdataBodyWithRes
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.conversations-unarchive-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.conversations-unarchive: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.conversations-unarchive-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.conversations-unarchive: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2983,7 +2983,7 @@ func (ic *InterfaceClient) dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx 
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.dnd-set-snooze-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.dnd-set-snooze: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.DndSetSnoozeWithFormdataBodyWithResponse(ctx, body)
@@ -2992,11 +2992,11 @@ func (ic *InterfaceClient) dispatchDndSetSnoozeWithFormdataBodyWithResponse(ctx 
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.dnd-set-snooze-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.dnd-set-snooze: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.dnd-set-snooze-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.dnd-set-snooze: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3055,14 +3055,14 @@ func (ic *InterfaceClient) dispatchFilesCommentsDeleteWithFormdataBodyWithRespon
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.files-comments-delete-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.files-comments-delete: %w", bodyErr)
 	}
 
 	var params client.FilesCommentsDeleteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.files-comments-delete-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.files-comments-delete: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.FilesCommentsDeleteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3071,11 +3071,11 @@ func (ic *InterfaceClient) dispatchFilesCommentsDeleteWithFormdataBodyWithRespon
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.files-comments-delete-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.files-comments-delete: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.files-comments-delete-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.files-comments-delete: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3086,14 +3086,14 @@ func (ic *InterfaceClient) dispatchFilesDeleteWithFormdataBodyWithResponse(ctx c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.files-delete-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.files-delete: %w", bodyErr)
 	}
 
 	var params client.FilesDeleteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.files-delete-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.files-delete: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.FilesDeleteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3102,11 +3102,11 @@ func (ic *InterfaceClient) dispatchFilesDeleteWithFormdataBodyWithResponse(ctx c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.files-delete-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.files-delete: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.files-delete-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.files-delete: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3165,7 +3165,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteAddWithFormdataBodyWithResponse(ct
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.files-remote-add-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.files-remote-add: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.FilesRemoteAddWithFormdataBodyWithResponse(ctx, body)
@@ -3174,11 +3174,11 @@ func (ic *InterfaceClient) dispatchFilesRemoteAddWithFormdataBodyWithResponse(ct
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.files-remote-add-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.files-remote-add: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.files-remote-add-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.files-remote-add: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3237,7 +3237,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteRemoveWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.files-remote-remove-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.files-remote-remove: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.FilesRemoteRemoveWithFormdataBodyWithResponse(ctx, body)
@@ -3246,11 +3246,11 @@ func (ic *InterfaceClient) dispatchFilesRemoteRemoveWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.files-remote-remove-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.files-remote-remove: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.files-remote-remove-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.files-remote-remove: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3285,7 +3285,7 @@ func (ic *InterfaceClient) dispatchFilesRemoteUpdateWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.files-remote-update-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.files-remote-update: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.FilesRemoteUpdateWithFormdataBodyWithResponse(ctx, body)
@@ -3294,11 +3294,11 @@ func (ic *InterfaceClient) dispatchFilesRemoteUpdateWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.files-remote-update-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.files-remote-update: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.files-remote-update-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.files-remote-update: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3309,14 +3309,14 @@ func (ic *InterfaceClient) dispatchFilesRevokePublicURLWithFormdataBodyWithRespo
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l: %w", bodyErr)
 	}
 
 	var params client.FilesRevokePublicURLParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.FilesRevokePublicURLWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3325,11 +3325,11 @@ func (ic *InterfaceClient) dispatchFilesRevokePublicURLWithFormdataBodyWithRespo
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.files-revoke-public-u-r-l: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3340,14 +3340,14 @@ func (ic *InterfaceClient) dispatchFilesSharedPublicURLWithFormdataBodyWithRespo
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.files-shared-public-u-r-l-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.files-shared-public-u-r-l: %w", bodyErr)
 	}
 
 	var params client.FilesSharedPublicURLParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.files-shared-public-u-r-l-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.files-shared-public-u-r-l: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.FilesSharedPublicURLWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3356,11 +3356,11 @@ func (ic *InterfaceClient) dispatchFilesSharedPublicURLWithFormdataBodyWithRespo
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.files-shared-public-u-r-l-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.files-shared-public-u-r-l: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.files-shared-public-u-r-l-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.files-shared-public-u-r-l: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3371,7 +3371,7 @@ func (ic *InterfaceClient) dispatchFilesUploadWithFormdataBodyWithResponse(ctx c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.files-upload-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.files-upload: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.FilesUploadWithFormdataBodyWithResponse(ctx, body)
@@ -3380,11 +3380,11 @@ func (ic *InterfaceClient) dispatchFilesUploadWithFormdataBodyWithResponse(ctx c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.files-upload-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.files-upload: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.files-upload-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.files-upload: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3491,14 +3491,14 @@ func (ic *InterfaceClient) dispatchPinsAddWithFormdataBodyWithResponse(ctx conte
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.pins-add-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.pins-add: %w", bodyErr)
 	}
 
 	var params client.PinsAddParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.pins-add-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.pins-add: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.PinsAddWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3507,11 +3507,11 @@ func (ic *InterfaceClient) dispatchPinsAddWithFormdataBodyWithResponse(ctx conte
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.pins-add-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.pins-add: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.pins-add-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.pins-add: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3546,14 +3546,14 @@ func (ic *InterfaceClient) dispatchPinsRemoveWithFormdataBodyWithResponse(ctx co
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.pins-remove-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.pins-remove: %w", bodyErr)
 	}
 
 	var params client.PinsRemoveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.pins-remove-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.pins-remove: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.PinsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3562,11 +3562,11 @@ func (ic *InterfaceClient) dispatchPinsRemoveWithFormdataBodyWithResponse(ctx co
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.pins-remove-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.pins-remove: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.pins-remove-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.pins-remove: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3577,14 +3577,14 @@ func (ic *InterfaceClient) dispatchReactionsAddWithFormdataBodyWithResponse(ctx 
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.reactions-add-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.reactions-add: %w", bodyErr)
 	}
 
 	var params client.ReactionsAddParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.reactions-add-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.reactions-add: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ReactionsAddWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3593,11 +3593,11 @@ func (ic *InterfaceClient) dispatchReactionsAddWithFormdataBodyWithResponse(ctx 
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.reactions-add-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.reactions-add: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.reactions-add-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.reactions-add: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3656,14 +3656,14 @@ func (ic *InterfaceClient) dispatchReactionsRemoveWithFormdataBodyWithResponse(c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.reactions-remove-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.reactions-remove: %w", bodyErr)
 	}
 
 	var params client.ReactionsRemoveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.reactions-remove-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.reactions-remove: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.ReactionsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3672,11 +3672,11 @@ func (ic *InterfaceClient) dispatchReactionsRemoveWithFormdataBodyWithResponse(c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.reactions-remove-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.reactions-remove: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.reactions-remove-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.reactions-remove: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3687,14 +3687,14 @@ func (ic *InterfaceClient) dispatchRemindersAddWithFormdataBodyWithResponse(ctx 
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.reminders-add-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.reminders-add: %w", bodyErr)
 	}
 
 	var params client.RemindersAddParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.reminders-add-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.reminders-add: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.RemindersAddWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3703,11 +3703,11 @@ func (ic *InterfaceClient) dispatchRemindersAddWithFormdataBodyWithResponse(ctx 
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.reminders-add-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.reminders-add: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.reminders-add-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.reminders-add: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3718,14 +3718,14 @@ func (ic *InterfaceClient) dispatchRemindersCompleteWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.reminders-complete-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.reminders-complete: %w", bodyErr)
 	}
 
 	var params client.RemindersCompleteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.reminders-complete-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.reminders-complete: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.RemindersCompleteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3734,11 +3734,11 @@ func (ic *InterfaceClient) dispatchRemindersCompleteWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.reminders-complete-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.reminders-complete: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.reminders-complete-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.reminders-complete: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3749,14 +3749,14 @@ func (ic *InterfaceClient) dispatchRemindersDeleteWithFormdataBodyWithResponse(c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.reminders-delete-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.reminders-delete: %w", bodyErr)
 	}
 
 	var params client.RemindersDeleteParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.reminders-delete-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.reminders-delete: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.RemindersDeleteWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3765,11 +3765,11 @@ func (ic *InterfaceClient) dispatchRemindersDeleteWithFormdataBodyWithResponse(c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.reminders-delete-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.reminders-delete: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.reminders-delete-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.reminders-delete: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3876,14 +3876,14 @@ func (ic *InterfaceClient) dispatchStarsAddWithFormdataBodyWithResponse(ctx cont
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.stars-add-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.stars-add: %w", bodyErr)
 	}
 
 	var params client.StarsAddParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.stars-add-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.stars-add: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.StarsAddWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3892,11 +3892,11 @@ func (ic *InterfaceClient) dispatchStarsAddWithFormdataBodyWithResponse(ctx cont
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.stars-add-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.stars-add: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.stars-add-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.stars-add: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3931,14 +3931,14 @@ func (ic *InterfaceClient) dispatchStarsRemoveWithFormdataBodyWithResponse(ctx c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.stars-remove-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.stars-remove: %w", bodyErr)
 	}
 
 	var params client.StarsRemoveParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.stars-remove-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.stars-remove: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.StarsRemoveWithFormdataBodyWithResponse(ctx, &params, body)
@@ -3947,11 +3947,11 @@ func (ic *InterfaceClient) dispatchStarsRemoveWithFormdataBodyWithResponse(ctx c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.stars-remove-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.stars-remove: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.stars-remove-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.stars-remove: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4082,14 +4082,14 @@ func (ic *InterfaceClient) dispatchUsergroupsCreateWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-create-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.usergroups-create: %w", bodyErr)
 	}
 
 	var params client.UsergroupsCreateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-create-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.usergroups-create: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.UsergroupsCreateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -4098,11 +4098,11 @@ func (ic *InterfaceClient) dispatchUsergroupsCreateWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.usergroups-create-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.usergroups-create: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.usergroups-create-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.usergroups-create: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4113,14 +4113,14 @@ func (ic *InterfaceClient) dispatchUsergroupsDisableWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-disable-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.usergroups-disable: %w", bodyErr)
 	}
 
 	var params client.UsergroupsDisableParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-disable-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.usergroups-disable: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.UsergroupsDisableWithFormdataBodyWithResponse(ctx, &params, body)
@@ -4129,11 +4129,11 @@ func (ic *InterfaceClient) dispatchUsergroupsDisableWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.usergroups-disable-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.usergroups-disable: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.usergroups-disable-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.usergroups-disable: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4144,14 +4144,14 @@ func (ic *InterfaceClient) dispatchUsergroupsEnableWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-enable-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.usergroups-enable: %w", bodyErr)
 	}
 
 	var params client.UsergroupsEnableParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-enable-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.usergroups-enable: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.UsergroupsEnableWithFormdataBodyWithResponse(ctx, &params, body)
@@ -4160,11 +4160,11 @@ func (ic *InterfaceClient) dispatchUsergroupsEnableWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.usergroups-enable-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.usergroups-enable: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.usergroups-enable-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.usergroups-enable: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4199,14 +4199,14 @@ func (ic *InterfaceClient) dispatchUsergroupsUpdateWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-update-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.usergroups-update: %w", bodyErr)
 	}
 
 	var params client.UsergroupsUpdateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-update-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.usergroups-update: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.UsergroupsUpdateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -4215,11 +4215,11 @@ func (ic *InterfaceClient) dispatchUsergroupsUpdateWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.usergroups-update-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.usergroups-update: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.usergroups-update-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.usergroups-update: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4254,14 +4254,14 @@ func (ic *InterfaceClient) dispatchUsergroupsUsersUpdateWithFormdataBodyWithResp
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-users-update-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.usergroups-users-update: %w", bodyErr)
 	}
 
 	var params client.UsergroupsUsersUpdateParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.usergroups-users-update-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.usergroups-users-update: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.UsergroupsUsersUpdateWithFormdataBodyWithResponse(ctx, &params, body)
@@ -4270,11 +4270,11 @@ func (ic *InterfaceClient) dispatchUsergroupsUsersUpdateWithFormdataBodyWithResp
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.usergroups-users-update-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.usergroups-users-update: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.usergroups-users-update-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.usergroups-users-update: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4309,7 +4309,7 @@ func (ic *InterfaceClient) dispatchUsersDeletePhotoWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.users-delete-photo-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.users-delete-photo: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.UsersDeletePhotoWithFormdataBodyWithResponse(ctx, body)
@@ -4318,11 +4318,11 @@ func (ic *InterfaceClient) dispatchUsersDeletePhotoWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.users-delete-photo-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.users-delete-photo: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.users-delete-photo-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.users-delete-photo: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4477,14 +4477,14 @@ func (ic *InterfaceClient) dispatchUsersProfileSetWithFormdataBodyWithResponse(c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.users-profile-set-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.users-profile-set: %w", bodyErr)
 	}
 
 	var params client.UsersProfileSetParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.users-profile-set-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.users-profile-set: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.UsersProfileSetWithFormdataBodyWithResponse(ctx, &params, body)
@@ -4493,11 +4493,11 @@ func (ic *InterfaceClient) dispatchUsersProfileSetWithFormdataBodyWithResponse(c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.users-profile-set-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.users-profile-set: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.users-profile-set-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.users-profile-set: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4532,7 +4532,7 @@ func (ic *InterfaceClient) dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.users-set-photo-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.users-set-photo: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.UsersSetPhotoWithFormdataBodyWithResponse(ctx, body)
@@ -4541,11 +4541,11 @@ func (ic *InterfaceClient) dispatchUsersSetPhotoWithFormdataBodyWithResponse(ctx
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.users-set-photo-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.users-set-photo: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.users-set-photo-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.users-set-photo: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4556,14 +4556,14 @@ func (ic *InterfaceClient) dispatchUsersSetPresenceWithFormdataBodyWithResponse(
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("slack.users-set-presence-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("slack.users-set-presence: %w", bodyErr)
 	}
 
 	var params client.UsersSetPresenceParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("slack.users-set-presence-with-formdata-body: params: %w", paramsErr)
+		return nil, fmt.Errorf("slack.users-set-presence: params: %w", paramsErr)
 	}
 
 	resp, callErr := ic.cl.UsersSetPresenceWithFormdataBodyWithResponse(ctx, &params, body)
@@ -4572,11 +4572,11 @@ func (ic *InterfaceClient) dispatchUsersSetPresenceWithFormdataBodyWithResponse(
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("slack.users-set-presence-with-formdata-body: nil response")
+		return nil, fmt.Errorf("slack.users-set-presence: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("slack.users-set-presence-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("slack.users-set-presence: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
