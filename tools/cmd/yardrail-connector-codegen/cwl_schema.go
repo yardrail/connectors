@@ -40,14 +40,6 @@ func writeClassEnum(buf *bytes.Buffer, connID, className string) {
 	fmt.Fprintf(buf, "    symbols: [\"%s:%s\"]\n", connID, className)
 }
 
-// cwlProcessFields are fields inherited from cwl:Process that must not be
-// redeclared by connector class records.
-var cwlProcessFields = map[string]bool{
-	"id": true, "label": true, "doc": true,
-	"inputs": true, "outputs": true, "requirements": true, "hints": true,
-	"cwlVersion": true, "intent": true, "class": true,
-}
-
 func writeClassRecord(buf *bytes.Buffer, connID, className string, op *OperationInfo) {
 	doc := ""
 	if op != nil {
@@ -57,57 +49,17 @@ func writeClassRecord(buf *bytes.Buffer, connID, className string, op *Operation
 	fmt.Fprintf(buf, "\n  - name: %s\n", className)
 	fmt.Fprintf(buf, "    type: record\n")
 	fmt.Fprintf(buf, "    inVocab: false\n")
-	fmt.Fprintf(buf, "    extends: cwl:Process\n")
+	fmt.Fprintf(buf, "    extends: cwl:Operation\n")
 	fmt.Fprintf(buf, "    documentRoot: true\n")
 	if doc != "" {
 		fmt.Fprintf(buf, "    doc: %q\n", doc)
 	}
-	fmt.Fprintf(buf, "    specialize:\n")
-	fmt.Fprintf(buf, "      - specializeFrom: cwl:InputParameter\n")
-	fmt.Fprintf(buf, "        specializeTo: cwl:OperationInputParameter\n")
-	fmt.Fprintf(buf, "      - specializeFrom: cwl:OutputParameter\n")
-	fmt.Fprintf(buf, "        specializeTo: cwl:OperationOutputParameter\n")
 	fmt.Fprintf(buf, "    fields:\n")
 	fmt.Fprintf(buf, "      - name: class\n")
 	fmt.Fprintf(buf, "        type: \"#%s_class\"\n", className)
 	fmt.Fprintf(buf, "        jsonldPredicate:\n")
 	fmt.Fprintf(buf, "          _id: \"@type\"\n")
 	fmt.Fprintf(buf, "          _type: \"@vocab\"\n")
-
-	if op != nil {
-		for _, input := range op.Inputs {
-			if input.Name == "" || cwlProcessFields[input.Name] {
-				continue
-			}
-
-			cwlType := openAPIToCWLType(input.Type)
-
-			fmt.Fprintf(buf, "      - name: %s\n", input.Name)
-			if input.Required {
-				fmt.Fprintf(buf, "        type: %s\n", cwlType)
-			} else {
-				fmt.Fprintf(buf, "        type: [\"null\", %q]\n", cwlType)
-			}
-			if input.Doc != "" {
-				fmt.Fprintf(buf, "        doc: %q\n", input.Doc)
-			}
-		}
-	}
-}
-
-func openAPIToCWLType(t string) string {
-	switch t {
-	case "string":
-		return "string"
-	case "integer":
-		return "int"
-	case "number":
-		return "float"
-	case "boolean":
-		return "boolean"
-	default:
-		return "Any"
-	}
 }
 
 // openAPIFunctions pairs each oapi-codegen method with its spec operation.

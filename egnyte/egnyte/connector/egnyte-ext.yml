@@ -13,32 +13,15 @@ $graph:
   - name: ActivateMspTrial
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Activate Trial"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ActivateMspTrial_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: domain
-        type: string
-        doc: "The trial domain name to activate."
-      - name: planId
-        type: int
-        doc: "Target plan ID (from GET /v1/msp/plans)."
-      - name: powerUsers
-        type: int
-        doc: "Number of power user licenses. Must be >= current usage."
-      - name: storageGB
-        type: int
-        doc: "Storage in GB. Must be >= current usage."
 
   - name: AddComment_class
     type: enum
@@ -48,26 +31,15 @@ $graph:
   - name: AddComment
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Add Comment"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AddComment_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: body
-        type: string
-        doc: "Text of the comment"
-      - name: path
-        type: string
-        doc: "Path to the file or folder"
 
   - name: AddDocument_class
     type: enum
@@ -77,35 +49,15 @@ $graph:
   - name: AddDocument
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Add Documents"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AddDocument_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: studyId
-        type: string
-        doc: "The system ID of the study."
-      - name: filingLevel.type
-        type: string
-        doc: "The type of filing level (TRIAL, COUNTRY or SITE)."
-      - name: filingLevel.systemId
-        type: string
-        doc: "The system ID of the filing level the document should be added to."
-      - name: classification
-        type: ["null", "Any"]
-      - name: filingLevel
-        type: Any
-      - name: sourceFile
-        type: Any
 
   - name: AdvancedSearchV1_class
     type: enum
@@ -115,41 +67,15 @@ $graph:
   - name: AdvancedSearchV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Advanced search (v1)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdvancedSearchV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: keywords
-        type: ["null", "string"]
-        doc: "Search keywords"
-      - name: owners
-        type: ["null", "Any"]
-        doc: "Usernames of content owners"
-      - name: path
-        type: ["null", "string"]
-        doc: "Restrict search to this folder and its descendants"
-      - name: sizeGreaterThan
-        type: ["null", "int"]
-        doc: "Minimum file size in bytes"
-      - name: sizeLessThan
-        type: ["null", "int"]
-        doc: "Maximum file size in bytes"
-      - name: uploadedAfter
-        type: ["null", "string"]
-        doc: "Find items uploaded after this time"
-      - name: uploadedBefore
-        type: ["null", "string"]
-        doc: "Find items uploaded before this time"
 
   - name: AllocateMspDomainPowerUsers_class
     type: enum
@@ -159,26 +85,15 @@ $graph:
   - name: AllocateMspDomainPowerUsers
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Allocate Power Users to Domain"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AllocateMspDomainPowerUsers_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: domain
-        type: string
-        doc: "Customer domain name (without .egnyte.com)."
-      - name: powerUsers
-        type: int
-        doc: "Target number of power users (absolute count, not delta)."
 
   - name: AskAgent_class
     type: enum
@@ -188,41 +103,15 @@ $graph:
   - name: AskAgent
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Ask a question to an agent"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AskAgent_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: agentId
-        type: string
-        doc: "Unique identifier of the agent."
-      - name: chatHistory
-        type: ["null", "Any"]
-        doc: "Previous conversation messages."
-      - name: conversationId
-        type: ["null", "string"]
-        doc: "Conversation identifier for multi-turn context. Omit for the first question."
-      - name: entryIds
-        type: ["null", "Any"]
-        doc: "Array of file entry IDs to provide as context."
-      - name: instructions
-        type: ["null", "string"]
-        doc: "Optional system prompt to guide the agent's response."
-      - name: question
-        type: string
-        doc: "The question to ask the agent. Maximum 35,000 characters."
-      - name: selectedItems
-        type: ["null", "Any"]
-        doc: "Pre-selected files and folders to provide as context."
 
   - name: AskAssistant_class
     type: enum
@@ -232,40 +121,15 @@ $graph:
   - name: AskAssistant
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Ask AI Assistant a question (async)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AskAssistant_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: chatHistory
-        type: ["null", "Any"]
-      - name: conversationId
-        type: ["null", "string"]
-        doc: "Pass the conversationId from a previous response to continue an existing conversation"
-      - name: includeCitations
-        type: ["null", "boolean"]
-        doc: "Whether to include citations in the status response"
-      - name: mcpSelectionId
-        type: ["null", "string"]
-        doc: "ID of the MCP server selection to use for this request"
-      - name: modelDetails
-        type: ["null", "Any"]
-        doc: "Override the AI model. When omitted, defaults to Gemini-2.5 Flash"
-      - name: question
-        type: string
-        doc: "The question for AI Assistant"
-      - name: selectedItems
-        type: ["null", "Any"]
-        doc: "Files, folders, and search options to scope the AI's context"
 
   - name: AskCopilot_class
     type: enum
@@ -275,30 +139,15 @@ $graph:
   - name: AskCopilot
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Ask Copilot a question (deprecated)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AskCopilot_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: chatHistory
-        type: ["null", "Any"]
-      - name: includeCitations
-        type: ["null", "boolean"]
-      - name: question
-        type: string
-        doc: "The question for Copilot"
-      - name: selectedItems
-        type: Any
-        doc: "Lists of folders and files to scope the AI's context"
 
   - name: AskDocument_class
     type: enum
@@ -308,32 +157,15 @@ $graph:
   - name: AskDocument
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Ask a question about a document"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AskDocument_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: entry-id
-        type: string
-        doc: "Unique identifier of the document version"
-      - name: chatHistory
-        type: ["null", "Any"]
-        doc: "Previous conversation history"
-      - name: includeCitations
-        type: ["null", "boolean"]
-        doc: "Whether to include citations in the response"
-      - name: question
-        type: string
-        doc: "The natural language question to ask"
 
   - name: AskKb_class
     type: enum
@@ -343,29 +175,15 @@ $graph:
   - name: AskKb
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Ask a question about a knowledge base"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AskKb_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: kb-id
-        type: string
-        doc: "Identifier of the knowledge base"
-      - name: chatHistory
-        type: ["null", "Any"]
-      - name: includeCitations
-        type: ["null", "boolean"]
-      - name: question
-        type: string
 
   - name: CancelSignatureRequest_class
     type: enum
@@ -375,26 +193,15 @@ $graph:
   - name: CancelSignatureRequest
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Cancel Signature Request"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CancelSignatureRequest_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: agreement_id
-        type: string
-        doc: "Unique identifier for the signature request to cancel (UUID)"
-      - name: message
-        type: ["null", "string"]
-        doc: "Reason for cancellation (max 500 characters)"
 
   - name: CancelWorkflow_class
     type: enum
@@ -404,23 +211,15 @@ $graph:
   - name: CancelWorkflow
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Cancel a workflow"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CancelWorkflow_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: workflowId
-        type: string
-        doc: "Identifier of the workflow to cancel"
 
   - name: CheckAuditReportStatus_class
     type: enum
@@ -430,14 +229,9 @@ $graph:
   - name: CheckAuditReportStatus
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Check Audit Report Generation Status"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CheckAuditReportStatus_class"
@@ -453,26 +247,15 @@ $graph:
   - name: CompleteWebhookTask
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Send completion signal for a webhook task"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CompleteWebhookTask_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: workflowId
-        type: string
-        doc: "Identifier of the workflow"
-      - name: taskId
-        type: string
-        doc: "Identifier of the task to mark as completed"
 
   - name: CreateBookmark_class
     type: enum
@@ -482,26 +265,15 @@ $graph:
   - name: CreateBookmark
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Bookmark"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateBookmark_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folder_id
-        type: ["null", "string"]
-        doc: "UUID of the folder to bookmark"
-      - name: path
-        type: ["null", "string"]
-        doc: "Path to the folder to bookmark"
 
   - name: CreateConfigurationSettingsAuditReport_class
     type: enum
@@ -511,14 +283,9 @@ $graph:
   - name: CreateConfigurationSettingsAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Configuration Settings Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateConfigurationSettingsAuditReport_class"
@@ -534,14 +301,9 @@ $graph:
   - name: CreateEtmfAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create eTMF Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateEtmfAuditReport_class"
@@ -557,14 +319,9 @@ $graph:
   - name: CreateFileAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create File Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateFileAuditReport_class"
@@ -580,14 +337,9 @@ $graph:
   - name: CreateGroupProvisioningAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Group Provisioning Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateGroupProvisioningAuditReport_class"
@@ -603,14 +355,9 @@ $graph:
   - name: CreateLoginAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Login Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateLoginAuditReport_class"
@@ -626,50 +373,15 @@ $graph:
   - name: CreateMspTrial
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Start New Trial"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateMspTrial_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: domain
-        type: string
-        doc: "Domain name for the trial."
-      - name: email
-        type: ["null", "string"]
-        doc: "Admin email address."
-      - name: firstName
-        type: ["null", "string"]
-        doc: "Admin first name."
-      - name: lastName
-        type: ["null", "string"]
-        doc: "Admin last name."
-      - name: password
-        type: ["null", "string"]
-        doc: "Admin password. Write-only."
-      - name: phone
-        type: ["null", "string"]
-        doc: "Admin phone number."
-      - name: powerUsers
-        type: int
-        doc: "Number of power user licenses."
-      - name: region
-        type: string
-        doc: "Region for domain provisioning (e.g. \"us\")."
-      - name: storageGB
-        type: int
-        doc: "Storage allocation in GB."
-      - name: username
-        type: ["null", "string"]
-        doc: "Admin username."
 
   - name: CreateMspWebhook_class
     type: enum
@@ -679,32 +391,15 @@ $graph:
   - name: CreateMspWebhook
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Register a Webhook"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateMspWebhook_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: auth_header
-        type: string
-        doc: "Name of the HTTP header sent with each webhook payload for authentication."
-      - name: auth_header_value
-        type: string
-        doc: "Value of the authentication header. Write-only — never returned in responses."
-      - name: eventTypes
-        type: Any
-        doc: "One or more event types to subscribe to."
-      - name: webhook_url
-        type: string
-        doc: "HTTPS URL to receive webhook payloads."
 
   - name: CreatePermissionsAuditReport_class
     type: enum
@@ -714,14 +409,9 @@ $graph:
   - name: CreatePermissionsAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Permissions Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreatePermissionsAuditReport_class"
@@ -737,14 +427,9 @@ $graph:
   - name: CreateQualityDocsAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Quality Docs Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateQualityDocsAuditReport_class"
@@ -760,14 +445,9 @@ $graph:
   - name: CreateQualityDocsCategoriesAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Quality Docs Categories Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateQualityDocsCategoriesAuditReport_class"
@@ -783,14 +463,9 @@ $graph:
   - name: CreateQualityDocsCoursesAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Quality Docs Courses Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateQualityDocsCoursesAuditReport_class"
@@ -806,24 +481,15 @@ $graph:
   - name: CreateScimGroup
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateScimGroup_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: displayName
-        type: ["null", "string"]
-      - name: members
-        type: ["null", "Any"]
 
   - name: CreateScimUser_class
     type: enum
@@ -833,32 +499,15 @@ $graph:
   - name: CreateScimUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateScimUser_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: active
-        type: ["null", "boolean"]
-      - name: emails
-        type: ["null", "Any"]
-      - name: externalId
-        type: ["null", "string"]
-      - name: groups
-        type: ["null", "Any"]
-      - name: name
-        type: ["null", "Any"]
-      - name: userName
-        type: ["null", "string"]
 
   - name: CreateSignatureRequest_class
     type: enum
@@ -868,31 +517,15 @@ $graph:
   - name: CreateSignatureRequest
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Signature Request"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateSignatureRequest_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: email_message
-        type: ["null", "string"]
-        doc: "Custom email message"
-      - name: recipients
-        type: ["null", "Any"]
-      - name: signature_request_name
-        type: string
-        doc: "Name for the signature request (max 255 characters)"
-      - name: template_id
-        type: string
-        doc: "Template UUID to use for the signature request"
 
   - name: CreateSnapshotRestoreAuditReport_class
     type: enum
@@ -902,14 +535,9 @@ $graph:
   - name: CreateSnapshotRestoreAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Snapshot Restore Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateSnapshotRestoreAuditReport_class"
@@ -925,13 +553,8 @@ $graph:
   - name: CreateSyncWithFormdataBody
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateSyncWithFormdataBody_class"
@@ -947,38 +570,15 @@ $graph:
   - name: CreateUploadRequest
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Upload Request"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateUploadRequest_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: assigneeInstructions
-        type: string
-        doc: "Instructions displayed to assignees. Use the default instructions from the template or provide custom text.\n"
-      - name: assignees
-        type: Any
-        doc: "Array of assignee objects. Each object must contain either `userId` (integer) for an internal user or `externalEmail` (string) for an external user — not both.\n"
-      - name: dueDate
-        type: string
-        doc: "Due date and time in ISO 8601 format."
-      - name: folderId
-        type: string
-        doc: "ID of the folder where uploaded files will be stored."
-      - name: name
-        type: string
-        doc: "Name of the upload request."
-      - name: templateId
-        type: string
-        doc: "Template ID obtained from the List Templates endpoint."
 
   - name: CreateUploadRequestsAuditReport_class
     type: enum
@@ -988,14 +588,9 @@ $graph:
   - name: CreateUploadRequestsAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Upload Requests Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateUploadRequestsAuditReport_class"
@@ -1011,44 +606,15 @@ $graph:
   - name: CreateUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create a user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateUser_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: active
-        type: boolean
-      - name: authType
-        type: string
-      - name: email
-        type: string
-      - name: externalId
-        type: ["null", "string"]
-      - name: idpUserId
-        type: ["null", "string"]
-      - name: language
-        type: ["null", "string"]
-      - name: name
-        type: Any
-      - name: role
-        type: ["null", "string"]
-      - name: sendInvite
-        type: ["null", "boolean"]
-      - name: userName
-        type: string
-      - name: userPrincipalName
-        type: ["null", "string"]
-      - name: userType
-        type: string
 
   - name: CreateUserProvisioningAuditReport_class
     type: enum
@@ -1058,14 +624,9 @@ $graph:
   - name: CreateUserProvisioningAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create User Provisioning Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateUserProvisioningAuditReport_class"
@@ -1081,32 +642,15 @@ $graph:
   - name: CreateWorkflow
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create a workflow"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateWorkflow_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: file
-        type: Any
-        doc: "Identifier of the file on which the workflow is created"
-      - name: name
-        type: string
-        doc: "Name of the workflow"
-      - name: reasonForChange
-        type: ["null", "string"]
-      - name: steps
-        type: Any
-      - name: workflowType
-        type: ["null", "string"]
 
   - name: CreateWorkflowAuditReport_class
     type: enum
@@ -1116,14 +660,9 @@ $graph:
   - name: CreateWorkflowAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Workflow Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateWorkflowAuditReport_class"
@@ -1139,14 +678,9 @@ $graph:
   - name: CreateWorkflowTemplatesAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Workflow Templates Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateWorkflowTemplatesAuditReport_class"
@@ -1162,41 +696,15 @@ $graph:
   - name: CreateWorkspace
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create Workspace"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CreateWorkspace_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: name
-        type: string
-        doc: "Workspace name; also used as the folder name when creating a blank workspace or workspace from a template.\n"
-      - name: status
-        type: string
-        doc: "Workspace status"
-      - name: type
-        type: string
-        doc: "Workspace type; must match one of the workspace types from Get Document Portal Settings (e.g. \"Client\", \"Vendor\").\n"
-      - name: variables
-        type: ["null", "Any"]
-        doc: "Permission template variables for dynamic permission assignment. Used only when creating from a template (workspaceTemplateId provided).\n"
-      - name: workspaceFolderId
-        type: ["null", "string"]
-        doc: "Folder ID (UUID) to convert to a workspace. Required for \"from existing folder\" mode. Mutually exclusive with workspaceParentFolderId — providing both returns 400.\n"
-      - name: workspaceParentFolderId
-        type: ["null", "string"]
-        doc: "Parent folder ID (UUID) under which to create the workspace. Required for \"blank workspace\" and \"from template\" modes. Mutually exclusive with workspaceFolderId — providing both returns 400.\n"
-      - name: workspaceTemplateId
-        type: ["null", "string"]
-        doc: "Template folder ID (UUID) to use for workspace creation. Required for \"from template\" mode. Must be combined with workspaceParentFolderId — providing without workspaceParentFolderId returns 400.\n"
 
   - name: DeleteBookmark_class
     type: enum
@@ -1206,14 +714,9 @@ $graph:
   - name: DeleteBookmark
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete Bookmark"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteBookmark_class"
@@ -1229,23 +732,15 @@ $graph:
   - name: DeleteComment
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete Comment"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteComment_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: UUID
-        type: string
-        doc: "The identification tag for the comment that should be deleted."
 
   - name: DeleteMspWebhook_class
     type: enum
@@ -1255,23 +750,15 @@ $graph:
   - name: DeleteMspWebhook
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Unregister a Webhook"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteMspWebhook_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: webhook_id
-        type: string
-        doc: "Unique identifier of the webhook (UUID)."
 
   - name: DeleteScimGroup_class
     type: enum
@@ -1281,23 +768,15 @@ $graph:
   - name: DeleteScimGroup
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteScimGroup_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: groupId
-        type: string
-        doc: "Group ID"
 
   - name: DeleteScimUser_class
     type: enum
@@ -1307,23 +786,15 @@ $graph:
   - name: DeleteScimUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteScimUser_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: userId
-        type: string
-        doc: "User ID"
 
   - name: DeleteUser_class
     type: enum
@@ -1333,14 +804,9 @@ $graph:
   - name: DeleteUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteUser_class"
@@ -1356,23 +822,15 @@ $graph:
   - name: DeleteWebhook
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Unregister a webhook"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DeleteWebhook_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: webhookId
-        type: string
-        doc: "Identifier of the webhook to delete"
 
   - name: GetAgentAskStatus_class
     type: enum
@@ -1382,26 +840,15 @@ $graph:
   - name: GetAgentAskStatus
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get agent execution status"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetAgentAskStatus_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: agentId
-        type: string
-        doc: "Unique identifier of the agent."
-      - name: requestId
-        type: string
-        doc: "Unique identifier of the execution request returned by the ask endpoint."
 
   - name: GetAssistantStatus_class
     type: enum
@@ -1411,26 +858,15 @@ $graph:
   - name: GetAssistantStatus
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get AI Assistant execution status"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetAssistantStatus_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: executionId
-        type: string
-        doc: "The executionId returned by POST /v1/ai/assistant/ask"
-      - name: includeCitations
-        type: ["null", "boolean"]
-        doc: "Whether to include citations in the response"
 
   - name: GetBookmark_class
     type: enum
@@ -1440,14 +876,9 @@ $graph:
   - name: GetBookmark
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get Bookmark by ID"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetBookmark_class"
@@ -1463,23 +894,15 @@ $graph:
   - name: GetComment
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Show Comment"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetComment_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: UUID
-        type: string
-        doc: "The ID for the desired comment."
 
   - name: GetMspDomain_class
     type: enum
@@ -1489,23 +912,15 @@ $graph:
   - name: GetMspDomain
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get Domain Details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetMspDomain_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: domain
-        type: string
-        doc: "Domain name."
 
   - name: GetMspPowerUsersQuote_class
     type: enum
@@ -1515,26 +930,15 @@ $graph:
   - name: GetMspPowerUsersQuote
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get Power Users Quote"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetMspPowerUsersQuote_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: planId
-        type: string
-        doc: "Plan identifier."
-      - name: powerUsers
-        type: int
-        doc: "Target number of power users (absolute count, not delta)."
 
   - name: GetMspTenant_class
     type: enum
@@ -1544,23 +948,15 @@ $graph:
   - name: GetMspTenant
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get Tenant Details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetMspTenant_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: tenant_name
-        type: string
-        doc: "Tenant name."
 
   - name: GetMspWebhook_class
     type: enum
@@ -1570,23 +966,15 @@ $graph:
   - name: GetMspWebhook
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get Webhook Details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetMspWebhook_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: webhook_id
-        type: string
-        doc: "Unique identifier of the webhook (UUID)."
 
   - name: GetProjectDetails_class
     type: enum
@@ -1596,23 +984,15 @@ $graph:
   - name: GetProjectDetails
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get project details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetProjectDetails_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: projectId
-        type: string
-        doc: "The project ID assigned when the project folder was created"
 
   - name: GetScimGroup_class
     type: enum
@@ -1622,23 +1002,15 @@ $graph:
   - name: GetScimGroup
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetScimGroup_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: groupId
-        type: string
-        doc: "Group ID"
 
   - name: GetScimUser_class
     type: enum
@@ -1648,23 +1020,15 @@ $graph:
   - name: GetScimUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetScimUser_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: userId
-        type: string
-        doc: "User ID"
 
   - name: GetSettings_class
     type: enum
@@ -1674,14 +1038,9 @@ $graph:
   - name: GetSettings
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get Document Portal Settings"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetSettings_class"
@@ -1697,23 +1056,15 @@ $graph:
   - name: GetSfdcFolderMap
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get folder mapping for a Salesforce record"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetSfdcFolderMap_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: recordId
-        type: string
-        doc: "18‑character Salesforce record ID"
 
   - name: GetSignTemplate_class
     type: enum
@@ -1723,23 +1074,15 @@ $graph:
   - name: GetSignTemplate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get Template Details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetSignTemplate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: template_id
-        type: string
-        doc: "Unique identifier for the template (UUID)"
 
   - name: GetTrashTotalCount_class
     type: enum
@@ -1749,14 +1092,9 @@ $graph:
   - name: GetTrashTotalCount
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get Trash Total Count"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetTrashTotalCount_class"
@@ -1772,14 +1110,9 @@ $graph:
   - name: GetUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get a single user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUser_class"
@@ -1795,23 +1128,15 @@ $graph:
   - name: GetUserDetails
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get user details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUserDetails_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: userId
-        type: string
-        doc: "Unique identifier of the MSP user (UUID)."
 
   - name: GetUserLogs_class
     type: enum
@@ -1821,27 +1146,15 @@ $graph:
   - name: GetUserLogs
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get user activity logs"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUserLogs_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: userId
-        type: string
-        doc: "Unique identifier of the MSP user (UUID)."
-      - name: from
-        type: ["null", "string"]
-      - name: to
-        type: ["null", "string"]
 
   - name: GetUserinfo_class
     type: enum
@@ -1851,14 +1164,9 @@ $graph:
   - name: GetUserinfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get user information for a token"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUserinfo_class"
@@ -1874,14 +1182,9 @@ $graph:
   - name: GetUsersList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get list of users"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetUsersList_class"
@@ -1897,23 +1200,15 @@ $graph:
   - name: GetWebhookDetails
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get webhook details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetWebhookDetails_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: webhookId
-        type: string
-        doc: "Identifier of the webhook"
 
   - name: GetWebhookStatus_class
     type: enum
@@ -1923,23 +1218,15 @@ $graph:
   - name: GetWebhookStatus
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get webhook status"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetWebhookStatus_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: webhookId
-        type: string
-        doc: "Identifier of the webhook"
 
   - name: GetWorkflow_class
     type: enum
@@ -1949,23 +1236,15 @@ $graph:
   - name: GetWorkflow
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get workflow details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetWorkflow_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: workflowId
-        type: string
-        doc: "The unique workflow identifier"
 
   - name: HybridSearch_class
     type: enum
@@ -1975,56 +1254,15 @@ $graph:
   - name: HybridSearch
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Hybrid semantic and keyword search"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#HybridSearch_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: createdBy
-        type: ["null", "int"]
-        doc: "Filter by user ID of file creator"
-      - name: dateFrom
-        type: ["null", "string"]
-        doc: "Filter files modified on or after this ISO 8601 date"
-      - name: dateTo
-        type: ["null", "string"]
-        doc: "Filter files modified on or before this ISO 8601 date"
-      - name: fileTypes
-        type: ["null", "Any"]
-        doc: "List of file extensions to include (e.g. [\"pdf\",\"docx\"])"
-      - name: folderPath
-        type: ["null", "string"]
-        doc: "Restrict search to files under this folder path"
-      - name: includeArchived
-        type: ["null", "boolean"]
-        doc: "Whether to include archived files in results"
-      - name: limit
-        type: ["null", "int"]
-        doc: "Maximum number of results to return"
-      - name: modifiedBy
-        type: ["null", "int"]
-        doc: "Filter by user ID of last modifier"
-      - name: page
-        type: ["null", "int"]
-        doc: "Zero-based page number for pagination"
-      - name: query
-        type: string
-        doc: "Natural language search query"
-      - name: semanticWeight
-        type: ["null", "float"]
-        doc: "Weight given to semantic (vector) search vs keyword search (0=keyword only, 1=semantic only)"
-      - name: size
-        type: ["null", "int"]
-        doc: "Number of results per page"
 
   - name: ImportDocument_class
     type: enum
@@ -2034,47 +1272,15 @@ $graph:
   - name: ImportDocument
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Import a Document"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ImportDocument_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: approvedOn
-        type: ["null", "string"]
-        doc: "Date the document was approved (YYYY-MM-DD). Required when isDraft is false. Must not be provided when isDraft is true. Cannot be in the future or after effectiveFromDate."
-      - name: docId
-        type: string
-        doc: "Document identifier used within Controlled Document Management (e.g. SOP-1)"
-      - name: effectiveFromDate
-        type: ["null", "string"]
-        doc: "Date the document becomes effective (YYYY-MM-DD). Required when isDraft is false. Must not be provided when isDraft is true."
-      - name: effectiveToDate
-        type: ["null", "string"]
-        doc: "Date the document's effective period ends (YYYY-MM-DD). Must not be provided when isDraft is true."
-      - name: entryId
-        type: string
-        doc: "Unique ID of the file version to import"
-      - name: isDraft
-        type: ["null", "boolean"]
-        doc: "Whether the document is a draft. Default is false. If true, version must be less than 1.0 and effectiveFromDate/effectiveToDate/approvedOn must not be provided."
-      - name: name
-        type: string
-        doc: "Name of the document"
-      - name: responsibleDepartment
-        type: ["null", "string"]
-        doc: "Department or personnel responsible for maintaining the document"
-      - name: version
-        type: string
-        doc: "Document version (e.g. 1.0, 1.1). Must be less than 1.0 if isDraft is true."
 
   - name: ImportTrainingAssignment_class
     type: enum
@@ -2084,44 +1290,15 @@ $graph:
   - name: ImportTrainingAssignment
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Import Training Assignments"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ImportTrainingAssignment_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: assignedById
-        type: ["null", "int"]
-        doc: "ID of the user who assigned the training. Defaults to the requesting user if not provided."
-      - name: assignedDate
-        type: ["null", "string"]
-        doc: "Date the training assignment was created (ISO-8601). Defaults to current date if not provided."
-      - name: assigneeId
-        type: int
-        doc: "ID of the user assigned the training"
-      - name: canceledDate
-        type: ["null", "string"]
-        doc: "Date the training assignment was canceled (ISO-8601). Set only for canceled assignments."
-      - name: completedDate
-        type: ["null", "string"]
-        doc: "Training assignment completion date (ISO-8601). Set only for completed assignments."
-      - name: docId
-        type: string
-        doc: "Document ID for which training is assigned"
-      - name: dueDate
-        type: string
-        doc: "Due date of the training assignment (YYYY-MM-DD)"
-      - name: version
-        type: string
-        doc: "Document version for which training is assigned"
 
   - name: ListAgents_class
     type: enum
@@ -2131,26 +1308,15 @@ $graph:
   - name: ListAgents
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List agents"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListAgents_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: sortBy
-        type: ["null", "string"]
-        doc: "Field to sort results by."
-      - name: sortOrder
-        type: ["null", "string"]
-        doc: "Sort direction."
 
   - name: ListArtifacts_class
     type: enum
@@ -2160,29 +1326,15 @@ $graph:
   - name: ListArtifacts
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Artifacts and Milestones"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListArtifacts_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: studyId
-        type: string
-        doc: "The system ID of the study."
-      - name: filingLevel
-        type: string
-        doc: "The type of filing level (trial, country or site)."
-      - name: filingLevelId
-        type: string
-        doc: "The system ID of the filing level."
 
   - name: ListBookmarks_class
     type: enum
@@ -2192,26 +1344,15 @@ $graph:
   - name: ListBookmarks
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Bookmarks"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListBookmarks_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: offset
-        type: ["null", "int"]
-        doc: "Start listing with the nth bookmark."
-      - name: count
-        type: ["null", "int"]
-        doc: "Limit the number of bookmarks returned."
 
   - name: ListComments_class
     type: enum
@@ -2221,35 +1362,15 @@ $graph:
   - name: ListComments
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Comments"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListComments_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: file
-        type: ["null", "string"]
-        doc: "URL encoded path to the item for which you want to see the comments. If omitted, all comments for the domain are returned (admin only)."
-      - name: start_time
-        type: ["null", "string"]
-        doc: "Return comments after this ISO 8601 timestamp."
-      - name: end_time
-        type: ["null", "string"]
-        doc: "Return comments before this ISO 8601 timestamp."
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of results to return. Maximum 100; defaults to 25."
-      - name: offset
-        type: ["null", "int"]
-        doc: "Zero-based index used to paginate the list of comments. Defaults to 0."
 
   - name: ListDocuments_class
     type: enum
@@ -2259,44 +1380,15 @@ $graph:
   - name: ListDocuments
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Documents"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListDocuments_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: studyId
-        type: string
-        doc: "The system ID of the study."
-      - name: filingLevel
-        type: ["null", "string"]
-        doc: "The type of filing level (TRIAL, COUNTRY or SITE). Deprecated as a query parameter — use the request body `filingLevel.type` field instead. If both are provided, the request body value takes precedence.\n"
-      - name: filingLevelId
-        type: ["null", "string"]
-        doc: "The system ID of the filing level. Deprecated as a query parameter — use the request body `filingLevel.systemId` field instead. If both are provided, the request body value takes precedence.\n"
-      - name: zone
-        type: ["null", "string"]
-        doc: "Filter by zone number and name (e.g., `02 Central Trial Documents`). If also provided in the request body, the request body value takes precedence.\n"
-      - name: artifact
-        type: ["null", "string"]
-        doc: "Filter by artifact number and name (e.g., `02.01.01 Investigator's Brochure`). If also provided in the request body, the request body value takes precedence.\n"
-      - name: status
-        type: ["null", "string"]
-        doc: "Filter by document status. If also provided in the request body, the request body value takes precedence.\n"
-      - name: limit
-        type: ["null", "int"]
-        doc: "Maximum number of documents returned (default 20, max 200). If also provided in the request body, the request body value takes precedence.\n"
-      - name: offset
-        type: ["null", "int"]
-        doc: "Zero-based index of the first document returned. If also provided in the request body, the request body value takes precedence.\n"
 
   - name: ListFilingLevels_class
     type: enum
@@ -2306,23 +1398,15 @@ $graph:
   - name: ListFilingLevels
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Filing Levels"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListFilingLevels_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: studyId
-        type: string
-        doc: "The system ID of the study."
 
   - name: ListKb_class
     type: enum
@@ -2332,42 +1416,15 @@ $graph:
   - name: ListKb
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List knowledge bases"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListKb_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: createdAfter
-        type: ["null", "int"]
-      - name: createdBefore
-        type: ["null", "int"]
-      - name: createdBy
-        type: ["null", "int"]
-      - name: includePlaceholderData
-        type: ["null", "boolean"]
-      - name: includeProcessingStatistics
-        type: ["null", "boolean"]
-      - name: includePrompts
-        type: ["null", "boolean"]
-      - name: page
-        type: ["null", "int"]
-      - name: size
-        type: ["null", "int"]
-      - name: sortBy
-        type: Any
-      - name: sortDirection
-        type: Any
-      - name: status
-        type: Any
 
   - name: ListMspDomains_class
     type: enum
@@ -2377,23 +1434,15 @@ $graph:
   - name: ListMspDomains
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Domains"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListMspDomains_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: planName
-        type: ["null", "string"]
-        doc: "Filter domains by plan name."
 
   - name: ListMspPlans_class
     type: enum
@@ -2403,14 +1452,9 @@ $graph:
   - name: ListMspPlans
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Plans"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListMspPlans_class"
@@ -2426,23 +1470,15 @@ $graph:
   - name: ListMspTenants
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Tenants"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListMspTenants_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: planName
-        type: ["null", "string"]
-        doc: "Filter tenants by plan name."
 
   - name: ListMspWebhooks_class
     type: enum
@@ -2452,14 +1488,9 @@ $graph:
   - name: ListMspWebhooks
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Webhooks"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListMspWebhooks_class"
@@ -2475,30 +1506,15 @@ $graph:
   - name: ListMySignatureRequests
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Assigned Signature Requests"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListMySignatureRequests_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: status
-        type: ["null", "string"]
-      - name: sort_by
-        type: ["null", "string"]
-      - name: sort_direction
-        type: ["null", "string"]
-      - name: limit
-        type: ["null", "int"]
-      - name: offset
-        type: ["null", "int"]
 
   - name: ListProcoreProjects_class
     type: enum
@@ -2508,23 +1524,15 @@ $graph:
   - name: ListProcoreProjects
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Procore projects"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListProcoreProjects_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: companyId
-        type: string
-        doc: "Procore company ID"
 
   - name: ListProjectFolders_class
     type: enum
@@ -2534,26 +1542,15 @@ $graph:
   - name: ListProjectFolders
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all projects"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListProjectFolders_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: startIndex
-        type: ["null", "int"]
-        doc: "The 1‑based index of the first result (pagination)"
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of entries per page (max 100)"
 
   - name: ListScimGroups_class
     type: enum
@@ -2563,29 +1560,15 @@ $graph:
   - name: ListScimGroups
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List groups"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListScimGroups_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: startIndex
-        type: ["null", "int"]
-        doc: "1‑based index of first result"
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of groups per page"
-      - name: filter
-        type: ["null", "string"]
-        doc: "Filter by displayName using 'eq', 'co' (contains) or 'sw' (starts with) operators"
 
   - name: ListScimUsers_class
     type: enum
@@ -2595,29 +1578,15 @@ $graph:
   - name: ListScimUsers
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List users"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListScimUsers_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: startIndex
-        type: ["null", "int"]
-        doc: "The 1‑based index of the first result"
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of results per page (max 100)"
-      - name: filter
-        type: ["null", "string"]
-        doc: "SCIM filter expression (e.g., userName eq \"john\")"
 
   - name: ListSentSignatureRequests_class
     type: enum
@@ -2627,30 +1596,15 @@ $graph:
   - name: ListSentSignatureRequests
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Sent Signature Requests"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListSentSignatureRequests_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: status
-        type: ["null", "string"]
-      - name: sort_by
-        type: ["null", "string"]
-      - name: sort_direction
-        type: ["null", "string"]
-      - name: limit
-        type: ["null", "int"]
-      - name: offset
-        type: ["null", "int"]
 
   - name: ListSignTemplates_class
     type: enum
@@ -2660,29 +1614,15 @@ $graph:
   - name: ListSignTemplates
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Templates"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListSignTemplates_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: status
-        type: ["null", "string"]
-        doc: "Filter templates by status."
-      - name: sort_by
-        type: ["null", "string"]
-        doc: "Field to sort results by."
-      - name: sort_direction
-        type: ["null", "string"]
-        doc: "Sort direction."
 
   - name: ListStudies_class
     type: enum
@@ -2692,14 +1632,9 @@ $graph:
   - name: ListStudies
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Studies"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListStudies_class"
@@ -2715,14 +1650,9 @@ $graph:
   - name: ListSyncedProjects
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List synced projects"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListSyncedProjects_class"
@@ -2738,35 +1668,15 @@ $graph:
   - name: ListTasks
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List tasks assigned to the current user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListTasks_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: status
-        type: ["null", "string"]
-        doc: "Filter tasks by status.  Valid values are NOT_STARTED, IN_PROGRESS, BEING_CANCELLED, CANCELLED, SUSPENDED, APPROVED, REJECTED or COMPLETED."
-      - name: limit
-        type: ["null", "int"]
-        doc: "Maximum number of tasks to return per request.  Defaults to 50 and must be between 1 and 50."
-      - name: offset
-        type: ["null", "int"]
-        doc: "Zero‑based index used with limit to paginate results.  Defaults to 0."
-      - name: sortBy
-        type: ["null", "string"]
-        doc: "Field by which to sort results.  Accepts NAME, DUE_DATE, STATUS or TASK_TYPE and defaults to DUE_DATE."
-      - name: sortDirection
-        type: ["null", "string"]
-        doc: "Sort direction.  Either ASC or DESC.  Defaults to ASC."
 
   - name: ListTrashV1_class
     type: enum
@@ -2776,32 +1686,15 @@ $graph:
   - name: ListTrashV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Trash Contents (v1)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListTrashV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: sort_by
-        type: ["null", "string"]
-        doc: "Field to sort by."
-      - name: sort_direction
-        type: ["null", "string"]
-        doc: "Sort order."
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of entries per page."
-      - name: offset
-        type: ["null", "int"]
-        doc: "Zero-based index of the first entry to return."
 
   - name: ListTrashV2_class
     type: enum
@@ -2811,41 +1704,15 @@ $graph:
   - name: ListTrashV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Trash Contents (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListTrashV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: sort_by
-        type: ["null", "string"]
-        doc: "Field to sort by."
-      - name: sort_direction
-        type: ["null", "string"]
-        doc: "Sort order."
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of entries per page."
-      - name: offset
-        type: ["null", "int"]
-        doc: "Zero-based index of the first entry to return."
-      - name: deletedBy
-        type: ["null", "string"]
-        doc: "Filter by user's first and/or last name (URL-encoded). Required if startDate or endDate is used."
-      - name: startDate
-        type: ["null", "string"]
-        doc: "Start of date range in ISO-8601 format (e.g. 2016-04-18T16:11:38Z). Required if deletedBy or endDate is used."
-      - name: endDate
-        type: ["null", "string"]
-        doc: "End of date range in ISO-8601 format. Required if deletedBy or startDate is used."
 
   - name: ListUploadRequestTemplates_class
     type: enum
@@ -2855,14 +1722,9 @@ $graph:
   - name: ListUploadRequestTemplates
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Templates"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListUploadRequestTemplates_class"
@@ -2878,29 +1740,15 @@ $graph:
   - name: ListUsers
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List users"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListUsers_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: startIndex
-        type: ["null", "int"]
-        doc: "1‑based index of the first search result. Defaults to 1."
-      - name: count
-        type: ["null", "int"]
-        doc: "Maximum number of users to return.  Must be a non‑negative integer and defaults to 100."
-      - name: filter
-        type: ["null", "string"]
-        doc: "Filter expression to limit results to users matching specified attributes (e.g. `userName eq \"john\"`).  Supported attributes include userName, email and externalId."
 
   - name: ListUsersV1_class
     type: enum
@@ -2910,14 +1758,9 @@ $graph:
   - name: ListUsersV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List users (legacy)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListUsersV1_class"
@@ -2933,14 +1776,9 @@ $graph:
   - name: ListWebhooks
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List registered webhooks"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListWebhooks_class"
@@ -2956,47 +1794,15 @@ $graph:
   - name: ListWorkflows
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List workflows"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListWorkflows_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: assignerId
-        type: ["null", "int"]
-        doc: "Return workflows created by a specific user"
-      - name: assigneeId
-        type: ["null", "int"]
-        doc: "Return workflows assigned to a specific user"
-      - name: groupId
-        type: ["null", "string"]
-        doc: "Return workflows created on a specific file (groupId of the file)"
-      - name: status
-        type: ["null", "string"]
-        doc: "Filter workflows by status (NOT_STARTED, IN_PROGRESS, BEING_CANCELLED, CANCELLED, SUSPENDED, COMPLETED)"
-      - name: completionStatus
-        type: ["null", "string"]
-        doc: "Filter completed workflows by approval status (APPROVED, REJECTED)"
-      - name: limit
-        type: ["null", "int"]
-        doc: "Maximum number of workflows to return.  Defaults to 25 and must be between 1 and 25."
-      - name: offset
-        type: ["null", "int"]
-        doc: "Zero‑based index used for pagination"
-      - name: sortBy
-        type: ["null", "string"]
-        doc: "Sort by NAME, CREATION_DATE, DUE_DATE, COMPLETION_DATE, WORKFLOW_STATUS or WORKFLOW_COMPLETION_STATUS."
-      - name: sortDirection
-        type: ["null", "string"]
-        doc: "Sort direction (ASC or DESC)"
 
   - name: ListWorkspaces_class
     type: enum
@@ -3006,14 +1812,9 @@ $graph:
   - name: ListWorkspaces
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List Workspaces"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ListWorkspaces_class"
@@ -3029,32 +1830,15 @@ $graph:
   - name: MarkFolderAsProject
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Mark folder as project"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#MarkFolderAsProject_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: completionDate
-        type: ["null", "string"]
-      - name: description
-        type: ["null", "string"]
-      - name: name
-        type: string
-      - name: rootFolderId
-        type: string
-      - name: startDate
-        type: ["null", "string"]
-      - name: status
-        type: string
 
   - name: NavigatePostV1_class
     type: enum
@@ -3064,23 +1848,15 @@ $graph:
   - name: NavigatePostV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Launch a Navigate session (v1 – deprecated)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#NavigatePostV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: scope
-        type: string
-        doc: "Scope of the resources to open, such as `home` or `folder/Shared/test`."
 
   - name: NavigatePostV2_class
     type: enum
@@ -3090,50 +1866,15 @@ $graph:
   - name: NavigatePostV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Launch a Navigate session (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#NavigatePostV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: base
-        type: ["null", "string"]
-        doc: "Base folder name for share dialog. Used with `share: true`."
-      - name: componentId
-        type: ["null", "string"]
-        doc: "Identifies the specific UI component to open. Used for targeted embedded UI integrations."
-      - name: embedded
-        type: boolean
-        doc: "Whether to return an embedded view without headers, search or tree."
-      - name: fileVersion
-        type: ["null", "boolean"]
-        doc: "When true, opens the file version view in embedded mode."
-      - name: fileVersionFullUI
-        type: ["null", "boolean"]
-        doc: "When true, opens the file version view in full UI mode."
-      - name: items
-        type: ["null", "Any"]
-        doc: "List of item paths to share. Used with `share: true`."
-      - name: path
-        type: ["null", "string"]
-        doc: "Optional path to a folder to open. If omitted, defaults to the user's home folder."
-      - name: postMessageNotifications
-        type: ["null", "boolean"]
-        doc: "When true, enables post-message notifications from the embedded UI to the parent window."
-      - name: share
-        type: ["null", "boolean"]
-        doc: "When true, opens the share dialog at the specified path. When true, the `type`, `base`, and `items` fields should be provided."
-      - name: type
-        type: ["null", "string"]
-        doc: "Type of items for share dialog. Used with `share: true`."
 
   - name: NotesDeleteByIdV1_class
     type: enum
@@ -3143,22 +1884,15 @@ $graph:
   - name: NotesDeleteByIdV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a comment"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#NotesDeleteByIdV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: noteId
-        type: string
 
   - name: NotesGetByIdV1_class
     type: enum
@@ -3168,22 +1902,15 @@ $graph:
   - name: NotesGetByIdV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get comment details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#NotesGetByIdV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: noteId
-        type: string
 
   - name: PatchScimGroup_class
     type: enum
@@ -3193,27 +1920,15 @@ $graph:
   - name: PatchScimGroup
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PatchScimGroup_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: groupId
-        type: string
-        doc: "Group ID"
-      - name: Operations
-        type: Any
-      - name: schemas
-        type: ["null", "Any"]
 
   - name: PatchScimUser_class
     type: enum
@@ -3223,27 +1938,15 @@ $graph:
   - name: PatchScimUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PatchScimUser_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: userId
-        type: string
-        doc: "User ID"
-      - name: Operations
-        type: Any
-      - name: schemas
-        type: ["null", "Any"]
 
   - name: PortalProdDeleteFsByIdV1_class
     type: enum
@@ -3253,26 +1956,15 @@ $graph:
   - name: PortalProdDeleteFsByIdV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a file or folder by ID"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteFsByIdV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: type
-        type: string
-        doc: "Literal string `file` or `folder`."
-      - name: entry_id
-        type: ["null", "string"]
-        doc: "Optional file version identifier. When provided, only that specific version of the file will be deleted."
 
   - name: PortalProdDeleteFsV1_class
     type: enum
@@ -3282,26 +1974,15 @@ $graph:
   - name: PortalProdDeleteFsV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a file or folder"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteFsV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: string
-        doc: "Full path to the file or folder to delete."
-      - name: entry_id
-        type: ["null", "string"]
-        doc: "Optional file version identifier. When provided, only that specific version of the file will be deleted."
 
   - name: PortalProdDeleteFsV2_class
     type: enum
@@ -3311,26 +1992,15 @@ $graph:
   - name: PortalProdDeleteFsV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a file or folder (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteFsV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: string
-        doc: "Full path to the file or folder to delete."
-      - name: entry_id
-        type: ["null", "string"]
-        doc: "Optional file version identifier. When provided, only that specific version of the file will be deleted."
 
   - name: PortalProdDeleteGroupsByIdV2_class
     type: enum
@@ -3340,23 +2010,15 @@ $graph:
   - name: PortalProdDeleteGroupsByIdV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteGroupsByIdV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: groupId
-        type: string
-        doc: "Group ID."
 
   - name: PortalProdDeleteLinksByIdV1_class
     type: enum
@@ -3366,23 +2028,15 @@ $graph:
   - name: PortalProdDeleteLinksByIdV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a link"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteLinksByIdV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: linkId
-        type: string
-        doc: "The unique identifier of the link."
 
   - name: PortalProdDeleteLinksByIdV2_class
     type: enum
@@ -3392,22 +2046,15 @@ $graph:
   - name: PortalProdDeleteLinksByIdV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a link (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteLinksByIdV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: linkId
-        type: string
 
   - name: PortalProdDeleteMetadataKeyV1_class
     type: enum
@@ -3417,24 +2064,15 @@ $graph:
   - name: PortalProdDeleteMetadataKeyV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a metadata key"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteMetadataKeyV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
-      - name: keyName
-        type: string
 
   - name: PortalProdDeleteNamespaceV1_class
     type: enum
@@ -3444,22 +2082,15 @@ $graph:
   - name: PortalProdDeleteNamespaceV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a namespace"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteNamespaceV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
 
   - name: PortalProdDeleteProjectCustomFieldV1_class
     type: enum
@@ -3469,23 +2100,15 @@ $graph:
   - name: PortalProdDeleteProjectCustomFieldV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete a custom field definition"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdDeleteProjectCustomFieldV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: field_name
-        type: string
-        doc: "The unique internal name of the custom field."
 
   - name: PortalProdGetEventsCursorV1_class
     type: enum
@@ -3495,14 +2118,9 @@ $graph:
   - name: PortalProdGetEventsCursorV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get a cursor for the events stream"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetEventsCursorV1_class"
@@ -3518,35 +2136,15 @@ $graph:
   - name: PortalProdGetEventsV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List events (version\u00a01)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetEventsV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folder
-        type: ["null", "string"]
-        doc: "Optional folder path to scope results. When specified, only events that occurred in this folder (and its subfolders) are returned."
-      - name: suppress
-        type: ["null", "string"]
-        doc: "Suppress events generated by the current application (`app`) or current user (`user`). Omit this parameter entirely to return all events with no suppression. Note: `none` is not a valid value and will be rejected by the API."
-      - name: type
-        type: ["null", "string"]
-        doc: "Filter to specific event types. Use a pipe (`|`) to request multiple types."
-      - name: count
-        type: ["null", "int"]
-        doc: "Maximum number of events to return (min 1, default 50, max 100)."
-      - name: reverse
-        type: ["null", "string"]
-        doc: "Set to `1` to traverse events in reverse order (returns events from `(id - count + 1)` to `id`). Default is `0` (ascending order)."
 
   - name: PortalProdGetEventsV2_class
     type: enum
@@ -3556,35 +2154,15 @@ $graph:
   - name: PortalProdGetEventsV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List events (version\u00a02)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetEventsV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folder
-        type: ["null", "string"]
-        doc: "Optional folder path to scope results. When specified, only events that occurred in this folder (and its subfolders) are returned."
-      - name: suppress
-        type: ["null", "string"]
-        doc: "Suppress events generated by the current application (`app`) or current user (`user`). Omit this parameter entirely to return all events with no suppression. Note: `none` is not a valid value and will be rejected by the API."
-      - name: type
-        type: ["null", "string"]
-        doc: "Filter to specific event types. Use a pipe (`|`) to request multiple types."
-      - name: count
-        type: ["null", "int"]
-        doc: "Maximum number of events to return (min 1, default 50, max 100)."
-      - name: reverse
-        type: ["null", "string"]
-        doc: "Set to `1` to traverse events in reverse order (returns events from `(id - count + 1)` to `id`). Default is `0` (ascending order)."
 
   - name: PortalProdGetFileMetadataV1_class
     type: enum
@@ -3594,22 +2172,15 @@ $graph:
   - name: PortalProdGetFileMetadataV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get metadata values for a file or file version"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetFileMetadataV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
 
   - name: PortalProdGetFolderMetadataV1_class
     type: enum
@@ -3619,22 +2190,15 @@ $graph:
   - name: PortalProdGetFolderMetadataV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get metadata values for a folder"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetFolderMetadataV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
 
   - name: PortalProdGetFsByIdV1_class
     type: enum
@@ -3644,47 +2208,15 @@ $graph:
   - name: PortalProdGetFsByIdV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve file or folder metadata by ID"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetFsByIdV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: type
-        type: string
-        doc: "Literal string `file` or `folder`."
-      - name: list_content
-        type: ["null", "boolean"]
-      - name: count
-        type: ["null", "int"]
-      - name: offset
-        type: ["null", "int"]
-      - name: sort_by
-        type: ["null", "string"]
-      - name: sort_direction
-        type: ["null", "string"]
-      - name: perms
-        type: ["null", "boolean"]
-      - name: include_perm
-        type: ["null", "boolean"]
-      - name: include_locks
-        type: ["null", "boolean"]
-      - name: include_collaboration
-        type: ["null", "boolean"]
-      - name: allowed_link_types
-        type: ["null", "boolean"]
-      - name: key
-        type: ["null", "string"]
-      - name: list_custom_metadata
-        type: ["null", "boolean"]
 
   - name: PortalProdGetFsContentByIdV1_class
     type: enum
@@ -3694,23 +2226,15 @@ $graph:
   - name: PortalProdGetFsContentByIdV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Download file content by file ID"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetFsContentByIdV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: entry_id
-        type: ["null", "string"]
-        doc: "Optional file version identifier. When provided, the specified revision of the file will be returned instead of the latest."
 
   - name: PortalProdGetFsContentByPathV1_class
     type: enum
@@ -3720,26 +2244,15 @@ $graph:
   - name: PortalProdGetFsContentByPathV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Download file content by path"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetFsContentByPathV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: string
-        doc: "Full path to the file to download (e.g. `/Shared/Documents/report.pdf`). Slashes must be URL-encoded."
-      - name: entry_id
-        type: ["null", "string"]
-        doc: "Optional file version identifier. When provided, the specified revision of the file will be returned instead of the latest."
 
   - name: PortalProdGetFsFolderStatsV1_class
     type: enum
@@ -3749,23 +2262,15 @@ $graph:
   - name: PortalProdGetFsFolderStatsV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get folder statistics by ID"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetFsFolderStatsV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folder_id
-        type: string
-        doc: "Unique ID of the folder."
 
   - name: PortalProdGetFsV1_class
     type: enum
@@ -3775,59 +2280,15 @@ $graph:
   - name: PortalProdGetFsV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve file or folder metadata"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetFsV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: string
-        doc: "Full path to the file or folder (e.g. `/Shared/Documents`). Slashes must be URL-encoded."
-      - name: list_content
-        type: ["null", "boolean"]
-        doc: "Set to `true` to list contents of the folder; ignored when the path refers to a file."
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of items to return when listing folder contents (default 100, max 1000)."
-      - name: offset
-        type: ["null", "int"]
-        doc: "Zero-based index at which to begin returning folder contents."
-      - name: sort_by
-        type: ["null", "string"]
-        doc: "Field to sort by when listing folder contents."
-      - name: sort_direction
-        type: ["null", "string"]
-        doc: "Direction of sort: `ascending` (default) or `descending`."
-      - name: perms
-        type: ["null", "boolean"]
-        doc: "If set to `true`, returns which users and groups have permissions on the folder. Requires admin token."
-      - name: include_perm
-        type: ["null", "boolean"]
-        doc: "If set to `true`, includes permission information for the file or folder in the response."
-      - name: include_locks
-        type: ["null", "boolean"]
-        doc: "If set to `true`, includes locking information for files in the response."
-      - name: include_collaboration
-        type: ["null", "boolean"]
-        doc: "If set to `true`, includes collaboration metadata in the response."
-      - name: allowed_link_types
-        type: ["null", "boolean"]
-        doc: "If set to `true`, includes information about allowed link types."
-      - name: key
-        type: ["null", "string"]
-        doc: "Retrieve a specific version of the file by its entry ID (UUID)."
-      - name: list_custom_metadata
-        type: ["null", "boolean"]
-        doc: "If set to `true`, custom metadata attached to files and folders will be included in the response."
 
   - name: PortalProdGetFsV2_class
     type: enum
@@ -3837,47 +2298,15 @@ $graph:
   - name: PortalProdGetFsV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve file or folder metadata (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetFsV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: string
-        doc: "Full path to the file or folder (URL-encoded)."
-      - name: list_content
-        type: ["null", "boolean"]
-      - name: count
-        type: ["null", "int"]
-      - name: offset
-        type: ["null", "int"]
-      - name: sort_by
-        type: ["null", "string"]
-      - name: sort_direction
-        type: ["null", "string"]
-      - name: perms
-        type: ["null", "boolean"]
-      - name: include_perm
-        type: ["null", "boolean"]
-      - name: include_locks
-        type: ["null", "boolean"]
-      - name: include_collaboration
-        type: ["null", "boolean"]
-      - name: allowed_link_types
-        type: ["null", "boolean"]
-      - name: key
-        type: ["null", "string"]
-      - name: list_custom_metadata
-        type: ["null", "boolean"]
 
   - name: PortalProdGetGroupsByIdV2_class
     type: enum
@@ -3887,23 +2316,15 @@ $graph:
   - name: PortalProdGetGroupsByIdV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get group details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetGroupsByIdV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: groupId
-        type: string
-        doc: "The unique identifier of the group."
 
   - name: PortalProdGetGroupsV2_class
     type: enum
@@ -3913,29 +2334,15 @@ $graph:
   - name: PortalProdGetGroupsV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List groups"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetGroupsV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: startIndex
-        type: ["null", "int"]
-        doc: "The 1‑based index of the first result to return (default is 1)."
-      - name: count
-        type: ["null", "int"]
-        doc: "Maximum number of groups to return (default is 100)."
-      - name: filter
-        type: ["null", "string"]
-        doc: "Filter expression for display name. Use SCIM filter syntax, e.g. `displayName sw \"Mar\"` to list groups whose names start with 'Mar'."
 
   - name: PortalProdGetInsightsFilesV1_class
     type: enum
@@ -3945,23 +2352,15 @@ $graph:
   - name: PortalProdGetInsightsFilesV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List recently accessed files"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetInsightsFilesV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: folder_path
-        type: ["null", "string"]
-        doc: "Restricts results to files within the specified folder path."
 
   - name: PortalProdGetLinksByIdV1_class
     type: enum
@@ -3971,23 +2370,15 @@ $graph:
   - name: PortalProdGetLinksByIdV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get link details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetLinksByIdV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: linkId
-        type: string
-        doc: "The unique identifier of the link."
 
   - name: PortalProdGetLinksByIdV2_class
     type: enum
@@ -3997,22 +2388,15 @@ $graph:
   - name: PortalProdGetLinksByIdV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get link details (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetLinksByIdV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: linkId
-        type: string
 
   - name: PortalProdGetLinksV1_class
     type: enum
@@ -4022,44 +2406,15 @@ $graph:
   - name: PortalProdGetLinksV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List links"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetLinksV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: ["null", "string"]
-        doc: "Return only links that point to this file or folder path."
-      - name: username
-        type: ["null", "string"]
-        doc: "Return only links created by this username."
-      - name: created_before
-        type: ["null", "string"]
-        doc: "Return only links created before this ISO‑8601 date."
-      - name: created_after
-        type: ["null", "string"]
-        doc: "Return only links created after this ISO‑8601 date."
-      - name: type
-        type: ["null", "string"]
-        doc: "Filter by link type: `file` or `folder`."
-      - name: accessibility
-        type: ["null", "string"]
-        doc: "Filter by accessibility: `anyone`, `password`, `domain`, or `recipients`."
-      - name: offset
-        type: ["null", "int"]
-        doc: "Zero‑based index of the first link to return."
-      - name: count
-        type: ["null", "int"]
-        doc: "Maximum number of links to return (default and max 500)."
 
   - name: PortalProdGetLinksV2_class
     type: enum
@@ -4069,36 +2424,15 @@ $graph:
   - name: PortalProdGetLinksV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List links (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetLinksV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: ["null", "string"]
-      - name: username
-        type: ["null", "string"]
-      - name: created_before
-        type: ["null", "string"]
-      - name: created_after
-        type: ["null", "string"]
-      - name: type
-        type: ["null", "string"]
-      - name: accessibility
-        type: ["null", "string"]
-      - name: offset
-        type: ["null", "int"]
-      - name: count
-        type: ["null", "int"]
 
   - name: PortalProdGetNamespaceV1_class
     type: enum
@@ -4108,23 +2442,15 @@ $graph:
   - name: PortalProdGetNamespaceV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get namespace keys"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetNamespaceV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
-        doc: "The namespace identifier."
 
   - name: PortalProdGetNamespacesV1_class
     type: enum
@@ -4134,23 +2460,15 @@ $graph:
   - name: PortalProdGetNamespacesV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List namespaces"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetNamespacesV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: includeFolderAssociations
-        type: ["null", "boolean"]
-        doc: "Include folder association details in the response."
 
   - name: PortalProdGetProjectCustomFieldsV1_class
     type: enum
@@ -4160,14 +2478,9 @@ $graph:
   - name: PortalProdGetProjectCustomFieldsV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all custom field definitions"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdGetProjectCustomFieldsV1_class"
@@ -4183,29 +2496,15 @@ $graph:
   - name: PortalProdPatchGroupsByIdV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Partially update a group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPatchGroupsByIdV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: groupId
-        type: string
-        doc: "Group ID."
-      - name: Operations
-        type: Any
-        doc: "Array of patch operations."
-      - name: schemas
-        type: Any
-        doc: "Must include `urn:ietf:params:scim:api:messages:2.0:PatchOp`."
 
   - name: PortalProdPatchMetadataKeyDataV1_class
     type: enum
@@ -4215,26 +2514,15 @@ $graph:
   - name: PortalProdPatchMetadataKeyDataV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete data for a single key"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPatchMetadataKeyDataV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
-        doc: "Name of the namespace."
-      - name: keyName
-        type: string
-        doc: "Name of the key."
 
   - name: PortalProdPatchMetadataKeyV1_class
     type: enum
@@ -4244,38 +2532,15 @@ $graph:
   - name: PortalProdPatchMetadataKeyV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update a metadata key"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPatchMetadataKeyV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
-      - name: keyName
-        type: string
-      - name: data
-        type: ["null", "Any"]
-      - name: displayName
-        type: ["null", "string"]
-      - name: helpText
-        type: ["null", "string"]
-        doc: "Tooltip description for the field. If provided, must be between 20 and 200 characters."
-      - name: priority
-        type: ["null", "int"]
-      - name: timezoneIndependent
-        type: ["null", "boolean"]
-        doc: "Only applies to `date`-type keys. Once set to `true`, cannot be changed back to `false`."
-      - name: type
-        type: ["null", "string"]
 
   - name: PortalProdPatchMetadataKeysDataV1_class
     type: enum
@@ -4285,26 +2550,15 @@ $graph:
   - name: PortalProdPatchMetadataKeysDataV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete data for multiple keys"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPatchMetadataKeysDataV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
-        doc: "Name of the namespace."
-      - name: keyDataDeletions
-        type: Any
-        doc: "Array of objects specifying keys and data values to delete."
 
   - name: PortalProdPatchNamespaceV1_class
     type: enum
@@ -4314,34 +2568,15 @@ $graph:
   - name: PortalProdPatchNamespaceV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update namespace attributes"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPatchNamespaceV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
-      - name: displayName
-        type: ["null", "string"]
-        doc: "Display name shown in the UI."
-      - name: documentTypeAssociation
-        type: ["null", "Any"]
-        doc: "Document types to associate or dissociate. Do not combine with folderAssociation."
-      - name: folderAssociation
-        type: ["null", "Any"]
-        doc: "Folders to associate or dissociate. Do not combine with documentTypeAssociation."
-      - name: priorities
-        type: ["null", "Any"]
-        doc: "Map of key names to priority values."
 
   - name: PortalProdPatchProjectCustomFieldDataV1_class
     type: enum
@@ -4351,23 +2586,15 @@ $graph:
   - name: PortalProdPatchProjectCustomFieldDataV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Delete custom field definition data"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPatchProjectCustomFieldDataV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: field_name
-        type: string
-        doc: "The unique internal name of the custom field."
 
   - name: PortalProdPatchProjectCustomFieldV1_class
     type: enum
@@ -4377,38 +2604,15 @@ $graph:
   - name: PortalProdPatchProjectCustomFieldV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update a custom field definition"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPatchProjectCustomFieldV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: field_name
-        type: string
-        doc: "The unique internal name of the custom field."
-      - name: data
-        type: ["null", "Any"]
-        doc: "Predefined values to set or append. For `enum`: new values replace existing values. For `multi_value_enum` and `labels`: new values are appended to existing values."
-      - name: displayName
-        type: ["null", "string"]
-        doc: "New display name (max 40 characters)."
-      - name: helpText
-        type: ["null", "string"]
-        doc: "Updated field description. If provided, must be between 20 and 200 characters."
-      - name: priority
-        type: ["null", "int"]
-        doc: "New display order (0–65535). Omitting leaves existing order unchanged."
-      - name: timezoneIndependent
-        type: ["null", "boolean"]
-        doc: "Only applies to `date`-type fields. Once set to `true`, cannot be changed back to `false`."
 
   - name: PortalProdPostFsByIdV1_class
     type: enum
@@ -4418,50 +2622,15 @@ $graph:
   - name: PortalProdPostFsByIdV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Perform a file or folder operation by ID"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostFsByIdV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: type
-        type: string
-        doc: "Literal string `file` or `folder`."
-      - name: action
-        type: string
-        doc: "The operation to perform."
-      - name: collaboration
-        type: ["null", "string"]
-        doc: "Collaboration token for UI Integration Framework apps (Base64-encoded)."
-      - name: destination
-        type: ["null", "string"]
-        doc: "Destination path for move or copy operations."
-      - name: destination_id
-        type: ["null", "string"]
-        doc: "Destination folder ID for ID-based move/copy operations."
-      - name: folder_options_mode
-        type: ["null", "string"]
-        doc: "How folder options are handled on move/copy. One of `keep_source` or `apply_destination`."
-      - name: lock_timeout
-        type: ["null", "int"]
-        doc: "Lock duration in seconds (default 3600, max 604800)."
-      - name: lock_token
-        type: ["null", "string"]
-        doc: "Token required to unlock the file. If omitted on lock, a random token is generated."
-      - name: name
-        type: ["null", "string"]
-        doc: "Destination entity name when using destination_id."
-      - name: permissions
-        type: ["null", "string"]
-        doc: "How permissions are derived on move/copy. One of `keep_original` or `inherit_from_parent`."
 
   - name: PortalProdPostFsV1_class
     type: enum
@@ -4471,50 +2640,15 @@ $graph:
   - name: PortalProdPostFsV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Perform a file or folder operation"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostFsV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: string
-        doc: "Full path to the file or folder that is the subject of the operation."
-      - name: action
-        type: string
-        doc: "The operation to perform."
-      - name: collaboration
-        type: ["null", "string"]
-        doc: "Collaboration token for UI Integration Framework apps (Base64-encoded)."
-      - name: destination
-        type: ["null", "string"]
-        doc: "Destination path for move or copy operations."
-      - name: destination_id
-        type: ["null", "string"]
-        doc: "Destination folder ID for ID-based move/copy operations."
-      - name: folder_options_mode
-        type: ["null", "string"]
-        doc: "How folder options are handled on move/copy. One of `keep_source` or `apply_destination`."
-      - name: lock_timeout
-        type: ["null", "int"]
-        doc: "Lock duration in seconds (default 3600, max 604800)."
-      - name: lock_token
-        type: ["null", "string"]
-        doc: "Token required to unlock the file. If omitted on lock, a random token is generated."
-      - name: new_name
-        type: ["null", "string"]
-        doc: "New name when renaming or when moving/copying to rename the item."
-      - name: permissions
-        type: ["null", "string"]
-        doc: "How permissions are derived on move/copy. One of `keep_original` or `inherit_from_parent`."
 
   - name: PortalProdPostFsV2_class
     type: enum
@@ -4524,41 +2658,15 @@ $graph:
   - name: PortalProdPostFsV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Perform a file or folder operation (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostFsV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: path
-        type: string
-        doc: "Full path to the file or folder."
-      - name: action
-        type: string
-      - name: collaboration
-        type: ["null", "string"]
-      - name: destination
-        type: ["null", "string"]
-      - name: destination_id
-        type: ["null", "string"]
-      - name: folder_options_mode
-        type: ["null", "string"]
-      - name: lock_timeout
-        type: ["null", "int"]
-      - name: lock_token
-        type: ["null", "string"]
-      - name: new_name
-        type: ["null", "string"]
-      - name: permissions
-        type: ["null", "string"]
 
   - name: PortalProdPostGroupsV2_class
     type: enum
@@ -4568,26 +2676,15 @@ $graph:
   - name: PortalProdPostGroupsV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create a group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostGroupsV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: displayName
-        type: string
-        doc: "Name of the group."
-      - name: members
-        type: ["null", "Any"]
-        doc: "Optional list of user IDs to include in the group."
 
   - name: PortalProdPostLinksV1_class
     type: enum
@@ -4597,68 +2694,15 @@ $graph:
   - name: PortalProdPostLinksV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create a link"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostLinksV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: accessibility
-        type: ["null", "string"]
-        doc: "Who can access the link."
-      - name: add_file_name
-        type: ["null", "boolean"]
-        doc: "If true, appends the filename to the link URL."
-      - name: copy_me
-        type: ["null", "boolean"]
-        doc: "If true, sends a copy of the link email to the creator."
-      - name: expiry_clicks
-        type: ["null", "int"]
-        doc: "Number of clicks before link expires (1-10)."
-      - name: expiry_date
-        type: ["null", "string"]
-        doc: "Link expiration date in YYYY-MM-DD format."
-      - name: folder_per_recipient
-        type: ["null", "boolean"]
-        doc: "If true, each recipient's uploads are placed in a separate folder."
-      - name: link_to_current
-        type: ["null", "boolean"]
-        doc: "If true, link always refers to the current version of the file."
-      - name: message
-        type: ["null", "string"]
-        doc: "Personal message for link email."
-      - name: notify
-        type: ["null", "boolean"]
-        doc: "Whether to send notifications to the creator when the link is accessed."
-      - name: password
-        type: ["null", "string"]
-        doc: "Password for password-protected links."
-      - name: path
-        type: string
-        doc: "Absolute path to the target file or folder."
-      - name: protection
-        type: ["null", "string"]
-        doc: "Set to PREVIEW for preview-only link, or NONE for standard."
-      - name: recipients
-        type: ["null", "Any"]
-        doc: "Array of email addresses (required if send_email is true)."
-      - name: send_email
-        type: ["null", "boolean"]
-        doc: "If true, Egnyte sends the link via email to recipients."
-      - name: type
-        type: string
-        doc: "Type of link: `file`, `folder`, or `upload`."
-      - name: useDefaultSettings
-        type: ["null", "boolean"]
-        doc: "If true, uses domain-level defaults for accessibility."
 
   - name: PortalProdPostLinksV2_class
     type: enum
@@ -4668,38 +2712,15 @@ $graph:
   - name: PortalProdPostLinksV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create a link (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostLinksV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: accessibility
-        type: ["null", "string"]
-      - name: expiry_clicks
-        type: ["null", "int"]
-      - name: expiry_date
-        type: ["null", "string"]
-      - name: link_to_current
-        type: ["null", "boolean"]
-      - name: notify
-        type: ["null", "boolean"]
-      - name: password
-        type: ["null", "string"]
-      - name: path
-        type: string
-      - name: recipients
-        type: ["null", "Any"]
-      - name: type
-        type: string
 
   - name: PortalProdPostMetadataKeyV1_class
     type: enum
@@ -4709,39 +2730,15 @@ $graph:
   - name: PortalProdPostMetadataKeyV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create a metadata key"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostMetadataKeyV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
-      - name: data
-        type: ["null", "Any"]
-      - name: displayName
-        type: ["null", "string"]
-      - name: helpText
-        type: string
-        doc: "Tooltip description for the field. Must be between 20 and 200 characters."
-      - name: key
-        type: string
-        doc: "Name of the key to create."
-      - name: priority
-        type: ["null", "int"]
-      - name: timezoneIndependent
-        type: ["null", "boolean"]
-        doc: "Only applies to `date`-type keys. Defaults to `false` (timezone-dependent) when omitted. Set to `true` to opt in to timezone-independent behavior. Cannot be reverted to `false` once set to `true`."
-      - name: type
-        type: string
 
   - name: PortalProdPostNamespaceV1_class
     type: enum
@@ -4751,44 +2748,15 @@ $graph:
   - name: PortalProdPostNamespaceV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create a namespace"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostNamespaceV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: associatedFolderIds
-        type: ["null", "Any"]
-        doc: "Folder IDs to associate (only when metadataScopeType is FOLDER_SCOPE)."
-      - name: displayName
-        type: ["null", "string"]
-        doc: "Display name shown in the UI."
-      - name: documentTypes
-        type: ["null", "Any"]
-        doc: "Document type categories (required when metadataScopeType is DOCUMENT_TYPE)."
-      - name: inheritable
-        type: ["null", "boolean"]
-        doc: "Whether metadata is inherited by child items."
-      - name: keys
-        type: Any
-        doc: "Definitions of keys in the namespace. The object's property names are the key names."
-      - name: metadataScopeType
-        type: ["null", "string"]
-        doc: "Scope type for the namespace."
-      - name: name
-        type: string
-        doc: "Unique namespace identifier."
-      - name: scope
-        type: string
-        doc: "Visibility of the namespace."
 
   - name: PortalProdPostProjectCustomFieldV1_class
     type: enum
@@ -4798,38 +2766,15 @@ $graph:
   - name: PortalProdPostProjectCustomFieldV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Create a custom field definition"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostProjectCustomFieldV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: data
-        type: ["null", "Any"]
-        doc: "Predefined values. Required for `enum` and `multi_value_enum`. Optional for `labels`. Must not be provided for primitive types."
-      - name: displayName
-        type: string
-        doc: "Display name (max 40 characters). The internal `name` key is auto-derived (lowercase, spaces → hyphens)."
-      - name: helpText
-        type: string
-        doc: "Custom field description. Must be between 20 and 200 characters."
-      - name: priority
-        type: ["null", "int"]
-        doc: "Display order in project settings (0–65535). Omitting appends the field last."
-      - name: timezoneIndependent
-        type: ["null", "boolean"]
-        doc: "Only applies to `date`-type fields. When `true`, values must be UTC midnight milliseconds. Defaults to `false` (timezone-dependent) when omitted. Set to `true` to opt in to timezone-independent behavior. Cannot be reverted to `false` once set."
-      - name: type
-        type: string
-        doc: "Data type for the field. `enum` = dropdown with single select; `multi_value_enum` = dropdown with multi select; `labels` = multi-value free-text field."
 
   - name: PortalProdPostSearchMetadataV1_class
     type: enum
@@ -4839,29 +2784,15 @@ $graph:
   - name: PortalProdPostSearchMetadataV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Search metadata"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPostSearchMetadataV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: has_key
-        type: ["null", "Any"]
-        doc: "Find items with specific keys."
-      - name: key_with_value
-        type: ["null", "Any"]
-        doc: "Find items where a key contains a specific value (substring match)."
-      - name: type
-        type: ["null", "string"]
-        doc: "Item types to search."
 
   - name: PortalProdPutFileMetadataV1_class
     type: enum
@@ -4871,22 +2802,15 @@ $graph:
   - name: PortalProdPutFileMetadataV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Set metadata values on a file or file version"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPutFileMetadataV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
 
   - name: PortalProdPutFolderMetadataV1_class
     type: enum
@@ -4896,22 +2820,15 @@ $graph:
   - name: PortalProdPutFolderMetadataV1
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Set metadata values on a folder"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPutFolderMetadataV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: namespaceName
-        type: string
 
   - name: PortalProdPutGroupsByIdV2_class
     type: enum
@@ -4921,27 +2838,15 @@ $graph:
   - name: PortalProdPutGroupsByIdV2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update a group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PortalProdPutGroupsByIdV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: groupId
-        type: string
-        doc: "Group ID."
-      - name: displayName
-        type: string
-      - name: members
-        type: ["null", "Any"]
 
   - name: PurchaseMspPowerUsers_class
     type: enum
@@ -4951,26 +2856,15 @@ $graph:
   - name: PurchaseMspPowerUsers
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Purchase Power Users"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PurchaseMspPowerUsers_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: planId
-        type: string
-        doc: "Plan identifier."
-      - name: powerUsers
-        type: int
-        doc: "Target number of power users (absolute count, not delta)."
 
   - name: RegisterWebhook_class
     type: enum
@@ -4980,35 +2874,15 @@ $graph:
   - name: RegisterWebhook
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Register a webhook"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#RegisterWebhook_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: authHeader
-        type: ["null", "string"]
-        doc: "Optional header name used to send a custom authentication value with webhook requests"
-      - name: authHeaderValue
-        type: ["null", "string"]
-        doc: "Optional value associated with `authHeader`"
-      - name: eventType
-        type: ["null", "Any"]
-        doc: "One or more event types to subscribe to. Supported categories: `fs:*`, `link:*`, `comment:*`, `permission:*`, `meta:*`, `workflow:*`, `group:*`, `user:*`. Use a category wildcard (e.g. `fs:*`) to subscribe to all events in that category, or a specific event name (e.g. `fs:add_file`). If omitted, subscribes to all events."
-      - name: path
-        type: ["null", "string"]
-        doc: "Comma‑separated list of folder paths to scope the webhook. Maximum 100 paths."
-      - name: url
-        type: string
-        doc: "The HTTPS endpoint that will receive webhook notifications"
 
   - name: RemoveSync_class
     type: enum
@@ -5018,23 +2892,15 @@ $graph:
   - name: RemoveSync
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Remove sync project"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#RemoveSync_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: syncId
-        type: string
-        doc: "UUID of the synced project"
 
   - name: ReplaceScimGroup_class
     type: enum
@@ -5044,27 +2910,15 @@ $graph:
   - name: ReplaceScimGroup
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Replace group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ReplaceScimGroup_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: groupId
-        type: string
-        doc: "Group ID"
-      - name: displayName
-        type: ["null", "string"]
-      - name: members
-        type: ["null", "Any"]
 
   - name: ReplaceScimUser_class
     type: enum
@@ -5074,35 +2928,15 @@ $graph:
   - name: ReplaceScimUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Replace user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ReplaceScimUser_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: userId
-        type: string
-        doc: "User ID"
-      - name: active
-        type: ["null", "boolean"]
-      - name: emails
-        type: ["null", "Any"]
-      - name: externalId
-        type: ["null", "string"]
-      - name: groups
-        type: ["null", "Any"]
-      - name: name
-        type: ["null", "Any"]
-      - name: userName
-        type: ["null", "string"]
 
   - name: RetrieveAuditReport_class
     type: enum
@@ -5112,29 +2946,15 @@ $graph:
   - name: RetrieveAuditReport
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve Audit Report"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#RetrieveAuditReport_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: type
-        type: string
-        doc: "Type of audit report to retrieve. One of: logins, files, permissions, users, groups, workgroup-settings, workflows, workflow-templates, quality-docs, quality-docs-categories, quality-docs-courses, etmf, snapshot-restore, upload-requests.\n"
-      - name: offset
-        type: ["null", "int"]
-        doc: "Starting event index (0-based). Applies only to JSON-format reports."
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of events to return. Applies only to JSON-format reports."
 
   - name: RevokeTokenWithFormdataBody_class
     type: enum
@@ -5144,13 +2964,8 @@ $graph:
   - name: RevokeTokenWithFormdataBody
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#RevokeTokenWithFormdataBody_class"
@@ -5166,65 +2981,15 @@ $graph:
   - name: SearchV1Get
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Search files and folders (v1)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#SearchV1Get_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: query
-        type: string
-        doc: "Search string (3–100 characters)"
-      - name: offset
-        type: ["null", "int"]
-        doc: "0‑based index of the first result"
-      - name: count
-        type: ["null", "int"]
-        doc: "Number of results per page (1–20)"
-      - name: folder
-        type: ["null", "string"]
-        doc: "Limit search to a specific folder and its descendants (URL‑encoded path)"
-      - name: modified_before
-        type: ["null", "string"]
-        doc: "Return items modified before this ISO‑8601 timestamp"
-      - name: modified_after
-        type: ["null", "string"]
-        doc: "Return items modified after this ISO‑8601 timestamp"
-      - name: uploaded_before
-        type: ["null", "string"]
-        doc: "Return items uploaded before this ISO‑8601 timestamp"
-      - name: uploaded_after
-        type: ["null", "string"]
-        doc: "Return items uploaded after this ISO‑8601 timestamp"
-      - name: type
-        type: ["null", "string"]
-        doc: "Restrict search to file or folder objects"
-      - name: snippet_requested
-        type: ["null", "boolean"]
-        doc: "Whether to include snippets in the results."
-      - name: sort_by
-        type: ["null", "string"]
-        doc: "Field used for sorting"
-      - name: sort_direction
-        type: ["null", "string"]
-        doc: "Sort direction"
-      - name: file_query_fields
-        type: ["null", "string"]
-        doc: "Search files in specific fields."
-      - name: folder_query_fields
-        type: ["null", "string"]
-        doc: "Search folders in specific fields."
-      - name: query_operator
-        type: ["null", "string"]
-        doc: "Match all words or any word."
 
   - name: SearchV2Post_class
     type: enum
@@ -5234,71 +2999,15 @@ $graph:
   - name: SearchV2Post
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Search with custom metadata (v2)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#SearchV2Post_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: count
-        type: ["null", "int"]
-      - name: custom_metadata
-        type: ["null", "Any"]
-      - name: file_query_fields
-        type: ["null", "Any"]
-        doc: "Search files in specific fields."
-      - name: folder
-        type: ["null", "string"]
-        doc: "Limit results to items in this folder and its descendants. Do NOT URL-encode when using v2."
-      - name: folder_query_fields
-        type: ["null", "Any"]
-        doc: "Search folders in specific fields."
-      - name: mlt
-        type: ["null", "Any"]
-        doc: "Array of document entry IDs to use as reference for similarity search."
-      - name: mltt
-        type: ["null", "Any"]
-        doc: "Array of text strings to use as reference for similarity search."
-      - name: modified_after
-        type: ["null", "int"]
-        doc: "Limit results to items modified after this Unix timestamp in milliseconds."
-      - name: modified_before
-        type: ["null", "int"]
-        doc: "Limit results to items modified before this Unix timestamp in milliseconds."
-      - name: namespaces
-        type: ["null", "Any"]
-        doc: "Array of namespace names to include in results."
-      - name: offset
-        type: ["null", "int"]
-      - name: query
-        type: ["null", "string"]
-        doc: "Keyword search string (3–100 characters). Either query or custom_metadata is required."
-      - name: query_operator
-        type: ["null", "string"]
-      - name: snippet_requested
-        type: ["null", "boolean"]
-        doc: "Whether to include text snippets in results."
-      - name: sort_by
-        type: ["null", "string"]
-      - name: sort_direction
-        type: ["null", "string"]
-      - name: type
-        type: ["null", "string"]
-        doc: "Filter by item type."
-      - name: uploaded_after
-        type: ["null", "int"]
-        doc: "Limit results to items uploaded after this Unix timestamp in milliseconds."
-      - name: uploaded_before
-        type: ["null", "int"]
-        doc: "Limit results to items uploaded before this Unix timestamp in milliseconds."
 
   - name: SetWebhookStatus_class
     type: enum
@@ -5308,26 +3017,15 @@ $graph:
   - name: SetWebhookStatus
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Set webhook status"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#SetWebhookStatus_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: webhookId
-        type: string
-        doc: "Identifier of the webhook"
-      - name: status
-        type: string
-        doc: "The desired new status of the webhook"
 
   - name: StreamAuditEventsGet_class
     type: enum
@@ -5337,32 +3035,15 @@ $graph:
   - name: StreamAuditEventsGet
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve Audit Events (stream via GET)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#StreamAuditEventsGet_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: startDate
-        type: ["null", "string"]
-        doc: "Start of date range. Format: YYYY-MM-DD or ISO 8601 YYYY-MM-DDTHH:MM:SSZ. Must be within the last 7 days. Required if nextCursor is not provided.\n"
-      - name: endDate
-        type: ["null", "string"]
-        doc: "End of date range in YYYY-MM-DD or ISO 8601 YYYY-MM-DDTHH:MM:SSZ format.\n"
-      - name: nextCursor
-        type: ["null", "string"]
-        doc: "Cursor from the previous response. Required if startDate is not provided."
-      - name: auditType
-        type: ["null", "string"]
-        doc: "Filter events by type. Repeat the parameter for multiple types. Defaults to ANY if omitted.\n"
 
   - name: StreamAuditEventsPost_class
     type: enum
@@ -5372,32 +3053,15 @@ $graph:
   - name: StreamAuditEventsPost
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve Audit Events (stream via POST)"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#StreamAuditEventsPost_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: auditType
-        type: ["null", "Any"]
-        doc: "Filter events by type. Defaults to ANY if omitted."
-      - name: endDate
-        type: ["null", "string"]
-        doc: "End of date range in YYYY-MM-DD or ISO 8601 YYYY-MM-DDTHH:MM:SSZ format."
-      - name: nextCursor
-        type: ["null", "string"]
-        doc: "Cursor from the previous response. Required if startDate is not provided."
-      - name: startDate
-        type: ["null", "string"]
-        doc: "Start of date range. Format: YYYY-MM-DD or ISO 8601 YYYY-MM-DDTHH:MM:SSZ. Must be within the last 7 days. Required if nextCursor is not provided.\n"
 
   - name: SummarizeDocument_class
     type: enum
@@ -5407,25 +3071,15 @@ $graph:
   - name: SummarizeDocument
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Summarize a document"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#SummarizeDocument_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: entry-id
-        type: string
-        doc: "Unique identifier of the document version"
-      - name: chatHistory
-        type: ["null", "Any"]
 
   - name: SyncedProjectsDetails_class
     type: enum
@@ -5435,23 +3089,15 @@ $graph:
   - name: SyncedProjectsDetails
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Synced project details"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#SyncedProjectsDetails_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: syncId
-        type: string
-        doc: "UUID of the synced project (e.g. 11111111-2222-3333-4444-555555555555)"
 
   - name: TrashAction_class
     type: enum
@@ -5461,26 +3107,15 @@ $graph:
   - name: TrashAction
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Restore or Permanently Delete Items from Trash"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#TrashAction_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: action
-        type: string
-        doc: "Action to perform on the specified trash items."
-      - name: ids
-        type: Any
-        doc: "Array of trash item IDs (max 10)."
 
   - name: UpdateMspWebhook_class
     type: enum
@@ -5490,35 +3125,15 @@ $graph:
   - name: UpdateMspWebhook
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update a Webhook"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UpdateMspWebhook_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: webhook_id
-        type: string
-        doc: "Unique identifier of the webhook (UUID)."
-      - name: auth_header
-        type: string
-        doc: "Name of the HTTP header sent with each webhook payload for authentication."
-      - name: auth_header_value
-        type: string
-        doc: "Value of the authentication header. Write-only — never returned in responses."
-      - name: eventTypes
-        type: Any
-        doc: "One or more event types to subscribe to."
-      - name: webhook_url
-        type: string
-        doc: "HTTPS URL to receive webhook payloads."
 
   - name: UpdateSyncWithFormdataBody_class
     type: enum
@@ -5528,13 +3143,8 @@ $graph:
   - name: UpdateSyncWithFormdataBody
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UpdateSyncWithFormdataBody_class"
@@ -5550,42 +3160,15 @@ $graph:
   - name: UpdateUser
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update a user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UpdateUser_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: active
-        type: ["null", "boolean"]
-      - name: authType
-        type: ["null", "string"]
-      - name: email
-        type: ["null", "string"]
-      - name: familyName
-        type: ["null", "string"]
-      - name: givenName
-        type: ["null", "string"]
-      - name: idpUserId
-        type: ["null", "string"]
-      - name: language
-        type: ["null", "string"]
-      - name: role
-        type: ["null", "string"]
-      - name: sendInvite
-        type: ["null", "boolean"]
-      - name: userPrincipalName
-        type: ["null", "string"]
-      - name: userType
-        type: ["null", "string"]
 
   - name: UpdateWebhook_class
     type: enum
@@ -5595,41 +3178,15 @@ $graph:
   - name: UpdateWebhook
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update a webhook"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UpdateWebhook_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: webhookId
-        type: string
-        doc: "Identifier of the webhook to update"
-      - name: authHeader
-        type: ["null", "string"]
-        doc: "Custom authorization header value sent with webhook notifications"
-      - name: authHeaderValue
-        type: ["null", "string"]
-        doc: "Optional value associated with `authHeader`"
-      - name: eventType
-        type: ["null", "Any"]
-        doc: "List of event types to subscribe to. Minimum 1 item if provided. Supported categories: `fs:*`, `link:*`, `comment:*`, `permission:*`, `meta:*`, `workflow:*`, `group:*`, `user:*`. Use a category wildcard (e.g. `fs:*`) or a specific event name (e.g. `fs:add_file`)."
-      - name: path
-        type: ["null", "string"]
-        doc: "Comma-separated list of folder paths to monitor. Maximum 100 paths."
-      - name: status
-        type: ["null", "string"]
-        doc: "Webhook status"
-      - name: url
-        type: string
-        doc: "The HTTPS endpoint where Egnyte will send event notifications"
 
   - name: Whoami_class
     type: enum
@@ -5639,14 +3196,9 @@ $graph:
   - name: Whoami
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get basic information about the caller"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Whoami_class"

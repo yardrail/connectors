@@ -13,13 +13,8 @@ $graph:
   - name: Deletecrmv3objectscontactsContactIdArchive
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Deletecrmv3objectscontactsContactIdArchive_class"
@@ -35,13 +30,8 @@ $graph:
   - name: Getcrmv3objectscontactsContactIdGetById
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Getcrmv3objectscontactsContactIdGetById_class"
@@ -57,13 +47,8 @@ $graph:
   - name: Getcrmv3objectscontactsGetPage
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Getcrmv3objectscontactsGetPage_class"
@@ -79,13 +64,8 @@ $graph:
   - name: Patchcrmv3objectscontactsContactIdUpdate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Patchcrmv3objectscontactsContactIdUpdate_class"
@@ -101,13 +81,8 @@ $graph:
   - name: Postcrmv3objectscontactsCreate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsCreate_class"
@@ -123,13 +98,8 @@ $graph:
   - name: Postcrmv3objectscontactsbatcharchiveArchive
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatcharchiveArchive_class"
@@ -145,13 +115,8 @@ $graph:
   - name: Postcrmv3objectscontactsbatchcreateCreate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatchcreateCreate_class"
@@ -167,13 +132,8 @@ $graph:
   - name: Postcrmv3objectscontactsbatchreadRead
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatchreadRead_class"
@@ -189,13 +149,8 @@ $graph:
   - name: Postcrmv3objectscontactsbatchupdateUpdate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatchupdateUpdate_class"
@@ -211,13 +166,8 @@ $graph:
   - name: Postcrmv3objectscontactsbatchupsertUpsert
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatchupsertUpsert_class"
@@ -233,13 +183,8 @@ $graph:
   - name: Postcrmv3objectscontactsgdprDeletePurge
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsgdprDeletePurge_class"
@@ -255,13 +200,8 @@ $graph:
   - name: Postcrmv3objectscontactsmergeMerge
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsmergeMerge_class"
@@ -277,13 +217,8 @@ $graph:
   - name: Postcrmv3objectscontactssearchDoSearch
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#Postcrmv3objectscontactssearchDoSearch_class"

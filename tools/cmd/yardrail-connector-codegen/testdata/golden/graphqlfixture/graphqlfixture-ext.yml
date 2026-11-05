@@ -13,22 +13,15 @@ $graph:
   - name: GetWidget
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get one widget by ID."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#GetWidget_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: widgetId
-        type: string
 
   - name: RenameWidget_class
     type: enum
@@ -38,21 +31,12 @@ $graph:
   - name: RenameWidget
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Rename a widget."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#RenameWidget_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: widgetId
-        type: string
-      - name: name
-        type: string
