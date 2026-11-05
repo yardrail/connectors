@@ -470,7 +470,7 @@ func (ic *InterfaceClient) dispatchExchangeAccessTokenWithFormdataBodyWithRespon
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("canva.exchange-access-token-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("canva.exchange-access-token: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.ExchangeAccessTokenWithFormdataBodyWithResponse(ctx, body)
@@ -479,11 +479,11 @@ func (ic *InterfaceClient) dispatchExchangeAccessTokenWithFormdataBodyWithRespon
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("canva.exchange-access-token-with-formdata-body: nil response")
+		return nil, fmt.Errorf("canva.exchange-access-token: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("canva.exchange-access-token-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("canva.exchange-access-token: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1255,7 +1255,7 @@ func (ic *InterfaceClient) dispatchIntrospectTokenWithFormdataBodyWithResponse(c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("canva.introspect-token-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("canva.introspect-token: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.IntrospectTokenWithFormdataBodyWithResponse(ctx, body)
@@ -1264,11 +1264,11 @@ func (ic *InterfaceClient) dispatchIntrospectTokenWithFormdataBodyWithResponse(c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("canva.introspect-token-with-formdata-body: nil response")
+		return nil, fmt.Errorf("canva.introspect-token: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("canva.introspect-token-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("canva.introspect-token: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -1438,7 +1438,7 @@ func (ic *InterfaceClient) dispatchRevokeTokensWithFormdataBodyWithResponse(ctx 
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("canva.revoke-tokens-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("canva.revoke-tokens: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.RevokeTokensWithFormdataBodyWithResponse(ctx, body)
@@ -1447,11 +1447,11 @@ func (ic *InterfaceClient) dispatchRevokeTokensWithFormdataBodyWithResponse(ctx 
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("canva.revoke-tokens-with-formdata-body: nil response")
+		return nil, fmt.Errorf("canva.revoke-tokens: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("canva.revoke-tokens-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("canva.revoke-tokens: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil

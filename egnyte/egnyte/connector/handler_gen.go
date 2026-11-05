@@ -52,7 +52,7 @@ const (
 	FnCreateScimUser                          Function = "create-scim-user"
 	FnCreateSignatureRequest                  Function = "create-signature-request"
 	FnCreateSnapshotRestoreAuditReport        Function = "create-snapshot-restore-audit-report"
-	FnCreateSyncWithFormdataBody              Function = "create-sync-with-formdata-body"
+	FnCreateSync                              Function = "create-sync"
 	FnCreateUploadRequest                     Function = "create-upload-request"
 	FnCreateUploadRequestsAuditReport         Function = "create-upload-requests-audit-report"
 	FnCreateUser                              Function = "create-user"
@@ -186,7 +186,7 @@ const (
 	FnReplaceScimGroup                        Function = "replace-scim-group"
 	FnReplaceScimUser                         Function = "replace-scim-user"
 	FnRetrieveAuditReport                     Function = "retrieve-audit-report"
-	FnRevokeTokenWithFormdataBody             Function = "revoke-token-with-formdata-body"
+	FnRevokeToken                             Function = "revoke-token"
 	FnSearchV1Get                             Function = "search-v1-get"
 	FnSearchV2Post                            Function = "search-v2-post"
 	FnSetWebhookStatus                        Function = "set-webhook-status"
@@ -196,7 +196,7 @@ const (
 	FnSyncedProjectsDetails                   Function = "synced-projects-details"
 	FnTrashAction                             Function = "trash-action"
 	FnUpdateMspWebhook                        Function = "update-msp-webhook"
-	FnUpdateSyncWithFormdataBody              Function = "update-sync-with-formdata-body"
+	FnUpdateSync                              Function = "update-sync"
 	FnUpdateUser                              Function = "update-user"
 	FnUpdateWebhook                           Function = "update-webhook"
 	FnWhoami                                  Function = "whoami"
@@ -265,8 +265,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnCreateSignatureRequest, nil
 	case FnCreateSnapshotRestoreAuditReport:
 		return FnCreateSnapshotRestoreAuditReport, nil
-	case FnCreateSyncWithFormdataBody:
-		return FnCreateSyncWithFormdataBody, nil
+	case FnCreateSync:
+		return FnCreateSync, nil
 	case FnCreateUploadRequest:
 		return FnCreateUploadRequest, nil
 	case FnCreateUploadRequestsAuditReport:
@@ -533,8 +533,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnReplaceScimUser, nil
 	case FnRetrieveAuditReport:
 		return FnRetrieveAuditReport, nil
-	case FnRevokeTokenWithFormdataBody:
-		return FnRevokeTokenWithFormdataBody, nil
+	case FnRevokeToken:
+		return FnRevokeToken, nil
 	case FnSearchV1Get:
 		return FnSearchV1Get, nil
 	case FnSearchV2Post:
@@ -553,8 +553,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnTrashAction, nil
 	case FnUpdateMspWebhook:
 		return FnUpdateMspWebhook, nil
-	case FnUpdateSyncWithFormdataBody:
-		return FnUpdateSyncWithFormdataBody, nil
+	case FnUpdateSync:
+		return FnUpdateSync, nil
 	case FnUpdateUser:
 		return FnUpdateUser, nil
 	case FnUpdateWebhook:
@@ -629,7 +629,7 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchCreateSignatureRequestWithResponse(ctx, config, inputs)
 	case FnCreateSnapshotRestoreAuditReport:
 		return ic.dispatchCreateSnapshotRestoreAuditReportWithResponse(ctx, config, inputs)
-	case FnCreateSyncWithFormdataBody:
+	case FnCreateSync:
 		return ic.dispatchCreateSyncWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnCreateUploadRequest:
 		return ic.dispatchCreateUploadRequestWithResponse(ctx, config, inputs)
@@ -897,7 +897,7 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchReplaceScimUserWithResponse(ctx, config, inputs)
 	case FnRetrieveAuditReport:
 		return ic.dispatchRetrieveAuditReportWithResponse(ctx, config, inputs)
-	case FnRevokeTokenWithFormdataBody:
+	case FnRevokeToken:
 		return ic.dispatchRevokeTokenWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnSearchV1Get:
 		return ic.dispatchSearchV1GetWithResponse(ctx, config, inputs)
@@ -917,7 +917,7 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchTrashActionWithResponse(ctx, config, inputs)
 	case FnUpdateMspWebhook:
 		return ic.dispatchUpdateMspWebhookWithResponse(ctx, config, inputs)
-	case FnUpdateSyncWithFormdataBody:
+	case FnUpdateSync:
 		return ic.dispatchUpdateSyncWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnUpdateUser:
 		return ic.dispatchUpdateUserWithResponse(ctx, config, inputs)

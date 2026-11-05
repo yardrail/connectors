@@ -240,13 +240,19 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/canva#ExchangeAccessTokenWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/canva#ExchangeAccessToken", Info: connector.CWLClassInfo{
 				ConnectorID: "canva",
-				Function:    "exchange-access-token-with-formdata-body",
-				ClassName:   "ExchangeAccessTokenWithFormdataBody",
-				Description: "",
+				Function:    "exchange-access-token",
+				ClassName:   "ExchangeAccessToken",
+				Description: "This endpoint implements the OAuth 2.0 `token` endpoint, as part of the Authorization Code flow with Proof Key for Code Exchange (PKCE). For more information, see [Authentication](https://www.canva.dev/docs/apps/rest-apis/authentication/).  To generate an access token, you must provide one of the following:  - An authorization code - A refresh token  Generating a token using either an authorization code or a refresh token allows your app to act on behalf of a user. You must first [obtain user authorization and get an authorization code](https://www.canva.dev/docs/apps/rest-apis/authentication/#obtain-user-authorization).  Access tokens may be up to 4 KB in size, and are only valid for a specified period of time. The expiry time (currently 4 hours) is shown in the endpoint response and is subject to change.  **Endpoint authentication**  Requests to this endpoint require authentication with your client ID and client secret, using _one_ of the following methods:  - **Basic access authentication** (Recommended): For [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), the `{credentials}` string must be a Base64 encoded value of `{client id}:{client secret}`. - **Body parameters**: Provide your app's credentials using the `client_id` and `client_secret` body parameters.  This endpoint can't be called from a user's web-browser client because it uses client authentication with client secrets. Requests must come from your app's backend, otherwise they'll be blocked by Canva's [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy.  **Generate an access token using an authorization code**  To generate an access token with an authorization code, you must:  - Set `grant_type` to `authorization_code`. - Provide the `code_verifier` value that you generated when creating the user authorization URL. - Provide the authorization code you received after the user authorized the app.  **Generate an access token using a refresh token**  Using the `refresh_token` value from a previous user token request, you can get a new access token with the same or smaller scope as the previous one, but with a refreshed expiry time. You will also receive a new refresh token that you can use to refresh the access token again.  To refresh an existing access token, you must:  - Set `grant_type` to `refresh_token`. - Provide the `refresh_token` from a previous token request.",
 				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "access_token", Type: "string", Required: true, Description: "The bearer access token to use to authenticate to Canva REST API endpoints. If requested using a `authorization_code` or `refresh_token`, this allows you to act on behalf of a user."},
+					{Name: "expires_in", Type: "integer", Required: true, Description: "The expiry time (in seconds) for the access token."},
+					{Name: "refresh_token", Type: "string", Required: true, Description: "The token that you can use to refresh the access token."},
+					{Name: "scope", Type: "string", Required: false, Description: "The [scopes](https://www.canva.dev/docs/apps/rest-apis/scopes/) that the token has been granted."},
+					{Name: "token_type", Type: "string", Required: true, Description: "The token type returned. This is always `Bearer`."},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/canva#GetAppJwks", Info: connector.CWLClassInfo{
 				ConnectorID: "canva",
@@ -643,13 +649,26 @@ func Register() connector.Registration {
 					{Name: "profile", Type: "object", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/canva#IntrospectTokenWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/canva#IntrospectToken", Info: connector.CWLClassInfo{
 				ConnectorID: "canva",
-				Function:    "introspect-token-with-formdata-body",
-				ClassName:   "IntrospectTokenWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "introspect-token",
+				ClassName:   "IntrospectToken",
+				Description: "Introspect an access token to see whether it is valid and active. You can also verify some token properties, such as its claims, scopes, and validity times.  Requests to this endpoint require authentication with your client ID and client secret, using _one_ of the following methods:  - **Basic access authentication** (Recommended): For [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), the `{credentials}` string must be a Base64 encoded value of `{client id}:{client secret}`. - **Body parameters**: Provide your app's credentials using the `client_id` and `client_secret` body parameters.  This endpoint can't be called from a user's web-browser client because it uses client authentication with client secrets. Requests must come from your app's backend, otherwise they'll be blocked by Canva's [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "client_id", Type: "string", Required: false, Description: "Your app's unique ID, for authenticating the request.  NOTE: We recommend that you use basic access authentication instead of specifying `client_id` and `client_secret` as body parameters. "},
+					{Name: "client_secret", Type: "string", Required: false, Description: "Your app's client secret, for authenticating the request. Begins with `cnvca`.  NOTE: We recommend that you use basic access authentication instead of specifying `client_id` and `client_secret` as body parameters. "},
+					{Name: "token", Type: "string", Required: true, Description: "The token to introspect."},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "active", Type: "boolean", Required: true, Description: "Whether the access token is active.  If `true`, the access token is valid and active. If `false`, the access token is invalid. "},
+					{Name: "client", Type: "string", Required: false, Description: "The ID of the client that requested the token."},
+					{Name: "exp", Type: "integer", Required: false, Description: "The expiration time of the token, as a [Unix timestamp](https://en.wikipedia.org/wiki/Unix_time) in seconds."},
+					{Name: "iat", Type: "integer", Required: false, Description: "When the token was issued, as a [Unix timestamp](https://en.wikipedia.org/wiki/Unix_time) in seconds."},
+					{Name: "jti", Type: "string", Required: false, Description: "A unique ID for the access token."},
+					{Name: "nbf", Type: "integer", Required: false, Description: "The \"not before\" time of the token, which specifies the time before which the access token most not be accepted, as a [Unix timestamp](https://en.wikipedia.org/wiki/Unix_time) in seconds."},
+					{Name: "scope", Type: "string", Required: false, Description: "The [scopes](https://www.canva.dev/docs/apps/rest-apis/scopes/) that the token has been granted."},
+					{Name: "sub", Type: "string", Required: false, Description: "The subject of the claim. This is the ID of the Canva user that the access token acts on behalf of.  This is an obfuscated value, so a single user has a unique ID for each app. If the same user authorizes another app, their ID in that other app is different. "},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/canva#ListBrandTemplates", Info: connector.CWLClassInfo{
 				ConnectorID: "canva",
@@ -743,13 +762,17 @@ func Register() connector.Registration {
 					{Name: "brand_template", Type: "object", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/canva#RevokeTokensWithFormdataBody", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/canva#RevokeTokens", Info: connector.CWLClassInfo{
 				ConnectorID: "canva",
-				Function:    "revoke-tokens-with-formdata-body",
-				ClassName:   "RevokeTokensWithFormdataBody",
-				Description: "",
-				Inputs:      []connector.CWLFieldInfo{},
-				Outputs:     []connector.CWLFieldInfo{},
+				Function:    "revoke-tokens",
+				ClassName:   "RevokeTokens",
+				Description: "Revoke an access token or a refresh token.  If you revoke a _refresh token_, be aware that:  - The refresh token's lineage is also revoked. This means that access tokens created from that refresh token are also revoked. - The user's consent for your app is also revoked. This means that the user must go through the OAuth process again to use your app.  Requests to this endpoint require authentication with your client ID and client secret, using _one_ of the following methods:  - **Basic access authentication** (Recommended): For [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), the `{credentials}` string must be a Base64 encoded value of `{client id}:{client secret}`. - **Body parameters**: Provide your app's credentials using the `client_id` and `client_secret` body parameters.  This endpoint can't be called from a user's web-browser client because it uses client authentication with client secrets. Requests must come from your app's backend, otherwise they'll be blocked by Canva's [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "client_id", Type: "string", Required: false, Description: "Your app's unique ID, for authenticating the request.  NOTE: We recommend that you use basic access authentication instead of specifying `client_id` and `client_secret` as body parameters. "},
+					{Name: "client_secret", Type: "string", Required: false, Description: "Your app's client secret, for authenticating the request. Begins with `cnvca`.  NOTE: We recommend that you use basic access authentication instead of specifying `client_id` and `client_secret` as body parameters. "},
+					{Name: "token", Type: "string", Required: true, Description: "The token to revoke."},
+				},
+				Outputs: []connector.CWLFieldInfo{},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/canva#UpdateAsset", Info: connector.CWLClassInfo{
 				ConnectorID: "canva",

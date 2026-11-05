@@ -5,24 +5,20 @@ $namespaces:
 
 $graph:
 
-  - name: AdminAppsApproveWithFormdataBody_class
+  - name: AdminAppsApprove_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminAppsApproveWithFormdataBody"]
+    symbols: ["slack:AdminAppsApprove"]
 
-  - name: AdminAppsApproveWithFormdataBody
+  - name: AdminAppsApprove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Approve an app for installation on a workspace."
     fields:
       - name: class
-        type: "#AdminAppsApproveWithFormdataBody_class"
+        type: "#AdminAppsApprove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -35,33 +31,15 @@ $graph:
   - name: AdminAppsApprovedList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List approved apps for an org or workspace."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminAppsApprovedList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin.apps:read`"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
-      - name: team_id
-        type: ["null", "string"]
-      - name: enterprise_id
-        type: ["null", "string"]
 
   - name: AdminAppsRequestsList_class
     type: enum
@@ -71,50 +49,30 @@ $graph:
   - name: AdminAppsRequestsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List app requests for a team/workspace."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminAppsRequestsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin.apps:read`"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
-      - name: team_id
-        type: ["null", "string"]
 
-  - name: AdminAppsRestrictWithFormdataBody_class
+  - name: AdminAppsRestrict_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminAppsRestrictWithFormdataBody"]
+    symbols: ["slack:AdminAppsRestrict"]
 
-  - name: AdminAppsRestrictWithFormdataBody
+  - name: AdminAppsRestrict
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Restrict an app for installation on a workspace."
     fields:
       - name: class
-        type: "#AdminAppsRestrictWithFormdataBody_class"
+        type: "#AdminAppsRestrict_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -127,140 +85,102 @@ $graph:
   - name: AdminAppsRestrictedList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List restricted apps for an org or workspace."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminAppsRestrictedList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin.apps:read`"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
-      - name: team_id
-        type: ["null", "string"]
-      - name: enterprise_id
-        type: ["null", "string"]
 
-  - name: AdminConversationsArchiveWithFormdataBody_class
+  - name: AdminConversationsArchive_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsArchiveWithFormdataBody"]
+    symbols: ["slack:AdminConversationsArchive"]
 
-  - name: AdminConversationsArchiveWithFormdataBody
+  - name: AdminConversationsArchive
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Archive a public or private channel."
     fields:
       - name: class
-        type: "#AdminConversationsArchiveWithFormdataBody_class"
+        type: "#AdminConversationsArchive_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminConversationsConvertToPrivateWithFormdataBody_class
+  - name: AdminConversationsConvertToPrivate_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsConvertToPrivateWithFormdataBody"]
+    symbols: ["slack:AdminConversationsConvertToPrivate"]
 
-  - name: AdminConversationsConvertToPrivateWithFormdataBody
+  - name: AdminConversationsConvertToPrivate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Convert a public channel to a private channel."
     fields:
       - name: class
-        type: "#AdminConversationsConvertToPrivateWithFormdataBody_class"
+        type: "#AdminConversationsConvertToPrivate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminConversationsCreateWithFormdataBody_class
+  - name: AdminConversationsCreate_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsCreateWithFormdataBody"]
+    symbols: ["slack:AdminConversationsCreate"]
 
-  - name: AdminConversationsCreateWithFormdataBody
+  - name: AdminConversationsCreate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create a public or private channel-based conversation."
     fields:
       - name: class
-        type: "#AdminConversationsCreateWithFormdataBody_class"
+        type: "#AdminConversationsCreate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminConversationsDeleteWithFormdataBody_class
+  - name: AdminConversationsDelete_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsDeleteWithFormdataBody"]
+    symbols: ["slack:AdminConversationsDelete"]
 
-  - name: AdminConversationsDeleteWithFormdataBody
+  - name: AdminConversationsDelete
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete a public or private channel."
     fields:
       - name: class
-        type: "#AdminConversationsDeleteWithFormdataBody_class"
+        type: "#AdminConversationsDelete_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminConversationsDisconnectSharedWithFormdataBody_class
+  - name: AdminConversationsDisconnectShared_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsDisconnectSharedWithFormdataBody"]
+    symbols: ["slack:AdminConversationsDisconnectShared"]
 
-  - name: AdminConversationsDisconnectSharedWithFormdataBody
+  - name: AdminConversationsDisconnectShared
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Disconnect a connected channel from one or more workspaces."
     fields:
       - name: class
-        type: "#AdminConversationsDisconnectSharedWithFormdataBody_class"
+        type: "#AdminConversationsDisconnectShared_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -273,35 +193,15 @@ $graph:
   - name: AdminConversationsEkmListOriginalConnectedChannelInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all disconnected channels—i.e., channels that were once connected to other workspaces and then disconnected—and the corresponding original channel IDs for key revocation with EKM."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminConversationsEkmListOriginalConnectedChannelInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin.conversations:read`"
-      - name: channel_ids
-        type: ["null", "string"]
-        doc: "A comma-separated list of channels to filter to."
-      - name: team_ids
-        type: ["null", "string"]
-        doc: "A comma-separated list of the workspaces to which the channels you would like returned belong."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
 
   - name: AdminConversationsGetConversationPrefs_class
     type: enum
@@ -311,23 +211,15 @@ $graph:
   - name: AdminConversationsGetConversationPrefs
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get conversation preferences for a public or private channel."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminConversationsGetConversationPrefs_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: channel_id
-        type: string
-        doc: "The channel to get preferences for."
 
   - name: AdminConversationsGetTeams_class
     type: enum
@@ -337,92 +229,66 @@ $graph:
   - name: AdminConversationsGetTeams
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get all the workspaces a given public or private channel is connected to within this Enterprise org."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminConversationsGetTeams_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: channel_id
-        type: string
-        doc: "The channel to determine connected workspaces within the organization for."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
 
-  - name: AdminConversationsInviteWithFormdataBody_class
+  - name: AdminConversationsInvite_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsInviteWithFormdataBody"]
+    symbols: ["slack:AdminConversationsInvite"]
 
-  - name: AdminConversationsInviteWithFormdataBody
+  - name: AdminConversationsInvite
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Invite a user to a public or private channel."
     fields:
       - name: class
-        type: "#AdminConversationsInviteWithFormdataBody_class"
+        type: "#AdminConversationsInvite_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminConversationsRenameWithFormdataBody_class
+  - name: AdminConversationsRename_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsRenameWithFormdataBody"]
+    symbols: ["slack:AdminConversationsRename"]
 
-  - name: AdminConversationsRenameWithFormdataBody
+  - name: AdminConversationsRename
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Rename a public or private channel."
     fields:
       - name: class
-        type: "#AdminConversationsRenameWithFormdataBody_class"
+        type: "#AdminConversationsRename_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminConversationsRestrictAccessAddGroupWithFormdataBody_class
+  - name: AdminConversationsRestrictAccessAddGroup_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsRestrictAccessAddGroupWithFormdataBody"]
+    symbols: ["slack:AdminConversationsRestrictAccessAddGroup"]
 
-  - name: AdminConversationsRestrictAccessAddGroupWithFormdataBody
+  - name: AdminConversationsRestrictAccessAddGroup
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add an allowlist of IDP groups for accessing a channel"
     fields:
       - name: class
-        type: "#AdminConversationsRestrictAccessAddGroupWithFormdataBody_class"
+        type: "#AdminConversationsRestrictAccessAddGroup_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -435,47 +301,30 @@ $graph:
   - name: AdminConversationsRestrictAccessListGroups
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all IDP Groups linked to a channel"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminConversationsRestrictAccessListGroups_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin.conversations:read`"
-      - name: channel_id
-        type: string
-      - name: team_id
-        type: ["null", "string"]
-        doc: "The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization."
 
-  - name: AdminConversationsRestrictAccessRemoveGroupWithFormdataBody_class
+  - name: AdminConversationsRestrictAccessRemoveGroup_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsRestrictAccessRemoveGroupWithFormdataBody"]
+    symbols: ["slack:AdminConversationsRestrictAccessRemoveGroup"]
 
-  - name: AdminConversationsRestrictAccessRemoveGroupWithFormdataBody
+  - name: AdminConversationsRestrictAccessRemoveGroup
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Remove a linked IDP group linked from a private channel"
     fields:
       - name: class
-        type: "#AdminConversationsRestrictAccessRemoveGroupWithFormdataBody_class"
+        type: "#AdminConversationsRestrictAccessRemoveGroup_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -488,148 +337,102 @@ $graph:
   - name: AdminConversationsSearch
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Search for public or private channels in an Enterprise organization."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminConversationsSearch_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: team_ids
-        type: ["null", "string"]
-        doc: "Comma separated string of team IDs, signifying the workspaces to search through."
-      - name: query
-        type: ["null", "string"]
-        doc: "Name of the the channel to query by."
-      - name: limit
-        type: ["null", "int"]
-        doc: "Maximum number of items to be returned. Must be between 1 - 20 both inclusive. Default is 10."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
-      - name: search_channel_types
-        type: ["null", "string"]
-        doc: "The type of channel to include or exclude in the search. For example `private` will search private channels, while `private_exclude` will exclude them. For a full list of types, check the [Types section](#types)."
-      - name: sort
-        type: ["null", "string"]
-        doc: "Possible values are `relevant` (search ranking based on what we think is closest), `name` (alphabetical), `member_count` (number of users in the channel), and `created` (date channel was created). You can optionally pair this with the `sort_dir` arg to change how it is sorted "
-      - name: sort_dir
-        type: ["null", "string"]
-        doc: "Sort direction. Possible values are `asc` for ascending order like (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2, 1) or (c, b, a)"
 
-  - name: AdminConversationsSetConversationPrefsWithFormdataBody_class
+  - name: AdminConversationsSetConversationPrefs_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsSetConversationPrefsWithFormdataBody"]
+    symbols: ["slack:AdminConversationsSetConversationPrefs"]
 
-  - name: AdminConversationsSetConversationPrefsWithFormdataBody
+  - name: AdminConversationsSetConversationPrefs
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set the posting permissions for a public or private channel."
     fields:
       - name: class
-        type: "#AdminConversationsSetConversationPrefsWithFormdataBody_class"
+        type: "#AdminConversationsSetConversationPrefs_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminConversationsSetTeamsWithFormdataBody_class
+  - name: AdminConversationsSetTeams_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsSetTeamsWithFormdataBody"]
+    symbols: ["slack:AdminConversationsSetTeams"]
 
-  - name: AdminConversationsSetTeamsWithFormdataBody
+  - name: AdminConversationsSetTeams
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set the workspaces in an Enterprise grid org that connect to a public or private channel."
     fields:
       - name: class
-        type: "#AdminConversationsSetTeamsWithFormdataBody_class"
+        type: "#AdminConversationsSetTeams_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminConversationsUnarchiveWithFormdataBody_class
+  - name: AdminConversationsUnarchive_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminConversationsUnarchiveWithFormdataBody"]
+    symbols: ["slack:AdminConversationsUnarchive"]
 
-  - name: AdminConversationsUnarchiveWithFormdataBody
+  - name: AdminConversationsUnarchive
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Unarchive a public or private channel."
     fields:
       - name: class
-        type: "#AdminConversationsUnarchiveWithFormdataBody_class"
+        type: "#AdminConversationsUnarchive_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminEmojiAddAliasWithFormdataBody_class
+  - name: AdminEmojiAdd_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminEmojiAddAliasWithFormdataBody"]
+    symbols: ["slack:AdminEmojiAdd"]
 
-  - name: AdminEmojiAddAliasWithFormdataBody
+  - name: AdminEmojiAdd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add an emoji."
     fields:
       - name: class
-        type: "#AdminEmojiAddAliasWithFormdataBody_class"
+        type: "#AdminEmojiAdd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminEmojiAddWithFormdataBody_class
+  - name: AdminEmojiAddAlias_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminEmojiAddWithFormdataBody"]
+    symbols: ["slack:AdminEmojiAddAlias"]
 
-  - name: AdminEmojiAddWithFormdataBody
+  - name: AdminEmojiAddAlias
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add an emoji alias."
     fields:
       - name: class
-        type: "#AdminEmojiAddWithFormdataBody_class"
+        type: "#AdminEmojiAddAlias_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -642,92 +445,66 @@ $graph:
   - name: AdminEmojiList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List emoji for an Enterprise Grid organization."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminEmojiList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin.teams:read`"
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
 
-  - name: AdminEmojiRemoveWithFormdataBody_class
+  - name: AdminEmojiRemove_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminEmojiRemoveWithFormdataBody"]
+    symbols: ["slack:AdminEmojiRemove"]
 
-  - name: AdminEmojiRemoveWithFormdataBody
+  - name: AdminEmojiRemove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Remove an emoji across an Enterprise Grid organization"
     fields:
       - name: class
-        type: "#AdminEmojiRemoveWithFormdataBody_class"
+        type: "#AdminEmojiRemove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminEmojiRenameWithFormdataBody_class
+  - name: AdminEmojiRename_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminEmojiRenameWithFormdataBody"]
+    symbols: ["slack:AdminEmojiRename"]
 
-  - name: AdminEmojiRenameWithFormdataBody
+  - name: AdminEmojiRename
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Rename an emoji."
     fields:
       - name: class
-        type: "#AdminEmojiRenameWithFormdataBody_class"
+        type: "#AdminEmojiRename_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminInviteRequestsApproveWithFormdataBody_class
+  - name: AdminInviteRequestsApprove_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminInviteRequestsApproveWithFormdataBody"]
+    symbols: ["slack:AdminInviteRequestsApprove"]
 
-  - name: AdminInviteRequestsApproveWithFormdataBody
+  - name: AdminInviteRequestsApprove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Approve a workspace invite request."
     fields:
       - name: class
-        type: "#AdminInviteRequestsApproveWithFormdataBody_class"
+        type: "#AdminInviteRequestsApprove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -740,29 +517,15 @@ $graph:
   - name: AdminInviteRequestsApprovedList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all approved workspace invite requests."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminInviteRequestsApprovedList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: team_id
-        type: ["null", "string"]
-        doc: "ID for the workspace where the invite requests were made."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Value of the `next_cursor` field sent as part of the previous API response"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The number of results that will be returned by the API on each invocation. Must be between 1 - 1000, both inclusive"
 
   - name: AdminInviteRequestsDeniedList_class
     type: enum
@@ -772,48 +535,30 @@ $graph:
   - name: AdminInviteRequestsDeniedList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all denied workspace invite requests."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminInviteRequestsDeniedList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: team_id
-        type: ["null", "string"]
-        doc: "ID for the workspace where the invite requests were made."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Value of the `next_cursor` field sent as part of the previous api response"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The number of results that will be returned by the API on each invocation. Must be between 1 - 1000 both inclusive"
 
-  - name: AdminInviteRequestsDenyWithFormdataBody_class
+  - name: AdminInviteRequestsDeny_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminInviteRequestsDenyWithFormdataBody"]
+    symbols: ["slack:AdminInviteRequestsDeny"]
 
-  - name: AdminInviteRequestsDenyWithFormdataBody
+  - name: AdminInviteRequestsDeny
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Deny a workspace invite request."
     fields:
       - name: class
-        type: "#AdminInviteRequestsDenyWithFormdataBody_class"
+        type: "#AdminInviteRequestsDeny_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -826,29 +571,15 @@ $graph:
   - name: AdminInviteRequestsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all pending workspace invite requests."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminInviteRequestsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: team_id
-        type: ["null", "string"]
-        doc: "ID for the workspace where the invite requests were made."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Value of the `next_cursor` field sent as part of the previous API response"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The number of results that will be returned by the API on each invocation. Must be between 1 - 1000, both inclusive"
 
   - name: AdminTeamsAdminsList_class
     type: enum
@@ -858,50 +589,30 @@ $graph:
   - name: AdminTeamsAdminsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all of the admins on a given workspace."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminTeamsAdminsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin.teams:read`"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
-      - name: team_id
-        type: string
 
-  - name: AdminTeamsCreateWithFormdataBody_class
+  - name: AdminTeamsCreate_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminTeamsCreateWithFormdataBody"]
+    symbols: ["slack:AdminTeamsCreate"]
 
-  - name: AdminTeamsCreateWithFormdataBody
+  - name: AdminTeamsCreate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create an Enterprise team."
     fields:
       - name: class
-        type: "#AdminTeamsCreateWithFormdataBody_class"
+        type: "#AdminTeamsCreate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -914,26 +625,15 @@ $graph:
   - name: AdminTeamsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all teams on an Enterprise organization"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminTeamsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Must be between 1 - 100 both inclusive."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
 
   - name: AdminTeamsOwnersList_class
     type: enum
@@ -943,31 +643,15 @@ $graph:
   - name: AdminTeamsOwnersList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all of the owners on a given workspace."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminTeamsOwnersList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin.teams:read`"
-      - name: team_id
-        type: string
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
 
   - name: AdminTeamsSettingsInfo_class
     type: enum
@@ -977,173 +661,138 @@ $graph:
   - name: AdminTeamsSettingsInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Fetch information about settings in a workspace"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminTeamsSettingsInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: team_id
-        type: string
 
-  - name: AdminTeamsSettingsSetDefaultChannelsWithFormdataBody_class
+  - name: AdminTeamsSettingsSetDefaultChannels_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminTeamsSettingsSetDefaultChannelsWithFormdataBody"]
+    symbols: ["slack:AdminTeamsSettingsSetDefaultChannels"]
 
-  - name: AdminTeamsSettingsSetDefaultChannelsWithFormdataBody
+  - name: AdminTeamsSettingsSetDefaultChannels
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set the default channels of a workspace."
     fields:
       - name: class
-        type: "#AdminTeamsSettingsSetDefaultChannelsWithFormdataBody_class"
+        type: "#AdminTeamsSettingsSetDefaultChannels_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminTeamsSettingsSetDescriptionWithFormdataBody_class
+  - name: AdminTeamsSettingsSetDescription_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminTeamsSettingsSetDescriptionWithFormdataBody"]
+    symbols: ["slack:AdminTeamsSettingsSetDescription"]
 
-  - name: AdminTeamsSettingsSetDescriptionWithFormdataBody
+  - name: AdminTeamsSettingsSetDescription
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set the description of a given workspace."
     fields:
       - name: class
-        type: "#AdminTeamsSettingsSetDescriptionWithFormdataBody_class"
+        type: "#AdminTeamsSettingsSetDescription_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminTeamsSettingsSetDiscoverabilityWithFormdataBody_class
+  - name: AdminTeamsSettingsSetDiscoverability_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminTeamsSettingsSetDiscoverabilityWithFormdataBody"]
+    symbols: ["slack:AdminTeamsSettingsSetDiscoverability"]
 
-  - name: AdminTeamsSettingsSetDiscoverabilityWithFormdataBody
+  - name: AdminTeamsSettingsSetDiscoverability
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "An API method that allows admins to set the discoverability of a given workspace"
     fields:
       - name: class
-        type: "#AdminTeamsSettingsSetDiscoverabilityWithFormdataBody_class"
+        type: "#AdminTeamsSettingsSetDiscoverability_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminTeamsSettingsSetIconWithFormdataBody_class
+  - name: AdminTeamsSettingsSetIcon_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminTeamsSettingsSetIconWithFormdataBody"]
+    symbols: ["slack:AdminTeamsSettingsSetIcon"]
 
-  - name: AdminTeamsSettingsSetIconWithFormdataBody
+  - name: AdminTeamsSettingsSetIcon
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Sets the icon of a workspace."
     fields:
       - name: class
-        type: "#AdminTeamsSettingsSetIconWithFormdataBody_class"
+        type: "#AdminTeamsSettingsSetIcon_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminTeamsSettingsSetNameWithFormdataBody_class
+  - name: AdminTeamsSettingsSetName_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminTeamsSettingsSetNameWithFormdataBody"]
+    symbols: ["slack:AdminTeamsSettingsSetName"]
 
-  - name: AdminTeamsSettingsSetNameWithFormdataBody
+  - name: AdminTeamsSettingsSetName
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set the name of a given workspace."
     fields:
       - name: class
-        type: "#AdminTeamsSettingsSetNameWithFormdataBody_class"
+        type: "#AdminTeamsSettingsSetName_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsergroupsAddChannelsWithFormdataBody_class
+  - name: AdminUsergroupsAddChannels_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsergroupsAddChannelsWithFormdataBody"]
+    symbols: ["slack:AdminUsergroupsAddChannels"]
 
-  - name: AdminUsergroupsAddChannelsWithFormdataBody
+  - name: AdminUsergroupsAddChannels
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add one or more default channels to an IDP group."
     fields:
       - name: class
-        type: "#AdminUsergroupsAddChannelsWithFormdataBody_class"
+        type: "#AdminUsergroupsAddChannels_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsergroupsAddTeamsWithFormdataBody_class
+  - name: AdminUsergroupsAddTeams_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsergroupsAddTeamsWithFormdataBody"]
+    symbols: ["slack:AdminUsergroupsAddTeams"]
 
-  - name: AdminUsergroupsAddTeamsWithFormdataBody
+  - name: AdminUsergroupsAddTeams
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Associate one or more default workspaces with an organization-wide IDP group."
     fields:
       - name: class
-        type: "#AdminUsergroupsAddTeamsWithFormdataBody_class"
+        type: "#AdminUsergroupsAddTeams_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -1156,92 +805,66 @@ $graph:
   - name: AdminUsergroupsListChannels
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List the channels linked to an org-level IDP group (user group)."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminUsergroupsListChannels_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: usergroup_id
-        type: string
-        doc: "ID of the IDP group to list default channels for."
-      - name: team_id
-        type: ["null", "string"]
-        doc: "ID of the the workspace."
-      - name: include_num_members
-        type: ["null", "boolean"]
-        doc: "Flag to include or exclude the count of members per channel."
 
-  - name: AdminUsergroupsRemoveChannelsWithFormdataBody_class
+  - name: AdminUsergroupsRemoveChannels_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsergroupsRemoveChannelsWithFormdataBody"]
+    symbols: ["slack:AdminUsergroupsRemoveChannels"]
 
-  - name: AdminUsergroupsRemoveChannelsWithFormdataBody
+  - name: AdminUsergroupsRemoveChannels
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Remove one or more default channels from an org-level IDP group (user group)."
     fields:
       - name: class
-        type: "#AdminUsergroupsRemoveChannelsWithFormdataBody_class"
+        type: "#AdminUsergroupsRemoveChannels_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsersAssignWithFormdataBody_class
+  - name: AdminUsersAssign_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersAssignWithFormdataBody"]
+    symbols: ["slack:AdminUsersAssign"]
 
-  - name: AdminUsersAssignWithFormdataBody
+  - name: AdminUsersAssign
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add an Enterprise user to a workspace."
     fields:
       - name: class
-        type: "#AdminUsersAssignWithFormdataBody_class"
+        type: "#AdminUsersAssign_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsersInviteWithFormdataBody_class
+  - name: AdminUsersInvite_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersInviteWithFormdataBody"]
+    symbols: ["slack:AdminUsersInvite"]
 
-  - name: AdminUsersInviteWithFormdataBody
+  - name: AdminUsersInvite
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Invite a user to a workspace."
     fields:
       - name: class
-        type: "#AdminUsersInviteWithFormdataBody_class"
+        type: "#AdminUsersInvite_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -1254,180 +877,138 @@ $graph:
   - name: AdminUsersList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List users on a workspace"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AdminUsersList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: team_id
-        type: string
-        doc: "The ID (`T1234`) of the workspace."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
-      - name: limit
-        type: ["null", "int"]
-        doc: "Limit for how many users to be retrieved per page"
 
-  - name: AdminUsersRemoveWithFormdataBody_class
+  - name: AdminUsersRemove_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersRemoveWithFormdataBody"]
+    symbols: ["slack:AdminUsersRemove"]
 
-  - name: AdminUsersRemoveWithFormdataBody
+  - name: AdminUsersRemove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Remove a user from a workspace."
     fields:
       - name: class
-        type: "#AdminUsersRemoveWithFormdataBody_class"
+        type: "#AdminUsersRemove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsersSessionInvalidateWithFormdataBody_class
+  - name: AdminUsersSessionInvalidate_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersSessionInvalidateWithFormdataBody"]
+    symbols: ["slack:AdminUsersSessionInvalidate"]
 
-  - name: AdminUsersSessionInvalidateWithFormdataBody
+  - name: AdminUsersSessionInvalidate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Invalidate a single session for a user by session_id"
     fields:
       - name: class
-        type: "#AdminUsersSessionInvalidateWithFormdataBody_class"
+        type: "#AdminUsersSessionInvalidate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsersSessionResetWithFormdataBody_class
+  - name: AdminUsersSessionReset_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersSessionResetWithFormdataBody"]
+    symbols: ["slack:AdminUsersSessionReset"]
 
-  - name: AdminUsersSessionResetWithFormdataBody
+  - name: AdminUsersSessionReset
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Wipes all valid sessions on all devices for a given user"
     fields:
       - name: class
-        type: "#AdminUsersSessionResetWithFormdataBody_class"
+        type: "#AdminUsersSessionReset_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsersSetAdminWithFormdataBody_class
+  - name: AdminUsersSetAdmin_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersSetAdminWithFormdataBody"]
+    symbols: ["slack:AdminUsersSetAdmin"]
 
-  - name: AdminUsersSetAdminWithFormdataBody
+  - name: AdminUsersSetAdmin
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set an existing guest, regular user, or owner to be an admin user."
     fields:
       - name: class
-        type: "#AdminUsersSetAdminWithFormdataBody_class"
+        type: "#AdminUsersSetAdmin_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsersSetExpirationWithFormdataBody_class
+  - name: AdminUsersSetExpiration_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersSetExpirationWithFormdataBody"]
+    symbols: ["slack:AdminUsersSetExpiration"]
 
-  - name: AdminUsersSetExpirationWithFormdataBody
+  - name: AdminUsersSetExpiration
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set an expiration for a guest user"
     fields:
       - name: class
-        type: "#AdminUsersSetExpirationWithFormdataBody_class"
+        type: "#AdminUsersSetExpiration_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsersSetOwnerWithFormdataBody_class
+  - name: AdminUsersSetOwner_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersSetOwnerWithFormdataBody"]
+    symbols: ["slack:AdminUsersSetOwner"]
 
-  - name: AdminUsersSetOwnerWithFormdataBody
+  - name: AdminUsersSetOwner
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set an existing guest, regular user, or admin user to be a workspace owner."
     fields:
       - name: class
-        type: "#AdminUsersSetOwnerWithFormdataBody_class"
+        type: "#AdminUsersSetOwner_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AdminUsersSetRegularWithFormdataBody_class
+  - name: AdminUsersSetRegular_class
     type: enum
     inVocab: false
-    symbols: ["slack:AdminUsersSetRegularWithFormdataBody"]
+    symbols: ["slack:AdminUsersSetRegular"]
 
-  - name: AdminUsersSetRegularWithFormdataBody
+  - name: AdminUsersSetRegular
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set an existing guest user, admin user, or owner to be a regular user."
     fields:
       - name: class
-        type: "#AdminUsersSetRegularWithFormdataBody_class"
+        type: "#AdminUsersSetRegular_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -1440,26 +1021,15 @@ $graph:
   - name: ApiTest
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Checks API calling code."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ApiTest_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: error
-        type: ["null", "string"]
-        doc: "Error response to return"
-      - name: foo
-        type: ["null", "string"]
-        doc: "example property to return"
 
   - name: AppsEventAuthorizationsList_class
     type: enum
@@ -1469,26 +1039,15 @@ $graph:
   - name: AppsEventAuthorizationsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AppsEventAuthorizationsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: event_context
-        type: string
-      - name: cursor
-        type: ["null", "string"]
-      - name: limit
-        type: ["null", "int"]
 
   - name: AppsPermissionsInfo_class
     type: enum
@@ -1498,23 +1057,15 @@ $graph:
   - name: AppsPermissionsInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Returns list of permissions this app has on a team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AppsPermissionsInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `none`"
 
   - name: AppsPermissionsRequest_class
     type: enum
@@ -1524,29 +1075,15 @@ $graph:
   - name: AppsPermissionsRequest
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Allows an app to request additional scopes"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AppsPermissionsRequest_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `none`"
-      - name: scopes
-        type: string
-        doc: "A comma separated list of scopes to request for"
-      - name: trigger_id
-        type: string
-        doc: "Token used to trigger the permissions API"
 
   - name: AppsPermissionsResourcesList_class
     type: enum
@@ -1556,29 +1093,15 @@ $graph:
   - name: AppsPermissionsResourcesList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Returns list of resource grants this app has on a team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AppsPermissionsResourcesList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `none`"
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return."
 
   - name: AppsPermissionsScopesList_class
     type: enum
@@ -1588,23 +1111,15 @@ $graph:
   - name: AppsPermissionsScopesList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Returns list of scopes this app has on a team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AppsPermissionsScopesList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `none`"
 
   - name: AppsPermissionsUsersList_class
     type: enum
@@ -1614,29 +1129,15 @@ $graph:
   - name: AppsPermissionsUsersList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Returns list of user grants and corresponding scopes this app has on a team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AppsPermissionsUsersList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `none`"
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return."
 
   - name: AppsPermissionsUsersRequest_class
     type: enum
@@ -1646,32 +1147,15 @@ $graph:
   - name: AppsPermissionsUsersRequest
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Enables an app to trigger a permissions modal to grant an app access to a user access scope."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AppsPermissionsUsersRequest_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `none`"
-      - name: scopes
-        type: string
-        doc: "A comma separated list of user scopes to request for"
-      - name: trigger_id
-        type: string
-        doc: "Token used to trigger the request"
-      - name: user
-        type: string
-        doc: "The user this scope is being requested for"
 
   - name: AppsUninstall_class
     type: enum
@@ -1681,29 +1165,15 @@ $graph:
   - name: AppsUninstall
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Uninstalls your app from a workspace."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AppsUninstall_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `none`"
-      - name: client_id
-        type: ["null", "string"]
-        doc: "Issued when you created your application."
-      - name: client_secret
-        type: ["null", "string"]
-        doc: "Issued when you created your application."
 
   - name: AuthRevoke_class
     type: enum
@@ -1713,26 +1183,15 @@ $graph:
   - name: AuthRevoke
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Revokes a token."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AuthRevoke_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `none`"
-      - name: test
-        type: ["null", "boolean"]
-        doc: "Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked."
 
   - name: AuthTest_class
     type: enum
@@ -1742,14 +1201,9 @@ $graph:
   - name: AuthTest
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Checks authentication & identity."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#AuthTest_class"
@@ -1765,67 +1219,48 @@ $graph:
   - name: BotsInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets information about a bot user."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#BotsInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `users:read`"
-      - name: bot
-        type: ["null", "string"]
-        doc: "Bot user to get info on"
 
-  - name: CallsAddWithFormdataBody_class
+  - name: CallsAdd_class
     type: enum
     inVocab: false
-    symbols: ["slack:CallsAddWithFormdataBody"]
+    symbols: ["slack:CallsAdd"]
 
-  - name: CallsAddWithFormdataBody
+  - name: CallsAdd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Registers a new Call."
     fields:
       - name: class
-        type: "#CallsAddWithFormdataBody_class"
+        type: "#CallsAdd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CallsEndWithFormdataBody_class
+  - name: CallsEnd_class
     type: enum
     inVocab: false
-    symbols: ["slack:CallsEndWithFormdataBody"]
+    symbols: ["slack:CallsEnd"]
 
-  - name: CallsEndWithFormdataBody
+  - name: CallsEnd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Ends a Call."
     fields:
       - name: class
-        type: "#CallsEndWithFormdataBody_class"
+        type: "#CallsEnd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -1838,14 +1273,9 @@ $graph:
   - name: CallsInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Returns information about a Call."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#CallsInfo_class"
@@ -1853,112 +1283,92 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CallsParticipantsAddWithFormdataBody_class
+  - name: CallsParticipantsAdd_class
     type: enum
     inVocab: false
-    symbols: ["slack:CallsParticipantsAddWithFormdataBody"]
+    symbols: ["slack:CallsParticipantsAdd"]
 
-  - name: CallsParticipantsAddWithFormdataBody
+  - name: CallsParticipantsAdd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Registers new participants added to a Call."
     fields:
       - name: class
-        type: "#CallsParticipantsAddWithFormdataBody_class"
+        type: "#CallsParticipantsAdd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CallsParticipantsRemoveWithFormdataBody_class
+  - name: CallsParticipantsRemove_class
     type: enum
     inVocab: false
-    symbols: ["slack:CallsParticipantsRemoveWithFormdataBody"]
+    symbols: ["slack:CallsParticipantsRemove"]
 
-  - name: CallsParticipantsRemoveWithFormdataBody
+  - name: CallsParticipantsRemove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Registers participants removed from a Call."
     fields:
       - name: class
-        type: "#CallsParticipantsRemoveWithFormdataBody_class"
+        type: "#CallsParticipantsRemove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CallsUpdateWithFormdataBody_class
+  - name: CallsUpdate_class
     type: enum
     inVocab: false
-    symbols: ["slack:CallsUpdateWithFormdataBody"]
+    symbols: ["slack:CallsUpdate"]
 
-  - name: CallsUpdateWithFormdataBody
+  - name: CallsUpdate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Updates information about a Call."
     fields:
       - name: class
-        type: "#CallsUpdateWithFormdataBody_class"
+        type: "#CallsUpdate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChatDeleteScheduledMessageWithFormdataBody_class
+  - name: ChatDelete_class
     type: enum
     inVocab: false
-    symbols: ["slack:ChatDeleteScheduledMessageWithFormdataBody"]
+    symbols: ["slack:ChatDelete"]
 
-  - name: ChatDeleteScheduledMessageWithFormdataBody
+  - name: ChatDelete
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Deletes a message."
     fields:
       - name: class
-        type: "#ChatDeleteScheduledMessageWithFormdataBody_class"
+        type: "#ChatDelete_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChatDeleteWithFormdataBody_class
+  - name: ChatDeleteScheduledMessage_class
     type: enum
     inVocab: false
-    symbols: ["slack:ChatDeleteWithFormdataBody"]
+    symbols: ["slack:ChatDeleteScheduledMessage"]
 
-  - name: ChatDeleteWithFormdataBody
+  - name: ChatDeleteScheduledMessage
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Deletes a pending scheduled message from the queue."
     fields:
       - name: class
-        type: "#ChatDeleteWithFormdataBody_class"
+        type: "#ChatDeleteScheduledMessage_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -1971,114 +1381,84 @@ $graph:
   - name: ChatGetPermalink
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve a permalink URL for a specific extant message"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ChatGetPermalink_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `none`"
-      - name: channel
-        type: string
-        doc: "The ID of the conversation or channel containing the message"
-      - name: message_ts
-        type: string
-        doc: "A message's `ts` value, uniquely identifying it within a channel"
 
-  - name: ChatMeMessageWithFormdataBody_class
+  - name: ChatMeMessage_class
     type: enum
     inVocab: false
-    symbols: ["slack:ChatMeMessageWithFormdataBody"]
+    symbols: ["slack:ChatMeMessage"]
 
-  - name: ChatMeMessageWithFormdataBody
+  - name: ChatMeMessage
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Share a me message into a channel."
     fields:
       - name: class
-        type: "#ChatMeMessageWithFormdataBody_class"
+        type: "#ChatMeMessage_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChatPostEphemeralWithFormdataBody_class
+  - name: ChatPostEphemeral_class
     type: enum
     inVocab: false
-    symbols: ["slack:ChatPostEphemeralWithFormdataBody"]
+    symbols: ["slack:ChatPostEphemeral"]
 
-  - name: ChatPostEphemeralWithFormdataBody
+  - name: ChatPostEphemeral
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Sends an ephemeral message to a user in a channel."
     fields:
       - name: class
-        type: "#ChatPostEphemeralWithFormdataBody_class"
+        type: "#ChatPostEphemeral_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChatPostMessageWithFormdataBody_class
+  - name: ChatPostMessage_class
     type: enum
     inVocab: false
-    symbols: ["slack:ChatPostMessageWithFormdataBody"]
+    symbols: ["slack:ChatPostMessage"]
 
-  - name: ChatPostMessageWithFormdataBody
+  - name: ChatPostMessage
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Sends a message to a channel."
     fields:
       - name: class
-        type: "#ChatPostMessageWithFormdataBody_class"
+        type: "#ChatPostMessage_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChatScheduleMessageWithFormdataBody_class
+  - name: ChatScheduleMessage_class
     type: enum
     inVocab: false
-    symbols: ["slack:ChatScheduleMessageWithFormdataBody"]
+    symbols: ["slack:ChatScheduleMessage"]
 
-  - name: ChatScheduleMessageWithFormdataBody
+  - name: ChatScheduleMessage
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Schedules a message to be sent to a channel."
     fields:
       - name: class
-        type: "#ChatScheduleMessageWithFormdataBody_class"
+        type: "#ChatScheduleMessage_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2091,142 +1471,102 @@ $graph:
   - name: ChatScheduledMessagesList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Returns a list of scheduled messages."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ChatScheduledMessagesList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: channel
-        type: ["null", "string"]
-        doc: "The channel of the scheduled messages"
-      - name: latest
-        type: ["null", "float"]
-        doc: "A UNIX timestamp of the latest value in the time range"
-      - name: oldest
-        type: ["null", "float"]
-        doc: "A UNIX timestamp of the oldest value in the time range"
-      - name: limit
-        type: ["null", "int"]
-        doc: "Maximum number of original entries to return."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "For pagination purposes, this is the `cursor` value returned from a previous call to `chat.scheduledmessages.list` indicating where you want to start this call from."
 
-  - name: ChatUnfurlWithFormdataBody_class
+  - name: ChatUnfurl_class
     type: enum
     inVocab: false
-    symbols: ["slack:ChatUnfurlWithFormdataBody"]
+    symbols: ["slack:ChatUnfurl"]
 
-  - name: ChatUnfurlWithFormdataBody
+  - name: ChatUnfurl
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Provide custom unfurl behavior for user-posted URLs"
     fields:
       - name: class
-        type: "#ChatUnfurlWithFormdataBody_class"
+        type: "#ChatUnfurl_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChatUpdateWithFormdataBody_class
+  - name: ChatUpdate_class
     type: enum
     inVocab: false
-    symbols: ["slack:ChatUpdateWithFormdataBody"]
+    symbols: ["slack:ChatUpdate"]
 
-  - name: ChatUpdateWithFormdataBody
+  - name: ChatUpdate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Updates a message."
     fields:
       - name: class
-        type: "#ChatUpdateWithFormdataBody_class"
+        type: "#ChatUpdate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsArchiveWithFormdataBody_class
+  - name: ConversationsArchive_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsArchiveWithFormdataBody"]
+    symbols: ["slack:ConversationsArchive"]
 
-  - name: ConversationsArchiveWithFormdataBody
+  - name: ConversationsArchive
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Archives a conversation."
     fields:
       - name: class
-        type: "#ConversationsArchiveWithFormdataBody_class"
+        type: "#ConversationsArchive_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsCloseWithFormdataBody_class
+  - name: ConversationsClose_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsCloseWithFormdataBody"]
+    symbols: ["slack:ConversationsClose"]
 
-  - name: ConversationsCloseWithFormdataBody
+  - name: ConversationsClose
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Closes a direct message or multi-person direct message."
     fields:
       - name: class
-        type: "#ConversationsCloseWithFormdataBody_class"
+        type: "#ConversationsClose_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsCreateWithFormdataBody_class
+  - name: ConversationsCreate_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsCreateWithFormdataBody"]
+    symbols: ["slack:ConversationsCreate"]
 
-  - name: ConversationsCreateWithFormdataBody
+  - name: ConversationsCreate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Initiates a public or private channel-based conversation"
     fields:
       - name: class
-        type: "#ConversationsCreateWithFormdataBody_class"
+        type: "#ConversationsCreate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2239,41 +1579,15 @@ $graph:
   - name: ConversationsHistory
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Fetches a conversation's history of messages and events."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ConversationsHistory_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `conversations:history`"
-      - name: channel
-        type: ["null", "string"]
-        doc: "Conversation ID to fetch history for."
-      - name: latest
-        type: ["null", "float"]
-        doc: "End of time range of messages to include in results."
-      - name: oldest
-        type: ["null", "float"]
-        doc: "Start of time range of messages to include in results."
-      - name: inclusive
-        type: ["null", "boolean"]
-        doc: "Include messages with latest or oldest timestamp in results only when either timestamp is specified."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
 
   - name: ConversationsInfo_class
     type: enum
@@ -2283,117 +1597,84 @@ $graph:
   - name: ConversationsInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve information about a conversation."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ConversationsInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `conversations:read`"
-      - name: channel
-        type: ["null", "string"]
-        doc: "Conversation ID to learn more about"
-      - name: include_locale
-        type: ["null", "boolean"]
-        doc: "Set this to `true` to receive the locale for this conversation. Defaults to `false`"
-      - name: include_num_members
-        type: ["null", "boolean"]
-        doc: "Set to `true` to include the member count for the specified conversation. Defaults to `false`"
 
-  - name: ConversationsInviteWithFormdataBody_class
+  - name: ConversationsInvite_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsInviteWithFormdataBody"]
+    symbols: ["slack:ConversationsInvite"]
 
-  - name: ConversationsInviteWithFormdataBody
+  - name: ConversationsInvite
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Invites users to a channel."
     fields:
       - name: class
-        type: "#ConversationsInviteWithFormdataBody_class"
+        type: "#ConversationsInvite_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsJoinWithFormdataBody_class
+  - name: ConversationsJoin_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsJoinWithFormdataBody"]
+    symbols: ["slack:ConversationsJoin"]
 
-  - name: ConversationsJoinWithFormdataBody
+  - name: ConversationsJoin
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Joins an existing conversation."
     fields:
       - name: class
-        type: "#ConversationsJoinWithFormdataBody_class"
+        type: "#ConversationsJoin_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsKickWithFormdataBody_class
+  - name: ConversationsKick_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsKickWithFormdataBody"]
+    symbols: ["slack:ConversationsKick"]
 
-  - name: ConversationsKickWithFormdataBody
+  - name: ConversationsKick
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Removes a user from a conversation."
     fields:
       - name: class
-        type: "#ConversationsKickWithFormdataBody_class"
+        type: "#ConversationsKick_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsLeaveWithFormdataBody_class
+  - name: ConversationsLeave_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsLeaveWithFormdataBody"]
+    symbols: ["slack:ConversationsLeave"]
 
-  - name: ConversationsLeaveWithFormdataBody
+  - name: ConversationsLeave
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Leaves a conversation."
     fields:
       - name: class
-        type: "#ConversationsLeaveWithFormdataBody_class"
+        type: "#ConversationsLeave_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2406,54 +1687,30 @@ $graph:
   - name: ConversationsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists all channels in a Slack team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ConversationsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `conversations:read`"
-      - name: exclude_archived
-        type: ["null", "boolean"]
-        doc: "Set to `true` to exclude archived channels from the list"
-      - name: types
-        type: ["null", "string"]
-        doc: "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
 
-  - name: ConversationsMarkWithFormdataBody_class
+  - name: ConversationsMark_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsMarkWithFormdataBody"]
+    symbols: ["slack:ConversationsMark"]
 
-  - name: ConversationsMarkWithFormdataBody
+  - name: ConversationsMark
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Sets the read cursor in a channel."
     fields:
       - name: class
-        type: "#ConversationsMarkWithFormdataBody_class"
+        type: "#ConversationsMark_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2466,73 +1723,48 @@ $graph:
   - name: ConversationsMembers
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve members of a conversation."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ConversationsMembers_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `conversations:read`"
-      - name: channel
-        type: ["null", "string"]
-        doc: "ID of the conversation to retrieve members for"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
 
-  - name: ConversationsOpenWithFormdataBody_class
+  - name: ConversationsOpen_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsOpenWithFormdataBody"]
+    symbols: ["slack:ConversationsOpen"]
 
-  - name: ConversationsOpenWithFormdataBody
+  - name: ConversationsOpen
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Opens or resumes a direct message or multi-person direct message."
     fields:
       - name: class
-        type: "#ConversationsOpenWithFormdataBody_class"
+        type: "#ConversationsOpen_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsRenameWithFormdataBody_class
+  - name: ConversationsRename_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsRenameWithFormdataBody"]
+    symbols: ["slack:ConversationsRename"]
 
-  - name: ConversationsRenameWithFormdataBody
+  - name: ConversationsRename
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Renames a conversation."
     fields:
       - name: class
-        type: "#ConversationsRenameWithFormdataBody_class"
+        type: "#ConversationsRename_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2545,107 +1777,66 @@ $graph:
   - name: ConversationsReplies
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve a thread of messages posted to a conversation"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ConversationsReplies_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `conversations:history`"
-      - name: channel
-        type: ["null", "string"]
-        doc: "Conversation ID to fetch thread from."
-      - name: ts
-        type: ["null", "float"]
-        doc: "Unique identifier of a thread's parent message. `ts` must be the timestamp of an existing message with 0 or more replies. If there are no replies then just the single message referenced by `ts` will return - it is just an ordinary, unthreaded message."
-      - name: latest
-        type: ["null", "float"]
-        doc: "End of time range of messages to include in results."
-      - name: oldest
-        type: ["null", "float"]
-        doc: "Start of time range of messages to include in results."
-      - name: inclusive
-        type: ["null", "boolean"]
-        doc: "Include messages with latest or oldest timestamp in results only when either timestamp is specified."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
 
-  - name: ConversationsSetPurposeWithFormdataBody_class
+  - name: ConversationsSetPurpose_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsSetPurposeWithFormdataBody"]
+    symbols: ["slack:ConversationsSetPurpose"]
 
-  - name: ConversationsSetPurposeWithFormdataBody
+  - name: ConversationsSetPurpose
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Sets the purpose for a conversation."
     fields:
       - name: class
-        type: "#ConversationsSetPurposeWithFormdataBody_class"
+        type: "#ConversationsSetPurpose_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsSetTopicWithFormdataBody_class
+  - name: ConversationsSetTopic_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsSetTopicWithFormdataBody"]
+    symbols: ["slack:ConversationsSetTopic"]
 
-  - name: ConversationsSetTopicWithFormdataBody
+  - name: ConversationsSetTopic
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Sets the topic for a conversation."
     fields:
       - name: class
-        type: "#ConversationsSetTopicWithFormdataBody_class"
+        type: "#ConversationsSetTopic_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ConversationsUnarchiveWithFormdataBody_class
+  - name: ConversationsUnarchive_class
     type: enum
     inVocab: false
-    symbols: ["slack:ConversationsUnarchiveWithFormdataBody"]
+    symbols: ["slack:ConversationsUnarchive"]
 
-  - name: ConversationsUnarchiveWithFormdataBody
+  - name: ConversationsUnarchive
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Reverses conversation archival."
     fields:
       - name: class
-        type: "#ConversationsUnarchiveWithFormdataBody_class"
+        type: "#ConversationsUnarchive_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2658,26 +1849,15 @@ $graph:
   - name: DialogOpen
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Open a dialog with a user"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DialogOpen_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: dialog
-        type: string
-        doc: "The dialog definition. This must be a JSON-encoded string."
-      - name: trigger_id
-        type: string
-        doc: "Exchange a trigger to post to the user."
 
   - name: DndEndDnd_class
     type: enum
@@ -2687,14 +1867,9 @@ $graph:
   - name: DndEndDnd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Ends the current user's Do Not Disturb session immediately."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DndEndDnd_class"
@@ -2710,14 +1885,9 @@ $graph:
   - name: DndEndSnooze
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Ends the current user's snooze mode immediately."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DndEndSnooze_class"
@@ -2733,45 +1903,30 @@ $graph:
   - name: DndInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieves a user's current Do Not Disturb status."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DndInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `dnd:read`"
-      - name: user
-        type: ["null", "string"]
-        doc: "User to fetch status for (defaults to current user)"
 
-  - name: DndSetSnoozeWithFormdataBody_class
+  - name: DndSetSnooze_class
     type: enum
     inVocab: false
-    symbols: ["slack:DndSetSnoozeWithFormdataBody"]
+    symbols: ["slack:DndSetSnooze"]
 
-  - name: DndSetSnoozeWithFormdataBody
+  - name: DndSetSnooze
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Turns on Do Not Disturb mode for the current user, or changes its duration."
     fields:
       - name: class
-        type: "#DndSetSnoozeWithFormdataBody_class"
+        type: "#DndSetSnooze_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2784,26 +1939,15 @@ $graph:
   - name: DndTeamInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieves the Do Not Disturb status for up to 50 users on a team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#DndTeamInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `dnd:read`"
-      - name: users
-        type: ["null", "string"]
-        doc: "Comma-separated list of users to fetch Do Not Disturb status for"
 
   - name: EmojiList_class
     type: enum
@@ -2813,64 +1957,48 @@ $graph:
   - name: EmojiList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists custom emoji for a team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#EmojiList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `emoji:read`"
 
-  - name: FilesCommentsDeleteWithFormdataBody_class
+  - name: FilesCommentsDelete_class
     type: enum
     inVocab: false
-    symbols: ["slack:FilesCommentsDeleteWithFormdataBody"]
+    symbols: ["slack:FilesCommentsDelete"]
 
-  - name: FilesCommentsDeleteWithFormdataBody
+  - name: FilesCommentsDelete
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Deletes an existing comment on a file."
     fields:
       - name: class
-        type: "#FilesCommentsDeleteWithFormdataBody_class"
+        type: "#FilesCommentsDelete_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FilesDeleteWithFormdataBody_class
+  - name: FilesDelete_class
     type: enum
     inVocab: false
-    symbols: ["slack:FilesDeleteWithFormdataBody"]
+    symbols: ["slack:FilesDelete"]
 
-  - name: FilesDeleteWithFormdataBody
+  - name: FilesDelete
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Deletes a file."
     fields:
       - name: class
-        type: "#FilesDeleteWithFormdataBody_class"
+        type: "#FilesDelete_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2883,36 +2011,15 @@ $graph:
   - name: FilesInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets information about a file."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#FilesInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `files:read`"
-      - name: file
-        type: ["null", "string"]
-        doc: "Specify a file by providing its ID."
-      - name: count
-        type: ["null", "string"]
-      - name: page
-        type: ["null", "string"]
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details."
 
   - name: FilesList_class
     type: enum
@@ -2922,64 +2029,30 @@ $graph:
   - name: FilesList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List for a team, in a channel, or from a user with applied filters."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#FilesList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `files:read`"
-      - name: user
-        type: ["null", "string"]
-        doc: "Filter files created by a single user."
-      - name: channel
-        type: ["null", "string"]
-        doc: "Filter files appearing in a specific channel, indicated by its ID."
-      - name: ts_from
-        type: ["null", "float"]
-        doc: "Filter files created after this timestamp (inclusive)."
-      - name: ts_to
-        type: ["null", "float"]
-        doc: "Filter files created before this timestamp (inclusive)."
-      - name: types
-        type: ["null", "string"]
-        doc: "Filter files by type ([see below](#file_types)). You can pass multiple values in the types argument, like `types=spaces,snippets`.The default value is `all`, which does not filter the list."
-      - name: count
-        type: ["null", "string"]
-      - name: page
-        type: ["null", "string"]
-      - name: show_files_hidden_by_limit
-        type: ["null", "boolean"]
-        doc: "Show truncated file info for files hidden due to being too old, and the team who owns the file being over the file limit."
 
-  - name: FilesRemoteAddWithFormdataBody_class
+  - name: FilesRemoteAdd_class
     type: enum
     inVocab: false
-    symbols: ["slack:FilesRemoteAddWithFormdataBody"]
+    symbols: ["slack:FilesRemoteAdd"]
 
-  - name: FilesRemoteAddWithFormdataBody
+  - name: FilesRemoteAdd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Adds a file from a remote service"
     fields:
       - name: class
-        type: "#FilesRemoteAddWithFormdataBody_class"
+        type: "#FilesRemoteAdd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2992,29 +2065,15 @@ $graph:
   - name: FilesRemoteInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve information about a remote file added to Slack"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#FilesRemoteInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `remote_files:read`"
-      - name: file
-        type: ["null", "string"]
-        doc: "Specify a file by providing its ID."
-      - name: external_id
-        type: ["null", "string"]
-        doc: "Creator defined GUID for the file."
 
   - name: FilesRemoteList_class
     type: enum
@@ -3024,57 +2083,30 @@ $graph:
   - name: FilesRemoteList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve information about a remote file added to Slack"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#FilesRemoteList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `remote_files:read`"
-      - name: channel
-        type: ["null", "string"]
-        doc: "Filter files appearing in a specific channel, indicated by its ID."
-      - name: ts_from
-        type: ["null", "float"]
-        doc: "Filter files created after this timestamp (inclusive)."
-      - name: ts_to
-        type: ["null", "float"]
-        doc: "Filter files created before this timestamp (inclusive)."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
 
-  - name: FilesRemoteRemoveWithFormdataBody_class
+  - name: FilesRemoteRemove_class
     type: enum
     inVocab: false
-    symbols: ["slack:FilesRemoteRemoveWithFormdataBody"]
+    symbols: ["slack:FilesRemoteRemove"]
 
-  - name: FilesRemoteRemoveWithFormdataBody
+  - name: FilesRemoteRemove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Remove a remote file."
     fields:
       - name: class
-        type: "#FilesRemoteRemoveWithFormdataBody_class"
+        type: "#FilesRemoteRemove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -3087,117 +2119,84 @@ $graph:
   - name: FilesRemoteShare
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Share a remote file into a channel."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#FilesRemoteShare_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `remote_files:share`"
-      - name: file
-        type: ["null", "string"]
-        doc: "Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both are required."
-      - name: external_id
-        type: ["null", "string"]
-        doc: "The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either this field or `file` or both are required."
-      - name: channels
-        type: ["null", "string"]
-        doc: "Comma-separated list of channel IDs where the file will be shared."
 
-  - name: FilesRemoteUpdateWithFormdataBody_class
+  - name: FilesRemoteUpdate_class
     type: enum
     inVocab: false
-    symbols: ["slack:FilesRemoteUpdateWithFormdataBody"]
+    symbols: ["slack:FilesRemoteUpdate"]
 
-  - name: FilesRemoteUpdateWithFormdataBody
+  - name: FilesRemoteUpdate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Updates an existing remote file."
     fields:
       - name: class
-        type: "#FilesRemoteUpdateWithFormdataBody_class"
+        type: "#FilesRemoteUpdate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FilesRevokePublicURLWithFormdataBody_class
+  - name: FilesRevokePublicURL_class
     type: enum
     inVocab: false
-    symbols: ["slack:FilesRevokePublicURLWithFormdataBody"]
+    symbols: ["slack:FilesRevokePublicURL"]
 
-  - name: FilesRevokePublicURLWithFormdataBody
+  - name: FilesRevokePublicURL
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Revokes public/external sharing access for a file"
     fields:
       - name: class
-        type: "#FilesRevokePublicURLWithFormdataBody_class"
+        type: "#FilesRevokePublicURL_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FilesSharedPublicURLWithFormdataBody_class
+  - name: FilesSharedPublicURL_class
     type: enum
     inVocab: false
-    symbols: ["slack:FilesSharedPublicURLWithFormdataBody"]
+    symbols: ["slack:FilesSharedPublicURL"]
 
-  - name: FilesSharedPublicURLWithFormdataBody
+  - name: FilesSharedPublicURL
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Enables a file for public/external sharing."
     fields:
       - name: class
-        type: "#FilesSharedPublicURLWithFormdataBody_class"
+        type: "#FilesSharedPublicURL_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FilesUploadWithFormdataBody_class
+  - name: FilesUpload_class
     type: enum
     inVocab: false
-    symbols: ["slack:FilesUploadWithFormdataBody"]
+    symbols: ["slack:FilesUpload"]
 
-  - name: FilesUploadWithFormdataBody
+  - name: FilesUpload
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Uploads or creates a file."
     fields:
       - name: class
-        type: "#FilesUploadWithFormdataBody_class"
+        type: "#FilesUpload_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -3210,32 +2209,15 @@ $graph:
   - name: MigrationExchange
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "For Enterprise Grid workspaces, map local user IDs to global user IDs"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#MigrationExchange_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `tokens.basic`"
-      - name: users
-        type: string
-        doc: "A comma-separated list of user ids, up to 400 per request"
-      - name: team_id
-        type: ["null", "string"]
-        doc: "Specify team_id starts with `T` in case of Org Token"
-      - name: to_old
-        type: ["null", "boolean"]
-        doc: "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`."
 
   - name: OauthAccess_class
     type: enum
@@ -3245,35 +2227,15 @@ $graph:
   - name: OauthAccess
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Exchanges a temporary OAuth verifier code for an access token."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#OauthAccess_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: client_id
-        type: ["null", "string"]
-        doc: "Issued when you created your application."
-      - name: client_secret
-        type: ["null", "string"]
-        doc: "Issued when you created your application."
-      - name: code
-        type: ["null", "string"]
-        doc: "The `code` param returned via the OAuth callback."
-      - name: redirect_uri
-        type: ["null", "string"]
-        doc: "This must match the originally submitted URI (if one was sent)."
-      - name: single_channel
-        type: ["null", "boolean"]
-        doc: "Request the user to add your app only to a single channel. Only valid with a [legacy workspace app](https://api.slack.com/legacy-workspace-apps)."
 
   - name: OauthToken_class
     type: enum
@@ -3283,35 +2245,15 @@ $graph:
   - name: OauthToken
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Exchanges a temporary OAuth verifier code for a workspace token."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#OauthToken_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: client_id
-        type: ["null", "string"]
-        doc: "Issued when you created your application."
-      - name: client_secret
-        type: ["null", "string"]
-        doc: "Issued when you created your application."
-      - name: code
-        type: ["null", "string"]
-        doc: "The `code` param returned via the OAuth callback."
-      - name: redirect_uri
-        type: ["null", "string"]
-        doc: "This must match the originally submitted URI (if one was sent)."
-      - name: single_channel
-        type: ["null", "boolean"]
-        doc: "Request the user to add your app only to a single channel."
 
   - name: OauthV2Access_class
     type: enum
@@ -3321,51 +2263,30 @@ $graph:
   - name: OauthV2Access
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Exchanges a temporary OAuth verifier code for an access token."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#OauthV2Access_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: client_id
-        type: ["null", "string"]
-        doc: "Issued when you created your application."
-      - name: client_secret
-        type: ["null", "string"]
-        doc: "Issued when you created your application."
-      - name: code
-        type: string
-        doc: "The `code` param returned via the OAuth callback."
-      - name: redirect_uri
-        type: ["null", "string"]
-        doc: "This must match the originally submitted URI (if one was sent)."
 
-  - name: PinsAddWithFormdataBody_class
+  - name: PinsAdd_class
     type: enum
     inVocab: false
-    symbols: ["slack:PinsAddWithFormdataBody"]
+    symbols: ["slack:PinsAdd"]
 
-  - name: PinsAddWithFormdataBody
+  - name: PinsAdd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Pins an item to a channel."
     fields:
       - name: class
-        type: "#PinsAddWithFormdataBody_class"
+        type: "#PinsAdd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -3378,67 +2299,48 @@ $graph:
   - name: PinsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists items pinned to a channel."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#PinsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `pins:read`"
-      - name: channel
-        type: string
-        doc: "Channel to get pinned items for."
 
-  - name: PinsRemoveWithFormdataBody_class
+  - name: PinsRemove_class
     type: enum
     inVocab: false
-    symbols: ["slack:PinsRemoveWithFormdataBody"]
+    symbols: ["slack:PinsRemove"]
 
-  - name: PinsRemoveWithFormdataBody
+  - name: PinsRemove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Un-pins an item from a channel."
     fields:
       - name: class
-        type: "#PinsRemoveWithFormdataBody_class"
+        type: "#PinsRemove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ReactionsAddWithFormdataBody_class
+  - name: ReactionsAdd_class
     type: enum
     inVocab: false
-    symbols: ["slack:ReactionsAddWithFormdataBody"]
+    symbols: ["slack:ReactionsAdd"]
 
-  - name: ReactionsAddWithFormdataBody
+  - name: ReactionsAdd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Adds a reaction to an item."
     fields:
       - name: class
-        type: "#ReactionsAddWithFormdataBody_class"
+        type: "#ReactionsAdd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -3451,38 +2353,15 @@ $graph:
   - name: ReactionsGet
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets reactions for an item."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ReactionsGet_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `reactions:read`"
-      - name: channel
-        type: ["null", "string"]
-        doc: "Channel where the message to get reactions for was posted."
-      - name: file
-        type: ["null", "string"]
-        doc: "File to get reactions for."
-      - name: file_comment
-        type: ["null", "string"]
-        doc: "File comment to get reactions for."
-      - name: full
-        type: ["null", "boolean"]
-        doc: "If true always return the complete reaction list."
-      - name: timestamp
-        type: ["null", "string"]
-        doc: "Timestamp of the message to get reactions for."
 
   - name: ReactionsList_class
     type: enum
@@ -3492,124 +2371,84 @@ $graph:
   - name: ReactionsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists reactions made by a user."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ReactionsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `reactions:read`"
-      - name: user
-        type: ["null", "string"]
-        doc: "Show reactions made by this user. Defaults to the authed user."
-      - name: full
-        type: ["null", "boolean"]
-        doc: "If true always return the complete reaction list."
-      - name: count
-        type: ["null", "int"]
-      - name: page
-        type: ["null", "int"]
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
 
-  - name: ReactionsRemoveWithFormdataBody_class
+  - name: ReactionsRemove_class
     type: enum
     inVocab: false
-    symbols: ["slack:ReactionsRemoveWithFormdataBody"]
+    symbols: ["slack:ReactionsRemove"]
 
-  - name: ReactionsRemoveWithFormdataBody
+  - name: ReactionsRemove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Removes a reaction from an item."
     fields:
       - name: class
-        type: "#ReactionsRemoveWithFormdataBody_class"
+        type: "#ReactionsRemove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: RemindersAddWithFormdataBody_class
+  - name: RemindersAdd_class
     type: enum
     inVocab: false
-    symbols: ["slack:RemindersAddWithFormdataBody"]
+    symbols: ["slack:RemindersAdd"]
 
-  - name: RemindersAddWithFormdataBody
+  - name: RemindersAdd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Creates a reminder."
     fields:
       - name: class
-        type: "#RemindersAddWithFormdataBody_class"
+        type: "#RemindersAdd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: RemindersCompleteWithFormdataBody_class
+  - name: RemindersComplete_class
     type: enum
     inVocab: false
-    symbols: ["slack:RemindersCompleteWithFormdataBody"]
+    symbols: ["slack:RemindersComplete"]
 
-  - name: RemindersCompleteWithFormdataBody
+  - name: RemindersComplete
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Marks a reminder as complete."
     fields:
       - name: class
-        type: "#RemindersCompleteWithFormdataBody_class"
+        type: "#RemindersComplete_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: RemindersDeleteWithFormdataBody_class
+  - name: RemindersDelete_class
     type: enum
     inVocab: false
-    symbols: ["slack:RemindersDeleteWithFormdataBody"]
+    symbols: ["slack:RemindersDelete"]
 
-  - name: RemindersDeleteWithFormdataBody
+  - name: RemindersDelete
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Deletes a reminder."
     fields:
       - name: class
-        type: "#RemindersDeleteWithFormdataBody_class"
+        type: "#RemindersDelete_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -3622,26 +2461,15 @@ $graph:
   - name: RemindersInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets information about a reminder."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#RemindersInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `reminders:read`"
-      - name: reminder
-        type: ["null", "string"]
-        doc: "The ID of the reminder"
 
   - name: RemindersList_class
     type: enum
@@ -3651,23 +2479,15 @@ $graph:
   - name: RemindersList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists all reminders created by or for a given user."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#RemindersList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `reminders:read`"
 
   - name: RtmConnect_class
     type: enum
@@ -3677,29 +2497,15 @@ $graph:
   - name: RtmConnect
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Starts a Real Time Messaging session."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#RtmConnect_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `rtm:stream`"
-      - name: batch_presence_aware
-        type: ["null", "boolean"]
-        doc: "Batch presence deliveries via subscription. Enabling changes the shape of `presence_change` events. See [batch presence](/docs/presence-and-status#batching)."
-      - name: presence_sub
-        type: ["null", "boolean"]
-        doc: "Only deliver presence events when requested by subscription. See [presence subscriptions](/docs/presence-and-status#subscriptions)."
 
   - name: SearchMessages_class
     type: enum
@@ -3709,59 +2515,30 @@ $graph:
   - name: SearchMessages
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Searches for messages matching a query."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#SearchMessages_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `search:read`"
-      - name: count
-        type: ["null", "int"]
-        doc: "Pass the number of results you want per \"page\". Maximum of `100`."
-      - name: highlight
-        type: ["null", "boolean"]
-        doc: "Pass a value of `true` to enable query highlight markers (see below)."
-      - name: page
-        type: ["null", "int"]
-      - name: query
-        type: string
-        doc: "Search query."
-      - name: sort
-        type: ["null", "string"]
-        doc: "Return matches sorted by either `score` or `timestamp`."
-      - name: sort_dir
-        type: ["null", "string"]
-        doc: "Change sort direction to ascending (`asc`) or descending (`desc`)."
 
-  - name: StarsAddWithFormdataBody_class
+  - name: StarsAdd_class
     type: enum
     inVocab: false
-    symbols: ["slack:StarsAddWithFormdataBody"]
+    symbols: ["slack:StarsAdd"]
 
-  - name: StarsAddWithFormdataBody
+  - name: StarsAdd
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Adds a star to an item."
     fields:
       - name: class
-        type: "#StarsAddWithFormdataBody_class"
+        type: "#StarsAdd_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -3774,52 +2551,30 @@ $graph:
   - name: StarsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists stars for a user."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#StarsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `stars:read`"
-      - name: count
-        type: ["null", "string"]
-      - name: page
-        type: ["null", "string"]
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details."
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
 
-  - name: StarsRemoveWithFormdataBody_class
+  - name: StarsRemove_class
     type: enum
     inVocab: false
-    symbols: ["slack:StarsRemoveWithFormdataBody"]
+    symbols: ["slack:StarsRemove"]
 
-  - name: StarsRemoveWithFormdataBody
+  - name: StarsRemove
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Removes a star from an item."
     fields:
       - name: class
-        type: "#StarsRemoveWithFormdataBody_class"
+        type: "#StarsRemove_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -3832,30 +2587,15 @@ $graph:
   - name: TeamAccessLogs
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the access logs for the current team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#TeamAccessLogs_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin`"
-      - name: before
-        type: ["null", "string"]
-        doc: "End of time range of logs to include in results (inclusive)."
-      - name: count
-        type: ["null", "string"]
-      - name: page
-        type: ["null", "string"]
 
   - name: TeamBillableInfo_class
     type: enum
@@ -3865,26 +2605,15 @@ $graph:
   - name: TeamBillableInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets billable users information for the current team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#TeamBillableInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin`"
-      - name: user
-        type: ["null", "string"]
-        doc: "A user to retrieve the billable information for. Defaults to all users."
 
   - name: TeamInfo_class
     type: enum
@@ -3894,26 +2623,15 @@ $graph:
   - name: TeamInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets information about the current team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#TeamInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `team:read`"
-      - name: team
-        type: ["null", "string"]
-        doc: "Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels"
 
   - name: TeamIntegrationLogs_class
     type: enum
@@ -3923,39 +2641,15 @@ $graph:
   - name: TeamIntegrationLogs
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets the integration logs for the current team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#TeamIntegrationLogs_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `admin`"
-      - name: app_id
-        type: ["null", "string"]
-        doc: "Filter logs to this Slack app. Defaults to all logs."
-      - name: change_type
-        type: ["null", "string"]
-        doc: "Filter logs with this change type. Defaults to all logs."
-      - name: count
-        type: ["null", "string"]
-      - name: page
-        type: ["null", "string"]
-      - name: service_id
-        type: ["null", "string"]
-        doc: "Filter logs to this service. Defaults to all logs."
-      - name: user
-        type: ["null", "string"]
-        doc: "Filter logs generated by this user’s actions. Defaults to all logs."
 
   - name: TeamProfileGet_class
     type: enum
@@ -3965,89 +2659,66 @@ $graph:
   - name: TeamProfileGet
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieve a team's profile."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#TeamProfileGet_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `users.profile:read`"
-      - name: visibility
-        type: ["null", "string"]
-        doc: "Filter by visibility."
 
-  - name: UsergroupsCreateWithFormdataBody_class
+  - name: UsergroupsCreate_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsergroupsCreateWithFormdataBody"]
+    symbols: ["slack:UsergroupsCreate"]
 
-  - name: UsergroupsCreateWithFormdataBody
+  - name: UsergroupsCreate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create a User Group"
     fields:
       - name: class
-        type: "#UsergroupsCreateWithFormdataBody_class"
+        type: "#UsergroupsCreate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: UsergroupsDisableWithFormdataBody_class
+  - name: UsergroupsDisable_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsergroupsDisableWithFormdataBody"]
+    symbols: ["slack:UsergroupsDisable"]
 
-  - name: UsergroupsDisableWithFormdataBody
+  - name: UsergroupsDisable
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Disable an existing User Group"
     fields:
       - name: class
-        type: "#UsergroupsDisableWithFormdataBody_class"
+        type: "#UsergroupsDisable_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: UsergroupsEnableWithFormdataBody_class
+  - name: UsergroupsEnable_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsergroupsEnableWithFormdataBody"]
+    symbols: ["slack:UsergroupsEnable"]
 
-  - name: UsergroupsEnableWithFormdataBody
+  - name: UsergroupsEnable
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Enable a User Group"
     fields:
       - name: class
-        type: "#UsergroupsEnableWithFormdataBody_class"
+        type: "#UsergroupsEnable_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -4060,51 +2731,30 @@ $graph:
   - name: UsergroupsList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all User Groups for a team"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsergroupsList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: include_users
-        type: ["null", "boolean"]
-        doc: "Include the list of users for each User Group."
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `usergroups:read`"
-      - name: include_count
-        type: ["null", "boolean"]
-        doc: "Include the number of users in each User Group."
-      - name: include_disabled
-        type: ["null", "boolean"]
-        doc: "Include disabled User Groups."
 
-  - name: UsergroupsUpdateWithFormdataBody_class
+  - name: UsergroupsUpdate_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsergroupsUpdateWithFormdataBody"]
+    symbols: ["slack:UsergroupsUpdate"]
 
-  - name: UsergroupsUpdateWithFormdataBody
+  - name: UsergroupsUpdate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update an existing User Group"
     fields:
       - name: class
-        type: "#UsergroupsUpdateWithFormdataBody_class"
+        type: "#UsergroupsUpdate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -4117,48 +2767,30 @@ $graph:
   - name: UsergroupsUsersList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List all users in a User Group"
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsergroupsUsersList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `usergroups:read`"
-      - name: include_disabled
-        type: ["null", "boolean"]
-        doc: "Allow results that involve disabled User Groups."
-      - name: usergroup
-        type: string
-        doc: "The encoded ID of the User Group to update."
 
-  - name: UsergroupsUsersUpdateWithFormdataBody_class
+  - name: UsergroupsUsersUpdate_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsergroupsUsersUpdateWithFormdataBody"]
+    symbols: ["slack:UsergroupsUsersUpdate"]
 
-  - name: UsergroupsUsersUpdateWithFormdataBody
+  - name: UsergroupsUsersUpdate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update the list of users for a User Group"
     fields:
       - name: class
-        type: "#UsergroupsUsersUpdateWithFormdataBody_class"
+        type: "#UsergroupsUsersUpdate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -4171,57 +2803,30 @@ $graph:
   - name: UsersConversations
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "List conversations the calling user may access."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersConversations_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `conversations:read`"
-      - name: user
-        type: ["null", "string"]
-        doc: "Browse conversations by a specific user ID's membership. Non-public channels are restricted to those where the calling user shares membership."
-      - name: types
-        type: ["null", "string"]
-        doc: "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`"
-      - name: exclude_archived
-        type: ["null", "boolean"]
-        doc: "Set to `true` to exclude archived channels from the list"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
 
-  - name: UsersDeletePhotoWithFormdataBody_class
+  - name: UsersDeletePhoto_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsersDeletePhotoWithFormdataBody"]
+    symbols: ["slack:UsersDeletePhoto"]
 
-  - name: UsersDeletePhotoWithFormdataBody
+  - name: UsersDeletePhoto
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete the user profile photo"
     fields:
       - name: class
-        type: "#UsersDeletePhotoWithFormdataBody_class"
+        type: "#UsersDeletePhoto_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -4234,26 +2839,15 @@ $graph:
   - name: UsersGetPresence
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets user presence information."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersGetPresence_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `users:read`"
-      - name: user
-        type: ["null", "string"]
-        doc: "User to get presence info on. Defaults to the authed user."
 
   - name: UsersIdentity_class
     type: enum
@@ -4263,23 +2857,15 @@ $graph:
   - name: UsersIdentity
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Get a user's identity."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersIdentity_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `identity.basic`"
 
   - name: UsersInfo_class
     type: enum
@@ -4289,29 +2875,15 @@ $graph:
   - name: UsersInfo
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Gets information about a user."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersInfo_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `users:read`"
-      - name: include_locale
-        type: ["null", "boolean"]
-        doc: "Set this to `true` to receive the locale for this user. Defaults to `false`"
-      - name: user
-        type: ["null", "string"]
-        doc: "User to get info on"
 
   - name: UsersList_class
     type: enum
@@ -4321,32 +2893,15 @@ $graph:
   - name: UsersList
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Lists all users in a Slack team."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersList_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: ["null", "string"]
-        doc: "Authentication token. Requires scope: `users:read`"
-      - name: limit
-        type: ["null", "int"]
-        doc: "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached. Providing no `limit` value will result in Slack attempting to deliver you the entire result set. If the collection is too large you may experience `limit_required` or HTTP 500 errors."
-      - name: cursor
-        type: ["null", "string"]
-        doc: "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
-      - name: include_locale
-        type: ["null", "boolean"]
-        doc: "Set this to `true` to receive the locale for users. Defaults to `false`"
 
   - name: UsersLookupByEmail_class
     type: enum
@@ -4356,26 +2911,15 @@ $graph:
   - name: UsersLookupByEmail
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Find a user with an email address."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersLookupByEmail_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `users:read.email`"
-      - name: email
-        type: string
-        doc: "An email address belonging to a user in the workspace"
 
   - name: UsersProfileGet_class
     type: enum
@@ -4385,48 +2929,30 @@ $graph:
   - name: UsersProfileGet
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Retrieves a user's profile information."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersProfileGet_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: token
-        type: string
-        doc: "Authentication token. Requires scope: `users.profile:read`"
-      - name: include_labels
-        type: ["null", "boolean"]
-        doc: "Include labels for each ID in custom profile fields"
-      - name: user
-        type: ["null", "string"]
-        doc: "User to retrieve profile info for"
 
-  - name: UsersProfileSetWithFormdataBody_class
+  - name: UsersProfileSet_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsersProfileSetWithFormdataBody"]
+    symbols: ["slack:UsersProfileSet"]
 
-  - name: UsersProfileSetWithFormdataBody
+  - name: UsersProfileSet
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set the profile information for a user."
     fields:
       - name: class
-        type: "#UsersProfileSetWithFormdataBody_class"
+        type: "#UsersProfileSet_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -4439,14 +2965,9 @@ $graph:
   - name: UsersSetActive
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Marked a user as active. Deprecated and non-functional."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#UsersSetActive_class"
@@ -4454,46 +2975,38 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
-  - name: UsersSetPhotoWithFormdataBody_class
+  - name: UsersSetPhoto_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsersSetPhotoWithFormdataBody"]
+    symbols: ["slack:UsersSetPhoto"]
 
-  - name: UsersSetPhotoWithFormdataBody
+  - name: UsersSetPhoto
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Set the user profile photo"
     fields:
       - name: class
-        type: "#UsersSetPhotoWithFormdataBody_class"
+        type: "#UsersSetPhoto_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: UsersSetPresenceWithFormdataBody_class
+  - name: UsersSetPresence_class
     type: enum
     inVocab: false
-    symbols: ["slack:UsersSetPresenceWithFormdataBody"]
+    symbols: ["slack:UsersSetPresence"]
 
-  - name: UsersSetPresenceWithFormdataBody
+  - name: UsersSetPresence
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Manually sets user presence."
     fields:
       - name: class
-        type: "#UsersSetPresenceWithFormdataBody_class"
+        type: "#UsersSetPresence_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -4506,26 +3019,15 @@ $graph:
   - name: ViewsOpen
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Open a view for a user."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ViewsOpen_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: trigger_id
-        type: string
-        doc: "Exchange a trigger to post to the user."
-      - name: view
-        type: string
-        doc: "A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
 
   - name: ViewsPublish_class
     type: enum
@@ -4535,29 +3037,15 @@ $graph:
   - name: ViewsPublish
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Publish a static view for a User."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ViewsPublish_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: user_id
-        type: string
-        doc: "`id` of the user you want publish a view to."
-      - name: view
-        type: string
-        doc: "A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
-      - name: hash
-        type: ["null", "string"]
-        doc: "A string that represents view state to protect against possible race conditions."
 
   - name: ViewsPush_class
     type: enum
@@ -4567,26 +3055,15 @@ $graph:
   - name: ViewsPush
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Push a view onto the stack of a root view."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ViewsPush_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: trigger_id
-        type: string
-        doc: "Exchange a trigger to post to the user."
-      - name: view
-        type: string
-        doc: "A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
 
   - name: ViewsUpdate_class
     type: enum
@@ -4596,32 +3073,15 @@ $graph:
   - name: ViewsUpdate
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update an existing view."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#ViewsUpdate_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: view_id
-        type: ["null", "string"]
-        doc: "A unique identifier of the view to be updated. Either `view_id` or `external_id` is required."
-      - name: external_id
-        type: ["null", "string"]
-        doc: "A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either `view_id` or `external_id` is required."
-      - name: view
-        type: ["null", "string"]
-        doc: "A [view object](/reference/surfaces/views). This must be a JSON-encoded string."
-      - name: hash
-        type: ["null", "string"]
-        doc: "A string that represents view state to protect against possible race conditions."
 
   - name: WorkflowsStepCompleted_class
     type: enum
@@ -4631,23 +3091,15 @@ $graph:
   - name: WorkflowsStepCompleted
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Indicate that an app's step in a workflow completed execution."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#WorkflowsStepCompleted_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: workflow_step_execute_id
-        type: string
-        doc: "Context identifier that maps to the correct workflow step execution."
 
   - name: WorkflowsStepFailed_class
     type: enum
@@ -4657,26 +3109,15 @@ $graph:
   - name: WorkflowsStepFailed
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Indicate that an app's step in a workflow failed to execute."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#WorkflowsStepFailed_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: workflow_step_execute_id
-        type: string
-        doc: "Context identifier that maps to the correct workflow step execution."
-      - name: error
-        type: string
-        doc: "A JSON-based object with a `message` property that should contain a human readable error message."
 
   - name: WorkflowsUpdateStep_class
     type: enum
@@ -4686,26 +3127,12 @@ $graph:
   - name: WorkflowsUpdateStep
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
     doc: "Update the configuration for a workflow extension step."
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
     fields:
       - name: class
         type: "#WorkflowsUpdateStep_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
-      - name: workflow_step_edit_id
-        type: string
-        doc: "A context identifier provided with `view_submission` payloads used to call back to `workflows.updateStep`."
-      - name: step_name
-        type: ["null", "string"]
-        doc: "An optional field that can be used to override the step name that is shown in the Workflow Builder."
-      - name: step_image_url
-        type: ["null", "string"]
-        doc: "An optional field that can be used to override app image that is shown in the Workflow Builder."

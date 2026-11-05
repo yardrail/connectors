@@ -195,6 +195,8 @@ func LoadMethods(pkgPath string, tagMap map[string][]string) ([]MethodGroup, str
 // ExtractMethod builds a MethodInfo from a *WithResponse method signature.
 func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, docs map[string]string) *MethodInfo {
 	baseName := strings.TrimSuffix(methodName, "WithResponse")
+	baseName = strings.TrimSuffix(baseName, "WithFormdataBody")
+	baseName = strings.TrimSuffix(baseName, "WithBody")
 	toolName := ToKebab(baseName)
 
 	desc := docs["ClientWithResponses."+methodName]

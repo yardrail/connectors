@@ -22,67 +22,67 @@ type InterfaceClient struct {
 type Function string
 
 const (
-	FnCreateComment                       Function = "create-comment"
-	FnCreateDesign                        Function = "create-design"
-	FnCreateDesignAutofillJob             Function = "create-design-autofill-job"
-	FnCreateDesignExportJob               Function = "create-design-export-job"
-	FnCreateDesignMergeJob                Function = "create-design-merge-job"
-	FnCreateDesignResizeJob               Function = "create-design-resize-job"
-	FnCreateFolder                        Function = "create-folder"
-	FnCreateImageToDesignImportJob        Function = "create-image-to-design-import-job"
-	FnCreateImageTransformationJob        Function = "create-image-transformation-job"
-	FnCreatePrintPartnerDesign            Function = "create-print-partner-design"
-	FnCreatePrintPartnerDesignExportJob   Function = "create-print-partner-design-export-job"
-	FnCreateReply                         Function = "create-reply"
-	FnCreateThread                        Function = "create-thread"
-	FnCreateUrlAssetUploadJob             Function = "create-url-asset-upload-job"
-	FnCreateUrlImportJob                  Function = "create-url-import-job"
-	FnDeleteAsset                         Function = "delete-asset"
-	FnDeleteFolder                        Function = "delete-folder"
-	FnExchangeAccessTokenWithFormdataBody Function = "exchange-access-token-with-formdata-body"
-	FnGetAppJwks                          Function = "get-app-jwks"
-	FnGetAsset                            Function = "get-asset"
-	FnGetAssetUploadJob                   Function = "get-asset-upload-job"
-	FnGetBrandTemplate                    Function = "get-brand-template"
-	FnGetBrandTemplateDataset             Function = "get-brand-template-dataset"
-	FnGetDesign                           Function = "get-design"
-	FnGetDesignAnalytics                  Function = "get-design-analytics"
-	FnGetDesignAnalyticsLinks             Function = "get-design-analytics-links"
-	FnGetDesignAnalyticsPageViews         Function = "get-design-analytics-page-views"
-	FnGetDesignAnalyticsViewers           Function = "get-design-analytics-viewers"
-	FnGetDesignAnalyticsViewsOverTime     Function = "get-design-analytics-views-over-time"
-	FnGetDesignAutofillJob                Function = "get-design-autofill-job"
-	FnGetDesignDataset                    Function = "get-design-dataset"
-	FnGetDesignExportFormats              Function = "get-design-export-formats"
-	FnGetDesignExportJob                  Function = "get-design-export-job"
-	FnGetDesignImportJob                  Function = "get-design-import-job"
-	FnGetDesignMergeJob                   Function = "get-design-merge-job"
-	FnGetDesignPages                      Function = "get-design-pages"
-	FnGetDesignResizeJob                  Function = "get-design-resize-job"
-	FnGetFolder                           Function = "get-folder"
-	FnGetImageToDesignImportJob           Function = "get-image-to-design-import-job"
-	FnGetImageTransformationJob           Function = "get-image-transformation-job"
-	FnGetOidcJwks                         Function = "get-oidc-jwks"
-	FnGetPrintPartnerDesign               Function = "get-print-partner-design"
-	FnGetReply                            Function = "get-reply"
-	FnGetSigningPublicKeys                Function = "get-signing-public-keys"
-	FnGetThread                           Function = "get-thread"
-	FnGetUrlAssetUploadJob                Function = "get-url-asset-upload-job"
-	FnGetUrlImportJob                     Function = "get-url-import-job"
-	FnGetUserCapabilities                 Function = "get-user-capabilities"
-	FnGetUserProfile                      Function = "get-user-profile"
-	FnIntrospectTokenWithFormdataBody     Function = "introspect-token-with-formdata-body"
-	FnListBrandTemplates                  Function = "list-brand-templates"
-	FnListDesigns                         Function = "list-designs"
-	FnListFolderItems                     Function = "list-folder-items"
-	FnListReplies                         Function = "list-replies"
-	FnMoveFolderItem                      Function = "move-folder-item"
-	FnPublishBrandTemplate                Function = "publish-brand-template"
-	FnRevokeTokensWithFormdataBody        Function = "revoke-tokens-with-formdata-body"
-	FnUpdateAsset                         Function = "update-asset"
-	FnUpdateFolder                        Function = "update-folder"
-	FnUserInfo                            Function = "user-info"
-	FnUsersMe                             Function = "users-me"
+	FnCreateComment                     Function = "create-comment"
+	FnCreateDesign                      Function = "create-design"
+	FnCreateDesignAutofillJob           Function = "create-design-autofill-job"
+	FnCreateDesignExportJob             Function = "create-design-export-job"
+	FnCreateDesignMergeJob              Function = "create-design-merge-job"
+	FnCreateDesignResizeJob             Function = "create-design-resize-job"
+	FnCreateFolder                      Function = "create-folder"
+	FnCreateImageToDesignImportJob      Function = "create-image-to-design-import-job"
+	FnCreateImageTransformationJob      Function = "create-image-transformation-job"
+	FnCreatePrintPartnerDesign          Function = "create-print-partner-design"
+	FnCreatePrintPartnerDesignExportJob Function = "create-print-partner-design-export-job"
+	FnCreateReply                       Function = "create-reply"
+	FnCreateThread                      Function = "create-thread"
+	FnCreateUrlAssetUploadJob           Function = "create-url-asset-upload-job"
+	FnCreateUrlImportJob                Function = "create-url-import-job"
+	FnDeleteAsset                       Function = "delete-asset"
+	FnDeleteFolder                      Function = "delete-folder"
+	FnExchangeAccessToken               Function = "exchange-access-token"
+	FnGetAppJwks                        Function = "get-app-jwks"
+	FnGetAsset                          Function = "get-asset"
+	FnGetAssetUploadJob                 Function = "get-asset-upload-job"
+	FnGetBrandTemplate                  Function = "get-brand-template"
+	FnGetBrandTemplateDataset           Function = "get-brand-template-dataset"
+	FnGetDesign                         Function = "get-design"
+	FnGetDesignAnalytics                Function = "get-design-analytics"
+	FnGetDesignAnalyticsLinks           Function = "get-design-analytics-links"
+	FnGetDesignAnalyticsPageViews       Function = "get-design-analytics-page-views"
+	FnGetDesignAnalyticsViewers         Function = "get-design-analytics-viewers"
+	FnGetDesignAnalyticsViewsOverTime   Function = "get-design-analytics-views-over-time"
+	FnGetDesignAutofillJob              Function = "get-design-autofill-job"
+	FnGetDesignDataset                  Function = "get-design-dataset"
+	FnGetDesignExportFormats            Function = "get-design-export-formats"
+	FnGetDesignExportJob                Function = "get-design-export-job"
+	FnGetDesignImportJob                Function = "get-design-import-job"
+	FnGetDesignMergeJob                 Function = "get-design-merge-job"
+	FnGetDesignPages                    Function = "get-design-pages"
+	FnGetDesignResizeJob                Function = "get-design-resize-job"
+	FnGetFolder                         Function = "get-folder"
+	FnGetImageToDesignImportJob         Function = "get-image-to-design-import-job"
+	FnGetImageTransformationJob         Function = "get-image-transformation-job"
+	FnGetOidcJwks                       Function = "get-oidc-jwks"
+	FnGetPrintPartnerDesign             Function = "get-print-partner-design"
+	FnGetReply                          Function = "get-reply"
+	FnGetSigningPublicKeys              Function = "get-signing-public-keys"
+	FnGetThread                         Function = "get-thread"
+	FnGetUrlAssetUploadJob              Function = "get-url-asset-upload-job"
+	FnGetUrlImportJob                   Function = "get-url-import-job"
+	FnGetUserCapabilities               Function = "get-user-capabilities"
+	FnGetUserProfile                    Function = "get-user-profile"
+	FnIntrospectToken                   Function = "introspect-token"
+	FnListBrandTemplates                Function = "list-brand-templates"
+	FnListDesigns                       Function = "list-designs"
+	FnListFolderItems                   Function = "list-folder-items"
+	FnListReplies                       Function = "list-replies"
+	FnMoveFolderItem                    Function = "move-folder-item"
+	FnPublishBrandTemplate              Function = "publish-brand-template"
+	FnRevokeTokens                      Function = "revoke-tokens"
+	FnUpdateAsset                       Function = "update-asset"
+	FnUpdateFolder                      Function = "update-folder"
+	FnUserInfo                          Function = "user-info"
+	FnUsersMe                           Function = "users-me"
 )
 
 // ParseFunction validates a function name and returns the typed Function value.
@@ -122,8 +122,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnDeleteAsset, nil
 	case FnDeleteFolder:
 		return FnDeleteFolder, nil
-	case FnExchangeAccessTokenWithFormdataBody:
-		return FnExchangeAccessTokenWithFormdataBody, nil
+	case FnExchangeAccessToken:
+		return FnExchangeAccessToken, nil
 	case FnGetAppJwks:
 		return FnGetAppJwks, nil
 	case FnGetAsset:
@@ -186,8 +186,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnGetUserCapabilities, nil
 	case FnGetUserProfile:
 		return FnGetUserProfile, nil
-	case FnIntrospectTokenWithFormdataBody:
-		return FnIntrospectTokenWithFormdataBody, nil
+	case FnIntrospectToken:
+		return FnIntrospectToken, nil
 	case FnListBrandTemplates:
 		return FnListBrandTemplates, nil
 	case FnListDesigns:
@@ -200,8 +200,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnMoveFolderItem, nil
 	case FnPublishBrandTemplate:
 		return FnPublishBrandTemplate, nil
-	case FnRevokeTokensWithFormdataBody:
-		return FnRevokeTokensWithFormdataBody, nil
+	case FnRevokeTokens:
+		return FnRevokeTokens, nil
 	case FnUpdateAsset:
 		return FnUpdateAsset, nil
 	case FnUpdateFolder:
@@ -252,7 +252,7 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchDeleteAssetWithResponse(ctx, config, inputs)
 	case FnDeleteFolder:
 		return ic.dispatchDeleteFolderWithResponse(ctx, config, inputs)
-	case FnExchangeAccessTokenWithFormdataBody:
+	case FnExchangeAccessToken:
 		return ic.dispatchExchangeAccessTokenWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnGetAppJwks:
 		return ic.dispatchGetAppJwksWithResponse(ctx, config, inputs)
@@ -316,7 +316,7 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchGetUserCapabilitiesWithResponse(ctx, config, inputs)
 	case FnGetUserProfile:
 		return ic.dispatchGetUserProfileWithResponse(ctx, config, inputs)
-	case FnIntrospectTokenWithFormdataBody:
+	case FnIntrospectToken:
 		return ic.dispatchIntrospectTokenWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnListBrandTemplates:
 		return ic.dispatchListBrandTemplatesWithResponse(ctx, config, inputs)
@@ -330,7 +330,7 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchMoveFolderItemWithResponse(ctx, config, inputs)
 	case FnPublishBrandTemplate:
 		return ic.dispatchPublishBrandTemplateWithResponse(ctx, config, inputs)
-	case FnRevokeTokensWithFormdataBody:
+	case FnRevokeTokens:
 		return ic.dispatchRevokeTokensWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnUpdateAsset:
 		return ic.dispatchUpdateAssetWithResponse(ctx, config, inputs)

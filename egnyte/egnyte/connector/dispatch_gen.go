@@ -826,7 +826,7 @@ func (ic *InterfaceClient) dispatchCreateSyncWithFormdataBodyWithResponse(ctx co
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("egnyte.create-sync-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("egnyte.create-sync: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.CreateSyncWithFormdataBodyWithResponse(ctx, body)
@@ -835,11 +835,11 @@ func (ic *InterfaceClient) dispatchCreateSyncWithFormdataBodyWithResponse(ctx co
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("egnyte.create-sync-with-formdata-body: nil response")
+		return nil, fmt.Errorf("egnyte.create-sync: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("egnyte.create-sync-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("egnyte.create-sync: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4224,7 +4224,7 @@ func (ic *InterfaceClient) dispatchRevokeTokenWithFormdataBodyWithResponse(ctx c
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("egnyte.revoke-token-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("egnyte.revoke-token: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.RevokeTokenWithFormdataBodyWithResponse(ctx, body)
@@ -4233,11 +4233,11 @@ func (ic *InterfaceClient) dispatchRevokeTokenWithFormdataBodyWithResponse(ctx c
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("egnyte.revoke-token-with-formdata-body: nil response")
+		return nil, fmt.Errorf("egnyte.revoke-token: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("egnyte.revoke-token-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("egnyte.revoke-token: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4486,13 +4486,13 @@ func (ic *InterfaceClient) dispatchUpdateSyncWithFormdataBodyWithResponse(ctx co
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: %w", err)
+		return nil, fmt.Errorf("egnyte.update-sync: %w", err)
 	}
 	var body client.UpdateSyncFormdataRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("egnyte.update-sync: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.UpdateSyncWithFormdataBodyWithResponse(ctx, pathArgs.SyncId, body)
@@ -4501,11 +4501,11 @@ func (ic *InterfaceClient) dispatchUpdateSyncWithFormdataBodyWithResponse(ctx co
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: nil response")
+		return nil, fmt.Errorf("egnyte.update-sync: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("egnyte.update-sync-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("egnyte.update-sync: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
