@@ -41,13 +41,12 @@ This repo uses [mise](https://mise.jdx.dev/) to manage tool dependencies. Run `m
 | `task`           | Task runner for the build pipeline   |
 | `trivy`          | Security scanning                    |
 
-The Go toolchain version is pinned in `go.work`. All other tools are pinned in `.mise.toml`.
+All tools are pinned in `.mise.toml`. The Go toolchain version is declared in each module's `go.mod`.
 
 ## Repository structure
 
 ```
 connectors/
-├── go.work                         # Go workspace — lists all modules
 ├── Taskfile.yml                    # Root orchestration — includes all vendors
 ├── tools/                          # Shared codegen utilities (separate Go module)
 │   ├── cmd/
@@ -67,8 +66,7 @@ connectors/
 ```
 
 Services are nested `company/product`. Single-product companies repeat the name (`slack/slack/`,
-`canva/canva/`). Each product is its own Go module. The root `go.work` file lists all modules for local
-development, enabling cross-module IDE support.
+`canva/canva/`). Each product is its own Go module with standalone dependencies.
 
 ## Service archetypes
 
@@ -205,7 +203,6 @@ Every connector exposes standard entrypoints through hierarchical Taskfiles. Rep
 | `task test:tools`     | Run tests for all codegen tools                                                  |
 | `task docs:readme`    | Regenerate README.md from template                                               |
 | `task list:modules`   | List all Go modules in the repo                                                  |
-| `task sync:workspace` | Regenerate `go.work` from all `go.mod` files                                     |
 
 ## Adding a new service
 
@@ -215,7 +212,6 @@ Every connector exposes standard entrypoints through hierarchical Taskfiles. Rep
 4. Create `doc.go`, `client/generate.go`, `client/cfg.yaml`, `mcp/generate.go` (copy from an existing connector of the same archetype)
 5. Create Taskfiles at the vendor, product, and version levels (copy from an existing connector of the same archetype)
 6. Wire the vendor Taskfile into the root `Taskfile.yml` includes block and add the vendor to each `*:all` aggregate task
-7. Run `task sync:workspace` to add the module to `go.work`
-8. Run `task <vendor>:client` to generate the client (runs `go mod tidy` automatically)
+7. Run `task <vendor>:client` to generate the client (runs `go mod tidy` automatically)
 9. Run `go generate ./mcp/` then `go mod tidy` (MCP generation is not yet wired into the Taskfile pipeline)
 10. Verify with `task <vendor>:build`
