@@ -6,6 +6,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/mark3labs/mcp-go v1.1.1
 	github.com/oapi-codegen/runtime v1.7.0
+	github.com/yardrail/connectors/connector v0.0.0-20261109202406-166a57d28704
 )
 
 require (

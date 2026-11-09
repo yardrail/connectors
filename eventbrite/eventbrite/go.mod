@@ -5,6 +5,7 @@ go 1.27.1
 require (
 	github.com/mark3labs/mcp-go v1.3.0
 	github.com/oapi-codegen/runtime v1.7.0
+	github.com/yardrail/connectors/connector v0.0.0-20261109202406-166a57d28704
 )
 
 require (

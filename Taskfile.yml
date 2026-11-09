@@ -186,7 +186,3 @@ tasks:
     cmds:
       - find . -name 'go.mod' -not -path './.claude/*' -exec dirname {} \; | sort
 
-  sync:workspace:
-    desc: Regenerate go.work from all go.mod files
-    cmds:
-      - go work init $(find . -name 'go.mod' -not -path './.claude/*' -exec dirname {} \; | sort)

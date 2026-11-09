@@ -48,7 +48,7 @@ jobs:
 
       - uses: actions/setup-go@v7
         with:
-          go-version-file: go.work
+          go-version-file: tools/go.mod
 
       - uses: jdx/mise-action@v2
 
@@ -70,7 +70,7 @@ jobs:
 
       - uses: actions/setup-go@v7
         with:
-          go-version-file: go.work
+          go-version-file: tools/go.mod
 
       - uses: jdx/mise-action@v2
 
