@@ -110,6 +110,10 @@ func loadFunctions(cfg runConfig, ctx *genContext) (handlerTemplates, map[string
 		return handlerTemplates{}, nil, err
 	}
 
+	if err := loadGoogleSDKInterfaces(ctx); err != nil {
+		return handlerTemplates{}, nil, err
+	}
+
 	if err := checkFunctionNames(ctx); err != nil {
 		return handlerTemplates{}, nil, err
 	}
@@ -118,10 +122,16 @@ func loadFunctions(cfg runConfig, ctx *genContext) (handlerTemplates, map[string
 		return ctx.Functions[i].Name < ctx.Functions[j].Name
 	})
 
+	hasREST := len(ctx.RESTIfaces) > 0
+	hasGraphQL := len(ctx.GraphQLIfaces) > 0
+	hasGoogleSDK := len(ctx.GoogleSDKIfaces) > 0
+
 	switch {
-	case len(ctx.GraphQLIfaces) == 0:
+	case hasGoogleSDK && !hasREST && !hasGraphQL:
+		return handlerTemplates{googleSDKHandlerTemplate, googleSDKDispatchTemplate}, specSchemes, nil
+	case !hasGraphQL && !hasGoogleSDK:
 		return handlerTemplates{handlerTemplate, dispatchTemplate}, specSchemes, nil
-	case len(ctx.RESTIfaces) == 0:
+	case !hasREST && !hasGoogleSDK:
 		return handlerTemplates{graphqlHandlerTemplate, graphqlDispatchTemplate}, specSchemes, nil
 	default:
 		return handlerTemplates{mixedHandlerTemplate, mixedDispatchTemplate}, specSchemes, nil
@@ -152,7 +162,7 @@ func loadOpenAPIInterfaces(cfg runConfig, ctx *genContext) (map[string]SecurityS
 	var src openAPISource
 
 	for _, iface := range ctx.CallableIfaces {
-		if iface.Protocol == "graphql" {
+		if iface.Protocol == "graphql" || iface.Protocol == "google_sdk" {
 			continue
 		}
 
