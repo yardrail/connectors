@@ -1,0 +1,1158 @@
+$base: "https://yardrail.com/cwl/google-drive#"
+$namespaces:
+  google-drive: "https://yardrail.com/cwl/google-drive#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: AboutGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:AboutGet"]
+
+  - name: AboutGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets information about the user, the user's Drive, and system capabilities. For more information, see Return user info (https://developers.google.com/workspace/drive/api/guides/user-info). Required: The `fields` parameter must be set. To return the exact fields you need, see Return specific fields (https://developers.google.com/workspace/drive/api/guides/fields-parameter)."
+    fields:
+      - name: class
+        type: "#AboutGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AccessproposalsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:AccessproposalsGet"]
+
+  - name: AccessproposalsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieves an access proposal by ID. For more information, see Manage pending access proposals (https://developers.google.com/workspace/drive/api/guides/pending-access)."
+    fields:
+      - name: class
+        type: "#AccessproposalsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AccessproposalsList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:AccessproposalsList"]
+
+  - name: AccessproposalsList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List the access proposals on a file. For more information, see Manage pending access proposals (https://developers.google.com/workspace/drive/api/guides/pending-access). Note: Only approvers are able to list access proposals on a file. If the user isn't an approver, a 403 error is returned."
+    fields:
+      - name: class
+        type: "#AccessproposalsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AccessproposalsResolve_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:AccessproposalsResolve"]
+
+  - name: AccessproposalsResolve
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Approves or denies an access proposal. For more information, see Manage pending access proposals (https://developers.google.com/workspace/drive/api/guides/pending-access)."
+    fields:
+      - name: class
+        type: "#AccessproposalsResolve_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApprovalsApprove_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ApprovalsApprove"]
+
+  - name: ApprovalsApprove
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Approves an approval. For more information, see Manage approvals (https://developers.google.com/workspace/drive/api/guides/approvals). This is used to update the ReviewerResponse of the requesting user with a Response of `APPROVED`. If this is the last required reviewer response, this also completes the approval and sets the approval Status to `APPROVED`."
+    fields:
+      - name: class
+        type: "#ApprovalsApprove_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApprovalsCancel_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ApprovalsCancel"]
+
+  - name: ApprovalsCancel
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Cancels an approval. For more information, see Manage approvals (https://developers.google.com/workspace/drive/api/guides/approvals). Updates the approval Status to `CANCELLED`. This can be called by any user with the `writer` permission on the file while the approval Status is `IN_PROGRESS`."
+    fields:
+      - name: class
+        type: "#ApprovalsCancel_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApprovalsComment_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ApprovalsComment"]
+
+  - name: ApprovalsComment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Comments on an approval. For more information, see Manage approvals (https://developers.google.com/workspace/drive/api/guides/approvals). This sends a notification to both the initiator and the reviewers. Additionally, a message is also added to the approval activity log."
+    fields:
+      - name: class
+        type: "#ApprovalsComment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApprovalsDecline_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ApprovalsDecline"]
+
+  - name: ApprovalsDecline
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Declines an approval. For more information, see Manage approvals (https://developers.google.com/workspace/drive/api/guides/approvals). This is used to update the ReviewerResponse of the requesting user with a Response of `DECLINED`. This also completes the approval and sets the approval Status to `DECLINED`."
+    fields:
+      - name: class
+        type: "#ApprovalsDecline_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApprovalsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ApprovalsGet"]
+
+  - name: ApprovalsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets an approval by ID. For more information, see Manage approvals (https://developers.google.com/workspace/drive/api/guides/approvals)."
+    fields:
+      - name: class
+        type: "#ApprovalsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApprovalsList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ApprovalsList"]
+
+  - name: ApprovalsList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists the approvals on a file. For more information, see Manage approvals (https://developers.google.com/workspace/drive/api/guides/approvals). By default, this method returns a minimal response that may not include the items array. To retrieve approval details, you must explicitly specify the fields you want using the `fields` query parameter. To return the exact fields you need, see Return specific fields (https://developers.google.com/workspace/drive/api/guides/fields-parameter)."
+    fields:
+      - name: class
+        type: "#ApprovalsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApprovalsReassign_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ApprovalsReassign"]
+
+  - name: ApprovalsReassign
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Reassigns the reviewers on an approval. For more information, see Manage approvals (https://developers.google.com/workspace/drive/api/guides/approvals). Adds or replaces reviewers in the ReviewerResponse of the approval. This can be called by any user with the `writer` permission on the file while the approval Status is `IN_PROGRESS` and the Response for the reviewer being reassigned is `NO_RESPONSE`. A user with the `reader` permission can only reassign an approval that's assigned to themselves. Removing a reviewer isn't allowed."
+    fields:
+      - name: class
+        type: "#ApprovalsReassign_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ApprovalsStart_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ApprovalsStart"]
+
+  - name: ApprovalsStart
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Starts an approval on a file. For more information, see Manage approvals (https://developers.google.com/workspace/drive/api/guides/approvals)."
+    fields:
+      - name: class
+        type: "#ApprovalsStart_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:AppsGet"]
+
+  - name: AppsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets a specific app. For more information, see Return user info (https://developers.google.com/workspace/drive/api/guides/user-info)."
+    fields:
+      - name: class
+        type: "#AppsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AppsList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:AppsList"]
+
+  - name: AppsList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists a user's installed apps. For more information, see Return user info (https://developers.google.com/workspace/drive/api/guides/user-info)."
+    fields:
+      - name: class
+        type: "#AppsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChangesGetStartPageToken_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ChangesGetStartPageToken"]
+
+  - name: ChangesGetStartPageToken
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets the starting pageToken for listing future changes. For more information, see Retrieve changes (https://developers.google.com/workspace/drive/api/guides/manage-changes)."
+    fields:
+      - name: class
+        type: "#ChangesGetStartPageToken_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChangesList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ChangesList"]
+
+  - name: ChangesList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists the changes for a user or shared drive. For more information, see Retrieve changes (https://developers.google.com/workspace/drive/api/guides/manage-changes)."
+    fields:
+      - name: class
+        type: "#ChangesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChangesWatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ChangesWatch"]
+
+  - name: ChangesWatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Subscribes to changes for a user. For more information, see Notifications for resource changes (https://developers.google.com/workspace/drive/api/guides/push)."
+    fields:
+      - name: class
+        type: "#ChangesWatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChannelsStop_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:ChannelsStop"]
+
+  - name: ChannelsStop
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Stops watching resources through this channel. For more information, see Notifications for resource changes (https://developers.google.com/workspace/drive/api/guides/push)."
+    fields:
+      - name: class
+        type: "#ChannelsStop_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CommentsCreate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:CommentsCreate"]
+
+  - name: CommentsCreate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates a comment on a file. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments). Required: The `fields` parameter must be set. To return the exact fields you need, see Return specific fields (https://developers.google.com/workspace/drive/api/guides/fields-parameter)."
+    fields:
+      - name: class
+        type: "#CommentsCreate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CommentsDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:CommentsDelete"]
+
+  - name: CommentsDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deletes a comment. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments)."
+    fields:
+      - name: class
+        type: "#CommentsDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CommentsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:CommentsGet"]
+
+  - name: CommentsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets a comment by ID. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments). Required: The `fields` parameter must be set. To return the exact fields you need, see Return specific fields (https://developers.google.com/workspace/drive/api/guides/fields-parameter)."
+    fields:
+      - name: class
+        type: "#CommentsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CommentsList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:CommentsList"]
+
+  - name: CommentsList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists a file's comments. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments). Required: The `fields` parameter must be set. To return the exact fields you need, see Return specific fields (https://developers.google.com/workspace/drive/api/guides/fields-parameter)."
+    fields:
+      - name: class
+        type: "#CommentsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CommentsUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:CommentsUpdate"]
+
+  - name: CommentsUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates a comment with patch semantics. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments). Required: The `fields` parameter must be set. To return the exact fields you need, see Return specific fields (https://developers.google.com/workspace/drive/api/guides/fields-parameter)."
+    fields:
+      - name: class
+        type: "#CommentsUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DrivesCreate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:DrivesCreate"]
+
+  - name: DrivesCreate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates a shared drive. For more information, see Manage shared drives (https://developers.google.com/workspace/drive/api/guides/manage-shareddrives)."
+    fields:
+      - name: class
+        type: "#DrivesCreate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DrivesDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:DrivesDelete"]
+
+  - name: DrivesDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Permanently deletes a shared drive for which the user is an `organizer`. The shared drive cannot contain any untrashed items. For more information, see Manage shared drives (https://developers.google.com/workspace/drive/api/guides/manage-shareddrives)."
+    fields:
+      - name: class
+        type: "#DrivesDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DrivesGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:DrivesGet"]
+
+  - name: DrivesGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets a shared drive's metadata by ID. For more information, see Manage shared drives (https://developers.google.com/workspace/drive/api/guides/manage-shareddrives)."
+    fields:
+      - name: class
+        type: "#DrivesGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DrivesHide_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:DrivesHide"]
+
+  - name: DrivesHide
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Hides a shared drive from the default view. For more information, see Manage shared drives (https://developers.google.com/workspace/drive/api/guides/manage-shareddrives)."
+    fields:
+      - name: class
+        type: "#DrivesHide_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DrivesList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:DrivesList"]
+
+  - name: DrivesList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists the user's shared drives. This method accepts the `q` parameter, which is a search query combining one or more search terms. For more information, see the Search for shared drives (https://developers.google.com/workspace/drive/api/guides/search-shareddrives) guide."
+    fields:
+      - name: class
+        type: "#DrivesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DrivesUnhide_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:DrivesUnhide"]
+
+  - name: DrivesUnhide
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Restores a shared drive to the default view. For more information, see Manage shared drives (https://developers.google.com/workspace/drive/api/guides/manage-shareddrives)."
+    fields:
+      - name: class
+        type: "#DrivesUnhide_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DrivesUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:DrivesUpdate"]
+
+  - name: DrivesUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates the metadata for a shared drive. For more information, see Manage shared drives (https://developers.google.com/workspace/drive/api/guides/manage-shareddrives)."
+    fields:
+      - name: class
+        type: "#DrivesUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesCopy_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesCopy"]
+
+  - name: FilesCopy
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates a copy of a file and applies any requested updates with patch semantics. For more information, see Create and manage files (https://developers.google.com/workspace/drive/api/guides/create-file)."
+    fields:
+      - name: class
+        type: "#FilesCopy_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesCreate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesCreate"]
+
+  - name: FilesCreate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "\"cat.jpg\" in the metadata. Subsequent `GET` requests include the read-only `fileExtension` property populated with the extension originally specified in the `name` property. When a Google Drive user requests to download a file, or when the file is downloaded through the sync client, Drive builds a full filename (with extension) based on the name. In cases where the extension is missing, Drive attempts to determine the extension based on the file's MIME type."
+    fields:
+      - name: class
+        type: "#FilesCreate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesDelete"]
+
+  - name: FilesDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Permanently deletes a file owned by the user without moving it to the trash. For more information, see Trash or delete files and folders (https://developers.google.com/workspace/drive/api/guides/delete). If the file belongs to a shared drive, the user must be an `organizer` on the parent folder. If the target is a folder, all descendants owned by the user are also deleted."
+    fields:
+      - name: class
+        type: "#FilesDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesDownload_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesDownload"]
+
+  - name: FilesDownload
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Downloads the content of a file. For more information, see Download and export files (https://developers.google.com/workspace/drive/api/guides/manage-downloads). Operations are valid for 24 hours from the time of creation."
+    fields:
+      - name: class
+        type: "#FilesDownload_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesEmptyTrash_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesEmptyTrash"]
+
+  - name: FilesEmptyTrash
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Permanently deletes all of the user's trashed files. For more information, see Trash or delete files and folders (https://developers.google.com/workspace/drive/api/guides/delete)."
+    fields:
+      - name: class
+        type: "#FilesEmptyTrash_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesExport_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesExport"]
+
+  - name: FilesExport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Exports a Google Workspace document to the requested MIME type and returns exported byte content. For more information, see Download and export files (https://developers.google.com/workspace/drive/api/guides/manage-downloads). Note that the exported content is limited to 10 MB."
+    fields:
+      - name: class
+        type: "#FilesExport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesGenerateCseToken_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesGenerateCseToken"]
+
+  - name: FilesGenerateCseToken
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Generates a CSE token which can be used to create or update CSE files."
+    fields:
+      - name: class
+        type: "#FilesGenerateCseToken_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesGenerateIds_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesGenerateIds"]
+
+  - name: FilesGenerateIds
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Generates a set of file IDs which can be provided in create or copy requests. For more information, see Create and manage files (https://developers.google.com/workspace/drive/api/guides/create-file)."
+    fields:
+      - name: class
+        type: "#FilesGenerateIds_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesGet"]
+
+  - name: FilesGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets a file's metadata or content by ID. For more information, see Search for files and folders (https://developers.google.com/workspace/drive/api/guides/search-files). If you provide the URL parameter `alt=media`, then the response includes the file contents in the response body. Downloading content with `alt=media` only works if the file is stored in Drive. To download Google Docs, Sheets, and Slides use `files.export` (https://developers.google.com/workspace/drive/api/reference/rest/v3/files/export) instead. For more information, see Download and export files (https://developers.google.com/workspace/drive/api/guides/manage-downloads)."
+    fields:
+      - name: class
+        type: "#FilesGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesList"]
+
+  - name: FilesList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists the user's files. For more information, see Search for files and folders (https://developers.google.com/workspace/drive/api/guides/search-files). This method accepts the `q` parameter, which is a search query combining one or more search terms. This method returns *all* files by default, including trashed files. If you don't want trashed files to appear in the list, use the `trashed=false` query parameter to remove trashed files from the results."
+    fields:
+      - name: class
+        type: "#FilesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesListLabels_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesListLabels"]
+
+  - name: FilesListLabels
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists the labels on a file. For more information, see List labels on a file (https://developers.google.com/workspace/drive/api/guides/list-labels)."
+    fields:
+      - name: class
+        type: "#FilesListLabels_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesModifyLabels_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesModifyLabels"]
+
+  - name: FilesModifyLabels
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Modifies the set of labels applied to a file. For more information, see Set a label field on a file (https://developers.google.com/workspace/drive/api/guides/set-label). Returns a list of the labels that were added or modified."
+    fields:
+      - name: class
+        type: "#FilesModifyLabels_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesUpdate"]
+
+  - name: FilesUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates a file's metadata, content, or both. When calling this method, only populate fields in the request that you want to modify. When updating fields, some fields might be changed automatically, such as `modifiedDate`. This method supports patch semantics. This method supports an */upload* URI and accepts uploaded media with the following characteristics: - *Maximum file size:* 5,120 GB - *Accepted Media MIME types:* `*/*` (Specify a valid MIME type, rather than the literal `*/*` value. The literal `*/*` is only used to indicate that any valid MIME type can be uploaded. For more information, see Google Workspace and Google Drive supported MIME types (https://developers.google.com/workspace/drive/api/guides/mime-types).) For more information on uploading files, see Upload file data (https://developers.google.com/workspace/drive/api/guides/manage-uploads)."
+    fields:
+      - name: class
+        type: "#FilesUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FilesWatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:FilesWatch"]
+
+  - name: FilesWatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Subscribes to changes to a file. For more information, see Notifications for resource changes (https://developers.google.com/workspace/drive/api/guides/push)."
+    fields:
+      - name: class
+        type: "#FilesWatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: OperationsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:OperationsGet"]
+
+  - name: OperationsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service."
+    fields:
+      - name: class
+        type: "#OperationsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PermissionsCreate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:PermissionsCreate"]
+
+  - name: PermissionsCreate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates a permission for a file or shared drive. For more information, see Share files, folders, and drives (https://developers.google.com/workspace/drive/api/guides/manage-sharing). **Warning:** Concurrent permission modifications (such as update or delete) on the same file, folder, or shared drive aren't supported across any users or clients; only the last update is applied."
+    fields:
+      - name: class
+        type: "#PermissionsCreate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PermissionsDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:PermissionsDelete"]
+
+  - name: PermissionsDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deletes a permission. For more information, see Share files, folders, and drives (https://developers.google.com/workspace/drive/api/guides/manage-sharing). **Warning:** Concurrent permission modifications (such as update or delete) on the same file, folder, or shared drive aren't supported across any users or clients; only the last update is applied."
+    fields:
+      - name: class
+        type: "#PermissionsDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PermissionsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:PermissionsGet"]
+
+  - name: PermissionsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets a permission by ID. For more information, see Share files, folders, and drives (https://developers.google.com/workspace/drive/api/guides/manage-sharing)."
+    fields:
+      - name: class
+        type: "#PermissionsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PermissionsList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:PermissionsList"]
+
+  - name: PermissionsList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists a file's or shared drive's permissions. For more information, see Share files, folders, and drives (https://developers.google.com/workspace/drive/api/guides/manage-sharing)."
+    fields:
+      - name: class
+        type: "#PermissionsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PermissionsUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:PermissionsUpdate"]
+
+  - name: PermissionsUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates a permission with patch semantics. For more information, see Share files, folders, and drives (https://developers.google.com/workspace/drive/api/guides/manage-sharing). **Warning:** Concurrent permission modifications (such as update or delete) on the same file, folder, or shared drive aren't supported across any users or clients; only the last update is applied."
+    fields:
+      - name: class
+        type: "#PermissionsUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RepliesCreate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RepliesCreate"]
+
+  - name: RepliesCreate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates a reply to a comment. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments)."
+    fields:
+      - name: class
+        type: "#RepliesCreate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RepliesDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RepliesDelete"]
+
+  - name: RepliesDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deletes a reply. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments)."
+    fields:
+      - name: class
+        type: "#RepliesDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RepliesGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RepliesGet"]
+
+  - name: RepliesGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets a reply by ID. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments)."
+    fields:
+      - name: class
+        type: "#RepliesGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RepliesList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RepliesList"]
+
+  - name: RepliesList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists a comment's replies. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments)."
+    fields:
+      - name: class
+        type: "#RepliesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RepliesUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RepliesUpdate"]
+
+  - name: RepliesUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates a reply with patch semantics. For more information, see Manage comments and replies (https://developers.google.com/workspace/drive/api/guides/manage-comments)."
+    fields:
+      - name: class
+        type: "#RepliesUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RevisionsDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RevisionsDelete"]
+
+  - name: RevisionsDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Permanently deletes a file version. You can only delete revisions for files with binary content in Google Drive, like images or videos. Revisions for other files, like Google Docs or Sheets, and the last remaining file version can't be deleted. For more information, see Manage file revisions (https://developers.google.com/drive/api/guides/manage-revisions)."
+    fields:
+      - name: class
+        type: "#RevisionsDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RevisionsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RevisionsGet"]
+
+  - name: RevisionsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Gets a revision's metadata or content by ID. For more information, see Manage file revisions (https://developers.google.com/workspace/drive/api/guides/manage-revisions)."
+    fields:
+      - name: class
+        type: "#RevisionsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RevisionsList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RevisionsList"]
+
+  - name: RevisionsList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Lists a file's revisions. For more information, see Manage file revisions (https://developers.google.com/workspace/drive/api/guides/manage-revisions). **Important:** The list of revisions returned by this method might be incomplete for files with a large revision history, including frequently edited Google Docs, Sheets, and Slides. Older revisions might be omitted from the response, meaning the first revision returned may not be the oldest existing revision. The revision history visible in the Workspace editor user interface might be more complete than the list returned by the API."
+    fields:
+      - name: class
+        type: "#RevisionsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RevisionsUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:RevisionsUpdate"]
+
+  - name: RevisionsUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates a revision with patch semantics. For more information, see Manage file revisions (https://developers.google.com/workspace/drive/api/guides/manage-revisions)."
+    fields:
+      - name: class
+        type: "#RevisionsUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamdrivesCreate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:TeamdrivesCreate"]
+
+  - name: TeamdrivesCreate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deprecated: Use `drives.create` instead."
+    fields:
+      - name: class
+        type: "#TeamdrivesCreate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamdrivesDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:TeamdrivesDelete"]
+
+  - name: TeamdrivesDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deprecated: Use `drives.delete` instead."
+    fields:
+      - name: class
+        type: "#TeamdrivesDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamdrivesGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:TeamdrivesGet"]
+
+  - name: TeamdrivesGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deprecated: Use `drives.get` instead."
+    fields:
+      - name: class
+        type: "#TeamdrivesGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamdrivesList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:TeamdrivesList"]
+
+  - name: TeamdrivesList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deprecated: Use `drives.list` instead."
+    fields:
+      - name: class
+        type: "#TeamdrivesList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: TeamdrivesUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-drive:TeamdrivesUpdate"]
+
+  - name: TeamdrivesUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deprecated: Use `drives.update` instead."
+    fields:
+      - name: class
+        type: "#TeamdrivesUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

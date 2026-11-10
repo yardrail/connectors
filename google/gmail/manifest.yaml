@@ -1,0 +1,14 @@
+connector:
+  id: google-gmail
+  name: Gmail
+  description: Read, send, and manage messages, labels, and drafts in Gmail.
+
+interfaces:
+  - id: oauth
+    name: Gmail OAuth
+    protocol: google_sdk
+    auth_method: oauth2_user
+    auth_scope: user
+    capabilities: [message.read, message.send, label.read, label.write, draft.read, draft.write]
+    source:
+      google_sdk: google.golang.org/api/gmail/v1

@@ -1,0 +1,690 @@
+$base: "https://yardrail.com/cwl/google-calendar#"
+$namespaces:
+  google-calendar: "https://yardrail.com/cwl/google-calendar#"
+  cwl: "https://w3id.org/cwl/cwl#"
+
+$graph:
+
+  - name: AclDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:AclDelete"]
+
+  - name: AclDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deletes an access control rule."
+    fields:
+      - name: class
+        type: "#AclDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AclGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:AclGet"]
+
+  - name: AclGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns an access control rule."
+    fields:
+      - name: class
+        type: "#AclGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AclInsert_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:AclInsert"]
+
+  - name: AclInsert
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates an access control rule."
+    fields:
+      - name: class
+        type: "#AclInsert_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AclList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:AclList"]
+
+  - name: AclList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns the rules in the access control list for the calendar."
+    fields:
+      - name: class
+        type: "#AclList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AclPatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:AclPatch"]
+
+  - name: AclPatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates an access control rule. This method supports patch semantics."
+    fields:
+      - name: class
+        type: "#AclPatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AclUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:AclUpdate"]
+
+  - name: AclUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates an access control rule."
+    fields:
+      - name: class
+        type: "#AclUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: AclWatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:AclWatch"]
+
+  - name: AclWatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Watch for changes to ACL resources."
+    fields:
+      - name: class
+        type: "#AclWatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarListDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarListDelete"]
+
+  - name: CalendarListDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Removes a calendar from the user's calendar list."
+    fields:
+      - name: class
+        type: "#CalendarListDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarListGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarListGet"]
+
+  - name: CalendarListGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns a calendar from the user's calendar list."
+    fields:
+      - name: class
+        type: "#CalendarListGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarListInsert_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarListInsert"]
+
+  - name: CalendarListInsert
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Inserts an existing calendar into the user's calendar list."
+    fields:
+      - name: class
+        type: "#CalendarListInsert_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarListList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarListList"]
+
+  - name: CalendarListList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns the calendars on the user's calendar list."
+    fields:
+      - name: class
+        type: "#CalendarListList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarListPatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarListPatch"]
+
+  - name: CalendarListPatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates an existing calendar on the user's calendar list. This method supports patch semantics."
+    fields:
+      - name: class
+        type: "#CalendarListPatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarListUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarListUpdate"]
+
+  - name: CalendarListUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates an existing calendar on the user's calendar list."
+    fields:
+      - name: class
+        type: "#CalendarListUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarListWatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarListWatch"]
+
+  - name: CalendarListWatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Watch for changes to CalendarList resources."
+    fields:
+      - name: class
+        type: "#CalendarListWatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarsClear_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarsClear"]
+
+  - name: CalendarsClear
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Clears a primary calendar. This operation deletes all events associated with the primary calendar of an account."
+    fields:
+      - name: class
+        type: "#CalendarsClear_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarsDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarsDelete"]
+
+  - name: CalendarsDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deletes a secondary calendar. Use calendars.clear for clearing all events on primary calendars."
+    fields:
+      - name: class
+        type: "#CalendarsDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarsGet"]
+
+  - name: CalendarsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns metadata for a calendar."
+    fields:
+      - name: class
+        type: "#CalendarsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarsInsert_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarsInsert"]
+
+  - name: CalendarsInsert
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates a secondary calendar. The authenticated user for the request is made the data owner of the new calendar.  Note: We recommend to authenticate as the intended data owner of the calendar. You can use domain-wide delegation of authority to allow applications to act on behalf of a specific user. Don't use a service account for authentication. If you use a service account for authentication, the service account is the data owner, which can lead to unexpected behavior. For example, if a service account is the data owner, data ownership cannot be transferred."
+    fields:
+      - name: class
+        type: "#CalendarsInsert_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarsPatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarsPatch"]
+
+  - name: CalendarsPatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates metadata for a calendar. This method supports patch semantics."
+    fields:
+      - name: class
+        type: "#CalendarsPatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarsTransferOwnership_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarsTransferOwnership"]
+
+  - name: CalendarsTransferOwnership
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Transfers a secondary calendar between users within a Google Workspace organization. Requires user authentication with Manage Calendars administrator privilege, and one of the following authorization scopes:"
+    fields:
+      - name: class
+        type: "#CalendarsTransferOwnership_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CalendarsUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:CalendarsUpdate"]
+
+  - name: CalendarsUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates metadata for a calendar."
+    fields:
+      - name: class
+        type: "#CalendarsUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ChannelsStop_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:ChannelsStop"]
+
+  - name: ChannelsStop
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Stop watching resources through this channel"
+    fields:
+      - name: class
+        type: "#ChannelsStop_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: ColorsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:ColorsGet"]
+
+  - name: ColorsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns the color definitions for calendars and events."
+    fields:
+      - name: class
+        type: "#ColorsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsDelete_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsDelete"]
+
+  - name: EventsDelete
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Deletes an event."
+    fields:
+      - name: class
+        type: "#EventsDelete_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsGet"]
+
+  - name: EventsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns an event based on its Google Calendar ID. To retrieve an event using its iCalendar ID, call the events.list method using the iCalUID parameter."
+    fields:
+      - name: class
+        type: "#EventsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsImport_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsImport"]
+
+  - name: EventsImport
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Imports an event. This operation is used to add a private copy of an existing event to a calendar. Only events with an eventType of default may be imported. Deprecated behavior: If a non-default event is imported, its type will be changed to default and any event-type-specific properties it may have will be dropped."
+    fields:
+      - name: class
+        type: "#EventsImport_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsInsert_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsInsert"]
+
+  - name: EventsInsert
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates an event."
+    fields:
+      - name: class
+        type: "#EventsInsert_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsInstances_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsInstances"]
+
+  - name: EventsInstances
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns instances of the specified recurring event."
+    fields:
+      - name: class
+        type: "#EventsInstances_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsList"]
+
+  - name: EventsList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns events on the specified calendar."
+    fields:
+      - name: class
+        type: "#EventsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsMove_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsMove"]
+
+  - name: EventsMove
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Moves an event to another calendar, i.e. changes an event's organizer. Note that only default events can be moved; birthday, focusTime, fromGmail, outOfOffice and workingLocation events cannot be moved."
+    fields:
+      - name: class
+        type: "#EventsMove_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsPatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsPatch"]
+
+  - name: EventsPatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates an event. This method supports patch semantics."
+    fields:
+      - name: class
+        type: "#EventsPatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsQuickAdd_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsQuickAdd"]
+
+  - name: EventsQuickAdd
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Creates an event based on a simple text string."
+    fields:
+      - name: class
+        type: "#EventsQuickAdd_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsUpdate_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsUpdate"]
+
+  - name: EventsUpdate
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Updates an event."
+    fields:
+      - name: class
+        type: "#EventsUpdate_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: EventsWatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:EventsWatch"]
+
+  - name: EventsWatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Watch for changes to Events resources."
+    fields:
+      - name: class
+        type: "#EventsWatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: FreebusyQuery_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:FreebusyQuery"]
+
+  - name: FreebusyQuery
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns free/busy information for a set of calendars."
+    fields:
+      - name: class
+        type: "#FreebusyQuery_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SettingsGet_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:SettingsGet"]
+
+  - name: SettingsGet
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns a single user setting."
+    fields:
+      - name: class
+        type: "#SettingsGet_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SettingsList_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:SettingsList"]
+
+  - name: SettingsList
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Returns all user settings for the authenticated user."
+    fields:
+      - name: class
+        type: "#SettingsList_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SettingsWatch_class
+    type: enum
+    inVocab: false
+    symbols: ["google-calendar:SettingsWatch"]
+
+  - name: SettingsWatch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Watch for changes to Settings resources."
+    fields:
+      - name: class
+        type: "#SettingsWatch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
