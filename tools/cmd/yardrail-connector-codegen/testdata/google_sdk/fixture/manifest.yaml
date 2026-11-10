@@ -1,0 +1,13 @@
+connector:
+  id: googlesdk
+  name: Google SDK Fixture
+  description: Test connector for generated Google SDK dispatch.
+
+interfaces:
+  - id: oauth
+    name: OAuth
+    protocol: google_sdk
+    auth_method: oauth2_user
+    auth_scope: user
+    source:
+      google_sdk: google.golang.org/api/tasks/v1
