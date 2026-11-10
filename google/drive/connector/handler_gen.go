@@ -383,9 +383,17 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 	bc := creds.(connector.BearerCredentials)
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: bc.Token})
 
-	opts := []option.ClientOption{option.WithTokenSource(ts)}
+	var opts []option.ClientOption
 	if httpClient != nil {
-		opts = append(opts, option.WithHTTPClient(httpClient))
+		httpClient = &http.Client{
+			Transport: &oauth2.Transport{
+				Source: ts,
+				Base:   httpClient.Transport,
+			},
+		}
+		opts = []option.ClientOption{option.WithHTTPClient(httpClient)}
+	} else {
+		opts = []option.ClientOption{option.WithTokenSource(ts)}
 	}
 
 	svc, err := target.NewService(context.Background(), opts...)
