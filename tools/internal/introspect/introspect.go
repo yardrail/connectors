@@ -361,7 +361,7 @@ func BuildDocIndex(syntax []*ast.File) map[string]string {
 			if !ok || fn.Recv == nil || fn.Doc == nil {
 				continue
 			}
-			recvType := receiverTypeName(fn.Recv)
+			recvType := ReceiverTypeName(fn.Recv)
 			if recvType == "" {
 				continue
 			}
@@ -376,7 +376,9 @@ func BuildDocIndex(syntax []*ast.File) map[string]string {
 	return index
 }
 
-func receiverTypeName(fields *ast.FieldList) string {
+// ReceiverTypeName returns the receiver type name from a method's receiver
+// field list, stripping a leading pointer.
+func ReceiverTypeName(fields *ast.FieldList) string {
 	if fields == nil || len(fields.List) == 0 {
 		return ""
 	}
