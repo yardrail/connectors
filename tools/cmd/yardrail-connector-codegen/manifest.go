@@ -16,6 +16,7 @@ var (
 	errScalarsNotGraphQL        = errors.New("source.scalars is only valid on a graphql interface")
 	errInvalidScalarType        = errors.New("source.scalars type must be string, integer, number, boolean, object or array")
 	errDescriptionsNotGraphQL   = errors.New("source.descriptions is only valid on a graphql interface")
+	errMissingGoogleSDKSource   = errors.New("google_sdk interface requires source.google_sdk")
 )
 
 // Manifest is the top-level connector manifest structure.
@@ -64,6 +65,7 @@ type ManifestSource struct {
 	Descriptions map[string]string `yaml:"descriptions"`
 	OpenAPI      string            `yaml:"openapi"`
 	Client       string            `yaml:"client"`
+	GoogleSDK    string            `yaml:"google_sdk"`
 }
 
 // ManifestConfigField declares a non-secret configuration parameter.
@@ -128,7 +130,7 @@ func (m *Manifest) resolveSourcePaths(dir string) {
 // from the -spec/-pkg flags.
 func (m *Manifest) needsSpecFlags() bool {
 	for _, iface := range m.Interfaces {
-		if iface.IsCallable() && iface.Protocol != "graphql" && iface.Source == nil {
+		if iface.IsCallable() && iface.Protocol != "graphql" && iface.Protocol != "google_sdk" && iface.Source == nil {
 			return true
 		}
 	}
@@ -139,6 +141,7 @@ func (m *Manifest) needsSpecFlags() bool {
 var validProtocols = map[string]bool{
 	"rest": true, "graphql": true, "webhook": true,
 	"mcp": true, "smtp": true, "grpc": true,
+	"google_sdk": true,
 }
 
 var validAuthMethods = map[string]bool{
@@ -203,6 +206,9 @@ func validateSource(iface ManifestInterface) error {
 	src := iface.Source
 	if iface.Protocol == "graphql" && (src == nil || src.Operations == "" || src.Endpoint == "") {
 		return fmt.Errorf("interface %q: %w", iface.ID, errMissingSource)
+	}
+	if iface.Protocol == "google_sdk" && (src == nil || src.GoogleSDK == "") {
+		return fmt.Errorf("interface %q: %w", iface.ID, errMissingGoogleSDKSource)
 	}
 	if src == nil {
 		return nil

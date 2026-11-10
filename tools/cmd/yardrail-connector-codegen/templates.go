@@ -191,6 +191,8 @@ func protocolConst(s string) string {
 		return "ProtocolSMTP"
 	case "grpc":
 		return "ProtocolGRPC"
+	case "google_sdk":
+		return "ProtocolGoogleSDK"
 	default:
 		return "Protocol" + goIdent(s)
 	}

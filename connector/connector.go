@@ -10,6 +10,8 @@ const (
 	ProtocolMCP     ProtocolType = "mcp"
 	ProtocolSMTP    ProtocolType = "smtp"
 	ProtocolGRPC    ProtocolType = "grpc"
+
+	ProtocolGoogleSDK ProtocolType = "google_sdk"
 )
 
 // AuthMethod describes how credentials are obtained for an interface.
