@@ -1,0 +1,14 @@
+connector:
+  id: google-tasks
+  name: Google Tasks
+  description: Manage task lists and tasks in Google Tasks.
+
+interfaces:
+  - id: oauth
+    name: Google Tasks OAuth
+    protocol: google_sdk
+    auth_method: oauth2_user
+    auth_scope: user
+    capabilities: [task.read, task.write, tasklist.read, tasklist.write]
+    source:
+      google_sdk: google.golang.org/api/tasks/v1

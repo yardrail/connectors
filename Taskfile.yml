@@ -40,6 +40,9 @@ includes:
   monday:
     taskfile: monday/Taskfile.yaml
     dir: monday
+  google:
+    taskfile: google/Taskfile.yaml
+    dir: google
 
 tasks:
   spec:all:
@@ -58,6 +61,7 @@ tasks:
       - task: eventbrite:spec
       - task: fireflies:spec
       - task: monday:spec
+      - task: google:spec
 
   client:all:
     desc: Generate clients for all connectors
@@ -75,6 +79,7 @@ tasks:
       - task: eventbrite:client
       - task: fireflies:client
       - task: monday:client
+      - task: google:client
 
   connector:all:
     desc: Generate connector code for all connectors
@@ -92,6 +97,7 @@ tasks:
       - task: eventbrite:connector
       - task: fireflies:connector
       - task: monday:connector
+      - task: google:connector
 
   build:all:
     desc: Build all connectors
@@ -109,6 +115,7 @@ tasks:
       - task: eventbrite:build
       - task: fireflies:build
       - task: monday:build
+      - task: google:build
 
   test:all:
     desc: Run tests across all connectors
@@ -126,6 +133,7 @@ tasks:
       - task: eventbrite:test
       - task: fireflies:test
       - task: monday:test
+      - task: google:test
 
   vet:all:
     desc: Run go vet across all connectors
@@ -143,6 +151,7 @@ tasks:
       - task: eventbrite:vet
       - task: fireflies:vet
       - task: monday:vet
+      - task: google:vet
 
   lint:all:
     desc: Run all checks across all connectors
@@ -160,6 +169,7 @@ tasks:
       - task: eventbrite:lint
       - task: fireflies:lint
       - task: monday:lint
+      - task: google:lint
 
   build:tools:
     desc: Build all codegen tools

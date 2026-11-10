@@ -104,7 +104,7 @@ func (ic *InterfaceClient) dispatch{{.ServiceName}}{{.MethodName}}(ctx context.C
 	}
 {{- else if isIntegerGoType .GoType}}
 	if v, ok := inputInt64(optFields, "{{.JSONName}}"); ok {
-		call = call.{{.Name}}(v)
+		call = call.{{.Name}}({{if eq .GoType "int64"}}v{{else}}{{.GoType}}(v){{end}})
 	}
 {{- else if isFloatGoType .GoType}}
 	if v, ok := inputFloat64(optFields, "{{.JSONName}}"); ok {

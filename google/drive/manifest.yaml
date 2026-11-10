@@ -1,0 +1,14 @@
+connector:
+  id: google-drive
+  name: Google Drive
+  description: Manage files and permissions in Google Drive.
+
+interfaces:
+  - id: oauth
+    name: Google Drive OAuth
+    protocol: google_sdk
+    auth_method: oauth2_user
+    auth_scope: user
+    capabilities: [file.read, file.write, permission.read, permission.write]
+    source:
+      google_sdk: google.golang.org/api/drive/v3

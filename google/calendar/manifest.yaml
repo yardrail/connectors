@@ -1,0 +1,14 @@
+connector:
+  id: google-calendar
+  name: Google Calendar
+  description: Manage calendars and events in Google Calendar.
+
+interfaces:
+  - id: oauth
+    name: Google Calendar OAuth
+    protocol: google_sdk
+    auth_method: oauth2_user
+    auth_scope: user
+    capabilities: [calendar.read, calendar.write, event.read, event.write]
+    source:
+      google_sdk: google.golang.org/api/calendar/v3

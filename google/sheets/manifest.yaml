@@ -1,0 +1,14 @@
+connector:
+  id: google-sheets
+  name: Google Sheets
+  description: Read and write spreadsheets in Google Sheets.
+
+interfaces:
+  - id: oauth
+    name: Google Sheets OAuth
+    protocol: google_sdk
+    auth_method: oauth2_user
+    auth_scope: user
+    capabilities: [spreadsheet.read, spreadsheet.write]
+    source:
+      google_sdk: google.golang.org/api/sheets/v4
