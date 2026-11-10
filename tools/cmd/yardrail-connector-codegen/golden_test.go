@@ -150,3 +150,9 @@ func TestMixedFixtureUpToDate(t *testing.T) {
 
 	checkFixture(t, "mixedfixture", filepath.Join("testdata", "mixed", "manifest.yaml"))
 }
+
+func TestGoogleSDKFixtureUpToDate(t *testing.T) {
+	t.Parallel()
+
+	checkFixture(t, "googlesdk", filepath.Join("testdata", "google_sdk", "fixture", "manifest.yaml"))
+}

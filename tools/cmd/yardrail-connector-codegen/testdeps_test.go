@@ -5,4 +5,5 @@ package main
 import (
 	_ "github.com/yardrail/connectors/notion/notion/client"
 	_ "github.com/yardrail/connectors/slack/slack/client"
+	_ "google.golang.org/api/tasks/v1"
 )
