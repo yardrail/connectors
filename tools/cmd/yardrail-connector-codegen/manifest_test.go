@@ -207,6 +207,51 @@ interfaces:
 	}
 }
 
+func TestManifestGoogleSDKValidation(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name    string
+		source  string
+		wantErr error
+	}{
+		{"valid google_sdk", "source:\n      google_sdk: google.golang.org/api/sheets/v4", nil},
+		{"missing source block", "", errMissingGoogleSDKSource},
+		{"empty google_sdk field", "source:\n      google_sdk: \"\"", errMissingGoogleSDKSource},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			path := writeManifest(t, "connector: {id: fixture, name: Fixture}\ninterfaces:\n  - id: api\n    protocol: google_sdk\n    auth_method: oauth2_user\n    auth_scope: user\n    "+tt.source+"\n")
+
+			_, err := parseManifest(path)
+			if !errors.Is(err, tt.wantErr) {
+				t.Fatalf("parseManifest error = %v, want %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestManifestGoogleSDKNeedsSpecFlags(t *testing.T) {
+	t.Parallel()
+
+	m := &Manifest{
+		Interfaces: []ManifestInterface{
+			{
+				ID:       "sheets",
+				Protocol: "google_sdk",
+				Source:   &ManifestSource{GoogleSDK: "google.golang.org/api/sheets/v4"},
+			},
+		},
+	}
+
+	if m.needsSpecFlags() {
+		t.Error("needsSpecFlags() = true for google_sdk-only manifest, want false")
+	}
+}
+
 func TestManifestSourcePaths(t *testing.T) {
 	t.Parallel()
 
