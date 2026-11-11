@@ -1,0 +1,29 @@
+pre-commit:
+  jobs:
+    - name: build
+      group:
+        parallel: true
+        jobs:
+          - name: build-all
+            run: mise exec -- task build:all
+          - name: build-tools
+            run: mise exec -- task build:tools
+    - name: lint-and-test
+      group:
+        parallel: true
+        jobs:
+          - name: lint
+            run: mise exec -- task lint:all
+          - name: test-all
+            run: mise exec -- task test:all
+          - name: test-tools
+            run: mise exec -- task test:tools
+          - name: mod-tidy
+            run: |
+              find . -name 'go.mod' -not -path './.claude/*' -execdir go mod tidy \;
+              git diff --exit-code
+
+commit-msg:
+  commands:
+    commitlint:
+      run: mise exec -- commitlint lint --message {1}

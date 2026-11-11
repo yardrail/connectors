@@ -5,4 +5,7 @@ idiomatic_version_file_enable_tools = ["go"]
 node = "24"
 oapi-codegen = "2.8.2"
 task = "3.54.0"
+lefthook = "2.2.2"
 trivy = "0.76.1"
+
+"go:github.com/conventionalcommit/commitlint" = "0.12.0"
