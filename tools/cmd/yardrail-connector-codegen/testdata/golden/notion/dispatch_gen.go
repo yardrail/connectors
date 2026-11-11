@@ -44,6 +44,30 @@ func Resolve(
 	}, nil
 }
 
+func (ic *InterfaceClient) dispatchCreateACommentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var body client.CreateACommentJSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("notion.create-a-comment: %w", bodyErr)
+	}
+
+	resp, callErr := ic.cl.CreateACommentWithResponse(ctx, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.create-a-comment: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.create-a-comment: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
 func (ic *InterfaceClient) dispatchCreateADataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.CreateADataSourceJSONRequestBody
 
@@ -70,6 +94,147 @@ func (ic *InterfaceClient) dispatchCreateADataSourceWithResponse(ctx context.Con
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("notion.create-a-data-source: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchDeleteABlockWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		BlockId string `json:"blockId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.delete-a-block: %w", err)
+	}
+	var params client.DeleteABlockParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.delete-a-block: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.DeleteABlockWithResponse(ctx, pathArgs.BlockId, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.delete-a-block: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.delete-a-block: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchGetBlockChildrenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		BlockId string `json:"blockId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.get-block-children: %w", err)
+	}
+	var params client.GetBlockChildrenParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.get-block-children: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.GetBlockChildrenWithResponse(ctx, pathArgs.BlockId, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.get-block-children: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.get-block-children: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchGetSelfWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var params client.GetSelfParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.get-self: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.GetSelfWithResponse(ctx, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.get-self: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.get-self: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchGetUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		UserId uuid.UUID `json:"userId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.get-user: %w", err)
+	}
+	var params client.GetUserParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.get-user: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.GetUserWithResponse(ctx, pathArgs.UserId, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.get-user: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.get-user: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchGetUsersWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var params client.GetUsersParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.get-users: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.GetUsersWithResponse(ctx, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.get-users: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.get-users: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -144,6 +309,144 @@ func (ic *InterfaceClient) dispatchMovePageWithResponse(ctx context.Context, _ m
 	return json.RawMessage(resp.Body), nil
 }
 
+func (ic *InterfaceClient) dispatchPatchBlockChildrenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		BlockId string `json:"blockId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.patch-block-children: %w", err)
+	}
+	var body client.PatchBlockChildrenJSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("notion.patch-block-children: %w", bodyErr)
+	}
+
+	var params client.PatchBlockChildrenParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.patch-block-children: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.PatchBlockChildrenWithResponse(ctx, pathArgs.BlockId, &params, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.patch-block-children: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.patch-block-children: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchPatchPageWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		PageId string `json:"pageId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.patch-page: %w", err)
+	}
+	var body client.PatchPageJSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("notion.patch-page: %w", bodyErr)
+	}
+
+	var params client.PatchPageParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.patch-page: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.PatchPageWithResponse(ctx, pathArgs.PageId, &params, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.patch-page: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.patch-page: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchPostPageWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var body client.PostPageJSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("notion.post-page: %w", bodyErr)
+	}
+
+	var params client.PostPageParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.post-page: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.PostPageWithResponse(ctx, &params, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.post-page: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.post-page: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchPostSearchWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var body client.PostSearchJSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("notion.post-search: %w", bodyErr)
+	}
+
+	var params client.PostSearchParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.post-search: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.PostSearchWithResponse(ctx, &params, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.post-search: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.post-search: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
 func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		DataSourceId string `json:"dataSourceId"`
@@ -177,6 +480,61 @@ func (ic *InterfaceClient) dispatchQueryDataSourceWithResponse(ctx context.Conte
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("notion.query-data-source: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchRetrieveABlockWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		BlockId string `json:"blockId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-block: %w", err)
+	}
+	var params client.RetrieveABlockParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-block: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.RetrieveABlockWithResponse(ctx, pathArgs.BlockId, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.retrieve-a-block: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.retrieve-a-block: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchRetrieveACommentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var params client.RetrieveACommentParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-comment: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.RetrieveACommentWithResponse(ctx, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.retrieve-a-comment: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.retrieve-a-comment: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -244,6 +602,69 @@ func (ic *InterfaceClient) dispatchRetrieveADatabaseWithResponse(ctx context.Con
 	return json.RawMessage(resp.Body), nil
 }
 
+func (ic *InterfaceClient) dispatchRetrieveAPageWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		PageId string `json:"pageId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-page: %w", err)
+	}
+	var params client.RetrieveAPageParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-page: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.RetrieveAPageWithResponse(ctx, pathArgs.PageId, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.retrieve-a-page: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.retrieve-a-page: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchRetrieveAPagePropertyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		PageId     string `json:"pageId"`
+		PropertyId string `json:"propertyId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-page-property: %w", err)
+	}
+	var params client.RetrieveAPagePropertyParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.retrieve-a-page-property: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.RetrieveAPagePropertyWithResponse(ctx, pathArgs.PageId, pathArgs.PropertyId, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.retrieve-a-page-property: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.retrieve-a-page-property: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
 func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		PageId uuid.UUID `json:"pageId"`
@@ -270,6 +691,44 @@ func (ic *InterfaceClient) dispatchRetrievePageMarkdownWithResponse(ctx context.
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("notion.retrieve-page-markdown: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchUpdateABlockWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		BlockId string `json:"blockId"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("notion.update-a-block: %w", err)
+	}
+	var body client.UpdateABlockJSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("notion.update-a-block: %w", bodyErr)
+	}
+
+	var params client.UpdateABlockParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("notion.update-a-block: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.UpdateABlockWithResponse(ctx, pathArgs.BlockId, &params, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("notion.update-a-block: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("notion.update-a-block: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil

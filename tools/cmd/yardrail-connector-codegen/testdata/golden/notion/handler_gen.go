@@ -22,13 +22,28 @@ type InterfaceClient struct {
 type Function string
 
 const (
+	FnCreateAComment          Function = "create-a-comment"
 	FnCreateADataSource       Function = "create-a-data-source"
+	FnDeleteABlock            Function = "delete-a-block"
+	FnGetBlockChildren        Function = "get-block-children"
+	FnGetSelf                 Function = "get-self"
+	FnGetUser                 Function = "get-user"
+	FnGetUsers                Function = "get-users"
 	FnListDataSourceTemplates Function = "list-data-source-templates"
 	FnMovePage                Function = "move-page"
+	FnPatchBlockChildren      Function = "patch-block-children"
+	FnPatchPage               Function = "patch-page"
+	FnPostPage                Function = "post-page"
+	FnPostSearch              Function = "post-search"
 	FnQueryDataSource         Function = "query-data-source"
+	FnRetrieveABlock          Function = "retrieve-a-block"
+	FnRetrieveAComment        Function = "retrieve-a-comment"
 	FnRetrieveADataSource     Function = "retrieve-a-data-source"
 	FnRetrieveADatabase       Function = "retrieve-a-database"
+	FnRetrieveAPage           Function = "retrieve-a-page"
+	FnRetrieveAPageProperty   Function = "retrieve-a-page-property"
 	FnRetrievePageMarkdown    Function = "retrieve-page-markdown"
+	FnUpdateABlock            Function = "update-a-block"
 	FnUpdateADataSource       Function = "update-a-data-source"
 	FnUpdatePageMarkdown      Function = "update-page-markdown"
 )
@@ -36,20 +51,50 @@ const (
 // ParseFunction validates a function name and returns the typed Function value.
 func ParseFunction(s string) (Function, error) {
 	switch Function(s) {
+	case FnCreateAComment:
+		return FnCreateAComment, nil
 	case FnCreateADataSource:
 		return FnCreateADataSource, nil
+	case FnDeleteABlock:
+		return FnDeleteABlock, nil
+	case FnGetBlockChildren:
+		return FnGetBlockChildren, nil
+	case FnGetSelf:
+		return FnGetSelf, nil
+	case FnGetUser:
+		return FnGetUser, nil
+	case FnGetUsers:
+		return FnGetUsers, nil
 	case FnListDataSourceTemplates:
 		return FnListDataSourceTemplates, nil
 	case FnMovePage:
 		return FnMovePage, nil
+	case FnPatchBlockChildren:
+		return FnPatchBlockChildren, nil
+	case FnPatchPage:
+		return FnPatchPage, nil
+	case FnPostPage:
+		return FnPostPage, nil
+	case FnPostSearch:
+		return FnPostSearch, nil
 	case FnQueryDataSource:
 		return FnQueryDataSource, nil
+	case FnRetrieveABlock:
+		return FnRetrieveABlock, nil
+	case FnRetrieveAComment:
+		return FnRetrieveAComment, nil
 	case FnRetrieveADataSource:
 		return FnRetrieveADataSource, nil
 	case FnRetrieveADatabase:
 		return FnRetrieveADatabase, nil
+	case FnRetrieveAPage:
+		return FnRetrieveAPage, nil
+	case FnRetrieveAPageProperty:
+		return FnRetrieveAPageProperty, nil
 	case FnRetrievePageMarkdown:
 		return FnRetrievePageMarkdown, nil
+	case FnUpdateABlock:
+		return FnUpdateABlock, nil
 	case FnUpdateADataSource:
 		return FnUpdateADataSource, nil
 	case FnUpdatePageMarkdown:
@@ -62,20 +107,50 @@ func ParseFunction(s string) (Function, error) {
 // Dispatch calls the named function's typed client method.
 func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
 	switch fn {
+	case FnCreateAComment:
+		return ic.dispatchCreateACommentWithResponse(ctx, config, inputs)
 	case FnCreateADataSource:
 		return ic.dispatchCreateADataSourceWithResponse(ctx, config, inputs)
+	case FnDeleteABlock:
+		return ic.dispatchDeleteABlockWithResponse(ctx, config, inputs)
+	case FnGetBlockChildren:
+		return ic.dispatchGetBlockChildrenWithResponse(ctx, config, inputs)
+	case FnGetSelf:
+		return ic.dispatchGetSelfWithResponse(ctx, config, inputs)
+	case FnGetUser:
+		return ic.dispatchGetUserWithResponse(ctx, config, inputs)
+	case FnGetUsers:
+		return ic.dispatchGetUsersWithResponse(ctx, config, inputs)
 	case FnListDataSourceTemplates:
 		return ic.dispatchListDataSourceTemplatesWithResponse(ctx, config, inputs)
 	case FnMovePage:
 		return ic.dispatchMovePageWithResponse(ctx, config, inputs)
+	case FnPatchBlockChildren:
+		return ic.dispatchPatchBlockChildrenWithResponse(ctx, config, inputs)
+	case FnPatchPage:
+		return ic.dispatchPatchPageWithResponse(ctx, config, inputs)
+	case FnPostPage:
+		return ic.dispatchPostPageWithResponse(ctx, config, inputs)
+	case FnPostSearch:
+		return ic.dispatchPostSearchWithResponse(ctx, config, inputs)
 	case FnQueryDataSource:
 		return ic.dispatchQueryDataSourceWithResponse(ctx, config, inputs)
+	case FnRetrieveABlock:
+		return ic.dispatchRetrieveABlockWithResponse(ctx, config, inputs)
+	case FnRetrieveAComment:
+		return ic.dispatchRetrieveACommentWithResponse(ctx, config, inputs)
 	case FnRetrieveADataSource:
 		return ic.dispatchRetrieveADataSourceWithResponse(ctx, config, inputs)
 	case FnRetrieveADatabase:
 		return ic.dispatchRetrieveADatabaseWithResponse(ctx, config, inputs)
+	case FnRetrieveAPage:
+		return ic.dispatchRetrieveAPageWithResponse(ctx, config, inputs)
+	case FnRetrieveAPageProperty:
+		return ic.dispatchRetrieveAPagePropertyWithResponse(ctx, config, inputs)
 	case FnRetrievePageMarkdown:
 		return ic.dispatchRetrievePageMarkdownWithResponse(ctx, config, inputs)
+	case FnUpdateABlock:
+		return ic.dispatchUpdateABlockWithResponse(ctx, config, inputs)
 	case FnUpdateADataSource:
 		return ic.dispatchUpdateADataSourceWithResponse(ctx, config, inputs)
 	case FnUpdatePageMarkdown:

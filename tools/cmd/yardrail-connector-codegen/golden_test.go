@@ -49,7 +49,7 @@ func TestGoldenOpenAPI(t *testing.T) {
 		{
 			id:       "notion",
 			manifest: "notion/notion/manifest.yaml",
-			spec:     "notion/notion/spec/openapi.json",
+			spec:     "notion/notion/spec/openapi.fixed.json",
 			pkg:      "github.com/yardrail/connectors/notion/notion/client",
 		},
 		{

@@ -5,6 +5,24 @@ $namespaces:
 
 $graph:
 
+  - name: CreateAComment_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:CreateAComment"]
+
+  - name: CreateAComment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create comment"
+    fields:
+      - name: class
+        type: "#CreateAComment_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
   - name: CreateADataSource_class
     type: enum
     inVocab: false
@@ -19,6 +37,96 @@ $graph:
     fields:
       - name: class
         type: "#CreateADataSource_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: DeleteABlock_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:DeleteABlock"]
+
+  - name: DeleteABlock
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Delete a block"
+    fields:
+      - name: class
+        type: "#DeleteABlock_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetBlockChildren_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:GetBlockChildren"]
+
+  - name: GetBlockChildren
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve block children"
+    fields:
+      - name: class
+        type: "#GetBlockChildren_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetSelf_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:GetSelf"]
+
+  - name: GetSelf
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve your token's bot user"
+    fields:
+      - name: class
+        type: "#GetSelf_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetUser_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:GetUser"]
+
+  - name: GetUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a user"
+    fields:
+      - name: class
+        type: "#GetUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetUsers_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:GetUsers"]
+
+  - name: GetUsers
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "List all users"
+    fields:
+      - name: class
+        type: "#GetUsers_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -59,6 +167,78 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
+  - name: PatchBlockChildren_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:PatchBlockChildren"]
+
+  - name: PatchBlockChildren
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Append block children"
+    fields:
+      - name: class
+        type: "#PatchBlockChildren_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PatchPage_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:PatchPage"]
+
+  - name: PatchPage
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update page properties"
+    fields:
+      - name: class
+        type: "#PatchPage_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostPage_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:PostPage"]
+
+  - name: PostPage
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a page"
+    fields:
+      - name: class
+        type: "#PostPage_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PostSearch_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:PostSearch"]
+
+  - name: PostSearch
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Search by title"
+    fields:
+      - name: class
+        type: "#PostSearch_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
   - name: QueryDataSource_class
     type: enum
     inVocab: false
@@ -73,6 +253,42 @@ $graph:
     fields:
       - name: class
         type: "#QueryDataSource_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveABlock_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:RetrieveABlock"]
+
+  - name: RetrieveABlock
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a block"
+    fields:
+      - name: class
+        type: "#RetrieveABlock_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAComment_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:RetrieveAComment"]
+
+  - name: RetrieveAComment
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve comments"
+    fields:
+      - name: class
+        type: "#RetrieveAComment_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -113,6 +329,42 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
+  - name: RetrieveAPage_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:RetrieveAPage"]
+
+  - name: RetrieveAPage
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a page"
+    fields:
+      - name: class
+        type: "#RetrieveAPage_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: RetrieveAPageProperty_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:RetrieveAPageProperty"]
+
+  - name: RetrieveAPageProperty
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Retrieve a page property item"
+    fields:
+      - name: class
+        type: "#RetrieveAPageProperty_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
   - name: RetrievePageMarkdown_class
     type: enum
     inVocab: false
@@ -127,6 +379,24 @@ $graph:
     fields:
       - name: class
         type: "#RetrievePageMarkdown_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: UpdateABlock_class
+    type: enum
+    inVocab: false
+    symbols: ["notion:UpdateABlock"]
+
+  - name: UpdateABlock
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Update a block"
+    fields:
+      - name: class
+        type: "#UpdateABlock_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
