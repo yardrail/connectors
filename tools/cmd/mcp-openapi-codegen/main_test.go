@@ -77,6 +77,21 @@ func TestParamExtractExpr(t *testing.T) {
 			`getStringSlice(request, "tags")`,
 		},
 		{
+			"uuid param",
+			ToolParam{GoType: "uuid.UUID", JSONName: "resourceId"},
+			`parseUUID(request.GetString("resourceId", ""))`,
+		},
+		{
+			"time param",
+			ToolParam{GoType: "time.Time", JSONName: "createdAt"},
+			`parseTime(request.GetString("createdAt", ""))`,
+		},
+		{
+			"date param",
+			ToolParam{GoType: "types.Date", JSONName: "startDate"},
+			`parseDate(request.GetString("startDate", ""))`,
+		},
+		{
 			"unknown type defaults to string",
 			ToolParam{GoType: "CustomType", JSONName: "custom"},
 			`request.GetString("custom", "")`,
@@ -89,6 +104,59 @@ func TestParamExtractExpr(t *testing.T) {
 			got := paramExtractExpr(tt.param)
 			if got != tt.want {
 				t.Errorf("paramExtractExpr(%+v) = %q, want %q", tt.param, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestOptionalPtrExpr(t *testing.T) {
+	t.Parallel()
+
+	optionalPtrExpr := tmplFuncs["optionalPtrExpr"].(func(ToolParam) string)
+
+	tests := []struct {
+		name  string
+		param ToolParam
+		want  string
+	}{
+		{
+			"optional string ptr",
+			ToolParam{GoType: "string", JSONName: "name", IsPtr: true},
+			`ptrVal(request.GetString("name", ""))`,
+		},
+		{
+			"optional time ptr",
+			ToolParam{GoType: "time.Time", JSONName: "createdAt", IsPtr: true},
+			`ptrVal(parseTime(request.GetString("createdAt", "")))`,
+		},
+		{
+			"optional uuid ptr",
+			ToolParam{GoType: "uuid.UUID", JSONName: "id", IsPtr: true},
+			`ptrVal(parseUUID(request.GetString("id", "")))`,
+		},
+		{
+			"optional date ptr",
+			ToolParam{GoType: "types.Date", JSONName: "startDate", IsPtr: true},
+			`ptrVal(parseDate(request.GetString("startDate", "")))`,
+		},
+		{
+			"required time (not ptr)",
+			ToolParam{GoType: "time.Time", JSONName: "seriesStart", Required: true},
+			`parseTime(request.GetString("seriesStart", ""))`,
+		},
+		{
+			"with FullType and ptr",
+			ToolParam{GoType: "string", JSONName: "status", IsPtr: true, FullType: "target.Status"},
+			`ptrVal(target.Status(request.GetString("status", "")))`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got := optionalPtrExpr(tt.param)
+			if got != tt.want {
+				t.Errorf("optionalPtrExpr(%+v) = %q, want %q", tt.param, got, tt.want)
 			}
 		})
 	}
@@ -129,6 +197,52 @@ func TestRender_ValidGo(t *testing.T) {
 	}
 	if !contains(output, `A test tool\nwith newlines\nand \"quotes\"`) {
 		t.Error("description not properly escaped in output")
+	}
+}
+
+func TestRender_TimeDateUUIDParams(t *testing.T) {
+	t.Parallel()
+
+	groups := []ControllerGroup{{
+		Name: "Bookings",
+		Methods: []ToolDef{{
+			Name:       "get-bookings",
+			MethodName: "GetBookingsWithResponse",
+			Desc:       "List bookings",
+			Params: []ToolParam{
+				{Name: "SeriesStart", JSONName: "seriesStart", GoType: "time.Time", Required: true, Desc: "start"},
+				{Name: "CreatedAt", JSONName: "createdAt", GoType: "time.Time", IsPtr: true, Desc: "created"},
+				{Name: "Id", JSONName: "id", GoType: "uuid.UUID", Required: true, Desc: "id"},
+				{Name: "StartDate", JSONName: "startDate", GoType: "types.Date", IsPtr: true, Desc: "date"},
+			},
+			CallArgs:   []CallArg{{Expr: "seriesStart"}, {Expr: "id"}},
+			ParamsType: "GetBookingsParams",
+			ReturnType: "GetBookingsResp",
+			HasReturn:  true,
+		}},
+	}}
+
+	src, err := render(groups, "testpkg", "test-server", "example.com/client", libraryTemplate)
+	if err != nil {
+		t.Fatalf("render: %v", err)
+	}
+
+	output := string(src)
+
+	if !contains(output, "parseTime") {
+		t.Error("expected parseTime helper in output")
+	}
+	if !contains(output, "parseUUID") {
+		t.Error("expected parseUUID helper in output")
+	}
+	if !contains(output, "parseDate") {
+		t.Error("expected parseDate helper in output")
+	}
+	if !contains(output, `parseTime(request.GetString("seriesStart", ""))`) {
+		t.Error("expected parseTime call for seriesStart")
+	}
+	if !contains(output, `ptrVal(parseTime(request.GetString("createdAt", "")))`) {
+		t.Error("expected ptrVal(parseTime(...)) for createdAt")
 	}
 }
 
