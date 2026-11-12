@@ -24,6 +24,19 @@ func Register() connector.Registration {
 		},
 		Resolve: Resolve,
 		CWLClasses: []connector.CWLClassEntry{
+			{ClassIRI: "https://yardrail.com/cwl/canva#CreateAssetUploadJob", Info: connector.CWLClassInfo{
+				ConnectorID: "canva",
+				Function:    "create-asset-upload-job",
+				ClassName:   "CreateAssetUploadJob",
+				Description: "Starts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to upload an asset to the user's content library. Supported file types for assets are listed in the [Assets API overview](https://www.canva.dev/docs/apps/rest-apis/reference/assets/).  The request format for this endpoint is an `application/octet-stream` body of bytes. Attach information about the upload using an `Asset-Upload-Metadata` header.   <Note>  For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of asset upload jobs created with this API using the [Get asset upload job API](https://www.canva.dev/docs/apps/rest-apis/reference/assets/get-asset-upload-job/).  </Note>",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "data", Type: "string", Required: true, Description: "Base64-encoded file content"},
+					{Name: "content_type", Type: "string", Required: false, Description: "MIME type of the uploaded content"},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "job", Type: "object", Required: true, Description: ""},
+				},
+			}},
 			{ClassIRI: "https://yardrail.com/cwl/canva#CreateComment", Info: connector.CWLClassInfo{
 				ConnectorID: "canva",
 				Function:    "create-comment",
@@ -66,6 +79,19 @@ func Register() connector.Registration {
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "design_id", Type: "string", Required: true, Description: "The design ID."},
 					{Name: "format", Type: "object", Required: true, Description: ""},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "job", Type: "object", Required: true, Description: ""},
+				},
+			}},
+			{ClassIRI: "https://yardrail.com/cwl/canva#CreateDesignImportJob", Info: connector.CWLClassInfo{
+				ConnectorID: "canva",
+				Function:    "create-design-import-job",
+				ClassName:   "CreateDesignImportJob",
+				Description: "Starts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to import an external file as a new design in Canva.  The request format for this endpoint has an `application/octet-stream` body of bytes, and the information about the import is provided using an `Import-Metadata` header.  Supported file types for imports are listed in [Design imports overview](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/#supported-file-types).  <Note>  For more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of design import jobs created with this API using the [Get design import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/get-design-import-job/).  </Note>",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "data", Type: "string", Required: true, Description: "Base64-encoded file content"},
+					{Name: "content_type", Type: "string", Required: false, Description: "MIME type of the uploaded content"},
 				},
 				Outputs: []connector.CWLFieldInfo{
 					{Name: "job", Type: "object", Required: true, Description: ""},

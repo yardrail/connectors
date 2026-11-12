@@ -418,6 +418,7 @@ const (
 	FnPostExternalAccountsId                                                      Function = "post-external-accounts-id"
 	FnPostFileLinks                                                               Function = "post-file-links"
 	FnPostFileLinksLink                                                           Function = "post-file-links-link"
+	FnPostFiles                                                                   Function = "post-files"
 	FnPostFinancialConnectionsAccountsAccountDisconnect                           Function = "post-financial-connections-accounts-account-disconnect"
 	FnPostFinancialConnectionsAccountsAccountRefresh                              Function = "post-financial-connections-accounts-account-refresh"
 	FnPostFinancialConnectionsAccountsAccountSubscribe                            Function = "post-financial-connections-accounts-account-subscribe"
@@ -1430,6 +1431,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnPostFileLinks, nil
 	case FnPostFileLinksLink:
 		return FnPostFileLinksLink, nil
+	case FnPostFiles:
+		return FnPostFiles, nil
 	case FnPostFinancialConnectionsAccountsAccountDisconnect:
 		return FnPostFinancialConnectionsAccountsAccountDisconnect, nil
 	case FnPostFinancialConnectionsAccountsAccountRefresh:
@@ -2660,6 +2663,8 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchPostFileLinksWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnPostFileLinksLink:
 		return ic.dispatchPostFileLinksLinkWithFormdataBodyWithResponse(ctx, config, inputs)
+	case FnPostFiles:
+		return ic.dispatchPostFilesWithBodyWithResponse(ctx, config, inputs)
 	case FnPostFinancialConnectionsAccountsAccountDisconnect:
 		return ic.dispatchPostFinancialConnectionsAccountsAccountDisconnectWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnPostFinancialConnectionsAccountsAccountRefresh:
