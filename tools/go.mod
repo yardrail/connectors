@@ -53,3 +53,25 @@ require (
 	google.golang.org/grpc v1.85.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 )
+
+replace github.com/yardrail/connectors/canva/canva => ../canva/canva
+
+replace github.com/yardrail/connectors/egnyte/egnyte => ../egnyte/egnyte
+
+replace github.com/yardrail/connectors/eventbrite/eventbrite => ../eventbrite/eventbrite
+
+replace github.com/yardrail/connectors/hubspot/crm-contacts => ../hubspot/crm-contacts
+
+replace github.com/yardrail/connectors/mailchimp/marketing => ../mailchimp/marketing
+
+replace github.com/yardrail/connectors/microsoft/outlook => ../microsoft/outlook
+
+replace github.com/yardrail/connectors/notion/notion => ../notion/notion
+
+replace github.com/yardrail/connectors/officernd/officernd => ../officernd/officernd
+
+replace github.com/yardrail/connectors/quickbooks/account => ../quickbooks/account
+
+replace github.com/yardrail/connectors/slack/slack => ../slack/slack
+
+replace github.com/yardrail/connectors/stripe/stripe => ../stripe/stripe
