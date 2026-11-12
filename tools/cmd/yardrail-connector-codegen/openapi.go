@@ -57,6 +57,13 @@ func parseOperations(specPath string) (map[string]*OperationInfo, error) {
 			info.Inputs = collectInputs(op, resolver)
 			info.Outputs = collectOutputs(op, resolver)
 
+			if isBinaryRequestBody(op) {
+				info.Inputs = append(info.Inputs,
+					FieldInfo{Name: "data", Type: "string", Required: true, Doc: "Base64-encoded file content"},
+					FieldInfo{Name: "content_type", Type: "string", Required: false, Doc: "MIME type of the uploaded content"},
+				)
+			}
+
 			key := normalizeOpID(op.OperationID)
 			ops[key] = info
 		}
@@ -318,4 +325,14 @@ type rawSchema struct {
 	Properties  map[string]rawSchema `json:"properties"`
 	Required    []string             `json:"required"`
 	Items       *rawSchema           `json:"items"`
+}
+
+func isBinaryRequestBody(op rawOperation) bool {
+	for contentType := range op.RequestBody.Content {
+		switch contentType {
+		case "application/octet-stream", "multipart/form-data":
+			return true
+		}
+	}
+	return false
 }

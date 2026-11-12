@@ -162,6 +162,37 @@ func TestParseOperations(t *testing.T) {
 			}}`,
 			wantOps: 2,
 		},
+		{
+			name: "octet-stream requestBody adds synthetic data and content_type inputs",
+			spec: `{"paths":{"/upload/{id}":{"post":{
+				"operationId":"uploadFile",
+				"parameters":[{"name":"id","in":"path","schema":{"type":"string"},"required":true}],
+				"requestBody":{"content":{"application/octet-stream":{"schema":{"type":"string","format":"binary"}}}},
+				"responses":{"200":{"content":{"application/json":{"schema":{
+					"type":"object","properties":{"ok":{"type":"boolean"}}
+				}}}}}
+			}}}}`,
+			wantOps:     1,
+			checkOp:     "uploadfile",
+			wantInputs:  3,
+			wantOutputs: 1,
+		},
+		{
+			name: "multipart/form-data requestBody adds synthetic data and content_type inputs",
+			spec: `{"paths":{"/upload/{path}":{"post":{
+				"operationId":"uploadByPath",
+				"requestBody":{"content":{"multipart/form-data":{"schema":{
+					"type":"object","properties":{"file":{"type":"string","format":"binary"}}
+				}}}},
+				"responses":{"201":{"content":{"application/json":{"schema":{
+					"type":"object","properties":{"id":{"type":"string"}}
+				}}}}}
+			}}}}`,
+			wantOps:     1,
+			checkOp:     "uploadbypath",
+			wantInputs:  3,
+			wantOutputs: 1,
+		},
 	}
 
 	for _, tt := range tests {

@@ -905,6 +905,60 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
+  - name: GetEffectivePermissionsForUser_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetEffectivePermissionsForUser"]
+
+  - name: GetEffectivePermissionsForUser
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Effective Permissions for a User"
+    fields:
+      - name: class
+        type: "#GetEffectivePermissionsForUser_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetFolderPermissionsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetFolderPermissionsV1"]
+
+  - name: GetFolderPermissionsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Folder Permissions (v1, deprecated)"
+    fields:
+      - name: class
+        type: "#GetFolderPermissionsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: GetFolderPermissionsV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:GetFolderPermissionsV2"]
+
+  - name: GetFolderPermissionsV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Get Folder Permissions (v2)"
+    fields:
+      - name: class
+        type: "#GetFolderPermissionsV2_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
   - name: GetMspDomain_class
     type: enum
     inVocab: false
@@ -2489,6 +2543,24 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
+  - name: PortalProdPatchFolderOptionsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPatchFolderOptionsV1"]
+
+  - name: PortalProdPatchFolderOptionsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Modify folder options"
+    fields:
+      - name: class
+        type: "#PortalProdPatchFolderOptionsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
   - name: PortalProdPatchGroupsByIdV2_class
     type: enum
     inVocab: false
@@ -2629,6 +2701,60 @@ $graph:
     fields:
       - name: class
         type: "#PortalProdPostFsByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostFsContentByPathV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostFsContentByPathV1"]
+
+  - name: PortalProdPostFsContentByPathV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Upload file content by path"
+    fields:
+      - name: class
+        type: "#PortalProdPostFsContentByPathV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostFsContentChunkedByIdV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostFsContentChunkedByIdV1"]
+
+  - name: PortalProdPostFsContentChunkedByIdV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Chunked upload by file ID"
+    fields:
+      - name: class
+        type: "#PortalProdPostFsContentChunkedByIdV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: PortalProdPostFsContentChunkedByPathV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:PortalProdPostFsContentChunkedByPathV1"]
+
+  - name: PortalProdPostFsContentChunkedByPathV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Chunked upload by path"
+    fields:
+      - name: class
+        type: "#PortalProdPostFsContentChunkedByPathV1_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -3007,6 +3133,42 @@ $graph:
     fields:
       - name: class
         type: "#SearchV2Post_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SetFolderPermissionsV1_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:SetFolderPermissionsV1"]
+
+  - name: SetFolderPermissionsV1
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Set Folder Permissions (v1, deprecated)"
+    fields:
+      - name: class
+        type: "#SetFolderPermissionsV1_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: SetFolderPermissionsV2_class
+    type: enum
+    inVocab: false
+    symbols: ["egnyte:SetFolderPermissionsV2"]
+
+  - name: SetFolderPermissionsV2
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Set Folder Permissions (v2)"
+    fields:
+      - name: class
+        type: "#SetFolderPermissionsV2_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"

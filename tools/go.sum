@@ -56,6 +56,8 @@ github.com/stretchr/testify v1.12.1 h1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWD
 github.com/stretchr/testify v1.12.1/go.mod h1:MDEgiDPPsNp5cuIrHPPCyornHKgEVbtFUmoNlxoYthg=
 github.com/vektah/gqlparser/v2 v2.5.63 h1:vzHg/+/z7kZA3N4FhbGtF1pRo99KUpPzwXahk1bQtYk=
 github.com/vektah/gqlparser/v2 v2.5.63/go.mod h1:JNK+plRwKdXLsF/qPFPe5tE0z4s1WeroD9S5LR8um/Q=
+github.com/yardrail/connectors/egnyte/egnyte v0.0.0-20261109202406-166a57d28704 h1:rAWaQglvul0tH532VKqWiz6hqWne8CRAEqcCMpVwlc8=
+github.com/yardrail/connectors/egnyte/egnyte v0.0.0-20261109202406-166a57d28704/go.mod h1:lfBkHfKjSvE+g5dE+0aP8somusKrpYZcV8Nn5KyWuEE=
 github.com/yardrail/connectors/notion/notion v0.0.0-20261109202406-166a57d28704 h1:h51uvobvPmMcHYAbYF5s8eV+Xl9Eh8mFx2KOXeQg04k=
 github.com/yardrail/connectors/notion/notion v0.0.0-20261109202406-166a57d28704/go.mod h1:zTKTUkE1NMUP1Hx01yHVdtm03vBSs+jNRWIW5+nof+U=
 github.com/yardrail/connectors/slack/slack v0.0.0-20261109202406-166a57d28704 h1:ZYGyjbGGXPGhMFO+zoZzpkgXnYFVBmvYcp3B/Lk4Xqs=

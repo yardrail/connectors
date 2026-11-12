@@ -28,20 +28,23 @@ type MethodParam struct {
 
 // CallArg represents one argument in the method call, in order.
 type CallArg struct {
-	Expr     string // Go expression for this argument
-	IsParams bool   // true if this is &params
+	Expr                string // Go expression for this argument
+	IsParams            bool   // true if this is &params
+	IsStreamContentType bool   // synthetic: emits contentType var
+	IsStreamBody        bool   // synthetic: emits bodyReader var
 }
 
 // MethodInfo describes a single *WithResponse method on ClientWithResponses.
 type MethodInfo struct {
-	Name       string
-	MethodName string
-	Desc       string
-	Params     []MethodParam
-	CallArgs   []CallArg
-	ParamsType string // non-empty if the method takes a *Params struct
-	ReturnType string
-	HasReturn  bool
+	Name         string
+	MethodName   string
+	Desc         string
+	Params       []MethodParam
+	CallArgs     []CallArg
+	ParamsType   string // non-empty if the method takes a *Params struct
+	ReturnType   string
+	HasReturn    bool
+	IsStreamBody bool // true when the method takes an io.Reader body
 }
 
 // MethodGroup collects methods by OpenAPI tag.
@@ -136,6 +139,16 @@ func LoadMethods(pkgPath string, tagMap map[string][]string) ([]MethodGroup, str
 	groupMap := make(map[string][]MethodInfo)
 	var groupOrder []string
 
+	// Pass 1: collect all *WithResponse candidates by normalized base name.
+	type candidate struct {
+		name      string
+		fn        *types.Func
+		sig       *types.Signature
+		isRawBody bool
+	}
+	candidates := make(map[string][]candidate)
+	var candidateOrder []string
+
 	for i := 0; i < mset.Len(); i++ {
 		sel := mset.At(i)
 		fn, ok := sel.Obj().(*types.Func)
@@ -147,24 +160,51 @@ func LoadMethods(pkgPath string, tagMap map[string][]string) ([]MethodGroup, str
 		if !strings.HasSuffix(name, "WithResponse") {
 			continue
 		}
-		if strings.HasSuffix(name, "WithBodyWithResponse") {
-			continue
-		}
 
-		sig := fn.Type().(*types.Signature)
-		method := ExtractMethod(name, sig, scope, docs)
-		if method == nil {
-			continue
-		}
+		isRawBody := strings.HasSuffix(name, "WithBodyWithResponse")
 
 		baseName := strings.TrimSuffix(name, "WithResponse")
 		baseName = strings.TrimSuffix(baseName, "WithFormdataBody")
 		baseName = strings.TrimSuffix(baseName, "WithBody")
 		key := NormalizeID(baseName)
 
+		sig := fn.Type().(*types.Signature)
+		if _, exists := candidates[key]; !exists {
+			candidateOrder = append(candidateOrder, key)
+		}
+		candidates[key] = append(candidates[key], candidate{
+			name: name, fn: fn, sig: sig, isRawBody: isRawBody,
+		})
+	}
+
+	// Pass 2: for each base name, pick the best candidate.
+	// Prefer typed convenience methods; fall back to WithBodyWithResponse
+	// only when no typed alternative exists.
+	for _, key := range candidateOrder {
+		cands := candidates[key]
+		var best *candidate
+		for i := range cands {
+			c := &cands[i]
+			if best == nil {
+				best = c
+				continue
+			}
+			if best.isRawBody && !c.isRawBody {
+				best = c
+			}
+		}
+		if best == nil {
+			continue
+		}
+
+		method := ExtractMethod(best.name, best.sig, scope, docs)
+		if method == nil {
+			continue
+		}
+
 		tags := tagMap[key]
 		if len(tags) == 0 {
-			fmt.Fprintf(os.Stderr, "warning: no tags for %s, skipping\n", name)
+			fmt.Fprintf(os.Stderr, "warning: no tags for %s, skipping\n", best.name)
 			continue
 		}
 
@@ -222,6 +262,16 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 	paramsType := ""
 
 	p := sig.Params()
+
+	// Pre-scan for io.Reader to detect stream body methods.
+	isStreamBody := false
+	for i := 0; i < p.Len(); i++ {
+		if strings.Contains(p.At(i).Type().String(), "io.Reader") {
+			isStreamBody = true
+			break
+		}
+	}
+
 	for i := 0; i < p.Len(); i++ {
 		param := p.At(i)
 		paramType := param.Type()
@@ -234,7 +284,13 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 			continue
 		}
 		if strings.Contains(typeStr, "io.Reader") {
-			return nil
+			continue
+		}
+		// Skip the string param immediately preceding io.Reader (contentType).
+		// Match by position + type, not by name.
+		if isStreamBody && i+1 < p.Len() &&
+			strings.Contains(p.At(i+1).Type().String(), "io.Reader") {
+			continue
 		}
 
 		paramName := param.Name()
@@ -324,15 +380,21 @@ func ExtractMethod(methodName string, sig *types.Signature, scope *types.Scope, 
 		callArgs = append(callArgs, CallArg{Expr: paramName})
 	}
 
+	if isStreamBody {
+		callArgs = append(callArgs, CallArg{Expr: "contentType", IsStreamContentType: true})
+		callArgs = append(callArgs, CallArg{Expr: "bodyReader", IsStreamBody: true})
+	}
+
 	return &MethodInfo{
-		Name:       toolName,
-		MethodName: methodName,
-		Desc:       desc,
-		Params:     params,
-		CallArgs:   callArgs,
-		ParamsType: paramsType,
-		ReturnType: returnType,
-		HasReturn:  hasReturn,
+		Name:         toolName,
+		MethodName:   methodName,
+		Desc:         desc,
+		Params:       params,
+		CallArgs:     callArgs,
+		ParamsType:   paramsType,
+		ReturnType:   returnType,
+		HasReturn:    hasReturn,
+		IsStreamBody: isStreamBody,
 	}
 }
 

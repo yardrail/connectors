@@ -58,6 +58,12 @@ func TestGoldenOpenAPI(t *testing.T) {
 			spec:     "slack/slack/spec/openapi.json",
 			pkg:      "github.com/yardrail/connectors/slack/slack/client",
 		},
+		{
+			id:       "egnyte",
+			manifest: "egnyte/egnyte/manifest.yaml",
+			spec:     "egnyte/egnyte/spec/openapi.fixed.json",
+			pkg:      "github.com/yardrail/connectors/egnyte/egnyte/client",
+		},
 	}
 
 	for _, tt := range tests {
