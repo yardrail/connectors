@@ -2,9 +2,9 @@ version: "3"
 
 tasks:
   spec:
-    desc: "OfficeRnD spec (committed, manually managed)"
+    desc: "OfficeRnD spec (committed, with jq fixup to clean operationIds)"
     cmds:
-      - echo "spec is committed — update manually"
+      - jq -f spec/fixup.jq spec/openapi.json > spec/openapi.fixed.json
 
   client:
     desc: "Generate OfficeRnD Go client"
