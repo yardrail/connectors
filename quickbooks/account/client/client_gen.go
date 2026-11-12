@@ -2224,8 +2224,8 @@ type Entitlements struct {
 	Email              *EmailAddress `json:"Email,omitempty"`
 
 	// EmployerId Employer identifier (EIN).
-	EmployerId  *string          `json:"EmployerId,omitempty"`
-	Entitlement *TelephoneNumber `json:"Entitlement,omitempty"`
+	EmployerId  *string   `json:"EmployerId,omitempty"`
+	Entitlement *[]string `json:"Entitlement,omitempty"`
 
 	// FiscalYearStartMonth Month enumeration
 	FiscalYearStartMonth *MonthEnum `json:"FiscalYearStartMonth,omitempty"`
