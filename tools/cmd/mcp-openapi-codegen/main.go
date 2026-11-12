@@ -85,6 +85,12 @@ func paramExtractExpr(p ToolParam) string {
 		return fmt.Sprintf(`request.GetFloat("%s", 0)`, p.JSONName)
 	case "[]string":
 		return fmt.Sprintf(`getStringSlice(request, "%s")`, p.JSONName)
+	case "uuid.UUID":
+		return fmt.Sprintf(`parseUUID(request.GetString("%s", ""))`, p.JSONName)
+	case "time.Time":
+		return fmt.Sprintf(`parseTime(request.GetString("%s", ""))`, p.JSONName)
+	case "types.Date":
+		return fmt.Sprintf(`parseDate(request.GetString("%s", ""))`, p.JSONName)
 	default:
 		if introspect.IsIntegerType(p.GoType) {
 			return fmt.Sprintf(`%s(request.GetInt("%s", 0))`, p.GoType, p.JSONName)

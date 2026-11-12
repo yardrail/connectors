@@ -2992,12 +2992,12 @@ func (h *Handler) handleBookingsGetOccurrencesWithResponse(ctx context.Context, 
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["seriesStart"]; ok {
-			params.SeriesStart = request.GetString("seriesStart", "")
+			params.SeriesStart = parseTime(request.GetString("seriesStart", ""))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["seriesEnd"]; ok {
-			params.SeriesEnd = request.GetString("seriesEnd", "")
+			params.SeriesEnd = parseTime(request.GetString("seriesEnd", ""))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -3369,7 +3369,7 @@ func (h *Handler) handleCheckinsGetItemsWithResponse(ctx context.Context, reques
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["createdAt"]; ok {
-			params.CreatedAt = ptrVal(request.GetString("createdAt", ""))
+			params.CreatedAt = ptrVal(parseTime(request.GetString("createdAt", "")))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -3447,7 +3447,7 @@ func (h *Handler) handleCheckinsGetVisitorCheckinsWithResponse(ctx context.Conte
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["createdAt"]; ok {
-			params.CreatedAt = ptrVal(request.GetString("createdAt", ""))
+			params.CreatedAt = ptrVal(parseTime(request.GetString("createdAt", "")))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
