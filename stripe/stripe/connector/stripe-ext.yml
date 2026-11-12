@@ -7128,6 +7128,24 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
+  - name: PostFiles_class
+    type: enum
+    inVocab: false
+    symbols: ["stripe:PostFiles"]
+
+  - name: PostFiles
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Create a file"
+    fields:
+      - name: class
+        type: "#PostFiles_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
   - name: PostFinancialConnectionsAccountsAccountDisconnect_class
     type: enum
     inVocab: false

@@ -5,6 +5,24 @@ $namespaces:
 
 $graph:
 
+  - name: CreateAssetUploadJob_class
+    type: enum
+    inVocab: false
+    symbols: ["canva:CreateAssetUploadJob"]
+
+  - name: CreateAssetUploadJob
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Starts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to upload an asset to the user's content library. Supported file types for assets are listed in the [Assets API overview](https://www.canva.dev/docs/apps/rest-apis/reference/assets/).\n\nThe request format for this endpoint is an `application/octet-stream` body of bytes. Attach\ninformation about the upload using an `Asset-Upload-Metadata` header.\n\n\n<Note>\n\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of asset upload jobs created with this API using the [Get asset upload job API](https://www.canva.dev/docs/apps/rest-apis/reference/assets/get-asset-upload-job/).\n\n</Note>"
+    fields:
+      - name: class
+        type: "#CreateAssetUploadJob_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
   - name: CreateComment_class
     type: enum
     inVocab: false
@@ -73,6 +91,24 @@ $graph:
     fields:
       - name: class
         type: "#CreateDesignExportJob_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"
+
+  - name: CreateDesignImportJob_class
+    type: enum
+    inVocab: false
+    symbols: ["canva:CreateDesignImportJob"]
+
+  - name: CreateDesignImportJob
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Starts a new [asynchronous job](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints) to import an external file as a new design in Canva.\n\nThe request format for this endpoint has an `application/octet-stream` body of bytes,\nand the information about the import is provided using an `Import-Metadata` header.\n\nSupported file types for imports are listed in [Design imports overview](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/#supported-file-types).\n\n<Note>\n\nFor more information on the workflow for using asynchronous jobs, see [API requests and responses](https://www.canva.dev/docs/apps/rest-apis/requests-responses/#asynchronous-job-endpoints). You can check the status and get the results of design import jobs created with this API using the [Get design import job API](https://www.canva.dev/docs/apps/rest-apis/reference/design-imports/get-design-import-job/).\n\n</Note>"
+    fields:
+      - name: class
+        type: "#CreateDesignImportJob_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"

@@ -4,7 +4,9 @@
 package connector
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -19,6 +21,8 @@ var (
 	errInterfaceNotConfigured = errors.New("canva: interface not configured")
 	errUnknownFunction        = errors.New("canva: unknown function")
 )
+
+const maxStreamBodySize = 50 << 20 // 50 MiB
 
 // Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
@@ -40,6 +44,54 @@ func Resolve(
 	return func(ctx context.Context, inputs json.RawMessage) (any, error) {
 		return c.Client().Dispatch(ctx, fn, config, inputs)
 	}, nil
+}
+
+func (ic *InterfaceClient) dispatchCreateAssetUploadJobWithBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var params client.CreateAssetUploadJobParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("canva.create-asset-upload-job: params: %w", paramsErr)
+	}
+
+	var streamInput struct {
+		Data        string `json:"data"`
+		ContentType string `json:"content_type"`
+	}
+
+	if err := json.Unmarshal(inputs, &streamInput); err != nil {
+		return nil, fmt.Errorf("canva.create-asset-upload-job: stream input: %w", err)
+	}
+
+	bodyBytes, decErr := base64.StdEncoding.DecodeString(streamInput.Data)
+	if decErr != nil {
+		return nil, fmt.Errorf("canva.create-asset-upload-job: decoding data: %w", decErr)
+	}
+
+	if len(bodyBytes) > maxStreamBodySize {
+		return nil, fmt.Errorf("canva.create-asset-upload-job: data exceeds %d byte limit", maxStreamBodySize)
+	}
+
+	bodyReader := bytes.NewReader(bodyBytes)
+	contentType := streamInput.ContentType
+	if contentType == "" {
+		contentType = "application/octet-stream"
+	}
+
+	resp, callErr := ic.cl.CreateAssetUploadJobWithBodyWithResponse(ctx, &params, contentType, bodyReader)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("canva.create-asset-upload-job: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("canva.create-asset-upload-job: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
 }
 
 func (ic *InterfaceClient) dispatchCreateCommentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
@@ -133,6 +185,54 @@ func (ic *InterfaceClient) dispatchCreateDesignExportJobWithResponse(ctx context
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("canva.create-design-export-job: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchCreateDesignImportJobWithBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var params client.CreateDesignImportJobParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("canva.create-design-import-job: params: %w", paramsErr)
+	}
+
+	var streamInput struct {
+		Data        string `json:"data"`
+		ContentType string `json:"content_type"`
+	}
+
+	if err := json.Unmarshal(inputs, &streamInput); err != nil {
+		return nil, fmt.Errorf("canva.create-design-import-job: stream input: %w", err)
+	}
+
+	bodyBytes, decErr := base64.StdEncoding.DecodeString(streamInput.Data)
+	if decErr != nil {
+		return nil, fmt.Errorf("canva.create-design-import-job: decoding data: %w", decErr)
+	}
+
+	if len(bodyBytes) > maxStreamBodySize {
+		return nil, fmt.Errorf("canva.create-design-import-job: data exceeds %d byte limit", maxStreamBodySize)
+	}
+
+	bodyReader := bytes.NewReader(bodyBytes)
+	contentType := streamInput.ContentType
+	if contentType == "" {
+		contentType = "application/octet-stream"
+	}
+
+	resp, callErr := ic.cl.CreateDesignImportJobWithBodyWithResponse(ctx, &params, contentType, bodyReader)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("canva.create-design-import-job: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("canva.create-design-import-job: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil

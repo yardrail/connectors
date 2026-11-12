@@ -4,7 +4,9 @@
 package connector
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -19,6 +21,8 @@ var (
 	errInterfaceNotConfigured = errors.New("stripe: interface not configured")
 	errUnknownFunction        = errors.New("stripe: unknown function")
 )
+
+const maxStreamBodySize = 50 << 20 // 50 MiB
 
 // Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
@@ -13289,6 +13293,47 @@ func (ic *InterfaceClient) dispatchPostFileLinksLinkWithFormdataBodyWithResponse
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("stripe.post-file-links-link: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchPostFilesWithBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var streamInput struct {
+		Data        string `json:"data"`
+		ContentType string `json:"content_type"`
+	}
+
+	if err := json.Unmarshal(inputs, &streamInput); err != nil {
+		return nil, fmt.Errorf("stripe.post-files: stream input: %w", err)
+	}
+
+	bodyBytes, decErr := base64.StdEncoding.DecodeString(streamInput.Data)
+	if decErr != nil {
+		return nil, fmt.Errorf("stripe.post-files: decoding data: %w", decErr)
+	}
+
+	if len(bodyBytes) > maxStreamBodySize {
+		return nil, fmt.Errorf("stripe.post-files: data exceeds %d byte limit", maxStreamBodySize)
+	}
+
+	bodyReader := bytes.NewReader(bodyBytes)
+	contentType := streamInput.ContentType
+	if contentType == "" {
+		contentType = "application/octet-stream"
+	}
+
+	resp, callErr := ic.cl.PostFilesWithBodyWithResponse(ctx, contentType, bodyReader)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("stripe.post-files: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("stripe.post-files: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil

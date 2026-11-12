@@ -22,10 +22,12 @@ type InterfaceClient struct {
 type Function string
 
 const (
+	FnCreateAssetUploadJob              Function = "create-asset-upload-job"
 	FnCreateComment                     Function = "create-comment"
 	FnCreateDesign                      Function = "create-design"
 	FnCreateDesignAutofillJob           Function = "create-design-autofill-job"
 	FnCreateDesignExportJob             Function = "create-design-export-job"
+	FnCreateDesignImportJob             Function = "create-design-import-job"
 	FnCreateDesignMergeJob              Function = "create-design-merge-job"
 	FnCreateDesignResizeJob             Function = "create-design-resize-job"
 	FnCreateFolder                      Function = "create-folder"
@@ -88,6 +90,8 @@ const (
 // ParseFunction validates a function name and returns the typed Function value.
 func ParseFunction(s string) (Function, error) {
 	switch Function(s) {
+	case FnCreateAssetUploadJob:
+		return FnCreateAssetUploadJob, nil
 	case FnCreateComment:
 		return FnCreateComment, nil
 	case FnCreateDesign:
@@ -96,6 +100,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnCreateDesignAutofillJob, nil
 	case FnCreateDesignExportJob:
 		return FnCreateDesignExportJob, nil
+	case FnCreateDesignImportJob:
+		return FnCreateDesignImportJob, nil
 	case FnCreateDesignMergeJob:
 		return FnCreateDesignMergeJob, nil
 	case FnCreateDesignResizeJob:
@@ -218,6 +224,8 @@ func ParseFunction(s string) (Function, error) {
 // Dispatch calls the named function's typed client method.
 func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
 	switch fn {
+	case FnCreateAssetUploadJob:
+		return ic.dispatchCreateAssetUploadJobWithBodyWithResponse(ctx, config, inputs)
 	case FnCreateComment:
 		return ic.dispatchCreateCommentWithResponse(ctx, config, inputs)
 	case FnCreateDesign:
@@ -226,6 +234,8 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchCreateDesignAutofillJobWithResponse(ctx, config, inputs)
 	case FnCreateDesignExportJob:
 		return ic.dispatchCreateDesignExportJobWithResponse(ctx, config, inputs)
+	case FnCreateDesignImportJob:
+		return ic.dispatchCreateDesignImportJobWithBodyWithResponse(ctx, config, inputs)
 	case FnCreateDesignMergeJob:
 		return ic.dispatchCreateDesignMergeJobWithResponse(ctx, config, inputs)
 	case FnCreateDesignResizeJob:
