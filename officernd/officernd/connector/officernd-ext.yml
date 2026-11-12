@@ -13,13 +13,9 @@ $graph:
   - name: AmenitiesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get an amenity"
     fields:
       - name: class
         type: "#AmenitiesControllerGetItemApiv2_class"
@@ -35,13 +31,9 @@ $graph:
   - name: AmenitiesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all amenities"
     fields:
       - name: class
         type: "#AmenitiesControllerGetItemsApiv2_class"
@@ -57,13 +49,9 @@ $graph:
   - name: AssignmentsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create an assignment"
     fields:
       - name: class
         type: "#AssignmentsControllerAddItemApiv2_class"
@@ -79,13 +67,9 @@ $graph:
   - name: AssignmentsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete an assignment"
     fields:
       - name: class
         type: "#AssignmentsControllerDeleteItemApiv2_class"
@@ -101,13 +85,9 @@ $graph:
   - name: AssignmentsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve assignments by resource and/or membership"
     fields:
       - name: class
         type: "#AssignmentsControllerGetItemsApiv2_class"
@@ -123,13 +103,9 @@ $graph:
   - name: AuthControllerImpersonateMemberApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Impersonate a member"
     fields:
       - name: class
         type: "#AuthControllerImpersonateMemberApiv2_class"
@@ -145,13 +121,9 @@ $graph:
   - name: AuthControllerSigninApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Sign in a user"
     fields:
       - name: class
         type: "#AuthControllerSigninApiv2_class"
@@ -167,13 +139,9 @@ $graph:
   - name: AuthControllerSignupApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create a user"
     fields:
       - name: class
         type: "#AuthControllerSignupApiv2_class"
@@ -189,13 +157,9 @@ $graph:
   - name: AuthControllerVerifyTokenApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Validate JWT token"
     fields:
       - name: class
         type: "#AuthControllerVerifyTokenApiv2_class"
@@ -211,13 +175,9 @@ $graph:
   - name: BenefitsControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get benefits count by filter"
     fields:
       - name: class
         type: "#BenefitsControllerCountApiv2_class"
@@ -233,13 +193,9 @@ $graph:
   - name: BenefitsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get benefit"
     fields:
       - name: class
         type: "#BenefitsControllerGetItemApiv2_class"
@@ -255,13 +211,9 @@ $graph:
   - name: BenefitsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get benefits"
     fields:
       - name: class
         type: "#BenefitsControllerGetItemsApiv2_class"
@@ -277,13 +229,9 @@ $graph:
   - name: BillingSettingsControllerGetBillingSettingsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve billing settings."
     fields:
       - name: class
         type: "#BillingSettingsControllerGetBillingSettingsApiv2_class"
@@ -299,13 +247,9 @@ $graph:
   - name: BookingsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add new booking"
     fields:
       - name: class
         type: "#BookingsControllerAddItemApiv2_class"
@@ -321,13 +265,9 @@ $graph:
   - name: BookingsControllerCancelBookingApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Cancel a booking that was already confirmed."
     fields:
       - name: class
         type: "#BookingsControllerCancelBookingApiv2_class"
@@ -343,13 +283,9 @@ $graph:
   - name: BookingsControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get bookings count"
     fields:
       - name: class
         type: "#BookingsControllerCountApiv2_class"
@@ -365,13 +301,9 @@ $graph:
   - name: BookingsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete booking"
     fields:
       - name: class
         type: "#BookingsControllerDeleteItemApiv2_class"
@@ -387,13 +319,9 @@ $graph:
   - name: BookingsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve single booking."
     fields:
       - name: class
         type: "#BookingsControllerGetItemApiv2_class"
@@ -409,13 +337,9 @@ $graph:
   - name: BookingsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all booking series and one-off bookings."
     fields:
       - name: class
         type: "#BookingsControllerGetItemsApiv2_class"
@@ -431,13 +355,9 @@ $graph:
   - name: BookingsControllerGetOccurrencesApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all booking occurrences (expanded instances)."
     fields:
       - name: class
         type: "#BookingsControllerGetOccurrencesApiv2_class"
@@ -453,13 +373,9 @@ $graph:
   - name: BookingsControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update existing booking"
     fields:
       - name: class
         type: "#BookingsControllerUpdateItemApiv2_class"
@@ -475,13 +391,9 @@ $graph:
   - name: BookingsControllerValidateBookingApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Validate a booking."
     fields:
       - name: class
         type: "#BookingsControllerValidateBookingApiv2_class"
@@ -497,13 +409,9 @@ $graph:
   - name: BusinessHoursControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve business hours."
     fields:
       - name: class
         type: "#BusinessHoursControllerGetItemsApiv2_class"
@@ -519,13 +427,9 @@ $graph:
   - name: ChargesControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create a new charge for invoice"
     fields:
       - name: class
         type: "#ChargesControllerAddItemApiv2_class"
@@ -541,13 +445,9 @@ $graph:
   - name: ChargesControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete a charge for invoice"
     fields:
       - name: class
         type: "#ChargesControllerDeleteItemApiv2_class"
@@ -563,13 +463,9 @@ $graph:
   - name: ChargesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all charges"
     fields:
       - name: class
         type: "#ChargesControllerGetItemsApiv2_class"
@@ -585,13 +481,9 @@ $graph:
   - name: ChargesControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update a charge for invoice"
     fields:
       - name: class
         type: "#ChargesControllerUpdateItemApiv2_class"
@@ -607,13 +499,9 @@ $graph:
   - name: CheckinsControllerCheckinMemberApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Check in a Member"
     fields:
       - name: class
         type: "#CheckinsControllerCheckinMemberApiv2_class"
@@ -629,13 +517,9 @@ $graph:
   - name: CheckinsControllerCheckoutApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Check Out a Member"
     fields:
       - name: class
         type: "#CheckinsControllerCheckoutApiv2_class"
@@ -651,13 +535,9 @@ $graph:
   - name: CheckinsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve a single Check-In"
     fields:
       - name: class
         type: "#CheckinsControllerGetItemApiv2_class"
@@ -673,13 +553,9 @@ $graph:
   - name: CheckinsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all check-ins."
     fields:
       - name: class
         type: "#CheckinsControllerGetItemsApiv2_class"
@@ -695,13 +571,9 @@ $graph:
   - name: CheckinsControllerGetVisitorCheckinsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all visitor check-ins."
     fields:
       - name: class
         type: "#CheckinsControllerGetVisitorCheckinsApiv2_class"
@@ -717,13 +589,9 @@ $graph:
   - name: CheckoutControllerCheckoutApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Execute checkout"
     fields:
       - name: class
         type: "#CheckoutControllerCheckoutApiv2_class"
@@ -739,13 +607,9 @@ $graph:
   - name: CheckoutControllerGetCheckoutSummaryApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get checkout cost preview"
     fields:
       - name: class
         type: "#CheckoutControllerGetCheckoutSummaryApiv2_class"
@@ -761,13 +625,9 @@ $graph:
   - name: CoinsControllerGetCoinStatsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get the coin credit balance for a company/member in a specific month."
     fields:
       - name: class
         type: "#CoinsControllerGetCoinStatsApiv2_class"
@@ -783,13 +643,9 @@ $graph:
   - name: CompaniesControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add new company"
     fields:
       - name: class
         type: "#CompaniesControllerAddItemApiv2_class"
@@ -805,13 +661,9 @@ $graph:
   - name: CompaniesControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete company"
     fields:
       - name: class
         type: "#CompaniesControllerDeleteItemApiv2_class"
@@ -827,13 +679,9 @@ $graph:
   - name: CompaniesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get company"
     fields:
       - name: class
         type: "#CompaniesControllerGetItemApiv2_class"
@@ -849,13 +697,9 @@ $graph:
   - name: CompaniesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get companies"
     fields:
       - name: class
         type: "#CompaniesControllerGetItemsApiv2_class"
@@ -871,13 +715,9 @@ $graph:
   - name: CompaniesControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update company"
     fields:
       - name: class
         type: "#CompaniesControllerUpdateItemApiv2_class"
@@ -893,13 +733,9 @@ $graph:
   - name: ContractsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add new contract"
     fields:
       - name: class
         type: "#ContractsControllerAddItemApiv2_class"
@@ -915,13 +751,9 @@ $graph:
   - name: ContractsControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get contracts count by filter"
     fields:
       - name: class
         type: "#ContractsControllerCountApiv2_class"
@@ -937,13 +769,9 @@ $graph:
   - name: ContractsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete contract"
     fields:
       - name: class
         type: "#ContractsControllerDeleteItemApiv2_class"
@@ -959,13 +787,9 @@ $graph:
   - name: ContractsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get contract"
     fields:
       - name: class
         type: "#ContractsControllerGetItemApiv2_class"
@@ -981,13 +805,9 @@ $graph:
   - name: ContractsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all contracts."
     fields:
       - name: class
         type: "#ContractsControllerGetItemsApiv2_class"
@@ -1003,13 +823,9 @@ $graph:
   - name: ContractsControllerSignItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Sign a contract"
     fields:
       - name: class
         type: "#ContractsControllerSignItemApiv2_class"
@@ -1025,13 +841,9 @@ $graph:
   - name: ContractsControllerTerminateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Terminate a contract"
     fields:
       - name: class
         type: "#ContractsControllerTerminateItemApiv2_class"
@@ -1047,13 +859,9 @@ $graph:
   - name: ContractsControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update contract custom properties"
     fields:
       - name: class
         type: "#ContractsControllerUpdateItemApiv2_class"
@@ -1069,13 +877,9 @@ $graph:
   - name: CreditsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create a new set of credits."
     fields:
       - name: class
         type: "#CreditsControllerAddItemApiv2_class"
@@ -1091,13 +895,9 @@ $graph:
   - name: CreditsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete a set of credits."
     fields:
       - name: class
         type: "#CreditsControllerDeleteItemApiv2_class"
@@ -1113,13 +913,9 @@ $graph:
   - name: CreditsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve single set of credits."
     fields:
       - name: class
         type: "#CreditsControllerGetItemApiv2_class"
@@ -1135,13 +931,9 @@ $graph:
   - name: CreditsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all credits."
     fields:
       - name: class
         type: "#CreditsControllerGetItemsApiv2_class"
@@ -1157,13 +949,9 @@ $graph:
   - name: CreditsControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update an existing set of credits."
     fields:
       - name: class
         type: "#CreditsControllerUpdateItemApiv2_class"
@@ -1179,13 +967,9 @@ $graph:
   - name: CustomPropertiesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all custom properties"
     fields:
       - name: class
         type: "#CustomPropertiesControllerGetItemsApiv2_class"
@@ -1201,13 +985,9 @@ $graph:
   - name: EventsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create a new event."
     fields:
       - name: class
         type: "#EventsControllerAddItemApiv2_class"
@@ -1223,13 +1003,9 @@ $graph:
   - name: EventsControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get events count"
     fields:
       - name: class
         type: "#EventsControllerCountApiv2_class"
@@ -1245,13 +1021,9 @@ $graph:
   - name: EventsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete an event."
     fields:
       - name: class
         type: "#EventsControllerDeleteItemApiv2_class"
@@ -1267,13 +1039,9 @@ $graph:
   - name: EventsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve single event."
     fields:
       - name: class
         type: "#EventsControllerGetItemApiv2_class"
@@ -1289,13 +1057,9 @@ $graph:
   - name: EventsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all events."
     fields:
       - name: class
         type: "#EventsControllerGetItemsApiv2_class"
@@ -1311,13 +1075,9 @@ $graph:
   - name: EventsControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update an existing event."
     fields:
       - name: class
         type: "#EventsControllerUpdateItemApiv2_class"
@@ -1333,13 +1093,9 @@ $graph:
   - name: FeesControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add a new fee"
     fields:
       - name: class
         type: "#FeesControllerAddItemApiv2_class"
@@ -1355,13 +1111,9 @@ $graph:
   - name: FeesControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get fees count"
     fields:
       - name: class
         type: "#FeesControllerCountApiv2_class"
@@ -1377,13 +1129,9 @@ $graph:
   - name: FeesControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete a single fee"
     fields:
       - name: class
         type: "#FeesControllerDeleteItemApiv2_class"
@@ -1399,13 +1147,9 @@ $graph:
   - name: FeesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a single fee"
     fields:
       - name: class
         type: "#FeesControllerGetItemApiv2_class"
@@ -1421,13 +1165,9 @@ $graph:
   - name: FeesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a list of fees"
     fields:
       - name: class
         type: "#FeesControllerGetItemsApiv2_class"
@@ -1443,13 +1183,9 @@ $graph:
   - name: FeesControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update and existing fee"
     fields:
       - name: class
         type: "#FeesControllerUpdateItemApiv2_class"
@@ -1465,13 +1201,9 @@ $graph:
   - name: FloorsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Gets a specific floor"
     fields:
       - name: class
         type: "#FloorsControllerGetItemApiv2_class"
@@ -1487,13 +1219,9 @@ $graph:
   - name: FloorsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all floors"
     fields:
       - name: class
         type: "#FloorsControllerGetItemsApiv2_class"
@@ -1509,13 +1237,9 @@ $graph:
   - name: IntegrationsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a single integration"
     fields:
       - name: class
         type: "#IntegrationsControllerGetItemApiv2_class"
@@ -1531,13 +1255,9 @@ $graph:
   - name: LocationsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve single location."
     fields:
       - name: class
         type: "#LocationsControllerGetItemApiv2_class"
@@ -1553,13 +1273,9 @@ $graph:
   - name: LocationsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all locations."
     fields:
       - name: class
         type: "#LocationsControllerGetItemsApiv2_class"
@@ -1575,13 +1291,9 @@ $graph:
   - name: MembersControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add new member"
     fields:
       - name: class
         type: "#MembersControllerAddItemApiv2_class"
@@ -1597,13 +1309,9 @@ $graph:
   - name: MembersControllerCountByApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get members count by filter"
     fields:
       - name: class
         type: "#MembersControllerCountByApiv2_class"
@@ -1619,13 +1327,9 @@ $graph:
   - name: MembersControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete member"
     fields:
       - name: class
         type: "#MembersControllerDeleteItemApiv2_class"
@@ -1641,13 +1345,9 @@ $graph:
   - name: MembersControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get member"
     fields:
       - name: class
         type: "#MembersControllerGetItemApiv2_class"
@@ -1663,13 +1363,9 @@ $graph:
   - name: MembersControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get members"
     fields:
       - name: class
         type: "#MembersControllerGetItemsApiv2_class"
@@ -1685,13 +1381,9 @@ $graph:
   - name: MembersControllerManagePortalAccessApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Manage member portal access"
     fields:
       - name: class
         type: "#MembersControllerManagePortalAccessApiv2_class"
@@ -1707,13 +1399,9 @@ $graph:
   - name: MembersControllerUpdateCompanyApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update member company"
     fields:
       - name: class
         type: "#MembersControllerUpdateCompanyApiv2_class"
@@ -1729,13 +1417,9 @@ $graph:
   - name: MembersControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update member"
     fields:
       - name: class
         type: "#MembersControllerUpdateItemApiv2_class"
@@ -1751,13 +1435,9 @@ $graph:
   - name: MembersControllerUpdateStatusApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update member status"
     fields:
       - name: class
         type: "#MembersControllerUpdateStatusApiv2_class"
@@ -1773,13 +1453,9 @@ $graph:
   - name: MembershipsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add a new membership"
     fields:
       - name: class
         type: "#MembershipsControllerAddItemApiv2_class"
@@ -1795,13 +1471,9 @@ $graph:
   - name: MembershipsControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get memberships count"
     fields:
       - name: class
         type: "#MembershipsControllerCountApiv2_class"
@@ -1817,13 +1489,9 @@ $graph:
   - name: MembershipsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete a single membership"
     fields:
       - name: class
         type: "#MembershipsControllerDeleteItemApiv2_class"
@@ -1839,13 +1507,9 @@ $graph:
   - name: MembershipsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a single membership"
     fields:
       - name: class
         type: "#MembershipsControllerGetItemApiv2_class"
@@ -1861,13 +1525,9 @@ $graph:
   - name: MembershipsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a list of memberships"
     fields:
       - name: class
         type: "#MembershipsControllerGetItemsApiv2_class"
@@ -1883,13 +1543,9 @@ $graph:
   - name: MembershipsControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update an existing membership"
     fields:
       - name: class
         type: "#MembershipsControllerUpdateItemApiv2_class"
@@ -1905,13 +1561,9 @@ $graph:
   - name: OpportunitiesControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add new opportunity"
     fields:
       - name: class
         type: "#OpportunitiesControllerAddItemApiv2_class"
@@ -1927,13 +1579,9 @@ $graph:
   - name: OpportunitiesControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get opportunities count"
     fields:
       - name: class
         type: "#OpportunitiesControllerCountApiv2_class"
@@ -1949,13 +1597,9 @@ $graph:
   - name: OpportunitiesControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete opportunity"
     fields:
       - name: class
         type: "#OpportunitiesControllerDeleteItemApiv2_class"
@@ -1971,13 +1615,9 @@ $graph:
   - name: OpportunitiesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get opportunity"
     fields:
       - name: class
         type: "#OpportunitiesControllerGetItemApiv2_class"
@@ -1993,13 +1633,9 @@ $graph:
   - name: OpportunitiesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get opportunities"
     fields:
       - name: class
         type: "#OpportunitiesControllerGetItemsApiv2_class"
@@ -2015,13 +1651,9 @@ $graph:
   - name: OpportunitiesControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update opportunity"
     fields:
       - name: class
         type: "#OpportunitiesControllerUpdateItemApiv2_class"
@@ -2037,13 +1669,9 @@ $graph:
   - name: OpportunityStatusesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all opportunity statuses"
     fields:
       - name: class
         type: "#OpportunityStatusesControllerGetItemsApiv2_class"
@@ -2059,13 +1687,9 @@ $graph:
   - name: OrganizationsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get the current organization information"
     fields:
       - name: class
         type: "#OrganizationsControllerGetItemApiv2_class"
@@ -2073,24 +1697,20 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
-  - name: POSTGenerateTokenWithFormdataBody_class
+  - name: POSTGenerateToken_class
     type: enum
     inVocab: false
-    symbols: ["officernd:POSTGenerateTokenWithFormdataBody"]
+    symbols: ["officernd:POSTGenerateToken"]
 
-  - name: POSTGenerateTokenWithFormdataBody
+  - name: POSTGenerateToken
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Generate an OAuth 2.0 token"
     fields:
       - name: class
-        type: "#POSTGenerateTokenWithFormdataBody_class"
+        type: "#POSTGenerateToken_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -2103,13 +1723,9 @@ $graph:
   - name: PassesControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add a new set of day passes"
     fields:
       - name: class
         type: "#PassesControllerAddItemApiv2_class"
@@ -2125,13 +1741,9 @@ $graph:
   - name: PassesControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete a set of day passes"
     fields:
       - name: class
         type: "#PassesControllerDeleteItemApiv2_class"
@@ -2147,13 +1759,9 @@ $graph:
   - name: PassesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a set of day passes"
     fields:
       - name: class
         type: "#PassesControllerGetItemApiv2_class"
@@ -2169,13 +1777,9 @@ $graph:
   - name: PassesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get sets of day passes"
     fields:
       - name: class
         type: "#PassesControllerGetItemsApiv2_class"
@@ -2191,13 +1795,9 @@ $graph:
   - name: PassesControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update a set of day passes"
     fields:
       - name: class
         type: "#PassesControllerUpdateItemApiv2_class"
@@ -2213,13 +1813,9 @@ $graph:
   - name: PasswordControllerChangePasswordApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Change password"
     fields:
       - name: class
         type: "#PasswordControllerChangePasswordApiv2_class"
@@ -2235,13 +1831,9 @@ $graph:
   - name: PasswordControllerResetPasswordApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Reset password"
     fields:
       - name: class
         type: "#PasswordControllerResetPasswordApiv2_class"
@@ -2257,13 +1849,9 @@ $graph:
   - name: PaymentDetailsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add new payment details for user"
     fields:
       - name: class
         type: "#PaymentDetailsControllerAddItemApiv2_class"
@@ -2279,13 +1867,9 @@ $graph:
   - name: PaymentDetailsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete payment details by id"
     fields:
       - name: class
         type: "#PaymentDetailsControllerDeleteItemApiv2_class"
@@ -2301,13 +1885,9 @@ $graph:
   - name: PaymentDetailsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get payment details for user"
     fields:
       - name: class
         type: "#PaymentDetailsControllerGetItemsApiv2_class"
@@ -2323,13 +1903,9 @@ $graph:
   - name: PaymentDetailsControllerRegisterItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Register pre-created Stripe payment details"
     fields:
       - name: class
         type: "#PaymentDetailsControllerRegisterItemApiv2_class"
@@ -2345,13 +1921,9 @@ $graph:
   - name: PaymentGatewaysControllerAuthorizeApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Authorize payment or setup intent"
     fields:
       - name: class
         type: "#PaymentGatewaysControllerAuthorizeApiv2_class"
@@ -2367,13 +1939,9 @@ $graph:
   - name: PaymentsControllerAddCreditAllocationApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create a new allocation for credit note/overpayment"
     fields:
       - name: class
         type: "#PaymentsControllerAddCreditAllocationApiv2_class"
@@ -2389,13 +1957,9 @@ $graph:
   - name: PaymentsControllerAddOverpaymentApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Create a new overpayment"
     fields:
       - name: class
         type: "#PaymentsControllerAddOverpaymentApiv2_class"
@@ -2411,13 +1975,9 @@ $graph:
   - name: PaymentsControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve the payments count"
     fields:
       - name: class
         type: "#PaymentsControllerCountApiv2_class"
@@ -2433,13 +1993,9 @@ $graph:
   - name: PaymentsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get payment by id"
     fields:
       - name: class
         type: "#PaymentsControllerGetItemApiv2_class"
@@ -2455,13 +2011,9 @@ $graph:
   - name: PaymentsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all payments"
     fields:
       - name: class
         type: "#PaymentsControllerGetItemsApiv2_class"
@@ -2477,13 +2029,9 @@ $graph:
   - name: PaymentsControllerGetPaymentDocumentsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get all documents associated with the specific invoice"
     fields:
       - name: class
         type: "#PaymentsControllerGetPaymentDocumentsApiv2_class"
@@ -2499,13 +2047,9 @@ $graph:
   - name: PaymentsControllerGetPaymentMethodsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all payment methods"
     fields:
       - name: class
         type: "#PaymentsControllerGetPaymentMethodsApiv2_class"
@@ -2521,13 +2065,9 @@ $graph:
   - name: PaymentsControllerUpdateAllocationAccountingApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update allocation accounting"
     fields:
       - name: class
         type: "#PaymentsControllerUpdateAllocationAccountingApiv2_class"
@@ -2543,13 +2083,9 @@ $graph:
   - name: PaymentsControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update payment"
     fields:
       - name: class
         type: "#PaymentsControllerUpdateItemApiv2_class"
@@ -2565,13 +2101,9 @@ $graph:
   - name: PlansControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get plans count by filter"
     fields:
       - name: class
         type: "#PlansControllerCountApiv2_class"
@@ -2587,13 +2119,9 @@ $graph:
   - name: PlansControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get plan"
     fields:
       - name: class
         type: "#PlansControllerGetItemApiv2_class"
@@ -2609,13 +2137,9 @@ $graph:
   - name: PlansControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get plans"
     fields:
       - name: class
         type: "#PlansControllerGetItemsApiv2_class"
@@ -2631,13 +2155,9 @@ $graph:
   - name: PostsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add a new post"
     fields:
       - name: class
         type: "#PostsControllerAddItemApiv2_class"
@@ -2653,13 +2173,9 @@ $graph:
   - name: PostsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete a post"
     fields:
       - name: class
         type: "#PostsControllerDeleteItemApiv2_class"
@@ -2675,13 +2191,9 @@ $graph:
   - name: PostsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Gets a post"
     fields:
       - name: class
         type: "#PostsControllerGetItemApiv2_class"
@@ -2697,13 +2209,9 @@ $graph:
   - name: PostsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all posts"
     fields:
       - name: class
         type: "#PostsControllerGetItemsApiv2_class"
@@ -2719,13 +2227,9 @@ $graph:
   - name: ReceptionFlowsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get reception flows"
     fields:
       - name: class
         type: "#ReceptionFlowsControllerGetItemsApiv2_class"
@@ -2741,13 +2245,9 @@ $graph:
   - name: ResourceRatesControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get resource rates count"
     fields:
       - name: class
         type: "#ResourceRatesControllerCountApiv2_class"
@@ -2763,13 +2263,9 @@ $graph:
   - name: ResourceRatesControllerGetCancellationPolicyApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve the cancellation policy of a resource rate."
     fields:
       - name: class
         type: "#ResourceRatesControllerGetCancellationPolicyApiv2_class"
@@ -2785,13 +2281,9 @@ $graph:
   - name: ResourceRatesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve single resource rate."
     fields:
       - name: class
         type: "#ResourceRatesControllerGetItemApiv2_class"
@@ -2807,13 +2299,9 @@ $graph:
   - name: ResourceRatesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all resource rates."
     fields:
       - name: class
         type: "#ResourceRatesControllerGetItemsApiv2_class"
@@ -2829,13 +2317,9 @@ $graph:
   - name: ResourceTypesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get resource types"
     fields:
       - name: class
         type: "#ResourceTypesControllerGetItemsApiv2_class"
@@ -2851,13 +2335,9 @@ $graph:
   - name: ResourcesControllerCountApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get resources count"
     fields:
       - name: class
         type: "#ResourcesControllerCountApiv2_class"
@@ -2873,13 +2353,9 @@ $graph:
   - name: ResourcesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve single resource."
     fields:
       - name: class
         type: "#ResourcesControllerGetItemApiv2_class"
@@ -2895,13 +2371,9 @@ $graph:
   - name: ResourcesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all resources."
     fields:
       - name: class
         type: "#ResourcesControllerGetItemsApiv2_class"
@@ -2917,13 +2389,9 @@ $graph:
   - name: ResourcesControllerGetResourceStatusApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get resource status"
     fields:
       - name: class
         type: "#ResourcesControllerGetResourceStatusApiv2_class"
@@ -2939,13 +2407,9 @@ $graph:
   - name: RevenueAccountsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get single revenue account."
     fields:
       - name: class
         type: "#RevenueAccountsControllerGetItemApiv2_class"
@@ -2961,13 +2425,9 @@ $graph:
   - name: RevenueAccountsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all revenue accounts."
     fields:
       - name: class
         type: "#RevenueAccountsControllerGetItemsApiv2_class"
@@ -2983,13 +2443,9 @@ $graph:
   - name: SecondaryCurrenciesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a specific secondary currency"
     fields:
       - name: class
         type: "#SecondaryCurrenciesControllerGetItemApiv2_class"
@@ -3005,13 +2461,9 @@ $graph:
   - name: SecondaryCurrenciesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all secondary currencies"
     fields:
       - name: class
         type: "#SecondaryCurrenciesControllerGetItemsApiv2_class"
@@ -3027,13 +2479,9 @@ $graph:
   - name: SecondaryCurrenciesControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update a secondary currency"
     fields:
       - name: class
         type: "#SecondaryCurrenciesControllerUpdateItemApiv2_class"
@@ -3049,13 +2497,9 @@ $graph:
   - name: TaxRatesControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get single tax rate."
     fields:
       - name: class
         type: "#TaxRatesControllerGetItemApiv2_class"
@@ -3071,13 +2515,9 @@ $graph:
   - name: TaxRatesControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all tax rates."
     fields:
       - name: class
         type: "#TaxRatesControllerGetItemsApiv2_class"
@@ -3093,13 +2533,9 @@ $graph:
   - name: TicketCommentsControllerAddCommentApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Post a comment/comments about a specific ticket"
     fields:
       - name: class
         type: "#TicketCommentsControllerAddCommentApiv2_class"
@@ -3115,13 +2551,9 @@ $graph:
   - name: TicketCommentsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Retrieve all comments for a ticket"
     fields:
       - name: class
         type: "#TicketCommentsControllerGetItemsApiv2_class"
@@ -3137,13 +2569,9 @@ $graph:
   - name: TicketOptionsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get ticket options"
     fields:
       - name: class
         type: "#TicketOptionsControllerGetItemsApiv2_class"
@@ -3159,13 +2587,9 @@ $graph:
   - name: TicketsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add a new ticket"
     fields:
       - name: class
         type: "#TicketsControllerAddItemApiv2_class"
@@ -3181,13 +2605,9 @@ $graph:
   - name: TicketsControllerCountByApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get tickets count by filter"
     fields:
       - name: class
         type: "#TicketsControllerCountByApiv2_class"
@@ -3203,13 +2623,9 @@ $graph:
   - name: TicketsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get ticket"
     fields:
       - name: class
         type: "#TicketsControllerGetItemApiv2_class"
@@ -3225,13 +2641,9 @@ $graph:
   - name: TicketsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get tickets"
     fields:
       - name: class
         type: "#TicketsControllerGetItemsApiv2_class"
@@ -3247,13 +2659,9 @@ $graph:
   - name: TicketsControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update an existing ticket"
     fields:
       - name: class
         type: "#TicketsControllerUpdateItemApiv2_class"
@@ -3269,13 +2677,9 @@ $graph:
   - name: VisitorsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add new visitor"
     fields:
       - name: class
         type: "#VisitorsControllerAddItemApiv2_class"
@@ -3291,13 +2695,9 @@ $graph:
   - name: VisitorsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete visitor"
     fields:
       - name: class
         type: "#VisitorsControllerDeleteItemApiv2_class"
@@ -3313,13 +2713,9 @@ $graph:
   - name: VisitorsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get visitor"
     fields:
       - name: class
         type: "#VisitorsControllerGetItemApiv2_class"
@@ -3335,13 +2731,9 @@ $graph:
   - name: VisitorsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get visitors"
     fields:
       - name: class
         type: "#VisitorsControllerGetItemsApiv2_class"
@@ -3357,13 +2749,9 @@ $graph:
   - name: VisitsControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add new visit"
     fields:
       - name: class
         type: "#VisitsControllerAddItemApiv2_class"
@@ -3379,13 +2767,9 @@ $graph:
   - name: VisitsControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete visit"
     fields:
       - name: class
         type: "#VisitsControllerDeleteItemApiv2_class"
@@ -3401,13 +2785,9 @@ $graph:
   - name: VisitsControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get visit"
     fields:
       - name: class
         type: "#VisitsControllerGetItemApiv2_class"
@@ -3423,13 +2803,9 @@ $graph:
   - name: VisitsControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get visits"
     fields:
       - name: class
         type: "#VisitsControllerGetItemsApiv2_class"
@@ -3445,13 +2821,9 @@ $graph:
   - name: WebhooksControllerAddItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Add a new webhook"
     fields:
       - name: class
         type: "#WebhooksControllerAddItemApiv2_class"
@@ -3467,13 +2839,9 @@ $graph:
   - name: WebhooksControllerDeleteItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Delete a single webhook"
     fields:
       - name: class
         type: "#WebhooksControllerDeleteItemApiv2_class"
@@ -3489,13 +2857,9 @@ $graph:
   - name: WebhooksControllerGetItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a single webhook"
     fields:
       - name: class
         type: "#WebhooksControllerGetItemApiv2_class"
@@ -3511,13 +2875,9 @@ $graph:
   - name: WebhooksControllerGetItemsApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Get a list of webhooks"
     fields:
       - name: class
         type: "#WebhooksControllerGetItemsApiv2_class"
@@ -3533,13 +2893,9 @@ $graph:
   - name: WebhooksControllerUpdateItemApiv2
     type: record
     inVocab: false
-    extends: cwl:Process
+    extends: cwl:Operation
     documentRoot: true
-    specialize:
-      - specializeFrom: cwl:InputParameter
-        specializeTo: cwl:OperationInputParameter
-      - specializeFrom: cwl:OutputParameter
-        specializeTo: cwl:OperationOutputParameter
+    doc: "Update an existing webhook"
     fields:
       - name: class
         type: "#WebhooksControllerUpdateItemApiv2_class"

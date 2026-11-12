@@ -60,6 +60,8 @@ github.com/yardrail/connectors/egnyte/egnyte v0.0.0-20261109202406-166a57d28704 
 github.com/yardrail/connectors/egnyte/egnyte v0.0.0-20261109202406-166a57d28704/go.mod h1:lfBkHfKjSvE+g5dE+0aP8somusKrpYZcV8Nn5KyWuEE=
 github.com/yardrail/connectors/notion/notion v0.0.0-20261109202406-166a57d28704 h1:h51uvobvPmMcHYAbYF5s8eV+Xl9Eh8mFx2KOXeQg04k=
 github.com/yardrail/connectors/notion/notion v0.0.0-20261109202406-166a57d28704/go.mod h1:zTKTUkE1NMUP1Hx01yHVdtm03vBSs+jNRWIW5+nof+U=
+github.com/yardrail/connectors/officernd/officernd v0.0.0-20261112051002-951478bbec2d h1:LecStN6Eh5CeDHpv9vl19uQgtrKWBSZUBnEOdaZv+u0=
+github.com/yardrail/connectors/officernd/officernd v0.0.0-20261112051002-951478bbec2d/go.mod h1:QUJxZ/xTwuInFFks1ztw7SYpn5og53PbkpcCBKMfVZo=
 github.com/yardrail/connectors/slack/slack v0.0.0-20261109202406-166a57d28704 h1:ZYGyjbGGXPGhMFO+zoZzpkgXnYFVBmvYcp3B/Lk4Xqs=
 github.com/yardrail/connectors/slack/slack v0.0.0-20261109202406-166a57d28704/go.mod h1:dCRGyZFs4bU+DaKOCCjfS64FH6j9XDF1g6MOjzVKcZc=
 go.opentelemetry.io/auto/sdk v1.2.1 h1:jXsnJ4Lmnqd11kwkBV2LgLoFMZKizbCi5fNZ/ipaZ64=
