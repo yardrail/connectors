@@ -6,6 +6,7 @@ require (
 	github.com/vektah/gqlparser/v2 v2.5.63
 	github.com/yardrail/connectors/egnyte/egnyte v0.0.0-20261109202406-166a57d28704
 	github.com/yardrail/connectors/notion/notion v0.0.0-20261109202406-166a57d28704
+	github.com/yardrail/connectors/officernd/officernd v0.0.0-20261112051002-951478bbec2d
 	github.com/yardrail/connectors/slack/slack v0.0.0-20261109202406-166a57d28704
 	golang.org/x/tools v0.52.0
 	google.golang.org/api v0.312.0

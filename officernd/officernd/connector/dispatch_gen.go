@@ -2802,7 +2802,7 @@ func (ic *InterfaceClient) dispatchPOSTGenerateTokenWithFormdataBodyWithResponse
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.p-o-s-t-generate-token-with-formdata-body: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.p-o-s-t-generate-token: %w", bodyErr)
 	}
 
 	resp, callErr := ic.cl.POSTGenerateTokenWithFormdataBodyWithResponse(ctx, body)
@@ -2811,11 +2811,11 @@ func (ic *InterfaceClient) dispatchPOSTGenerateTokenWithFormdataBodyWithResponse
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.p-o-s-t-generate-token-with-formdata-body: nil response")
+		return nil, fmt.Errorf("officernd.p-o-s-t-generate-token: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.p-o-s-t-generate-token-with-formdata-body: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.p-o-s-t-generate-token: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil

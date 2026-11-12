@@ -116,7 +116,7 @@ const (
 	FnOpportunitiesControllerUpdateItemApiv2            Function = "opportunities-controller-update-item-apiv2"
 	FnOpportunityStatusesControllerGetItemsApiv2        Function = "opportunity-statuses-controller-get-items-apiv2"
 	FnOrganizationsControllerGetItemApiv2               Function = "organizations-controller-get-item-apiv2"
-	FnPOSTGenerateTokenWithFormdataBody                 Function = "p-o-s-t-generate-token-with-formdata-body"
+	FnPOSTGenerateToken                                 Function = "p-o-s-t-generate-token"
 	FnPassesControllerAddItemApiv2                      Function = "passes-controller-add-item-apiv2"
 	FnPassesControllerDeleteItemApiv2                   Function = "passes-controller-delete-item-apiv2"
 	FnPassesControllerGetItemApiv2                      Function = "passes-controller-get-item-apiv2"
@@ -376,8 +376,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnOpportunityStatusesControllerGetItemsApiv2, nil
 	case FnOrganizationsControllerGetItemApiv2:
 		return FnOrganizationsControllerGetItemApiv2, nil
-	case FnPOSTGenerateTokenWithFormdataBody:
-		return FnPOSTGenerateTokenWithFormdataBody, nil
+	case FnPOSTGenerateToken:
+		return FnPOSTGenerateToken, nil
 	case FnPassesControllerAddItemApiv2:
 		return FnPassesControllerAddItemApiv2, nil
 	case FnPassesControllerDeleteItemApiv2:
@@ -706,7 +706,7 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchOpportunityStatusesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
 	case FnOrganizationsControllerGetItemApiv2:
 		return ic.dispatchOrganizationsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnPOSTGenerateTokenWithFormdataBody:
+	case FnPOSTGenerateToken:
 		return ic.dispatchPOSTGenerateTokenWithFormdataBodyWithResponse(ctx, config, inputs)
 	case FnPassesControllerAddItemApiv2:
 		return ic.dispatchPassesControllerAddItemApiv2WithResponse(ctx, config, inputs)

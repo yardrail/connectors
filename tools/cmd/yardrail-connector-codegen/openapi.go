@@ -274,6 +274,7 @@ func normalizeOpID(id string) string {
 		"_", "",
 		"-", "",
 		".", "",
+		"/", "",
 		" ", "",
 	).Replace(id))
 }
