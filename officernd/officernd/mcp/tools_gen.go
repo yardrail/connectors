@@ -24,17 +24,17 @@ func NewHandler(resolve ServiceResolver) *Handler {
 func (h *Handler) RegisterAmenities(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("amenities-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *AmenitiesControllerGetItemApiv2Response"),
+		mcp.NewTool("amenities-get-item",
+			mcp.WithDescription("Get an amenity\n\nGet the amenity with id = {amenityId}.\n\n\tRequired scopes: `flex.space.amenities.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/amenities/{amenityId} (the `AmenitiesGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("amenityId", mcp.Required(), mcp.Description("amenityId")),
 		),
-		h.handleAmenitiesControllerGetItemApiv2WithResponse,
+		h.handleAmenitiesGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("amenities-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *AmenitiesControllerGetItemsApiv2Response"),
+		mcp.NewTool("amenities-get-items",
+			mcp.WithDescription("Retrieve all amenities\n\nRetrieve all amenities.\n\n\tRequired scopes: `flex.space.amenities.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/amenities (the `AmenitiesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("title", mcp.Description("Title")),
@@ -45,7 +45,7 @@ func (h *Handler) RegisterAmenities(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleAmenitiesControllerGetItemsApiv2WithResponse,
+		h.handleAmenitiesGetItemsWithResponse,
 	)
 
 }
@@ -54,26 +54,26 @@ func (h *Handler) RegisterAmenities(s *server.MCPServer) {
 func (h *Handler) RegisterAssignments(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("assignments-controller-add-item-apiv2",
-			mcp.WithDescription("AssignmentsControllerAddItemApiv2"),
+		mcp.NewTool("assignments-add-item",
+			mcp.WithDescription("Create an assignment\n\nAssign a resource to a membership for a given period. Validations (resource availability, no overlapping assignments) are enforced by the backend.\n\n\tRequired scopes: `flex.space.assignments.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/assignments (the `AssignmentsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AssignmentsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AssignmentsAddItemJSONRequestBody)")),
 		),
-		h.handleAssignmentsControllerAddItemApiv2WithResponse,
+		h.handleAssignmentsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("assignments-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *AssignmentsControllerDeleteItemApiv2Response"),
+		mcp.NewTool("assignments-delete-item",
+			mcp.WithDescription("Delete an assignment\n\nRemove an assignment by id. Use this to correct an incorrect assignment.\n\n\tRequired scopes: `flex.space.assignments.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/assignments/{assignmentId} (the `AssignmentsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("assignmentId", mcp.Required(), mcp.Description("assignmentId")),
 		),
-		h.handleAssignmentsControllerDeleteItemApiv2WithResponse,
+		h.handleAssignmentsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("assignments-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *AssignmentsControllerGetItemsApiv2Response"),
+		mcp.NewTool("assignments-get-items",
+			mcp.WithDescription("Retrieve assignments by resource and/or membership\n\nGet paged assignments. At least one of resource or membership is required. Supports single ids and array filters via $in (e.g. \"/assignments?resource[$in]=id1,id2\").\n\n\tRequired scopes: `flex.space.assignments.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/assignments (the `AssignmentsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("resource", mcp.Description("Resource")),
 			mcp.WithString("membership", mcp.Description("Membership")),
@@ -84,7 +84,7 @@ func (h *Handler) RegisterAssignments(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleAssignmentsControllerGetItemsApiv2WithResponse,
+		h.handleAssignmentsGetItemsWithResponse,
 	)
 
 }
@@ -93,39 +93,39 @@ func (h *Handler) RegisterAssignments(s *server.MCPServer) {
 func (h *Handler) RegisterAuth(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("auth-controller-impersonate-member-apiv2",
-			mcp.WithDescription("AuthControllerImpersonateMemberApiv2"),
+		mcp.NewTool("auth-impersonate-member",
+			mcp.WithDescription("Impersonate a member\n\nAuthenticate member by given email. Returns the access token to login (impersonate) as a member.\n\n\t           The authentication token returned by this endpoint can be used to generate quick login links to the members portal.\n\t           You just need to add access_token=<token> to the URL.\n\n\tRequired scopes: `flex.user.auth.impersonate`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/auth/impersonate (the `AuthImpersonateMember` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthControllerImpersonateMemberApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthImpersonateMemberJSONRequestBody)")),
 		),
-		h.handleAuthControllerImpersonateMemberApiv2WithResponse,
+		h.handleAuthImpersonateMemberWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("auth-controller-signin-apiv2",
-			mcp.WithDescription("AuthControllerSigninApiv2"),
+		mcp.NewTool("auth-signin",
+			mcp.WithDescription("Sign in a user\n\nAuthenticates a member with email and password. On success, returns the signed-in user profile (`_id`, `email`, `name`, `image`).\n\n\tRequired scopes: `flex.user.auth.signin`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/auth/signin (the `AuthSignin` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthControllerSigninApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthSigninJSONRequestBody)")),
 		),
-		h.handleAuthControllerSigninApiv2WithResponse,
+		h.handleAuthSigninWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("auth-controller-signup-apiv2",
-			mcp.WithDescription("AuthControllerSignupApiv2"),
+		mcp.NewTool("auth-signup",
+			mcp.WithDescription("Create a user\n\nCreates a new set of user credentials. The credentials can be used later to log in to OfficeRnD member tools.\n\n\t           The password that is being set for the user must have at least 3 out of the 4 elements below:\n\t               Uppercase letter\n\t               Lowercase letter\n\t               Digit\n\t               Symbol\n\n\tRequired scopes: `flex.user.auth.signup`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/auth/signup (the `AuthSignup` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthControllerSignupApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthSignupJSONRequestBody)")),
 		),
-		h.handleAuthControllerSignupApiv2WithResponse,
+		h.handleAuthSignupWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("auth-controller-verify-token-apiv2",
-			mcp.WithDescription("AuthControllerVerifyTokenApiv2"),
+		mcp.NewTool("auth-verify-token",
+			mcp.WithDescription("Validate JWT token\n\nValidate the provided JWT token and retrieve user information from the token.\n\n\tRequired scopes: `flex.user.auth.verify`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/auth/verify (the `AuthVerifyToken` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthControllerVerifyTokenApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.AuthVerifyTokenJSONRequestBody)")),
 		),
-		h.handleAuthControllerVerifyTokenApiv2WithResponse,
+		h.handleAuthVerifyTokenWithResponse,
 	)
 
 }
@@ -134,25 +134,25 @@ func (h *Handler) RegisterAuth(s *server.MCPServer) {
 func (h *Handler) RegisterBenefits(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("benefits-controller-count-apiv2",
-			mcp.WithDescription("request returning *BenefitsControllerCountApiv2Response"),
+		mcp.NewTool("benefits-count",
+			mcp.WithDescription("Get benefits count by filter\n\nRetrieve a count of benefit\n\n\tRequired scopes: `flex.collaboration.benefits.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/benefits/count (the `BenefitsCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleBenefitsControllerCountApiv2WithResponse,
+		h.handleBenefitsCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("benefits-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *BenefitsControllerGetItemApiv2Response"),
+		mcp.NewTool("benefits-get-item",
+			mcp.WithDescription("Get benefit\n\nGet benefit by id\n\n\tRequired scopes: `flex.collaboration.benefits.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/benefits/{benefitId} (the `BenefitsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("benefitId", mcp.Required(), mcp.Description("benefitId")),
 		),
-		h.handleBenefitsControllerGetItemApiv2WithResponse,
+		h.handleBenefitsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("benefits-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *BenefitsControllerGetItemsApiv2Response"),
+		mcp.NewTool("benefits-get-items",
+			mcp.WithDescription("Get benefits\n\nRetrieve a list of benefits based on provided filters\n\n\tRequired scopes: `flex.collaboration.benefits.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/benefits (the `BenefitsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("createdAt", mcp.Description("CreatedAt")),
 			mcp.WithString("modifiedAt", mcp.Description("ModifiedAt")),
@@ -161,7 +161,7 @@ func (h *Handler) RegisterBenefits(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleBenefitsControllerGetItemsApiv2WithResponse,
+		h.handleBenefitsGetItemsWithResponse,
 	)
 
 }
@@ -170,11 +170,11 @@ func (h *Handler) RegisterBenefits(s *server.MCPServer) {
 func (h *Handler) RegisterBillingSettings(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("billing-settings-controller-get-billing-settings-apiv2",
-			mcp.WithDescription("request returning *BillingSettingsControllerGetBillingSettingsApiv2Response"),
+		mcp.NewTool("billing-settings-get-billing-settings",
+			mcp.WithDescription("Retrieve billing settings.\n\nRetrieve billing settings.\n\n\tRequired scopes: `flex.settings.billing.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/settings/billing (the `BillingSettingsGetBillingSettings` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleBillingSettingsControllerGetBillingSettingsApiv2WithResponse,
+		h.handleBillingSettingsGetBillingSettingsWithResponse,
 	)
 
 }
@@ -183,57 +183,57 @@ func (h *Handler) RegisterBillingSettings(s *server.MCPServer) {
 func (h *Handler) RegisterBookings(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-add-item-apiv2",
-			mcp.WithDescription("BookingsControllerAddItemApiv2"),
+		mcp.NewTool("bookings-add-item",
+			mcp.WithDescription("Add new booking\n\nOption 1 - Create a booking associated only with a member.             You can the associate the booking with a company as well.\n\n\t           Option 2 - Create a booking associated only with a company.             You can the associate the booking with a member as well.\n\n\tRequired scopes: `flex.space.bookings.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/bookings (the `BookingsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithBoolean("isSilent", mcp.Description("IsSilent")),
 			mcp.WithBoolean("enforceBookingPolicy", mcp.Description("EnforceBookingPolicy")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsAddItemJSONRequestBody)")),
 		),
-		h.handleBookingsControllerAddItemApiv2WithResponse,
+		h.handleBookingsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-cancel-booking-apiv2",
-			mcp.WithDescription("request returning *BookingsControllerCancelBookingApiv2Response"),
+		mcp.NewTool("bookings-cancel-booking",
+			mcp.WithDescription("Cancel a booking that was already confirmed.\n\nBooking cancellation may trigger a notification or generate a cancellation fee based on the cancellation policy.             If you want to suppress those, you should use the \"isSilent\" and \"skipCancellationPolicy\" query string parameters.\n\n\tRequired scopes: `flex.space.bookings.cancel`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/bookings/{bookingId}/cancel (the `BookingsCancelBooking` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("bookingId", mcp.Required(), mcp.Description("bookingId")),
 			mcp.WithBoolean("isSilent", mcp.Description("IsSilent")),
 			mcp.WithBoolean("skipCancellationPolicy", mcp.Description("SkipCancellationPolicy")),
 		),
-		h.handleBookingsControllerCancelBookingApiv2WithResponse,
+		h.handleBookingsCancelBookingWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-count-apiv2",
-			mcp.WithDescription("request returning *BookingsControllerCountApiv2Response"),
+		mcp.NewTool("bookings-count",
+			mcp.WithDescription("Get bookings count\n\nRetrieve a count of bookings\n\n\tRequired scopes: `flex.space.bookings.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/bookings/count (the `BookingsCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleBookingsControllerCountApiv2WithResponse,
+		h.handleBookingsCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *BookingsControllerDeleteItemApiv2Response"),
+		mcp.NewTool("bookings-delete-item",
+			mcp.WithDescription("Delete booking\n\nDelete booking by id\n\n\tRequired scopes: `flex.space.bookings.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/bookings/{bookingId} (the `BookingsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("bookingId", mcp.Required(), mcp.Description("bookingId")),
 			mcp.WithBoolean("isSilent", mcp.Description("IsSilent")),
 		),
-		h.handleBookingsControllerDeleteItemApiv2WithResponse,
+		h.handleBookingsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *BookingsControllerGetItemApiv2Response"),
+		mcp.NewTool("bookings-get-item",
+			mcp.WithDescription("Retrieve single booking.\n\nRetrieve single booking.\n\n\tRequired scopes: `flex.space.bookings.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/bookings/{bookingId} (the `BookingsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("bookingId", mcp.Required(), mcp.Description("bookingId")),
 		),
-		h.handleBookingsControllerGetItemApiv2WithResponse,
+		h.handleBookingsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *BookingsControllerGetItemsApiv2Response"),
+		mcp.NewTool("bookings-get-items",
+			mcp.WithDescription("Retrieve all booking series and one-off bookings.\n\nReturns all bookings, including single (non-recurring) bookings and one entry per recurring series.             For recurring bookings, only the first instance is returned — not the full list of occurrences.             To retrieve individual instances in a series, use the `/bookings/occurrences` endpoint.\n\n\tRequired scopes: `flex.space.bookings.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/bookings (the `BookingsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -252,12 +252,12 @@ func (h *Handler) RegisterBookings(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleBookingsControllerGetItemsApiv2WithResponse,
+		h.handleBookingsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-get-occurrences-apiv2",
-			mcp.WithDescription("request returning *BookingsControllerGetOccurrencesApiv2Response"),
+		mcp.NewTool("bookings-get-occurrences",
+			mcp.WithDescription("Retrieve all booking occurrences (expanded instances).\n\nReturns a flat list of individual booking occurrences within a given time period.             This includes both one-off bookings and all expanded instances from recurring series.             Useful for calendars, availability checks, and reports.             If no pagination is used, the maximum supported period is 1 year.\n\n\tRequired scopes: `flex.space.bookings.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/bookings/occurrences (the `BookingsGetOccurrences` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -273,28 +273,28 @@ func (h *Handler) RegisterBookings(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleBookingsControllerGetOccurrencesApiv2WithResponse,
+		h.handleBookingsGetOccurrencesWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-update-item-apiv2",
-			mcp.WithDescription("BookingsControllerUpdateItemApiv2"),
+		mcp.NewTool("bookings-update-item",
+			mcp.WithDescription("Update existing booking\n\nUpdate existing booking\n\n\tRequired scopes: `flex.space.bookings.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/bookings/{bookingId} (the `BookingsUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("bookingId", mcp.Required(), mcp.Description("bookingId")),
 			mcp.WithBoolean("isSilent", mcp.Description("IsSilent")),
 			mcp.WithBoolean("enforceBookingPolicy", mcp.Description("EnforceBookingPolicy")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsUpdateItemJSONRequestBody)")),
 		),
-		h.handleBookingsControllerUpdateItemApiv2WithResponse,
+		h.handleBookingsUpdateItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("bookings-controller-validate-booking-apiv2",
-			mcp.WithDescription("BookingsControllerValidateBookingApiv2"),
+		mcp.NewTool("bookings-validate-booking",
+			mcp.WithDescription("Validate a booking.\n\nValidates a booking and returns a result stating if the booking is valid and any charges, fees, or credits that are going to be used.\n\n\tRequired scopes: `flex.space.bookings.validate`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/bookings/validate (the `BookingsValidateBooking` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsControllerValidateBookingApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.BookingsValidateBookingJSONRequestBody)")),
 		),
-		h.handleBookingsControllerValidateBookingApiv2WithResponse,
+		h.handleBookingsValidateBookingWithResponse,
 	)
 
 }
@@ -303,15 +303,15 @@ func (h *Handler) RegisterBookings(s *server.MCPServer) {
 func (h *Handler) RegisterBusinessHours(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("business-hours-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *BusinessHoursControllerGetItemsApiv2Response"),
+		mcp.NewTool("business-hours-get-items",
+			mcp.WithDescription("Retrieve business hours.\n\nRetrieve business hours.\n\n\tRequired scopes: `flex.settings.businessHours.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/settings/business-hours (the `BusinessHoursGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("location", mcp.Description("Location")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleBusinessHoursControllerGetItemsApiv2WithResponse,
+		h.handleBusinessHoursGetItemsWithResponse,
 	)
 
 }
@@ -320,26 +320,26 @@ func (h *Handler) RegisterBusinessHours(s *server.MCPServer) {
 func (h *Handler) RegisterCharges(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("charges-controller-add-item-apiv2",
-			mcp.WithDescription("ChargesControllerAddItemApiv2"),
+		mcp.NewTool("charges-add-item",
+			mcp.WithDescription("Create a new charge for invoice\n\nCreate a new charge for the specified invoice.\n\n\tRequired scopes: `flex.billing.charges.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/charges (the `ChargesAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ChargesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ChargesAddItemJSONRequestBody)")),
 		),
-		h.handleChargesControllerAddItemApiv2WithResponse,
+		h.handleChargesAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("charges-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *ChargesControllerDeleteItemApiv2Response"),
+		mcp.NewTool("charges-delete-item",
+			mcp.WithDescription("Delete a charge for invoice\n\nDelete a charge for the specified invoice.\n\n\tRequired scopes: `flex.billing.charges.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/charges/{chargeId} (the `ChargesDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("chargeId", mcp.Required(), mcp.Description("chargeId")),
 		),
-		h.handleChargesControllerDeleteItemApiv2WithResponse,
+		h.handleChargesDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("charges-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *ChargesControllerGetItemsApiv2Response"),
+		mcp.NewTool("charges-get-items",
+			mcp.WithDescription("Retrieve all charges\n\nRetrieve all charges for a specific invoice.\n\n\tRequired scopes: `flex.billing.charges.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/charges (the `ChargesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("status", mcp.Description("Status")),
@@ -354,17 +354,17 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 			mcp.WithString("$sort", mcp.Description("Sort")),
 		),
-		h.handleChargesControllerGetItemsApiv2WithResponse,
+		h.handleChargesGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("charges-controller-update-item-apiv2",
-			mcp.WithDescription("ChargesControllerUpdateItemApiv2"),
+		mcp.NewTool("charges-update-item",
+			mcp.WithDescription("Update a charge for invoice\n\nUpdate a charge for the specified invoice.\n\n\tRequired scopes: `flex.billing.charges.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/charges/{chargeId} (the `ChargesUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("chargeId", mcp.Required(), mcp.Description("chargeId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ChargesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ChargesUpdateItemJSONRequestBody)")),
 		),
-		h.handleChargesControllerUpdateItemApiv2WithResponse,
+		h.handleChargesUpdateItemWithResponse,
 	)
 
 }
@@ -373,36 +373,36 @@ func (h *Handler) RegisterCharges(s *server.MCPServer) {
 func (h *Handler) RegisterCheckins(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("checkins-controller-checkin-member-apiv2",
-			mcp.WithDescription("CheckinsControllerCheckinMemberApiv2"),
+		mcp.NewTool("checkins-checkin-member",
+			mcp.WithDescription("Check in a Member\n\nCheck in member with id = {memberId}. Member checkins with start date before the current date and no end date are not allowed.\n\n\tRequired scopes: `flex.community.checkins.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/checkins/{memberId} (the `CheckinsCheckinMember` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckinsControllerCheckinMemberApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckinsCheckinMemberJSONRequestBody)")),
 		),
-		h.handleCheckinsControllerCheckinMemberApiv2WithResponse,
+		h.handleCheckinsCheckinMemberWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("checkins-controller-checkout-apiv2",
-			mcp.WithDescription("request returning *CheckinsControllerCheckoutApiv2Response"),
+		mcp.NewTool("checkins-checkout",
+			mcp.WithDescription("Check Out a Member\n\nCheck out member with id = {memberId}. The request will update current checkins end date with now if the checkins don't have an end date.\n\n\tRequired scopes: `flex.community.checkins.update`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/checkins/checkout/{memberId} (the `CheckinsCheckout` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
 		),
-		h.handleCheckinsControllerCheckoutApiv2WithResponse,
+		h.handleCheckinsCheckoutWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("checkins-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *CheckinsControllerGetItemApiv2Response"),
+		mcp.NewTool("checkins-get-item",
+			mcp.WithDescription("Retrieve a single Check-In\n\nRetrieve a single Check-In by checkinId.\n\n\tRequired scopes: `flex.community.checkins.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/checkins/{checkinId} (the `CheckinsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("checkinId", mcp.Required(), mcp.Description("checkinId")),
 		),
-		h.handleCheckinsControllerGetItemApiv2WithResponse,
+		h.handleCheckinsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("checkins-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *CheckinsControllerGetItemsApiv2Response"),
+		mcp.NewTool("checkins-get-items",
+			mcp.WithDescription("Retrieve all check-ins.\n\nRetrieve all check-ins.\n\n\tRequired scopes: `flex.community.checkins.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/checkins (the `CheckinsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -417,12 +417,12 @@ func (h *Handler) RegisterCheckins(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleCheckinsControllerGetItemsApiv2WithResponse,
+		h.handleCheckinsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("checkins-controller-get-visitor-checkins-apiv2",
-			mcp.WithDescription("request returning *CheckinsControllerGetVisitorCheckinsApiv2Response"),
+		mcp.NewTool("checkins-get-visitor-checkins",
+			mcp.WithDescription("Retrieve all visitor check-ins.\n\nRetrieve all visitor check-ins.\n\n\tRequired scopes: `flex.community.checkins.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/checkins/visitors (the `CheckinsGetVisitorCheckins` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -438,7 +438,7 @@ func (h *Handler) RegisterCheckins(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleCheckinsControllerGetVisitorCheckinsApiv2WithResponse,
+		h.handleCheckinsGetVisitorCheckinsWithResponse,
 	)
 
 }
@@ -447,23 +447,23 @@ func (h *Handler) RegisterCheckins(s *server.MCPServer) {
 func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("checkout-controller-checkout-apiv2",
-			mcp.WithDescription("CheckoutControllerCheckoutApiv2"),
+		mcp.NewTool("checkout-checkout",
+			mcp.WithDescription("Execute checkout\n\nExecute a checkout for memberships, fees, or bookings. Provide either memberships/fees or a booking, but not both. This endpoint creates billable items and may trigger invoice generation, payment charging, email notifications, and legal document signing depending on the provided options and the organization's billing flow.\n\n**Memberships/Fees flow:** Creates memberships and/or fees for the member. The checkout options control whether an invoice is generated immediately, whether the member is charged, and whether a credit card is required. If `shouldRequestApproval` is true, the order is created but payment is deferred and an approval request email is sent instead of the standard checkout confirmation.\n\n**Booking flow:** Creates a booking for the specified resource and time slot. If the booking produces fees, an invoice is generated and processed automatically. This flow simulates the booking experience from the members portal or public calendar.\n\n\tRequired scopes: `flex.billing.checkout.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/checkout (the `CheckoutCheckout` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithBoolean("enforceBookingPolicy", mcp.Description("EnforceBookingPolicy")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckoutControllerCheckoutApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckoutCheckoutJSONRequestBody)")),
 		),
-		h.handleCheckoutControllerCheckoutApiv2WithResponse,
+		h.handleCheckoutCheckoutWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("checkout-controller-get-checkout-summary-apiv2",
-			mcp.WithDescription("CheckoutControllerGetCheckoutSummaryApiv2"),
+		mcp.NewTool("checkout-get-checkout-summary",
+			mcp.WithDescription("Get checkout cost preview\n\nReturns a cost preview for a potential checkout without creating an order or charging the member. Provide either memberships/fees or a booking, but not both. A discount code can be included to see its effect on pricing.\n\n**Memberships/Fees flow:** Calculates the order total based on the selected plans, fees, and the member's billing context (billing flow, currency, tax settings). Returns line items, subtotal, total, tax breakdown, and any applicable processing fees or discounts.\n\n**Booking flow:** Returns a summary of the booking request including resource availability pricing, per-date fee breakdown with credits and coins applied, and the cancellation policy that would apply to the booking.\n\n\tRequired scopes: `flex.billing.checkout.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/checkout/summary (the `CheckoutGetCheckoutSummary` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithBoolean("enforceBookingPolicy", mcp.Description("EnforceBookingPolicy")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckoutControllerGetCheckoutSummaryApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CheckoutGetCheckoutSummaryJSONRequestBody)")),
 		),
-		h.handleCheckoutControllerGetCheckoutSummaryApiv2WithResponse,
+		h.handleCheckoutGetCheckoutSummaryWithResponse,
 	)
 
 }
@@ -472,8 +472,8 @@ func (h *Handler) RegisterCheckout(s *server.MCPServer) {
 func (h *Handler) RegisterCoins(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("coins-controller-get-coin-stats-apiv2",
-			mcp.WithDescription("request returning *CoinsControllerGetCoinStatsApiv2Response"),
+		mcp.NewTool("coins-get-coin-stats",
+			mcp.WithDescription("Get the coin credit balance for a company/member in a specific month.\n\nGet the coin credit balance for a company/member in a specific month.\n\n\t           Returns \"monthly\" and \"once\" balances of the coins.\n\t           You must specify either \"member id\" or \"company id\" and \"month\" in the query of the request.\n\t           If a member is part of a company, any coins that are assigned to the member will be transferred to the company.\n\t           Always query for the \"company id\", if the member is part of a company.\n\n\tRequired scopes: `flex.space.coins.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/coins/stats (the `CoinsGetCoinStats` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("month", mcp.Description("Month")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -483,7 +483,7 @@ func (h *Handler) RegisterCoins(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleCoinsControllerGetCoinStatsApiv2WithResponse,
+		h.handleCoinsGetCoinStatsWithResponse,
 	)
 
 }
@@ -492,35 +492,35 @@ func (h *Handler) RegisterCoins(s *server.MCPServer) {
 func (h *Handler) RegisterCompanies(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("companies-controller-add-item-apiv2",
-			mcp.WithDescription("CompaniesControllerAddItemApiv2"),
+		mcp.NewTool("companies-add-item",
+			mcp.WithDescription("Add new company\n\nAdd new company\n\n\tRequired scopes: `flex.community.companies.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/companies (the `CompaniesAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CompaniesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CompaniesAddItemJSONRequestBody)")),
 		),
-		h.handleCompaniesControllerAddItemApiv2WithResponse,
+		h.handleCompaniesAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("companies-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *CompaniesControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("companyId", mcp.Required(), mcp.Description("companyId")),
-		),
-		h.handleCompaniesControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("companies-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *CompaniesControllerGetItemApiv2Response"),
+		mcp.NewTool("companies-delete-item",
+			mcp.WithDescription("Delete company\n\nDelete company by id\n\n\tRequired scopes: `flex.community.companies.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/companies/{companyId} (the `CompaniesDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("companyId", mcp.Required(), mcp.Description("companyId")),
 		),
-		h.handleCompaniesControllerGetItemApiv2WithResponse,
+		h.handleCompaniesDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("companies-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *CompaniesControllerGetItemsApiv2Response"),
+		mcp.NewTool("companies-get-item",
+			mcp.WithDescription("Get company\n\nGet company by id\n\n\tRequired scopes: `flex.community.companies.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/companies/{companyId} (the `CompaniesGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("companyId", mcp.Required(), mcp.Description("companyId")),
+		),
+		h.handleCompaniesGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("companies-get-items",
+			mcp.WithDescription("Get companies\n\nRetrieve a list of companies based on provided filters\n\n\tRequired scopes: `flex.community.companies.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/companies (the `CompaniesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -535,17 +535,17 @@ func (h *Handler) RegisterCompanies(s *server.MCPServer) {
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 			mcp.WithString("$sort", mcp.Description("Sort")),
 		),
-		h.handleCompaniesControllerGetItemsApiv2WithResponse,
+		h.handleCompaniesGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("companies-controller-update-item-apiv2",
-			mcp.WithDescription("CompaniesControllerUpdateItemApiv2"),
+		mcp.NewTool("companies-update-item",
+			mcp.WithDescription("Update company\n\nUpdate company by id\n\n\tRequired scopes: `flex.community.companies.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/companies/{companyId} (the `CompaniesUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("companyId", mcp.Required(), mcp.Description("companyId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CompaniesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CompaniesUpdateItemJSONRequestBody)")),
 		),
-		h.handleCompaniesControllerUpdateItemApiv2WithResponse,
+		h.handleCompaniesUpdateItemWithResponse,
 	)
 
 }
@@ -554,17 +554,17 @@ func (h *Handler) RegisterCompanies(s *server.MCPServer) {
 func (h *Handler) RegisterContracts(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("contracts-controller-add-item-apiv2",
-			mcp.WithDescription("ContractsControllerAddItemApiv2"),
+		mcp.NewTool("contracts-add-item",
+			mcp.WithDescription("Add new contract\n\nOption 1 - Create a contract of a type, that requires at least one resource.\nYou can add secondary items such as recurring plans and one-off plans as well, if the contract type allows it.\n\nOption 2 - Create a contract of a type, that requires at least one recurring plan.\nYou can add secondary items such as resources and one-off plans as well, if the contract type allows it\n\nOption 3 - Create a contract of a type, that requires at least one one-off plan.\nYou can add secondary items such as recurring plans and resources as well, if the contract type allows it\n\n\tRequired scopes: `flex.community.contracts.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/contracts (the `ContractsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsAddItemJSONRequestBody)")),
 		),
-		h.handleContractsControllerAddItemApiv2WithResponse,
+		h.handleContractsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("contracts-controller-count-apiv2",
-			mcp.WithDescription("request returning *ContractsControllerCountApiv2Response"),
+		mcp.NewTool("contracts-count",
+			mcp.WithDescription("Get contracts count by filter\n\nRetrieve a count of contracts based on provided filters\n\n\tRequired scopes: `flex.community.contracts.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/contracts/count (the `ContractsCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -575,30 +575,30 @@ func (h *Handler) RegisterContracts(s *server.MCPServer) {
 			mcp.WithString("modifiedAt", mcp.Description("ModifiedAt")),
 			mcp.WithString("$countBy", mcp.Description("CountBy")),
 		),
-		h.handleContractsControllerCountApiv2WithResponse,
+		h.handleContractsCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("contracts-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *ContractsControllerDeleteItemApiv2Response"),
+		mcp.NewTool("contracts-delete-item",
+			mcp.WithDescription("Delete contract\n\nDelete contract by id\n\n\tRequired scopes: `flex.community.contracts.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/contracts/{contractId} (the `ContractsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("contractId", mcp.Required(), mcp.Description("contractId")),
 		),
-		h.handleContractsControllerDeleteItemApiv2WithResponse,
+		h.handleContractsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("contracts-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *ContractsControllerGetItemApiv2Response"),
+		mcp.NewTool("contracts-get-item",
+			mcp.WithDescription("Get contract\n\nGet contract by id\n\n\tRequired scopes: `flex.community.contracts.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/contracts/{contractId} (the `ContractsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("contractId", mcp.Required(), mcp.Description("contractId")),
 		),
-		h.handleContractsControllerGetItemApiv2WithResponse,
+		h.handleContractsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("contracts-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *ContractsControllerGetItemsApiv2Response"),
+		mcp.NewTool("contracts-get-items",
+			mcp.WithDescription("Retrieve all contracts.\n\nRetrieve a list of contracts based on provided filters\n\n\tRequired scopes: `flex.community.contracts.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/contracts (the `ContractsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -613,36 +613,36 @@ func (h *Handler) RegisterContracts(s *server.MCPServer) {
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 			mcp.WithString("$sort", mcp.Description("Sort")),
 		),
-		h.handleContractsControllerGetItemsApiv2WithResponse,
+		h.handleContractsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("contracts-controller-sign-item-apiv2",
-			mcp.WithDescription("request returning *ContractsControllerSignItemApiv2Response"),
+		mcp.NewTool("contracts-sign-item",
+			mcp.WithDescription("Sign a contract\n\nSign the contract with id = {contractId}. Contracts can be signed only if they are approved and they are not already signed.\n\n\tRequired scopes: `flex.community.contracts.sign`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/contracts/{contractId}/sign (the `ContractsSignItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("contractId", mcp.Required(), mcp.Description("contractId")),
 		),
-		h.handleContractsControllerSignItemApiv2WithResponse,
+		h.handleContractsSignItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("contracts-controller-terminate-item-apiv2",
-			mcp.WithDescription("ContractsControllerTerminateItemApiv2"),
+		mcp.NewTool("contracts-terminate-item",
+			mcp.WithDescription("Terminate a contract\n\nTerminate the contract with id = {contractId}. Contracts can be terminated only if they are already signed and they are not terminated or expired already\n\n\tRequired scopes: `flex.community.contracts.terminate`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/contracts/{contractId}/terminate (the `ContractsTerminateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("contractId", mcp.Required(), mcp.Description("contractId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsControllerTerminateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsTerminateItemJSONRequestBody)")),
 		),
-		h.handleContractsControllerTerminateItemApiv2WithResponse,
+		h.handleContractsTerminateItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("contracts-controller-update-item-apiv2",
-			mcp.WithDescription("ContractsControllerUpdateItemApiv2"),
+		mcp.NewTool("contracts-update-item",
+			mcp.WithDescription("Update contract custom properties\n\nUpdate custom properties on a contract. Only the properties field is accepted. Provided keys are added or updated; keys not included in the request are preserved.\n\n\tRequired scopes: `flex.community.contracts.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/contracts/{contractId} (the `ContractsUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("contractId", mcp.Required(), mcp.Description("contractId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.ContractsUpdateItemJSONRequestBody)")),
 		),
-		h.handleContractsControllerUpdateItemApiv2WithResponse,
+		h.handleContractsUpdateItemWithResponse,
 	)
 
 }
@@ -651,35 +651,35 @@ func (h *Handler) RegisterContracts(s *server.MCPServer) {
 func (h *Handler) RegisterCredits(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("credits-controller-add-item-apiv2",
-			mcp.WithDescription("CreditsControllerAddItemApiv2"),
+		mcp.NewTool("credits-add-item",
+			mcp.WithDescription("Create a new set of credits.\n\nCreate a new set of credits.\n\n\tRequired scopes: `flex.space.credits.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/credits (the `CreditsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CreditsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CreditsAddItemJSONRequestBody)")),
 		),
-		h.handleCreditsControllerAddItemApiv2WithResponse,
+		h.handleCreditsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("credits-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *CreditsControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("creditsId", mcp.Required(), mcp.Description("creditsId")),
-		),
-		h.handleCreditsControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("credits-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *CreditsControllerGetItemApiv2Response"),
+		mcp.NewTool("credits-delete-item",
+			mcp.WithDescription("Delete a set of credits.\n\nDelete a set of credits.\n\n\tRequired scopes: `flex.space.credits.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/credits/{creditsId} (the `CreditsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("creditsId", mcp.Required(), mcp.Description("creditsId")),
 		),
-		h.handleCreditsControllerGetItemApiv2WithResponse,
+		h.handleCreditsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("credits-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *CreditsControllerGetItemsApiv2Response"),
+		mcp.NewTool("credits-get-item",
+			mcp.WithDescription("Retrieve single set of credits.\n\nRetrieve single set of credits.\n\n\tRequired scopes: `flex.space.credits.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/credits/{creditsId} (the `CreditsGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("creditsId", mcp.Required(), mcp.Description("creditsId")),
+		),
+		h.handleCreditsGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("credits-get-items",
+			mcp.WithDescription("Retrieve all credits.\n\nRetrieve all credits.\n\n\tRequired scopes: `flex.space.credits.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/credits (the `CreditsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("company", mcp.Description("Company")),
 			mcp.WithString("member", mcp.Description("Member")),
@@ -692,17 +692,17 @@ func (h *Handler) RegisterCredits(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleCreditsControllerGetItemsApiv2WithResponse,
+		h.handleCreditsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("credits-controller-update-item-apiv2",
-			mcp.WithDescription("CreditsControllerUpdateItemApiv2"),
+		mcp.NewTool("credits-update-item",
+			mcp.WithDescription("Update an existing set of credits.\n\nUpdate an existing set of credits.\n\n\tRequired scopes: `flex.space.credits.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/credits/{creditsId} (the `CreditsUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("creditsId", mcp.Required(), mcp.Description("creditsId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CreditsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.CreditsUpdateItemJSONRequestBody)")),
 		),
-		h.handleCreditsControllerUpdateItemApiv2WithResponse,
+		h.handleCreditsUpdateItemWithResponse,
 	)
 
 }
@@ -711,15 +711,15 @@ func (h *Handler) RegisterCredits(s *server.MCPServer) {
 func (h *Handler) RegisterCustomProperties(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("custom-properties-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *CustomPropertiesControllerGetItemsApiv2Response"),
+		mcp.NewTool("custom-properties-get-items",
+			mcp.WithDescription("Retrieve all custom properties\n\nRetrieve all custom properties.\n\n\tRequired scopes: `flex.settings.customProperties.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/custom-properties (the `CustomPropertiesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleCustomPropertiesControllerGetItemsApiv2WithResponse,
+		h.handleCustomPropertiesGetItemsWithResponse,
 	)
 
 }
@@ -728,43 +728,43 @@ func (h *Handler) RegisterCustomProperties(s *server.MCPServer) {
 func (h *Handler) RegisterEvents(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("events-controller-add-item-apiv2",
-			mcp.WithDescription("EventsControllerAddItemApiv2"),
+		mcp.NewTool("events-add-item",
+			mcp.WithDescription("Create a new event.\n\nCreate a new event.\n\n\tRequired scopes: `flex.collaboration.events.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/events (the `EventsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.EventsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.EventsAddItemJSONRequestBody)")),
 		),
-		h.handleEventsControllerAddItemApiv2WithResponse,
+		h.handleEventsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("events-controller-count-apiv2",
-			mcp.WithDescription("request returning *EventsControllerCountApiv2Response"),
+		mcp.NewTool("events-count",
+			mcp.WithDescription("Get events count\n\nRetrieve a count of events\n\n\tRequired scopes: `flex.collaboration.events.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/events/count (the `EventsCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleEventsControllerCountApiv2WithResponse,
+		h.handleEventsCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("events-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *EventsControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-		),
-		h.handleEventsControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("events-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *EventsControllerGetItemApiv2Response"),
+		mcp.NewTool("events-delete-item",
+			mcp.WithDescription("Delete an event.\n\nDelete an event.\n\n\tRequired scopes: `flex.collaboration.events.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/events/{eventId} (the `EventsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
 		),
-		h.handleEventsControllerGetItemApiv2WithResponse,
+		h.handleEventsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("events-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *EventsControllerGetItemsApiv2Response"),
+		mcp.NewTool("events-get-item",
+			mcp.WithDescription("Retrieve single event.\n\nRetrieve single event.\n\n\tRequired scopes: `flex.collaboration.events.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/events/{eventId} (the `EventsGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
+		),
+		h.handleEventsGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("events-get-items",
+			mcp.WithDescription("Retrieve all events.\n\nRetrieve all events.\n\n\tRequired scopes: `flex.collaboration.events.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/events (the `EventsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("location", mcp.Description("Location")),
 			mcp.WithString("start", mcp.Description("Start")),
@@ -776,17 +776,17 @@ func (h *Handler) RegisterEvents(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleEventsControllerGetItemsApiv2WithResponse,
+		h.handleEventsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("events-controller-update-item-apiv2",
-			mcp.WithDescription("EventsControllerUpdateItemApiv2"),
+		mcp.NewTool("events-update-item",
+			mcp.WithDescription("Update an existing event.\n\nUpdate an existing event.\n\n\tRequired scopes: `flex.collaboration.events.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/events/{eventId} (the `EventsUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("eventId", mcp.Required(), mcp.Description("eventId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.EventsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.EventsUpdateItemJSONRequestBody)")),
 		),
-		h.handleEventsControllerUpdateItemApiv2WithResponse,
+		h.handleEventsUpdateItemWithResponse,
 	)
 
 }
@@ -795,44 +795,44 @@ func (h *Handler) RegisterEvents(s *server.MCPServer) {
 func (h *Handler) RegisterFees(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("fees-controller-add-item-apiv2",
-			mcp.WithDescription("FeesControllerAddItemApiv2"),
+		mcp.NewTool("fees-add-item",
+			mcp.WithDescription("Add a new fee\n\nAdd a new fee\n\n\tRequired scopes: `flex.community.fees.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/fees (the `FeesAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithBoolean("shouldUseCoins", mcp.Description("ShouldUseCoins")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.FeesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.FeesAddItemJSONRequestBody)")),
 		),
-		h.handleFeesControllerAddItemApiv2WithResponse,
+		h.handleFeesAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("fees-controller-count-apiv2",
-			mcp.WithDescription("request returning *FeesControllerCountApiv2Response"),
+		mcp.NewTool("fees-count",
+			mcp.WithDescription("Get fees count\n\nRetrieve the fees count\n\n\tRequired scopes: `flex.community.fees.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/fees/count (the `FeesCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleFeesControllerCountApiv2WithResponse,
+		h.handleFeesCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("fees-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *FeesControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("feeId", mcp.Required(), mcp.Description("feeId")),
-		),
-		h.handleFeesControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("fees-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *FeesControllerGetItemApiv2Response"),
+		mcp.NewTool("fees-delete-item",
+			mcp.WithDescription("Delete a single fee\n\nDelete a single fee by id\n\n\tRequired scopes: `flex.community.fees.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/fees/{feeId} (the `FeesDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("feeId", mcp.Required(), mcp.Description("feeId")),
 		),
-		h.handleFeesControllerGetItemApiv2WithResponse,
+		h.handleFeesDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("fees-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *FeesControllerGetItemsApiv2Response"),
+		mcp.NewTool("fees-get-item",
+			mcp.WithDescription("Get a single fee\n\nGet a single fee by id\n\n\tRequired scopes: `flex.community.fees.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/fees/{feeId} (the `FeesGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("feeId", mcp.Required(), mcp.Description("feeId")),
+		),
+		h.handleFeesGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("fees-get-items",
+			mcp.WithDescription("Get a list of fees\n\nRetrieve a list of fees based on provided filters\n\n\tRequired scopes: `flex.community.fees.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/fees (the `FeesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -848,18 +848,18 @@ func (h *Handler) RegisterFees(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleFeesControllerGetItemsApiv2WithResponse,
+		h.handleFeesGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("fees-controller-update-item-apiv2",
-			mcp.WithDescription("FeesControllerUpdateItemApiv2"),
+		mcp.NewTool("fees-update-item",
+			mcp.WithDescription("Update and existing fee\n\nUpdate and existing fee\n\n\tRequired scopes: `flex.community.fees.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/fees/{feeId} (the `FeesUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("feeId", mcp.Required(), mcp.Description("feeId")),
 			mcp.WithBoolean("shouldUseCoins", mcp.Description("ShouldUseCoins")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.FeesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.FeesUpdateItemJSONRequestBody)")),
 		),
-		h.handleFeesControllerUpdateItemApiv2WithResponse,
+		h.handleFeesUpdateItemWithResponse,
 	)
 
 }
@@ -868,17 +868,17 @@ func (h *Handler) RegisterFees(s *server.MCPServer) {
 func (h *Handler) RegisterFloors(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("floors-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *FloorsControllerGetItemApiv2Response"),
+		mcp.NewTool("floors-get-item",
+			mcp.WithDescription("Gets a specific floor\n\nGet the floor with id = {floorId}.\n\n\tRequired scopes: `flex.space.floors.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/floors/{floorId} (the `FloorsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("floorId", mcp.Required(), mcp.Description("floorId")),
 		),
-		h.handleFloorsControllerGetItemApiv2WithResponse,
+		h.handleFloorsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("floors-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *FloorsControllerGetItemsApiv2Response"),
+		mcp.NewTool("floors-get-items",
+			mcp.WithDescription("Retrieve all floors\n\nRetrieve all floors in the space.\n\n\tRequired scopes: `flex.space.floors.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/floors (the `FloorsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -890,7 +890,7 @@ func (h *Handler) RegisterFloors(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleFloorsControllerGetItemsApiv2WithResponse,
+		h.handleFloorsGetItemsWithResponse,
 	)
 
 }
@@ -899,12 +899,12 @@ func (h *Handler) RegisterFloors(s *server.MCPServer) {
 func (h *Handler) RegisterIntegrations(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("integrations-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *IntegrationsControllerGetItemApiv2Response"),
+		mcp.NewTool("integrations-get-item",
+			mcp.WithDescription("Get a single integration\n\nGet a single integration by id\n\n\tRequired scopes: `flex.settings.integrations.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/integrations/{integrationId} (the `IntegrationsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("integrationId", mcp.Required(), mcp.Description("integrationId")),
 		),
-		h.handleIntegrationsControllerGetItemApiv2WithResponse,
+		h.handleIntegrationsGetItemWithResponse,
 	)
 
 }
@@ -913,17 +913,17 @@ func (h *Handler) RegisterIntegrations(s *server.MCPServer) {
 func (h *Handler) RegisterLocations(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("locations-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *LocationsControllerGetItemApiv2Response"),
+		mcp.NewTool("locations-get-item",
+			mcp.WithDescription("Retrieve single location.\n\nRetrieve single location.\n\n\tRequired scopes: `flex.space.locations.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/locations/{locationId} (the `LocationsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("locationId", mcp.Required(), mcp.Description("locationId")),
 		),
-		h.handleLocationsControllerGetItemApiv2WithResponse,
+		h.handleLocationsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("locations-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *LocationsControllerGetItemsApiv2Response"),
+		mcp.NewTool("locations-get-items",
+			mcp.WithDescription("Retrieve all locations.\n\nRetrieve all locations.\n\n\tRequired scopes: `flex.space.locations.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/locations (the `LocationsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -936,7 +936,7 @@ func (h *Handler) RegisterLocations(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleLocationsControllerGetItemsApiv2WithResponse,
+		h.handleLocationsGetItemsWithResponse,
 	)
 
 }
@@ -945,17 +945,17 @@ func (h *Handler) RegisterLocations(s *server.MCPServer) {
 func (h *Handler) RegisterMembers(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("members-controller-add-item-apiv2",
-			mcp.WithDescription("MembersControllerAddItemApiv2"),
+		mcp.NewTool("members-add-item",
+			mcp.WithDescription("Add new member\n\nAdd new member\n\n\tRequired scopes: `flex.community.members.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/members (the `MembersAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersAddItemJSONRequestBody)")),
 		),
-		h.handleMembersControllerAddItemApiv2WithResponse,
+		h.handleMembersAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("members-controller-count-by-apiv2",
-			mcp.WithDescription("request returning *MembersControllerCountByApiv2Response"),
+		mcp.NewTool("members-count-by",
+			mcp.WithDescription("Get members count by filter\n\nRetrieve a count of members based on provided filters\n\n\tRequired scopes: `flex.community.members.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/members/count (the `MembersCountBy` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -969,30 +969,30 @@ func (h *Handler) RegisterMembers(s *server.MCPServer) {
 			mcp.WithString("properties", mcp.Description("Properties")),
 			mcp.WithString("$countBy", mcp.Description("CountBy")),
 		),
-		h.handleMembersControllerCountByApiv2WithResponse,
+		h.handleMembersCountByWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("members-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *MembersControllerDeleteItemApiv2Response"),
+		mcp.NewTool("members-delete-item",
+			mcp.WithDescription("Delete member\n\nYou can delete member by id.\n\n\tRequired scopes: `flex.community.members.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/members/{memberId} (the `MembersDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
 		),
-		h.handleMembersControllerDeleteItemApiv2WithResponse,
+		h.handleMembersDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("members-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *MembersControllerGetItemApiv2Response"),
+		mcp.NewTool("members-get-item",
+			mcp.WithDescription("Get member\n\nGet member by id\n\n\tRequired scopes: `flex.community.members.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/members/{memberId} (the `MembersGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
 		),
-		h.handleMembersControllerGetItemApiv2WithResponse,
+		h.handleMembersGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("members-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *MembersControllerGetItemsApiv2Response"),
+		mcp.NewTool("members-get-items",
+			mcp.WithDescription("Get members\n\nRetrieve a list of members based on provided filters\n\n\tRequired scopes: `flex.community.members.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/members (the `MembersGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -1010,47 +1010,47 @@ func (h *Handler) RegisterMembers(s *server.MCPServer) {
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 			mcp.WithString("$sort", mcp.Description("Sort")),
 		),
-		h.handleMembersControllerGetItemsApiv2WithResponse,
+		h.handleMembersGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("members-controller-manage-portal-access-apiv2",
-			mcp.WithDescription("MembersControllerManagePortalAccessApiv2"),
+		mcp.NewTool("members-manage-portal-access",
+			mcp.WithDescription("Manage member portal access\n\nManage portal access for a member. This endpoint enables or disables a member's ability to access the members portal.\n\n**Enabling Portal Access (isPortalAccessEnabled = true):**\n\n| Scenario | Behavior |\n|----------|----------|\n| Member has no portal access | Creates or finds a user (by member email), creates the user role, and sends an invitation email |\n| Member already has portal access | If `shouldSendInvitation` is true, re-sends the invitation email; otherwise does nothing |\n\n**Disabling Portal Access (isPortalAccessEnabled = false):**\n- Deletes the user role that links the user to the member, revoking portal access\n\n**Request Properties:**\n- `isPortalAccessEnabled`: Required. Set to `true` to grant or maintain access, `false` to revoke access\n- `shouldSendInvitation`: Optional (default: false). When `true`, re-sends an invitation email. Only applies when the member already has portal access\n\n\tRequired scopes: `flex.community.members.portalAccess.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/members/{memberId}/portal-access (the `MembersManagePortalAccess` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerManagePortalAccessApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersManagePortalAccessJSONRequestBody)")),
 		),
-		h.handleMembersControllerManagePortalAccessApiv2WithResponse,
+		h.handleMembersManagePortalAccessWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("members-controller-update-company-apiv2",
-			mcp.WithDescription("MembersControllerUpdateCompanyApiv2"),
+		mcp.NewTool("members-update-company",
+			mcp.WithDescription("Update member company\n\nAssign the member to a different company.\n\n\tRequired scopes: `flex.community.members.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/members/{memberId}/company (the `MembersUpdateCompany` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerUpdateCompanyApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersUpdateCompanyJSONRequestBody)")),
 		),
-		h.handleMembersControllerUpdateCompanyApiv2WithResponse,
+		h.handleMembersUpdateCompanyWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("members-controller-update-item-apiv2",
-			mcp.WithDescription("MembersControllerUpdateItemApiv2"),
+		mcp.NewTool("members-update-item",
+			mcp.WithDescription("Update member\n\nUpdate member by id\n\n\tRequired scopes: `flex.community.members.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/members/{memberId} (the `MembersUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersUpdateItemJSONRequestBody)")),
 		),
-		h.handleMembersControllerUpdateItemApiv2WithResponse,
+		h.handleMembersUpdateItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("members-controller-update-status-apiv2",
-			mcp.WithDescription("MembersControllerUpdateStatusApiv2"),
+		mcp.NewTool("members-update-status",
+			mcp.WithDescription("Update member status\n\nUpdate a member lifecycle status. Allowed values are \"former\", \"contact\", and \"auto\". Use \"auto\" to clear explicit status and let the system recalculate it.\n\n\tRequired scopes: `flex.community.members.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/members/{memberId}/status (the `MembersUpdateStatus` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("memberId", mcp.Required(), mcp.Description("memberId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersControllerUpdateStatusApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembersUpdateStatusJSONRequestBody)")),
 		),
-		h.handleMembersControllerUpdateStatusApiv2WithResponse,
+		h.handleMembersUpdateStatusWithResponse,
 	)
 
 }
@@ -1059,43 +1059,43 @@ func (h *Handler) RegisterMembers(s *server.MCPServer) {
 func (h *Handler) RegisterMemberships(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("memberships-controller-add-item-apiv2",
-			mcp.WithDescription("MembershipsControllerAddItemApiv2"),
+		mcp.NewTool("memberships-add-item",
+			mcp.WithDescription("Add a new membership\n\nAdd a new membership\n\n\tRequired scopes: `flex.community.memberships.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/memberships (the `MembershipsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembershipsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembershipsAddItemJSONRequestBody)")),
 		),
-		h.handleMembershipsControllerAddItemApiv2WithResponse,
+		h.handleMembershipsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("memberships-controller-count-apiv2",
-			mcp.WithDescription("request returning *MembershipsControllerCountApiv2Response"),
+		mcp.NewTool("memberships-count",
+			mcp.WithDescription("Get memberships count\n\nRetrieve the memberships count\n\n\tRequired scopes: `flex.community.memberships.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/memberships/count (the `MembershipsCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleMembershipsControllerCountApiv2WithResponse,
+		h.handleMembershipsCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("memberships-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *MembershipsControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("membershipId", mcp.Required(), mcp.Description("membershipId")),
-		),
-		h.handleMembershipsControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("memberships-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *MembershipsControllerGetItemApiv2Response"),
+		mcp.NewTool("memberships-delete-item",
+			mcp.WithDescription("Delete a single membership\n\nDelete a single membership by id\n\n\tRequired scopes: `flex.community.memberships.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/memberships/{membershipId} (the `MembershipsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("membershipId", mcp.Required(), mcp.Description("membershipId")),
 		),
-		h.handleMembershipsControllerGetItemApiv2WithResponse,
+		h.handleMembershipsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("memberships-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *MembershipsControllerGetItemsApiv2Response"),
+		mcp.NewTool("memberships-get-item",
+			mcp.WithDescription("Get a single membership\n\nGet a single membership by id\n\n\tRequired scopes: `flex.community.memberships.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/memberships/{membershipId} (the `MembershipsGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("membershipId", mcp.Required(), mcp.Description("membershipId")),
+		),
+		h.handleMembershipsGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("memberships-get-items",
+			mcp.WithDescription("Get a list of memberships\n\nRetrieve a list of sets of day memberships based on provided filters\n\n\tRequired scopes: `flex.community.memberships.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/memberships (the `MembershipsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -1111,17 +1111,17 @@ func (h *Handler) RegisterMemberships(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleMembershipsControllerGetItemsApiv2WithResponse,
+		h.handleMembershipsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("memberships-controller-update-item-apiv2",
-			mcp.WithDescription("MembershipsControllerUpdateItemApiv2"),
+		mcp.NewTool("memberships-update-item",
+			mcp.WithDescription("Update an existing membership\n\nUpdate an existing membership\n\n\tRequired scopes: `flex.community.memberships.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/memberships/{membershipId} (the `MembershipsUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("membershipId", mcp.Required(), mcp.Description("membershipId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembershipsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.MembershipsUpdateItemJSONRequestBody)")),
 		),
-		h.handleMembershipsControllerUpdateItemApiv2WithResponse,
+		h.handleMembershipsUpdateItemWithResponse,
 	)
 
 }
@@ -1130,43 +1130,43 @@ func (h *Handler) RegisterMemberships(s *server.MCPServer) {
 func (h *Handler) RegisterOpportunities(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("opportunities-controller-add-item-apiv2",
-			mcp.WithDescription("OpportunitiesControllerAddItemApiv2"),
+		mcp.NewTool("opportunities-add-item",
+			mcp.WithDescription("Add new opportunity\n\nAdd new opportunity\n\n\tRequired scopes: `flex.community.opportunities.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/opportunities (the `OpportunitiesAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.OpportunitiesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.OpportunitiesAddItemJSONRequestBody)")),
 		),
-		h.handleOpportunitiesControllerAddItemApiv2WithResponse,
+		h.handleOpportunitiesAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("opportunities-controller-count-apiv2",
-			mcp.WithDescription("request returning *OpportunitiesControllerCountApiv2Response"),
+		mcp.NewTool("opportunities-count",
+			mcp.WithDescription("Get opportunities count\n\nRetrieve a count of opportunities\n\n\tRequired scopes: `flex.community.opportunities.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/opportunities/count (the `OpportunitiesCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleOpportunitiesControllerCountApiv2WithResponse,
+		h.handleOpportunitiesCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("opportunities-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *OpportunitiesControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("opportunityId", mcp.Required(), mcp.Description("opportunityId")),
-		),
-		h.handleOpportunitiesControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("opportunities-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *OpportunitiesControllerGetItemApiv2Response"),
+		mcp.NewTool("opportunities-delete-item",
+			mcp.WithDescription("Delete opportunity\n\nDelete opportunity by id\n\n\tRequired scopes: `flex.community.opportunities.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/opportunities/{opportunityId} (the `OpportunitiesDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("opportunityId", mcp.Required(), mcp.Description("opportunityId")),
 		),
-		h.handleOpportunitiesControllerGetItemApiv2WithResponse,
+		h.handleOpportunitiesDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("opportunities-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *OpportunitiesControllerGetItemsApiv2Response"),
+		mcp.NewTool("opportunities-get-item",
+			mcp.WithDescription("Get opportunity\n\nGet opportunity by id\n\n\tRequired scopes: `flex.community.opportunities.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/opportunities/{opportunityId} (the `OpportunitiesGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("opportunityId", mcp.Required(), mcp.Description("opportunityId")),
+		),
+		h.handleOpportunitiesGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("opportunities-get-items",
+			mcp.WithDescription("Get opportunities\n\nRetrieve a list of opportunities based on provided filters\n\n\tRequired scopes: `flex.community.opportunities.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/opportunities (the `OpportunitiesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -1178,17 +1178,17 @@ func (h *Handler) RegisterOpportunities(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleOpportunitiesControllerGetItemsApiv2WithResponse,
+		h.handleOpportunitiesGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("opportunities-controller-update-item-apiv2",
-			mcp.WithDescription("OpportunitiesControllerUpdateItemApiv2"),
+		mcp.NewTool("opportunities-update-item",
+			mcp.WithDescription("Update opportunity\n\nUpdate opportunity by id\n\n\tRequired scopes: `flex.community.opportunities.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/opportunities/{opportunityId} (the `OpportunitiesUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("opportunityId", mcp.Required(), mcp.Description("opportunityId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.OpportunitiesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.OpportunitiesUpdateItemJSONRequestBody)")),
 		),
-		h.handleOpportunitiesControllerUpdateItemApiv2WithResponse,
+		h.handleOpportunitiesUpdateItemWithResponse,
 	)
 
 }
@@ -1197,15 +1197,15 @@ func (h *Handler) RegisterOpportunities(s *server.MCPServer) {
 func (h *Handler) RegisterOpportunityStatuses(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("opportunity-statuses-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *OpportunityStatusesControllerGetItemsApiv2Response"),
+		mcp.NewTool("opportunity-statuses-get-items",
+			mcp.WithDescription("Retrieve all opportunity statuses\n\nRetrieve all opportunity statuses.\n\n\tRequired scopes: `flex.community.opportunityStatuses.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/opportunity-statuses (the `OpportunityStatusesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleOpportunityStatusesControllerGetItemsApiv2WithResponse,
+		h.handleOpportunityStatusesGetItemsWithResponse,
 	)
 
 }
@@ -1214,11 +1214,11 @@ func (h *Handler) RegisterOpportunityStatuses(s *server.MCPServer) {
 func (h *Handler) RegisterOrganizations(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("organizations-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *OrganizationsControllerGetItemApiv2Response"),
+		mcp.NewTool("organizations-get-item",
+			mcp.WithDescription("Get the current organization information\n\nGet the current organization information\n\n\tRequired scopes: `flex.settings.organization.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug} (the `OrganizationsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleOrganizationsControllerGetItemApiv2WithResponse,
+		h.handleOrganizationsGetItemWithResponse,
 	)
 
 }
@@ -1227,8 +1227,8 @@ func (h *Handler) RegisterOrganizations(s *server.MCPServer) {
 func (h *Handler) RegisterTokenGeneration(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("p-o-s-t-generate-token-with-formdata-body",
-			mcp.WithDescription("POSTGenerateTokenWithFormdataBody"),
+		mcp.NewTool("p-o-s-t-generate-token",
+			mcp.WithDescription("Generate an OAuth 2.0 token\n\nThis request allows you to generate an OAuth 2.0 token using client_id and client_secret, for more information on the operation, please visit our <a href=\"https://developer.officernd.com/docs/authentication\">guide</a>.\n\nTakes a body of the `application/x-www-form-urlencoded` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /oauth/token (the `POSTGenerateToken` operationId)."),
 			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.POSTGenerateTokenFormdataRequestBody)")),
 		),
 		h.handlePOSTGenerateTokenWithFormdataBodyWithResponse,
@@ -1240,35 +1240,35 @@ func (h *Handler) RegisterTokenGeneration(s *server.MCPServer) {
 func (h *Handler) RegisterPasses(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("passes-controller-add-item-apiv2",
-			mcp.WithDescription("PassesControllerAddItemApiv2"),
+		mcp.NewTool("passes-add-item",
+			mcp.WithDescription("Add a new set of day passes\n\nAdd a new set of day passes\n\n\tRequired scopes: `flex.space.passes.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/passes (the `PassesAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PassesControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PassesAddItemJSONRequestBody)")),
 		),
-		h.handlePassesControllerAddItemApiv2WithResponse,
+		h.handlePassesAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("passes-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *PassesControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("passesId", mcp.Required(), mcp.Description("passesId")),
-		),
-		h.handlePassesControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("passes-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *PassesControllerGetItemApiv2Response"),
+		mcp.NewTool("passes-delete-item",
+			mcp.WithDescription("Delete a set of day passes\n\nDelete a set of day passes by id\n\n\tRequired scopes: `flex.space.passes.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/passes/{passesId} (the `PassesDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("passesId", mcp.Required(), mcp.Description("passesId")),
 		),
-		h.handlePassesControllerGetItemApiv2WithResponse,
+		h.handlePassesDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("passes-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *PassesControllerGetItemsApiv2Response"),
+		mcp.NewTool("passes-get-item",
+			mcp.WithDescription("Get a set of day passes\n\nGet a set of day passes by id\n\n\tRequired scopes: `flex.space.passes.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/passes/{passesId} (the `PassesGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("passesId", mcp.Required(), mcp.Description("passesId")),
+		),
+		h.handlePassesGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("passes-get-items",
+			mcp.WithDescription("Get sets of day passes\n\nRetrieve a list of sets of day passes based on provided filters\n\n\tRequired scopes: `flex.space.passes.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/passes (the `PassesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -1280,17 +1280,17 @@ func (h *Handler) RegisterPasses(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handlePassesControllerGetItemsApiv2WithResponse,
+		h.handlePassesGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("passes-controller-update-item-apiv2",
-			mcp.WithDescription("PassesControllerUpdateItemApiv2"),
+		mcp.NewTool("passes-update-item",
+			mcp.WithDescription("Update a set of day passes\n\nUpdate a set of day passes by id\n\n\tRequired scopes: `flex.space.passes.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/passes/{passesId} (the `PassesUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("passesId", mcp.Required(), mcp.Description("passesId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PassesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PassesUpdateItemJSONRequestBody)")),
 		),
-		h.handlePassesControllerUpdateItemApiv2WithResponse,
+		h.handlePassesUpdateItemWithResponse,
 	)
 
 }
@@ -1299,21 +1299,21 @@ func (h *Handler) RegisterPasses(s *server.MCPServer) {
 func (h *Handler) RegisterPassword(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("password-controller-change-password-apiv2",
-			mcp.WithDescription("PasswordControllerChangePasswordApiv2"),
+		mcp.NewTool("password-change-password",
+			mcp.WithDescription("Change password\n\nChanges the password of the user associated with the entered email.\n\n\t           No notifications will be sent after this action is performed.\n\n\tRequired scopes: `flex.user.password.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/password (the `PasswordChangePassword` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PasswordControllerChangePasswordApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PasswordChangePasswordJSONRequestBody)")),
 		),
-		h.handlePasswordControllerChangePasswordApiv2WithResponse,
+		h.handlePasswordChangePasswordWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("password-controller-reset-password-apiv2",
-			mcp.WithDescription("PasswordControllerResetPasswordApiv2"),
+		mcp.NewTool("password-reset-password",
+			mcp.WithDescription("Reset password\n\nSends an email to the associated user that contains a link, which can be used to reset said user's password.\n\n\tRequired scopes: `flex.user.password.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/password/reset (the `PasswordResetPassword` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PasswordControllerResetPasswordApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PasswordResetPasswordJSONRequestBody)")),
 		),
-		h.handlePasswordControllerResetPasswordApiv2WithResponse,
+		h.handlePasswordResetPasswordWithResponse,
 	)
 
 }
@@ -1322,27 +1322,27 @@ func (h *Handler) RegisterPassword(s *server.MCPServer) {
 func (h *Handler) RegisterPaymentDetails(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("payment-details-controller-add-item-apiv2",
-			mcp.WithDescription("PaymentDetailsControllerAddItemApiv2"),
+		mcp.NewTool("payment-details-add-item",
+			mcp.WithDescription("Add new payment details for user\n\nAdd payment details object. When recording payment details for             a company, said company must have at least one billing person in order for the card to be recorded.\n\n\tRequired scopes: `flex.billing.paymentDetails.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/payment-details (the `PaymentDetailsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsAddItemJSONRequestBody)")),
 		),
-		h.handlePaymentDetailsControllerAddItemApiv2WithResponse,
+		h.handlePaymentDetailsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payment-details-controller-delete-item-apiv2",
-			mcp.WithDescription("PaymentDetailsControllerDeleteItemApiv2"),
+		mcp.NewTool("payment-details-delete-item",
+			mcp.WithDescription("Delete payment details by id\n\nRemove the payment details object with id = {paymentDetailsId}. Removing a card associated with a company             requires the user performing the operation to be a billing person.\n\n\tRequired scopes: `flex.billing.paymentDetails.delete`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/payment-details/{paymentDetailsId} (the `PaymentDetailsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentDetailsId", mcp.Required(), mcp.Description("paymentDetailsId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsControllerDeleteItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsDeleteItemJSONRequestBody)")),
 		),
-		h.handlePaymentDetailsControllerDeleteItemApiv2WithResponse,
+		h.handlePaymentDetailsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payment-details-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *PaymentDetailsControllerGetItemsApiv2Response"),
+		mcp.NewTool("payment-details-get-items",
+			mcp.WithDescription("Get payment details for user\n\nRetrieve a list of payment details based on provided filters\n\n\tRequired scopes: `flex.billing.paymentDetails.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/payment-details (the `PaymentDetailsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("member", mcp.Description("Member")),
 			mcp.WithString("company", mcp.Description("Company")),
@@ -1351,16 +1351,16 @@ func (h *Handler) RegisterPaymentDetails(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handlePaymentDetailsControllerGetItemsApiv2WithResponse,
+		h.handlePaymentDetailsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payment-details-controller-register-item-apiv2",
-			mcp.WithDescription("PaymentDetailsControllerRegisterItemApiv2"),
+		mcp.NewTool("payment-details-register-item",
+			mcp.WithDescription("Register pre-created Stripe payment details\n\nRegisters pre-created Stripe customer and payment method details.\n\n\tRequired scopes: `flex.billing.paymentDetails.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/payment-details/register (the `PaymentDetailsRegisterItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsControllerRegisterItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentDetailsRegisterItemJSONRequestBody)")),
 		),
-		h.handlePaymentDetailsControllerRegisterItemApiv2WithResponse,
+		h.handlePaymentDetailsRegisterItemWithResponse,
 	)
 
 }
@@ -1369,12 +1369,12 @@ func (h *Handler) RegisterPaymentDetails(s *server.MCPServer) {
 func (h *Handler) RegisterPaymentGateways(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("payment-gateways-controller-authorize-apiv2",
-			mcp.WithDescription("PaymentGatewaysControllerAuthorizeApiv2"),
+		mcp.NewTool("payment-gateways-authorize",
+			mcp.WithDescription("Authorize payment or setup intent\n\nAuthorize a payment intent or setup intent (e.g. Stripe payment intent or Stripe setup intent). Returns clientSecret and optional paymentIntent or setupIntent.\n\n\tRequired scopes: `flex.billing.paymentGateways.authorize`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/payment-gateways/authorize (the `PaymentGatewaysAuthorize` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentGatewaysControllerAuthorizeApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentGatewaysAuthorizeJSONRequestBody)")),
 		),
-		h.handlePaymentGatewaysControllerAuthorizeApiv2WithResponse,
+		h.handlePaymentGatewaysAuthorizeWithResponse,
 	)
 
 }
@@ -1383,44 +1383,44 @@ func (h *Handler) RegisterPaymentGateways(s *server.MCPServer) {
 func (h *Handler) RegisterPayments(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-add-credit-allocation-apiv2",
-			mcp.WithDescription("PaymentsControllerAddCreditAllocationApiv2"),
+		mcp.NewTool("payments-add-credit-allocation",
+			mcp.WithDescription("Create a new allocation for credit note/overpayment\n\nCreate a new allocation for a credit note/overpayment.\n\n\t           The paymentId used here is the _id of the credit note/overpayment, while the request body contains the _id of the target invoice.\n\n\tRequired scopes: `flex.billing.payments.allocations.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/payments/{paymentId}/allocations (the `PaymentsAddCreditAllocation` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentId", mcp.Required(), mcp.Description("paymentId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsControllerAddCreditAllocationApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsAddCreditAllocationJSONRequestBody)")),
 		),
-		h.handlePaymentsControllerAddCreditAllocationApiv2WithResponse,
+		h.handlePaymentsAddCreditAllocationWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-add-overpayment-apiv2",
-			mcp.WithDescription("PaymentsControllerAddOverpaymentApiv2"),
+		mcp.NewTool("payments-add-overpayment",
+			mcp.WithDescription("Create a new overpayment\n\nCreate a new overpayment.\n\n\tRequired scopes: `flex.billing.payments.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/payments (the `PaymentsAddOverpayment` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsControllerAddOverpaymentApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsAddOverpaymentJSONRequestBody)")),
 		),
-		h.handlePaymentsControllerAddOverpaymentApiv2WithResponse,
+		h.handlePaymentsAddOverpaymentWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-count-apiv2",
-			mcp.WithDescription("request returning *PaymentsControllerCountApiv2Response"),
+		mcp.NewTool("payments-count",
+			mcp.WithDescription("Retrieve the payments count\n\nRetrieve the payments count\n\n\tRequired scopes: `flex.billing.payments.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/payments/count (the `PaymentsCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handlePaymentsControllerCountApiv2WithResponse,
+		h.handlePaymentsCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *PaymentsControllerGetItemApiv2Response"),
+		mcp.NewTool("payments-get-item",
+			mcp.WithDescription("Get payment by id\n\nGet the payment by id\n\n\tRequired scopes: `flex.billing.payments.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/payments/{paymentId} (the `PaymentsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentId", mcp.Required(), mcp.Description("paymentId")),
 		),
-		h.handlePaymentsControllerGetItemApiv2WithResponse,
+		h.handlePaymentsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *PaymentsControllerGetItemsApiv2Response"),
+		mcp.NewTool("payments-get-items",
+			mcp.WithDescription("Retrieve all payments\n\nRetrieve a list of payments based on provided filters\n\n\tRequired scopes: `flex.billing.payments.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/payments (the `PaymentsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("member", mcp.Description("Member")),
@@ -1439,46 +1439,46 @@ func (h *Handler) RegisterPayments(s *server.MCPServer) {
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 			mcp.WithString("$sort", mcp.Description("Sort")),
 		),
-		h.handlePaymentsControllerGetItemsApiv2WithResponse,
+		h.handlePaymentsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-get-payment-documents-apiv2",
-			mcp.WithDescription("request returning *PaymentsControllerGetPaymentDocumentsApiv2Response"),
+		mcp.NewTool("payments-get-payment-documents",
+			mcp.WithDescription("Get all documents associated with the specific invoice\n\nGet all metadata associated with all documents for a specific invoice. Each item in the response body contains information about the document name, template and url.\n\n\tRequired scopes: `flex.billing.payments.documents.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/payments/{paymentId}/documents (the `PaymentsGetPaymentDocuments` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentId", mcp.Required(), mcp.Description("paymentId")),
 		),
-		h.handlePaymentsControllerGetPaymentDocumentsApiv2WithResponse,
+		h.handlePaymentsGetPaymentDocumentsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-get-payment-methods-apiv2",
-			mcp.WithDescription("request returning *PaymentsControllerGetPaymentMethodsApiv2Response"),
+		mcp.NewTool("payments-get-payment-methods",
+			mcp.WithDescription("Retrieve all payment methods\n\nRetrieve all payment methods. The response body should contain the default payment methods for the organization along with the ones that come from any integrations.\n\n\tRequired scopes: `flex.billing.payments.methods.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/payments/methods (the `PaymentsGetPaymentMethods` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithArray("locations", mcp.Description("Locations"), mcp.WithStringItems()),
 		),
-		h.handlePaymentsControllerGetPaymentMethodsApiv2WithResponse,
+		h.handlePaymentsGetPaymentMethodsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-update-allocation-accounting-apiv2",
-			mcp.WithDescription("PaymentsControllerUpdateAllocationAccountingApiv2"),
+		mcp.NewTool("payments-update-allocation-accounting",
+			mcp.WithDescription("Update allocation accounting\n\nUpdates the allocation accounting properties.\n\n\tRequired scopes: `flex.billing.payments.allocations.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/payments/{paymentId}/allocations/{allocationId}/accounting (the `PaymentsUpdateAllocationAccounting` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentId", mcp.Required(), mcp.Description("paymentId")),
 			mcp.WithString("allocationId", mcp.Required(), mcp.Description("allocationId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsControllerUpdateAllocationAccountingApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsUpdateAllocationAccountingJSONRequestBody)")),
 		),
-		h.handlePaymentsControllerUpdateAllocationAccountingApiv2WithResponse,
+		h.handlePaymentsUpdateAllocationAccountingWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("payments-controller-update-item-apiv2",
-			mcp.WithDescription("PaymentsControllerUpdateItemApiv2"),
+		mcp.NewTool("payments-update-item",
+			mcp.WithDescription("Update payment\n\nUpdate the payment accounting object or the payment number of the invoice, overpayment or credit note\n\n\tRequired scopes: `flex.billing.payments.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/payments/{paymentId} (the `PaymentsUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("paymentId", mcp.Required(), mcp.Description("paymentId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PaymentsUpdateItemJSONRequestBody)")),
 		),
-		h.handlePaymentsControllerUpdateItemApiv2WithResponse,
+		h.handlePaymentsUpdateItemWithResponse,
 	)
 
 }
@@ -1487,25 +1487,25 @@ func (h *Handler) RegisterPayments(s *server.MCPServer) {
 func (h *Handler) RegisterPlans(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("plans-controller-count-apiv2",
-			mcp.WithDescription("request returning *PlansControllerCountApiv2Response"),
+		mcp.NewTool("plans-count",
+			mcp.WithDescription("Get plans count by filter\n\nRetrieve a count of plan\n\n\tRequired scopes: `flex.billing.plans.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/plans/count (the `PlansCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handlePlansControllerCountApiv2WithResponse,
+		h.handlePlansCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("plans-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *PlansControllerGetItemApiv2Response"),
+		mcp.NewTool("plans-get-item",
+			mcp.WithDescription("Get plan\n\nGet plan by id\n\n\tRequired scopes: `flex.billing.plans.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/plans/{planId} (the `PlansGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("planId", mcp.Required(), mcp.Description("planId")),
 		),
-		h.handlePlansControllerGetItemApiv2WithResponse,
+		h.handlePlansGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("plans-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *PlansControllerGetItemsApiv2Response"),
+		mcp.NewTool("plans-get-items",
+			mcp.WithDescription("Get plans\n\nRetrieve a list of plans based on provided filters\n\n\tRequired scopes: `flex.billing.plans.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/plans (the `PlansGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -1518,7 +1518,7 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handlePlansControllerGetItemsApiv2WithResponse,
+		h.handlePlansGetItemsWithResponse,
 	)
 
 }
@@ -1527,35 +1527,35 @@ func (h *Handler) RegisterPlans(s *server.MCPServer) {
 func (h *Handler) RegisterPosts(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("posts-controller-add-item-apiv2",
-			mcp.WithDescription("PostsControllerAddItemApiv2"),
+		mcp.NewTool("posts-add-item",
+			mcp.WithDescription("Add a new post\n\nAdd a new post.\n\n\tRequired scopes: `flex.collaboration.posts.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/posts (the `PostsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PostsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.PostsAddItemJSONRequestBody)")),
 		),
-		h.handlePostsControllerAddItemApiv2WithResponse,
+		h.handlePostsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("posts-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *PostsControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("postId", mcp.Required(), mcp.Description("postId")),
-		),
-		h.handlePostsControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("posts-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *PostsControllerGetItemApiv2Response"),
+		mcp.NewTool("posts-delete-item",
+			mcp.WithDescription("Delete a post\n\nDelete a post by id.\n\n\tRequired scopes: `flex.collaboration.posts.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/posts/{postId} (the `PostsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("postId", mcp.Required(), mcp.Description("postId")),
 		),
-		h.handlePostsControllerGetItemApiv2WithResponse,
+		h.handlePostsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("posts-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *PostsControllerGetItemsApiv2Response"),
+		mcp.NewTool("posts-get-item",
+			mcp.WithDescription("Gets a post\n\nGets a single post by postId.\n\n\tRequired scopes: `flex.collaboration.posts.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/posts/{postId} (the `PostsGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("postId", mcp.Required(), mcp.Description("postId")),
+		),
+		h.handlePostsGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("posts-get-items",
+			mcp.WithDescription("Retrieve all posts\n\nRetrieve all posts.\n\n\tRequired scopes: `flex.collaboration.posts.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/posts (the `PostsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithArray("_id", mcp.Description("UnderscoreId"), mcp.WithStringItems()),
 			mcp.WithArray("locations", mcp.Description("Locations"), mcp.WithStringItems()),
@@ -1566,7 +1566,7 @@ func (h *Handler) RegisterPosts(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handlePostsControllerGetItemsApiv2WithResponse,
+		h.handlePostsGetItemsWithResponse,
 	)
 
 }
@@ -1575,8 +1575,8 @@ func (h *Handler) RegisterPosts(s *server.MCPServer) {
 func (h *Handler) RegisterReceptionFlows(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("reception-flows-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *ReceptionFlowsControllerGetItemsApiv2Response"),
+		mcp.NewTool("reception-flows-get-items",
+			mcp.WithDescription("Get reception flows\n\nRetrieve all reception flows in the organization\n\n\tRequired scopes: `flex.community.receptionFlows.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/reception-flows (the `ReceptionFlowsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -1588,7 +1588,7 @@ func (h *Handler) RegisterReceptionFlows(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleReceptionFlowsControllerGetItemsApiv2WithResponse,
+		h.handleReceptionFlowsGetItemsWithResponse,
 	)
 
 }
@@ -1597,34 +1597,34 @@ func (h *Handler) RegisterReceptionFlows(s *server.MCPServer) {
 func (h *Handler) RegisterResourceRates(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("resource-rates-controller-count-apiv2",
-			mcp.WithDescription("request returning *ResourceRatesControllerCountApiv2Response"),
+		mcp.NewTool("resource-rates-count",
+			mcp.WithDescription("Get resource rates count\n\nRetrieve a count of resource rates\n\n\tRequired scopes: `flex.billing.resourceRates.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resource-rates/count (the `ResourceRatesCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleResourceRatesControllerCountApiv2WithResponse,
+		h.handleResourceRatesCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("resource-rates-controller-get-cancellation-policy-apiv2",
-			mcp.WithDescription("request returning *ResourceRatesControllerGetCancellationPolicyApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("resourceRateId", mcp.Required(), mcp.Description("resourceRateId")),
-		),
-		h.handleResourceRatesControllerGetCancellationPolicyApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("resource-rates-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *ResourceRatesControllerGetItemApiv2Response"),
+		mcp.NewTool("resource-rates-get-cancellation-policy",
+			mcp.WithDescription("Retrieve the cancellation policy of a resource rate.\n\nReturns the cancellation policy conditions that apply to the given resource rate, split into active-member and non-active-member condition sets. The consumer is responsible for selecting the applicable set.\n\n\tRequired scopes: `flex.billing.cancellationPolicies.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resource-rates/{resourceRateId}/cancellation-policy (the `ResourceRatesGetCancellationPolicy` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("resourceRateId", mcp.Required(), mcp.Description("resourceRateId")),
 		),
-		h.handleResourceRatesControllerGetItemApiv2WithResponse,
+		h.handleResourceRatesGetCancellationPolicyWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("resource-rates-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *ResourceRatesControllerGetItemsApiv2Response"),
+		mcp.NewTool("resource-rates-get-item",
+			mcp.WithDescription("Retrieve single resource rate.\n\nRetrieve single resource rate.\n\n\tRequired scopes: `flex.billing.resourceRates.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resource-rates/{resourceRateId} (the `ResourceRatesGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("resourceRateId", mcp.Required(), mcp.Description("resourceRateId")),
+		),
+		h.handleResourceRatesGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("resource-rates-get-items",
+			mcp.WithDescription("Retrieve all resource rates.\n\nRetrieve all resource rates.\n\n\tRequired scopes: `flex.billing.resourceRates.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resource-rates (the `ResourceRatesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("createdAt", mcp.Description("CreatedAt")),
 			mcp.WithString("modifiedAt", mcp.Description("ModifiedAt")),
@@ -1633,7 +1633,7 @@ func (h *Handler) RegisterResourceRates(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleResourceRatesControllerGetItemsApiv2WithResponse,
+		h.handleResourceRatesGetItemsWithResponse,
 	)
 
 }
@@ -1642,8 +1642,8 @@ func (h *Handler) RegisterResourceRates(s *server.MCPServer) {
 func (h *Handler) RegisterResourceTypes(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("resource-types-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *ResourceTypesControllerGetItemsApiv2Response"),
+		mcp.NewTool("resource-types-get-items",
+			mcp.WithDescription("Get resource types\n\nRetrieve a list of resource types based on provided filters\n\n\tRequired scopes: `flex.space.resourceTypes.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resource-types (the `ResourceTypesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithArray("_id", mcp.Description("UnderscoreId"), mcp.WithStringItems()),
 			mcp.WithArray("type", mcp.Description("Type"), mcp.WithStringItems()),
@@ -1652,7 +1652,7 @@ func (h *Handler) RegisterResourceTypes(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleResourceTypesControllerGetItemsApiv2WithResponse,
+		h.handleResourceTypesGetItemsWithResponse,
 	)
 
 }
@@ -1661,25 +1661,25 @@ func (h *Handler) RegisterResourceTypes(s *server.MCPServer) {
 func (h *Handler) RegisterResources(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("resources-controller-count-apiv2",
-			mcp.WithDescription("request returning *ResourcesControllerCountApiv2Response"),
+		mcp.NewTool("resources-count",
+			mcp.WithDescription("Get resources count\n\nRetrieve a count of resources\n\n\tRequired scopes: `flex.space.resources.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resources/count (the `ResourcesCount` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleResourcesControllerCountApiv2WithResponse,
+		h.handleResourcesCountWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("resources-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *ResourcesControllerGetItemApiv2Response"),
+		mcp.NewTool("resources-get-item",
+			mcp.WithDescription("Retrieve single resource.\n\nRetrieve single resource.\n\n\tRequired scopes: `flex.space.resources.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resources/{resourceId} (the `ResourcesGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("resourceId", mcp.Required(), mcp.Description("resourceId")),
 		),
-		h.handleResourcesControllerGetItemApiv2WithResponse,
+		h.handleResourcesGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("resources-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *ResourcesControllerGetItemsApiv2Response"),
+		mcp.NewTool("resources-get-items",
+			mcp.WithDescription("Retrieve all resources.\n\nRetrieve all resources.\n\n\tRequired scopes: `flex.space.resources.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resources (the `ResourcesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -1692,16 +1692,16 @@ func (h *Handler) RegisterResources(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleResourcesControllerGetItemsApiv2WithResponse,
+		h.handleResourcesGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("resources-controller-get-resource-status-apiv2",
-			mcp.WithDescription("request returning *ResourcesControllerGetResourceStatusApiv2Response"),
+		mcp.NewTool("resources-get-resource-status",
+			mcp.WithDescription("Get resource status\n\nGet the status and ownStatus for a specific resource\n\n\tRequired scopes: `flex.space.resources.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/resources/{resourceId}/status (the `ResourcesGetResourceStatus` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("resourceId", mcp.Required(), mcp.Description("resourceId")),
 		),
-		h.handleResourcesControllerGetResourceStatusApiv2WithResponse,
+		h.handleResourcesGetResourceStatusWithResponse,
 	)
 
 }
@@ -1710,24 +1710,24 @@ func (h *Handler) RegisterResources(s *server.MCPServer) {
 func (h *Handler) RegisterRevenueAccounts(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("revenue-accounts-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *RevenueAccountsControllerGetItemApiv2Response"),
+		mcp.NewTool("revenue-accounts-get-item",
+			mcp.WithDescription("Get single revenue account.\n\nGet single revenue account.\n\n\tRequired scopes: `flex.billing.revenueAccounts.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/revenue-accounts/{accountId} (the `RevenueAccountsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("accountId", mcp.Required(), mcp.Description("accountId")),
 		),
-		h.handleRevenueAccountsControllerGetItemApiv2WithResponse,
+		h.handleRevenueAccountsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("revenue-accounts-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *RevenueAccountsControllerGetItemsApiv2Response"),
+		mcp.NewTool("revenue-accounts-get-items",
+			mcp.WithDescription("Retrieve all revenue accounts.\n\nRetrieve all revenue accounts.\n\n\tRequired scopes: `flex.billing.revenueAccounts.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/revenue-accounts (the `RevenueAccountsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleRevenueAccountsControllerGetItemsApiv2WithResponse,
+		h.handleRevenueAccountsGetItemsWithResponse,
 	)
 
 }
@@ -1736,34 +1736,34 @@ func (h *Handler) RegisterRevenueAccounts(s *server.MCPServer) {
 func (h *Handler) RegisterSecondaryCurrencies(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("secondary-currencies-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *SecondaryCurrenciesControllerGetItemApiv2Response"),
+		mcp.NewTool("secondary-currencies-get-item",
+			mcp.WithDescription("Get a specific secondary currency\n\nGet the secondary currency with id = {secondaryCurrencyId}.\n\n\tRequired scopes: `flex.settings.secondaryCurrencies.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/secondary-currencies/{secondaryCurrencyId} (the `SecondaryCurrenciesGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("secondaryCurrencyId", mcp.Required(), mcp.Description("secondaryCurrencyId")),
 		),
-		h.handleSecondaryCurrenciesControllerGetItemApiv2WithResponse,
+		h.handleSecondaryCurrenciesGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("secondary-currencies-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *SecondaryCurrenciesControllerGetItemsApiv2Response"),
+		mcp.NewTool("secondary-currencies-get-items",
+			mcp.WithDescription("Retrieve all secondary currencies\n\nRetrieve all secondary currencies. Valid only if the billing setting isMultiCurrencyEnabled is set to true.\n\n\tRequired scopes: `flex.settings.secondaryCurrencies.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/secondary-currencies (the `SecondaryCurrenciesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleSecondaryCurrenciesControllerGetItemsApiv2WithResponse,
+		h.handleSecondaryCurrenciesGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("secondary-currencies-controller-update-item-apiv2",
-			mcp.WithDescription("SecondaryCurrenciesControllerUpdateItemApiv2"),
+		mcp.NewTool("secondary-currencies-update-item",
+			mcp.WithDescription("Update a secondary currency\n\nUpdate the secondary currency with id = {secondaryCurrencyId}.\n\n\tRequired scopes: `flex.settings.secondaryCurrencies.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/secondary-currencies/{secondaryCurrencyId} (the `SecondaryCurrenciesUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("secondaryCurrencyId", mcp.Required(), mcp.Description("secondaryCurrencyId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.SecondaryCurrenciesControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.SecondaryCurrenciesUpdateItemJSONRequestBody)")),
 		),
-		h.handleSecondaryCurrenciesControllerUpdateItemApiv2WithResponse,
+		h.handleSecondaryCurrenciesUpdateItemWithResponse,
 	)
 
 }
@@ -1772,24 +1772,24 @@ func (h *Handler) RegisterSecondaryCurrencies(s *server.MCPServer) {
 func (h *Handler) RegisterTaxRates(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("tax-rates-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *TaxRatesControllerGetItemApiv2Response"),
+		mcp.NewTool("tax-rates-get-item",
+			mcp.WithDescription("Get single tax rate.\n\nGet single tax rate.\n\n\tRequired scopes: `flex.billing.taxRates.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/tax-rates/{taxRateId} (the `TaxRatesGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("taxRateId", mcp.Required(), mcp.Description("taxRateId")),
 		),
-		h.handleTaxRatesControllerGetItemApiv2WithResponse,
+		h.handleTaxRatesGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("tax-rates-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *TaxRatesControllerGetItemsApiv2Response"),
+		mcp.NewTool("tax-rates-get-items",
+			mcp.WithDescription("Retrieve all tax rates.\n\nRetrieve all tax rates.\n\n\tRequired scopes: `flex.billing.taxRates.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/tax-rates (the `TaxRatesGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleTaxRatesControllerGetItemsApiv2WithResponse,
+		h.handleTaxRatesGetItemsWithResponse,
 	)
 
 }
@@ -1798,18 +1798,18 @@ func (h *Handler) RegisterTaxRates(s *server.MCPServer) {
 func (h *Handler) RegisterTicketComments(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("ticket-comments-controller-add-comment-apiv2",
-			mcp.WithDescription("TicketCommentsControllerAddCommentApiv2"),
+		mcp.NewTool("ticket-comments-add-comment",
+			mcp.WithDescription("Post a comment/comments about a specific ticket\n\nPost a comment/comments about a specific ticket\n\n\tRequired scopes: `flex.collaboration.ticketComments.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/ticket-comments/{ticketId} (the `TicketCommentsAddComment` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("ticketId", mcp.Required(), mcp.Description("ticketId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketCommentsControllerAddCommentApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketCommentsAddCommentJSONRequestBody)")),
 		),
-		h.handleTicketCommentsControllerAddCommentApiv2WithResponse,
+		h.handleTicketCommentsAddCommentWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("ticket-comments-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *TicketCommentsControllerGetItemsApiv2Response"),
+		mcp.NewTool("ticket-comments-get-items",
+			mcp.WithDescription("Retrieve all comments for a ticket\n\nRetrieve a paginated list of all comments for a specific ticket.\n\n\tRequired scopes: `flex.collaboration.ticketComments.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/ticket-comments/{ticketId} (the `TicketCommentsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("ticketId", mcp.Required(), mcp.Description("ticketId")),
 			mcp.WithString("$select", mcp.Description("Select")),
@@ -1817,7 +1817,7 @@ func (h *Handler) RegisterTicketComments(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleTicketCommentsControllerGetItemsApiv2WithResponse,
+		h.handleTicketCommentsGetItemsWithResponse,
 	)
 
 }
@@ -1826,15 +1826,15 @@ func (h *Handler) RegisterTicketComments(s *server.MCPServer) {
 func (h *Handler) RegisterTicketOptions(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("ticket-options-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *TicketOptionsControllerGetItemsApiv2Response"),
+		mcp.NewTool("ticket-options-get-items",
+			mcp.WithDescription("Get ticket options\n\nRetrieve a list of ticket options based on provided filters\n\n\tRequired scopes: `flex.collaboration.ticketOptions.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/ticket-options (the `TicketOptionsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleTicketOptionsControllerGetItemsApiv2WithResponse,
+		h.handleTicketOptionsGetItemsWithResponse,
 	)
 
 }
@@ -1843,51 +1843,51 @@ func (h *Handler) RegisterTicketOptions(s *server.MCPServer) {
 func (h *Handler) RegisterTickets(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("tickets-controller-add-item-apiv2",
-			mcp.WithDescription("TicketsControllerAddItemApiv2"),
+		mcp.NewTool("tickets-add-item",
+			mcp.WithDescription("Add a new ticket\n\nAdd a new ticket\n\n\tRequired scopes: `flex.collaboration.tickets.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/tickets (the `TicketsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketsAddItemJSONRequestBody)")),
 		),
-		h.handleTicketsControllerAddItemApiv2WithResponse,
+		h.handleTicketsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("tickets-controller-count-by-apiv2",
-			mcp.WithDescription("request returning *TicketsControllerCountByApiv2Response"),
+		mcp.NewTool("tickets-count-by",
+			mcp.WithDescription("Get tickets count by filter\n\nRetrieve a count of ticket\n\n\tRequired scopes: `flex.collaboration.tickets.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/tickets/count (the `TicketsCountBy` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 		),
-		h.handleTicketsControllerCountByApiv2WithResponse,
+		h.handleTicketsCountByWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("tickets-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *TicketsControllerGetItemApiv2Response"),
+		mcp.NewTool("tickets-get-item",
+			mcp.WithDescription("Get ticket\n\nGet ticket by id\n\n\tRequired scopes: `flex.collaboration.tickets.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/tickets/{ticketId} (the `TicketsGetItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("ticketId", mcp.Required(), mcp.Description("ticketId")),
 		),
-		h.handleTicketsControllerGetItemApiv2WithResponse,
+		h.handleTicketsGetItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("tickets-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *TicketsControllerGetItemsApiv2Response"),
+		mcp.NewTool("tickets-get-items",
+			mcp.WithDescription("Get tickets\n\nRetrieve a list of tickets based on provided filters\n\n\tRequired scopes: `flex.collaboration.tickets.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/tickets (the `TicketsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleTicketsControllerGetItemsApiv2WithResponse,
+		h.handleTicketsGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("tickets-controller-update-item-apiv2",
-			mcp.WithDescription("TicketsControllerUpdateItemApiv2"),
+		mcp.NewTool("tickets-update-item",
+			mcp.WithDescription("Update an existing ticket\n\nUpdate an existing ticket\n\n\tRequired scopes: `flex.collaboration.tickets.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/tickets/{ticketId} (the `TicketsUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("ticketId", mcp.Required(), mcp.Description("ticketId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketsControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.TicketsUpdateItemJSONRequestBody)")),
 		),
-		h.handleTicketsControllerUpdateItemApiv2WithResponse,
+		h.handleTicketsUpdateItemWithResponse,
 	)
 
 }
@@ -1896,35 +1896,35 @@ func (h *Handler) RegisterTickets(s *server.MCPServer) {
 func (h *Handler) RegisterVisitors(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("visitors-controller-add-item-apiv2",
-			mcp.WithDescription("VisitorsControllerAddItemApiv2"),
+		mcp.NewTool("visitors-add-item",
+			mcp.WithDescription("Add new visitor\n\nAdd new visitor\n\n\tRequired scopes: `flex.community.visitors.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/visitors (the `VisitorsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.VisitorsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.VisitorsAddItemJSONRequestBody)")),
 		),
-		h.handleVisitorsControllerAddItemApiv2WithResponse,
+		h.handleVisitorsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("visitors-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *VisitorsControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("visitorId", mcp.Required(), mcp.Description("visitorId")),
-		),
-		h.handleVisitorsControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("visitors-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *VisitorsControllerGetItemApiv2Response"),
+		mcp.NewTool("visitors-delete-item",
+			mcp.WithDescription("Delete visitor\n\nDelete visitor by id\n\n\tRequired scopes: `flex.community.visitors.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/visitors/{visitorId} (the `VisitorsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("visitorId", mcp.Required(), mcp.Description("visitorId")),
 		),
-		h.handleVisitorsControllerGetItemApiv2WithResponse,
+		h.handleVisitorsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("visitors-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *VisitorsControllerGetItemsApiv2Response"),
+		mcp.NewTool("visitors-get-item",
+			mcp.WithDescription("Get visitor\n\nGet visitor by id\n\n\tRequired scopes: `flex.community.visitors.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/visitors/{visitorId} (the `VisitorsGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("visitorId", mcp.Required(), mcp.Description("visitorId")),
+		),
+		h.handleVisitorsGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("visitors-get-items",
+			mcp.WithDescription("Get visitors\n\nRetrieve all visitors in the organization\n\n\tRequired scopes: `flex.community.visitors.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/visitors (the `VisitorsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("name", mcp.Description("Name")),
@@ -1935,7 +1935,7 @@ func (h *Handler) RegisterVisitors(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleVisitorsControllerGetItemsApiv2WithResponse,
+		h.handleVisitorsGetItemsWithResponse,
 	)
 
 }
@@ -1944,35 +1944,35 @@ func (h *Handler) RegisterVisitors(s *server.MCPServer) {
 func (h *Handler) RegisterVisits(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("visits-controller-add-item-apiv2",
-			mcp.WithDescription("VisitsControllerAddItemApiv2"),
+		mcp.NewTool("visits-add-item",
+			mcp.WithDescription("Add new visit\n\nAdd new visit\n\n\tRequired scopes: `flex.community.visits.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/visits (the `VisitsAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.VisitsControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.VisitsAddItemJSONRequestBody)")),
 		),
-		h.handleVisitsControllerAddItemApiv2WithResponse,
+		h.handleVisitsAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("visits-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *VisitsControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("visitId", mcp.Required(), mcp.Description("visitId")),
-		),
-		h.handleVisitsControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("visits-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *VisitsControllerGetItemApiv2Response"),
+		mcp.NewTool("visits-delete-item",
+			mcp.WithDescription("Delete visit\n\nDelete visit by id\n\n\tRequired scopes: `flex.community.visits.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/visits/{visitId} (the `VisitsDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("visitId", mcp.Required(), mcp.Description("visitId")),
 		),
-		h.handleVisitsControllerGetItemApiv2WithResponse,
+		h.handleVisitsDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("visits-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *VisitsControllerGetItemsApiv2Response"),
+		mcp.NewTool("visits-get-item",
+			mcp.WithDescription("Get visit\n\nGet visit by id\n\n\tRequired scopes: `flex.community.visits.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/visits/{visitId} (the `VisitsGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("visitId", mcp.Required(), mcp.Description("visitId")),
+		),
+		h.handleVisitsGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("visits-get-items",
+			mcp.WithDescription("Get visits\n\nRetrieve all visits in the organization\n\n\tRequired scopes: `flex.community.visits.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/visits (the `VisitsGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("_id", mcp.Description("UnderscoreId")),
 			mcp.WithString("visitor", mcp.Description("Visitor")),
@@ -1986,7 +1986,7 @@ func (h *Handler) RegisterVisits(s *server.MCPServer) {
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleVisitsControllerGetItemsApiv2WithResponse,
+		h.handleVisitsGetItemsWithResponse,
 	)
 
 }
@@ -1995,52 +1995,52 @@ func (h *Handler) RegisterVisits(s *server.MCPServer) {
 func (h *Handler) RegisterWebhooks(s *server.MCPServer) {
 
 	s.AddTool(
-		mcp.NewTool("webhooks-controller-add-item-apiv2",
-			mcp.WithDescription("WebhooksControllerAddItemApiv2"),
+		mcp.NewTool("webhooks-add-item",
+			mcp.WithDescription("Add a new webhook\n\nAdd a new webhook\n\n\tRequired scopes: `flex.settings.webhooks.create`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with POST /api/v2/organizations/{orgSlug}/webhooks (the `WebhooksAddItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.WebhooksControllerAddItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.WebhooksAddItemJSONRequestBody)")),
 		),
-		h.handleWebhooksControllerAddItemApiv2WithResponse,
+		h.handleWebhooksAddItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("webhooks-controller-delete-item-apiv2",
-			mcp.WithDescription("request returning *WebhooksControllerDeleteItemApiv2Response"),
-			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
-			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
-		),
-		h.handleWebhooksControllerDeleteItemApiv2WithResponse,
-	)
-
-	s.AddTool(
-		mcp.NewTool("webhooks-controller-get-item-apiv2",
-			mcp.WithDescription("request returning *WebhooksControllerGetItemApiv2Response"),
+		mcp.NewTool("webhooks-delete-item",
+			mcp.WithDescription("Delete a single webhook\n\nDelete a single webhook by id\n\n\tRequired scopes: `flex.settings.webhooks.delete`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with DELETE /api/v2/organizations/{orgSlug}/webhooks/{webhookId} (the `WebhooksDeleteItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
 		),
-		h.handleWebhooksControllerGetItemApiv2WithResponse,
+		h.handleWebhooksDeleteItemWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("webhooks-controller-get-items-apiv2",
-			mcp.WithDescription("request returning *WebhooksControllerGetItemsApiv2Response"),
+		mcp.NewTool("webhooks-get-item",
+			mcp.WithDescription("Get a single webhook\n\nGet a single webhook by id\n\n\tRequired scopes: `flex.settings.webhooks.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/webhooks/{webhookId} (the `WebhooksGetItem` operationId)."),
+			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
+			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
+		),
+		h.handleWebhooksGetItemWithResponse,
+	)
+
+	s.AddTool(
+		mcp.NewTool("webhooks-get-items",
+			mcp.WithDescription("Get a list of webhooks\n\nRetrieve a list of webhooks based on provided filters\n\n\tRequired scopes: `flex.settings.webhooks.read`\n\nReturns a wrapper object for the known response body format(s).\n\nCorresponds with GET /api/v2/organizations/{orgSlug}/webhooks (the `WebhooksGetItems` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("$select", mcp.Description("Select")),
 			mcp.WithString("$cursorNext", mcp.Description("CursorNext")),
 			mcp.WithString("$cursorPrev", mcp.Description("CursorPrev")),
 			mcp.WithNumber("$limit", mcp.Description("Limit")),
 		),
-		h.handleWebhooksControllerGetItemsApiv2WithResponse,
+		h.handleWebhooksGetItemsWithResponse,
 	)
 
 	s.AddTool(
-		mcp.NewTool("webhooks-controller-update-item-apiv2",
-			mcp.WithDescription("WebhooksControllerUpdateItemApiv2"),
+		mcp.NewTool("webhooks-update-item",
+			mcp.WithDescription("Update an existing webhook\n\nUpdate an existing webhook\n\n\tRequired scopes: `flex.settings.webhooks.update`\n\nTakes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).\n\nCorresponds with PUT /api/v2/organizations/{orgSlug}/webhooks/{webhookId} (the `WebhooksUpdateItem` operationId)."),
 			mcp.WithString("orgSlug", mcp.Required(), mcp.Description("orgSlug")),
 			mcp.WithString("webhookId", mcp.Required(), mcp.Description("webhookId")),
-			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.WebhooksControllerUpdateItemApiv2JSONRequestBody)")),
+			mcp.WithObject("body", mcp.Required(), mcp.Description("Request body (github.com/yardrail/connectors/officernd/officernd/client.WebhooksUpdateItemJSONRequestBody)")),
 		),
-		h.handleWebhooksControllerUpdateItemApiv2WithResponse,
+		h.handleWebhooksUpdateItemWithResponse,
 	)
 
 }
@@ -2366,7 +2366,7 @@ func getStringSlice(request mcp.CallToolRequest, key string) []string {
 	return out
 }
 
-func (h *Handler) handleAmenitiesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAmenitiesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2375,7 +2375,7 @@ func (h *Handler) handleAmenitiesControllerGetItemApiv2WithResponse(ctx context.
 	orgSlug := request.GetString("orgSlug", "")
 	amenityId := request.GetString("amenityId", "")
 
-	resp, err := client.AmenitiesControllerGetItemApiv2WithResponse(ctx, orgSlug, amenityId)
+	resp, err := client.AmenitiesGetItemWithResponse(ctx, orgSlug, amenityId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2384,14 +2384,14 @@ func (h *Handler) handleAmenitiesControllerGetItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAmenitiesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAmenitiesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.AmenitiesControllerGetItemsApiv2Params{}
+	params := &target.AmenitiesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -2433,7 +2433,7 @@ func (h *Handler) handleAmenitiesControllerGetItemsApiv2WithResponse(ctx context
 		}
 	}
 
-	resp, err := client.AmenitiesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.AmenitiesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2442,20 +2442,20 @@ func (h *Handler) handleAmenitiesControllerGetItemsApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAssignmentsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAssignmentsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.AssignmentsControllerAddItemApiv2JSONRequestBody
+	var body target.AssignmentsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AssignmentsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.AssignmentsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2464,7 +2464,7 @@ func (h *Handler) handleAssignmentsControllerAddItemApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAssignmentsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAssignmentsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2473,7 +2473,7 @@ func (h *Handler) handleAssignmentsControllerDeleteItemApiv2WithResponse(ctx con
 	orgSlug := request.GetString("orgSlug", "")
 	assignmentId := request.GetString("assignmentId", "")
 
-	resp, err := client.AssignmentsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, assignmentId)
+	resp, err := client.AssignmentsDeleteItemWithResponse(ctx, orgSlug, assignmentId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2482,14 +2482,14 @@ func (h *Handler) handleAssignmentsControllerDeleteItemApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAssignmentsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAssignmentsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.AssignmentsControllerGetItemsApiv2Params{}
+	params := &target.AssignmentsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["resource"]; ok {
 			params.Resource = ptrVal(request.GetString("resource", ""))
@@ -2531,7 +2531,7 @@ func (h *Handler) handleAssignmentsControllerGetItemsApiv2WithResponse(ctx conte
 		}
 	}
 
-	resp, err := client.AssignmentsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.AssignmentsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2540,20 +2540,20 @@ func (h *Handler) handleAssignmentsControllerGetItemsApiv2WithResponse(ctx conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAuthControllerImpersonateMemberApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAuthImpersonateMemberWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.AuthControllerImpersonateMemberApiv2JSONRequestBody
+	var body target.AuthImpersonateMemberJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AuthControllerImpersonateMemberApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.AuthImpersonateMemberWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2562,20 +2562,20 @@ func (h *Handler) handleAuthControllerImpersonateMemberApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAuthControllerSigninApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAuthSigninWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.AuthControllerSigninApiv2JSONRequestBody
+	var body target.AuthSigninJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AuthControllerSigninApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.AuthSigninWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2584,20 +2584,20 @@ func (h *Handler) handleAuthControllerSigninApiv2WithResponse(ctx context.Contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAuthControllerSignupApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAuthSignupWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.AuthControllerSignupApiv2JSONRequestBody
+	var body target.AuthSignupJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AuthControllerSignupApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.AuthSignupWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2606,20 +2606,20 @@ func (h *Handler) handleAuthControllerSignupApiv2WithResponse(ctx context.Contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleAuthControllerVerifyTokenApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleAuthVerifyTokenWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.AuthControllerVerifyTokenApiv2JSONRequestBody
+	var body target.AuthVerifyTokenJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.AuthControllerVerifyTokenApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.AuthVerifyTokenWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2628,7 +2628,7 @@ func (h *Handler) handleAuthControllerVerifyTokenApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBenefitsControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBenefitsCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2636,7 +2636,7 @@ func (h *Handler) handleBenefitsControllerCountApiv2WithResponse(ctx context.Con
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.BenefitsControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.BenefitsCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2645,7 +2645,7 @@ func (h *Handler) handleBenefitsControllerCountApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBenefitsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBenefitsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2654,7 +2654,7 @@ func (h *Handler) handleBenefitsControllerGetItemApiv2WithResponse(ctx context.C
 	orgSlug := request.GetString("orgSlug", "")
 	benefitId := request.GetString("benefitId", "")
 
-	resp, err := client.BenefitsControllerGetItemApiv2WithResponse(ctx, orgSlug, benefitId)
+	resp, err := client.BenefitsGetItemWithResponse(ctx, orgSlug, benefitId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2663,14 +2663,14 @@ func (h *Handler) handleBenefitsControllerGetItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBenefitsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBenefitsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.BenefitsControllerGetItemsApiv2Params{}
+	params := &target.BenefitsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["createdAt"]; ok {
 			params.CreatedAt = ptrVal(request.GetString("createdAt", ""))
@@ -2702,7 +2702,7 @@ func (h *Handler) handleBenefitsControllerGetItemsApiv2WithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.BenefitsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.BenefitsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2711,7 +2711,7 @@ func (h *Handler) handleBenefitsControllerGetItemsApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBillingSettingsControllerGetBillingSettingsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBillingSettingsGetBillingSettingsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2719,7 +2719,7 @@ func (h *Handler) handleBillingSettingsControllerGetBillingSettingsApiv2WithResp
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.BillingSettingsControllerGetBillingSettingsApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.BillingSettingsGetBillingSettingsWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2728,19 +2728,19 @@ func (h *Handler) handleBillingSettingsControllerGetBillingSettingsApiv2WithResp
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.BookingsControllerAddItemApiv2JSONRequestBody
+	var body target.BookingsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.BookingsControllerAddItemApiv2Params{}
+	params := &target.BookingsAddItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["isSilent"]; ok {
 			params.IsSilent = ptrVal(request.GetBool("isSilent", false))
@@ -2752,7 +2752,7 @@ func (h *Handler) handleBookingsControllerAddItemApiv2WithResponse(ctx context.C
 		}
 	}
 
-	resp, err := client.BookingsControllerAddItemApiv2WithResponse(ctx, orgSlug, params, body)
+	resp, err := client.BookingsAddItemWithResponse(ctx, orgSlug, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2761,7 +2761,7 @@ func (h *Handler) handleBookingsControllerAddItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerCancelBookingApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsCancelBookingWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2769,7 +2769,7 @@ func (h *Handler) handleBookingsControllerCancelBookingApiv2WithResponse(ctx con
 
 	orgSlug := request.GetString("orgSlug", "")
 	bookingId := request.GetString("bookingId", "")
-	params := &target.BookingsControllerCancelBookingApiv2Params{}
+	params := &target.BookingsCancelBookingParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["isSilent"]; ok {
 			params.IsSilent = ptrVal(request.GetBool("isSilent", false))
@@ -2781,7 +2781,7 @@ func (h *Handler) handleBookingsControllerCancelBookingApiv2WithResponse(ctx con
 		}
 	}
 
-	resp, err := client.BookingsControllerCancelBookingApiv2WithResponse(ctx, orgSlug, bookingId, params)
+	resp, err := client.BookingsCancelBookingWithResponse(ctx, orgSlug, bookingId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2790,7 +2790,7 @@ func (h *Handler) handleBookingsControllerCancelBookingApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2798,7 +2798,7 @@ func (h *Handler) handleBookingsControllerCountApiv2WithResponse(ctx context.Con
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.BookingsControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.BookingsCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2807,7 +2807,7 @@ func (h *Handler) handleBookingsControllerCountApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2815,14 +2815,14 @@ func (h *Handler) handleBookingsControllerDeleteItemApiv2WithResponse(ctx contex
 
 	orgSlug := request.GetString("orgSlug", "")
 	bookingId := request.GetString("bookingId", "")
-	params := &target.BookingsControllerDeleteItemApiv2Params{}
+	params := &target.BookingsDeleteItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["isSilent"]; ok {
 			params.IsSilent = ptrVal(request.GetBool("isSilent", false))
 		}
 	}
 
-	resp, err := client.BookingsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, bookingId, params)
+	resp, err := client.BookingsDeleteItemWithResponse(ctx, orgSlug, bookingId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2831,7 +2831,7 @@ func (h *Handler) handleBookingsControllerDeleteItemApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -2840,7 +2840,7 @@ func (h *Handler) handleBookingsControllerGetItemApiv2WithResponse(ctx context.C
 	orgSlug := request.GetString("orgSlug", "")
 	bookingId := request.GetString("bookingId", "")
 
-	resp, err := client.BookingsControllerGetItemApiv2WithResponse(ctx, orgSlug, bookingId)
+	resp, err := client.BookingsGetItemWithResponse(ctx, orgSlug, bookingId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2849,14 +2849,14 @@ func (h *Handler) handleBookingsControllerGetItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.BookingsControllerGetItemsApiv2Params{}
+	params := &target.BookingsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -2938,7 +2938,7 @@ func (h *Handler) handleBookingsControllerGetItemsApiv2WithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.BookingsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.BookingsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -2947,14 +2947,14 @@ func (h *Handler) handleBookingsControllerGetItemsApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerGetOccurrencesApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsGetOccurrencesWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.BookingsControllerGetOccurrencesApiv2Params{}
+	params := &target.BookingsGetOccurrencesParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -2992,12 +2992,12 @@ func (h *Handler) handleBookingsControllerGetOccurrencesApiv2WithResponse(ctx co
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["seriesStart"]; ok {
-			params.SeriesStart = parseTime(request.GetString("seriesStart", ""))
+			params.SeriesStart = request.GetString("seriesStart", "")
 		}
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["seriesEnd"]; ok {
-			params.SeriesEnd = parseTime(request.GetString("seriesEnd", ""))
+			params.SeriesEnd = request.GetString("seriesEnd", "")
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -3021,7 +3021,7 @@ func (h *Handler) handleBookingsControllerGetOccurrencesApiv2WithResponse(ctx co
 		}
 	}
 
-	resp, err := client.BookingsControllerGetOccurrencesApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.BookingsGetOccurrencesWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3030,7 +3030,7 @@ func (h *Handler) handleBookingsControllerGetOccurrencesApiv2WithResponse(ctx co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3038,12 +3038,12 @@ func (h *Handler) handleBookingsControllerUpdateItemApiv2WithResponse(ctx contex
 
 	orgSlug := request.GetString("orgSlug", "")
 	bookingId := request.GetString("bookingId", "")
-	var body target.BookingsControllerUpdateItemApiv2JSONRequestBody
+	var body target.BookingsUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.BookingsControllerUpdateItemApiv2Params{}
+	params := &target.BookingsUpdateItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["isSilent"]; ok {
 			params.IsSilent = ptrVal(request.GetBool("isSilent", false))
@@ -3055,7 +3055,7 @@ func (h *Handler) handleBookingsControllerUpdateItemApiv2WithResponse(ctx contex
 		}
 	}
 
-	resp, err := client.BookingsControllerUpdateItemApiv2WithResponse(ctx, orgSlug, bookingId, params, body)
+	resp, err := client.BookingsUpdateItemWithResponse(ctx, orgSlug, bookingId, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3064,20 +3064,20 @@ func (h *Handler) handleBookingsControllerUpdateItemApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBookingsControllerValidateBookingApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBookingsValidateBookingWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.BookingsControllerValidateBookingApiv2JSONRequestBody
+	var body target.BookingsValidateBookingJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.BookingsControllerValidateBookingApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.BookingsValidateBookingWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3086,14 +3086,14 @@ func (h *Handler) handleBookingsControllerValidateBookingApiv2WithResponse(ctx c
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleBusinessHoursControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleBusinessHoursGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.BusinessHoursControllerGetItemsApiv2Params{}
+	params := &target.BusinessHoursGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["location"]; ok {
 			params.Location = ptrVal(request.GetString("location", ""))
@@ -3115,7 +3115,7 @@ func (h *Handler) handleBusinessHoursControllerGetItemsApiv2WithResponse(ctx con
 		}
 	}
 
-	resp, err := client.BusinessHoursControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.BusinessHoursGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3124,20 +3124,20 @@ func (h *Handler) handleBusinessHoursControllerGetItemsApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleChargesControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleChargesAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.ChargesControllerAddItemApiv2JSONRequestBody
+	var body target.ChargesAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.ChargesControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.ChargesAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3146,7 +3146,7 @@ func (h *Handler) handleChargesControllerAddItemApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleChargesControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleChargesDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3155,7 +3155,7 @@ func (h *Handler) handleChargesControllerDeleteItemApiv2WithResponse(ctx context
 	orgSlug := request.GetString("orgSlug", "")
 	chargeId := request.GetString("chargeId", "")
 
-	resp, err := client.ChargesControllerDeleteItemApiv2WithResponse(ctx, orgSlug, chargeId)
+	resp, err := client.ChargesDeleteItemWithResponse(ctx, orgSlug, chargeId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3164,14 +3164,14 @@ func (h *Handler) handleChargesControllerDeleteItemApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleChargesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleChargesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.ChargesControllerGetItemsApiv2Params{}
+	params := &target.ChargesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -3233,7 +3233,7 @@ func (h *Handler) handleChargesControllerGetItemsApiv2WithResponse(ctx context.C
 		}
 	}
 
-	resp, err := client.ChargesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.ChargesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3242,7 +3242,7 @@ func (h *Handler) handleChargesControllerGetItemsApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleChargesControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleChargesUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3250,13 +3250,13 @@ func (h *Handler) handleChargesControllerUpdateItemApiv2WithResponse(ctx context
 
 	orgSlug := request.GetString("orgSlug", "")
 	chargeId := request.GetString("chargeId", "")
-	var body target.ChargesControllerUpdateItemApiv2JSONRequestBody
+	var body target.ChargesUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.ChargesControllerUpdateItemApiv2WithResponse(ctx, orgSlug, chargeId, body)
+	resp, err := client.ChargesUpdateItemWithResponse(ctx, orgSlug, chargeId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3265,7 +3265,7 @@ func (h *Handler) handleChargesControllerUpdateItemApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCheckinsControllerCheckinMemberApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCheckinsCheckinMemberWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3273,13 +3273,13 @@ func (h *Handler) handleCheckinsControllerCheckinMemberApiv2WithResponse(ctx con
 
 	orgSlug := request.GetString("orgSlug", "")
 	memberId := request.GetString("memberId", "")
-	var body target.CheckinsControllerCheckinMemberApiv2JSONRequestBody
+	var body target.CheckinsCheckinMemberJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.CheckinsControllerCheckinMemberApiv2WithResponse(ctx, orgSlug, memberId, body)
+	resp, err := client.CheckinsCheckinMemberWithResponse(ctx, orgSlug, memberId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3288,7 +3288,7 @@ func (h *Handler) handleCheckinsControllerCheckinMemberApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCheckinsControllerCheckoutApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCheckinsCheckoutWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3297,7 +3297,7 @@ func (h *Handler) handleCheckinsControllerCheckoutApiv2WithResponse(ctx context.
 	orgSlug := request.GetString("orgSlug", "")
 	memberId := request.GetString("memberId", "")
 
-	resp, err := client.CheckinsControllerCheckoutApiv2WithResponse(ctx, orgSlug, memberId)
+	resp, err := client.CheckinsCheckoutWithResponse(ctx, orgSlug, memberId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3306,7 +3306,7 @@ func (h *Handler) handleCheckinsControllerCheckoutApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCheckinsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCheckinsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3315,7 +3315,7 @@ func (h *Handler) handleCheckinsControllerGetItemApiv2WithResponse(ctx context.C
 	orgSlug := request.GetString("orgSlug", "")
 	checkinId := request.GetString("checkinId", "")
 
-	resp, err := client.CheckinsControllerGetItemApiv2WithResponse(ctx, orgSlug, checkinId)
+	resp, err := client.CheckinsGetItemWithResponse(ctx, orgSlug, checkinId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3324,14 +3324,14 @@ func (h *Handler) handleCheckinsControllerGetItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCheckinsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCheckinsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.CheckinsControllerGetItemsApiv2Params{}
+	params := &target.CheckinsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -3369,7 +3369,7 @@ func (h *Handler) handleCheckinsControllerGetItemsApiv2WithResponse(ctx context.
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["createdAt"]; ok {
-			params.CreatedAt = ptrVal(parseTime(request.GetString("createdAt", "")))
+			params.CreatedAt = ptrVal(request.GetString("createdAt", ""))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -3393,7 +3393,7 @@ func (h *Handler) handleCheckinsControllerGetItemsApiv2WithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.CheckinsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.CheckinsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3402,14 +3402,14 @@ func (h *Handler) handleCheckinsControllerGetItemsApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCheckinsControllerGetVisitorCheckinsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCheckinsGetVisitorCheckinsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.CheckinsControllerGetVisitorCheckinsApiv2Params{}
+	params := &target.CheckinsGetVisitorCheckinsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -3447,7 +3447,7 @@ func (h *Handler) handleCheckinsControllerGetVisitorCheckinsApiv2WithResponse(ct
 	}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["createdAt"]; ok {
-			params.CreatedAt = ptrVal(parseTime(request.GetString("createdAt", "")))
+			params.CreatedAt = ptrVal(request.GetString("createdAt", ""))
 		}
 	}
 	if args := request.GetArguments(); args != nil {
@@ -3476,7 +3476,7 @@ func (h *Handler) handleCheckinsControllerGetVisitorCheckinsApiv2WithResponse(ct
 		}
 	}
 
-	resp, err := client.CheckinsControllerGetVisitorCheckinsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.CheckinsGetVisitorCheckinsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3485,26 +3485,26 @@ func (h *Handler) handleCheckinsControllerGetVisitorCheckinsApiv2WithResponse(ct
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCheckoutControllerCheckoutApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCheckoutCheckoutWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.CheckoutControllerCheckoutApiv2JSONRequestBody
+	var body target.CheckoutCheckoutJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.CheckoutControllerCheckoutApiv2Params{}
+	params := &target.CheckoutCheckoutParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["enforceBookingPolicy"]; ok {
 			params.EnforceBookingPolicy = ptrVal(request.GetBool("enforceBookingPolicy", false))
 		}
 	}
 
-	resp, err := client.CheckoutControllerCheckoutApiv2WithResponse(ctx, orgSlug, params, body)
+	resp, err := client.CheckoutCheckoutWithResponse(ctx, orgSlug, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3513,26 +3513,26 @@ func (h *Handler) handleCheckoutControllerCheckoutApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCheckoutControllerGetCheckoutSummaryApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCheckoutGetCheckoutSummaryWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.CheckoutControllerGetCheckoutSummaryApiv2JSONRequestBody
+	var body target.CheckoutGetCheckoutSummaryJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.CheckoutControllerGetCheckoutSummaryApiv2Params{}
+	params := &target.CheckoutGetCheckoutSummaryParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["enforceBookingPolicy"]; ok {
 			params.EnforceBookingPolicy = ptrVal(request.GetBool("enforceBookingPolicy", false))
 		}
 	}
 
-	resp, err := client.CheckoutControllerGetCheckoutSummaryApiv2WithResponse(ctx, orgSlug, params, body)
+	resp, err := client.CheckoutGetCheckoutSummaryWithResponse(ctx, orgSlug, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3541,14 +3541,14 @@ func (h *Handler) handleCheckoutControllerGetCheckoutSummaryApiv2WithResponse(ct
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCoinsControllerGetCoinStatsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCoinsGetCoinStatsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.CoinsControllerGetCoinStatsApiv2Params{}
+	params := &target.CoinsGetCoinStatsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["month"]; ok {
 			params.Month = request.GetString("month", "")
@@ -3585,7 +3585,7 @@ func (h *Handler) handleCoinsControllerGetCoinStatsApiv2WithResponse(ctx context
 		}
 	}
 
-	resp, err := client.CoinsControllerGetCoinStatsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.CoinsGetCoinStatsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3594,20 +3594,20 @@ func (h *Handler) handleCoinsControllerGetCoinStatsApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCompaniesControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCompaniesAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.CompaniesControllerAddItemApiv2JSONRequestBody
+	var body target.CompaniesAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.CompaniesControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.CompaniesAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3616,7 +3616,7 @@ func (h *Handler) handleCompaniesControllerAddItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCompaniesControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCompaniesDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3625,7 +3625,7 @@ func (h *Handler) handleCompaniesControllerDeleteItemApiv2WithResponse(ctx conte
 	orgSlug := request.GetString("orgSlug", "")
 	companyId := request.GetString("companyId", "")
 
-	resp, err := client.CompaniesControllerDeleteItemApiv2WithResponse(ctx, orgSlug, companyId)
+	resp, err := client.CompaniesDeleteItemWithResponse(ctx, orgSlug, companyId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3634,7 +3634,7 @@ func (h *Handler) handleCompaniesControllerDeleteItemApiv2WithResponse(ctx conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCompaniesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCompaniesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3643,7 +3643,7 @@ func (h *Handler) handleCompaniesControllerGetItemApiv2WithResponse(ctx context.
 	orgSlug := request.GetString("orgSlug", "")
 	companyId := request.GetString("companyId", "")
 
-	resp, err := client.CompaniesControllerGetItemApiv2WithResponse(ctx, orgSlug, companyId)
+	resp, err := client.CompaniesGetItemWithResponse(ctx, orgSlug, companyId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3652,14 +3652,14 @@ func (h *Handler) handleCompaniesControllerGetItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCompaniesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCompaniesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.CompaniesControllerGetItemsApiv2Params{}
+	params := &target.CompaniesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -3721,7 +3721,7 @@ func (h *Handler) handleCompaniesControllerGetItemsApiv2WithResponse(ctx context
 		}
 	}
 
-	resp, err := client.CompaniesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.CompaniesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3730,7 +3730,7 @@ func (h *Handler) handleCompaniesControllerGetItemsApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCompaniesControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCompaniesUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3738,13 +3738,13 @@ func (h *Handler) handleCompaniesControllerUpdateItemApiv2WithResponse(ctx conte
 
 	orgSlug := request.GetString("orgSlug", "")
 	companyId := request.GetString("companyId", "")
-	var body target.CompaniesControllerUpdateItemApiv2JSONRequestBody
+	var body target.CompaniesUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.CompaniesControllerUpdateItemApiv2WithResponse(ctx, orgSlug, companyId, body)
+	resp, err := client.CompaniesUpdateItemWithResponse(ctx, orgSlug, companyId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3753,20 +3753,20 @@ func (h *Handler) handleCompaniesControllerUpdateItemApiv2WithResponse(ctx conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleContractsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleContractsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.ContractsControllerAddItemApiv2JSONRequestBody
+	var body target.ContractsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.ContractsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.ContractsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3775,14 +3775,14 @@ func (h *Handler) handleContractsControllerAddItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleContractsControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleContractsCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.ContractsControllerCountApiv2Params{}
+	params := &target.ContractsCountParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -3824,7 +3824,7 @@ func (h *Handler) handleContractsControllerCountApiv2WithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.ContractsControllerCountApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.ContractsCountWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3833,7 +3833,7 @@ func (h *Handler) handleContractsControllerCountApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleContractsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleContractsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3842,7 +3842,7 @@ func (h *Handler) handleContractsControllerDeleteItemApiv2WithResponse(ctx conte
 	orgSlug := request.GetString("orgSlug", "")
 	contractId := request.GetString("contractId", "")
 
-	resp, err := client.ContractsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, contractId)
+	resp, err := client.ContractsDeleteItemWithResponse(ctx, orgSlug, contractId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3851,7 +3851,7 @@ func (h *Handler) handleContractsControllerDeleteItemApiv2WithResponse(ctx conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleContractsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleContractsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3860,7 +3860,7 @@ func (h *Handler) handleContractsControllerGetItemApiv2WithResponse(ctx context.
 	orgSlug := request.GetString("orgSlug", "")
 	contractId := request.GetString("contractId", "")
 
-	resp, err := client.ContractsControllerGetItemApiv2WithResponse(ctx, orgSlug, contractId)
+	resp, err := client.ContractsGetItemWithResponse(ctx, orgSlug, contractId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3869,14 +3869,14 @@ func (h *Handler) handleContractsControllerGetItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleContractsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleContractsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.ContractsControllerGetItemsApiv2Params{}
+	params := &target.ContractsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -3938,7 +3938,7 @@ func (h *Handler) handleContractsControllerGetItemsApiv2WithResponse(ctx context
 		}
 	}
 
-	resp, err := client.ContractsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.ContractsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3947,7 +3947,7 @@ func (h *Handler) handleContractsControllerGetItemsApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleContractsControllerSignItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleContractsSignItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3956,7 +3956,7 @@ func (h *Handler) handleContractsControllerSignItemApiv2WithResponse(ctx context
 	orgSlug := request.GetString("orgSlug", "")
 	contractId := request.GetString("contractId", "")
 
-	resp, err := client.ContractsControllerSignItemApiv2WithResponse(ctx, orgSlug, contractId)
+	resp, err := client.ContractsSignItemWithResponse(ctx, orgSlug, contractId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3965,7 +3965,7 @@ func (h *Handler) handleContractsControllerSignItemApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleContractsControllerTerminateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleContractsTerminateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3973,13 +3973,13 @@ func (h *Handler) handleContractsControllerTerminateItemApiv2WithResponse(ctx co
 
 	orgSlug := request.GetString("orgSlug", "")
 	contractId := request.GetString("contractId", "")
-	var body target.ContractsControllerTerminateItemApiv2JSONRequestBody
+	var body target.ContractsTerminateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.ContractsControllerTerminateItemApiv2WithResponse(ctx, orgSlug, contractId, body)
+	resp, err := client.ContractsTerminateItemWithResponse(ctx, orgSlug, contractId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -3988,7 +3988,7 @@ func (h *Handler) handleContractsControllerTerminateItemApiv2WithResponse(ctx co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleContractsControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleContractsUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -3996,13 +3996,13 @@ func (h *Handler) handleContractsControllerUpdateItemApiv2WithResponse(ctx conte
 
 	orgSlug := request.GetString("orgSlug", "")
 	contractId := request.GetString("contractId", "")
-	var body target.ContractsControllerUpdateItemApiv2JSONRequestBody
+	var body target.ContractsUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.ContractsControllerUpdateItemApiv2WithResponse(ctx, orgSlug, contractId, body)
+	resp, err := client.ContractsUpdateItemWithResponse(ctx, orgSlug, contractId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4011,20 +4011,20 @@ func (h *Handler) handleContractsControllerUpdateItemApiv2WithResponse(ctx conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCreditsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreditsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.CreditsControllerAddItemApiv2JSONRequestBody
+	var body target.CreditsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.CreditsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.CreditsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4033,7 +4033,7 @@ func (h *Handler) handleCreditsControllerAddItemApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCreditsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreditsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4042,7 +4042,7 @@ func (h *Handler) handleCreditsControllerDeleteItemApiv2WithResponse(ctx context
 	orgSlug := request.GetString("orgSlug", "")
 	creditsId := request.GetString("creditsId", "")
 
-	resp, err := client.CreditsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, creditsId)
+	resp, err := client.CreditsDeleteItemWithResponse(ctx, orgSlug, creditsId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4051,7 +4051,7 @@ func (h *Handler) handleCreditsControllerDeleteItemApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCreditsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreditsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4060,7 +4060,7 @@ func (h *Handler) handleCreditsControllerGetItemApiv2WithResponse(ctx context.Co
 	orgSlug := request.GetString("orgSlug", "")
 	creditsId := request.GetString("creditsId", "")
 
-	resp, err := client.CreditsControllerGetItemApiv2WithResponse(ctx, orgSlug, creditsId)
+	resp, err := client.CreditsGetItemWithResponse(ctx, orgSlug, creditsId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4069,14 +4069,14 @@ func (h *Handler) handleCreditsControllerGetItemApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCreditsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreditsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.CreditsControllerGetItemsApiv2Params{}
+	params := &target.CreditsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["company"]; ok {
 			params.Company = ptrVal(request.GetString("company", ""))
@@ -4128,7 +4128,7 @@ func (h *Handler) handleCreditsControllerGetItemsApiv2WithResponse(ctx context.C
 		}
 	}
 
-	resp, err := client.CreditsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.CreditsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4137,7 +4137,7 @@ func (h *Handler) handleCreditsControllerGetItemsApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCreditsControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCreditsUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4145,13 +4145,13 @@ func (h *Handler) handleCreditsControllerUpdateItemApiv2WithResponse(ctx context
 
 	orgSlug := request.GetString("orgSlug", "")
 	creditsId := request.GetString("creditsId", "")
-	var body target.CreditsControllerUpdateItemApiv2JSONRequestBody
+	var body target.CreditsUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.CreditsControllerUpdateItemApiv2WithResponse(ctx, orgSlug, creditsId, body)
+	resp, err := client.CreditsUpdateItemWithResponse(ctx, orgSlug, creditsId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4160,14 +4160,14 @@ func (h *Handler) handleCreditsControllerUpdateItemApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleCustomPropertiesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleCustomPropertiesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.CustomPropertiesControllerGetItemsApiv2Params{}
+	params := &target.CustomPropertiesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -4189,7 +4189,7 @@ func (h *Handler) handleCustomPropertiesControllerGetItemsApiv2WithResponse(ctx 
 		}
 	}
 
-	resp, err := client.CustomPropertiesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.CustomPropertiesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4198,20 +4198,20 @@ func (h *Handler) handleCustomPropertiesControllerGetItemsApiv2WithResponse(ctx 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleEventsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleEventsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.EventsControllerAddItemApiv2JSONRequestBody
+	var body target.EventsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.EventsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.EventsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4220,7 +4220,7 @@ func (h *Handler) handleEventsControllerAddItemApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleEventsControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleEventsCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4228,7 +4228,7 @@ func (h *Handler) handleEventsControllerCountApiv2WithResponse(ctx context.Conte
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.EventsControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.EventsCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4237,25 +4237,7 @@ func (h *Handler) handleEventsControllerCountApiv2WithResponse(ctx context.Conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleEventsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	orgSlug := request.GetString("orgSlug", "")
-	eventId := request.GetString("eventId", "")
-
-	resp, err := client.EventsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, eventId)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleEventsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleEventsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4264,7 +4246,7 @@ func (h *Handler) handleEventsControllerGetItemApiv2WithResponse(ctx context.Con
 	orgSlug := request.GetString("orgSlug", "")
 	eventId := request.GetString("eventId", "")
 
-	resp, err := client.EventsControllerGetItemApiv2WithResponse(ctx, orgSlug, eventId)
+	resp, err := client.EventsDeleteItemWithResponse(ctx, orgSlug, eventId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4273,14 +4255,32 @@ func (h *Handler) handleEventsControllerGetItemApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleEventsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleEventsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.EventsControllerGetItemsApiv2Params{}
+	eventId := request.GetString("eventId", "")
+
+	resp, err := client.EventsGetItemWithResponse(ctx, orgSlug, eventId)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleEventsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	orgSlug := request.GetString("orgSlug", "")
+	params := &target.EventsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["location"]; ok {
 			params.Location = ptrVal(request.GetString("location", ""))
@@ -4327,7 +4327,7 @@ func (h *Handler) handleEventsControllerGetItemsApiv2WithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.EventsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.EventsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4336,7 +4336,7 @@ func (h *Handler) handleEventsControllerGetItemsApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleEventsControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleEventsUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4344,13 +4344,13 @@ func (h *Handler) handleEventsControllerUpdateItemApiv2WithResponse(ctx context.
 
 	orgSlug := request.GetString("orgSlug", "")
 	eventId := request.GetString("eventId", "")
-	var body target.EventsControllerUpdateItemApiv2JSONRequestBody
+	var body target.EventsUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.EventsControllerUpdateItemApiv2WithResponse(ctx, orgSlug, eventId, body)
+	resp, err := client.EventsUpdateItemWithResponse(ctx, orgSlug, eventId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4359,26 +4359,26 @@ func (h *Handler) handleEventsControllerUpdateItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleFeesControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleFeesAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.FeesControllerAddItemApiv2JSONRequestBody
+	var body target.FeesAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.FeesControllerAddItemApiv2Params{}
+	params := &target.FeesAddItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["shouldUseCoins"]; ok {
 			params.ShouldUseCoins = ptrVal(request.GetBool("shouldUseCoins", false))
 		}
 	}
 
-	resp, err := client.FeesControllerAddItemApiv2WithResponse(ctx, orgSlug, params, body)
+	resp, err := client.FeesAddItemWithResponse(ctx, orgSlug, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4387,7 +4387,7 @@ func (h *Handler) handleFeesControllerAddItemApiv2WithResponse(ctx context.Conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleFeesControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleFeesCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4395,7 +4395,7 @@ func (h *Handler) handleFeesControllerCountApiv2WithResponse(ctx context.Context
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.FeesControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.FeesCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4404,25 +4404,7 @@ func (h *Handler) handleFeesControllerCountApiv2WithResponse(ctx context.Context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleFeesControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	orgSlug := request.GetString("orgSlug", "")
-	feeId := request.GetString("feeId", "")
-
-	resp, err := client.FeesControllerDeleteItemApiv2WithResponse(ctx, orgSlug, feeId)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleFeesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleFeesDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4431,7 +4413,7 @@ func (h *Handler) handleFeesControllerGetItemApiv2WithResponse(ctx context.Conte
 	orgSlug := request.GetString("orgSlug", "")
 	feeId := request.GetString("feeId", "")
 
-	resp, err := client.FeesControllerGetItemApiv2WithResponse(ctx, orgSlug, feeId)
+	resp, err := client.FeesDeleteItemWithResponse(ctx, orgSlug, feeId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4440,14 +4422,32 @@ func (h *Handler) handleFeesControllerGetItemApiv2WithResponse(ctx context.Conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleFeesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleFeesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.FeesControllerGetItemsApiv2Params{}
+	feeId := request.GetString("feeId", "")
+
+	resp, err := client.FeesGetItemWithResponse(ctx, orgSlug, feeId)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleFeesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	orgSlug := request.GetString("orgSlug", "")
+	params := &target.FeesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -4514,7 +4514,7 @@ func (h *Handler) handleFeesControllerGetItemsApiv2WithResponse(ctx context.Cont
 		}
 	}
 
-	resp, err := client.FeesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.FeesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4523,7 +4523,7 @@ func (h *Handler) handleFeesControllerGetItemsApiv2WithResponse(ctx context.Cont
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleFeesControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleFeesUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4531,19 +4531,19 @@ func (h *Handler) handleFeesControllerUpdateItemApiv2WithResponse(ctx context.Co
 
 	orgSlug := request.GetString("orgSlug", "")
 	feeId := request.GetString("feeId", "")
-	var body target.FeesControllerUpdateItemApiv2JSONRequestBody
+	var body target.FeesUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
-	params := &target.FeesControllerUpdateItemApiv2Params{}
+	params := &target.FeesUpdateItemParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["shouldUseCoins"]; ok {
 			params.ShouldUseCoins = ptrVal(request.GetBool("shouldUseCoins", false))
 		}
 	}
 
-	resp, err := client.FeesControllerUpdateItemApiv2WithResponse(ctx, orgSlug, feeId, params, body)
+	resp, err := client.FeesUpdateItemWithResponse(ctx, orgSlug, feeId, params, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4552,7 +4552,7 @@ func (h *Handler) handleFeesControllerUpdateItemApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleFloorsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleFloorsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4561,7 +4561,7 @@ func (h *Handler) handleFloorsControllerGetItemApiv2WithResponse(ctx context.Con
 	orgSlug := request.GetString("orgSlug", "")
 	floorId := request.GetString("floorId", "")
 
-	resp, err := client.FloorsControllerGetItemApiv2WithResponse(ctx, orgSlug, floorId)
+	resp, err := client.FloorsGetItemWithResponse(ctx, orgSlug, floorId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4570,14 +4570,14 @@ func (h *Handler) handleFloorsControllerGetItemApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleFloorsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleFloorsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.FloorsControllerGetItemsApiv2Params{}
+	params := &target.FloorsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -4624,7 +4624,7 @@ func (h *Handler) handleFloorsControllerGetItemsApiv2WithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.FloorsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.FloorsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4633,7 +4633,7 @@ func (h *Handler) handleFloorsControllerGetItemsApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleIntegrationsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleIntegrationsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4642,7 +4642,7 @@ func (h *Handler) handleIntegrationsControllerGetItemApiv2WithResponse(ctx conte
 	orgSlug := request.GetString("orgSlug", "")
 	integrationId := request.GetString("integrationId", "")
 
-	resp, err := client.IntegrationsControllerGetItemApiv2WithResponse(ctx, orgSlug, integrationId)
+	resp, err := client.IntegrationsGetItemWithResponse(ctx, orgSlug, integrationId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4651,7 +4651,7 @@ func (h *Handler) handleIntegrationsControllerGetItemApiv2WithResponse(ctx conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleLocationsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleLocationsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4660,7 +4660,7 @@ func (h *Handler) handleLocationsControllerGetItemApiv2WithResponse(ctx context.
 	orgSlug := request.GetString("orgSlug", "")
 	locationId := request.GetString("locationId", "")
 
-	resp, err := client.LocationsControllerGetItemApiv2WithResponse(ctx, orgSlug, locationId)
+	resp, err := client.LocationsGetItemWithResponse(ctx, orgSlug, locationId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4669,14 +4669,14 @@ func (h *Handler) handleLocationsControllerGetItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleLocationsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleLocationsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.LocationsControllerGetItemsApiv2Params{}
+	params := &target.LocationsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -4728,7 +4728,7 @@ func (h *Handler) handleLocationsControllerGetItemsApiv2WithResponse(ctx context
 		}
 	}
 
-	resp, err := client.LocationsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.LocationsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4737,20 +4737,20 @@ func (h *Handler) handleLocationsControllerGetItemsApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.MembersControllerAddItemApiv2JSONRequestBody
+	var body target.MembersAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.MembersControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.MembersAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4759,14 +4759,14 @@ func (h *Handler) handleMembersControllerAddItemApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerCountByApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersCountByWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.MembersControllerCountByApiv2Params{}
+	params := &target.MembersCountByParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -4823,7 +4823,7 @@ func (h *Handler) handleMembersControllerCountByApiv2WithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.MembersControllerCountByApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.MembersCountByWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4832,7 +4832,7 @@ func (h *Handler) handleMembersControllerCountByApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4841,7 +4841,7 @@ func (h *Handler) handleMembersControllerDeleteItemApiv2WithResponse(ctx context
 	orgSlug := request.GetString("orgSlug", "")
 	memberId := request.GetString("memberId", "")
 
-	resp, err := client.MembersControllerDeleteItemApiv2WithResponse(ctx, orgSlug, memberId)
+	resp, err := client.MembersDeleteItemWithResponse(ctx, orgSlug, memberId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4850,7 +4850,7 @@ func (h *Handler) handleMembersControllerDeleteItemApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4859,7 +4859,7 @@ func (h *Handler) handleMembersControllerGetItemApiv2WithResponse(ctx context.Co
 	orgSlug := request.GetString("orgSlug", "")
 	memberId := request.GetString("memberId", "")
 
-	resp, err := client.MembersControllerGetItemApiv2WithResponse(ctx, orgSlug, memberId)
+	resp, err := client.MembersGetItemWithResponse(ctx, orgSlug, memberId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4868,14 +4868,14 @@ func (h *Handler) handleMembersControllerGetItemApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.MembersControllerGetItemsApiv2Params{}
+	params := &target.MembersGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -4952,7 +4952,7 @@ func (h *Handler) handleMembersControllerGetItemsApiv2WithResponse(ctx context.C
 		}
 	}
 
-	resp, err := client.MembersControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.MembersGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4961,7 +4961,7 @@ func (h *Handler) handleMembersControllerGetItemsApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerManagePortalAccessApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersManagePortalAccessWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4969,13 +4969,13 @@ func (h *Handler) handleMembersControllerManagePortalAccessApiv2WithResponse(ctx
 
 	orgSlug := request.GetString("orgSlug", "")
 	memberId := request.GetString("memberId", "")
-	var body target.MembersControllerManagePortalAccessApiv2JSONRequestBody
+	var body target.MembersManagePortalAccessJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.MembersControllerManagePortalAccessApiv2WithResponse(ctx, orgSlug, memberId, body)
+	resp, err := client.MembersManagePortalAccessWithResponse(ctx, orgSlug, memberId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -4984,7 +4984,7 @@ func (h *Handler) handleMembersControllerManagePortalAccessApiv2WithResponse(ctx
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerUpdateCompanyApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersUpdateCompanyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -4992,13 +4992,13 @@ func (h *Handler) handleMembersControllerUpdateCompanyApiv2WithResponse(ctx cont
 
 	orgSlug := request.GetString("orgSlug", "")
 	memberId := request.GetString("memberId", "")
-	var body target.MembersControllerUpdateCompanyApiv2JSONRequestBody
+	var body target.MembersUpdateCompanyJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.MembersControllerUpdateCompanyApiv2WithResponse(ctx, orgSlug, memberId, body)
+	resp, err := client.MembersUpdateCompanyWithResponse(ctx, orgSlug, memberId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5007,7 +5007,7 @@ func (h *Handler) handleMembersControllerUpdateCompanyApiv2WithResponse(ctx cont
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5015,13 +5015,13 @@ func (h *Handler) handleMembersControllerUpdateItemApiv2WithResponse(ctx context
 
 	orgSlug := request.GetString("orgSlug", "")
 	memberId := request.GetString("memberId", "")
-	var body target.MembersControllerUpdateItemApiv2JSONRequestBody
+	var body target.MembersUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.MembersControllerUpdateItemApiv2WithResponse(ctx, orgSlug, memberId, body)
+	resp, err := client.MembersUpdateItemWithResponse(ctx, orgSlug, memberId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5030,7 +5030,7 @@ func (h *Handler) handleMembersControllerUpdateItemApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembersControllerUpdateStatusApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembersUpdateStatusWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5038,13 +5038,13 @@ func (h *Handler) handleMembersControllerUpdateStatusApiv2WithResponse(ctx conte
 
 	orgSlug := request.GetString("orgSlug", "")
 	memberId := request.GetString("memberId", "")
-	var body target.MembersControllerUpdateStatusApiv2JSONRequestBody
+	var body target.MembersUpdateStatusJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.MembersControllerUpdateStatusApiv2WithResponse(ctx, orgSlug, memberId, body)
+	resp, err := client.MembersUpdateStatusWithResponse(ctx, orgSlug, memberId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5053,20 +5053,20 @@ func (h *Handler) handleMembersControllerUpdateStatusApiv2WithResponse(ctx conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembershipsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembershipsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.MembershipsControllerAddItemApiv2JSONRequestBody
+	var body target.MembershipsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.MembershipsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.MembershipsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5075,7 +5075,7 @@ func (h *Handler) handleMembershipsControllerAddItemApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembershipsControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembershipsCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5083,7 +5083,7 @@ func (h *Handler) handleMembershipsControllerCountApiv2WithResponse(ctx context.
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.MembershipsControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.MembershipsCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5092,7 +5092,7 @@ func (h *Handler) handleMembershipsControllerCountApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembershipsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembershipsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5101,7 +5101,7 @@ func (h *Handler) handleMembershipsControllerDeleteItemApiv2WithResponse(ctx con
 	orgSlug := request.GetString("orgSlug", "")
 	membershipId := request.GetString("membershipId", "")
 
-	resp, err := client.MembershipsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, membershipId)
+	resp, err := client.MembershipsDeleteItemWithResponse(ctx, orgSlug, membershipId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5110,7 +5110,7 @@ func (h *Handler) handleMembershipsControllerDeleteItemApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembershipsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembershipsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5119,7 +5119,7 @@ func (h *Handler) handleMembershipsControllerGetItemApiv2WithResponse(ctx contex
 	orgSlug := request.GetString("orgSlug", "")
 	membershipId := request.GetString("membershipId", "")
 
-	resp, err := client.MembershipsControllerGetItemApiv2WithResponse(ctx, orgSlug, membershipId)
+	resp, err := client.MembershipsGetItemWithResponse(ctx, orgSlug, membershipId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5128,14 +5128,14 @@ func (h *Handler) handleMembershipsControllerGetItemApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembershipsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembershipsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.MembershipsControllerGetItemsApiv2Params{}
+	params := &target.MembershipsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -5202,7 +5202,7 @@ func (h *Handler) handleMembershipsControllerGetItemsApiv2WithResponse(ctx conte
 		}
 	}
 
-	resp, err := client.MembershipsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.MembershipsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5211,7 +5211,7 @@ func (h *Handler) handleMembershipsControllerGetItemsApiv2WithResponse(ctx conte
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleMembershipsControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleMembershipsUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5219,13 +5219,13 @@ func (h *Handler) handleMembershipsControllerUpdateItemApiv2WithResponse(ctx con
 
 	orgSlug := request.GetString("orgSlug", "")
 	membershipId := request.GetString("membershipId", "")
-	var body target.MembershipsControllerUpdateItemApiv2JSONRequestBody
+	var body target.MembershipsUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.MembershipsControllerUpdateItemApiv2WithResponse(ctx, orgSlug, membershipId, body)
+	resp, err := client.MembershipsUpdateItemWithResponse(ctx, orgSlug, membershipId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5234,20 +5234,20 @@ func (h *Handler) handleMembershipsControllerUpdateItemApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleOpportunitiesControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleOpportunitiesAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.OpportunitiesControllerAddItemApiv2JSONRequestBody
+	var body target.OpportunitiesAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.OpportunitiesControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.OpportunitiesAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5256,7 +5256,7 @@ func (h *Handler) handleOpportunitiesControllerAddItemApiv2WithResponse(ctx cont
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleOpportunitiesControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleOpportunitiesCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5264,7 +5264,7 @@ func (h *Handler) handleOpportunitiesControllerCountApiv2WithResponse(ctx contex
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.OpportunitiesControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.OpportunitiesCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5273,7 +5273,7 @@ func (h *Handler) handleOpportunitiesControllerCountApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleOpportunitiesControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleOpportunitiesDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5282,7 +5282,7 @@ func (h *Handler) handleOpportunitiesControllerDeleteItemApiv2WithResponse(ctx c
 	orgSlug := request.GetString("orgSlug", "")
 	opportunityId := request.GetString("opportunityId", "")
 
-	resp, err := client.OpportunitiesControllerDeleteItemApiv2WithResponse(ctx, orgSlug, opportunityId)
+	resp, err := client.OpportunitiesDeleteItemWithResponse(ctx, orgSlug, opportunityId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5291,7 +5291,7 @@ func (h *Handler) handleOpportunitiesControllerDeleteItemApiv2WithResponse(ctx c
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleOpportunitiesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleOpportunitiesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5300,7 +5300,7 @@ func (h *Handler) handleOpportunitiesControllerGetItemApiv2WithResponse(ctx cont
 	orgSlug := request.GetString("orgSlug", "")
 	opportunityId := request.GetString("opportunityId", "")
 
-	resp, err := client.OpportunitiesControllerGetItemApiv2WithResponse(ctx, orgSlug, opportunityId)
+	resp, err := client.OpportunitiesGetItemWithResponse(ctx, orgSlug, opportunityId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5309,14 +5309,14 @@ func (h *Handler) handleOpportunitiesControllerGetItemApiv2WithResponse(ctx cont
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleOpportunitiesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleOpportunitiesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.OpportunitiesControllerGetItemsApiv2Params{}
+	params := &target.OpportunitiesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -5363,7 +5363,7 @@ func (h *Handler) handleOpportunitiesControllerGetItemsApiv2WithResponse(ctx con
 		}
 	}
 
-	resp, err := client.OpportunitiesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.OpportunitiesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5372,7 +5372,7 @@ func (h *Handler) handleOpportunitiesControllerGetItemsApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleOpportunitiesControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleOpportunitiesUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5380,13 +5380,13 @@ func (h *Handler) handleOpportunitiesControllerUpdateItemApiv2WithResponse(ctx c
 
 	orgSlug := request.GetString("orgSlug", "")
 	opportunityId := request.GetString("opportunityId", "")
-	var body target.OpportunitiesControllerUpdateItemApiv2JSONRequestBody
+	var body target.OpportunitiesUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.OpportunitiesControllerUpdateItemApiv2WithResponse(ctx, orgSlug, opportunityId, body)
+	resp, err := client.OpportunitiesUpdateItemWithResponse(ctx, orgSlug, opportunityId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5395,14 +5395,14 @@ func (h *Handler) handleOpportunitiesControllerUpdateItemApiv2WithResponse(ctx c
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleOpportunityStatusesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleOpportunityStatusesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.OpportunityStatusesControllerGetItemsApiv2Params{}
+	params := &target.OpportunityStatusesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -5424,7 +5424,7 @@ func (h *Handler) handleOpportunityStatusesControllerGetItemsApiv2WithResponse(c
 		}
 	}
 
-	resp, err := client.OpportunityStatusesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.OpportunityStatusesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5433,7 +5433,7 @@ func (h *Handler) handleOpportunityStatusesControllerGetItemsApiv2WithResponse(c
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleOrganizationsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleOrganizationsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5441,7 +5441,7 @@ func (h *Handler) handleOrganizationsControllerGetItemApiv2WithResponse(ctx cont
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.OrganizationsControllerGetItemApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.OrganizationsGetItemWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5471,20 +5471,20 @@ func (h *Handler) handlePOSTGenerateTokenWithFormdataBodyWithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePassesControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePassesAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.PassesControllerAddItemApiv2JSONRequestBody
+	var body target.PassesAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PassesControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.PassesAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5493,7 +5493,7 @@ func (h *Handler) handlePassesControllerAddItemApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePassesControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePassesDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5502,7 +5502,7 @@ func (h *Handler) handlePassesControllerDeleteItemApiv2WithResponse(ctx context.
 	orgSlug := request.GetString("orgSlug", "")
 	passesId := request.GetString("passesId", "")
 
-	resp, err := client.PassesControllerDeleteItemApiv2WithResponse(ctx, orgSlug, passesId)
+	resp, err := client.PassesDeleteItemWithResponse(ctx, orgSlug, passesId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5511,7 +5511,7 @@ func (h *Handler) handlePassesControllerDeleteItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePassesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePassesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5520,7 +5520,7 @@ func (h *Handler) handlePassesControllerGetItemApiv2WithResponse(ctx context.Con
 	orgSlug := request.GetString("orgSlug", "")
 	passesId := request.GetString("passesId", "")
 
-	resp, err := client.PassesControllerGetItemApiv2WithResponse(ctx, orgSlug, passesId)
+	resp, err := client.PassesGetItemWithResponse(ctx, orgSlug, passesId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5529,14 +5529,14 @@ func (h *Handler) handlePassesControllerGetItemApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePassesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePassesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.PassesControllerGetItemsApiv2Params{}
+	params := &target.PassesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -5583,7 +5583,7 @@ func (h *Handler) handlePassesControllerGetItemsApiv2WithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.PassesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.PassesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5592,7 +5592,7 @@ func (h *Handler) handlePassesControllerGetItemsApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePassesControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePassesUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5600,13 +5600,13 @@ func (h *Handler) handlePassesControllerUpdateItemApiv2WithResponse(ctx context.
 
 	orgSlug := request.GetString("orgSlug", "")
 	passesId := request.GetString("passesId", "")
-	var body target.PassesControllerUpdateItemApiv2JSONRequestBody
+	var body target.PassesUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PassesControllerUpdateItemApiv2WithResponse(ctx, orgSlug, passesId, body)
+	resp, err := client.PassesUpdateItemWithResponse(ctx, orgSlug, passesId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5615,20 +5615,20 @@ func (h *Handler) handlePassesControllerUpdateItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePasswordControllerChangePasswordApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePasswordChangePasswordWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.PasswordControllerChangePasswordApiv2JSONRequestBody
+	var body target.PasswordChangePasswordJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PasswordControllerChangePasswordApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.PasswordChangePasswordWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5637,20 +5637,20 @@ func (h *Handler) handlePasswordControllerChangePasswordApiv2WithResponse(ctx co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePasswordControllerResetPasswordApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePasswordResetPasswordWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.PasswordControllerResetPasswordApiv2JSONRequestBody
+	var body target.PasswordResetPasswordJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PasswordControllerResetPasswordApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.PasswordResetPasswordWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5659,20 +5659,20 @@ func (h *Handler) handlePasswordControllerResetPasswordApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentDetailsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentDetailsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.PaymentDetailsControllerAddItemApiv2JSONRequestBody
+	var body target.PaymentDetailsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PaymentDetailsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.PaymentDetailsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5681,7 +5681,7 @@ func (h *Handler) handlePaymentDetailsControllerAddItemApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentDetailsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentDetailsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5689,13 +5689,13 @@ func (h *Handler) handlePaymentDetailsControllerDeleteItemApiv2WithResponse(ctx 
 
 	orgSlug := request.GetString("orgSlug", "")
 	paymentDetailsId := request.GetString("paymentDetailsId", "")
-	var body target.PaymentDetailsControllerDeleteItemApiv2JSONRequestBody
+	var body target.PaymentDetailsDeleteItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PaymentDetailsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, paymentDetailsId, body)
+	resp, err := client.PaymentDetailsDeleteItemWithResponse(ctx, orgSlug, paymentDetailsId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5704,14 +5704,14 @@ func (h *Handler) handlePaymentDetailsControllerDeleteItemApiv2WithResponse(ctx 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentDetailsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentDetailsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.PaymentDetailsControllerGetItemsApiv2Params{}
+	params := &target.PaymentDetailsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["member"]; ok {
 			params.Member = ptrVal(request.GetString("member", ""))
@@ -5743,7 +5743,7 @@ func (h *Handler) handlePaymentDetailsControllerGetItemsApiv2WithResponse(ctx co
 		}
 	}
 
-	resp, err := client.PaymentDetailsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.PaymentDetailsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5752,20 +5752,20 @@ func (h *Handler) handlePaymentDetailsControllerGetItemsApiv2WithResponse(ctx co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentDetailsControllerRegisterItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentDetailsRegisterItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.PaymentDetailsControllerRegisterItemApiv2JSONRequestBody
+	var body target.PaymentDetailsRegisterItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PaymentDetailsControllerRegisterItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.PaymentDetailsRegisterItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5774,20 +5774,20 @@ func (h *Handler) handlePaymentDetailsControllerRegisterItemApiv2WithResponse(ct
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentGatewaysControllerAuthorizeApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentGatewaysAuthorizeWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.PaymentGatewaysControllerAuthorizeApiv2JSONRequestBody
+	var body target.PaymentGatewaysAuthorizeJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PaymentGatewaysControllerAuthorizeApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.PaymentGatewaysAuthorizeWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5796,7 +5796,7 @@ func (h *Handler) handlePaymentGatewaysControllerAuthorizeApiv2WithResponse(ctx 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerAddCreditAllocationApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsAddCreditAllocationWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5804,13 +5804,13 @@ func (h *Handler) handlePaymentsControllerAddCreditAllocationApiv2WithResponse(c
 
 	orgSlug := request.GetString("orgSlug", "")
 	paymentId := request.GetString("paymentId", "")
-	var body target.PaymentsControllerAddCreditAllocationApiv2JSONRequestBody
+	var body target.PaymentsAddCreditAllocationJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PaymentsControllerAddCreditAllocationApiv2WithResponse(ctx, orgSlug, paymentId, body)
+	resp, err := client.PaymentsAddCreditAllocationWithResponse(ctx, orgSlug, paymentId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5819,20 +5819,20 @@ func (h *Handler) handlePaymentsControllerAddCreditAllocationApiv2WithResponse(c
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerAddOverpaymentApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsAddOverpaymentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.PaymentsControllerAddOverpaymentApiv2JSONRequestBody
+	var body target.PaymentsAddOverpaymentJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PaymentsControllerAddOverpaymentApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.PaymentsAddOverpaymentWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5841,7 +5841,7 @@ func (h *Handler) handlePaymentsControllerAddOverpaymentApiv2WithResponse(ctx co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5849,7 +5849,7 @@ func (h *Handler) handlePaymentsControllerCountApiv2WithResponse(ctx context.Con
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.PaymentsControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.PaymentsCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5858,7 +5858,7 @@ func (h *Handler) handlePaymentsControllerCountApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5867,7 +5867,7 @@ func (h *Handler) handlePaymentsControllerGetItemApiv2WithResponse(ctx context.C
 	orgSlug := request.GetString("orgSlug", "")
 	paymentId := request.GetString("paymentId", "")
 
-	resp, err := client.PaymentsControllerGetItemApiv2WithResponse(ctx, orgSlug, paymentId)
+	resp, err := client.PaymentsGetItemWithResponse(ctx, orgSlug, paymentId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5876,14 +5876,14 @@ func (h *Handler) handlePaymentsControllerGetItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.PaymentsControllerGetItemsApiv2Params{}
+	params := &target.PaymentsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -5965,7 +5965,7 @@ func (h *Handler) handlePaymentsControllerGetItemsApiv2WithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.PaymentsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.PaymentsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5974,7 +5974,7 @@ func (h *Handler) handlePaymentsControllerGetItemsApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerGetPaymentDocumentsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsGetPaymentDocumentsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -5983,7 +5983,7 @@ func (h *Handler) handlePaymentsControllerGetPaymentDocumentsApiv2WithResponse(c
 	orgSlug := request.GetString("orgSlug", "")
 	paymentId := request.GetString("paymentId", "")
 
-	resp, err := client.PaymentsControllerGetPaymentDocumentsApiv2WithResponse(ctx, orgSlug, paymentId)
+	resp, err := client.PaymentsGetPaymentDocumentsWithResponse(ctx, orgSlug, paymentId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -5992,21 +5992,21 @@ func (h *Handler) handlePaymentsControllerGetPaymentDocumentsApiv2WithResponse(c
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerGetPaymentMethodsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsGetPaymentMethodsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.PaymentsControllerGetPaymentMethodsApiv2Params{}
+	params := &target.PaymentsGetPaymentMethodsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["locations"]; ok {
 			params.Locations = ptrVal(getStringSlice(request, "locations"))
 		}
 	}
 
-	resp, err := client.PaymentsControllerGetPaymentMethodsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.PaymentsGetPaymentMethodsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6015,7 +6015,7 @@ func (h *Handler) handlePaymentsControllerGetPaymentMethodsApiv2WithResponse(ctx
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerUpdateAllocationAccountingApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsUpdateAllocationAccountingWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6024,13 +6024,13 @@ func (h *Handler) handlePaymentsControllerUpdateAllocationAccountingApiv2WithRes
 	orgSlug := request.GetString("orgSlug", "")
 	paymentId := request.GetString("paymentId", "")
 	allocationId := request.GetString("allocationId", "")
-	var body target.PaymentsControllerUpdateAllocationAccountingApiv2JSONRequestBody
+	var body target.PaymentsUpdateAllocationAccountingJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PaymentsControllerUpdateAllocationAccountingApiv2WithResponse(ctx, orgSlug, paymentId, allocationId, body)
+	resp, err := client.PaymentsUpdateAllocationAccountingWithResponse(ctx, orgSlug, paymentId, allocationId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6039,7 +6039,7 @@ func (h *Handler) handlePaymentsControllerUpdateAllocationAccountingApiv2WithRes
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePaymentsControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePaymentsUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6047,13 +6047,13 @@ func (h *Handler) handlePaymentsControllerUpdateItemApiv2WithResponse(ctx contex
 
 	orgSlug := request.GetString("orgSlug", "")
 	paymentId := request.GetString("paymentId", "")
-	var body target.PaymentsControllerUpdateItemApiv2JSONRequestBody
+	var body target.PaymentsUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PaymentsControllerUpdateItemApiv2WithResponse(ctx, orgSlug, paymentId, body)
+	resp, err := client.PaymentsUpdateItemWithResponse(ctx, orgSlug, paymentId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6062,7 +6062,7 @@ func (h *Handler) handlePaymentsControllerUpdateItemApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePlansControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePlansCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6070,7 +6070,7 @@ func (h *Handler) handlePlansControllerCountApiv2WithResponse(ctx context.Contex
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.PlansControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.PlansCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6079,7 +6079,7 @@ func (h *Handler) handlePlansControllerCountApiv2WithResponse(ctx context.Contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePlansControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePlansGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6088,7 +6088,7 @@ func (h *Handler) handlePlansControllerGetItemApiv2WithResponse(ctx context.Cont
 	orgSlug := request.GetString("orgSlug", "")
 	planId := request.GetString("planId", "")
 
-	resp, err := client.PlansControllerGetItemApiv2WithResponse(ctx, orgSlug, planId)
+	resp, err := client.PlansGetItemWithResponse(ctx, orgSlug, planId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6097,14 +6097,14 @@ func (h *Handler) handlePlansControllerGetItemApiv2WithResponse(ctx context.Cont
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePlansControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePlansGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.PlansControllerGetItemsApiv2Params{}
+	params := &target.PlansGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -6156,7 +6156,7 @@ func (h *Handler) handlePlansControllerGetItemsApiv2WithResponse(ctx context.Con
 		}
 	}
 
-	resp, err := client.PlansControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.PlansGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6165,20 +6165,20 @@ func (h *Handler) handlePlansControllerGetItemsApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePostsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePostsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.PostsControllerAddItemApiv2JSONRequestBody
+	var body target.PostsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.PostsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.PostsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6187,7 +6187,7 @@ func (h *Handler) handlePostsControllerAddItemApiv2WithResponse(ctx context.Cont
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePostsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePostsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6196,7 +6196,7 @@ func (h *Handler) handlePostsControllerDeleteItemApiv2WithResponse(ctx context.C
 	orgSlug := request.GetString("orgSlug", "")
 	postId := request.GetString("postId", "")
 
-	resp, err := client.PostsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, postId)
+	resp, err := client.PostsDeleteItemWithResponse(ctx, orgSlug, postId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6205,7 +6205,7 @@ func (h *Handler) handlePostsControllerDeleteItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePostsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePostsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6214,7 +6214,7 @@ func (h *Handler) handlePostsControllerGetItemApiv2WithResponse(ctx context.Cont
 	orgSlug := request.GetString("orgSlug", "")
 	postId := request.GetString("postId", "")
 
-	resp, err := client.PostsControllerGetItemApiv2WithResponse(ctx, orgSlug, postId)
+	resp, err := client.PostsGetItemWithResponse(ctx, orgSlug, postId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6223,14 +6223,14 @@ func (h *Handler) handlePostsControllerGetItemApiv2WithResponse(ctx context.Cont
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handlePostsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handlePostsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.PostsControllerGetItemsApiv2Params{}
+	params := &target.PostsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(getStringSlice(request, "_id"))
@@ -6272,7 +6272,7 @@ func (h *Handler) handlePostsControllerGetItemsApiv2WithResponse(ctx context.Con
 		}
 	}
 
-	resp, err := client.PostsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.PostsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6281,14 +6281,14 @@ func (h *Handler) handlePostsControllerGetItemsApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleReceptionFlowsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleReceptionFlowsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.ReceptionFlowsControllerGetItemsApiv2Params{}
+	params := &target.ReceptionFlowsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -6335,7 +6335,7 @@ func (h *Handler) handleReceptionFlowsControllerGetItemsApiv2WithResponse(ctx co
 		}
 	}
 
-	resp, err := client.ReceptionFlowsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.ReceptionFlowsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6344,7 +6344,7 @@ func (h *Handler) handleReceptionFlowsControllerGetItemsApiv2WithResponse(ctx co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleResourceRatesControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleResourceRatesCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6352,7 +6352,7 @@ func (h *Handler) handleResourceRatesControllerCountApiv2WithResponse(ctx contex
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.ResourceRatesControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.ResourceRatesCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6361,25 +6361,7 @@ func (h *Handler) handleResourceRatesControllerCountApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleResourceRatesControllerGetCancellationPolicyApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	client, err := h.resolve(ctx)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	orgSlug := request.GetString("orgSlug", "")
-	resourceRateId := request.GetString("resourceRateId", "")
-
-	resp, err := client.ResourceRatesControllerGetCancellationPolicyApiv2WithResponse(ctx, orgSlug, resourceRateId)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	data, _ := json.MarshalIndent(resp, "", "  ")
-	return mcp.NewToolResultText(string(data)), nil
-}
-
-func (h *Handler) handleResourceRatesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleResourceRatesGetCancellationPolicyWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6388,7 +6370,7 @@ func (h *Handler) handleResourceRatesControllerGetItemApiv2WithResponse(ctx cont
 	orgSlug := request.GetString("orgSlug", "")
 	resourceRateId := request.GetString("resourceRateId", "")
 
-	resp, err := client.ResourceRatesControllerGetItemApiv2WithResponse(ctx, orgSlug, resourceRateId)
+	resp, err := client.ResourceRatesGetCancellationPolicyWithResponse(ctx, orgSlug, resourceRateId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6397,14 +6379,32 @@ func (h *Handler) handleResourceRatesControllerGetItemApiv2WithResponse(ctx cont
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleResourceRatesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleResourceRatesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.ResourceRatesControllerGetItemsApiv2Params{}
+	resourceRateId := request.GetString("resourceRateId", "")
+
+	resp, err := client.ResourceRatesGetItemWithResponse(ctx, orgSlug, resourceRateId)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	data, _ := json.MarshalIndent(resp, "", "  ")
+	return mcp.NewToolResultText(string(data)), nil
+}
+
+func (h *Handler) handleResourceRatesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	client, err := h.resolve(ctx)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	orgSlug := request.GetString("orgSlug", "")
+	params := &target.ResourceRatesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["createdAt"]; ok {
 			params.CreatedAt = ptrVal(request.GetString("createdAt", ""))
@@ -6436,7 +6436,7 @@ func (h *Handler) handleResourceRatesControllerGetItemsApiv2WithResponse(ctx con
 		}
 	}
 
-	resp, err := client.ResourceRatesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.ResourceRatesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6445,14 +6445,14 @@ func (h *Handler) handleResourceRatesControllerGetItemsApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleResourceTypesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleResourceTypesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.ResourceTypesControllerGetItemsApiv2Params{}
+	params := &target.ResourceTypesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(getStringSlice(request, "_id"))
@@ -6484,7 +6484,7 @@ func (h *Handler) handleResourceTypesControllerGetItemsApiv2WithResponse(ctx con
 		}
 	}
 
-	resp, err := client.ResourceTypesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.ResourceTypesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6493,7 +6493,7 @@ func (h *Handler) handleResourceTypesControllerGetItemsApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleResourcesControllerCountApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleResourcesCountWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6501,7 +6501,7 @@ func (h *Handler) handleResourcesControllerCountApiv2WithResponse(ctx context.Co
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.ResourcesControllerCountApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.ResourcesCountWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6510,7 +6510,7 @@ func (h *Handler) handleResourcesControllerCountApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleResourcesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleResourcesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6519,7 +6519,7 @@ func (h *Handler) handleResourcesControllerGetItemApiv2WithResponse(ctx context.
 	orgSlug := request.GetString("orgSlug", "")
 	resourceId := request.GetString("resourceId", "")
 
-	resp, err := client.ResourcesControllerGetItemApiv2WithResponse(ctx, orgSlug, resourceId)
+	resp, err := client.ResourcesGetItemWithResponse(ctx, orgSlug, resourceId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6528,14 +6528,14 @@ func (h *Handler) handleResourcesControllerGetItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleResourcesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleResourcesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.ResourcesControllerGetItemsApiv2Params{}
+	params := &target.ResourcesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -6587,7 +6587,7 @@ func (h *Handler) handleResourcesControllerGetItemsApiv2WithResponse(ctx context
 		}
 	}
 
-	resp, err := client.ResourcesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.ResourcesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6596,7 +6596,7 @@ func (h *Handler) handleResourcesControllerGetItemsApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleResourcesControllerGetResourceStatusApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleResourcesGetResourceStatusWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6605,7 +6605,7 @@ func (h *Handler) handleResourcesControllerGetResourceStatusApiv2WithResponse(ct
 	orgSlug := request.GetString("orgSlug", "")
 	resourceId := request.GetString("resourceId", "")
 
-	resp, err := client.ResourcesControllerGetResourceStatusApiv2WithResponse(ctx, orgSlug, resourceId)
+	resp, err := client.ResourcesGetResourceStatusWithResponse(ctx, orgSlug, resourceId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6614,7 +6614,7 @@ func (h *Handler) handleResourcesControllerGetResourceStatusApiv2WithResponse(ct
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleRevenueAccountsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleRevenueAccountsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6623,7 +6623,7 @@ func (h *Handler) handleRevenueAccountsControllerGetItemApiv2WithResponse(ctx co
 	orgSlug := request.GetString("orgSlug", "")
 	accountId := request.GetString("accountId", "")
 
-	resp, err := client.RevenueAccountsControllerGetItemApiv2WithResponse(ctx, orgSlug, accountId)
+	resp, err := client.RevenueAccountsGetItemWithResponse(ctx, orgSlug, accountId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6632,14 +6632,14 @@ func (h *Handler) handleRevenueAccountsControllerGetItemApiv2WithResponse(ctx co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleRevenueAccountsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleRevenueAccountsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.RevenueAccountsControllerGetItemsApiv2Params{}
+	params := &target.RevenueAccountsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -6661,7 +6661,7 @@ func (h *Handler) handleRevenueAccountsControllerGetItemsApiv2WithResponse(ctx c
 		}
 	}
 
-	resp, err := client.RevenueAccountsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.RevenueAccountsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6670,7 +6670,7 @@ func (h *Handler) handleRevenueAccountsControllerGetItemsApiv2WithResponse(ctx c
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleSecondaryCurrenciesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleSecondaryCurrenciesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6679,7 +6679,7 @@ func (h *Handler) handleSecondaryCurrenciesControllerGetItemApiv2WithResponse(ct
 	orgSlug := request.GetString("orgSlug", "")
 	secondaryCurrencyId := request.GetString("secondaryCurrencyId", "")
 
-	resp, err := client.SecondaryCurrenciesControllerGetItemApiv2WithResponse(ctx, orgSlug, secondaryCurrencyId)
+	resp, err := client.SecondaryCurrenciesGetItemWithResponse(ctx, orgSlug, secondaryCurrencyId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6688,14 +6688,14 @@ func (h *Handler) handleSecondaryCurrenciesControllerGetItemApiv2WithResponse(ct
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleSecondaryCurrenciesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleSecondaryCurrenciesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.SecondaryCurrenciesControllerGetItemsApiv2Params{}
+	params := &target.SecondaryCurrenciesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -6717,7 +6717,7 @@ func (h *Handler) handleSecondaryCurrenciesControllerGetItemsApiv2WithResponse(c
 		}
 	}
 
-	resp, err := client.SecondaryCurrenciesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.SecondaryCurrenciesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6726,7 +6726,7 @@ func (h *Handler) handleSecondaryCurrenciesControllerGetItemsApiv2WithResponse(c
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleSecondaryCurrenciesControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleSecondaryCurrenciesUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6734,13 +6734,13 @@ func (h *Handler) handleSecondaryCurrenciesControllerUpdateItemApiv2WithResponse
 
 	orgSlug := request.GetString("orgSlug", "")
 	secondaryCurrencyId := request.GetString("secondaryCurrencyId", "")
-	var body target.SecondaryCurrenciesControllerUpdateItemApiv2JSONRequestBody
+	var body target.SecondaryCurrenciesUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.SecondaryCurrenciesControllerUpdateItemApiv2WithResponse(ctx, orgSlug, secondaryCurrencyId, body)
+	resp, err := client.SecondaryCurrenciesUpdateItemWithResponse(ctx, orgSlug, secondaryCurrencyId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6749,7 +6749,7 @@ func (h *Handler) handleSecondaryCurrenciesControllerUpdateItemApiv2WithResponse
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTaxRatesControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTaxRatesGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6758,7 +6758,7 @@ func (h *Handler) handleTaxRatesControllerGetItemApiv2WithResponse(ctx context.C
 	orgSlug := request.GetString("orgSlug", "")
 	taxRateId := request.GetString("taxRateId", "")
 
-	resp, err := client.TaxRatesControllerGetItemApiv2WithResponse(ctx, orgSlug, taxRateId)
+	resp, err := client.TaxRatesGetItemWithResponse(ctx, orgSlug, taxRateId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6767,14 +6767,14 @@ func (h *Handler) handleTaxRatesControllerGetItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTaxRatesControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTaxRatesGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.TaxRatesControllerGetItemsApiv2Params{}
+	params := &target.TaxRatesGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -6796,7 +6796,7 @@ func (h *Handler) handleTaxRatesControllerGetItemsApiv2WithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.TaxRatesControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.TaxRatesGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6805,7 +6805,7 @@ func (h *Handler) handleTaxRatesControllerGetItemsApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTicketCommentsControllerAddCommentApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTicketCommentsAddCommentWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6813,13 +6813,13 @@ func (h *Handler) handleTicketCommentsControllerAddCommentApiv2WithResponse(ctx 
 
 	orgSlug := request.GetString("orgSlug", "")
 	ticketId := request.GetString("ticketId", "")
-	var body target.TicketCommentsControllerAddCommentApiv2JSONRequestBody
+	var body target.TicketCommentsAddCommentJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.TicketCommentsControllerAddCommentApiv2WithResponse(ctx, orgSlug, ticketId, body)
+	resp, err := client.TicketCommentsAddCommentWithResponse(ctx, orgSlug, ticketId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6828,7 +6828,7 @@ func (h *Handler) handleTicketCommentsControllerAddCommentApiv2WithResponse(ctx 
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTicketCommentsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTicketCommentsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6836,7 +6836,7 @@ func (h *Handler) handleTicketCommentsControllerGetItemsApiv2WithResponse(ctx co
 
 	orgSlug := request.GetString("orgSlug", "")
 	ticketId := request.GetString("ticketId", "")
-	params := &target.TicketCommentsControllerGetItemsApiv2Params{}
+	params := &target.TicketCommentsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -6858,7 +6858,7 @@ func (h *Handler) handleTicketCommentsControllerGetItemsApiv2WithResponse(ctx co
 		}
 	}
 
-	resp, err := client.TicketCommentsControllerGetItemsApiv2WithResponse(ctx, orgSlug, ticketId, params)
+	resp, err := client.TicketCommentsGetItemsWithResponse(ctx, orgSlug, ticketId, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6867,14 +6867,14 @@ func (h *Handler) handleTicketCommentsControllerGetItemsApiv2WithResponse(ctx co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTicketOptionsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTicketOptionsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.TicketOptionsControllerGetItemsApiv2Params{}
+	params := &target.TicketOptionsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -6896,7 +6896,7 @@ func (h *Handler) handleTicketOptionsControllerGetItemsApiv2WithResponse(ctx con
 		}
 	}
 
-	resp, err := client.TicketOptionsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.TicketOptionsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6905,20 +6905,20 @@ func (h *Handler) handleTicketOptionsControllerGetItemsApiv2WithResponse(ctx con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTicketsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTicketsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.TicketsControllerAddItemApiv2JSONRequestBody
+	var body target.TicketsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.TicketsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.TicketsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6927,7 +6927,7 @@ func (h *Handler) handleTicketsControllerAddItemApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTicketsControllerCountByApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTicketsCountByWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6935,7 +6935,7 @@ func (h *Handler) handleTicketsControllerCountByApiv2WithResponse(ctx context.Co
 
 	orgSlug := request.GetString("orgSlug", "")
 
-	resp, err := client.TicketsControllerCountByApiv2WithResponse(ctx, orgSlug)
+	resp, err := client.TicketsCountByWithResponse(ctx, orgSlug)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6944,7 +6944,7 @@ func (h *Handler) handleTicketsControllerCountByApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTicketsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTicketsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -6953,7 +6953,7 @@ func (h *Handler) handleTicketsControllerGetItemApiv2WithResponse(ctx context.Co
 	orgSlug := request.GetString("orgSlug", "")
 	ticketId := request.GetString("ticketId", "")
 
-	resp, err := client.TicketsControllerGetItemApiv2WithResponse(ctx, orgSlug, ticketId)
+	resp, err := client.TicketsGetItemWithResponse(ctx, orgSlug, ticketId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -6962,14 +6962,14 @@ func (h *Handler) handleTicketsControllerGetItemApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTicketsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTicketsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.TicketsControllerGetItemsApiv2Params{}
+	params := &target.TicketsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -6991,7 +6991,7 @@ func (h *Handler) handleTicketsControllerGetItemsApiv2WithResponse(ctx context.C
 		}
 	}
 
-	resp, err := client.TicketsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.TicketsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7000,7 +7000,7 @@ func (h *Handler) handleTicketsControllerGetItemsApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleTicketsControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleTicketsUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -7008,13 +7008,13 @@ func (h *Handler) handleTicketsControllerUpdateItemApiv2WithResponse(ctx context
 
 	orgSlug := request.GetString("orgSlug", "")
 	ticketId := request.GetString("ticketId", "")
-	var body target.TicketsControllerUpdateItemApiv2JSONRequestBody
+	var body target.TicketsUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.TicketsControllerUpdateItemApiv2WithResponse(ctx, orgSlug, ticketId, body)
+	resp, err := client.TicketsUpdateItemWithResponse(ctx, orgSlug, ticketId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7023,20 +7023,20 @@ func (h *Handler) handleTicketsControllerUpdateItemApiv2WithResponse(ctx context
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVisitorsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleVisitorsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.VisitorsControllerAddItemApiv2JSONRequestBody
+	var body target.VisitorsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.VisitorsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.VisitorsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7045,7 +7045,7 @@ func (h *Handler) handleVisitorsControllerAddItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVisitorsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleVisitorsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -7054,7 +7054,7 @@ func (h *Handler) handleVisitorsControllerDeleteItemApiv2WithResponse(ctx contex
 	orgSlug := request.GetString("orgSlug", "")
 	visitorId := request.GetString("visitorId", "")
 
-	resp, err := client.VisitorsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, visitorId)
+	resp, err := client.VisitorsDeleteItemWithResponse(ctx, orgSlug, visitorId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7063,7 +7063,7 @@ func (h *Handler) handleVisitorsControllerDeleteItemApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVisitorsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleVisitorsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -7072,7 +7072,7 @@ func (h *Handler) handleVisitorsControllerGetItemApiv2WithResponse(ctx context.C
 	orgSlug := request.GetString("orgSlug", "")
 	visitorId := request.GetString("visitorId", "")
 
-	resp, err := client.VisitorsControllerGetItemApiv2WithResponse(ctx, orgSlug, visitorId)
+	resp, err := client.VisitorsGetItemWithResponse(ctx, orgSlug, visitorId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7081,14 +7081,14 @@ func (h *Handler) handleVisitorsControllerGetItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVisitorsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleVisitorsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.VisitorsControllerGetItemsApiv2Params{}
+	params := &target.VisitorsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -7130,7 +7130,7 @@ func (h *Handler) handleVisitorsControllerGetItemsApiv2WithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.VisitorsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.VisitorsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7139,20 +7139,20 @@ func (h *Handler) handleVisitorsControllerGetItemsApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVisitsControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleVisitsAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.VisitsControllerAddItemApiv2JSONRequestBody
+	var body target.VisitsAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.VisitsControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.VisitsAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7161,7 +7161,7 @@ func (h *Handler) handleVisitsControllerAddItemApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVisitsControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleVisitsDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -7170,7 +7170,7 @@ func (h *Handler) handleVisitsControllerDeleteItemApiv2WithResponse(ctx context.
 	orgSlug := request.GetString("orgSlug", "")
 	visitId := request.GetString("visitId", "")
 
-	resp, err := client.VisitsControllerDeleteItemApiv2WithResponse(ctx, orgSlug, visitId)
+	resp, err := client.VisitsDeleteItemWithResponse(ctx, orgSlug, visitId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7179,7 +7179,7 @@ func (h *Handler) handleVisitsControllerDeleteItemApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVisitsControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleVisitsGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -7188,7 +7188,7 @@ func (h *Handler) handleVisitsControllerGetItemApiv2WithResponse(ctx context.Con
 	orgSlug := request.GetString("orgSlug", "")
 	visitId := request.GetString("visitId", "")
 
-	resp, err := client.VisitsControllerGetItemApiv2WithResponse(ctx, orgSlug, visitId)
+	resp, err := client.VisitsGetItemWithResponse(ctx, orgSlug, visitId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7197,14 +7197,14 @@ func (h *Handler) handleVisitsControllerGetItemApiv2WithResponse(ctx context.Con
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleVisitsControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleVisitsGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.VisitsControllerGetItemsApiv2Params{}
+	params := &target.VisitsGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["_id"]; ok {
 			params.UnderscoreId = ptrVal(request.GetString("_id", ""))
@@ -7261,7 +7261,7 @@ func (h *Handler) handleVisitsControllerGetItemsApiv2WithResponse(ctx context.Co
 		}
 	}
 
-	resp, err := client.VisitsControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.VisitsGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7270,20 +7270,20 @@ func (h *Handler) handleVisitsControllerGetItemsApiv2WithResponse(ctx context.Co
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleWebhooksControllerAddItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleWebhooksAddItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	var body target.WebhooksControllerAddItemApiv2JSONRequestBody
+	var body target.WebhooksAddItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.WebhooksControllerAddItemApiv2WithResponse(ctx, orgSlug, body)
+	resp, err := client.WebhooksAddItemWithResponse(ctx, orgSlug, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7292,7 +7292,7 @@ func (h *Handler) handleWebhooksControllerAddItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleWebhooksControllerDeleteItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleWebhooksDeleteItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -7301,7 +7301,7 @@ func (h *Handler) handleWebhooksControllerDeleteItemApiv2WithResponse(ctx contex
 	orgSlug := request.GetString("orgSlug", "")
 	webhookId := request.GetString("webhookId", "")
 
-	resp, err := client.WebhooksControllerDeleteItemApiv2WithResponse(ctx, orgSlug, webhookId)
+	resp, err := client.WebhooksDeleteItemWithResponse(ctx, orgSlug, webhookId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7310,7 +7310,7 @@ func (h *Handler) handleWebhooksControllerDeleteItemApiv2WithResponse(ctx contex
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleWebhooksControllerGetItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleWebhooksGetItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -7319,7 +7319,7 @@ func (h *Handler) handleWebhooksControllerGetItemApiv2WithResponse(ctx context.C
 	orgSlug := request.GetString("orgSlug", "")
 	webhookId := request.GetString("webhookId", "")
 
-	resp, err := client.WebhooksControllerGetItemApiv2WithResponse(ctx, orgSlug, webhookId)
+	resp, err := client.WebhooksGetItemWithResponse(ctx, orgSlug, webhookId)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7328,14 +7328,14 @@ func (h *Handler) handleWebhooksControllerGetItemApiv2WithResponse(ctx context.C
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleWebhooksControllerGetItemsApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleWebhooksGetItemsWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
 	orgSlug := request.GetString("orgSlug", "")
-	params := &target.WebhooksControllerGetItemsApiv2Params{}
+	params := &target.WebhooksGetItemsParams{}
 	if args := request.GetArguments(); args != nil {
 		if _, ok := args["$select"]; ok {
 			params.Select = ptrVal(request.GetString("$select", ""))
@@ -7357,7 +7357,7 @@ func (h *Handler) handleWebhooksControllerGetItemsApiv2WithResponse(ctx context.
 		}
 	}
 
-	resp, err := client.WebhooksControllerGetItemsApiv2WithResponse(ctx, orgSlug, params)
+	resp, err := client.WebhooksGetItemsWithResponse(ctx, orgSlug, params)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}
@@ -7366,7 +7366,7 @@ func (h *Handler) handleWebhooksControllerGetItemsApiv2WithResponse(ctx context.
 	return mcp.NewToolResultText(string(data)), nil
 }
 
-func (h *Handler) handleWebhooksControllerUpdateItemApiv2WithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *Handler) handleWebhooksUpdateItemWithResponse(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	client, err := h.resolve(ctx)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -7374,13 +7374,13 @@ func (h *Handler) handleWebhooksControllerUpdateItemApiv2WithResponse(ctx contex
 
 	orgSlug := request.GetString("orgSlug", "")
 	webhookId := request.GetString("webhookId", "")
-	var body target.WebhooksControllerUpdateItemApiv2JSONRequestBody
+	var body target.WebhooksUpdateItemJSONRequestBody
 	if argData, ok := request.GetArguments()["body"]; ok {
 		b, _ := json.Marshal(argData)
 		json.Unmarshal(b, &body)
 	}
 
-	resp, err := client.WebhooksControllerUpdateItemApiv2WithResponse(ctx, orgSlug, webhookId, body)
+	resp, err := client.WebhooksUpdateItemWithResponse(ctx, orgSlug, webhookId, body)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
 	}

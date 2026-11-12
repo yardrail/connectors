@@ -17,5 +17,5 @@ interfaces:
     security_scheme: oauth2
     capabilities: [member.read, member.write, booking.read, booking.write, resource.read, billing.read, billing.write]
     source:
-      openapi: spec/openapi.json
+      openapi: spec/openapi.fixed.json
       client: github.com/yardrail/connectors/officernd/officernd/client

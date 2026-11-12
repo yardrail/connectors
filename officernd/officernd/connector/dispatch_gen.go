@@ -42,2756 +42,2756 @@ func Resolve(
 	}, nil
 }
 
-func (ic *InterfaceClient) dispatchAmenitiesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAmenitiesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		AmenityId string `json:"amenityId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.amenities-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.amenities-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.AmenitiesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.AmenityId)
+	resp, callErr := ic.cl.AmenitiesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.AmenityId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.amenities-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.amenities-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.amenities-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.amenities-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAmenitiesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAmenitiesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.amenities-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.amenities-get-items: %w", err)
 	}
-	var params client.AmenitiesControllerGetItemsApiv2Params
+	var params client.AmenitiesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.amenities-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.amenities-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.AmenitiesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.AmenitiesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.amenities-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.amenities-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.amenities-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.amenities-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAssignmentsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAssignmentsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.assignments-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.assignments-add-item: %w", err)
 	}
-	var body client.AssignmentsControllerAddItemApiv2JSONRequestBody
+	var body client.AssignmentsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.assignments-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.assignments-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AssignmentsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.AssignmentsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.assignments-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.assignments-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.assignments-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.assignments-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAssignmentsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAssignmentsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug      string `json:"orgSlug"`
 		AssignmentId string `json:"assignmentId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.assignments-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.assignments-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.AssignmentsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.AssignmentId)
+	resp, callErr := ic.cl.AssignmentsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.AssignmentId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.assignments-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.assignments-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.assignments-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.assignments-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAssignmentsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAssignmentsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.assignments-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.assignments-get-items: %w", err)
 	}
-	var params client.AssignmentsControllerGetItemsApiv2Params
+	var params client.AssignmentsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.assignments-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.assignments-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.AssignmentsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.AssignmentsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.assignments-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.assignments-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.assignments-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.assignments-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAuthControllerImpersonateMemberApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAuthImpersonateMemberWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.auth-controller-impersonate-member-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.auth-impersonate-member: %w", err)
 	}
-	var body client.AuthControllerImpersonateMemberApiv2JSONRequestBody
+	var body client.AuthImpersonateMemberJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.auth-controller-impersonate-member-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.auth-impersonate-member: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AuthControllerImpersonateMemberApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.AuthImpersonateMemberWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.auth-controller-impersonate-member-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.auth-impersonate-member: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.auth-controller-impersonate-member-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.auth-impersonate-member: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAuthControllerSigninApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAuthSigninWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.auth-controller-signin-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.auth-signin: %w", err)
 	}
-	var body client.AuthControllerSigninApiv2JSONRequestBody
+	var body client.AuthSigninJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.auth-controller-signin-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.auth-signin: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AuthControllerSigninApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.AuthSigninWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.auth-controller-signin-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.auth-signin: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.auth-controller-signin-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.auth-signin: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAuthControllerSignupApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAuthSignupWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.auth-controller-signup-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.auth-signup: %w", err)
 	}
-	var body client.AuthControllerSignupApiv2JSONRequestBody
+	var body client.AuthSignupJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.auth-controller-signup-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.auth-signup: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AuthControllerSignupApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.AuthSignupWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.auth-controller-signup-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.auth-signup: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.auth-controller-signup-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.auth-signup: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchAuthControllerVerifyTokenApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchAuthVerifyTokenWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.auth-controller-verify-token-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.auth-verify-token: %w", err)
 	}
-	var body client.AuthControllerVerifyTokenApiv2JSONRequestBody
+	var body client.AuthVerifyTokenJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.auth-controller-verify-token-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.auth-verify-token: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.AuthControllerVerifyTokenApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.AuthVerifyTokenWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.auth-controller-verify-token-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.auth-verify-token: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.auth-controller-verify-token-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.auth-verify-token: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBenefitsControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBenefitsCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.benefits-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.benefits-count: %w", err)
 	}
-	resp, callErr := ic.cl.BenefitsControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.BenefitsCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.benefits-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.benefits-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.benefits-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.benefits-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBenefitsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBenefitsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		BenefitId string `json:"benefitId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.benefits-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.benefits-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.BenefitsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.BenefitId)
+	resp, callErr := ic.cl.BenefitsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.BenefitId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.benefits-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.benefits-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.benefits-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.benefits-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBenefitsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBenefitsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.benefits-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.benefits-get-items: %w", err)
 	}
-	var params client.BenefitsControllerGetItemsApiv2Params
+	var params client.BenefitsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.benefits-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.benefits-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.BenefitsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.BenefitsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.benefits-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.benefits-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.benefits-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.benefits-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBillingSettingsControllerGetBillingSettingsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBillingSettingsGetBillingSettingsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.billing-settings-controller-get-billing-settings-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.billing-settings-get-billing-settings: %w", err)
 	}
-	resp, callErr := ic.cl.BillingSettingsControllerGetBillingSettingsApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.BillingSettingsGetBillingSettingsWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.billing-settings-controller-get-billing-settings-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.billing-settings-get-billing-settings: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.billing-settings-controller-get-billing-settings-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.billing-settings-get-billing-settings: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-add-item: %w", err)
 	}
-	var body client.BookingsControllerAddItemApiv2JSONRequestBody
+	var body client.BookingsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.bookings-add-item: %w", bodyErr)
 	}
 
-	var params client.BookingsControllerAddItemApiv2Params
+	var params client.BookingsAddItemParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-add-item-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.bookings-add-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.BookingsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, &params, body)
+	resp, callErr := ic.cl.BookingsAddItemWithResponse(ctx, pathArgs.OrgSlug, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerCancelBookingApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsCancelBookingWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		BookingId string `json:"bookingId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-cancel-booking-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-cancel-booking: %w", err)
 	}
-	var params client.BookingsControllerCancelBookingApiv2Params
+	var params client.BookingsCancelBookingParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-cancel-booking-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.bookings-cancel-booking: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.BookingsControllerCancelBookingApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.BookingId, &params)
+	resp, callErr := ic.cl.BookingsCancelBookingWithResponse(ctx, pathArgs.OrgSlug, pathArgs.BookingId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-cancel-booking-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-cancel-booking: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-cancel-booking-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-cancel-booking: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-count: %w", err)
 	}
-	resp, callErr := ic.cl.BookingsControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.BookingsCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		BookingId string `json:"bookingId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-delete-item: %w", err)
 	}
-	var params client.BookingsControllerDeleteItemApiv2Params
+	var params client.BookingsDeleteItemParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-delete-item-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.bookings-delete-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.BookingsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.BookingId, &params)
+	resp, callErr := ic.cl.BookingsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.BookingId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		BookingId string `json:"bookingId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.BookingsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.BookingId)
+	resp, callErr := ic.cl.BookingsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.BookingId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-get-items: %w", err)
 	}
-	var params client.BookingsControllerGetItemsApiv2Params
+	var params client.BookingsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.bookings-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.BookingsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.BookingsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerGetOccurrencesApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsGetOccurrencesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-occurrences-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-get-occurrences: %w", err)
 	}
-	var params client.BookingsControllerGetOccurrencesApiv2Params
+	var params client.BookingsGetOccurrencesParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-occurrences-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.bookings-get-occurrences: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.BookingsControllerGetOccurrencesApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.BookingsGetOccurrencesWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-occurrences-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-get-occurrences: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-get-occurrences-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-get-occurrences: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		BookingId string `json:"bookingId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-update-item: %w", err)
 	}
-	var body client.BookingsControllerUpdateItemApiv2JSONRequestBody
+	var body client.BookingsUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.bookings-update-item: %w", bodyErr)
 	}
 
-	var params client.BookingsControllerUpdateItemApiv2Params
+	var params client.BookingsUpdateItemParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-update-item-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.bookings-update-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.BookingsControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.BookingId, &params, body)
+	resp, callErr := ic.cl.BookingsUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.BookingId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBookingsControllerValidateBookingApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBookingsValidateBookingWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-validate-booking-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.bookings-validate-booking: %w", err)
 	}
-	var body client.BookingsControllerValidateBookingApiv2JSONRequestBody
+	var body client.BookingsValidateBookingJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-validate-booking-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.bookings-validate-booking: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.BookingsControllerValidateBookingApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.BookingsValidateBookingWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.bookings-controller-validate-booking-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.bookings-validate-booking: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.bookings-controller-validate-booking-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.bookings-validate-booking: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchBusinessHoursControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchBusinessHoursGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.business-hours-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.business-hours-get-items: %w", err)
 	}
-	var params client.BusinessHoursControllerGetItemsApiv2Params
+	var params client.BusinessHoursGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.business-hours-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.business-hours-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.BusinessHoursControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.BusinessHoursGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.business-hours-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.business-hours-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.business-hours-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.business-hours-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChargesControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChargesAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.charges-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.charges-add-item: %w", err)
 	}
-	var body client.ChargesControllerAddItemApiv2JSONRequestBody
+	var body client.ChargesAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.charges-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.charges-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.ChargesControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.ChargesAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.charges-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.charges-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.charges-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.charges-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChargesControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChargesDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		ChargeId string `json:"chargeId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.charges-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.charges-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.ChargesControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ChargeId)
+	resp, callErr := ic.cl.ChargesDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ChargeId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.charges-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.charges-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.charges-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.charges-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChargesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChargesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.charges-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.charges-get-items: %w", err)
 	}
-	var params client.ChargesControllerGetItemsApiv2Params
+	var params client.ChargesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.charges-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.charges-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ChargesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.ChargesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.charges-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.charges-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.charges-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.charges-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchChargesControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchChargesUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		ChargeId string `json:"chargeId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.charges-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.charges-update-item: %w", err)
 	}
-	var body client.ChargesControllerUpdateItemApiv2JSONRequestBody
+	var body client.ChargesUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.charges-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.charges-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.ChargesControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ChargeId, body)
+	resp, callErr := ic.cl.ChargesUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ChargeId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.charges-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.charges-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.charges-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.charges-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCheckinsControllerCheckinMemberApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCheckinsCheckinMemberWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		MemberId string `json:"memberId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-checkin-member-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.checkins-checkin-member: %w", err)
 	}
-	var body client.CheckinsControllerCheckinMemberApiv2JSONRequestBody
+	var body client.CheckinsCheckinMemberJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-checkin-member-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.checkins-checkin-member: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CheckinsControllerCheckinMemberApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
+	resp, callErr := ic.cl.CheckinsCheckinMemberWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-checkin-member-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.checkins-checkin-member: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.checkins-controller-checkin-member-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.checkins-checkin-member: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCheckinsControllerCheckoutApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCheckinsCheckoutWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		MemberId string `json:"memberId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-checkout-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.checkins-checkout: %w", err)
 	}
-	resp, callErr := ic.cl.CheckinsControllerCheckoutApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId)
+	resp, callErr := ic.cl.CheckinsCheckoutWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-checkout-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.checkins-checkout: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.checkins-controller-checkout-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.checkins-checkout: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCheckinsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCheckinsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		CheckinId string `json:"checkinId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.checkins-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.CheckinsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.CheckinId)
+	resp, callErr := ic.cl.CheckinsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.CheckinId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.checkins-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.checkins-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCheckinsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCheckinsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.checkins-get-items: %w", err)
 	}
-	var params client.CheckinsControllerGetItemsApiv2Params
+	var params client.CheckinsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.checkins-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CheckinsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.CheckinsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.checkins-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.checkins-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCheckinsControllerGetVisitorCheckinsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCheckinsGetVisitorCheckinsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-visitor-checkins-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.checkins-get-visitor-checkins: %w", err)
 	}
-	var params client.CheckinsControllerGetVisitorCheckinsApiv2Params
+	var params client.CheckinsGetVisitorCheckinsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-visitor-checkins-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.checkins-get-visitor-checkins: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CheckinsControllerGetVisitorCheckinsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.CheckinsGetVisitorCheckinsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-visitor-checkins-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.checkins-get-visitor-checkins: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.checkins-controller-get-visitor-checkins-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.checkins-get-visitor-checkins: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCheckoutControllerCheckoutApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCheckoutCheckoutWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.checkout-controller-checkout-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.checkout-checkout: %w", err)
 	}
-	var body client.CheckoutControllerCheckoutApiv2JSONRequestBody
+	var body client.CheckoutCheckoutJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.checkout-controller-checkout-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.checkout-checkout: %w", bodyErr)
 	}
 
-	var params client.CheckoutControllerCheckoutApiv2Params
+	var params client.CheckoutCheckoutParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.checkout-controller-checkout-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.checkout-checkout: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CheckoutControllerCheckoutApiv2WithResponse(ctx, pathArgs.OrgSlug, &params, body)
+	resp, callErr := ic.cl.CheckoutCheckoutWithResponse(ctx, pathArgs.OrgSlug, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.checkout-controller-checkout-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.checkout-checkout: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.checkout-controller-checkout-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.checkout-checkout: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCheckoutControllerGetCheckoutSummaryApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCheckoutGetCheckoutSummaryWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.checkout-controller-get-checkout-summary-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.checkout-get-checkout-summary: %w", err)
 	}
-	var body client.CheckoutControllerGetCheckoutSummaryApiv2JSONRequestBody
+	var body client.CheckoutGetCheckoutSummaryJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.checkout-controller-get-checkout-summary-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.checkout-get-checkout-summary: %w", bodyErr)
 	}
 
-	var params client.CheckoutControllerGetCheckoutSummaryApiv2Params
+	var params client.CheckoutGetCheckoutSummaryParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.checkout-controller-get-checkout-summary-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.checkout-get-checkout-summary: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CheckoutControllerGetCheckoutSummaryApiv2WithResponse(ctx, pathArgs.OrgSlug, &params, body)
+	resp, callErr := ic.cl.CheckoutGetCheckoutSummaryWithResponse(ctx, pathArgs.OrgSlug, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.checkout-controller-get-checkout-summary-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.checkout-get-checkout-summary: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.checkout-controller-get-checkout-summary-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.checkout-get-checkout-summary: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCoinsControllerGetCoinStatsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCoinsGetCoinStatsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.coins-controller-get-coin-stats-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.coins-get-coin-stats: %w", err)
 	}
-	var params client.CoinsControllerGetCoinStatsApiv2Params
+	var params client.CoinsGetCoinStatsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.coins-controller-get-coin-stats-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.coins-get-coin-stats: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CoinsControllerGetCoinStatsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.CoinsGetCoinStatsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.coins-controller-get-coin-stats-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.coins-get-coin-stats: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.coins-controller-get-coin-stats-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.coins-get-coin-stats: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCompaniesControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCompaniesAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.companies-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.companies-add-item: %w", err)
 	}
-	var body client.CompaniesControllerAddItemApiv2JSONRequestBody
+	var body client.CompaniesAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.companies-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.companies-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CompaniesControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.CompaniesAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.companies-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.companies-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.companies-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.companies-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCompaniesControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCompaniesDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		CompanyId string `json:"companyId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.companies-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.companies-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.CompaniesControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.CompanyId)
+	resp, callErr := ic.cl.CompaniesDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.CompanyId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.companies-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.companies-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.companies-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.companies-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCompaniesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCompaniesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		CompanyId string `json:"companyId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.companies-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.companies-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.CompaniesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.CompanyId)
+	resp, callErr := ic.cl.CompaniesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.CompanyId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.companies-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.companies-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.companies-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.companies-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCompaniesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCompaniesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.companies-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.companies-get-items: %w", err)
 	}
-	var params client.CompaniesControllerGetItemsApiv2Params
+	var params client.CompaniesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.companies-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.companies-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CompaniesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.CompaniesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.companies-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.companies-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.companies-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.companies-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCompaniesControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCompaniesUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		CompanyId string `json:"companyId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.companies-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.companies-update-item: %w", err)
 	}
-	var body client.CompaniesControllerUpdateItemApiv2JSONRequestBody
+	var body client.CompaniesUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.companies-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.companies-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CompaniesControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.CompanyId, body)
+	resp, callErr := ic.cl.CompaniesUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.CompanyId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.companies-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.companies-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.companies-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.companies-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchContractsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchContractsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.contracts-add-item: %w", err)
 	}
-	var body client.ContractsControllerAddItemApiv2JSONRequestBody
+	var body client.ContractsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.contracts-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.ContractsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.ContractsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.contracts-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.contracts-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.contracts-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchContractsControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchContractsCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.contracts-count: %w", err)
 	}
-	var params client.ContractsControllerCountApiv2Params
+	var params client.ContractsCountParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-count-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.contracts-count: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ContractsControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.ContractsCountWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.contracts-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.contracts-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.contracts-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchContractsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchContractsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug    string `json:"orgSlug"`
 		ContractId string `json:"contractId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.contracts-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.ContractsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId)
+	resp, callErr := ic.cl.ContractsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.contracts-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.contracts-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.contracts-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchContractsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchContractsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug    string `json:"orgSlug"`
 		ContractId string `json:"contractId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.contracts-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.ContractsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId)
+	resp, callErr := ic.cl.ContractsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.contracts-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.contracts-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.contracts-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchContractsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchContractsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.contracts-get-items: %w", err)
 	}
-	var params client.ContractsControllerGetItemsApiv2Params
+	var params client.ContractsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.contracts-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ContractsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.ContractsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.contracts-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.contracts-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.contracts-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchContractsControllerSignItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchContractsSignItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug    string `json:"orgSlug"`
 		ContractId string `json:"contractId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-sign-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.contracts-sign-item: %w", err)
 	}
-	resp, callErr := ic.cl.ContractsControllerSignItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId)
+	resp, callErr := ic.cl.ContractsSignItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-sign-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.contracts-sign-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.contracts-controller-sign-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.contracts-sign-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchContractsControllerTerminateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchContractsTerminateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug    string `json:"orgSlug"`
 		ContractId string `json:"contractId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-terminate-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.contracts-terminate-item: %w", err)
 	}
-	var body client.ContractsControllerTerminateItemApiv2JSONRequestBody
+	var body client.ContractsTerminateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-terminate-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.contracts-terminate-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.ContractsControllerTerminateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId, body)
+	resp, callErr := ic.cl.ContractsTerminateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-terminate-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.contracts-terminate-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.contracts-controller-terminate-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.contracts-terminate-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchContractsControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchContractsUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug    string `json:"orgSlug"`
 		ContractId string `json:"contractId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.contracts-update-item: %w", err)
 	}
-	var body client.ContractsControllerUpdateItemApiv2JSONRequestBody
+	var body client.ContractsUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.contracts-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.ContractsControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId, body)
+	resp, callErr := ic.cl.ContractsUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ContractId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.contracts-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.contracts-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.contracts-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.contracts-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreditsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreditsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.credits-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.credits-add-item: %w", err)
 	}
-	var body client.CreditsControllerAddItemApiv2JSONRequestBody
+	var body client.CreditsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.credits-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.credits-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreditsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.CreditsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.credits-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.credits-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.credits-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.credits-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreditsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreditsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		CreditsId string `json:"creditsId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.credits-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.credits-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.CreditsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.CreditsId)
+	resp, callErr := ic.cl.CreditsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.CreditsId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.credits-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.credits-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.credits-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.credits-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreditsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreditsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		CreditsId string `json:"creditsId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.credits-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.credits-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.CreditsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.CreditsId)
+	resp, callErr := ic.cl.CreditsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.CreditsId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.credits-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.credits-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.credits-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.credits-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreditsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreditsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.credits-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.credits-get-items: %w", err)
 	}
-	var params client.CreditsControllerGetItemsApiv2Params
+	var params client.CreditsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.credits-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.credits-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CreditsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.CreditsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.credits-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.credits-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.credits-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.credits-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCreditsControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCreditsUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		CreditsId string `json:"creditsId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.credits-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.credits-update-item: %w", err)
 	}
-	var body client.CreditsControllerUpdateItemApiv2JSONRequestBody
+	var body client.CreditsUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.credits-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.credits-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.CreditsControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.CreditsId, body)
+	resp, callErr := ic.cl.CreditsUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.CreditsId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.credits-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.credits-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.credits-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.credits-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchCustomPropertiesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchCustomPropertiesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.custom-properties-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.custom-properties-get-items: %w", err)
 	}
-	var params client.CustomPropertiesControllerGetItemsApiv2Params
+	var params client.CustomPropertiesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.custom-properties-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.custom-properties-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.CustomPropertiesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.CustomPropertiesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.custom-properties-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.custom-properties-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.custom-properties-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.custom-properties-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchEventsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchEventsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.events-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.events-add-item: %w", err)
 	}
-	var body client.EventsControllerAddItemApiv2JSONRequestBody
+	var body client.EventsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.events-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.events-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.EventsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.EventsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.events-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.events-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.events-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.events-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchEventsControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchEventsCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.events-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.events-count: %w", err)
 	}
-	resp, callErr := ic.cl.EventsControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.EventsCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.events-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.events-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.events-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.events-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchEventsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchEventsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		EventId string `json:"eventId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.events-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.events-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.EventsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.EventId)
+	resp, callErr := ic.cl.EventsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.events-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.events-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.events-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.events-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchEventsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchEventsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		EventId string `json:"eventId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.events-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.events-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.EventsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.EventId)
+	resp, callErr := ic.cl.EventsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.EventId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.events-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.events-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.events-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.events-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchEventsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchEventsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.events-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.events-get-items: %w", err)
 	}
-	var params client.EventsControllerGetItemsApiv2Params
+	var params client.EventsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.events-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.events-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.EventsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.EventsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.events-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.events-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.events-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.events-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchEventsControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchEventsUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		EventId string `json:"eventId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.events-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.events-update-item: %w", err)
 	}
-	var body client.EventsControllerUpdateItemApiv2JSONRequestBody
+	var body client.EventsUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.events-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.events-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.EventsControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.EventId, body)
+	resp, callErr := ic.cl.EventsUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.EventId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.events-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.events-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.events-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.events-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFeesControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFeesAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.fees-add-item: %w", err)
 	}
-	var body client.FeesControllerAddItemApiv2JSONRequestBody
+	var body client.FeesAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.fees-add-item: %w", bodyErr)
 	}
 
-	var params client.FeesControllerAddItemApiv2Params
+	var params client.FeesAddItemParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-add-item-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.fees-add-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.FeesControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, &params, body)
+	resp, callErr := ic.cl.FeesAddItemWithResponse(ctx, pathArgs.OrgSlug, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.fees-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.fees-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.fees-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.fees-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFeesControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFeesCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.fees-count: %w", err)
 	}
-	resp, callErr := ic.cl.FeesControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.FeesCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.fees-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.fees-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.fees-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.fees-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFeesControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFeesDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		FeeId   string `json:"feeId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.fees-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.FeesControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.FeeId)
+	resp, callErr := ic.cl.FeesDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.FeeId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.fees-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.fees-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.fees-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.fees-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFeesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFeesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		FeeId   string `json:"feeId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.fees-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.FeesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.FeeId)
+	resp, callErr := ic.cl.FeesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.FeeId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.fees-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.fees-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.fees-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.fees-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFeesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFeesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.fees-get-items: %w", err)
 	}
-	var params client.FeesControllerGetItemsApiv2Params
+	var params client.FeesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.fees-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.FeesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.FeesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.fees-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.fees-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.fees-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.fees-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFeesControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFeesUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		FeeId   string `json:"feeId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.fees-update-item: %w", err)
 	}
-	var body client.FeesControllerUpdateItemApiv2JSONRequestBody
+	var body client.FeesUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.fees-update-item: %w", bodyErr)
 	}
 
-	var params client.FeesControllerUpdateItemApiv2Params
+	var params client.FeesUpdateItemParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.fees-controller-update-item-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.fees-update-item: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.FeesControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.FeeId, &params, body)
+	resp, callErr := ic.cl.FeesUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.FeeId, &params, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.fees-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.fees-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.fees-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.fees-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFloorsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFloorsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		FloorId string `json:"floorId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.floors-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.floors-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.FloorsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.FloorId)
+	resp, callErr := ic.cl.FloorsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.FloorId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.floors-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.floors-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.floors-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.floors-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchFloorsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchFloorsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.floors-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.floors-get-items: %w", err)
 	}
-	var params client.FloorsControllerGetItemsApiv2Params
+	var params client.FloorsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.floors-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.floors-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.FloorsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.FloorsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.floors-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.floors-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.floors-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.floors-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchIntegrationsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchIntegrationsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug       string `json:"orgSlug"`
 		IntegrationId string `json:"integrationId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.integrations-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.integrations-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.IntegrationsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.IntegrationId)
+	resp, callErr := ic.cl.IntegrationsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.IntegrationId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.integrations-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.integrations-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.integrations-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.integrations-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchLocationsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchLocationsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug    string `json:"orgSlug"`
 		LocationId string `json:"locationId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.locations-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.locations-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.LocationsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.LocationId)
+	resp, callErr := ic.cl.LocationsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.LocationId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.locations-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.locations-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.locations-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.locations-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchLocationsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchLocationsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.locations-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.locations-get-items: %w", err)
 	}
-	var params client.LocationsControllerGetItemsApiv2Params
+	var params client.LocationsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.locations-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.locations-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.LocationsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.LocationsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.locations-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.locations-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.locations-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.locations-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-add-item: %w", err)
 	}
-	var body client.MembersControllerAddItemApiv2JSONRequestBody
+	var body client.MembersAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.members-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.members-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.MembersControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.MembersAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerCountByApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersCountByWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-count-by-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-count-by: %w", err)
 	}
-	var params client.MembersControllerCountByApiv2Params
+	var params client.MembersCountByParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.members-controller-count-by-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.members-count-by: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.MembersControllerCountByApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.MembersCountByWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-count-by-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-count-by: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-count-by-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-count-by: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		MemberId string `json:"memberId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.MembersControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId)
+	resp, callErr := ic.cl.MembersDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		MemberId string `json:"memberId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.MembersControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId)
+	resp, callErr := ic.cl.MembersGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-get-items: %w", err)
 	}
-	var params client.MembersControllerGetItemsApiv2Params
+	var params client.MembersGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.members-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.members-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.MembersControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.MembersGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerManagePortalAccessApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersManagePortalAccessWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		MemberId string `json:"memberId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-manage-portal-access-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-manage-portal-access: %w", err)
 	}
-	var body client.MembersControllerManagePortalAccessApiv2JSONRequestBody
+	var body client.MembersManagePortalAccessJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.members-controller-manage-portal-access-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.members-manage-portal-access: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.MembersControllerManagePortalAccessApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
+	resp, callErr := ic.cl.MembersManagePortalAccessWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-manage-portal-access-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-manage-portal-access: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-manage-portal-access-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-manage-portal-access: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerUpdateCompanyApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersUpdateCompanyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		MemberId string `json:"memberId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-company-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-update-company: %w", err)
 	}
-	var body client.MembersControllerUpdateCompanyApiv2JSONRequestBody
+	var body client.MembersUpdateCompanyJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-company-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.members-update-company: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.MembersControllerUpdateCompanyApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
+	resp, callErr := ic.cl.MembersUpdateCompanyWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-company-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-update-company: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-update-company-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-update-company: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		MemberId string `json:"memberId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-update-item: %w", err)
 	}
-	var body client.MembersControllerUpdateItemApiv2JSONRequestBody
+	var body client.MembersUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.members-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.MembersControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
+	resp, callErr := ic.cl.MembersUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembersControllerUpdateStatusApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembersUpdateStatusWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		MemberId string `json:"memberId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-status-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.members-update-status: %w", err)
 	}
-	var body client.MembersControllerUpdateStatusApiv2JSONRequestBody
+	var body client.MembersUpdateStatusJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-status-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.members-update-status: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.MembersControllerUpdateStatusApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
+	resp, callErr := ic.cl.MembersUpdateStatusWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MemberId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.members-controller-update-status-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.members-update-status: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.members-controller-update-status-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.members-update-status: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembershipsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembershipsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.memberships-add-item: %w", err)
 	}
-	var body client.MembershipsControllerAddItemApiv2JSONRequestBody
+	var body client.MembershipsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.memberships-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.MembershipsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.MembershipsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.memberships-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.memberships-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.memberships-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembershipsControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembershipsCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.memberships-count: %w", err)
 	}
-	resp, callErr := ic.cl.MembershipsControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.MembershipsCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.memberships-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.memberships-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.memberships-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembershipsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembershipsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug      string `json:"orgSlug"`
 		MembershipId string `json:"membershipId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.memberships-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.MembershipsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MembershipId)
+	resp, callErr := ic.cl.MembershipsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MembershipId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.memberships-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.memberships-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.memberships-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembershipsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembershipsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug      string `json:"orgSlug"`
 		MembershipId string `json:"membershipId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.memberships-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.MembershipsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MembershipId)
+	resp, callErr := ic.cl.MembershipsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MembershipId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.memberships-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.memberships-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.memberships-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembershipsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembershipsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.memberships-get-items: %w", err)
 	}
-	var params client.MembershipsControllerGetItemsApiv2Params
+	var params client.MembershipsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.memberships-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.MembershipsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.MembershipsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.memberships-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.memberships-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.memberships-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchMembershipsControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchMembershipsUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug      string `json:"orgSlug"`
 		MembershipId string `json:"membershipId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.memberships-update-item: %w", err)
 	}
-	var body client.MembershipsControllerUpdateItemApiv2JSONRequestBody
+	var body client.MembershipsUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.memberships-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.MembershipsControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.MembershipId, body)
+	resp, callErr := ic.cl.MembershipsUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.MembershipId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.memberships-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.memberships-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.memberships-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.memberships-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOpportunitiesControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOpportunitiesAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.opportunities-add-item: %w", err)
 	}
-	var body client.OpportunitiesControllerAddItemApiv2JSONRequestBody
+	var body client.OpportunitiesAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.opportunities-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.OpportunitiesControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.OpportunitiesAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.opportunities-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.opportunities-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.opportunities-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOpportunitiesControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOpportunitiesCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.opportunities-count: %w", err)
 	}
-	resp, callErr := ic.cl.OpportunitiesControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.OpportunitiesCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.opportunities-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.opportunities-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.opportunities-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOpportunitiesControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOpportunitiesDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug       string `json:"orgSlug"`
 		OpportunityId string `json:"opportunityId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.opportunities-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.OpportunitiesControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.OpportunityId)
+	resp, callErr := ic.cl.OpportunitiesDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.OpportunityId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.opportunities-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.opportunities-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.opportunities-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOpportunitiesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOpportunitiesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug       string `json:"orgSlug"`
 		OpportunityId string `json:"opportunityId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.opportunities-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.OpportunitiesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.OpportunityId)
+	resp, callErr := ic.cl.OpportunitiesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.OpportunityId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.opportunities-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.opportunities-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.opportunities-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOpportunitiesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOpportunitiesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.opportunities-get-items: %w", err)
 	}
-	var params client.OpportunitiesControllerGetItemsApiv2Params
+	var params client.OpportunitiesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.opportunities-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.OpportunitiesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.OpportunitiesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.opportunities-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.opportunities-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.opportunities-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOpportunitiesControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOpportunitiesUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug       string `json:"orgSlug"`
 		OpportunityId string `json:"opportunityId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.opportunities-update-item: %w", err)
 	}
-	var body client.OpportunitiesControllerUpdateItemApiv2JSONRequestBody
+	var body client.OpportunitiesUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.opportunities-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.OpportunitiesControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.OpportunityId, body)
+	resp, callErr := ic.cl.OpportunitiesUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.OpportunityId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.opportunities-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.opportunities-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.opportunities-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.opportunities-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOpportunityStatusesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOpportunityStatusesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.opportunity-statuses-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.opportunity-statuses-get-items: %w", err)
 	}
-	var params client.OpportunityStatusesControllerGetItemsApiv2Params
+	var params client.OpportunityStatusesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.opportunity-statuses-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.opportunity-statuses-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.OpportunityStatusesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.OpportunityStatusesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.opportunity-statuses-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.opportunity-statuses-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.opportunity-statuses-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.opportunity-statuses-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchOrganizationsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchOrganizationsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.organizations-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.organizations-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.OrganizationsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.OrganizationsGetItemWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.organizations-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.organizations-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.organizations-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.organizations-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -2821,568 +2821,568 @@ func (ic *InterfaceClient) dispatchPOSTGenerateTokenWithFormdataBodyWithResponse
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPassesControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPassesAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.passes-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.passes-add-item: %w", err)
 	}
-	var body client.PassesControllerAddItemApiv2JSONRequestBody
+	var body client.PassesAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.passes-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.passes-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PassesControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.PassesAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.passes-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.passes-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.passes-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.passes-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPassesControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPassesDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		PassesId string `json:"passesId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.passes-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.passes-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.PassesControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PassesId)
+	resp, callErr := ic.cl.PassesDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PassesId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.passes-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.passes-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.passes-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.passes-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPassesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPassesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		PassesId string `json:"passesId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.passes-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.passes-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.PassesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PassesId)
+	resp, callErr := ic.cl.PassesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PassesId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.passes-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.passes-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.passes-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.passes-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPassesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPassesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.passes-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.passes-get-items: %w", err)
 	}
-	var params client.PassesControllerGetItemsApiv2Params
+	var params client.PassesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.passes-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.passes-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PassesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.PassesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.passes-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.passes-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.passes-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.passes-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPassesControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPassesUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		PassesId string `json:"passesId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.passes-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.passes-update-item: %w", err)
 	}
-	var body client.PassesControllerUpdateItemApiv2JSONRequestBody
+	var body client.PassesUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.passes-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.passes-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PassesControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PassesId, body)
+	resp, callErr := ic.cl.PassesUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PassesId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.passes-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.passes-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.passes-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.passes-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPasswordControllerChangePasswordApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPasswordChangePasswordWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.password-controller-change-password-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.password-change-password: %w", err)
 	}
-	var body client.PasswordControllerChangePasswordApiv2JSONRequestBody
+	var body client.PasswordChangePasswordJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.password-controller-change-password-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.password-change-password: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PasswordControllerChangePasswordApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.PasswordChangePasswordWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.password-controller-change-password-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.password-change-password: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.password-controller-change-password-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.password-change-password: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPasswordControllerResetPasswordApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPasswordResetPasswordWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.password-controller-reset-password-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.password-reset-password: %w", err)
 	}
-	var body client.PasswordControllerResetPasswordApiv2JSONRequestBody
+	var body client.PasswordResetPasswordJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.password-controller-reset-password-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.password-reset-password: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PasswordControllerResetPasswordApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.PasswordResetPasswordWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.password-controller-reset-password-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.password-reset-password: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.password-controller-reset-password-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.password-reset-password: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentDetailsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentDetailsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payment-details-add-item: %w", err)
 	}
-	var body client.PaymentDetailsControllerAddItemApiv2JSONRequestBody
+	var body client.PaymentDetailsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.payment-details-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PaymentDetailsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.PaymentDetailsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payment-details-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payment-details-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payment-details-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentDetailsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentDetailsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug          string `json:"orgSlug"`
 		PaymentDetailsId string `json:"paymentDetailsId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payment-details-delete-item: %w", err)
 	}
-	var body client.PaymentDetailsControllerDeleteItemApiv2JSONRequestBody
+	var body client.PaymentDetailsDeleteItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-delete-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.payment-details-delete-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PaymentDetailsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentDetailsId, body)
+	resp, callErr := ic.cl.PaymentDetailsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentDetailsId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payment-details-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payment-details-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payment-details-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentDetailsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentDetailsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payment-details-get-items: %w", err)
 	}
-	var params client.PaymentDetailsControllerGetItemsApiv2Params
+	var params client.PaymentDetailsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.payment-details-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PaymentDetailsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.PaymentDetailsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payment-details-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payment-details-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payment-details-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentDetailsControllerRegisterItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentDetailsRegisterItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-register-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payment-details-register-item: %w", err)
 	}
-	var body client.PaymentDetailsControllerRegisterItemApiv2JSONRequestBody
+	var body client.PaymentDetailsRegisterItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-register-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.payment-details-register-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PaymentDetailsControllerRegisterItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.PaymentDetailsRegisterItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payment-details-controller-register-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payment-details-register-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payment-details-controller-register-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payment-details-register-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentGatewaysControllerAuthorizeApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentGatewaysAuthorizeWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payment-gateways-controller-authorize-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payment-gateways-authorize: %w", err)
 	}
-	var body client.PaymentGatewaysControllerAuthorizeApiv2JSONRequestBody
+	var body client.PaymentGatewaysAuthorizeJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.payment-gateways-controller-authorize-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.payment-gateways-authorize: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PaymentGatewaysControllerAuthorizeApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.PaymentGatewaysAuthorizeWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payment-gateways-controller-authorize-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payment-gateways-authorize: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payment-gateways-controller-authorize-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payment-gateways-authorize: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerAddCreditAllocationApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsAddCreditAllocationWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		PaymentId string `json:"paymentId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-add-credit-allocation-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-add-credit-allocation: %w", err)
 	}
-	var body client.PaymentsControllerAddCreditAllocationApiv2JSONRequestBody
+	var body client.PaymentsAddCreditAllocationJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-add-credit-allocation-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.payments-add-credit-allocation: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PaymentsControllerAddCreditAllocationApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId, body)
+	resp, callErr := ic.cl.PaymentsAddCreditAllocationWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-add-credit-allocation-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-add-credit-allocation: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-add-credit-allocation-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-add-credit-allocation: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerAddOverpaymentApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsAddOverpaymentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-add-overpayment-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-add-overpayment: %w", err)
 	}
-	var body client.PaymentsControllerAddOverpaymentApiv2JSONRequestBody
+	var body client.PaymentsAddOverpaymentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-add-overpayment-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.payments-add-overpayment: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PaymentsControllerAddOverpaymentApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.PaymentsAddOverpaymentWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-add-overpayment-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-add-overpayment: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-add-overpayment-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-add-overpayment: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-count: %w", err)
 	}
-	resp, callErr := ic.cl.PaymentsControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.PaymentsCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		PaymentId string `json:"paymentId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.PaymentsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId)
+	resp, callErr := ic.cl.PaymentsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-get-items: %w", err)
 	}
-	var params client.PaymentsControllerGetItemsApiv2Params
+	var params client.PaymentsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.payments-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PaymentsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.PaymentsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerGetPaymentDocumentsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsGetPaymentDocumentsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		PaymentId string `json:"paymentId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-payment-documents-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-get-payment-documents: %w", err)
 	}
-	resp, callErr := ic.cl.PaymentsControllerGetPaymentDocumentsApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId)
+	resp, callErr := ic.cl.PaymentsGetPaymentDocumentsWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-payment-documents-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-get-payment-documents: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-get-payment-documents-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-get-payment-documents: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerGetPaymentMethodsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsGetPaymentMethodsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-payment-methods-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-get-payment-methods: %w", err)
 	}
-	var params client.PaymentsControllerGetPaymentMethodsApiv2Params
+	var params client.PaymentsGetPaymentMethodsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-payment-methods-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.payments-get-payment-methods: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PaymentsControllerGetPaymentMethodsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.PaymentsGetPaymentMethodsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-get-payment-methods-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-get-payment-methods: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-get-payment-methods-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-get-payment-methods: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerUpdateAllocationAccountingApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsUpdateAllocationAccountingWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug      string `json:"orgSlug"`
 		PaymentId    string `json:"paymentId"`
@@ -3390,1328 +3390,1328 @@ func (ic *InterfaceClient) dispatchPaymentsControllerUpdateAllocationAccountingA
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-update-allocation-accounting-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-update-allocation-accounting: %w", err)
 	}
-	var body client.PaymentsControllerUpdateAllocationAccountingApiv2JSONRequestBody
+	var body client.PaymentsUpdateAllocationAccountingJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-update-allocation-accounting-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.payments-update-allocation-accounting: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PaymentsControllerUpdateAllocationAccountingApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId, pathArgs.AllocationId, body)
+	resp, callErr := ic.cl.PaymentsUpdateAllocationAccountingWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId, pathArgs.AllocationId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-update-allocation-accounting-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-update-allocation-accounting: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-update-allocation-accounting-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-update-allocation-accounting: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPaymentsControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPaymentsUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		PaymentId string `json:"paymentId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.payments-update-item: %w", err)
 	}
-	var body client.PaymentsControllerUpdateItemApiv2JSONRequestBody
+	var body client.PaymentsUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.payments-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.payments-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PaymentsControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId, body)
+	resp, callErr := ic.cl.PaymentsUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PaymentId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.payments-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.payments-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.payments-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.payments-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPlansControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPlansCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.plans-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.plans-count: %w", err)
 	}
-	resp, callErr := ic.cl.PlansControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.PlansCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.plans-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.plans-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.plans-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.plans-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPlansControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPlansGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		PlanId  string `json:"planId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.plans-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.plans-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.PlansControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PlanId)
+	resp, callErr := ic.cl.PlansGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PlanId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.plans-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.plans-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.plans-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.plans-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPlansControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPlansGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.plans-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.plans-get-items: %w", err)
 	}
-	var params client.PlansControllerGetItemsApiv2Params
+	var params client.PlansGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.plans-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.plans-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PlansControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.PlansGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.plans-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.plans-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.plans-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.plans-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.posts-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.posts-add-item: %w", err)
 	}
-	var body client.PostsControllerAddItemApiv2JSONRequestBody
+	var body client.PostsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.posts-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.posts-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.PostsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.PostsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.posts-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.posts-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.posts-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.posts-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		PostId  string `json:"postId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.posts-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.posts-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.PostsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PostId)
+	resp, callErr := ic.cl.PostsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PostId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.posts-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.posts-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.posts-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.posts-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		PostId  string `json:"postId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.posts-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.posts-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.PostsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.PostId)
+	resp, callErr := ic.cl.PostsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.PostId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.posts-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.posts-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.posts-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.posts-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchPostsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchPostsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.posts-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.posts-get-items: %w", err)
 	}
-	var params client.PostsControllerGetItemsApiv2Params
+	var params client.PostsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.posts-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.posts-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.PostsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.PostsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.posts-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.posts-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.posts-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.posts-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchReceptionFlowsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchReceptionFlowsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.reception-flows-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.reception-flows-get-items: %w", err)
 	}
-	var params client.ReceptionFlowsControllerGetItemsApiv2Params
+	var params client.ReceptionFlowsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.reception-flows-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.reception-flows-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ReceptionFlowsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.ReceptionFlowsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.reception-flows-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.reception-flows-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.reception-flows-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.reception-flows-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourceRatesControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourceRatesCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resource-rates-count: %w", err)
 	}
-	resp, callErr := ic.cl.ResourceRatesControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.ResourceRatesCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resource-rates-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resource-rates-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourceRatesControllerGetCancellationPolicyApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourceRatesGetCancellationPolicyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug        string `json:"orgSlug"`
 		ResourceRateId string `json:"resourceRateId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-cancellation-policy-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resource-rates-get-cancellation-policy: %w", err)
 	}
-	resp, callErr := ic.cl.ResourceRatesControllerGetCancellationPolicyApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ResourceRateId)
+	resp, callErr := ic.cl.ResourceRatesGetCancellationPolicyWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ResourceRateId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-cancellation-policy-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resource-rates-get-cancellation-policy: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-cancellation-policy-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resource-rates-get-cancellation-policy: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourceRatesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourceRatesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug        string `json:"orgSlug"`
 		ResourceRateId string `json:"resourceRateId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resource-rates-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.ResourceRatesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ResourceRateId)
+	resp, callErr := ic.cl.ResourceRatesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ResourceRateId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resource-rates-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resource-rates-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourceRatesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourceRatesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resource-rates-get-items: %w", err)
 	}
-	var params client.ResourceRatesControllerGetItemsApiv2Params
+	var params client.ResourceRatesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.resource-rates-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ResourceRatesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.ResourceRatesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resource-rates-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resource-rates-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resource-rates-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourceTypesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourceTypesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resource-types-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resource-types-get-items: %w", err)
 	}
-	var params client.ResourceTypesControllerGetItemsApiv2Params
+	var params client.ResourceTypesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.resource-types-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.resource-types-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ResourceTypesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.ResourceTypesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resource-types-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resource-types-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resource-types-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resource-types-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourcesControllerCountApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourcesCountWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resources-controller-count-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resources-count: %w", err)
 	}
-	resp, callErr := ic.cl.ResourcesControllerCountApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.ResourcesCountWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resources-controller-count-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resources-count: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resources-controller-count-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resources-count: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourcesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourcesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug    string `json:"orgSlug"`
 		ResourceId string `json:"resourceId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resources-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resources-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.ResourcesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ResourceId)
+	resp, callErr := ic.cl.ResourcesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ResourceId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resources-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resources-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resources-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resources-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourcesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourcesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resources-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resources-get-items: %w", err)
 	}
-	var params client.ResourcesControllerGetItemsApiv2Params
+	var params client.ResourcesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.resources-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.resources-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.ResourcesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.ResourcesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resources-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resources-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resources-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resources-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchResourcesControllerGetResourceStatusApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchResourcesGetResourceStatusWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug    string `json:"orgSlug"`
 		ResourceId string `json:"resourceId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.resources-controller-get-resource-status-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.resources-get-resource-status: %w", err)
 	}
-	resp, callErr := ic.cl.ResourcesControllerGetResourceStatusApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.ResourceId)
+	resp, callErr := ic.cl.ResourcesGetResourceStatusWithResponse(ctx, pathArgs.OrgSlug, pathArgs.ResourceId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.resources-controller-get-resource-status-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.resources-get-resource-status: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.resources-controller-get-resource-status-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.resources-get-resource-status: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRevenueAccountsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRevenueAccountsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		AccountId string `json:"accountId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.revenue-accounts-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.revenue-accounts-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.RevenueAccountsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.AccountId)
+	resp, callErr := ic.cl.RevenueAccountsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.AccountId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.revenue-accounts-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.revenue-accounts-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.revenue-accounts-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.revenue-accounts-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchRevenueAccountsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchRevenueAccountsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.revenue-accounts-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.revenue-accounts-get-items: %w", err)
 	}
-	var params client.RevenueAccountsControllerGetItemsApiv2Params
+	var params client.RevenueAccountsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.revenue-accounts-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.revenue-accounts-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.RevenueAccountsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.RevenueAccountsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.revenue-accounts-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.revenue-accounts-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.revenue-accounts-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.revenue-accounts-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchSecondaryCurrenciesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSecondaryCurrenciesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug             string `json:"orgSlug"`
 		SecondaryCurrencyId string `json:"secondaryCurrencyId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.secondary-currencies-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.SecondaryCurrenciesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.SecondaryCurrencyId)
+	resp, callErr := ic.cl.SecondaryCurrenciesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.SecondaryCurrencyId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.secondary-currencies-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.secondary-currencies-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchSecondaryCurrenciesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSecondaryCurrenciesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.secondary-currencies-get-items: %w", err)
 	}
-	var params client.SecondaryCurrenciesControllerGetItemsApiv2Params
+	var params client.SecondaryCurrenciesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.secondary-currencies-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.SecondaryCurrenciesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.SecondaryCurrenciesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.secondary-currencies-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.secondary-currencies-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchSecondaryCurrenciesControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchSecondaryCurrenciesUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug             string `json:"orgSlug"`
 		SecondaryCurrencyId string `json:"secondaryCurrencyId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.secondary-currencies-update-item: %w", err)
 	}
-	var body client.SecondaryCurrenciesControllerUpdateItemApiv2JSONRequestBody
+	var body client.SecondaryCurrenciesUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.secondary-currencies-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.SecondaryCurrenciesControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.SecondaryCurrencyId, body)
+	resp, callErr := ic.cl.SecondaryCurrenciesUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.SecondaryCurrencyId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.secondary-currencies-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.secondary-currencies-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.secondary-currencies-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTaxRatesControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTaxRatesGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		TaxRateId string `json:"taxRateId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.tax-rates-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.tax-rates-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.TaxRatesControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.TaxRateId)
+	resp, callErr := ic.cl.TaxRatesGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.TaxRateId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.tax-rates-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.tax-rates-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.tax-rates-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.tax-rates-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTaxRatesControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTaxRatesGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.tax-rates-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.tax-rates-get-items: %w", err)
 	}
-	var params client.TaxRatesControllerGetItemsApiv2Params
+	var params client.TaxRatesGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.tax-rates-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.tax-rates-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.TaxRatesControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.TaxRatesGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.tax-rates-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.tax-rates-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.tax-rates-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.tax-rates-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTicketCommentsControllerAddCommentApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTicketCommentsAddCommentWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		TicketId string `json:"ticketId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.ticket-comments-controller-add-comment-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.ticket-comments-add-comment: %w", err)
 	}
-	var body client.TicketCommentsControllerAddCommentApiv2JSONRequestBody
+	var body client.TicketCommentsAddCommentJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.ticket-comments-controller-add-comment-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.ticket-comments-add-comment: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.TicketCommentsControllerAddCommentApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.TicketId, body)
+	resp, callErr := ic.cl.TicketCommentsAddCommentWithResponse(ctx, pathArgs.OrgSlug, pathArgs.TicketId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.ticket-comments-controller-add-comment-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.ticket-comments-add-comment: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.ticket-comments-controller-add-comment-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.ticket-comments-add-comment: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTicketCommentsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTicketCommentsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		TicketId string `json:"ticketId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.ticket-comments-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.ticket-comments-get-items: %w", err)
 	}
-	var params client.TicketCommentsControllerGetItemsApiv2Params
+	var params client.TicketCommentsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.ticket-comments-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.ticket-comments-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.TicketCommentsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.TicketId, &params)
+	resp, callErr := ic.cl.TicketCommentsGetItemsWithResponse(ctx, pathArgs.OrgSlug, pathArgs.TicketId, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.ticket-comments-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.ticket-comments-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.ticket-comments-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.ticket-comments-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTicketOptionsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTicketOptionsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.ticket-options-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.ticket-options-get-items: %w", err)
 	}
-	var params client.TicketOptionsControllerGetItemsApiv2Params
+	var params client.TicketOptionsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.ticket-options-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.ticket-options-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.TicketOptionsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.TicketOptionsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.ticket-options-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.ticket-options-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.ticket-options-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.ticket-options-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTicketsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTicketsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.tickets-add-item: %w", err)
 	}
-	var body client.TicketsControllerAddItemApiv2JSONRequestBody
+	var body client.TicketsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.tickets-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.TicketsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.TicketsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.tickets-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.tickets-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.tickets-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTicketsControllerCountByApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTicketsCountByWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-count-by-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.tickets-count-by: %w", err)
 	}
-	resp, callErr := ic.cl.TicketsControllerCountByApiv2WithResponse(ctx, pathArgs.OrgSlug)
+	resp, callErr := ic.cl.TicketsCountByWithResponse(ctx, pathArgs.OrgSlug)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-count-by-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.tickets-count-by: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.tickets-controller-count-by-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.tickets-count-by: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTicketsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTicketsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		TicketId string `json:"ticketId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.tickets-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.TicketsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.TicketId)
+	resp, callErr := ic.cl.TicketsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.TicketId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.tickets-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.tickets-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.tickets-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTicketsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTicketsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.tickets-get-items: %w", err)
 	}
-	var params client.TicketsControllerGetItemsApiv2Params
+	var params client.TicketsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.tickets-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.TicketsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.TicketsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.tickets-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.tickets-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.tickets-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchTicketsControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchTicketsUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug  string `json:"orgSlug"`
 		TicketId string `json:"ticketId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.tickets-update-item: %w", err)
 	}
-	var body client.TicketsControllerUpdateItemApiv2JSONRequestBody
+	var body client.TicketsUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.tickets-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.TicketsControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.TicketId, body)
+	resp, callErr := ic.cl.TicketsUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.TicketId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.tickets-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.tickets-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.tickets-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.tickets-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchVisitorsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVisitorsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.visitors-add-item: %w", err)
 	}
-	var body client.VisitorsControllerAddItemApiv2JSONRequestBody
+	var body client.VisitorsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.visitors-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.VisitorsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.VisitorsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.visitors-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.visitors-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.visitors-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchVisitorsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVisitorsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		VisitorId string `json:"visitorId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.visitors-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.VisitorsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.VisitorId)
+	resp, callErr := ic.cl.VisitorsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.VisitorId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.visitors-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.visitors-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.visitors-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchVisitorsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVisitorsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		VisitorId string `json:"visitorId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.visitors-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.VisitorsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.VisitorId)
+	resp, callErr := ic.cl.VisitorsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.VisitorId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.visitors-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.visitors-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.visitors-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchVisitorsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVisitorsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.visitors-get-items: %w", err)
 	}
-	var params client.VisitorsControllerGetItemsApiv2Params
+	var params client.VisitorsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.visitors-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.VisitorsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.VisitorsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.visitors-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.visitors-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.visitors-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.visitors-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchVisitsControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVisitsAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.visits-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.visits-add-item: %w", err)
 	}
-	var body client.VisitsControllerAddItemApiv2JSONRequestBody
+	var body client.VisitsAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.visits-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.visits-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.VisitsControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.VisitsAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.visits-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.visits-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.visits-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.visits-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchVisitsControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVisitsDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		VisitId string `json:"visitId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.visits-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.visits-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.VisitsControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.VisitId)
+	resp, callErr := ic.cl.VisitsDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.VisitId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.visits-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.visits-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.visits-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.visits-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchVisitsControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVisitsGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 		VisitId string `json:"visitId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.visits-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.visits-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.VisitsControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.VisitId)
+	resp, callErr := ic.cl.VisitsGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.VisitId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.visits-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.visits-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.visits-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.visits-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchVisitsControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchVisitsGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.visits-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.visits-get-items: %w", err)
 	}
-	var params client.VisitsControllerGetItemsApiv2Params
+	var params client.VisitsGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.visits-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.visits-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.VisitsControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.VisitsGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.visits-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.visits-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.visits-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.visits-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchWebhooksControllerAddItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWebhooksAddItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-add-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.webhooks-add-item: %w", err)
 	}
-	var body client.WebhooksControllerAddItemApiv2JSONRequestBody
+	var body client.WebhooksAddItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-add-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.webhooks-add-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.WebhooksControllerAddItemApiv2WithResponse(ctx, pathArgs.OrgSlug, body)
+	resp, callErr := ic.cl.WebhooksAddItemWithResponse(ctx, pathArgs.OrgSlug, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-add-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.webhooks-add-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.webhooks-controller-add-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.webhooks-add-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchWebhooksControllerDeleteItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWebhooksDeleteItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		WebhookId string `json:"webhookId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-delete-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.webhooks-delete-item: %w", err)
 	}
-	resp, callErr := ic.cl.WebhooksControllerDeleteItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.WebhookId)
+	resp, callErr := ic.cl.WebhooksDeleteItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.WebhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-delete-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.webhooks-delete-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.webhooks-controller-delete-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.webhooks-delete-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchWebhooksControllerGetItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWebhooksGetItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		WebhookId string `json:"webhookId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-get-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.webhooks-get-item: %w", err)
 	}
-	resp, callErr := ic.cl.WebhooksControllerGetItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.WebhookId)
+	resp, callErr := ic.cl.WebhooksGetItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.WebhookId)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-get-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.webhooks-get-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.webhooks-controller-get-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.webhooks-get-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchWebhooksControllerGetItemsApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWebhooksGetItemsWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug string `json:"orgSlug"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-get-items-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.webhooks-get-items: %w", err)
 	}
-	var params client.WebhooksControllerGetItemsApiv2Params
+	var params client.WebhooksGetItemsParams
 
 	paramsErr := json.Unmarshal(inputs, &params)
 	if paramsErr != nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-get-items-apiv2: params: %w", paramsErr)
+		return nil, fmt.Errorf("officernd.webhooks-get-items: params: %w", paramsErr)
 	}
 
-	resp, callErr := ic.cl.WebhooksControllerGetItemsApiv2WithResponse(ctx, pathArgs.OrgSlug, &params)
+	resp, callErr := ic.cl.WebhooksGetItemsWithResponse(ctx, pathArgs.OrgSlug, &params)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-get-items-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.webhooks-get-items: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.webhooks-controller-get-items-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.webhooks-get-items: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
 }
 
-func (ic *InterfaceClient) dispatchWebhooksControllerUpdateItemApiv2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+func (ic *InterfaceClient) dispatchWebhooksUpdateItemWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		OrgSlug   string `json:"orgSlug"`
 		WebhookId string `json:"webhookId"`
 	}
 
 	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-update-item-apiv2: %w", err)
+		return nil, fmt.Errorf("officernd.webhooks-update-item: %w", err)
 	}
-	var body client.WebhooksControllerUpdateItemApiv2JSONRequestBody
+	var body client.WebhooksUpdateItemJSONRequestBody
 
 	bodyErr := json.Unmarshal(inputs, &body)
 	if bodyErr != nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-update-item-apiv2: %w", bodyErr)
+		return nil, fmt.Errorf("officernd.webhooks-update-item: %w", bodyErr)
 	}
 
-	resp, callErr := ic.cl.WebhooksControllerUpdateItemApiv2WithResponse(ctx, pathArgs.OrgSlug, pathArgs.WebhookId, body)
+	resp, callErr := ic.cl.WebhooksUpdateItemWithResponse(ctx, pathArgs.OrgSlug, pathArgs.WebhookId, body)
 	if callErr != nil {
 		return nil, callErr
 	}
 
 	if resp == nil {
-		return nil, fmt.Errorf("officernd.webhooks-controller-update-item-apiv2: nil response")
+		return nil, fmt.Errorf("officernd.webhooks-update-item: nil response")
 	}
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
-		return nil, fmt.Errorf("officernd.webhooks-controller-update-item-apiv2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+		return nil, fmt.Errorf("officernd.webhooks-update-item: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil

@@ -24,10 +24,10 @@ func Register() connector.Registration {
 		},
 		Resolve: Resolve,
 		CWLClasses: []connector.CWLClassEntry{
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AmenitiesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AmenitiesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "amenities-controller-get-item-apiv2",
-				ClassName:   "AmenitiesControllerGetItemApiv2",
+				Function:    "amenities-get-item",
+				ClassName:   "AmenitiesGetItem",
 				Description: "Get an amenity",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "amenityId", Type: "string", Required: true, Description: "The id of the corresponding amenity"},
@@ -41,10 +41,10 @@ func Register() connector.Registration {
 					{Name: "title", Type: "string", Required: false, Description: "The name of the amenity."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AmenitiesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AmenitiesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "amenities-controller-get-items-apiv2",
-				ClassName:   "AmenitiesControllerGetItemsApiv2",
+				Function:    "amenities-get-items",
+				ClassName:   "AmenitiesGetItems",
 				Description: "Retrieve all amenities",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the _id of the amenity."},
@@ -59,10 +59,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AssignmentsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AssignmentsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "assignments-controller-add-item-apiv2",
-				ClassName:   "AssignmentsControllerAddItemApiv2",
+				Function:    "assignments-add-item",
+				ClassName:   "AssignmentsAddItem",
 				Description: "Create an assignment",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -79,10 +79,10 @@ func Register() connector.Registration {
 					{Name: "startDate", Type: "string", Required: false, Description: "The start date of the assignment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AssignmentsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AssignmentsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "assignments-controller-delete-item-apiv2",
-				ClassName:   "AssignmentsControllerDeleteItemApiv2",
+				Function:    "assignments-delete-item",
+				ClassName:   "AssignmentsDeleteItem",
 				Description: "Delete an assignment",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "assignmentId", Type: "string", Required: true, Description: "The _id of the assignment to delete"},
@@ -96,10 +96,10 @@ func Register() connector.Registration {
 					{Name: "startDate", Type: "string", Required: false, Description: "The start date of the assignment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AssignmentsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AssignmentsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "assignments-controller-get-items-apiv2",
-				ClassName:   "AssignmentsControllerGetItemsApiv2",
+				Function:    "assignments-get-items",
+				ClassName:   "AssignmentsGetItems",
 				Description: "Retrieve assignments by resource and/or membership",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "resource", Type: "string", Required: false, Description: "Filter by resource id. Supports resource=value and resource[$in]=id1,id2."},
@@ -114,10 +114,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AuthControllerImpersonateMemberApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AuthImpersonateMember", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "auth-controller-impersonate-member-apiv2",
-				ClassName:   "AuthControllerImpersonateMemberApiv2",
+				Function:    "auth-impersonate-member",
+				ClassName:   "AuthImpersonateMember",
 				Description: "Impersonate a member",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -127,10 +127,10 @@ func Register() connector.Registration {
 					{Name: "token", Type: "string", Required: false, Description: "The generated token which you can use as authentication for various requests."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AuthControllerSigninApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AuthSignin", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "auth-controller-signin-apiv2",
-				ClassName:   "AuthControllerSigninApiv2",
+				Function:    "auth-signin",
+				ClassName:   "AuthSignin",
 				Description: "Sign in a user",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -144,10 +144,10 @@ func Register() connector.Registration {
 					{Name: "name", Type: "string", Required: false, Description: "The name of the user."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AuthControllerSignupApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AuthSignup", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "auth-controller-signup-apiv2",
-				ClassName:   "AuthControllerSignupApiv2",
+				Function:    "auth-signup",
+				ClassName:   "AuthSignup",
 				Description: "Create a user",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -161,10 +161,10 @@ func Register() connector.Registration {
 					{Name: "name", Type: "string", Required: false, Description: "The name of the user."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#AuthControllerVerifyTokenApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#AuthVerifyToken", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "auth-controller-verify-token-apiv2",
-				ClassName:   "AuthControllerVerifyTokenApiv2",
+				Function:    "auth-verify-token",
+				ClassName:   "AuthVerifyToken",
 				Description: "Validate JWT token",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -177,10 +177,10 @@ func Register() connector.Registration {
 					{Name: "user", Type: "string", Required: false, Description: "The user reference."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BenefitsControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BenefitsCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "benefits-controller-count-apiv2",
-				ClassName:   "BenefitsControllerCountApiv2",
+				Function:    "benefits-count",
+				ClassName:   "BenefitsCount",
 				Description: "Get benefits count by filter",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -190,10 +190,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BenefitsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BenefitsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "benefits-controller-get-item-apiv2",
-				ClassName:   "BenefitsControllerGetItemApiv2",
+				Function:    "benefits-get-item",
+				ClassName:   "BenefitsGetItem",
 				Description: "Get benefit",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "benefitId", Type: "string", Required: true, Description: "benefit id"},
@@ -211,10 +211,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "An external URL associated with the benefit."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BenefitsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BenefitsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "benefits-controller-get-items-apiv2",
-				ClassName:   "BenefitsControllerGetItemsApiv2",
+				Function:    "benefits-get-items",
+				ClassName:   "BenefitsGetItems",
 				Description: "Get benefits",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "createdAt", Type: "string", Required: false, Description: "Support date comparison filters: $gt, $gte, $lt, $lte"},
@@ -227,10 +227,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BillingSettingsControllerGetBillingSettingsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BillingSettingsGetBillingSettings", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "billing-settings-controller-get-billing-settings-apiv2",
-				ClassName:   "BillingSettingsControllerGetBillingSettingsApiv2",
+				Function:    "billing-settings-get-billing-settings",
+				ClassName:   "BillingSettingsGetBillingSettings",
 				Description: "Retrieve billing settings.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -242,10 +242,10 @@ func Register() connector.Registration {
 					{Name: "shouldGenerateInvoiceNumbers", Type: "boolean", Required: false, Description: "Determines whether invoice numbers are generated by OfficeRnD."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-add-item-apiv2",
-				ClassName:   "BookingsControllerAddItemApiv2",
+				Function:    "bookings-add-item",
+				ClassName:   "BookingsAddItem",
 				Description: "Add new booking",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "isSilent", Type: "boolean", Required: false, Description: "Whether to send notifications to the member.             If true, a notification will not be sent.             If false or not passed at all, the notification will be sent as normal."},
@@ -301,10 +301,10 @@ func Register() connector.Registration {
 					{Name: "visitors", Type: "array", Required: false, Description: "An array containg a list of all the ids of external visitors associated with the booking."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerCancelBookingApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsCancelBooking", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-cancel-booking-apiv2",
-				ClassName:   "BookingsControllerCancelBookingApiv2",
+				Function:    "bookings-cancel-booking",
+				ClassName:   "BookingsCancelBooking",
 				Description: "Cancel a booking that was already confirmed.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "isSilent", Type: "boolean", Required: false, Description: "Whether to send notifications to the member.             If true, a notification will not be sent.             If false or not passed at all, the notification will be sent as normal."},
@@ -345,10 +345,10 @@ func Register() connector.Registration {
 					{Name: "visitors", Type: "array", Required: false, Description: "An array containg a list of all the ids of external visitors associated with the booking."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-count-apiv2",
-				ClassName:   "BookingsControllerCountApiv2",
+				Function:    "bookings-count",
+				ClassName:   "BookingsCount",
 				Description: "Get bookings count",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -358,10 +358,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-delete-item-apiv2",
-				ClassName:   "BookingsControllerDeleteItemApiv2",
+				Function:    "bookings-delete-item",
+				ClassName:   "BookingsDeleteItem",
 				Description: "Delete booking",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "isSilent", Type: "boolean", Required: false, Description: "Whether to send notifications to the member.             If true, a notification will not be sent.             If false or not passed at all, the notification will be sent as normal."},
@@ -401,10 +401,10 @@ func Register() connector.Registration {
 					{Name: "visitors", Type: "array", Required: false, Description: "An array containg a list of all the ids of external visitors associated with the booking."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-get-item-apiv2",
-				ClassName:   "BookingsControllerGetItemApiv2",
+				Function:    "bookings-get-item",
+				ClassName:   "BookingsGetItem",
 				Description: "Retrieve single booking.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "bookingId", Type: "string", Required: true, Description: "booking id"},
@@ -443,10 +443,10 @@ func Register() connector.Registration {
 					{Name: "visitors", Type: "array", Required: false, Description: "An array containg a list of all the ids of external visitors associated with the booking."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-get-items-apiv2",
-				ClassName:   "BookingsControllerGetItemsApiv2",
+				Function:    "bookings-get-items",
+				ClassName:   "BookingsGetItems",
 				Description: "Retrieve all booking series and one-off bookings.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the _id of the booking.             Supports both single id values (e.g., _id=603dfbc260f4054084125d33) and array operations (e.g., _id[$in]=603dfbc260f4054084125d33,603dfbc260f4054084125d34).             Note: Multiple values in simple string format (e.g., _id=603dfbc260f4054084125d33,603dfbc260f4054084125d34) are not allowed - use _id[$in] format instead."},
@@ -469,10 +469,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerGetOccurrencesApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsGetOccurrences", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-get-occurrences-apiv2",
-				ClassName:   "BookingsControllerGetOccurrencesApiv2",
+				Function:    "bookings-get-occurrences",
+				ClassName:   "BookingsGetOccurrences",
 				Description: "Retrieve all booking occurrences (expanded instances).",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the _id of the booking.             Supports both single id values (e.g., _id=603dfbc260f4054084125d33) and array operations (e.g., _id[$in]=603dfbc260f4054084125d33,603dfbc260f4054084125d34).             Note: Multiple values in simple string format (e.g., _id=603dfbc260f4054084125d33,603dfbc260f4054084125d34) are not allowed - use _id[$in] format instead."},
@@ -492,10 +492,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-update-item-apiv2",
-				ClassName:   "BookingsControllerUpdateItemApiv2",
+				Function:    "bookings-update-item",
+				ClassName:   "BookingsUpdateItem",
 				Description: "Update existing booking",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "isSilent", Type: "boolean", Required: false, Description: "Whether to send notifications to the member.             If true, a notification will not be sent.             If false or not passed at all, the notification will be sent as normal."},
@@ -552,10 +552,10 @@ func Register() connector.Registration {
 					{Name: "visitors", Type: "array", Required: false, Description: "An array containg a list of all the ids of external visitors associated with the booking."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsControllerValidateBookingApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BookingsValidateBooking", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "bookings-controller-validate-booking-apiv2",
-				ClassName:   "BookingsControllerValidateBookingApiv2",
+				Function:    "bookings-validate-booking",
+				ClassName:   "BookingsValidateBooking",
 				Description: "Validate a booking.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -600,10 +600,10 @@ func Register() connector.Registration {
 					{Name: "visitors", Type: "array", Required: false, Description: "An array containg a list of all the ids of external visitors associated with the booking."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#BusinessHoursControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#BusinessHoursGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "business-hours-controller-get-items-apiv2",
-				ClassName:   "BusinessHoursControllerGetItemsApiv2",
+				Function:    "business-hours-get-items",
+				ClassName:   "BusinessHoursGetItems",
 				Description: "Retrieve business hours.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "location", Type: "string", Required: false, Description: "Filter by location id."},
@@ -614,10 +614,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ChargesControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ChargesAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "charges-controller-add-item-apiv2",
-				ClassName:   "ChargesControllerAddItemApiv2",
+				Function:    "charges-add-item",
+				ClassName:   "ChargesAddItem",
 				Description: "Create a new charge for invoice",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -648,10 +648,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "object", Required: false, Description: "The status of the charge."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ChargesControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ChargesDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "charges-controller-delete-item-apiv2",
-				ClassName:   "ChargesControllerDeleteItemApiv2",
+				Function:    "charges-delete-item",
+				ClassName:   "ChargesDeleteItem",
 				Description: "Delete a charge for invoice",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "chargeId", Type: "string", Required: true, Description: "Id of the charge."},
@@ -675,10 +675,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "object", Required: false, Description: "The status of the charge."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ChargesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ChargesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "charges-controller-get-items-apiv2",
-				ClassName:   "ChargesControllerGetItemsApiv2",
+				Function:    "charges-get-items",
+				ClassName:   "ChargesGetItems",
 				Description: "Retrieve all charges",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the _id of the charge.             Supports both single id values (e.g., _id=603dfbc260f4054084125d33) and array operations (e.g., _id[$in]=603dfbc260f4054084125d33,603dfbc260f4054084125d34).             Note: Multiple values in simple string format (e.g., _id=603dfbc260f4054084125d33,603dfbc260f4054084125d34) are not allowed - use _id[$in] format instead."},
@@ -697,10 +697,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ChargesControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ChargesUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "charges-controller-update-item-apiv2",
-				ClassName:   "ChargesControllerUpdateItemApiv2",
+				Function:    "charges-update-item",
+				ClassName:   "ChargesUpdateItem",
 				Description: "Update a charge for invoice",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "chargeId", Type: "string", Required: true, Description: "Id of the charge."},
@@ -730,10 +730,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "object", Required: false, Description: "The status of the charge."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsControllerCheckinMemberApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsCheckinMember", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "checkins-controller-checkin-member-apiv2",
-				ClassName:   "CheckinsControllerCheckinMemberApiv2",
+				Function:    "checkins-checkin-member",
+				ClassName:   "CheckinsCheckinMember",
 				Description: "Check in a Member",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "memberId", Type: "string", Required: true, Description: "member id"},
@@ -757,10 +757,10 @@ func Register() connector.Registration {
 					{Name: "start", Type: "string", Required: false, Description: "Contains the start date of the check-in."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsControllerCheckoutApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsCheckout", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "checkins-controller-checkout-apiv2",
-				ClassName:   "CheckinsControllerCheckoutApiv2",
+				Function:    "checkins-checkout",
+				ClassName:   "CheckinsCheckout",
 				Description: "Check Out a Member",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "memberId", Type: "string", Required: true, Description: "member id"},
@@ -781,10 +781,10 @@ func Register() connector.Registration {
 					{Name: "start", Type: "string", Required: false, Description: "Contains the start date of the check-in."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "checkins-controller-get-item-apiv2",
-				ClassName:   "CheckinsControllerGetItemApiv2",
+				Function:    "checkins-get-item",
+				ClassName:   "CheckinsGetItem",
 				Description: "Retrieve a single Check-In",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "checkinId", Type: "string", Required: true, Description: "check-in id"},
@@ -805,10 +805,10 @@ func Register() connector.Registration {
 					{Name: "start", Type: "string", Required: false, Description: "Contains the start date of the check-in."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "checkins-controller-get-items-apiv2",
-				ClassName:   "CheckinsControllerGetItemsApiv2",
+				Function:    "checkins-get-items",
+				ClassName:   "CheckinsGetItems",
 				Description: "Retrieve all check-ins.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the _id of the check-in."},
@@ -827,10 +827,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsControllerGetVisitorCheckinsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckinsGetVisitorCheckins", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "checkins-controller-get-visitor-checkins-apiv2",
-				ClassName:   "CheckinsControllerGetVisitorCheckinsApiv2",
+				Function:    "checkins-get-visitor-checkins",
+				ClassName:   "CheckinsGetVisitorCheckins",
 				Description: "Retrieve all visitor check-ins.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the _id of the check-in."},
@@ -850,10 +850,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckoutControllerCheckoutApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckoutCheckout", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "checkout-controller-checkout-apiv2",
-				ClassName:   "CheckoutControllerCheckoutApiv2",
+				Function:    "checkout-checkout",
+				ClassName:   "CheckoutCheckout",
 				Description: "Execute checkout",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "enforceBookingPolicy", Type: "boolean", Required: false, Description: "Whether to enforce the booking policy and member validation rules when the request contains a booking.             If true, member validations and booking-policy-driven tentative/approval flagging are applied to the booking checkout,             and reflected in the checkout summary preview (note: policy-violation rejection is only applied at checkout, not in the summary preview).             If false or not passed at all, the request behaves as it does today. Has no effect on memberships/fees checkouts."},
@@ -878,10 +878,10 @@ func Register() connector.Registration {
 					{Name: "memberships", Type: "array", Required: false, Description: "The created memberships. Present in the memberships/fees checkout flow."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckoutControllerGetCheckoutSummaryApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CheckoutGetCheckoutSummary", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "checkout-controller-get-checkout-summary-apiv2",
-				ClassName:   "CheckoutControllerGetCheckoutSummaryApiv2",
+				Function:    "checkout-get-checkout-summary",
+				ClassName:   "CheckoutGetCheckoutSummary",
 				Description: "Get checkout cost preview",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "enforceBookingPolicy", Type: "boolean", Required: false, Description: "Whether to enforce the booking policy and member validation rules when the request contains a booking.             If true, member validations and booking-policy-driven tentative/approval flagging are applied to the booking checkout,             and reflected in the checkout summary preview (note: policy-violation rejection is only applied at checkout, not in the summary preview).             If false or not passed at all, the request behaves as it does today. Has no effect on memberships/fees checkouts."},
@@ -899,10 +899,10 @@ func Register() connector.Registration {
 					{Name: "stats", Type: "object", Required: true, Description: "The checkout summary statistics. Shape depends on whether memberships/fees or booking was requested."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CoinsControllerGetCoinStatsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CoinsGetCoinStats", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "coins-controller-get-coin-stats-apiv2",
-				ClassName:   "CoinsControllerGetCoinStatsApiv2",
+				Function:    "coins-get-coin-stats",
+				ClassName:   "CoinsGetCoinStats",
 				Description: "Get the coin credit balance for a company/member in a specific month.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "month", Type: "string", Required: true, Description: "Filter by month in the format YYYY-MM."},
@@ -916,10 +916,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "companies-controller-add-item-apiv2",
-				ClassName:   "CompaniesControllerAddItemApiv2",
+				Function:    "companies-add-item",
+				ClassName:   "CompaniesAddItem",
 				Description: "Add new company",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -960,10 +960,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "The website URL of the company."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "companies-controller-delete-item-apiv2",
-				ClassName:   "CompaniesControllerDeleteItemApiv2",
+				Function:    "companies-delete-item",
+				ClassName:   "CompaniesDeleteItem",
 				Description: "Delete company",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "companyId", Type: "string", Required: true, Description: "company id"},
@@ -992,10 +992,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "The website URL of the company."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "companies-controller-get-item-apiv2",
-				ClassName:   "CompaniesControllerGetItemApiv2",
+				Function:    "companies-get-item",
+				ClassName:   "CompaniesGetItem",
 				Description: "Get company",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "companyId", Type: "string", Required: true, Description: "company id"},
@@ -1024,10 +1024,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "The website URL of the company."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "companies-controller-get-items-apiv2",
-				ClassName:   "CompaniesControllerGetItemsApiv2",
+				Function:    "companies-get-items",
+				ClassName:   "CompaniesGetItems",
 				Description: "Get companies",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "The exact id of the company you are looking for."},
@@ -1046,10 +1046,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CompaniesUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "companies-controller-update-item-apiv2",
-				ClassName:   "CompaniesControllerUpdateItemApiv2",
+				Function:    "companies-update-item",
+				ClassName:   "CompaniesUpdateItem",
 				Description: "Update company",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "companyId", Type: "string", Required: true, Description: "company id"},
@@ -1091,10 +1091,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "The website URL of the company."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "contracts-controller-add-item-apiv2",
-				ClassName:   "ContractsControllerAddItemApiv2",
+				Function:    "contracts-add-item",
+				ClassName:   "ContractsAddItem",
 				Description: "Add new contract",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -1158,10 +1158,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the contract."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "contracts-controller-count-apiv2",
-				ClassName:   "ContractsControllerCountApiv2",
+				Function:    "contracts-count",
+				ClassName:   "ContractsCount",
 				Description: "Get contracts count by filter",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the exact id of the contract."},
@@ -1179,10 +1179,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "contracts-controller-delete-item-apiv2",
-				ClassName:   "ContractsControllerDeleteItemApiv2",
+				Function:    "contracts-delete-item",
+				ClassName:   "ContractsDeleteItem",
 				Description: "Delete contract",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "contractId", Type: "string", Required: true, Description: "contract id"},
@@ -1190,10 +1190,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "contracts-controller-get-item-apiv2",
-				ClassName:   "ContractsControllerGetItemApiv2",
+				Function:    "contracts-get-item",
+				ClassName:   "ContractsGetItem",
 				Description: "Get contract",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "contractId", Type: "string", Required: true, Description: "contract id"},
@@ -1240,10 +1240,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the contract."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "contracts-controller-get-items-apiv2",
-				ClassName:   "ContractsControllerGetItemsApiv2",
+				Function:    "contracts-get-items",
+				ClassName:   "ContractsGetItems",
 				Description: "Retrieve all contracts.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the exact id of the contract."},
@@ -1262,10 +1262,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsControllerSignItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsSignItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "contracts-controller-sign-item-apiv2",
-				ClassName:   "ContractsControllerSignItemApiv2",
+				Function:    "contracts-sign-item",
+				ClassName:   "ContractsSignItem",
 				Description: "Sign a contract",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "contractId", Type: "string", Required: true, Description: "contract id"},
@@ -1273,10 +1273,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsControllerTerminateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsTerminateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "contracts-controller-terminate-item-apiv2",
-				ClassName:   "ContractsControllerTerminateItemApiv2",
+				Function:    "contracts-terminate-item",
+				ClassName:   "ContractsTerminateItem",
 				Description: "Terminate a contract",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "contractId", Type: "string", Required: true, Description: "contract id"},
@@ -1287,10 +1287,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ContractsUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "contracts-controller-update-item-apiv2",
-				ClassName:   "ContractsControllerUpdateItemApiv2",
+				Function:    "contracts-update-item",
+				ClassName:   "ContractsUpdateItem",
 				Description: "Update contract custom properties",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "contractId", Type: "string", Required: true, Description: "contract id"},
@@ -1338,10 +1338,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the contract."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "credits-controller-add-item-apiv2",
-				ClassName:   "CreditsControllerAddItemApiv2",
+				Function:    "credits-add-item",
+				ClassName:   "CreditsAddItem",
 				Description: "Create a new set of credits.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -1375,10 +1375,10 @@ func Register() connector.Registration {
 					{Name: "validTo", Type: "string", Required: false, Description: "The end date for which the credits are valid.             Can be set for both monthly recurring are once credits."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "credits-controller-delete-item-apiv2",
-				ClassName:   "CreditsControllerDeleteItemApiv2",
+				Function:    "credits-delete-item",
+				ClassName:   "CreditsDeleteItem",
 				Description: "Delete a set of credits.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "creditsId", Type: "string", Required: true, Description: "Id of the credits."},
@@ -1404,10 +1404,10 @@ func Register() connector.Registration {
 					{Name: "validTo", Type: "string", Required: false, Description: "The end date for which the credits are valid.             Can be set for both monthly recurring are once credits."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "credits-controller-get-item-apiv2",
-				ClassName:   "CreditsControllerGetItemApiv2",
+				Function:    "credits-get-item",
+				ClassName:   "CreditsGetItem",
 				Description: "Retrieve single set of credits.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "creditsId", Type: "string", Required: true, Description: "credits id"},
@@ -1433,10 +1433,10 @@ func Register() connector.Registration {
 					{Name: "validTo", Type: "string", Required: false, Description: "The end date for which the credits are valid.             Can be set for both monthly recurring are once credits."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "credits-controller-get-items-apiv2",
-				ClassName:   "CreditsControllerGetItemsApiv2",
+				Function:    "credits-get-items",
+				ClassName:   "CreditsGetItems",
 				Description: "Retrieve all credits.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "company", Type: "string", Required: false, Description: "Filter by company id."},
@@ -1453,10 +1453,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CreditsUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "credits-controller-update-item-apiv2",
-				ClassName:   "CreditsControllerUpdateItemApiv2",
+				Function:    "credits-update-item",
+				ClassName:   "CreditsUpdateItem",
 				Description: "Update an existing set of credits.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "creditsId", Type: "string", Required: true, Description: "Id of the credits."},
@@ -1483,10 +1483,10 @@ func Register() connector.Registration {
 					{Name: "validTo", Type: "string", Required: false, Description: "The end date for which the credits are valid.             Can be set for both monthly recurring are once credits."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#CustomPropertiesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#CustomPropertiesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "custom-properties-controller-get-items-apiv2",
-				ClassName:   "CustomPropertiesControllerGetItemsApiv2",
+				Function:    "custom-properties-get-items",
+				ClassName:   "CustomPropertiesGetItems",
 				Description: "Retrieve all custom properties",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -1497,10 +1497,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "events-controller-add-item-apiv2",
-				ClassName:   "EventsControllerAddItemApiv2",
+				Function:    "events-add-item",
+				ClassName:   "EventsAddItem",
 				Description: "Create a new event.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -1533,10 +1533,10 @@ func Register() connector.Registration {
 					{Name: "where", Type: "string", Required: false, Description: "A description of where the event will be taking place."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "events-controller-count-apiv2",
-				ClassName:   "EventsControllerCountApiv2",
+				Function:    "events-count",
+				ClassName:   "EventsCount",
 				Description: "Get events count",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -1546,10 +1546,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "events-controller-delete-item-apiv2",
-				ClassName:   "EventsControllerDeleteItemApiv2",
+				Function:    "events-delete-item",
+				ClassName:   "EventsDeleteItem",
 				Description: "Delete an event.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "eventId", Type: "string", Required: true, Description: "Id of the event."},
@@ -1572,10 +1572,10 @@ func Register() connector.Registration {
 					{Name: "where", Type: "string", Required: false, Description: "A description of where the event will be taking place."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "events-controller-get-item-apiv2",
-				ClassName:   "EventsControllerGetItemApiv2",
+				Function:    "events-get-item",
+				ClassName:   "EventsGetItem",
 				Description: "Retrieve single event.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "eventId", Type: "string", Required: true, Description: "event id"},
@@ -1598,10 +1598,10 @@ func Register() connector.Registration {
 					{Name: "where", Type: "string", Required: false, Description: "A description of where the event will be taking place."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "events-controller-get-items-apiv2",
-				ClassName:   "EventsControllerGetItemsApiv2",
+				Function:    "events-get-items",
+				ClassName:   "EventsGetItems",
 				Description: "Retrieve all events.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "location", Type: "string", Required: false, Description: "Filter by event location id."},
@@ -1617,10 +1617,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#EventsUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "events-controller-update-item-apiv2",
-				ClassName:   "EventsControllerUpdateItemApiv2",
+				Function:    "events-update-item",
+				ClassName:   "EventsUpdateItem",
 				Description: "Update an existing event.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "eventId", Type: "string", Required: true, Description: "Id of the event."},
@@ -1645,10 +1645,10 @@ func Register() connector.Registration {
 					{Name: "where", Type: "string", Required: false, Description: "A description of where the event will be taking place."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "fees-controller-add-item-apiv2",
-				ClassName:   "FeesControllerAddItemApiv2",
+				Function:    "fees-add-item",
+				ClassName:   "FeesAddItem",
 				Description: "Add a new fee",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "shouldUseCoins", Type: "boolean", Required: false, Description: "Used to determine whether the fee you want to add should use coins valid for one-off fees.              In order for this to work the fee you're adding must have a plan selected."},
@@ -1695,10 +1695,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "object", Required: false, Description: "The status of the fee."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "fees-controller-count-apiv2",
-				ClassName:   "FeesControllerCountApiv2",
+				Function:    "fees-count",
+				ClassName:   "FeesCount",
 				Description: "Get fees count",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -1708,10 +1708,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "fees-controller-delete-item-apiv2",
-				ClassName:   "FeesControllerDeleteItemApiv2",
+				Function:    "fees-delete-item",
+				ClassName:   "FeesDeleteItem",
 				Description: "Delete a single fee",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "feeId", Type: "string", Required: true, Description: "fee id"},
@@ -1747,10 +1747,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "object", Required: false, Description: "The status of the fee."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "fees-controller-get-item-apiv2",
-				ClassName:   "FeesControllerGetItemApiv2",
+				Function:    "fees-get-item",
+				ClassName:   "FeesGetItem",
 				Description: "Get a single fee",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "feeId", Type: "string", Required: true, Description: "fee id"},
@@ -1786,10 +1786,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "object", Required: false, Description: "The status of the fee."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "fees-controller-get-items-apiv2",
-				ClassName:   "FeesControllerGetItemsApiv2",
+				Function:    "fees-get-items",
+				ClassName:   "FeesGetItems",
 				Description: "Get a list of fees",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by fee id. Supports single id (e.g. _id=xxx) or multiple (e.g. _id[$in]=id1,id2)."},
@@ -1809,10 +1809,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#FeesUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "fees-controller-update-item-apiv2",
-				ClassName:   "FeesControllerUpdateItemApiv2",
+				Function:    "fees-update-item",
+				ClassName:   "FeesUpdateItem",
 				Description: "Update and existing fee",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "shouldUseCoins", Type: "boolean", Required: false, Description: "Used to determine whether the fee you want to add should use coins valid for one-off fees.              In order for this to work the fee you're adding must have a plan selected."},
@@ -1852,10 +1852,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "object", Required: false, Description: "The status of the fee."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#FloorsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#FloorsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "floors-controller-get-item-apiv2",
-				ClassName:   "FloorsControllerGetItemApiv2",
+				Function:    "floors-get-item",
+				ClassName:   "FloorsGetItem",
 				Description: "Gets a specific floor",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "floorId", Type: "string", Required: true, Description: "The id of the corresponding floor"},
@@ -1872,10 +1872,10 @@ func Register() connector.Registration {
 					{Name: "name", Type: "string", Required: false, Description: "The name of the floor."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#FloorsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#FloorsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "floors-controller-get-items-apiv2",
-				ClassName:   "FloorsControllerGetItemsApiv2",
+				Function:    "floors-get-items",
+				ClassName:   "FloorsGetItems",
 				Description: "Retrieve all floors",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "The exact _id of the item you are looking for."},
@@ -1891,10 +1891,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#IntegrationsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#IntegrationsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "integrations-controller-get-item-apiv2",
-				ClassName:   "IntegrationsControllerGetItemApiv2",
+				Function:    "integrations-get-item",
+				ClassName:   "IntegrationsGetItem",
 				Description: "Get a single integration",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "integrationId", Type: "string", Required: true, Description: "integration id"},
@@ -1908,10 +1908,10 @@ func Register() connector.Registration {
 					{Name: "user", Type: "string", Required: false, Description: "The id of the user that created the integration."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#LocationsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#LocationsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "locations-controller-get-item-apiv2",
-				ClassName:   "LocationsControllerGetItemApiv2",
+				Function:    "locations-get-item",
+				ClassName:   "LocationsGetItem",
 				Description: "Retrieve single location.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "locationId", Type: "string", Required: true, Description: "location id"},
@@ -1930,10 +1930,10 @@ func Register() connector.Registration {
 					{Name: "timezone", Type: "string", Required: false, Description: "The timezone of the location."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#LocationsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#LocationsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "locations-controller-get-items-apiv2",
-				ClassName:   "LocationsControllerGetItemsApiv2",
+				Function:    "locations-get-items",
+				ClassName:   "LocationsGetItems",
 				Description: "Retrieve all locations.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by location id."},
@@ -1950,10 +1950,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-add-item-apiv2",
-				ClassName:   "MembersControllerAddItemApiv2",
+				Function:    "members-add-item",
+				ClassName:   "MembersAddItem",
 				Description: "Add new member",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -1999,10 +1999,10 @@ func Register() connector.Registration {
 					{Name: "tags", Type: "array", Required: false, Description: "An array of tags associated with the member."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerCountByApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersCountBy", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-count-by-apiv2",
-				ClassName:   "MembersControllerCountByApiv2",
+				Function:    "members-count-by",
+				ClassName:   "MembersCountBy",
 				Description: "Get members count by filter",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the member id."},
@@ -2023,10 +2023,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-delete-item-apiv2",
-				ClassName:   "MembersControllerDeleteItemApiv2",
+				Function:    "members-delete-item",
+				ClassName:   "MembersDeleteItem",
 				Description: "Delete member",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "memberId", Type: "string", Required: true, Description: "member id"},
@@ -2057,10 +2057,10 @@ func Register() connector.Registration {
 					{Name: "tags", Type: "array", Required: false, Description: "An array of tags associated with the member."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-get-item-apiv2",
-				ClassName:   "MembersControllerGetItemApiv2",
+				Function:    "members-get-item",
+				ClassName:   "MembersGetItem",
 				Description: "Get member",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "memberId", Type: "string", Required: true, Description: "member id"},
@@ -2091,10 +2091,10 @@ func Register() connector.Registration {
 					{Name: "tags", Type: "array", Required: false, Description: "An array of tags associated with the member."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-get-items-apiv2",
-				ClassName:   "MembersControllerGetItemsApiv2",
+				Function:    "members-get-items",
+				ClassName:   "MembersGetItems",
 				Description: "Get members",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the member id."},
@@ -2116,10 +2116,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerManagePortalAccessApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersManagePortalAccess", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-manage-portal-access-apiv2",
-				ClassName:   "MembersControllerManagePortalAccessApiv2",
+				Function:    "members-manage-portal-access",
+				ClassName:   "MembersManagePortalAccess",
 				Description: "Manage member portal access",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "memberId", Type: "string", Required: true, Description: "member id"},
@@ -2129,10 +2129,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerUpdateCompanyApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersUpdateCompany", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-update-company-apiv2",
-				ClassName:   "MembersControllerUpdateCompanyApiv2",
+				Function:    "members-update-company",
+				ClassName:   "MembersUpdateCompany",
 				Description: "Update member company",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "memberId", Type: "string", Required: true, Description: "member id"},
@@ -2164,10 +2164,10 @@ func Register() connector.Registration {
 					{Name: "tags", Type: "array", Required: false, Description: "An array of tags associated with the member."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-update-item-apiv2",
-				ClassName:   "MembersControllerUpdateItemApiv2",
+				Function:    "members-update-item",
+				ClassName:   "MembersUpdateItem",
 				Description: "Update member",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "memberId", Type: "string", Required: true, Description: "member id"},
@@ -2210,10 +2210,10 @@ func Register() connector.Registration {
 					{Name: "tags", Type: "array", Required: false, Description: "An array of tags associated with the member."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersControllerUpdateStatusApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembersUpdateStatus", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "members-controller-update-status-apiv2",
-				ClassName:   "MembersControllerUpdateStatusApiv2",
+				Function:    "members-update-status",
+				ClassName:   "MembersUpdateStatus",
 				Description: "Update member status",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "memberId", Type: "string", Required: true, Description: "member id"},
@@ -2222,10 +2222,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "memberships-controller-add-item-apiv2",
-				ClassName:   "MembershipsControllerAddItemApiv2",
+				Function:    "memberships-add-item",
+				ClassName:   "MembershipsAddItem",
 				Description: "Add a new membership",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2274,10 +2274,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the membership."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "memberships-controller-count-apiv2",
-				ClassName:   "MembershipsControllerCountApiv2",
+				Function:    "memberships-count",
+				ClassName:   "MembershipsCount",
 				Description: "Get memberships count",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2287,10 +2287,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "memberships-controller-delete-item-apiv2",
-				ClassName:   "MembershipsControllerDeleteItemApiv2",
+				Function:    "memberships-delete-item",
+				ClassName:   "MembershipsDeleteItem",
 				Description: "Delete a single membership",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "membershipId", Type: "string", Required: true, Description: "membership id"},
@@ -2327,10 +2327,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the membership."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "memberships-controller-get-item-apiv2",
-				ClassName:   "MembershipsControllerGetItemApiv2",
+				Function:    "memberships-get-item",
+				ClassName:   "MembershipsGetItem",
 				Description: "Get a single membership",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "membershipId", Type: "string", Required: true, Description: "membership id"},
@@ -2367,10 +2367,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the membership."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "memberships-controller-get-items-apiv2",
-				ClassName:   "MembershipsControllerGetItemsApiv2",
+				Function:    "memberships-get-items",
+				ClassName:   "MembershipsGetItems",
 				Description: "Get a list of memberships",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by membership id. Supports single id (e.g. _id=xxx) or multiple (e.g. _id[$in]=id1,id2)."},
@@ -2390,10 +2390,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#MembershipsUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "memberships-controller-update-item-apiv2",
-				ClassName:   "MembershipsControllerUpdateItemApiv2",
+				Function:    "memberships-update-item",
+				ClassName:   "MembershipsUpdateItem",
 				Description: "Update an existing membership",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "membershipId", Type: "string", Required: true, Description: "membership id"},
@@ -2434,10 +2434,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the membership."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "opportunities-controller-add-item-apiv2",
-				ClassName:   "OpportunitiesControllerAddItemApiv2",
+				Function:    "opportunities-add-item",
+				ClassName:   "OpportunitiesAddItem",
 				Description: "Add new opportunity",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2472,10 +2472,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "string", Required: false, Description: "The _id of the status associated with the opportunity."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "opportunities-controller-count-apiv2",
-				ClassName:   "OpportunitiesControllerCountApiv2",
+				Function:    "opportunities-count",
+				ClassName:   "OpportunitiesCount",
 				Description: "Get opportunities count",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2485,10 +2485,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "opportunities-controller-delete-item-apiv2",
-				ClassName:   "OpportunitiesControllerDeleteItemApiv2",
+				Function:    "opportunities-delete-item",
+				ClassName:   "OpportunitiesDeleteItem",
 				Description: "Delete opportunity",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "opportunityId", Type: "string", Required: true, Description: "opportunity id"},
@@ -2513,10 +2513,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "string", Required: false, Description: "The _id of the status associated with the opportunity."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "opportunities-controller-get-item-apiv2",
-				ClassName:   "OpportunitiesControllerGetItemApiv2",
+				Function:    "opportunities-get-item",
+				ClassName:   "OpportunitiesGetItem",
 				Description: "Get opportunity",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "opportunityId", Type: "string", Required: true, Description: "opportunity id"},
@@ -2541,10 +2541,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "string", Required: false, Description: "The _id of the status associated with the opportunity."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "opportunities-controller-get-items-apiv2",
-				ClassName:   "OpportunitiesControllerGetItemsApiv2",
+				Function:    "opportunities-get-items",
+				ClassName:   "OpportunitiesGetItems",
 				Description: "Get opportunities",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the id of the opportunity"},
@@ -2560,10 +2560,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunitiesUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "opportunities-controller-update-item-apiv2",
-				ClassName:   "OpportunitiesControllerUpdateItemApiv2",
+				Function:    "opportunities-update-item",
+				ClassName:   "OpportunitiesUpdateItem",
 				Description: "Update opportunity",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "opportunityId", Type: "string", Required: true, Description: "opportunity id"},
@@ -2592,10 +2592,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "string", Required: false, Description: "The _id of the status associated with the opportunity."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunityStatusesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#OpportunityStatusesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "opportunity-statuses-controller-get-items-apiv2",
-				ClassName:   "OpportunityStatusesControllerGetItemsApiv2",
+				Function:    "opportunity-statuses-get-items",
+				ClassName:   "OpportunityStatusesGetItems",
 				Description: "Retrieve all opportunity statuses",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -2606,10 +2606,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#OrganizationsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#OrganizationsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "organizations-controller-get-item-apiv2",
-				ClassName:   "OrganizationsControllerGetItemApiv2",
+				Function:    "organizations-get-item",
+				ClassName:   "OrganizationsGetItem",
 				Description: "Get the current organization information",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2641,10 +2641,10 @@ func Register() connector.Registration {
 					{Name: "token_type", Type: "string", Required: false, Description: "The token type."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "passes-controller-add-item-apiv2",
-				ClassName:   "PassesControllerAddItemApiv2",
+				Function:    "passes-add-item",
+				ClassName:   "PassesAddItem",
 				Description: "Add a new set of day passes",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2681,10 +2681,10 @@ func Register() connector.Registration {
 					{Name: "validTo", Type: "string", Required: false, Description: "The end date for which the passes are valid."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "passes-controller-delete-item-apiv2",
-				ClassName:   "PassesControllerDeleteItemApiv2",
+				Function:    "passes-delete-item",
+				ClassName:   "PassesDeleteItem",
 				Description: "Delete a set of day passes",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "passesId", Type: "string", Required: true, Description: "passes id"},
@@ -2714,10 +2714,10 @@ func Register() connector.Registration {
 					{Name: "validTo", Type: "string", Required: false, Description: "The end date for which the passes are valid."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "passes-controller-get-item-apiv2",
-				ClassName:   "PassesControllerGetItemApiv2",
+				Function:    "passes-get-item",
+				ClassName:   "PassesGetItem",
 				Description: "Get a set of day passes",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "passesId", Type: "string", Required: true, Description: "passes id"},
@@ -2747,10 +2747,10 @@ func Register() connector.Registration {
 					{Name: "validTo", Type: "string", Required: false, Description: "The end date for which the passes are valid."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "passes-controller-get-items-apiv2",
-				ClassName:   "PassesControllerGetItemsApiv2",
+				Function:    "passes-get-items",
+				ClassName:   "PassesGetItems",
 				Description: "Get sets of day passes",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by the _id of the set of passes."},
@@ -2766,10 +2766,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PassesUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "passes-controller-update-item-apiv2",
-				ClassName:   "PassesControllerUpdateItemApiv2",
+				Function:    "passes-update-item",
+				ClassName:   "PassesUpdateItem",
 				Description: "Update a set of day passes",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "passesId", Type: "string", Required: true, Description: "passes id"},
@@ -2800,10 +2800,10 @@ func Register() connector.Registration {
 					{Name: "validTo", Type: "string", Required: false, Description: "The end date for which the passes are valid."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PasswordControllerChangePasswordApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PasswordChangePassword", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "password-controller-change-password-apiv2",
-				ClassName:   "PasswordControllerChangePasswordApiv2",
+				Function:    "password-change-password",
+				ClassName:   "PasswordChangePassword",
 				Description: "Change password",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2813,10 +2813,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PasswordControllerResetPasswordApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PasswordResetPassword", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "password-controller-reset-password-apiv2",
-				ClassName:   "PasswordControllerResetPasswordApiv2",
+				Function:    "password-reset-password",
+				ClassName:   "PasswordResetPassword",
 				Description: "Reset password",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2824,10 +2824,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentDetailsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentDetailsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payment-details-controller-add-item-apiv2",
-				ClassName:   "PaymentDetailsControllerAddItemApiv2",
+				Function:    "payment-details-add-item",
+				ClassName:   "PaymentDetailsAddItem",
 				Description: "Add new payment details for user",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2851,10 +2851,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the payment provider."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentDetailsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentDetailsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payment-details-controller-delete-item-apiv2",
-				ClassName:   "PaymentDetailsControllerDeleteItemApiv2",
+				Function:    "payment-details-delete-item",
+				ClassName:   "PaymentDetailsDeleteItem",
 				Description: "Delete payment details by id",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "paymentDetailsId", Type: "string", Required: true, Description: "payment details id"},
@@ -2875,10 +2875,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the payment provider."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentDetailsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentDetailsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payment-details-controller-get-items-apiv2",
-				ClassName:   "PaymentDetailsControllerGetItemsApiv2",
+				Function:    "payment-details-get-items",
+				ClassName:   "PaymentDetailsGetItems",
 				Description: "Get payment details for user",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "member", Type: "string", Required: false, Description: "Filter by member."},
@@ -2891,10 +2891,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentDetailsControllerRegisterItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentDetailsRegisterItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payment-details-controller-register-item-apiv2",
-				ClassName:   "PaymentDetailsControllerRegisterItemApiv2",
+				Function:    "payment-details-register-item",
+				ClassName:   "PaymentDetailsRegisterItem",
 				Description: "Register pre-created Stripe payment details",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2922,10 +2922,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the payment provider."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentGatewaysControllerAuthorizeApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentGatewaysAuthorize", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payment-gateways-controller-authorize-apiv2",
-				ClassName:   "PaymentGatewaysControllerAuthorizeApiv2",
+				Function:    "payment-gateways-authorize",
+				ClassName:   "PaymentGatewaysAuthorize",
 				Description: "Authorize payment or setup intent",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -2940,10 +2940,10 @@ func Register() connector.Registration {
 					{Name: "setupIntent", Type: "string", Required: false, Description: "Stripe Setup Intent ID when authorizing a setup intent."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerAddCreditAllocationApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsAddCreditAllocation", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-add-credit-allocation-apiv2",
-				ClassName:   "PaymentsControllerAddCreditAllocationApiv2",
+				Function:    "payments-add-credit-allocation",
+				ClassName:   "PaymentsAddCreditAllocation",
 				Description: "Create a new allocation for credit note/overpayment",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "paymentId", Type: "string", Required: true, Description: "overpayment/credit note id"},
@@ -2990,10 +2990,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: false, Description: "The total amount of the payment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerAddOverpaymentApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsAddOverpayment", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-add-overpayment-apiv2",
-				ClassName:   "PaymentsControllerAddOverpaymentApiv2",
+				Function:    "payments-add-overpayment",
+				ClassName:   "PaymentsAddOverpayment",
 				Description: "Create a new overpayment",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3046,10 +3046,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: false, Description: "The total amount of the payment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-count-apiv2",
-				ClassName:   "PaymentsControllerCountApiv2",
+				Function:    "payments-count",
+				ClassName:   "PaymentsCount",
 				Description: "Retrieve the payments count",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3059,10 +3059,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-get-item-apiv2",
-				ClassName:   "PaymentsControllerGetItemApiv2",
+				Function:    "payments-get-item",
+				ClassName:   "PaymentsGetItem",
 				Description: "Get payment by id",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "paymentId", Type: "string", Required: true, Description: "invoice/overpayment/credit note id"},
@@ -3106,10 +3106,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: false, Description: "The total amount of the payment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-get-items-apiv2",
-				ClassName:   "PaymentsControllerGetItemsApiv2",
+				Function:    "payments-get-items",
+				ClassName:   "PaymentsGetItems",
 				Description: "Retrieve all payments",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by a list of payment ids"},
@@ -3132,10 +3132,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerGetPaymentDocumentsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsGetPaymentDocuments", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-get-payment-documents-apiv2",
-				ClassName:   "PaymentsControllerGetPaymentDocumentsApiv2",
+				Function:    "payments-get-payment-documents",
+				ClassName:   "PaymentsGetPaymentDocuments",
 				Description: "Get all documents associated with the specific invoice",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "paymentId", Type: "string", Required: true, Description: "invoice/overpayment/credit note id"},
@@ -3149,10 +3149,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "The URL of the document associated with the payment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerGetPaymentMethodsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsGetPaymentMethods", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-get-payment-methods-apiv2",
-				ClassName:   "PaymentsControllerGetPaymentMethodsApiv2",
+				Function:    "payments-get-payment-methods",
+				ClassName:   "PaymentsGetPaymentMethods",
 				Description: "Retrieve all payment methods",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "locations", Type: "array", Required: false, Description: "Filter by location ids"},
@@ -3162,10 +3162,10 @@ func Register() connector.Registration {
 					{Name: "paymentMethods", Type: "array", Required: true, Description: "An array of payment methods."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerUpdateAllocationAccountingApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsUpdateAllocationAccounting", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-update-allocation-accounting-apiv2",
-				ClassName:   "PaymentsControllerUpdateAllocationAccountingApiv2",
+				Function:    "payments-update-allocation-accounting",
+				ClassName:   "PaymentsUpdateAllocationAccounting",
 				Description: "Update allocation accounting",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "allocationId", Type: "string", Required: true, Description: "Id of the allocated payment"},
@@ -3216,10 +3216,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: false, Description: "The total amount of the payment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PaymentsUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "payments-controller-update-item-apiv2",
-				ClassName:   "PaymentsControllerUpdateItemApiv2",
+				Function:    "payments-update-item",
+				ClassName:   "PaymentsUpdateItem",
 				Description: "Update payment",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "paymentId", Type: "string", Required: true, Description: "invoice/overpayment/credit note id"},
@@ -3267,10 +3267,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: false, Description: "The total amount of the payment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PlansControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PlansCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "plans-controller-count-apiv2",
-				ClassName:   "PlansControllerCountApiv2",
+				Function:    "plans-count",
+				ClassName:   "PlansCount",
 				Description: "Get plans count by filter",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3280,10 +3280,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PlansControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PlansGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "plans-controller-get-item-apiv2",
-				ClassName:   "PlansControllerGetItemApiv2",
+				Function:    "plans-get-item",
+				ClassName:   "PlansGetItem",
 				Description: "Get plan",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "planId", Type: "string", Required: true, Description: "plan id"},
@@ -3324,10 +3324,10 @@ func Register() connector.Registration {
 					{Name: "useDepositPercent", Type: "boolean", Required: false, Description: "This shows if the deposit is fixed or is a percent of the price."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PlansControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PlansGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "plans-controller-get-items-apiv2",
-				ClassName:   "PlansControllerGetItemsApiv2",
+				Function:    "plans-get-items",
+				ClassName:   "PlansGetItems",
 				Description: "Get plans",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by plan id. Supports single id (e.g. _id=xxx) or multiple (e.g. _id[$in]=id1,id2)."},
@@ -3344,10 +3344,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PostsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PostsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "posts-controller-add-item-apiv2",
-				ClassName:   "PostsControllerAddItemApiv2",
+				Function:    "posts-add-item",
+				ClassName:   "PostsAddItem",
 				Description: "Add a new post",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3376,10 +3376,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "An additional url that is shown in the post."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PostsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PostsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "posts-controller-delete-item-apiv2",
-				ClassName:   "PostsControllerDeleteItemApiv2",
+				Function:    "posts-delete-item",
+				ClassName:   "PostsDeleteItem",
 				Description: "Delete a post",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "postId", Type: "string", Required: true, Description: "The id of the post"},
@@ -3400,10 +3400,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "An additional url that is shown in the post."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PostsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PostsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "posts-controller-get-item-apiv2",
-				ClassName:   "PostsControllerGetItemApiv2",
+				Function:    "posts-get-item",
+				ClassName:   "PostsGetItem",
 				Description: "Gets a post",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "postId", Type: "string", Required: true, Description: "The id of the corresponding post"},
@@ -3424,10 +3424,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "An additional url that is shown in the post."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#PostsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#PostsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "posts-controller-get-items-apiv2",
-				ClassName:   "PostsControllerGetItemsApiv2",
+				Function:    "posts-get-items",
+				ClassName:   "PostsGetItems",
 				Description: "Retrieve all posts",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "array", Required: false, Description: "Filter by post id."},
@@ -3442,10 +3442,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ReceptionFlowsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ReceptionFlowsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "reception-flows-controller-get-items-apiv2",
-				ClassName:   "ReceptionFlowsControllerGetItemsApiv2",
+				Function:    "reception-flows-get-items",
+				ClassName:   "ReceptionFlowsGetItems",
 				Description: "Get reception flows",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by reception flow id. Supports both single id values (e.g., _id=66623dc53090242657393910) and array operations (e.g., _id[$in]=66623dc53090242657393910,66623dbf309024265739390a).              Note: Multiple values in simple string format (e.g., _id=66623dc53090242657393910,66623dbf309024265739390a) are not allowed - use _id[$in] format instead."},
@@ -3461,10 +3461,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceRatesControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceRatesCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resource-rates-controller-count-apiv2",
-				ClassName:   "ResourceRatesControllerCountApiv2",
+				Function:    "resource-rates-count",
+				ClassName:   "ResourceRatesCount",
 				Description: "Get resource rates count",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3474,10 +3474,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceRatesControllerGetCancellationPolicyApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceRatesGetCancellationPolicy", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resource-rates-controller-get-cancellation-policy-apiv2",
-				ClassName:   "ResourceRatesControllerGetCancellationPolicyApiv2",
+				Function:    "resource-rates-get-cancellation-policy",
+				ClassName:   "ResourceRatesGetCancellationPolicy",
 				Description: "Retrieve the cancellation policy of a resource rate.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "resourceRateId", Type: "string", Required: true, Description: "resource rate id"},
@@ -3488,10 +3488,10 @@ func Register() connector.Registration {
 					{Name: "nonActiveMemberConditions", Type: "array", Required: true, Description: "Cancellation conditions that apply to non-active members, ordered by hours before the booking start."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceRatesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceRatesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resource-rates-controller-get-item-apiv2",
-				ClassName:   "ResourceRatesControllerGetItemApiv2",
+				Function:    "resource-rates-get-item",
+				ClassName:   "ResourceRatesGetItem",
 				Description: "Retrieve single resource rate.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "resourceRateId", Type: "string", Required: true, Description: "resource rate id"},
@@ -3517,10 +3517,10 @@ func Register() connector.Registration {
 					{Name: "useCoins", Type: "boolean", Required: false, Description: "Shows if coins can be used in the rate."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceRatesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceRatesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resource-rates-controller-get-items-apiv2",
-				ClassName:   "ResourceRatesControllerGetItemsApiv2",
+				Function:    "resource-rates-get-items",
+				ClassName:   "ResourceRatesGetItems",
 				Description: "Retrieve all resource rates.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "createdAt", Type: "string", Required: false, Description: "Support date comparison filters: $gt, $gte, $lt, $lte"},
@@ -3533,10 +3533,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceTypesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourceTypesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resource-types-controller-get-items-apiv2",
-				ClassName:   "ResourceTypesControllerGetItemsApiv2",
+				Function:    "resource-types-get-items",
+				ClassName:   "ResourceTypesGetItems",
 				Description: "Get resource types",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "array", Required: false, Description: "Filter by the _id of the resource type."},
@@ -3549,10 +3549,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourcesControllerCountApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourcesCount", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resources-controller-count-apiv2",
-				ClassName:   "ResourcesControllerCountApiv2",
+				Function:    "resources-count",
+				ClassName:   "ResourcesCount",
 				Description: "Get resources count",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3562,10 +3562,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourcesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourcesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resources-controller-get-item-apiv2",
-				ClassName:   "ResourcesControllerGetItemApiv2",
+				Function:    "resources-get-item",
+				ClassName:   "ResourcesGetItem",
 				Description: "Retrieve single resource.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "resourceId", Type: "string", Required: true, Description: "resource id"},
@@ -3599,10 +3599,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "string", Required: false, Description: "The type of the resource. Resource types can be extended and customized, but the default system types are:             \"meeting_room\" (bookable meeting rooms), \"team_room\" (assignable private offices), \"desk\" (assignable dedicated desks),             \"desk_tr\" (assignable office desks within private offices), \"hotdesk\" (bookable hot desks), and \"desk_na\" (not available desks)."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourcesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourcesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resources-controller-get-items-apiv2",
-				ClassName:   "ResourcesControllerGetItemsApiv2",
+				Function:    "resources-get-items",
+				ClassName:   "ResourcesGetItems",
 				Description: "Retrieve all resources.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by unique resource identifier."},
@@ -3619,10 +3619,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourcesControllerGetResourceStatusApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#ResourcesGetResourceStatus", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "resources-controller-get-resource-status-apiv2",
-				ClassName:   "ResourcesControllerGetResourceStatusApiv2",
+				Function:    "resources-get-resource-status",
+				ClassName:   "ResourcesGetResourceStatus",
 				Description: "Get resource status",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "resourceId", Type: "string", Required: true, Description: "resource id"},
@@ -3634,10 +3634,10 @@ func Register() connector.Registration {
 					{Name: "status", Type: "string", Required: false, Description: "The current status of the resource (e.g., \"available\", \"occupied\", \"partially_occupied\", \"unavailable\"). For parent resources with children, this reflects the overall status including children."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#RevenueAccountsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#RevenueAccountsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "revenue-accounts-controller-get-item-apiv2",
-				ClassName:   "RevenueAccountsControllerGetItemApiv2",
+				Function:    "revenue-accounts-get-item",
+				ClassName:   "RevenueAccountsGetItem",
 				Description: "Get single revenue account.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "accountId", Type: "string", Required: true, Description: "revenue account id"},
@@ -3652,10 +3652,10 @@ func Register() connector.Registration {
 					{Name: "taxRate", Type: "string", Required: false, Description: "A reference to the tax rate that will be applied to the revenue account."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#RevenueAccountsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#RevenueAccountsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "revenue-accounts-controller-get-items-apiv2",
-				ClassName:   "RevenueAccountsControllerGetItemsApiv2",
+				Function:    "revenue-accounts-get-items",
+				ClassName:   "RevenueAccountsGetItems",
 				Description: "Retrieve all revenue accounts.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -3666,10 +3666,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#SecondaryCurrenciesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#SecondaryCurrenciesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "secondary-currencies-controller-get-item-apiv2",
-				ClassName:   "SecondaryCurrenciesControllerGetItemApiv2",
+				Function:    "secondary-currencies-get-item",
+				ClassName:   "SecondaryCurrenciesGetItem",
 				Description: "Get a specific secondary currency",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "secondaryCurrencyId", Type: "string", Required: true, Description: "The id of the corresponding secondary currency"},
@@ -3681,10 +3681,10 @@ func Register() connector.Registration {
 					{Name: "exchangeRate", Type: "number", Required: false, Description: "The exchange rate of the secondary currency."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#SecondaryCurrenciesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#SecondaryCurrenciesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "secondary-currencies-controller-get-items-apiv2",
-				ClassName:   "SecondaryCurrenciesControllerGetItemsApiv2",
+				Function:    "secondary-currencies-get-items",
+				ClassName:   "SecondaryCurrenciesGetItems",
 				Description: "Retrieve all secondary currencies",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -3695,10 +3695,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#SecondaryCurrenciesControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#SecondaryCurrenciesUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "secondary-currencies-controller-update-item-apiv2",
-				ClassName:   "SecondaryCurrenciesControllerUpdateItemApiv2",
+				Function:    "secondary-currencies-update-item",
+				ClassName:   "SecondaryCurrenciesUpdateItem",
 				Description: "Update a secondary currency",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "secondaryCurrencyId", Type: "string", Required: true, Description: "The id of the corresponding secondary currency"},
@@ -3711,10 +3711,10 @@ func Register() connector.Registration {
 					{Name: "exchangeRate", Type: "number", Required: false, Description: "The exchange rate of the secondary currency."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TaxRatesControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TaxRatesGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "tax-rates-controller-get-item-apiv2",
-				ClassName:   "TaxRatesControllerGetItemApiv2",
+				Function:    "tax-rates-get-item",
+				ClassName:   "TaxRatesGetItem",
 				Description: "Get single tax rate.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "taxRateId", Type: "string", Required: true, Description: "tax rate id"},
@@ -3729,10 +3729,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "string", Required: false, Description: "The type of the tax rate."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TaxRatesControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TaxRatesGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "tax-rates-controller-get-items-apiv2",
-				ClassName:   "TaxRatesControllerGetItemsApiv2",
+				Function:    "tax-rates-get-items",
+				ClassName:   "TaxRatesGetItems",
 				Description: "Retrieve all tax rates.",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -3743,10 +3743,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketCommentsControllerAddCommentApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketCommentsAddComment", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "ticket-comments-controller-add-comment-apiv2",
-				ClassName:   "TicketCommentsControllerAddCommentApiv2",
+				Function:    "ticket-comments-add-comment",
+				ClassName:   "TicketCommentsAddComment",
 				Description: "Post a comment/comments about a specific ticket",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "ticketId", Type: "string", Required: true, Description: "ticket id"},
@@ -3764,10 +3764,10 @@ func Register() connector.Registration {
 					{Name: "text", Type: "string", Required: false, Description: "The text of the comment."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketCommentsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketCommentsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "ticket-comments-controller-get-items-apiv2",
-				ClassName:   "TicketCommentsControllerGetItemsApiv2",
+				Function:    "ticket-comments-get-items",
+				ClassName:   "TicketCommentsGetItems",
 				Description: "Retrieve all comments for a ticket",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -3779,10 +3779,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketOptionsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketOptionsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "ticket-options-controller-get-items-apiv2",
-				ClassName:   "TicketOptionsControllerGetItemsApiv2",
+				Function:    "ticket-options-get-items",
+				ClassName:   "TicketOptionsGetItems",
 				Description: "Get ticket options",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -3793,10 +3793,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "tickets-controller-add-item-apiv2",
-				ClassName:   "TicketsControllerAddItemApiv2",
+				Function:    "tickets-add-item",
+				ClassName:   "TicketsAddItem",
 				Description: "Add a new ticket",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3826,10 +3826,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "string", Required: false, Description: "The _id of the ticket options."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsControllerCountByApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsCountBy", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "tickets-controller-count-by-apiv2",
-				ClassName:   "TicketsControllerCountByApiv2",
+				Function:    "tickets-count-by",
+				ClassName:   "TicketsCountBy",
 				Description: "Get tickets count by filter",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3839,10 +3839,10 @@ func Register() connector.Registration {
 					{Name: "total", Type: "number", Required: true, Description: ""},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "tickets-controller-get-item-apiv2",
-				ClassName:   "TicketsControllerGetItemApiv2",
+				Function:    "tickets-get-item",
+				ClassName:   "TicketsGetItem",
 				Description: "Get ticket",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "ticketId", Type: "string", Required: true, Description: "ticket id"},
@@ -3866,10 +3866,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "string", Required: false, Description: "The _id of the ticket options."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "tickets-controller-get-items-apiv2",
-				ClassName:   "TicketsControllerGetItemsApiv2",
+				Function:    "tickets-get-items",
+				ClassName:   "TicketsGetItems",
 				Description: "Get tickets",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -3880,10 +3880,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#TicketsUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "tickets-controller-update-item-apiv2",
-				ClassName:   "TicketsControllerUpdateItemApiv2",
+				Function:    "tickets-update-item",
+				ClassName:   "TicketsUpdateItem",
 				Description: "Update an existing ticket",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "ticketId", Type: "string", Required: true, Description: "ticket id"},
@@ -3912,10 +3912,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "string", Required: false, Description: "The _id of the ticket options."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitorsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitorsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "visitors-controller-add-item-apiv2",
-				ClassName:   "VisitorsControllerAddItemApiv2",
+				Function:    "visitors-add-item",
+				ClassName:   "VisitorsAddItem",
 				Description: "Add new visitor",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -3937,10 +3937,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the visitor. Can be one of the following - reception, preregistration."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitorsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitorsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "visitors-controller-delete-item-apiv2",
-				ClassName:   "VisitorsControllerDeleteItemApiv2",
+				Function:    "visitors-delete-item",
+				ClassName:   "VisitorsDeleteItem",
 				Description: "Delete visitor",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "visitorId", Type: "string", Required: true, Description: "visitor id"},
@@ -3957,10 +3957,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the visitor. Can be one of the following - reception, preregistration."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitorsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitorsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "visitors-controller-get-item-apiv2",
-				ClassName:   "VisitorsControllerGetItemApiv2",
+				Function:    "visitors-get-item",
+				ClassName:   "VisitorsGetItem",
 				Description: "Get visitor",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "visitorId", Type: "string", Required: true, Description: "visitor id"},
@@ -3977,10 +3977,10 @@ func Register() connector.Registration {
 					{Name: "type", Type: "object", Required: false, Description: "The type of the visitor. Can be one of the following - reception, preregistration."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitorsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitorsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "visitors-controller-get-items-apiv2",
-				ClassName:   "VisitorsControllerGetItemsApiv2",
+				Function:    "visitors-get-items",
+				ClassName:   "VisitorsGetItems",
 				Description: "Get visitors",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by visitor id. Supports both single id values (e.g., _id=66623dc53090242657393910) and array operations (e.g., _id[$in]=66623dc53090242657393910,66623dbf309024265739390a).              Note: Multiple values in simple string format (e.g., _id=66623dc53090242657393910,66623dbf309024265739390a) are not allowed - use _id[$in] format instead."},
@@ -3995,10 +3995,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitsControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitsAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "visits-controller-add-item-apiv2",
-				ClassName:   "VisitsControllerAddItemApiv2",
+				Function:    "visits-add-item",
+				ClassName:   "VisitsAddItem",
 				Description: "Add new visit",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -4020,10 +4020,10 @@ func Register() connector.Registration {
 					{Name: "visitor", Type: "string", Required: false, Description: "The _id of the visitor for which the visit is being recorded."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitsControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitsDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "visits-controller-delete-item-apiv2",
-				ClassName:   "VisitsControllerDeleteItemApiv2",
+				Function:    "visits-delete-item",
+				ClassName:   "VisitsDeleteItem",
 				Description: "Delete visit",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "visitId", Type: "string", Required: true, Description: "The _id of the visit"},
@@ -4040,10 +4040,10 @@ func Register() connector.Registration {
 					{Name: "visitor", Type: "string", Required: false, Description: "The _id of the visitor for which the visit is being recorded."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitsControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitsGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "visits-controller-get-item-apiv2",
-				ClassName:   "VisitsControllerGetItemApiv2",
+				Function:    "visits-get-item",
+				ClassName:   "VisitsGetItem",
 				Description: "Get visit",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "visitId", Type: "string", Required: true, Description: "The _id of the visit"},
@@ -4060,10 +4060,10 @@ func Register() connector.Registration {
 					{Name: "visitor", Type: "string", Required: false, Description: "The _id of the visitor for which the visit is being recorded."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitsControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#VisitsGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "visits-controller-get-items-apiv2",
-				ClassName:   "VisitsControllerGetItemsApiv2",
+				Function:    "visits-get-items",
+				ClassName:   "VisitsGetItems",
 				Description: "Get visits",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "_id", Type: "string", Required: false, Description: "Filter by visit id."},
@@ -4081,10 +4081,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksControllerAddItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksAddItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "webhooks-controller-add-item-apiv2",
-				ClassName:   "WebhooksControllerAddItemApiv2",
+				Function:    "webhooks-add-item",
+				ClassName:   "WebhooksAddItem",
 				Description: "Add a new webhook",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "orgSlug", Type: "string", Required: true, Description: "organization slug"},
@@ -4102,10 +4102,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "The URL of the endpoint of your server where POST requests will be made."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksControllerDeleteItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksDeleteItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "webhooks-controller-delete-item-apiv2",
-				ClassName:   "WebhooksControllerDeleteItemApiv2",
+				Function:    "webhooks-delete-item",
+				ClassName:   "WebhooksDeleteItem",
 				Description: "Delete a single webhook",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "webhookId", Type: "string", Required: true, Description: "webhook id"},
@@ -4120,10 +4120,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "The URL of the endpoint of your server where POST requests will be made."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksControllerGetItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksGetItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "webhooks-controller-get-item-apiv2",
-				ClassName:   "WebhooksControllerGetItemApiv2",
+				Function:    "webhooks-get-item",
+				ClassName:   "WebhooksGetItem",
 				Description: "Get a single webhook",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "webhookId", Type: "string", Required: true, Description: "webhook id"},
@@ -4138,10 +4138,10 @@ func Register() connector.Registration {
 					{Name: "url", Type: "string", Required: false, Description: "The URL of the endpoint of your server where POST requests will be made."},
 				},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksControllerGetItemsApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksGetItems", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "webhooks-controller-get-items-apiv2",
-				ClassName:   "WebhooksControllerGetItemsApiv2",
+				Function:    "webhooks-get-items",
+				ClassName:   "WebhooksGetItems",
 				Description: "Get a list of webhooks",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "$select", Type: "string", Required: false, Description: "Select fields to return"},
@@ -4152,10 +4152,10 @@ func Register() connector.Registration {
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
-			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksControllerUpdateItemApiv2", Info: connector.CWLClassInfo{
+			{ClassIRI: "https://yardrail.com/cwl/officernd#WebhooksUpdateItem", Info: connector.CWLClassInfo{
 				ConnectorID: "officernd",
-				Function:    "webhooks-controller-update-item-apiv2",
-				ClassName:   "WebhooksControllerUpdateItemApiv2",
+				Function:    "webhooks-update-item",
+				ClassName:   "WebhooksUpdateItem",
 				Description: "Update an existing webhook",
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "webhookId", Type: "string", Required: true, Description: "webhook id"},

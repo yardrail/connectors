@@ -5,12 +5,12 @@ $namespaces:
 
 $graph:
 
-  - name: AmenitiesControllerGetItemApiv2_class
+  - name: AmenitiesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AmenitiesControllerGetItemApiv2"]
+    symbols: ["officernd:AmenitiesGetItem"]
 
-  - name: AmenitiesControllerGetItemApiv2
+  - name: AmenitiesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -18,17 +18,17 @@ $graph:
     doc: "Get an amenity"
     fields:
       - name: class
-        type: "#AmenitiesControllerGetItemApiv2_class"
+        type: "#AmenitiesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AmenitiesControllerGetItemsApiv2_class
+  - name: AmenitiesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AmenitiesControllerGetItemsApiv2"]
+    symbols: ["officernd:AmenitiesGetItems"]
 
-  - name: AmenitiesControllerGetItemsApiv2
+  - name: AmenitiesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -36,17 +36,17 @@ $graph:
     doc: "Retrieve all amenities"
     fields:
       - name: class
-        type: "#AmenitiesControllerGetItemsApiv2_class"
+        type: "#AmenitiesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AssignmentsControllerAddItemApiv2_class
+  - name: AssignmentsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AssignmentsControllerAddItemApiv2"]
+    symbols: ["officernd:AssignmentsAddItem"]
 
-  - name: AssignmentsControllerAddItemApiv2
+  - name: AssignmentsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -54,17 +54,17 @@ $graph:
     doc: "Create an assignment"
     fields:
       - name: class
-        type: "#AssignmentsControllerAddItemApiv2_class"
+        type: "#AssignmentsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AssignmentsControllerDeleteItemApiv2_class
+  - name: AssignmentsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AssignmentsControllerDeleteItemApiv2"]
+    symbols: ["officernd:AssignmentsDeleteItem"]
 
-  - name: AssignmentsControllerDeleteItemApiv2
+  - name: AssignmentsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -72,17 +72,17 @@ $graph:
     doc: "Delete an assignment"
     fields:
       - name: class
-        type: "#AssignmentsControllerDeleteItemApiv2_class"
+        type: "#AssignmentsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AssignmentsControllerGetItemsApiv2_class
+  - name: AssignmentsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AssignmentsControllerGetItemsApiv2"]
+    symbols: ["officernd:AssignmentsGetItems"]
 
-  - name: AssignmentsControllerGetItemsApiv2
+  - name: AssignmentsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -90,17 +90,17 @@ $graph:
     doc: "Retrieve assignments by resource and/or membership"
     fields:
       - name: class
-        type: "#AssignmentsControllerGetItemsApiv2_class"
+        type: "#AssignmentsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AuthControllerImpersonateMemberApiv2_class
+  - name: AuthImpersonateMember_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AuthControllerImpersonateMemberApiv2"]
+    symbols: ["officernd:AuthImpersonateMember"]
 
-  - name: AuthControllerImpersonateMemberApiv2
+  - name: AuthImpersonateMember
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -108,17 +108,17 @@ $graph:
     doc: "Impersonate a member"
     fields:
       - name: class
-        type: "#AuthControllerImpersonateMemberApiv2_class"
+        type: "#AuthImpersonateMember_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AuthControllerSigninApiv2_class
+  - name: AuthSignin_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AuthControllerSigninApiv2"]
+    symbols: ["officernd:AuthSignin"]
 
-  - name: AuthControllerSigninApiv2
+  - name: AuthSignin
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -126,17 +126,17 @@ $graph:
     doc: "Sign in a user"
     fields:
       - name: class
-        type: "#AuthControllerSigninApiv2_class"
+        type: "#AuthSignin_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AuthControllerSignupApiv2_class
+  - name: AuthSignup_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AuthControllerSignupApiv2"]
+    symbols: ["officernd:AuthSignup"]
 
-  - name: AuthControllerSignupApiv2
+  - name: AuthSignup
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -144,17 +144,17 @@ $graph:
     doc: "Create a user"
     fields:
       - name: class
-        type: "#AuthControllerSignupApiv2_class"
+        type: "#AuthSignup_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: AuthControllerVerifyTokenApiv2_class
+  - name: AuthVerifyToken_class
     type: enum
     inVocab: false
-    symbols: ["officernd:AuthControllerVerifyTokenApiv2"]
+    symbols: ["officernd:AuthVerifyToken"]
 
-  - name: AuthControllerVerifyTokenApiv2
+  - name: AuthVerifyToken
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -162,17 +162,17 @@ $graph:
     doc: "Validate JWT token"
     fields:
       - name: class
-        type: "#AuthControllerVerifyTokenApiv2_class"
+        type: "#AuthVerifyToken_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BenefitsControllerCountApiv2_class
+  - name: BenefitsCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BenefitsControllerCountApiv2"]
+    symbols: ["officernd:BenefitsCount"]
 
-  - name: BenefitsControllerCountApiv2
+  - name: BenefitsCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -180,17 +180,17 @@ $graph:
     doc: "Get benefits count by filter"
     fields:
       - name: class
-        type: "#BenefitsControllerCountApiv2_class"
+        type: "#BenefitsCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BenefitsControllerGetItemApiv2_class
+  - name: BenefitsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BenefitsControllerGetItemApiv2"]
+    symbols: ["officernd:BenefitsGetItem"]
 
-  - name: BenefitsControllerGetItemApiv2
+  - name: BenefitsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -198,17 +198,17 @@ $graph:
     doc: "Get benefit"
     fields:
       - name: class
-        type: "#BenefitsControllerGetItemApiv2_class"
+        type: "#BenefitsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BenefitsControllerGetItemsApiv2_class
+  - name: BenefitsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BenefitsControllerGetItemsApiv2"]
+    symbols: ["officernd:BenefitsGetItems"]
 
-  - name: BenefitsControllerGetItemsApiv2
+  - name: BenefitsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -216,17 +216,17 @@ $graph:
     doc: "Get benefits"
     fields:
       - name: class
-        type: "#BenefitsControllerGetItemsApiv2_class"
+        type: "#BenefitsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BillingSettingsControllerGetBillingSettingsApiv2_class
+  - name: BillingSettingsGetBillingSettings_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BillingSettingsControllerGetBillingSettingsApiv2"]
+    symbols: ["officernd:BillingSettingsGetBillingSettings"]
 
-  - name: BillingSettingsControllerGetBillingSettingsApiv2
+  - name: BillingSettingsGetBillingSettings
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -234,17 +234,17 @@ $graph:
     doc: "Retrieve billing settings."
     fields:
       - name: class
-        type: "#BillingSettingsControllerGetBillingSettingsApiv2_class"
+        type: "#BillingSettingsGetBillingSettings_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerAddItemApiv2_class
+  - name: BookingsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerAddItemApiv2"]
+    symbols: ["officernd:BookingsAddItem"]
 
-  - name: BookingsControllerAddItemApiv2
+  - name: BookingsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -252,17 +252,17 @@ $graph:
     doc: "Add new booking"
     fields:
       - name: class
-        type: "#BookingsControllerAddItemApiv2_class"
+        type: "#BookingsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerCancelBookingApiv2_class
+  - name: BookingsCancelBooking_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerCancelBookingApiv2"]
+    symbols: ["officernd:BookingsCancelBooking"]
 
-  - name: BookingsControllerCancelBookingApiv2
+  - name: BookingsCancelBooking
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -270,17 +270,17 @@ $graph:
     doc: "Cancel a booking that was already confirmed."
     fields:
       - name: class
-        type: "#BookingsControllerCancelBookingApiv2_class"
+        type: "#BookingsCancelBooking_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerCountApiv2_class
+  - name: BookingsCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerCountApiv2"]
+    symbols: ["officernd:BookingsCount"]
 
-  - name: BookingsControllerCountApiv2
+  - name: BookingsCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -288,17 +288,17 @@ $graph:
     doc: "Get bookings count"
     fields:
       - name: class
-        type: "#BookingsControllerCountApiv2_class"
+        type: "#BookingsCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerDeleteItemApiv2_class
+  - name: BookingsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerDeleteItemApiv2"]
+    symbols: ["officernd:BookingsDeleteItem"]
 
-  - name: BookingsControllerDeleteItemApiv2
+  - name: BookingsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -306,17 +306,17 @@ $graph:
     doc: "Delete booking"
     fields:
       - name: class
-        type: "#BookingsControllerDeleteItemApiv2_class"
+        type: "#BookingsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerGetItemApiv2_class
+  - name: BookingsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerGetItemApiv2"]
+    symbols: ["officernd:BookingsGetItem"]
 
-  - name: BookingsControllerGetItemApiv2
+  - name: BookingsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -324,17 +324,17 @@ $graph:
     doc: "Retrieve single booking."
     fields:
       - name: class
-        type: "#BookingsControllerGetItemApiv2_class"
+        type: "#BookingsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerGetItemsApiv2_class
+  - name: BookingsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerGetItemsApiv2"]
+    symbols: ["officernd:BookingsGetItems"]
 
-  - name: BookingsControllerGetItemsApiv2
+  - name: BookingsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -342,17 +342,17 @@ $graph:
     doc: "Retrieve all booking series and one-off bookings."
     fields:
       - name: class
-        type: "#BookingsControllerGetItemsApiv2_class"
+        type: "#BookingsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerGetOccurrencesApiv2_class
+  - name: BookingsGetOccurrences_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerGetOccurrencesApiv2"]
+    symbols: ["officernd:BookingsGetOccurrences"]
 
-  - name: BookingsControllerGetOccurrencesApiv2
+  - name: BookingsGetOccurrences
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -360,17 +360,17 @@ $graph:
     doc: "Retrieve all booking occurrences (expanded instances)."
     fields:
       - name: class
-        type: "#BookingsControllerGetOccurrencesApiv2_class"
+        type: "#BookingsGetOccurrences_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerUpdateItemApiv2_class
+  - name: BookingsUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerUpdateItemApiv2"]
+    symbols: ["officernd:BookingsUpdateItem"]
 
-  - name: BookingsControllerUpdateItemApiv2
+  - name: BookingsUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -378,17 +378,17 @@ $graph:
     doc: "Update existing booking"
     fields:
       - name: class
-        type: "#BookingsControllerUpdateItemApiv2_class"
+        type: "#BookingsUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BookingsControllerValidateBookingApiv2_class
+  - name: BookingsValidateBooking_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BookingsControllerValidateBookingApiv2"]
+    symbols: ["officernd:BookingsValidateBooking"]
 
-  - name: BookingsControllerValidateBookingApiv2
+  - name: BookingsValidateBooking
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -396,17 +396,17 @@ $graph:
     doc: "Validate a booking."
     fields:
       - name: class
-        type: "#BookingsControllerValidateBookingApiv2_class"
+        type: "#BookingsValidateBooking_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: BusinessHoursControllerGetItemsApiv2_class
+  - name: BusinessHoursGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:BusinessHoursControllerGetItemsApiv2"]
+    symbols: ["officernd:BusinessHoursGetItems"]
 
-  - name: BusinessHoursControllerGetItemsApiv2
+  - name: BusinessHoursGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -414,17 +414,17 @@ $graph:
     doc: "Retrieve business hours."
     fields:
       - name: class
-        type: "#BusinessHoursControllerGetItemsApiv2_class"
+        type: "#BusinessHoursGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChargesControllerAddItemApiv2_class
+  - name: ChargesAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ChargesControllerAddItemApiv2"]
+    symbols: ["officernd:ChargesAddItem"]
 
-  - name: ChargesControllerAddItemApiv2
+  - name: ChargesAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -432,17 +432,17 @@ $graph:
     doc: "Create a new charge for invoice"
     fields:
       - name: class
-        type: "#ChargesControllerAddItemApiv2_class"
+        type: "#ChargesAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChargesControllerDeleteItemApiv2_class
+  - name: ChargesDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ChargesControllerDeleteItemApiv2"]
+    symbols: ["officernd:ChargesDeleteItem"]
 
-  - name: ChargesControllerDeleteItemApiv2
+  - name: ChargesDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -450,17 +450,17 @@ $graph:
     doc: "Delete a charge for invoice"
     fields:
       - name: class
-        type: "#ChargesControllerDeleteItemApiv2_class"
+        type: "#ChargesDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChargesControllerGetItemsApiv2_class
+  - name: ChargesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ChargesControllerGetItemsApiv2"]
+    symbols: ["officernd:ChargesGetItems"]
 
-  - name: ChargesControllerGetItemsApiv2
+  - name: ChargesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -468,17 +468,17 @@ $graph:
     doc: "Retrieve all charges"
     fields:
       - name: class
-        type: "#ChargesControllerGetItemsApiv2_class"
+        type: "#ChargesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ChargesControllerUpdateItemApiv2_class
+  - name: ChargesUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ChargesControllerUpdateItemApiv2"]
+    symbols: ["officernd:ChargesUpdateItem"]
 
-  - name: ChargesControllerUpdateItemApiv2
+  - name: ChargesUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -486,17 +486,17 @@ $graph:
     doc: "Update a charge for invoice"
     fields:
       - name: class
-        type: "#ChargesControllerUpdateItemApiv2_class"
+        type: "#ChargesUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CheckinsControllerCheckinMemberApiv2_class
+  - name: CheckinsCheckinMember_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CheckinsControllerCheckinMemberApiv2"]
+    symbols: ["officernd:CheckinsCheckinMember"]
 
-  - name: CheckinsControllerCheckinMemberApiv2
+  - name: CheckinsCheckinMember
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -504,17 +504,17 @@ $graph:
     doc: "Check in a Member"
     fields:
       - name: class
-        type: "#CheckinsControllerCheckinMemberApiv2_class"
+        type: "#CheckinsCheckinMember_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CheckinsControllerCheckoutApiv2_class
+  - name: CheckinsCheckout_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CheckinsControllerCheckoutApiv2"]
+    symbols: ["officernd:CheckinsCheckout"]
 
-  - name: CheckinsControllerCheckoutApiv2
+  - name: CheckinsCheckout
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -522,17 +522,17 @@ $graph:
     doc: "Check Out a Member"
     fields:
       - name: class
-        type: "#CheckinsControllerCheckoutApiv2_class"
+        type: "#CheckinsCheckout_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CheckinsControllerGetItemApiv2_class
+  - name: CheckinsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CheckinsControllerGetItemApiv2"]
+    symbols: ["officernd:CheckinsGetItem"]
 
-  - name: CheckinsControllerGetItemApiv2
+  - name: CheckinsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -540,17 +540,17 @@ $graph:
     doc: "Retrieve a single Check-In"
     fields:
       - name: class
-        type: "#CheckinsControllerGetItemApiv2_class"
+        type: "#CheckinsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CheckinsControllerGetItemsApiv2_class
+  - name: CheckinsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CheckinsControllerGetItemsApiv2"]
+    symbols: ["officernd:CheckinsGetItems"]
 
-  - name: CheckinsControllerGetItemsApiv2
+  - name: CheckinsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -558,17 +558,17 @@ $graph:
     doc: "Retrieve all check-ins."
     fields:
       - name: class
-        type: "#CheckinsControllerGetItemsApiv2_class"
+        type: "#CheckinsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CheckinsControllerGetVisitorCheckinsApiv2_class
+  - name: CheckinsGetVisitorCheckins_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CheckinsControllerGetVisitorCheckinsApiv2"]
+    symbols: ["officernd:CheckinsGetVisitorCheckins"]
 
-  - name: CheckinsControllerGetVisitorCheckinsApiv2
+  - name: CheckinsGetVisitorCheckins
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -576,17 +576,17 @@ $graph:
     doc: "Retrieve all visitor check-ins."
     fields:
       - name: class
-        type: "#CheckinsControllerGetVisitorCheckinsApiv2_class"
+        type: "#CheckinsGetVisitorCheckins_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CheckoutControllerCheckoutApiv2_class
+  - name: CheckoutCheckout_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CheckoutControllerCheckoutApiv2"]
+    symbols: ["officernd:CheckoutCheckout"]
 
-  - name: CheckoutControllerCheckoutApiv2
+  - name: CheckoutCheckout
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -594,17 +594,17 @@ $graph:
     doc: "Execute checkout"
     fields:
       - name: class
-        type: "#CheckoutControllerCheckoutApiv2_class"
+        type: "#CheckoutCheckout_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CheckoutControllerGetCheckoutSummaryApiv2_class
+  - name: CheckoutGetCheckoutSummary_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CheckoutControllerGetCheckoutSummaryApiv2"]
+    symbols: ["officernd:CheckoutGetCheckoutSummary"]
 
-  - name: CheckoutControllerGetCheckoutSummaryApiv2
+  - name: CheckoutGetCheckoutSummary
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -612,17 +612,17 @@ $graph:
     doc: "Get checkout cost preview"
     fields:
       - name: class
-        type: "#CheckoutControllerGetCheckoutSummaryApiv2_class"
+        type: "#CheckoutGetCheckoutSummary_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CoinsControllerGetCoinStatsApiv2_class
+  - name: CoinsGetCoinStats_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CoinsControllerGetCoinStatsApiv2"]
+    symbols: ["officernd:CoinsGetCoinStats"]
 
-  - name: CoinsControllerGetCoinStatsApiv2
+  - name: CoinsGetCoinStats
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -630,17 +630,17 @@ $graph:
     doc: "Get the coin credit balance for a company/member in a specific month."
     fields:
       - name: class
-        type: "#CoinsControllerGetCoinStatsApiv2_class"
+        type: "#CoinsGetCoinStats_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CompaniesControllerAddItemApiv2_class
+  - name: CompaniesAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CompaniesControllerAddItemApiv2"]
+    symbols: ["officernd:CompaniesAddItem"]
 
-  - name: CompaniesControllerAddItemApiv2
+  - name: CompaniesAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -648,17 +648,17 @@ $graph:
     doc: "Add new company"
     fields:
       - name: class
-        type: "#CompaniesControllerAddItemApiv2_class"
+        type: "#CompaniesAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CompaniesControllerDeleteItemApiv2_class
+  - name: CompaniesDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CompaniesControllerDeleteItemApiv2"]
+    symbols: ["officernd:CompaniesDeleteItem"]
 
-  - name: CompaniesControllerDeleteItemApiv2
+  - name: CompaniesDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -666,17 +666,17 @@ $graph:
     doc: "Delete company"
     fields:
       - name: class
-        type: "#CompaniesControllerDeleteItemApiv2_class"
+        type: "#CompaniesDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CompaniesControllerGetItemApiv2_class
+  - name: CompaniesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CompaniesControllerGetItemApiv2"]
+    symbols: ["officernd:CompaniesGetItem"]
 
-  - name: CompaniesControllerGetItemApiv2
+  - name: CompaniesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -684,17 +684,17 @@ $graph:
     doc: "Get company"
     fields:
       - name: class
-        type: "#CompaniesControllerGetItemApiv2_class"
+        type: "#CompaniesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CompaniesControllerGetItemsApiv2_class
+  - name: CompaniesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CompaniesControllerGetItemsApiv2"]
+    symbols: ["officernd:CompaniesGetItems"]
 
-  - name: CompaniesControllerGetItemsApiv2
+  - name: CompaniesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -702,17 +702,17 @@ $graph:
     doc: "Get companies"
     fields:
       - name: class
-        type: "#CompaniesControllerGetItemsApiv2_class"
+        type: "#CompaniesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CompaniesControllerUpdateItemApiv2_class
+  - name: CompaniesUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CompaniesControllerUpdateItemApiv2"]
+    symbols: ["officernd:CompaniesUpdateItem"]
 
-  - name: CompaniesControllerUpdateItemApiv2
+  - name: CompaniesUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -720,17 +720,17 @@ $graph:
     doc: "Update company"
     fields:
       - name: class
-        type: "#CompaniesControllerUpdateItemApiv2_class"
+        type: "#CompaniesUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ContractsControllerAddItemApiv2_class
+  - name: ContractsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ContractsControllerAddItemApiv2"]
+    symbols: ["officernd:ContractsAddItem"]
 
-  - name: ContractsControllerAddItemApiv2
+  - name: ContractsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -738,17 +738,17 @@ $graph:
     doc: "Add new contract"
     fields:
       - name: class
-        type: "#ContractsControllerAddItemApiv2_class"
+        type: "#ContractsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ContractsControllerCountApiv2_class
+  - name: ContractsCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ContractsControllerCountApiv2"]
+    symbols: ["officernd:ContractsCount"]
 
-  - name: ContractsControllerCountApiv2
+  - name: ContractsCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -756,17 +756,17 @@ $graph:
     doc: "Get contracts count by filter"
     fields:
       - name: class
-        type: "#ContractsControllerCountApiv2_class"
+        type: "#ContractsCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ContractsControllerDeleteItemApiv2_class
+  - name: ContractsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ContractsControllerDeleteItemApiv2"]
+    symbols: ["officernd:ContractsDeleteItem"]
 
-  - name: ContractsControllerDeleteItemApiv2
+  - name: ContractsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -774,17 +774,17 @@ $graph:
     doc: "Delete contract"
     fields:
       - name: class
-        type: "#ContractsControllerDeleteItemApiv2_class"
+        type: "#ContractsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ContractsControllerGetItemApiv2_class
+  - name: ContractsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ContractsControllerGetItemApiv2"]
+    symbols: ["officernd:ContractsGetItem"]
 
-  - name: ContractsControllerGetItemApiv2
+  - name: ContractsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -792,17 +792,17 @@ $graph:
     doc: "Get contract"
     fields:
       - name: class
-        type: "#ContractsControllerGetItemApiv2_class"
+        type: "#ContractsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ContractsControllerGetItemsApiv2_class
+  - name: ContractsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ContractsControllerGetItemsApiv2"]
+    symbols: ["officernd:ContractsGetItems"]
 
-  - name: ContractsControllerGetItemsApiv2
+  - name: ContractsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -810,17 +810,17 @@ $graph:
     doc: "Retrieve all contracts."
     fields:
       - name: class
-        type: "#ContractsControllerGetItemsApiv2_class"
+        type: "#ContractsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ContractsControllerSignItemApiv2_class
+  - name: ContractsSignItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ContractsControllerSignItemApiv2"]
+    symbols: ["officernd:ContractsSignItem"]
 
-  - name: ContractsControllerSignItemApiv2
+  - name: ContractsSignItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -828,17 +828,17 @@ $graph:
     doc: "Sign a contract"
     fields:
       - name: class
-        type: "#ContractsControllerSignItemApiv2_class"
+        type: "#ContractsSignItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ContractsControllerTerminateItemApiv2_class
+  - name: ContractsTerminateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ContractsControllerTerminateItemApiv2"]
+    symbols: ["officernd:ContractsTerminateItem"]
 
-  - name: ContractsControllerTerminateItemApiv2
+  - name: ContractsTerminateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -846,17 +846,17 @@ $graph:
     doc: "Terminate a contract"
     fields:
       - name: class
-        type: "#ContractsControllerTerminateItemApiv2_class"
+        type: "#ContractsTerminateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ContractsControllerUpdateItemApiv2_class
+  - name: ContractsUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ContractsControllerUpdateItemApiv2"]
+    symbols: ["officernd:ContractsUpdateItem"]
 
-  - name: ContractsControllerUpdateItemApiv2
+  - name: ContractsUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -864,17 +864,17 @@ $graph:
     doc: "Update contract custom properties"
     fields:
       - name: class
-        type: "#ContractsControllerUpdateItemApiv2_class"
+        type: "#ContractsUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CreditsControllerAddItemApiv2_class
+  - name: CreditsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CreditsControllerAddItemApiv2"]
+    symbols: ["officernd:CreditsAddItem"]
 
-  - name: CreditsControllerAddItemApiv2
+  - name: CreditsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -882,17 +882,17 @@ $graph:
     doc: "Create a new set of credits."
     fields:
       - name: class
-        type: "#CreditsControllerAddItemApiv2_class"
+        type: "#CreditsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CreditsControllerDeleteItemApiv2_class
+  - name: CreditsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CreditsControllerDeleteItemApiv2"]
+    symbols: ["officernd:CreditsDeleteItem"]
 
-  - name: CreditsControllerDeleteItemApiv2
+  - name: CreditsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -900,17 +900,17 @@ $graph:
     doc: "Delete a set of credits."
     fields:
       - name: class
-        type: "#CreditsControllerDeleteItemApiv2_class"
+        type: "#CreditsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CreditsControllerGetItemApiv2_class
+  - name: CreditsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CreditsControllerGetItemApiv2"]
+    symbols: ["officernd:CreditsGetItem"]
 
-  - name: CreditsControllerGetItemApiv2
+  - name: CreditsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -918,17 +918,17 @@ $graph:
     doc: "Retrieve single set of credits."
     fields:
       - name: class
-        type: "#CreditsControllerGetItemApiv2_class"
+        type: "#CreditsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CreditsControllerGetItemsApiv2_class
+  - name: CreditsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CreditsControllerGetItemsApiv2"]
+    symbols: ["officernd:CreditsGetItems"]
 
-  - name: CreditsControllerGetItemsApiv2
+  - name: CreditsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -936,17 +936,17 @@ $graph:
     doc: "Retrieve all credits."
     fields:
       - name: class
-        type: "#CreditsControllerGetItemsApiv2_class"
+        type: "#CreditsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CreditsControllerUpdateItemApiv2_class
+  - name: CreditsUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CreditsControllerUpdateItemApiv2"]
+    symbols: ["officernd:CreditsUpdateItem"]
 
-  - name: CreditsControllerUpdateItemApiv2
+  - name: CreditsUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -954,17 +954,17 @@ $graph:
     doc: "Update an existing set of credits."
     fields:
       - name: class
-        type: "#CreditsControllerUpdateItemApiv2_class"
+        type: "#CreditsUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: CustomPropertiesControllerGetItemsApiv2_class
+  - name: CustomPropertiesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:CustomPropertiesControllerGetItemsApiv2"]
+    symbols: ["officernd:CustomPropertiesGetItems"]
 
-  - name: CustomPropertiesControllerGetItemsApiv2
+  - name: CustomPropertiesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -972,17 +972,17 @@ $graph:
     doc: "Retrieve all custom properties"
     fields:
       - name: class
-        type: "#CustomPropertiesControllerGetItemsApiv2_class"
+        type: "#CustomPropertiesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: EventsControllerAddItemApiv2_class
+  - name: EventsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:EventsControllerAddItemApiv2"]
+    symbols: ["officernd:EventsAddItem"]
 
-  - name: EventsControllerAddItemApiv2
+  - name: EventsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -990,17 +990,17 @@ $graph:
     doc: "Create a new event."
     fields:
       - name: class
-        type: "#EventsControllerAddItemApiv2_class"
+        type: "#EventsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: EventsControllerCountApiv2_class
+  - name: EventsCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:EventsControllerCountApiv2"]
+    symbols: ["officernd:EventsCount"]
 
-  - name: EventsControllerCountApiv2
+  - name: EventsCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1008,17 +1008,17 @@ $graph:
     doc: "Get events count"
     fields:
       - name: class
-        type: "#EventsControllerCountApiv2_class"
+        type: "#EventsCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: EventsControllerDeleteItemApiv2_class
+  - name: EventsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:EventsControllerDeleteItemApiv2"]
+    symbols: ["officernd:EventsDeleteItem"]
 
-  - name: EventsControllerDeleteItemApiv2
+  - name: EventsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1026,17 +1026,17 @@ $graph:
     doc: "Delete an event."
     fields:
       - name: class
-        type: "#EventsControllerDeleteItemApiv2_class"
+        type: "#EventsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: EventsControllerGetItemApiv2_class
+  - name: EventsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:EventsControllerGetItemApiv2"]
+    symbols: ["officernd:EventsGetItem"]
 
-  - name: EventsControllerGetItemApiv2
+  - name: EventsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1044,17 +1044,17 @@ $graph:
     doc: "Retrieve single event."
     fields:
       - name: class
-        type: "#EventsControllerGetItemApiv2_class"
+        type: "#EventsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: EventsControllerGetItemsApiv2_class
+  - name: EventsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:EventsControllerGetItemsApiv2"]
+    symbols: ["officernd:EventsGetItems"]
 
-  - name: EventsControllerGetItemsApiv2
+  - name: EventsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1062,17 +1062,17 @@ $graph:
     doc: "Retrieve all events."
     fields:
       - name: class
-        type: "#EventsControllerGetItemsApiv2_class"
+        type: "#EventsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: EventsControllerUpdateItemApiv2_class
+  - name: EventsUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:EventsControllerUpdateItemApiv2"]
+    symbols: ["officernd:EventsUpdateItem"]
 
-  - name: EventsControllerUpdateItemApiv2
+  - name: EventsUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1080,17 +1080,17 @@ $graph:
     doc: "Update an existing event."
     fields:
       - name: class
-        type: "#EventsControllerUpdateItemApiv2_class"
+        type: "#EventsUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FeesControllerAddItemApiv2_class
+  - name: FeesAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:FeesControllerAddItemApiv2"]
+    symbols: ["officernd:FeesAddItem"]
 
-  - name: FeesControllerAddItemApiv2
+  - name: FeesAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1098,17 +1098,17 @@ $graph:
     doc: "Add a new fee"
     fields:
       - name: class
-        type: "#FeesControllerAddItemApiv2_class"
+        type: "#FeesAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FeesControllerCountApiv2_class
+  - name: FeesCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:FeesControllerCountApiv2"]
+    symbols: ["officernd:FeesCount"]
 
-  - name: FeesControllerCountApiv2
+  - name: FeesCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1116,17 +1116,17 @@ $graph:
     doc: "Get fees count"
     fields:
       - name: class
-        type: "#FeesControllerCountApiv2_class"
+        type: "#FeesCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FeesControllerDeleteItemApiv2_class
+  - name: FeesDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:FeesControllerDeleteItemApiv2"]
+    symbols: ["officernd:FeesDeleteItem"]
 
-  - name: FeesControllerDeleteItemApiv2
+  - name: FeesDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1134,17 +1134,17 @@ $graph:
     doc: "Delete a single fee"
     fields:
       - name: class
-        type: "#FeesControllerDeleteItemApiv2_class"
+        type: "#FeesDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FeesControllerGetItemApiv2_class
+  - name: FeesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:FeesControllerGetItemApiv2"]
+    symbols: ["officernd:FeesGetItem"]
 
-  - name: FeesControllerGetItemApiv2
+  - name: FeesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1152,17 +1152,17 @@ $graph:
     doc: "Get a single fee"
     fields:
       - name: class
-        type: "#FeesControllerGetItemApiv2_class"
+        type: "#FeesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FeesControllerGetItemsApiv2_class
+  - name: FeesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:FeesControllerGetItemsApiv2"]
+    symbols: ["officernd:FeesGetItems"]
 
-  - name: FeesControllerGetItemsApiv2
+  - name: FeesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1170,17 +1170,17 @@ $graph:
     doc: "Get a list of fees"
     fields:
       - name: class
-        type: "#FeesControllerGetItemsApiv2_class"
+        type: "#FeesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FeesControllerUpdateItemApiv2_class
+  - name: FeesUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:FeesControllerUpdateItemApiv2"]
+    symbols: ["officernd:FeesUpdateItem"]
 
-  - name: FeesControllerUpdateItemApiv2
+  - name: FeesUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1188,17 +1188,17 @@ $graph:
     doc: "Update and existing fee"
     fields:
       - name: class
-        type: "#FeesControllerUpdateItemApiv2_class"
+        type: "#FeesUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FloorsControllerGetItemApiv2_class
+  - name: FloorsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:FloorsControllerGetItemApiv2"]
+    symbols: ["officernd:FloorsGetItem"]
 
-  - name: FloorsControllerGetItemApiv2
+  - name: FloorsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1206,17 +1206,17 @@ $graph:
     doc: "Gets a specific floor"
     fields:
       - name: class
-        type: "#FloorsControllerGetItemApiv2_class"
+        type: "#FloorsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: FloorsControllerGetItemsApiv2_class
+  - name: FloorsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:FloorsControllerGetItemsApiv2"]
+    symbols: ["officernd:FloorsGetItems"]
 
-  - name: FloorsControllerGetItemsApiv2
+  - name: FloorsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1224,17 +1224,17 @@ $graph:
     doc: "Retrieve all floors"
     fields:
       - name: class
-        type: "#FloorsControllerGetItemsApiv2_class"
+        type: "#FloorsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: IntegrationsControllerGetItemApiv2_class
+  - name: IntegrationsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:IntegrationsControllerGetItemApiv2"]
+    symbols: ["officernd:IntegrationsGetItem"]
 
-  - name: IntegrationsControllerGetItemApiv2
+  - name: IntegrationsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1242,17 +1242,17 @@ $graph:
     doc: "Get a single integration"
     fields:
       - name: class
-        type: "#IntegrationsControllerGetItemApiv2_class"
+        type: "#IntegrationsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: LocationsControllerGetItemApiv2_class
+  - name: LocationsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:LocationsControllerGetItemApiv2"]
+    symbols: ["officernd:LocationsGetItem"]
 
-  - name: LocationsControllerGetItemApiv2
+  - name: LocationsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1260,17 +1260,17 @@ $graph:
     doc: "Retrieve single location."
     fields:
       - name: class
-        type: "#LocationsControllerGetItemApiv2_class"
+        type: "#LocationsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: LocationsControllerGetItemsApiv2_class
+  - name: LocationsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:LocationsControllerGetItemsApiv2"]
+    symbols: ["officernd:LocationsGetItems"]
 
-  - name: LocationsControllerGetItemsApiv2
+  - name: LocationsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1278,17 +1278,17 @@ $graph:
     doc: "Retrieve all locations."
     fields:
       - name: class
-        type: "#LocationsControllerGetItemsApiv2_class"
+        type: "#LocationsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerAddItemApiv2_class
+  - name: MembersAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerAddItemApiv2"]
+    symbols: ["officernd:MembersAddItem"]
 
-  - name: MembersControllerAddItemApiv2
+  - name: MembersAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1296,17 +1296,17 @@ $graph:
     doc: "Add new member"
     fields:
       - name: class
-        type: "#MembersControllerAddItemApiv2_class"
+        type: "#MembersAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerCountByApiv2_class
+  - name: MembersCountBy_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerCountByApiv2"]
+    symbols: ["officernd:MembersCountBy"]
 
-  - name: MembersControllerCountByApiv2
+  - name: MembersCountBy
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1314,17 +1314,17 @@ $graph:
     doc: "Get members count by filter"
     fields:
       - name: class
-        type: "#MembersControllerCountByApiv2_class"
+        type: "#MembersCountBy_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerDeleteItemApiv2_class
+  - name: MembersDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerDeleteItemApiv2"]
+    symbols: ["officernd:MembersDeleteItem"]
 
-  - name: MembersControllerDeleteItemApiv2
+  - name: MembersDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1332,17 +1332,17 @@ $graph:
     doc: "Delete member"
     fields:
       - name: class
-        type: "#MembersControllerDeleteItemApiv2_class"
+        type: "#MembersDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerGetItemApiv2_class
+  - name: MembersGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerGetItemApiv2"]
+    symbols: ["officernd:MembersGetItem"]
 
-  - name: MembersControllerGetItemApiv2
+  - name: MembersGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1350,17 +1350,17 @@ $graph:
     doc: "Get member"
     fields:
       - name: class
-        type: "#MembersControllerGetItemApiv2_class"
+        type: "#MembersGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerGetItemsApiv2_class
+  - name: MembersGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerGetItemsApiv2"]
+    symbols: ["officernd:MembersGetItems"]
 
-  - name: MembersControllerGetItemsApiv2
+  - name: MembersGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1368,17 +1368,17 @@ $graph:
     doc: "Get members"
     fields:
       - name: class
-        type: "#MembersControllerGetItemsApiv2_class"
+        type: "#MembersGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerManagePortalAccessApiv2_class
+  - name: MembersManagePortalAccess_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerManagePortalAccessApiv2"]
+    symbols: ["officernd:MembersManagePortalAccess"]
 
-  - name: MembersControllerManagePortalAccessApiv2
+  - name: MembersManagePortalAccess
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1386,17 +1386,17 @@ $graph:
     doc: "Manage member portal access"
     fields:
       - name: class
-        type: "#MembersControllerManagePortalAccessApiv2_class"
+        type: "#MembersManagePortalAccess_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerUpdateCompanyApiv2_class
+  - name: MembersUpdateCompany_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerUpdateCompanyApiv2"]
+    symbols: ["officernd:MembersUpdateCompany"]
 
-  - name: MembersControllerUpdateCompanyApiv2
+  - name: MembersUpdateCompany
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1404,17 +1404,17 @@ $graph:
     doc: "Update member company"
     fields:
       - name: class
-        type: "#MembersControllerUpdateCompanyApiv2_class"
+        type: "#MembersUpdateCompany_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerUpdateItemApiv2_class
+  - name: MembersUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerUpdateItemApiv2"]
+    symbols: ["officernd:MembersUpdateItem"]
 
-  - name: MembersControllerUpdateItemApiv2
+  - name: MembersUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1422,17 +1422,17 @@ $graph:
     doc: "Update member"
     fields:
       - name: class
-        type: "#MembersControllerUpdateItemApiv2_class"
+        type: "#MembersUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembersControllerUpdateStatusApiv2_class
+  - name: MembersUpdateStatus_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembersControllerUpdateStatusApiv2"]
+    symbols: ["officernd:MembersUpdateStatus"]
 
-  - name: MembersControllerUpdateStatusApiv2
+  - name: MembersUpdateStatus
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1440,17 +1440,17 @@ $graph:
     doc: "Update member status"
     fields:
       - name: class
-        type: "#MembersControllerUpdateStatusApiv2_class"
+        type: "#MembersUpdateStatus_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembershipsControllerAddItemApiv2_class
+  - name: MembershipsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembershipsControllerAddItemApiv2"]
+    symbols: ["officernd:MembershipsAddItem"]
 
-  - name: MembershipsControllerAddItemApiv2
+  - name: MembershipsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1458,17 +1458,17 @@ $graph:
     doc: "Add a new membership"
     fields:
       - name: class
-        type: "#MembershipsControllerAddItemApiv2_class"
+        type: "#MembershipsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembershipsControllerCountApiv2_class
+  - name: MembershipsCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembershipsControllerCountApiv2"]
+    symbols: ["officernd:MembershipsCount"]
 
-  - name: MembershipsControllerCountApiv2
+  - name: MembershipsCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1476,17 +1476,17 @@ $graph:
     doc: "Get memberships count"
     fields:
       - name: class
-        type: "#MembershipsControllerCountApiv2_class"
+        type: "#MembershipsCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembershipsControllerDeleteItemApiv2_class
+  - name: MembershipsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembershipsControllerDeleteItemApiv2"]
+    symbols: ["officernd:MembershipsDeleteItem"]
 
-  - name: MembershipsControllerDeleteItemApiv2
+  - name: MembershipsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1494,17 +1494,17 @@ $graph:
     doc: "Delete a single membership"
     fields:
       - name: class
-        type: "#MembershipsControllerDeleteItemApiv2_class"
+        type: "#MembershipsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembershipsControllerGetItemApiv2_class
+  - name: MembershipsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembershipsControllerGetItemApiv2"]
+    symbols: ["officernd:MembershipsGetItem"]
 
-  - name: MembershipsControllerGetItemApiv2
+  - name: MembershipsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1512,17 +1512,17 @@ $graph:
     doc: "Get a single membership"
     fields:
       - name: class
-        type: "#MembershipsControllerGetItemApiv2_class"
+        type: "#MembershipsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembershipsControllerGetItemsApiv2_class
+  - name: MembershipsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembershipsControllerGetItemsApiv2"]
+    symbols: ["officernd:MembershipsGetItems"]
 
-  - name: MembershipsControllerGetItemsApiv2
+  - name: MembershipsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1530,17 +1530,17 @@ $graph:
     doc: "Get a list of memberships"
     fields:
       - name: class
-        type: "#MembershipsControllerGetItemsApiv2_class"
+        type: "#MembershipsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: MembershipsControllerUpdateItemApiv2_class
+  - name: MembershipsUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:MembershipsControllerUpdateItemApiv2"]
+    symbols: ["officernd:MembershipsUpdateItem"]
 
-  - name: MembershipsControllerUpdateItemApiv2
+  - name: MembershipsUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1548,17 +1548,17 @@ $graph:
     doc: "Update an existing membership"
     fields:
       - name: class
-        type: "#MembershipsControllerUpdateItemApiv2_class"
+        type: "#MembershipsUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: OpportunitiesControllerAddItemApiv2_class
+  - name: OpportunitiesAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:OpportunitiesControllerAddItemApiv2"]
+    symbols: ["officernd:OpportunitiesAddItem"]
 
-  - name: OpportunitiesControllerAddItemApiv2
+  - name: OpportunitiesAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1566,17 +1566,17 @@ $graph:
     doc: "Add new opportunity"
     fields:
       - name: class
-        type: "#OpportunitiesControllerAddItemApiv2_class"
+        type: "#OpportunitiesAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: OpportunitiesControllerCountApiv2_class
+  - name: OpportunitiesCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:OpportunitiesControllerCountApiv2"]
+    symbols: ["officernd:OpportunitiesCount"]
 
-  - name: OpportunitiesControllerCountApiv2
+  - name: OpportunitiesCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1584,17 +1584,17 @@ $graph:
     doc: "Get opportunities count"
     fields:
       - name: class
-        type: "#OpportunitiesControllerCountApiv2_class"
+        type: "#OpportunitiesCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: OpportunitiesControllerDeleteItemApiv2_class
+  - name: OpportunitiesDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:OpportunitiesControllerDeleteItemApiv2"]
+    symbols: ["officernd:OpportunitiesDeleteItem"]
 
-  - name: OpportunitiesControllerDeleteItemApiv2
+  - name: OpportunitiesDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1602,17 +1602,17 @@ $graph:
     doc: "Delete opportunity"
     fields:
       - name: class
-        type: "#OpportunitiesControllerDeleteItemApiv2_class"
+        type: "#OpportunitiesDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: OpportunitiesControllerGetItemApiv2_class
+  - name: OpportunitiesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:OpportunitiesControllerGetItemApiv2"]
+    symbols: ["officernd:OpportunitiesGetItem"]
 
-  - name: OpportunitiesControllerGetItemApiv2
+  - name: OpportunitiesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1620,17 +1620,17 @@ $graph:
     doc: "Get opportunity"
     fields:
       - name: class
-        type: "#OpportunitiesControllerGetItemApiv2_class"
+        type: "#OpportunitiesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: OpportunitiesControllerGetItemsApiv2_class
+  - name: OpportunitiesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:OpportunitiesControllerGetItemsApiv2"]
+    symbols: ["officernd:OpportunitiesGetItems"]
 
-  - name: OpportunitiesControllerGetItemsApiv2
+  - name: OpportunitiesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1638,17 +1638,17 @@ $graph:
     doc: "Get opportunities"
     fields:
       - name: class
-        type: "#OpportunitiesControllerGetItemsApiv2_class"
+        type: "#OpportunitiesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: OpportunitiesControllerUpdateItemApiv2_class
+  - name: OpportunitiesUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:OpportunitiesControllerUpdateItemApiv2"]
+    symbols: ["officernd:OpportunitiesUpdateItem"]
 
-  - name: OpportunitiesControllerUpdateItemApiv2
+  - name: OpportunitiesUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1656,17 +1656,17 @@ $graph:
     doc: "Update opportunity"
     fields:
       - name: class
-        type: "#OpportunitiesControllerUpdateItemApiv2_class"
+        type: "#OpportunitiesUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: OpportunityStatusesControllerGetItemsApiv2_class
+  - name: OpportunityStatusesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:OpportunityStatusesControllerGetItemsApiv2"]
+    symbols: ["officernd:OpportunityStatusesGetItems"]
 
-  - name: OpportunityStatusesControllerGetItemsApiv2
+  - name: OpportunityStatusesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1674,17 +1674,17 @@ $graph:
     doc: "Retrieve all opportunity statuses"
     fields:
       - name: class
-        type: "#OpportunityStatusesControllerGetItemsApiv2_class"
+        type: "#OpportunityStatusesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: OrganizationsControllerGetItemApiv2_class
+  - name: OrganizationsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:OrganizationsControllerGetItemApiv2"]
+    symbols: ["officernd:OrganizationsGetItem"]
 
-  - name: OrganizationsControllerGetItemApiv2
+  - name: OrganizationsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1692,7 +1692,7 @@ $graph:
     doc: "Get the current organization information"
     fields:
       - name: class
-        type: "#OrganizationsControllerGetItemApiv2_class"
+        type: "#OrganizationsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
@@ -1715,12 +1715,12 @@ $graph:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PassesControllerAddItemApiv2_class
+  - name: PassesAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PassesControllerAddItemApiv2"]
+    symbols: ["officernd:PassesAddItem"]
 
-  - name: PassesControllerAddItemApiv2
+  - name: PassesAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1728,17 +1728,17 @@ $graph:
     doc: "Add a new set of day passes"
     fields:
       - name: class
-        type: "#PassesControllerAddItemApiv2_class"
+        type: "#PassesAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PassesControllerDeleteItemApiv2_class
+  - name: PassesDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PassesControllerDeleteItemApiv2"]
+    symbols: ["officernd:PassesDeleteItem"]
 
-  - name: PassesControllerDeleteItemApiv2
+  - name: PassesDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1746,17 +1746,17 @@ $graph:
     doc: "Delete a set of day passes"
     fields:
       - name: class
-        type: "#PassesControllerDeleteItemApiv2_class"
+        type: "#PassesDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PassesControllerGetItemApiv2_class
+  - name: PassesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PassesControllerGetItemApiv2"]
+    symbols: ["officernd:PassesGetItem"]
 
-  - name: PassesControllerGetItemApiv2
+  - name: PassesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1764,17 +1764,17 @@ $graph:
     doc: "Get a set of day passes"
     fields:
       - name: class
-        type: "#PassesControllerGetItemApiv2_class"
+        type: "#PassesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PassesControllerGetItemsApiv2_class
+  - name: PassesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PassesControllerGetItemsApiv2"]
+    symbols: ["officernd:PassesGetItems"]
 
-  - name: PassesControllerGetItemsApiv2
+  - name: PassesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1782,17 +1782,17 @@ $graph:
     doc: "Get sets of day passes"
     fields:
       - name: class
-        type: "#PassesControllerGetItemsApiv2_class"
+        type: "#PassesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PassesControllerUpdateItemApiv2_class
+  - name: PassesUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PassesControllerUpdateItemApiv2"]
+    symbols: ["officernd:PassesUpdateItem"]
 
-  - name: PassesControllerUpdateItemApiv2
+  - name: PassesUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1800,17 +1800,17 @@ $graph:
     doc: "Update a set of day passes"
     fields:
       - name: class
-        type: "#PassesControllerUpdateItemApiv2_class"
+        type: "#PassesUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PasswordControllerChangePasswordApiv2_class
+  - name: PasswordChangePassword_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PasswordControllerChangePasswordApiv2"]
+    symbols: ["officernd:PasswordChangePassword"]
 
-  - name: PasswordControllerChangePasswordApiv2
+  - name: PasswordChangePassword
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1818,17 +1818,17 @@ $graph:
     doc: "Change password"
     fields:
       - name: class
-        type: "#PasswordControllerChangePasswordApiv2_class"
+        type: "#PasswordChangePassword_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PasswordControllerResetPasswordApiv2_class
+  - name: PasswordResetPassword_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PasswordControllerResetPasswordApiv2"]
+    symbols: ["officernd:PasswordResetPassword"]
 
-  - name: PasswordControllerResetPasswordApiv2
+  - name: PasswordResetPassword
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1836,17 +1836,17 @@ $graph:
     doc: "Reset password"
     fields:
       - name: class
-        type: "#PasswordControllerResetPasswordApiv2_class"
+        type: "#PasswordResetPassword_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentDetailsControllerAddItemApiv2_class
+  - name: PaymentDetailsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentDetailsControllerAddItemApiv2"]
+    symbols: ["officernd:PaymentDetailsAddItem"]
 
-  - name: PaymentDetailsControllerAddItemApiv2
+  - name: PaymentDetailsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1854,17 +1854,17 @@ $graph:
     doc: "Add new payment details for user"
     fields:
       - name: class
-        type: "#PaymentDetailsControllerAddItemApiv2_class"
+        type: "#PaymentDetailsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentDetailsControllerDeleteItemApiv2_class
+  - name: PaymentDetailsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentDetailsControllerDeleteItemApiv2"]
+    symbols: ["officernd:PaymentDetailsDeleteItem"]
 
-  - name: PaymentDetailsControllerDeleteItemApiv2
+  - name: PaymentDetailsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1872,17 +1872,17 @@ $graph:
     doc: "Delete payment details by id"
     fields:
       - name: class
-        type: "#PaymentDetailsControllerDeleteItemApiv2_class"
+        type: "#PaymentDetailsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentDetailsControllerGetItemsApiv2_class
+  - name: PaymentDetailsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentDetailsControllerGetItemsApiv2"]
+    symbols: ["officernd:PaymentDetailsGetItems"]
 
-  - name: PaymentDetailsControllerGetItemsApiv2
+  - name: PaymentDetailsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1890,17 +1890,17 @@ $graph:
     doc: "Get payment details for user"
     fields:
       - name: class
-        type: "#PaymentDetailsControllerGetItemsApiv2_class"
+        type: "#PaymentDetailsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentDetailsControllerRegisterItemApiv2_class
+  - name: PaymentDetailsRegisterItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentDetailsControllerRegisterItemApiv2"]
+    symbols: ["officernd:PaymentDetailsRegisterItem"]
 
-  - name: PaymentDetailsControllerRegisterItemApiv2
+  - name: PaymentDetailsRegisterItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1908,17 +1908,17 @@ $graph:
     doc: "Register pre-created Stripe payment details"
     fields:
       - name: class
-        type: "#PaymentDetailsControllerRegisterItemApiv2_class"
+        type: "#PaymentDetailsRegisterItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentGatewaysControllerAuthorizeApiv2_class
+  - name: PaymentGatewaysAuthorize_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentGatewaysControllerAuthorizeApiv2"]
+    symbols: ["officernd:PaymentGatewaysAuthorize"]
 
-  - name: PaymentGatewaysControllerAuthorizeApiv2
+  - name: PaymentGatewaysAuthorize
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1926,17 +1926,17 @@ $graph:
     doc: "Authorize payment or setup intent"
     fields:
       - name: class
-        type: "#PaymentGatewaysControllerAuthorizeApiv2_class"
+        type: "#PaymentGatewaysAuthorize_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerAddCreditAllocationApiv2_class
+  - name: PaymentsAddCreditAllocation_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerAddCreditAllocationApiv2"]
+    symbols: ["officernd:PaymentsAddCreditAllocation"]
 
-  - name: PaymentsControllerAddCreditAllocationApiv2
+  - name: PaymentsAddCreditAllocation
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1944,17 +1944,17 @@ $graph:
     doc: "Create a new allocation for credit note/overpayment"
     fields:
       - name: class
-        type: "#PaymentsControllerAddCreditAllocationApiv2_class"
+        type: "#PaymentsAddCreditAllocation_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerAddOverpaymentApiv2_class
+  - name: PaymentsAddOverpayment_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerAddOverpaymentApiv2"]
+    symbols: ["officernd:PaymentsAddOverpayment"]
 
-  - name: PaymentsControllerAddOverpaymentApiv2
+  - name: PaymentsAddOverpayment
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1962,17 +1962,17 @@ $graph:
     doc: "Create a new overpayment"
     fields:
       - name: class
-        type: "#PaymentsControllerAddOverpaymentApiv2_class"
+        type: "#PaymentsAddOverpayment_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerCountApiv2_class
+  - name: PaymentsCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerCountApiv2"]
+    symbols: ["officernd:PaymentsCount"]
 
-  - name: PaymentsControllerCountApiv2
+  - name: PaymentsCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1980,17 +1980,17 @@ $graph:
     doc: "Retrieve the payments count"
     fields:
       - name: class
-        type: "#PaymentsControllerCountApiv2_class"
+        type: "#PaymentsCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerGetItemApiv2_class
+  - name: PaymentsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerGetItemApiv2"]
+    symbols: ["officernd:PaymentsGetItem"]
 
-  - name: PaymentsControllerGetItemApiv2
+  - name: PaymentsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -1998,17 +1998,17 @@ $graph:
     doc: "Get payment by id"
     fields:
       - name: class
-        type: "#PaymentsControllerGetItemApiv2_class"
+        type: "#PaymentsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerGetItemsApiv2_class
+  - name: PaymentsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerGetItemsApiv2"]
+    symbols: ["officernd:PaymentsGetItems"]
 
-  - name: PaymentsControllerGetItemsApiv2
+  - name: PaymentsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2016,17 +2016,17 @@ $graph:
     doc: "Retrieve all payments"
     fields:
       - name: class
-        type: "#PaymentsControllerGetItemsApiv2_class"
+        type: "#PaymentsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerGetPaymentDocumentsApiv2_class
+  - name: PaymentsGetPaymentDocuments_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerGetPaymentDocumentsApiv2"]
+    symbols: ["officernd:PaymentsGetPaymentDocuments"]
 
-  - name: PaymentsControllerGetPaymentDocumentsApiv2
+  - name: PaymentsGetPaymentDocuments
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2034,17 +2034,17 @@ $graph:
     doc: "Get all documents associated with the specific invoice"
     fields:
       - name: class
-        type: "#PaymentsControllerGetPaymentDocumentsApiv2_class"
+        type: "#PaymentsGetPaymentDocuments_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerGetPaymentMethodsApiv2_class
+  - name: PaymentsGetPaymentMethods_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerGetPaymentMethodsApiv2"]
+    symbols: ["officernd:PaymentsGetPaymentMethods"]
 
-  - name: PaymentsControllerGetPaymentMethodsApiv2
+  - name: PaymentsGetPaymentMethods
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2052,17 +2052,17 @@ $graph:
     doc: "Retrieve all payment methods"
     fields:
       - name: class
-        type: "#PaymentsControllerGetPaymentMethodsApiv2_class"
+        type: "#PaymentsGetPaymentMethods_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerUpdateAllocationAccountingApiv2_class
+  - name: PaymentsUpdateAllocationAccounting_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerUpdateAllocationAccountingApiv2"]
+    symbols: ["officernd:PaymentsUpdateAllocationAccounting"]
 
-  - name: PaymentsControllerUpdateAllocationAccountingApiv2
+  - name: PaymentsUpdateAllocationAccounting
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2070,17 +2070,17 @@ $graph:
     doc: "Update allocation accounting"
     fields:
       - name: class
-        type: "#PaymentsControllerUpdateAllocationAccountingApiv2_class"
+        type: "#PaymentsUpdateAllocationAccounting_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PaymentsControllerUpdateItemApiv2_class
+  - name: PaymentsUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PaymentsControllerUpdateItemApiv2"]
+    symbols: ["officernd:PaymentsUpdateItem"]
 
-  - name: PaymentsControllerUpdateItemApiv2
+  - name: PaymentsUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2088,17 +2088,17 @@ $graph:
     doc: "Update payment"
     fields:
       - name: class
-        type: "#PaymentsControllerUpdateItemApiv2_class"
+        type: "#PaymentsUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PlansControllerCountApiv2_class
+  - name: PlansCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PlansControllerCountApiv2"]
+    symbols: ["officernd:PlansCount"]
 
-  - name: PlansControllerCountApiv2
+  - name: PlansCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2106,17 +2106,17 @@ $graph:
     doc: "Get plans count by filter"
     fields:
       - name: class
-        type: "#PlansControllerCountApiv2_class"
+        type: "#PlansCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PlansControllerGetItemApiv2_class
+  - name: PlansGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PlansControllerGetItemApiv2"]
+    symbols: ["officernd:PlansGetItem"]
 
-  - name: PlansControllerGetItemApiv2
+  - name: PlansGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2124,17 +2124,17 @@ $graph:
     doc: "Get plan"
     fields:
       - name: class
-        type: "#PlansControllerGetItemApiv2_class"
+        type: "#PlansGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PlansControllerGetItemsApiv2_class
+  - name: PlansGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PlansControllerGetItemsApiv2"]
+    symbols: ["officernd:PlansGetItems"]
 
-  - name: PlansControllerGetItemsApiv2
+  - name: PlansGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2142,17 +2142,17 @@ $graph:
     doc: "Get plans"
     fields:
       - name: class
-        type: "#PlansControllerGetItemsApiv2_class"
+        type: "#PlansGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PostsControllerAddItemApiv2_class
+  - name: PostsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PostsControllerAddItemApiv2"]
+    symbols: ["officernd:PostsAddItem"]
 
-  - name: PostsControllerAddItemApiv2
+  - name: PostsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2160,17 +2160,17 @@ $graph:
     doc: "Add a new post"
     fields:
       - name: class
-        type: "#PostsControllerAddItemApiv2_class"
+        type: "#PostsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PostsControllerDeleteItemApiv2_class
+  - name: PostsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PostsControllerDeleteItemApiv2"]
+    symbols: ["officernd:PostsDeleteItem"]
 
-  - name: PostsControllerDeleteItemApiv2
+  - name: PostsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2178,17 +2178,17 @@ $graph:
     doc: "Delete a post"
     fields:
       - name: class
-        type: "#PostsControllerDeleteItemApiv2_class"
+        type: "#PostsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PostsControllerGetItemApiv2_class
+  - name: PostsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PostsControllerGetItemApiv2"]
+    symbols: ["officernd:PostsGetItem"]
 
-  - name: PostsControllerGetItemApiv2
+  - name: PostsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2196,17 +2196,17 @@ $graph:
     doc: "Gets a post"
     fields:
       - name: class
-        type: "#PostsControllerGetItemApiv2_class"
+        type: "#PostsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: PostsControllerGetItemsApiv2_class
+  - name: PostsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:PostsControllerGetItemsApiv2"]
+    symbols: ["officernd:PostsGetItems"]
 
-  - name: PostsControllerGetItemsApiv2
+  - name: PostsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2214,17 +2214,17 @@ $graph:
     doc: "Retrieve all posts"
     fields:
       - name: class
-        type: "#PostsControllerGetItemsApiv2_class"
+        type: "#PostsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ReceptionFlowsControllerGetItemsApiv2_class
+  - name: ReceptionFlowsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ReceptionFlowsControllerGetItemsApiv2"]
+    symbols: ["officernd:ReceptionFlowsGetItems"]
 
-  - name: ReceptionFlowsControllerGetItemsApiv2
+  - name: ReceptionFlowsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2232,17 +2232,17 @@ $graph:
     doc: "Get reception flows"
     fields:
       - name: class
-        type: "#ReceptionFlowsControllerGetItemsApiv2_class"
+        type: "#ReceptionFlowsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourceRatesControllerCountApiv2_class
+  - name: ResourceRatesCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourceRatesControllerCountApiv2"]
+    symbols: ["officernd:ResourceRatesCount"]
 
-  - name: ResourceRatesControllerCountApiv2
+  - name: ResourceRatesCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2250,17 +2250,17 @@ $graph:
     doc: "Get resource rates count"
     fields:
       - name: class
-        type: "#ResourceRatesControllerCountApiv2_class"
+        type: "#ResourceRatesCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourceRatesControllerGetCancellationPolicyApiv2_class
+  - name: ResourceRatesGetCancellationPolicy_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourceRatesControllerGetCancellationPolicyApiv2"]
+    symbols: ["officernd:ResourceRatesGetCancellationPolicy"]
 
-  - name: ResourceRatesControllerGetCancellationPolicyApiv2
+  - name: ResourceRatesGetCancellationPolicy
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2268,17 +2268,17 @@ $graph:
     doc: "Retrieve the cancellation policy of a resource rate."
     fields:
       - name: class
-        type: "#ResourceRatesControllerGetCancellationPolicyApiv2_class"
+        type: "#ResourceRatesGetCancellationPolicy_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourceRatesControllerGetItemApiv2_class
+  - name: ResourceRatesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourceRatesControllerGetItemApiv2"]
+    symbols: ["officernd:ResourceRatesGetItem"]
 
-  - name: ResourceRatesControllerGetItemApiv2
+  - name: ResourceRatesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2286,17 +2286,17 @@ $graph:
     doc: "Retrieve single resource rate."
     fields:
       - name: class
-        type: "#ResourceRatesControllerGetItemApiv2_class"
+        type: "#ResourceRatesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourceRatesControllerGetItemsApiv2_class
+  - name: ResourceRatesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourceRatesControllerGetItemsApiv2"]
+    symbols: ["officernd:ResourceRatesGetItems"]
 
-  - name: ResourceRatesControllerGetItemsApiv2
+  - name: ResourceRatesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2304,17 +2304,17 @@ $graph:
     doc: "Retrieve all resource rates."
     fields:
       - name: class
-        type: "#ResourceRatesControllerGetItemsApiv2_class"
+        type: "#ResourceRatesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourceTypesControllerGetItemsApiv2_class
+  - name: ResourceTypesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourceTypesControllerGetItemsApiv2"]
+    symbols: ["officernd:ResourceTypesGetItems"]
 
-  - name: ResourceTypesControllerGetItemsApiv2
+  - name: ResourceTypesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2322,17 +2322,17 @@ $graph:
     doc: "Get resource types"
     fields:
       - name: class
-        type: "#ResourceTypesControllerGetItemsApiv2_class"
+        type: "#ResourceTypesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourcesControllerCountApiv2_class
+  - name: ResourcesCount_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourcesControllerCountApiv2"]
+    symbols: ["officernd:ResourcesCount"]
 
-  - name: ResourcesControllerCountApiv2
+  - name: ResourcesCount
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2340,17 +2340,17 @@ $graph:
     doc: "Get resources count"
     fields:
       - name: class
-        type: "#ResourcesControllerCountApiv2_class"
+        type: "#ResourcesCount_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourcesControllerGetItemApiv2_class
+  - name: ResourcesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourcesControllerGetItemApiv2"]
+    symbols: ["officernd:ResourcesGetItem"]
 
-  - name: ResourcesControllerGetItemApiv2
+  - name: ResourcesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2358,17 +2358,17 @@ $graph:
     doc: "Retrieve single resource."
     fields:
       - name: class
-        type: "#ResourcesControllerGetItemApiv2_class"
+        type: "#ResourcesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourcesControllerGetItemsApiv2_class
+  - name: ResourcesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourcesControllerGetItemsApiv2"]
+    symbols: ["officernd:ResourcesGetItems"]
 
-  - name: ResourcesControllerGetItemsApiv2
+  - name: ResourcesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2376,17 +2376,17 @@ $graph:
     doc: "Retrieve all resources."
     fields:
       - name: class
-        type: "#ResourcesControllerGetItemsApiv2_class"
+        type: "#ResourcesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: ResourcesControllerGetResourceStatusApiv2_class
+  - name: ResourcesGetResourceStatus_class
     type: enum
     inVocab: false
-    symbols: ["officernd:ResourcesControllerGetResourceStatusApiv2"]
+    symbols: ["officernd:ResourcesGetResourceStatus"]
 
-  - name: ResourcesControllerGetResourceStatusApiv2
+  - name: ResourcesGetResourceStatus
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2394,17 +2394,17 @@ $graph:
     doc: "Get resource status"
     fields:
       - name: class
-        type: "#ResourcesControllerGetResourceStatusApiv2_class"
+        type: "#ResourcesGetResourceStatus_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: RevenueAccountsControllerGetItemApiv2_class
+  - name: RevenueAccountsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:RevenueAccountsControllerGetItemApiv2"]
+    symbols: ["officernd:RevenueAccountsGetItem"]
 
-  - name: RevenueAccountsControllerGetItemApiv2
+  - name: RevenueAccountsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2412,17 +2412,17 @@ $graph:
     doc: "Get single revenue account."
     fields:
       - name: class
-        type: "#RevenueAccountsControllerGetItemApiv2_class"
+        type: "#RevenueAccountsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: RevenueAccountsControllerGetItemsApiv2_class
+  - name: RevenueAccountsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:RevenueAccountsControllerGetItemsApiv2"]
+    symbols: ["officernd:RevenueAccountsGetItems"]
 
-  - name: RevenueAccountsControllerGetItemsApiv2
+  - name: RevenueAccountsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2430,17 +2430,17 @@ $graph:
     doc: "Retrieve all revenue accounts."
     fields:
       - name: class
-        type: "#RevenueAccountsControllerGetItemsApiv2_class"
+        type: "#RevenueAccountsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: SecondaryCurrenciesControllerGetItemApiv2_class
+  - name: SecondaryCurrenciesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:SecondaryCurrenciesControllerGetItemApiv2"]
+    symbols: ["officernd:SecondaryCurrenciesGetItem"]
 
-  - name: SecondaryCurrenciesControllerGetItemApiv2
+  - name: SecondaryCurrenciesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2448,17 +2448,17 @@ $graph:
     doc: "Get a specific secondary currency"
     fields:
       - name: class
-        type: "#SecondaryCurrenciesControllerGetItemApiv2_class"
+        type: "#SecondaryCurrenciesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: SecondaryCurrenciesControllerGetItemsApiv2_class
+  - name: SecondaryCurrenciesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:SecondaryCurrenciesControllerGetItemsApiv2"]
+    symbols: ["officernd:SecondaryCurrenciesGetItems"]
 
-  - name: SecondaryCurrenciesControllerGetItemsApiv2
+  - name: SecondaryCurrenciesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2466,17 +2466,17 @@ $graph:
     doc: "Retrieve all secondary currencies"
     fields:
       - name: class
-        type: "#SecondaryCurrenciesControllerGetItemsApiv2_class"
+        type: "#SecondaryCurrenciesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: SecondaryCurrenciesControllerUpdateItemApiv2_class
+  - name: SecondaryCurrenciesUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:SecondaryCurrenciesControllerUpdateItemApiv2"]
+    symbols: ["officernd:SecondaryCurrenciesUpdateItem"]
 
-  - name: SecondaryCurrenciesControllerUpdateItemApiv2
+  - name: SecondaryCurrenciesUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2484,17 +2484,17 @@ $graph:
     doc: "Update a secondary currency"
     fields:
       - name: class
-        type: "#SecondaryCurrenciesControllerUpdateItemApiv2_class"
+        type: "#SecondaryCurrenciesUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TaxRatesControllerGetItemApiv2_class
+  - name: TaxRatesGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TaxRatesControllerGetItemApiv2"]
+    symbols: ["officernd:TaxRatesGetItem"]
 
-  - name: TaxRatesControllerGetItemApiv2
+  - name: TaxRatesGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2502,17 +2502,17 @@ $graph:
     doc: "Get single tax rate."
     fields:
       - name: class
-        type: "#TaxRatesControllerGetItemApiv2_class"
+        type: "#TaxRatesGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TaxRatesControllerGetItemsApiv2_class
+  - name: TaxRatesGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TaxRatesControllerGetItemsApiv2"]
+    symbols: ["officernd:TaxRatesGetItems"]
 
-  - name: TaxRatesControllerGetItemsApiv2
+  - name: TaxRatesGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2520,17 +2520,17 @@ $graph:
     doc: "Retrieve all tax rates."
     fields:
       - name: class
-        type: "#TaxRatesControllerGetItemsApiv2_class"
+        type: "#TaxRatesGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TicketCommentsControllerAddCommentApiv2_class
+  - name: TicketCommentsAddComment_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TicketCommentsControllerAddCommentApiv2"]
+    symbols: ["officernd:TicketCommentsAddComment"]
 
-  - name: TicketCommentsControllerAddCommentApiv2
+  - name: TicketCommentsAddComment
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2538,17 +2538,17 @@ $graph:
     doc: "Post a comment/comments about a specific ticket"
     fields:
       - name: class
-        type: "#TicketCommentsControllerAddCommentApiv2_class"
+        type: "#TicketCommentsAddComment_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TicketCommentsControllerGetItemsApiv2_class
+  - name: TicketCommentsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TicketCommentsControllerGetItemsApiv2"]
+    symbols: ["officernd:TicketCommentsGetItems"]
 
-  - name: TicketCommentsControllerGetItemsApiv2
+  - name: TicketCommentsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2556,17 +2556,17 @@ $graph:
     doc: "Retrieve all comments for a ticket"
     fields:
       - name: class
-        type: "#TicketCommentsControllerGetItemsApiv2_class"
+        type: "#TicketCommentsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TicketOptionsControllerGetItemsApiv2_class
+  - name: TicketOptionsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TicketOptionsControllerGetItemsApiv2"]
+    symbols: ["officernd:TicketOptionsGetItems"]
 
-  - name: TicketOptionsControllerGetItemsApiv2
+  - name: TicketOptionsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2574,17 +2574,17 @@ $graph:
     doc: "Get ticket options"
     fields:
       - name: class
-        type: "#TicketOptionsControllerGetItemsApiv2_class"
+        type: "#TicketOptionsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TicketsControllerAddItemApiv2_class
+  - name: TicketsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TicketsControllerAddItemApiv2"]
+    symbols: ["officernd:TicketsAddItem"]
 
-  - name: TicketsControllerAddItemApiv2
+  - name: TicketsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2592,17 +2592,17 @@ $graph:
     doc: "Add a new ticket"
     fields:
       - name: class
-        type: "#TicketsControllerAddItemApiv2_class"
+        type: "#TicketsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TicketsControllerCountByApiv2_class
+  - name: TicketsCountBy_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TicketsControllerCountByApiv2"]
+    symbols: ["officernd:TicketsCountBy"]
 
-  - name: TicketsControllerCountByApiv2
+  - name: TicketsCountBy
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2610,17 +2610,17 @@ $graph:
     doc: "Get tickets count by filter"
     fields:
       - name: class
-        type: "#TicketsControllerCountByApiv2_class"
+        type: "#TicketsCountBy_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TicketsControllerGetItemApiv2_class
+  - name: TicketsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TicketsControllerGetItemApiv2"]
+    symbols: ["officernd:TicketsGetItem"]
 
-  - name: TicketsControllerGetItemApiv2
+  - name: TicketsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2628,17 +2628,17 @@ $graph:
     doc: "Get ticket"
     fields:
       - name: class
-        type: "#TicketsControllerGetItemApiv2_class"
+        type: "#TicketsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TicketsControllerGetItemsApiv2_class
+  - name: TicketsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TicketsControllerGetItemsApiv2"]
+    symbols: ["officernd:TicketsGetItems"]
 
-  - name: TicketsControllerGetItemsApiv2
+  - name: TicketsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2646,17 +2646,17 @@ $graph:
     doc: "Get tickets"
     fields:
       - name: class
-        type: "#TicketsControllerGetItemsApiv2_class"
+        type: "#TicketsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: TicketsControllerUpdateItemApiv2_class
+  - name: TicketsUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:TicketsControllerUpdateItemApiv2"]
+    symbols: ["officernd:TicketsUpdateItem"]
 
-  - name: TicketsControllerUpdateItemApiv2
+  - name: TicketsUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2664,17 +2664,17 @@ $graph:
     doc: "Update an existing ticket"
     fields:
       - name: class
-        type: "#TicketsControllerUpdateItemApiv2_class"
+        type: "#TicketsUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: VisitorsControllerAddItemApiv2_class
+  - name: VisitorsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:VisitorsControllerAddItemApiv2"]
+    symbols: ["officernd:VisitorsAddItem"]
 
-  - name: VisitorsControllerAddItemApiv2
+  - name: VisitorsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2682,17 +2682,17 @@ $graph:
     doc: "Add new visitor"
     fields:
       - name: class
-        type: "#VisitorsControllerAddItemApiv2_class"
+        type: "#VisitorsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: VisitorsControllerDeleteItemApiv2_class
+  - name: VisitorsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:VisitorsControllerDeleteItemApiv2"]
+    symbols: ["officernd:VisitorsDeleteItem"]
 
-  - name: VisitorsControllerDeleteItemApiv2
+  - name: VisitorsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2700,17 +2700,17 @@ $graph:
     doc: "Delete visitor"
     fields:
       - name: class
-        type: "#VisitorsControllerDeleteItemApiv2_class"
+        type: "#VisitorsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: VisitorsControllerGetItemApiv2_class
+  - name: VisitorsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:VisitorsControllerGetItemApiv2"]
+    symbols: ["officernd:VisitorsGetItem"]
 
-  - name: VisitorsControllerGetItemApiv2
+  - name: VisitorsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2718,17 +2718,17 @@ $graph:
     doc: "Get visitor"
     fields:
       - name: class
-        type: "#VisitorsControllerGetItemApiv2_class"
+        type: "#VisitorsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: VisitorsControllerGetItemsApiv2_class
+  - name: VisitorsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:VisitorsControllerGetItemsApiv2"]
+    symbols: ["officernd:VisitorsGetItems"]
 
-  - name: VisitorsControllerGetItemsApiv2
+  - name: VisitorsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2736,17 +2736,17 @@ $graph:
     doc: "Get visitors"
     fields:
       - name: class
-        type: "#VisitorsControllerGetItemsApiv2_class"
+        type: "#VisitorsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: VisitsControllerAddItemApiv2_class
+  - name: VisitsAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:VisitsControllerAddItemApiv2"]
+    symbols: ["officernd:VisitsAddItem"]
 
-  - name: VisitsControllerAddItemApiv2
+  - name: VisitsAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2754,17 +2754,17 @@ $graph:
     doc: "Add new visit"
     fields:
       - name: class
-        type: "#VisitsControllerAddItemApiv2_class"
+        type: "#VisitsAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: VisitsControllerDeleteItemApiv2_class
+  - name: VisitsDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:VisitsControllerDeleteItemApiv2"]
+    symbols: ["officernd:VisitsDeleteItem"]
 
-  - name: VisitsControllerDeleteItemApiv2
+  - name: VisitsDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2772,17 +2772,17 @@ $graph:
     doc: "Delete visit"
     fields:
       - name: class
-        type: "#VisitsControllerDeleteItemApiv2_class"
+        type: "#VisitsDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: VisitsControllerGetItemApiv2_class
+  - name: VisitsGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:VisitsControllerGetItemApiv2"]
+    symbols: ["officernd:VisitsGetItem"]
 
-  - name: VisitsControllerGetItemApiv2
+  - name: VisitsGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2790,17 +2790,17 @@ $graph:
     doc: "Get visit"
     fields:
       - name: class
-        type: "#VisitsControllerGetItemApiv2_class"
+        type: "#VisitsGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: VisitsControllerGetItemsApiv2_class
+  - name: VisitsGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:VisitsControllerGetItemsApiv2"]
+    symbols: ["officernd:VisitsGetItems"]
 
-  - name: VisitsControllerGetItemsApiv2
+  - name: VisitsGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2808,17 +2808,17 @@ $graph:
     doc: "Get visits"
     fields:
       - name: class
-        type: "#VisitsControllerGetItemsApiv2_class"
+        type: "#VisitsGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: WebhooksControllerAddItemApiv2_class
+  - name: WebhooksAddItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:WebhooksControllerAddItemApiv2"]
+    symbols: ["officernd:WebhooksAddItem"]
 
-  - name: WebhooksControllerAddItemApiv2
+  - name: WebhooksAddItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2826,17 +2826,17 @@ $graph:
     doc: "Add a new webhook"
     fields:
       - name: class
-        type: "#WebhooksControllerAddItemApiv2_class"
+        type: "#WebhooksAddItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: WebhooksControllerDeleteItemApiv2_class
+  - name: WebhooksDeleteItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:WebhooksControllerDeleteItemApiv2"]
+    symbols: ["officernd:WebhooksDeleteItem"]
 
-  - name: WebhooksControllerDeleteItemApiv2
+  - name: WebhooksDeleteItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2844,17 +2844,17 @@ $graph:
     doc: "Delete a single webhook"
     fields:
       - name: class
-        type: "#WebhooksControllerDeleteItemApiv2_class"
+        type: "#WebhooksDeleteItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: WebhooksControllerGetItemApiv2_class
+  - name: WebhooksGetItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:WebhooksControllerGetItemApiv2"]
+    symbols: ["officernd:WebhooksGetItem"]
 
-  - name: WebhooksControllerGetItemApiv2
+  - name: WebhooksGetItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2862,17 +2862,17 @@ $graph:
     doc: "Get a single webhook"
     fields:
       - name: class
-        type: "#WebhooksControllerGetItemApiv2_class"
+        type: "#WebhooksGetItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: WebhooksControllerGetItemsApiv2_class
+  - name: WebhooksGetItems_class
     type: enum
     inVocab: false
-    symbols: ["officernd:WebhooksControllerGetItemsApiv2"]
+    symbols: ["officernd:WebhooksGetItems"]
 
-  - name: WebhooksControllerGetItemsApiv2
+  - name: WebhooksGetItems
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2880,17 +2880,17 @@ $graph:
     doc: "Get a list of webhooks"
     fields:
       - name: class
-        type: "#WebhooksControllerGetItemsApiv2_class"
+        type: "#WebhooksGetItems_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
 
-  - name: WebhooksControllerUpdateItemApiv2_class
+  - name: WebhooksUpdateItem_class
     type: enum
     inVocab: false
-    symbols: ["officernd:WebhooksControllerUpdateItemApiv2"]
+    symbols: ["officernd:WebhooksUpdateItem"]
 
-  - name: WebhooksControllerUpdateItemApiv2
+  - name: WebhooksUpdateItem
     type: record
     inVocab: false
     extends: cwl:Operation
@@ -2898,7 +2898,7 @@ $graph:
     doc: "Update an existing webhook"
     fields:
       - name: class
-        type: "#WebhooksControllerUpdateItemApiv2_class"
+        type: "#WebhooksUpdateItem_class"
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"

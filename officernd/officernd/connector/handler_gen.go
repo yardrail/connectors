@@ -22,494 +22,494 @@ type InterfaceClient struct {
 type Function string
 
 const (
-	FnAmenitiesControllerGetItemApiv2                   Function = "amenities-controller-get-item-apiv2"
-	FnAmenitiesControllerGetItemsApiv2                  Function = "amenities-controller-get-items-apiv2"
-	FnAssignmentsControllerAddItemApiv2                 Function = "assignments-controller-add-item-apiv2"
-	FnAssignmentsControllerDeleteItemApiv2              Function = "assignments-controller-delete-item-apiv2"
-	FnAssignmentsControllerGetItemsApiv2                Function = "assignments-controller-get-items-apiv2"
-	FnAuthControllerImpersonateMemberApiv2              Function = "auth-controller-impersonate-member-apiv2"
-	FnAuthControllerSigninApiv2                         Function = "auth-controller-signin-apiv2"
-	FnAuthControllerSignupApiv2                         Function = "auth-controller-signup-apiv2"
-	FnAuthControllerVerifyTokenApiv2                    Function = "auth-controller-verify-token-apiv2"
-	FnBenefitsControllerCountApiv2                      Function = "benefits-controller-count-apiv2"
-	FnBenefitsControllerGetItemApiv2                    Function = "benefits-controller-get-item-apiv2"
-	FnBenefitsControllerGetItemsApiv2                   Function = "benefits-controller-get-items-apiv2"
-	FnBillingSettingsControllerGetBillingSettingsApiv2  Function = "billing-settings-controller-get-billing-settings-apiv2"
-	FnBookingsControllerAddItemApiv2                    Function = "bookings-controller-add-item-apiv2"
-	FnBookingsControllerCancelBookingApiv2              Function = "bookings-controller-cancel-booking-apiv2"
-	FnBookingsControllerCountApiv2                      Function = "bookings-controller-count-apiv2"
-	FnBookingsControllerDeleteItemApiv2                 Function = "bookings-controller-delete-item-apiv2"
-	FnBookingsControllerGetItemApiv2                    Function = "bookings-controller-get-item-apiv2"
-	FnBookingsControllerGetItemsApiv2                   Function = "bookings-controller-get-items-apiv2"
-	FnBookingsControllerGetOccurrencesApiv2             Function = "bookings-controller-get-occurrences-apiv2"
-	FnBookingsControllerUpdateItemApiv2                 Function = "bookings-controller-update-item-apiv2"
-	FnBookingsControllerValidateBookingApiv2            Function = "bookings-controller-validate-booking-apiv2"
-	FnBusinessHoursControllerGetItemsApiv2              Function = "business-hours-controller-get-items-apiv2"
-	FnChargesControllerAddItemApiv2                     Function = "charges-controller-add-item-apiv2"
-	FnChargesControllerDeleteItemApiv2                  Function = "charges-controller-delete-item-apiv2"
-	FnChargesControllerGetItemsApiv2                    Function = "charges-controller-get-items-apiv2"
-	FnChargesControllerUpdateItemApiv2                  Function = "charges-controller-update-item-apiv2"
-	FnCheckinsControllerCheckinMemberApiv2              Function = "checkins-controller-checkin-member-apiv2"
-	FnCheckinsControllerCheckoutApiv2                   Function = "checkins-controller-checkout-apiv2"
-	FnCheckinsControllerGetItemApiv2                    Function = "checkins-controller-get-item-apiv2"
-	FnCheckinsControllerGetItemsApiv2                   Function = "checkins-controller-get-items-apiv2"
-	FnCheckinsControllerGetVisitorCheckinsApiv2         Function = "checkins-controller-get-visitor-checkins-apiv2"
-	FnCheckoutControllerCheckoutApiv2                   Function = "checkout-controller-checkout-apiv2"
-	FnCheckoutControllerGetCheckoutSummaryApiv2         Function = "checkout-controller-get-checkout-summary-apiv2"
-	FnCoinsControllerGetCoinStatsApiv2                  Function = "coins-controller-get-coin-stats-apiv2"
-	FnCompaniesControllerAddItemApiv2                   Function = "companies-controller-add-item-apiv2"
-	FnCompaniesControllerDeleteItemApiv2                Function = "companies-controller-delete-item-apiv2"
-	FnCompaniesControllerGetItemApiv2                   Function = "companies-controller-get-item-apiv2"
-	FnCompaniesControllerGetItemsApiv2                  Function = "companies-controller-get-items-apiv2"
-	FnCompaniesControllerUpdateItemApiv2                Function = "companies-controller-update-item-apiv2"
-	FnContractsControllerAddItemApiv2                   Function = "contracts-controller-add-item-apiv2"
-	FnContractsControllerCountApiv2                     Function = "contracts-controller-count-apiv2"
-	FnContractsControllerDeleteItemApiv2                Function = "contracts-controller-delete-item-apiv2"
-	FnContractsControllerGetItemApiv2                   Function = "contracts-controller-get-item-apiv2"
-	FnContractsControllerGetItemsApiv2                  Function = "contracts-controller-get-items-apiv2"
-	FnContractsControllerSignItemApiv2                  Function = "contracts-controller-sign-item-apiv2"
-	FnContractsControllerTerminateItemApiv2             Function = "contracts-controller-terminate-item-apiv2"
-	FnContractsControllerUpdateItemApiv2                Function = "contracts-controller-update-item-apiv2"
-	FnCreditsControllerAddItemApiv2                     Function = "credits-controller-add-item-apiv2"
-	FnCreditsControllerDeleteItemApiv2                  Function = "credits-controller-delete-item-apiv2"
-	FnCreditsControllerGetItemApiv2                     Function = "credits-controller-get-item-apiv2"
-	FnCreditsControllerGetItemsApiv2                    Function = "credits-controller-get-items-apiv2"
-	FnCreditsControllerUpdateItemApiv2                  Function = "credits-controller-update-item-apiv2"
-	FnCustomPropertiesControllerGetItemsApiv2           Function = "custom-properties-controller-get-items-apiv2"
-	FnEventsControllerAddItemApiv2                      Function = "events-controller-add-item-apiv2"
-	FnEventsControllerCountApiv2                        Function = "events-controller-count-apiv2"
-	FnEventsControllerDeleteItemApiv2                   Function = "events-controller-delete-item-apiv2"
-	FnEventsControllerGetItemApiv2                      Function = "events-controller-get-item-apiv2"
-	FnEventsControllerGetItemsApiv2                     Function = "events-controller-get-items-apiv2"
-	FnEventsControllerUpdateItemApiv2                   Function = "events-controller-update-item-apiv2"
-	FnFeesControllerAddItemApiv2                        Function = "fees-controller-add-item-apiv2"
-	FnFeesControllerCountApiv2                          Function = "fees-controller-count-apiv2"
-	FnFeesControllerDeleteItemApiv2                     Function = "fees-controller-delete-item-apiv2"
-	FnFeesControllerGetItemApiv2                        Function = "fees-controller-get-item-apiv2"
-	FnFeesControllerGetItemsApiv2                       Function = "fees-controller-get-items-apiv2"
-	FnFeesControllerUpdateItemApiv2                     Function = "fees-controller-update-item-apiv2"
-	FnFloorsControllerGetItemApiv2                      Function = "floors-controller-get-item-apiv2"
-	FnFloorsControllerGetItemsApiv2                     Function = "floors-controller-get-items-apiv2"
-	FnIntegrationsControllerGetItemApiv2                Function = "integrations-controller-get-item-apiv2"
-	FnLocationsControllerGetItemApiv2                   Function = "locations-controller-get-item-apiv2"
-	FnLocationsControllerGetItemsApiv2                  Function = "locations-controller-get-items-apiv2"
-	FnMembersControllerAddItemApiv2                     Function = "members-controller-add-item-apiv2"
-	FnMembersControllerCountByApiv2                     Function = "members-controller-count-by-apiv2"
-	FnMembersControllerDeleteItemApiv2                  Function = "members-controller-delete-item-apiv2"
-	FnMembersControllerGetItemApiv2                     Function = "members-controller-get-item-apiv2"
-	FnMembersControllerGetItemsApiv2                    Function = "members-controller-get-items-apiv2"
-	FnMembersControllerManagePortalAccessApiv2          Function = "members-controller-manage-portal-access-apiv2"
-	FnMembersControllerUpdateCompanyApiv2               Function = "members-controller-update-company-apiv2"
-	FnMembersControllerUpdateItemApiv2                  Function = "members-controller-update-item-apiv2"
-	FnMembersControllerUpdateStatusApiv2                Function = "members-controller-update-status-apiv2"
-	FnMembershipsControllerAddItemApiv2                 Function = "memberships-controller-add-item-apiv2"
-	FnMembershipsControllerCountApiv2                   Function = "memberships-controller-count-apiv2"
-	FnMembershipsControllerDeleteItemApiv2              Function = "memberships-controller-delete-item-apiv2"
-	FnMembershipsControllerGetItemApiv2                 Function = "memberships-controller-get-item-apiv2"
-	FnMembershipsControllerGetItemsApiv2                Function = "memberships-controller-get-items-apiv2"
-	FnMembershipsControllerUpdateItemApiv2              Function = "memberships-controller-update-item-apiv2"
-	FnOpportunitiesControllerAddItemApiv2               Function = "opportunities-controller-add-item-apiv2"
-	FnOpportunitiesControllerCountApiv2                 Function = "opportunities-controller-count-apiv2"
-	FnOpportunitiesControllerDeleteItemApiv2            Function = "opportunities-controller-delete-item-apiv2"
-	FnOpportunitiesControllerGetItemApiv2               Function = "opportunities-controller-get-item-apiv2"
-	FnOpportunitiesControllerGetItemsApiv2              Function = "opportunities-controller-get-items-apiv2"
-	FnOpportunitiesControllerUpdateItemApiv2            Function = "opportunities-controller-update-item-apiv2"
-	FnOpportunityStatusesControllerGetItemsApiv2        Function = "opportunity-statuses-controller-get-items-apiv2"
-	FnOrganizationsControllerGetItemApiv2               Function = "organizations-controller-get-item-apiv2"
-	FnPOSTGenerateToken                                 Function = "p-o-s-t-generate-token"
-	FnPassesControllerAddItemApiv2                      Function = "passes-controller-add-item-apiv2"
-	FnPassesControllerDeleteItemApiv2                   Function = "passes-controller-delete-item-apiv2"
-	FnPassesControllerGetItemApiv2                      Function = "passes-controller-get-item-apiv2"
-	FnPassesControllerGetItemsApiv2                     Function = "passes-controller-get-items-apiv2"
-	FnPassesControllerUpdateItemApiv2                   Function = "passes-controller-update-item-apiv2"
-	FnPasswordControllerChangePasswordApiv2             Function = "password-controller-change-password-apiv2"
-	FnPasswordControllerResetPasswordApiv2              Function = "password-controller-reset-password-apiv2"
-	FnPaymentDetailsControllerAddItemApiv2              Function = "payment-details-controller-add-item-apiv2"
-	FnPaymentDetailsControllerDeleteItemApiv2           Function = "payment-details-controller-delete-item-apiv2"
-	FnPaymentDetailsControllerGetItemsApiv2             Function = "payment-details-controller-get-items-apiv2"
-	FnPaymentDetailsControllerRegisterItemApiv2         Function = "payment-details-controller-register-item-apiv2"
-	FnPaymentGatewaysControllerAuthorizeApiv2           Function = "payment-gateways-controller-authorize-apiv2"
-	FnPaymentsControllerAddCreditAllocationApiv2        Function = "payments-controller-add-credit-allocation-apiv2"
-	FnPaymentsControllerAddOverpaymentApiv2             Function = "payments-controller-add-overpayment-apiv2"
-	FnPaymentsControllerCountApiv2                      Function = "payments-controller-count-apiv2"
-	FnPaymentsControllerGetItemApiv2                    Function = "payments-controller-get-item-apiv2"
-	FnPaymentsControllerGetItemsApiv2                   Function = "payments-controller-get-items-apiv2"
-	FnPaymentsControllerGetPaymentDocumentsApiv2        Function = "payments-controller-get-payment-documents-apiv2"
-	FnPaymentsControllerGetPaymentMethodsApiv2          Function = "payments-controller-get-payment-methods-apiv2"
-	FnPaymentsControllerUpdateAllocationAccountingApiv2 Function = "payments-controller-update-allocation-accounting-apiv2"
-	FnPaymentsControllerUpdateItemApiv2                 Function = "payments-controller-update-item-apiv2"
-	FnPlansControllerCountApiv2                         Function = "plans-controller-count-apiv2"
-	FnPlansControllerGetItemApiv2                       Function = "plans-controller-get-item-apiv2"
-	FnPlansControllerGetItemsApiv2                      Function = "plans-controller-get-items-apiv2"
-	FnPostsControllerAddItemApiv2                       Function = "posts-controller-add-item-apiv2"
-	FnPostsControllerDeleteItemApiv2                    Function = "posts-controller-delete-item-apiv2"
-	FnPostsControllerGetItemApiv2                       Function = "posts-controller-get-item-apiv2"
-	FnPostsControllerGetItemsApiv2                      Function = "posts-controller-get-items-apiv2"
-	FnReceptionFlowsControllerGetItemsApiv2             Function = "reception-flows-controller-get-items-apiv2"
-	FnResourceRatesControllerCountApiv2                 Function = "resource-rates-controller-count-apiv2"
-	FnResourceRatesControllerGetCancellationPolicyApiv2 Function = "resource-rates-controller-get-cancellation-policy-apiv2"
-	FnResourceRatesControllerGetItemApiv2               Function = "resource-rates-controller-get-item-apiv2"
-	FnResourceRatesControllerGetItemsApiv2              Function = "resource-rates-controller-get-items-apiv2"
-	FnResourceTypesControllerGetItemsApiv2              Function = "resource-types-controller-get-items-apiv2"
-	FnResourcesControllerCountApiv2                     Function = "resources-controller-count-apiv2"
-	FnResourcesControllerGetItemApiv2                   Function = "resources-controller-get-item-apiv2"
-	FnResourcesControllerGetItemsApiv2                  Function = "resources-controller-get-items-apiv2"
-	FnResourcesControllerGetResourceStatusApiv2         Function = "resources-controller-get-resource-status-apiv2"
-	FnRevenueAccountsControllerGetItemApiv2             Function = "revenue-accounts-controller-get-item-apiv2"
-	FnRevenueAccountsControllerGetItemsApiv2            Function = "revenue-accounts-controller-get-items-apiv2"
-	FnSecondaryCurrenciesControllerGetItemApiv2         Function = "secondary-currencies-controller-get-item-apiv2"
-	FnSecondaryCurrenciesControllerGetItemsApiv2        Function = "secondary-currencies-controller-get-items-apiv2"
-	FnSecondaryCurrenciesControllerUpdateItemApiv2      Function = "secondary-currencies-controller-update-item-apiv2"
-	FnTaxRatesControllerGetItemApiv2                    Function = "tax-rates-controller-get-item-apiv2"
-	FnTaxRatesControllerGetItemsApiv2                   Function = "tax-rates-controller-get-items-apiv2"
-	FnTicketCommentsControllerAddCommentApiv2           Function = "ticket-comments-controller-add-comment-apiv2"
-	FnTicketCommentsControllerGetItemsApiv2             Function = "ticket-comments-controller-get-items-apiv2"
-	FnTicketOptionsControllerGetItemsApiv2              Function = "ticket-options-controller-get-items-apiv2"
-	FnTicketsControllerAddItemApiv2                     Function = "tickets-controller-add-item-apiv2"
-	FnTicketsControllerCountByApiv2                     Function = "tickets-controller-count-by-apiv2"
-	FnTicketsControllerGetItemApiv2                     Function = "tickets-controller-get-item-apiv2"
-	FnTicketsControllerGetItemsApiv2                    Function = "tickets-controller-get-items-apiv2"
-	FnTicketsControllerUpdateItemApiv2                  Function = "tickets-controller-update-item-apiv2"
-	FnVisitorsControllerAddItemApiv2                    Function = "visitors-controller-add-item-apiv2"
-	FnVisitorsControllerDeleteItemApiv2                 Function = "visitors-controller-delete-item-apiv2"
-	FnVisitorsControllerGetItemApiv2                    Function = "visitors-controller-get-item-apiv2"
-	FnVisitorsControllerGetItemsApiv2                   Function = "visitors-controller-get-items-apiv2"
-	FnVisitsControllerAddItemApiv2                      Function = "visits-controller-add-item-apiv2"
-	FnVisitsControllerDeleteItemApiv2                   Function = "visits-controller-delete-item-apiv2"
-	FnVisitsControllerGetItemApiv2                      Function = "visits-controller-get-item-apiv2"
-	FnVisitsControllerGetItemsApiv2                     Function = "visits-controller-get-items-apiv2"
-	FnWebhooksControllerAddItemApiv2                    Function = "webhooks-controller-add-item-apiv2"
-	FnWebhooksControllerDeleteItemApiv2                 Function = "webhooks-controller-delete-item-apiv2"
-	FnWebhooksControllerGetItemApiv2                    Function = "webhooks-controller-get-item-apiv2"
-	FnWebhooksControllerGetItemsApiv2                   Function = "webhooks-controller-get-items-apiv2"
-	FnWebhooksControllerUpdateItemApiv2                 Function = "webhooks-controller-update-item-apiv2"
+	FnAmenitiesGetItem                   Function = "amenities-get-item"
+	FnAmenitiesGetItems                  Function = "amenities-get-items"
+	FnAssignmentsAddItem                 Function = "assignments-add-item"
+	FnAssignmentsDeleteItem              Function = "assignments-delete-item"
+	FnAssignmentsGetItems                Function = "assignments-get-items"
+	FnAuthImpersonateMember              Function = "auth-impersonate-member"
+	FnAuthSignin                         Function = "auth-signin"
+	FnAuthSignup                         Function = "auth-signup"
+	FnAuthVerifyToken                    Function = "auth-verify-token"
+	FnBenefitsCount                      Function = "benefits-count"
+	FnBenefitsGetItem                    Function = "benefits-get-item"
+	FnBenefitsGetItems                   Function = "benefits-get-items"
+	FnBillingSettingsGetBillingSettings  Function = "billing-settings-get-billing-settings"
+	FnBookingsAddItem                    Function = "bookings-add-item"
+	FnBookingsCancelBooking              Function = "bookings-cancel-booking"
+	FnBookingsCount                      Function = "bookings-count"
+	FnBookingsDeleteItem                 Function = "bookings-delete-item"
+	FnBookingsGetItem                    Function = "bookings-get-item"
+	FnBookingsGetItems                   Function = "bookings-get-items"
+	FnBookingsGetOccurrences             Function = "bookings-get-occurrences"
+	FnBookingsUpdateItem                 Function = "bookings-update-item"
+	FnBookingsValidateBooking            Function = "bookings-validate-booking"
+	FnBusinessHoursGetItems              Function = "business-hours-get-items"
+	FnChargesAddItem                     Function = "charges-add-item"
+	FnChargesDeleteItem                  Function = "charges-delete-item"
+	FnChargesGetItems                    Function = "charges-get-items"
+	FnChargesUpdateItem                  Function = "charges-update-item"
+	FnCheckinsCheckinMember              Function = "checkins-checkin-member"
+	FnCheckinsCheckout                   Function = "checkins-checkout"
+	FnCheckinsGetItem                    Function = "checkins-get-item"
+	FnCheckinsGetItems                   Function = "checkins-get-items"
+	FnCheckinsGetVisitorCheckins         Function = "checkins-get-visitor-checkins"
+	FnCheckoutCheckout                   Function = "checkout-checkout"
+	FnCheckoutGetCheckoutSummary         Function = "checkout-get-checkout-summary"
+	FnCoinsGetCoinStats                  Function = "coins-get-coin-stats"
+	FnCompaniesAddItem                   Function = "companies-add-item"
+	FnCompaniesDeleteItem                Function = "companies-delete-item"
+	FnCompaniesGetItem                   Function = "companies-get-item"
+	FnCompaniesGetItems                  Function = "companies-get-items"
+	FnCompaniesUpdateItem                Function = "companies-update-item"
+	FnContractsAddItem                   Function = "contracts-add-item"
+	FnContractsCount                     Function = "contracts-count"
+	FnContractsDeleteItem                Function = "contracts-delete-item"
+	FnContractsGetItem                   Function = "contracts-get-item"
+	FnContractsGetItems                  Function = "contracts-get-items"
+	FnContractsSignItem                  Function = "contracts-sign-item"
+	FnContractsTerminateItem             Function = "contracts-terminate-item"
+	FnContractsUpdateItem                Function = "contracts-update-item"
+	FnCreditsAddItem                     Function = "credits-add-item"
+	FnCreditsDeleteItem                  Function = "credits-delete-item"
+	FnCreditsGetItem                     Function = "credits-get-item"
+	FnCreditsGetItems                    Function = "credits-get-items"
+	FnCreditsUpdateItem                  Function = "credits-update-item"
+	FnCustomPropertiesGetItems           Function = "custom-properties-get-items"
+	FnEventsAddItem                      Function = "events-add-item"
+	FnEventsCount                        Function = "events-count"
+	FnEventsDeleteItem                   Function = "events-delete-item"
+	FnEventsGetItem                      Function = "events-get-item"
+	FnEventsGetItems                     Function = "events-get-items"
+	FnEventsUpdateItem                   Function = "events-update-item"
+	FnFeesAddItem                        Function = "fees-add-item"
+	FnFeesCount                          Function = "fees-count"
+	FnFeesDeleteItem                     Function = "fees-delete-item"
+	FnFeesGetItem                        Function = "fees-get-item"
+	FnFeesGetItems                       Function = "fees-get-items"
+	FnFeesUpdateItem                     Function = "fees-update-item"
+	FnFloorsGetItem                      Function = "floors-get-item"
+	FnFloorsGetItems                     Function = "floors-get-items"
+	FnIntegrationsGetItem                Function = "integrations-get-item"
+	FnLocationsGetItem                   Function = "locations-get-item"
+	FnLocationsGetItems                  Function = "locations-get-items"
+	FnMembersAddItem                     Function = "members-add-item"
+	FnMembersCountBy                     Function = "members-count-by"
+	FnMembersDeleteItem                  Function = "members-delete-item"
+	FnMembersGetItem                     Function = "members-get-item"
+	FnMembersGetItems                    Function = "members-get-items"
+	FnMembersManagePortalAccess          Function = "members-manage-portal-access"
+	FnMembersUpdateCompany               Function = "members-update-company"
+	FnMembersUpdateItem                  Function = "members-update-item"
+	FnMembersUpdateStatus                Function = "members-update-status"
+	FnMembershipsAddItem                 Function = "memberships-add-item"
+	FnMembershipsCount                   Function = "memberships-count"
+	FnMembershipsDeleteItem              Function = "memberships-delete-item"
+	FnMembershipsGetItem                 Function = "memberships-get-item"
+	FnMembershipsGetItems                Function = "memberships-get-items"
+	FnMembershipsUpdateItem              Function = "memberships-update-item"
+	FnOpportunitiesAddItem               Function = "opportunities-add-item"
+	FnOpportunitiesCount                 Function = "opportunities-count"
+	FnOpportunitiesDeleteItem            Function = "opportunities-delete-item"
+	FnOpportunitiesGetItem               Function = "opportunities-get-item"
+	FnOpportunitiesGetItems              Function = "opportunities-get-items"
+	FnOpportunitiesUpdateItem            Function = "opportunities-update-item"
+	FnOpportunityStatusesGetItems        Function = "opportunity-statuses-get-items"
+	FnOrganizationsGetItem               Function = "organizations-get-item"
+	FnPOSTGenerateToken                  Function = "p-o-s-t-generate-token"
+	FnPassesAddItem                      Function = "passes-add-item"
+	FnPassesDeleteItem                   Function = "passes-delete-item"
+	FnPassesGetItem                      Function = "passes-get-item"
+	FnPassesGetItems                     Function = "passes-get-items"
+	FnPassesUpdateItem                   Function = "passes-update-item"
+	FnPasswordChangePassword             Function = "password-change-password"
+	FnPasswordResetPassword              Function = "password-reset-password"
+	FnPaymentDetailsAddItem              Function = "payment-details-add-item"
+	FnPaymentDetailsDeleteItem           Function = "payment-details-delete-item"
+	FnPaymentDetailsGetItems             Function = "payment-details-get-items"
+	FnPaymentDetailsRegisterItem         Function = "payment-details-register-item"
+	FnPaymentGatewaysAuthorize           Function = "payment-gateways-authorize"
+	FnPaymentsAddCreditAllocation        Function = "payments-add-credit-allocation"
+	FnPaymentsAddOverpayment             Function = "payments-add-overpayment"
+	FnPaymentsCount                      Function = "payments-count"
+	FnPaymentsGetItem                    Function = "payments-get-item"
+	FnPaymentsGetItems                   Function = "payments-get-items"
+	FnPaymentsGetPaymentDocuments        Function = "payments-get-payment-documents"
+	FnPaymentsGetPaymentMethods          Function = "payments-get-payment-methods"
+	FnPaymentsUpdateAllocationAccounting Function = "payments-update-allocation-accounting"
+	FnPaymentsUpdateItem                 Function = "payments-update-item"
+	FnPlansCount                         Function = "plans-count"
+	FnPlansGetItem                       Function = "plans-get-item"
+	FnPlansGetItems                      Function = "plans-get-items"
+	FnPostsAddItem                       Function = "posts-add-item"
+	FnPostsDeleteItem                    Function = "posts-delete-item"
+	FnPostsGetItem                       Function = "posts-get-item"
+	FnPostsGetItems                      Function = "posts-get-items"
+	FnReceptionFlowsGetItems             Function = "reception-flows-get-items"
+	FnResourceRatesCount                 Function = "resource-rates-count"
+	FnResourceRatesGetCancellationPolicy Function = "resource-rates-get-cancellation-policy"
+	FnResourceRatesGetItem               Function = "resource-rates-get-item"
+	FnResourceRatesGetItems              Function = "resource-rates-get-items"
+	FnResourceTypesGetItems              Function = "resource-types-get-items"
+	FnResourcesCount                     Function = "resources-count"
+	FnResourcesGetItem                   Function = "resources-get-item"
+	FnResourcesGetItems                  Function = "resources-get-items"
+	FnResourcesGetResourceStatus         Function = "resources-get-resource-status"
+	FnRevenueAccountsGetItem             Function = "revenue-accounts-get-item"
+	FnRevenueAccountsGetItems            Function = "revenue-accounts-get-items"
+	FnSecondaryCurrenciesGetItem         Function = "secondary-currencies-get-item"
+	FnSecondaryCurrenciesGetItems        Function = "secondary-currencies-get-items"
+	FnSecondaryCurrenciesUpdateItem      Function = "secondary-currencies-update-item"
+	FnTaxRatesGetItem                    Function = "tax-rates-get-item"
+	FnTaxRatesGetItems                   Function = "tax-rates-get-items"
+	FnTicketCommentsAddComment           Function = "ticket-comments-add-comment"
+	FnTicketCommentsGetItems             Function = "ticket-comments-get-items"
+	FnTicketOptionsGetItems              Function = "ticket-options-get-items"
+	FnTicketsAddItem                     Function = "tickets-add-item"
+	FnTicketsCountBy                     Function = "tickets-count-by"
+	FnTicketsGetItem                     Function = "tickets-get-item"
+	FnTicketsGetItems                    Function = "tickets-get-items"
+	FnTicketsUpdateItem                  Function = "tickets-update-item"
+	FnVisitorsAddItem                    Function = "visitors-add-item"
+	FnVisitorsDeleteItem                 Function = "visitors-delete-item"
+	FnVisitorsGetItem                    Function = "visitors-get-item"
+	FnVisitorsGetItems                   Function = "visitors-get-items"
+	FnVisitsAddItem                      Function = "visits-add-item"
+	FnVisitsDeleteItem                   Function = "visits-delete-item"
+	FnVisitsGetItem                      Function = "visits-get-item"
+	FnVisitsGetItems                     Function = "visits-get-items"
+	FnWebhooksAddItem                    Function = "webhooks-add-item"
+	FnWebhooksDeleteItem                 Function = "webhooks-delete-item"
+	FnWebhooksGetItem                    Function = "webhooks-get-item"
+	FnWebhooksGetItems                   Function = "webhooks-get-items"
+	FnWebhooksUpdateItem                 Function = "webhooks-update-item"
 )
 
 // ParseFunction validates a function name and returns the typed Function value.
 func ParseFunction(s string) (Function, error) {
 	switch Function(s) {
-	case FnAmenitiesControllerGetItemApiv2:
-		return FnAmenitiesControllerGetItemApiv2, nil
-	case FnAmenitiesControllerGetItemsApiv2:
-		return FnAmenitiesControllerGetItemsApiv2, nil
-	case FnAssignmentsControllerAddItemApiv2:
-		return FnAssignmentsControllerAddItemApiv2, nil
-	case FnAssignmentsControllerDeleteItemApiv2:
-		return FnAssignmentsControllerDeleteItemApiv2, nil
-	case FnAssignmentsControllerGetItemsApiv2:
-		return FnAssignmentsControllerGetItemsApiv2, nil
-	case FnAuthControllerImpersonateMemberApiv2:
-		return FnAuthControllerImpersonateMemberApiv2, nil
-	case FnAuthControllerSigninApiv2:
-		return FnAuthControllerSigninApiv2, nil
-	case FnAuthControllerSignupApiv2:
-		return FnAuthControllerSignupApiv2, nil
-	case FnAuthControllerVerifyTokenApiv2:
-		return FnAuthControllerVerifyTokenApiv2, nil
-	case FnBenefitsControllerCountApiv2:
-		return FnBenefitsControllerCountApiv2, nil
-	case FnBenefitsControllerGetItemApiv2:
-		return FnBenefitsControllerGetItemApiv2, nil
-	case FnBenefitsControllerGetItemsApiv2:
-		return FnBenefitsControllerGetItemsApiv2, nil
-	case FnBillingSettingsControllerGetBillingSettingsApiv2:
-		return FnBillingSettingsControllerGetBillingSettingsApiv2, nil
-	case FnBookingsControllerAddItemApiv2:
-		return FnBookingsControllerAddItemApiv2, nil
-	case FnBookingsControllerCancelBookingApiv2:
-		return FnBookingsControllerCancelBookingApiv2, nil
-	case FnBookingsControllerCountApiv2:
-		return FnBookingsControllerCountApiv2, nil
-	case FnBookingsControllerDeleteItemApiv2:
-		return FnBookingsControllerDeleteItemApiv2, nil
-	case FnBookingsControllerGetItemApiv2:
-		return FnBookingsControllerGetItemApiv2, nil
-	case FnBookingsControllerGetItemsApiv2:
-		return FnBookingsControllerGetItemsApiv2, nil
-	case FnBookingsControllerGetOccurrencesApiv2:
-		return FnBookingsControllerGetOccurrencesApiv2, nil
-	case FnBookingsControllerUpdateItemApiv2:
-		return FnBookingsControllerUpdateItemApiv2, nil
-	case FnBookingsControllerValidateBookingApiv2:
-		return FnBookingsControllerValidateBookingApiv2, nil
-	case FnBusinessHoursControllerGetItemsApiv2:
-		return FnBusinessHoursControllerGetItemsApiv2, nil
-	case FnChargesControllerAddItemApiv2:
-		return FnChargesControllerAddItemApiv2, nil
-	case FnChargesControllerDeleteItemApiv2:
-		return FnChargesControllerDeleteItemApiv2, nil
-	case FnChargesControllerGetItemsApiv2:
-		return FnChargesControllerGetItemsApiv2, nil
-	case FnChargesControllerUpdateItemApiv2:
-		return FnChargesControllerUpdateItemApiv2, nil
-	case FnCheckinsControllerCheckinMemberApiv2:
-		return FnCheckinsControllerCheckinMemberApiv2, nil
-	case FnCheckinsControllerCheckoutApiv2:
-		return FnCheckinsControllerCheckoutApiv2, nil
-	case FnCheckinsControllerGetItemApiv2:
-		return FnCheckinsControllerGetItemApiv2, nil
-	case FnCheckinsControllerGetItemsApiv2:
-		return FnCheckinsControllerGetItemsApiv2, nil
-	case FnCheckinsControllerGetVisitorCheckinsApiv2:
-		return FnCheckinsControllerGetVisitorCheckinsApiv2, nil
-	case FnCheckoutControllerCheckoutApiv2:
-		return FnCheckoutControllerCheckoutApiv2, nil
-	case FnCheckoutControllerGetCheckoutSummaryApiv2:
-		return FnCheckoutControllerGetCheckoutSummaryApiv2, nil
-	case FnCoinsControllerGetCoinStatsApiv2:
-		return FnCoinsControllerGetCoinStatsApiv2, nil
-	case FnCompaniesControllerAddItemApiv2:
-		return FnCompaniesControllerAddItemApiv2, nil
-	case FnCompaniesControllerDeleteItemApiv2:
-		return FnCompaniesControllerDeleteItemApiv2, nil
-	case FnCompaniesControllerGetItemApiv2:
-		return FnCompaniesControllerGetItemApiv2, nil
-	case FnCompaniesControllerGetItemsApiv2:
-		return FnCompaniesControllerGetItemsApiv2, nil
-	case FnCompaniesControllerUpdateItemApiv2:
-		return FnCompaniesControllerUpdateItemApiv2, nil
-	case FnContractsControllerAddItemApiv2:
-		return FnContractsControllerAddItemApiv2, nil
-	case FnContractsControllerCountApiv2:
-		return FnContractsControllerCountApiv2, nil
-	case FnContractsControllerDeleteItemApiv2:
-		return FnContractsControllerDeleteItemApiv2, nil
-	case FnContractsControllerGetItemApiv2:
-		return FnContractsControllerGetItemApiv2, nil
-	case FnContractsControllerGetItemsApiv2:
-		return FnContractsControllerGetItemsApiv2, nil
-	case FnContractsControllerSignItemApiv2:
-		return FnContractsControllerSignItemApiv2, nil
-	case FnContractsControllerTerminateItemApiv2:
-		return FnContractsControllerTerminateItemApiv2, nil
-	case FnContractsControllerUpdateItemApiv2:
-		return FnContractsControllerUpdateItemApiv2, nil
-	case FnCreditsControllerAddItemApiv2:
-		return FnCreditsControllerAddItemApiv2, nil
-	case FnCreditsControllerDeleteItemApiv2:
-		return FnCreditsControllerDeleteItemApiv2, nil
-	case FnCreditsControllerGetItemApiv2:
-		return FnCreditsControllerGetItemApiv2, nil
-	case FnCreditsControllerGetItemsApiv2:
-		return FnCreditsControllerGetItemsApiv2, nil
-	case FnCreditsControllerUpdateItemApiv2:
-		return FnCreditsControllerUpdateItemApiv2, nil
-	case FnCustomPropertiesControllerGetItemsApiv2:
-		return FnCustomPropertiesControllerGetItemsApiv2, nil
-	case FnEventsControllerAddItemApiv2:
-		return FnEventsControllerAddItemApiv2, nil
-	case FnEventsControllerCountApiv2:
-		return FnEventsControllerCountApiv2, nil
-	case FnEventsControllerDeleteItemApiv2:
-		return FnEventsControllerDeleteItemApiv2, nil
-	case FnEventsControllerGetItemApiv2:
-		return FnEventsControllerGetItemApiv2, nil
-	case FnEventsControllerGetItemsApiv2:
-		return FnEventsControllerGetItemsApiv2, nil
-	case FnEventsControllerUpdateItemApiv2:
-		return FnEventsControllerUpdateItemApiv2, nil
-	case FnFeesControllerAddItemApiv2:
-		return FnFeesControllerAddItemApiv2, nil
-	case FnFeesControllerCountApiv2:
-		return FnFeesControllerCountApiv2, nil
-	case FnFeesControllerDeleteItemApiv2:
-		return FnFeesControllerDeleteItemApiv2, nil
-	case FnFeesControllerGetItemApiv2:
-		return FnFeesControllerGetItemApiv2, nil
-	case FnFeesControllerGetItemsApiv2:
-		return FnFeesControllerGetItemsApiv2, nil
-	case FnFeesControllerUpdateItemApiv2:
-		return FnFeesControllerUpdateItemApiv2, nil
-	case FnFloorsControllerGetItemApiv2:
-		return FnFloorsControllerGetItemApiv2, nil
-	case FnFloorsControllerGetItemsApiv2:
-		return FnFloorsControllerGetItemsApiv2, nil
-	case FnIntegrationsControllerGetItemApiv2:
-		return FnIntegrationsControllerGetItemApiv2, nil
-	case FnLocationsControllerGetItemApiv2:
-		return FnLocationsControllerGetItemApiv2, nil
-	case FnLocationsControllerGetItemsApiv2:
-		return FnLocationsControllerGetItemsApiv2, nil
-	case FnMembersControllerAddItemApiv2:
-		return FnMembersControllerAddItemApiv2, nil
-	case FnMembersControllerCountByApiv2:
-		return FnMembersControllerCountByApiv2, nil
-	case FnMembersControllerDeleteItemApiv2:
-		return FnMembersControllerDeleteItemApiv2, nil
-	case FnMembersControllerGetItemApiv2:
-		return FnMembersControllerGetItemApiv2, nil
-	case FnMembersControllerGetItemsApiv2:
-		return FnMembersControllerGetItemsApiv2, nil
-	case FnMembersControllerManagePortalAccessApiv2:
-		return FnMembersControllerManagePortalAccessApiv2, nil
-	case FnMembersControllerUpdateCompanyApiv2:
-		return FnMembersControllerUpdateCompanyApiv2, nil
-	case FnMembersControllerUpdateItemApiv2:
-		return FnMembersControllerUpdateItemApiv2, nil
-	case FnMembersControllerUpdateStatusApiv2:
-		return FnMembersControllerUpdateStatusApiv2, nil
-	case FnMembershipsControllerAddItemApiv2:
-		return FnMembershipsControllerAddItemApiv2, nil
-	case FnMembershipsControllerCountApiv2:
-		return FnMembershipsControllerCountApiv2, nil
-	case FnMembershipsControllerDeleteItemApiv2:
-		return FnMembershipsControllerDeleteItemApiv2, nil
-	case FnMembershipsControllerGetItemApiv2:
-		return FnMembershipsControllerGetItemApiv2, nil
-	case FnMembershipsControllerGetItemsApiv2:
-		return FnMembershipsControllerGetItemsApiv2, nil
-	case FnMembershipsControllerUpdateItemApiv2:
-		return FnMembershipsControllerUpdateItemApiv2, nil
-	case FnOpportunitiesControllerAddItemApiv2:
-		return FnOpportunitiesControllerAddItemApiv2, nil
-	case FnOpportunitiesControllerCountApiv2:
-		return FnOpportunitiesControllerCountApiv2, nil
-	case FnOpportunitiesControllerDeleteItemApiv2:
-		return FnOpportunitiesControllerDeleteItemApiv2, nil
-	case FnOpportunitiesControllerGetItemApiv2:
-		return FnOpportunitiesControllerGetItemApiv2, nil
-	case FnOpportunitiesControllerGetItemsApiv2:
-		return FnOpportunitiesControllerGetItemsApiv2, nil
-	case FnOpportunitiesControllerUpdateItemApiv2:
-		return FnOpportunitiesControllerUpdateItemApiv2, nil
-	case FnOpportunityStatusesControllerGetItemsApiv2:
-		return FnOpportunityStatusesControllerGetItemsApiv2, nil
-	case FnOrganizationsControllerGetItemApiv2:
-		return FnOrganizationsControllerGetItemApiv2, nil
+	case FnAmenitiesGetItem:
+		return FnAmenitiesGetItem, nil
+	case FnAmenitiesGetItems:
+		return FnAmenitiesGetItems, nil
+	case FnAssignmentsAddItem:
+		return FnAssignmentsAddItem, nil
+	case FnAssignmentsDeleteItem:
+		return FnAssignmentsDeleteItem, nil
+	case FnAssignmentsGetItems:
+		return FnAssignmentsGetItems, nil
+	case FnAuthImpersonateMember:
+		return FnAuthImpersonateMember, nil
+	case FnAuthSignin:
+		return FnAuthSignin, nil
+	case FnAuthSignup:
+		return FnAuthSignup, nil
+	case FnAuthVerifyToken:
+		return FnAuthVerifyToken, nil
+	case FnBenefitsCount:
+		return FnBenefitsCount, nil
+	case FnBenefitsGetItem:
+		return FnBenefitsGetItem, nil
+	case FnBenefitsGetItems:
+		return FnBenefitsGetItems, nil
+	case FnBillingSettingsGetBillingSettings:
+		return FnBillingSettingsGetBillingSettings, nil
+	case FnBookingsAddItem:
+		return FnBookingsAddItem, nil
+	case FnBookingsCancelBooking:
+		return FnBookingsCancelBooking, nil
+	case FnBookingsCount:
+		return FnBookingsCount, nil
+	case FnBookingsDeleteItem:
+		return FnBookingsDeleteItem, nil
+	case FnBookingsGetItem:
+		return FnBookingsGetItem, nil
+	case FnBookingsGetItems:
+		return FnBookingsGetItems, nil
+	case FnBookingsGetOccurrences:
+		return FnBookingsGetOccurrences, nil
+	case FnBookingsUpdateItem:
+		return FnBookingsUpdateItem, nil
+	case FnBookingsValidateBooking:
+		return FnBookingsValidateBooking, nil
+	case FnBusinessHoursGetItems:
+		return FnBusinessHoursGetItems, nil
+	case FnChargesAddItem:
+		return FnChargesAddItem, nil
+	case FnChargesDeleteItem:
+		return FnChargesDeleteItem, nil
+	case FnChargesGetItems:
+		return FnChargesGetItems, nil
+	case FnChargesUpdateItem:
+		return FnChargesUpdateItem, nil
+	case FnCheckinsCheckinMember:
+		return FnCheckinsCheckinMember, nil
+	case FnCheckinsCheckout:
+		return FnCheckinsCheckout, nil
+	case FnCheckinsGetItem:
+		return FnCheckinsGetItem, nil
+	case FnCheckinsGetItems:
+		return FnCheckinsGetItems, nil
+	case FnCheckinsGetVisitorCheckins:
+		return FnCheckinsGetVisitorCheckins, nil
+	case FnCheckoutCheckout:
+		return FnCheckoutCheckout, nil
+	case FnCheckoutGetCheckoutSummary:
+		return FnCheckoutGetCheckoutSummary, nil
+	case FnCoinsGetCoinStats:
+		return FnCoinsGetCoinStats, nil
+	case FnCompaniesAddItem:
+		return FnCompaniesAddItem, nil
+	case FnCompaniesDeleteItem:
+		return FnCompaniesDeleteItem, nil
+	case FnCompaniesGetItem:
+		return FnCompaniesGetItem, nil
+	case FnCompaniesGetItems:
+		return FnCompaniesGetItems, nil
+	case FnCompaniesUpdateItem:
+		return FnCompaniesUpdateItem, nil
+	case FnContractsAddItem:
+		return FnContractsAddItem, nil
+	case FnContractsCount:
+		return FnContractsCount, nil
+	case FnContractsDeleteItem:
+		return FnContractsDeleteItem, nil
+	case FnContractsGetItem:
+		return FnContractsGetItem, nil
+	case FnContractsGetItems:
+		return FnContractsGetItems, nil
+	case FnContractsSignItem:
+		return FnContractsSignItem, nil
+	case FnContractsTerminateItem:
+		return FnContractsTerminateItem, nil
+	case FnContractsUpdateItem:
+		return FnContractsUpdateItem, nil
+	case FnCreditsAddItem:
+		return FnCreditsAddItem, nil
+	case FnCreditsDeleteItem:
+		return FnCreditsDeleteItem, nil
+	case FnCreditsGetItem:
+		return FnCreditsGetItem, nil
+	case FnCreditsGetItems:
+		return FnCreditsGetItems, nil
+	case FnCreditsUpdateItem:
+		return FnCreditsUpdateItem, nil
+	case FnCustomPropertiesGetItems:
+		return FnCustomPropertiesGetItems, nil
+	case FnEventsAddItem:
+		return FnEventsAddItem, nil
+	case FnEventsCount:
+		return FnEventsCount, nil
+	case FnEventsDeleteItem:
+		return FnEventsDeleteItem, nil
+	case FnEventsGetItem:
+		return FnEventsGetItem, nil
+	case FnEventsGetItems:
+		return FnEventsGetItems, nil
+	case FnEventsUpdateItem:
+		return FnEventsUpdateItem, nil
+	case FnFeesAddItem:
+		return FnFeesAddItem, nil
+	case FnFeesCount:
+		return FnFeesCount, nil
+	case FnFeesDeleteItem:
+		return FnFeesDeleteItem, nil
+	case FnFeesGetItem:
+		return FnFeesGetItem, nil
+	case FnFeesGetItems:
+		return FnFeesGetItems, nil
+	case FnFeesUpdateItem:
+		return FnFeesUpdateItem, nil
+	case FnFloorsGetItem:
+		return FnFloorsGetItem, nil
+	case FnFloorsGetItems:
+		return FnFloorsGetItems, nil
+	case FnIntegrationsGetItem:
+		return FnIntegrationsGetItem, nil
+	case FnLocationsGetItem:
+		return FnLocationsGetItem, nil
+	case FnLocationsGetItems:
+		return FnLocationsGetItems, nil
+	case FnMembersAddItem:
+		return FnMembersAddItem, nil
+	case FnMembersCountBy:
+		return FnMembersCountBy, nil
+	case FnMembersDeleteItem:
+		return FnMembersDeleteItem, nil
+	case FnMembersGetItem:
+		return FnMembersGetItem, nil
+	case FnMembersGetItems:
+		return FnMembersGetItems, nil
+	case FnMembersManagePortalAccess:
+		return FnMembersManagePortalAccess, nil
+	case FnMembersUpdateCompany:
+		return FnMembersUpdateCompany, nil
+	case FnMembersUpdateItem:
+		return FnMembersUpdateItem, nil
+	case FnMembersUpdateStatus:
+		return FnMembersUpdateStatus, nil
+	case FnMembershipsAddItem:
+		return FnMembershipsAddItem, nil
+	case FnMembershipsCount:
+		return FnMembershipsCount, nil
+	case FnMembershipsDeleteItem:
+		return FnMembershipsDeleteItem, nil
+	case FnMembershipsGetItem:
+		return FnMembershipsGetItem, nil
+	case FnMembershipsGetItems:
+		return FnMembershipsGetItems, nil
+	case FnMembershipsUpdateItem:
+		return FnMembershipsUpdateItem, nil
+	case FnOpportunitiesAddItem:
+		return FnOpportunitiesAddItem, nil
+	case FnOpportunitiesCount:
+		return FnOpportunitiesCount, nil
+	case FnOpportunitiesDeleteItem:
+		return FnOpportunitiesDeleteItem, nil
+	case FnOpportunitiesGetItem:
+		return FnOpportunitiesGetItem, nil
+	case FnOpportunitiesGetItems:
+		return FnOpportunitiesGetItems, nil
+	case FnOpportunitiesUpdateItem:
+		return FnOpportunitiesUpdateItem, nil
+	case FnOpportunityStatusesGetItems:
+		return FnOpportunityStatusesGetItems, nil
+	case FnOrganizationsGetItem:
+		return FnOrganizationsGetItem, nil
 	case FnPOSTGenerateToken:
 		return FnPOSTGenerateToken, nil
-	case FnPassesControllerAddItemApiv2:
-		return FnPassesControllerAddItemApiv2, nil
-	case FnPassesControllerDeleteItemApiv2:
-		return FnPassesControllerDeleteItemApiv2, nil
-	case FnPassesControllerGetItemApiv2:
-		return FnPassesControllerGetItemApiv2, nil
-	case FnPassesControllerGetItemsApiv2:
-		return FnPassesControllerGetItemsApiv2, nil
-	case FnPassesControllerUpdateItemApiv2:
-		return FnPassesControllerUpdateItemApiv2, nil
-	case FnPasswordControllerChangePasswordApiv2:
-		return FnPasswordControllerChangePasswordApiv2, nil
-	case FnPasswordControllerResetPasswordApiv2:
-		return FnPasswordControllerResetPasswordApiv2, nil
-	case FnPaymentDetailsControllerAddItemApiv2:
-		return FnPaymentDetailsControllerAddItemApiv2, nil
-	case FnPaymentDetailsControllerDeleteItemApiv2:
-		return FnPaymentDetailsControllerDeleteItemApiv2, nil
-	case FnPaymentDetailsControllerGetItemsApiv2:
-		return FnPaymentDetailsControllerGetItemsApiv2, nil
-	case FnPaymentDetailsControllerRegisterItemApiv2:
-		return FnPaymentDetailsControllerRegisterItemApiv2, nil
-	case FnPaymentGatewaysControllerAuthorizeApiv2:
-		return FnPaymentGatewaysControllerAuthorizeApiv2, nil
-	case FnPaymentsControllerAddCreditAllocationApiv2:
-		return FnPaymentsControllerAddCreditAllocationApiv2, nil
-	case FnPaymentsControllerAddOverpaymentApiv2:
-		return FnPaymentsControllerAddOverpaymentApiv2, nil
-	case FnPaymentsControllerCountApiv2:
-		return FnPaymentsControllerCountApiv2, nil
-	case FnPaymentsControllerGetItemApiv2:
-		return FnPaymentsControllerGetItemApiv2, nil
-	case FnPaymentsControllerGetItemsApiv2:
-		return FnPaymentsControllerGetItemsApiv2, nil
-	case FnPaymentsControllerGetPaymentDocumentsApiv2:
-		return FnPaymentsControllerGetPaymentDocumentsApiv2, nil
-	case FnPaymentsControllerGetPaymentMethodsApiv2:
-		return FnPaymentsControllerGetPaymentMethodsApiv2, nil
-	case FnPaymentsControllerUpdateAllocationAccountingApiv2:
-		return FnPaymentsControllerUpdateAllocationAccountingApiv2, nil
-	case FnPaymentsControllerUpdateItemApiv2:
-		return FnPaymentsControllerUpdateItemApiv2, nil
-	case FnPlansControllerCountApiv2:
-		return FnPlansControllerCountApiv2, nil
-	case FnPlansControllerGetItemApiv2:
-		return FnPlansControllerGetItemApiv2, nil
-	case FnPlansControllerGetItemsApiv2:
-		return FnPlansControllerGetItemsApiv2, nil
-	case FnPostsControllerAddItemApiv2:
-		return FnPostsControllerAddItemApiv2, nil
-	case FnPostsControllerDeleteItemApiv2:
-		return FnPostsControllerDeleteItemApiv2, nil
-	case FnPostsControllerGetItemApiv2:
-		return FnPostsControllerGetItemApiv2, nil
-	case FnPostsControllerGetItemsApiv2:
-		return FnPostsControllerGetItemsApiv2, nil
-	case FnReceptionFlowsControllerGetItemsApiv2:
-		return FnReceptionFlowsControllerGetItemsApiv2, nil
-	case FnResourceRatesControllerCountApiv2:
-		return FnResourceRatesControllerCountApiv2, nil
-	case FnResourceRatesControllerGetCancellationPolicyApiv2:
-		return FnResourceRatesControllerGetCancellationPolicyApiv2, nil
-	case FnResourceRatesControllerGetItemApiv2:
-		return FnResourceRatesControllerGetItemApiv2, nil
-	case FnResourceRatesControllerGetItemsApiv2:
-		return FnResourceRatesControllerGetItemsApiv2, nil
-	case FnResourceTypesControllerGetItemsApiv2:
-		return FnResourceTypesControllerGetItemsApiv2, nil
-	case FnResourcesControllerCountApiv2:
-		return FnResourcesControllerCountApiv2, nil
-	case FnResourcesControllerGetItemApiv2:
-		return FnResourcesControllerGetItemApiv2, nil
-	case FnResourcesControllerGetItemsApiv2:
-		return FnResourcesControllerGetItemsApiv2, nil
-	case FnResourcesControllerGetResourceStatusApiv2:
-		return FnResourcesControllerGetResourceStatusApiv2, nil
-	case FnRevenueAccountsControllerGetItemApiv2:
-		return FnRevenueAccountsControllerGetItemApiv2, nil
-	case FnRevenueAccountsControllerGetItemsApiv2:
-		return FnRevenueAccountsControllerGetItemsApiv2, nil
-	case FnSecondaryCurrenciesControllerGetItemApiv2:
-		return FnSecondaryCurrenciesControllerGetItemApiv2, nil
-	case FnSecondaryCurrenciesControllerGetItemsApiv2:
-		return FnSecondaryCurrenciesControllerGetItemsApiv2, nil
-	case FnSecondaryCurrenciesControllerUpdateItemApiv2:
-		return FnSecondaryCurrenciesControllerUpdateItemApiv2, nil
-	case FnTaxRatesControllerGetItemApiv2:
-		return FnTaxRatesControllerGetItemApiv2, nil
-	case FnTaxRatesControllerGetItemsApiv2:
-		return FnTaxRatesControllerGetItemsApiv2, nil
-	case FnTicketCommentsControllerAddCommentApiv2:
-		return FnTicketCommentsControllerAddCommentApiv2, nil
-	case FnTicketCommentsControllerGetItemsApiv2:
-		return FnTicketCommentsControllerGetItemsApiv2, nil
-	case FnTicketOptionsControllerGetItemsApiv2:
-		return FnTicketOptionsControllerGetItemsApiv2, nil
-	case FnTicketsControllerAddItemApiv2:
-		return FnTicketsControllerAddItemApiv2, nil
-	case FnTicketsControllerCountByApiv2:
-		return FnTicketsControllerCountByApiv2, nil
-	case FnTicketsControllerGetItemApiv2:
-		return FnTicketsControllerGetItemApiv2, nil
-	case FnTicketsControllerGetItemsApiv2:
-		return FnTicketsControllerGetItemsApiv2, nil
-	case FnTicketsControllerUpdateItemApiv2:
-		return FnTicketsControllerUpdateItemApiv2, nil
-	case FnVisitorsControllerAddItemApiv2:
-		return FnVisitorsControllerAddItemApiv2, nil
-	case FnVisitorsControllerDeleteItemApiv2:
-		return FnVisitorsControllerDeleteItemApiv2, nil
-	case FnVisitorsControllerGetItemApiv2:
-		return FnVisitorsControllerGetItemApiv2, nil
-	case FnVisitorsControllerGetItemsApiv2:
-		return FnVisitorsControllerGetItemsApiv2, nil
-	case FnVisitsControllerAddItemApiv2:
-		return FnVisitsControllerAddItemApiv2, nil
-	case FnVisitsControllerDeleteItemApiv2:
-		return FnVisitsControllerDeleteItemApiv2, nil
-	case FnVisitsControllerGetItemApiv2:
-		return FnVisitsControllerGetItemApiv2, nil
-	case FnVisitsControllerGetItemsApiv2:
-		return FnVisitsControllerGetItemsApiv2, nil
-	case FnWebhooksControllerAddItemApiv2:
-		return FnWebhooksControllerAddItemApiv2, nil
-	case FnWebhooksControllerDeleteItemApiv2:
-		return FnWebhooksControllerDeleteItemApiv2, nil
-	case FnWebhooksControllerGetItemApiv2:
-		return FnWebhooksControllerGetItemApiv2, nil
-	case FnWebhooksControllerGetItemsApiv2:
-		return FnWebhooksControllerGetItemsApiv2, nil
-	case FnWebhooksControllerUpdateItemApiv2:
-		return FnWebhooksControllerUpdateItemApiv2, nil
+	case FnPassesAddItem:
+		return FnPassesAddItem, nil
+	case FnPassesDeleteItem:
+		return FnPassesDeleteItem, nil
+	case FnPassesGetItem:
+		return FnPassesGetItem, nil
+	case FnPassesGetItems:
+		return FnPassesGetItems, nil
+	case FnPassesUpdateItem:
+		return FnPassesUpdateItem, nil
+	case FnPasswordChangePassword:
+		return FnPasswordChangePassword, nil
+	case FnPasswordResetPassword:
+		return FnPasswordResetPassword, nil
+	case FnPaymentDetailsAddItem:
+		return FnPaymentDetailsAddItem, nil
+	case FnPaymentDetailsDeleteItem:
+		return FnPaymentDetailsDeleteItem, nil
+	case FnPaymentDetailsGetItems:
+		return FnPaymentDetailsGetItems, nil
+	case FnPaymentDetailsRegisterItem:
+		return FnPaymentDetailsRegisterItem, nil
+	case FnPaymentGatewaysAuthorize:
+		return FnPaymentGatewaysAuthorize, nil
+	case FnPaymentsAddCreditAllocation:
+		return FnPaymentsAddCreditAllocation, nil
+	case FnPaymentsAddOverpayment:
+		return FnPaymentsAddOverpayment, nil
+	case FnPaymentsCount:
+		return FnPaymentsCount, nil
+	case FnPaymentsGetItem:
+		return FnPaymentsGetItem, nil
+	case FnPaymentsGetItems:
+		return FnPaymentsGetItems, nil
+	case FnPaymentsGetPaymentDocuments:
+		return FnPaymentsGetPaymentDocuments, nil
+	case FnPaymentsGetPaymentMethods:
+		return FnPaymentsGetPaymentMethods, nil
+	case FnPaymentsUpdateAllocationAccounting:
+		return FnPaymentsUpdateAllocationAccounting, nil
+	case FnPaymentsUpdateItem:
+		return FnPaymentsUpdateItem, nil
+	case FnPlansCount:
+		return FnPlansCount, nil
+	case FnPlansGetItem:
+		return FnPlansGetItem, nil
+	case FnPlansGetItems:
+		return FnPlansGetItems, nil
+	case FnPostsAddItem:
+		return FnPostsAddItem, nil
+	case FnPostsDeleteItem:
+		return FnPostsDeleteItem, nil
+	case FnPostsGetItem:
+		return FnPostsGetItem, nil
+	case FnPostsGetItems:
+		return FnPostsGetItems, nil
+	case FnReceptionFlowsGetItems:
+		return FnReceptionFlowsGetItems, nil
+	case FnResourceRatesCount:
+		return FnResourceRatesCount, nil
+	case FnResourceRatesGetCancellationPolicy:
+		return FnResourceRatesGetCancellationPolicy, nil
+	case FnResourceRatesGetItem:
+		return FnResourceRatesGetItem, nil
+	case FnResourceRatesGetItems:
+		return FnResourceRatesGetItems, nil
+	case FnResourceTypesGetItems:
+		return FnResourceTypesGetItems, nil
+	case FnResourcesCount:
+		return FnResourcesCount, nil
+	case FnResourcesGetItem:
+		return FnResourcesGetItem, nil
+	case FnResourcesGetItems:
+		return FnResourcesGetItems, nil
+	case FnResourcesGetResourceStatus:
+		return FnResourcesGetResourceStatus, nil
+	case FnRevenueAccountsGetItem:
+		return FnRevenueAccountsGetItem, nil
+	case FnRevenueAccountsGetItems:
+		return FnRevenueAccountsGetItems, nil
+	case FnSecondaryCurrenciesGetItem:
+		return FnSecondaryCurrenciesGetItem, nil
+	case FnSecondaryCurrenciesGetItems:
+		return FnSecondaryCurrenciesGetItems, nil
+	case FnSecondaryCurrenciesUpdateItem:
+		return FnSecondaryCurrenciesUpdateItem, nil
+	case FnTaxRatesGetItem:
+		return FnTaxRatesGetItem, nil
+	case FnTaxRatesGetItems:
+		return FnTaxRatesGetItems, nil
+	case FnTicketCommentsAddComment:
+		return FnTicketCommentsAddComment, nil
+	case FnTicketCommentsGetItems:
+		return FnTicketCommentsGetItems, nil
+	case FnTicketOptionsGetItems:
+		return FnTicketOptionsGetItems, nil
+	case FnTicketsAddItem:
+		return FnTicketsAddItem, nil
+	case FnTicketsCountBy:
+		return FnTicketsCountBy, nil
+	case FnTicketsGetItem:
+		return FnTicketsGetItem, nil
+	case FnTicketsGetItems:
+		return FnTicketsGetItems, nil
+	case FnTicketsUpdateItem:
+		return FnTicketsUpdateItem, nil
+	case FnVisitorsAddItem:
+		return FnVisitorsAddItem, nil
+	case FnVisitorsDeleteItem:
+		return FnVisitorsDeleteItem, nil
+	case FnVisitorsGetItem:
+		return FnVisitorsGetItem, nil
+	case FnVisitorsGetItems:
+		return FnVisitorsGetItems, nil
+	case FnVisitsAddItem:
+		return FnVisitsAddItem, nil
+	case FnVisitsDeleteItem:
+		return FnVisitsDeleteItem, nil
+	case FnVisitsGetItem:
+		return FnVisitsGetItem, nil
+	case FnVisitsGetItems:
+		return FnVisitsGetItems, nil
+	case FnWebhooksAddItem:
+		return FnWebhooksAddItem, nil
+	case FnWebhooksDeleteItem:
+		return FnWebhooksDeleteItem, nil
+	case FnWebhooksGetItem:
+		return FnWebhooksGetItem, nil
+	case FnWebhooksGetItems:
+		return FnWebhooksGetItems, nil
+	case FnWebhooksUpdateItem:
+		return FnWebhooksUpdateItem, nil
 	default:
 		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
 	}
@@ -518,328 +518,328 @@ func ParseFunction(s string) (Function, error) {
 // Dispatch calls the named function's typed client method.
 func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map[string]string, inputs json.RawMessage) (any, error) {
 	switch fn {
-	case FnAmenitiesControllerGetItemApiv2:
-		return ic.dispatchAmenitiesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnAmenitiesControllerGetItemsApiv2:
-		return ic.dispatchAmenitiesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnAssignmentsControllerAddItemApiv2:
-		return ic.dispatchAssignmentsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnAssignmentsControllerDeleteItemApiv2:
-		return ic.dispatchAssignmentsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnAssignmentsControllerGetItemsApiv2:
-		return ic.dispatchAssignmentsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnAuthControllerImpersonateMemberApiv2:
-		return ic.dispatchAuthControllerImpersonateMemberApiv2WithResponse(ctx, config, inputs)
-	case FnAuthControllerSigninApiv2:
-		return ic.dispatchAuthControllerSigninApiv2WithResponse(ctx, config, inputs)
-	case FnAuthControllerSignupApiv2:
-		return ic.dispatchAuthControllerSignupApiv2WithResponse(ctx, config, inputs)
-	case FnAuthControllerVerifyTokenApiv2:
-		return ic.dispatchAuthControllerVerifyTokenApiv2WithResponse(ctx, config, inputs)
-	case FnBenefitsControllerCountApiv2:
-		return ic.dispatchBenefitsControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnBenefitsControllerGetItemApiv2:
-		return ic.dispatchBenefitsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnBenefitsControllerGetItemsApiv2:
-		return ic.dispatchBenefitsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnBillingSettingsControllerGetBillingSettingsApiv2:
-		return ic.dispatchBillingSettingsControllerGetBillingSettingsApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerAddItemApiv2:
-		return ic.dispatchBookingsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerCancelBookingApiv2:
-		return ic.dispatchBookingsControllerCancelBookingApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerCountApiv2:
-		return ic.dispatchBookingsControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerDeleteItemApiv2:
-		return ic.dispatchBookingsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerGetItemApiv2:
-		return ic.dispatchBookingsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerGetItemsApiv2:
-		return ic.dispatchBookingsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerGetOccurrencesApiv2:
-		return ic.dispatchBookingsControllerGetOccurrencesApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerUpdateItemApiv2:
-		return ic.dispatchBookingsControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnBookingsControllerValidateBookingApiv2:
-		return ic.dispatchBookingsControllerValidateBookingApiv2WithResponse(ctx, config, inputs)
-	case FnBusinessHoursControllerGetItemsApiv2:
-		return ic.dispatchBusinessHoursControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnChargesControllerAddItemApiv2:
-		return ic.dispatchChargesControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnChargesControllerDeleteItemApiv2:
-		return ic.dispatchChargesControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnChargesControllerGetItemsApiv2:
-		return ic.dispatchChargesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnChargesControllerUpdateItemApiv2:
-		return ic.dispatchChargesControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnCheckinsControllerCheckinMemberApiv2:
-		return ic.dispatchCheckinsControllerCheckinMemberApiv2WithResponse(ctx, config, inputs)
-	case FnCheckinsControllerCheckoutApiv2:
-		return ic.dispatchCheckinsControllerCheckoutApiv2WithResponse(ctx, config, inputs)
-	case FnCheckinsControllerGetItemApiv2:
-		return ic.dispatchCheckinsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnCheckinsControllerGetItemsApiv2:
-		return ic.dispatchCheckinsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnCheckinsControllerGetVisitorCheckinsApiv2:
-		return ic.dispatchCheckinsControllerGetVisitorCheckinsApiv2WithResponse(ctx, config, inputs)
-	case FnCheckoutControllerCheckoutApiv2:
-		return ic.dispatchCheckoutControllerCheckoutApiv2WithResponse(ctx, config, inputs)
-	case FnCheckoutControllerGetCheckoutSummaryApiv2:
-		return ic.dispatchCheckoutControllerGetCheckoutSummaryApiv2WithResponse(ctx, config, inputs)
-	case FnCoinsControllerGetCoinStatsApiv2:
-		return ic.dispatchCoinsControllerGetCoinStatsApiv2WithResponse(ctx, config, inputs)
-	case FnCompaniesControllerAddItemApiv2:
-		return ic.dispatchCompaniesControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnCompaniesControllerDeleteItemApiv2:
-		return ic.dispatchCompaniesControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnCompaniesControllerGetItemApiv2:
-		return ic.dispatchCompaniesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnCompaniesControllerGetItemsApiv2:
-		return ic.dispatchCompaniesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnCompaniesControllerUpdateItemApiv2:
-		return ic.dispatchCompaniesControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnContractsControllerAddItemApiv2:
-		return ic.dispatchContractsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnContractsControllerCountApiv2:
-		return ic.dispatchContractsControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnContractsControllerDeleteItemApiv2:
-		return ic.dispatchContractsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnContractsControllerGetItemApiv2:
-		return ic.dispatchContractsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnContractsControllerGetItemsApiv2:
-		return ic.dispatchContractsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnContractsControllerSignItemApiv2:
-		return ic.dispatchContractsControllerSignItemApiv2WithResponse(ctx, config, inputs)
-	case FnContractsControllerTerminateItemApiv2:
-		return ic.dispatchContractsControllerTerminateItemApiv2WithResponse(ctx, config, inputs)
-	case FnContractsControllerUpdateItemApiv2:
-		return ic.dispatchContractsControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnCreditsControllerAddItemApiv2:
-		return ic.dispatchCreditsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnCreditsControllerDeleteItemApiv2:
-		return ic.dispatchCreditsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnCreditsControllerGetItemApiv2:
-		return ic.dispatchCreditsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnCreditsControllerGetItemsApiv2:
-		return ic.dispatchCreditsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnCreditsControllerUpdateItemApiv2:
-		return ic.dispatchCreditsControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnCustomPropertiesControllerGetItemsApiv2:
-		return ic.dispatchCustomPropertiesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnEventsControllerAddItemApiv2:
-		return ic.dispatchEventsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnEventsControllerCountApiv2:
-		return ic.dispatchEventsControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnEventsControllerDeleteItemApiv2:
-		return ic.dispatchEventsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnEventsControllerGetItemApiv2:
-		return ic.dispatchEventsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnEventsControllerGetItemsApiv2:
-		return ic.dispatchEventsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnEventsControllerUpdateItemApiv2:
-		return ic.dispatchEventsControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnFeesControllerAddItemApiv2:
-		return ic.dispatchFeesControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnFeesControllerCountApiv2:
-		return ic.dispatchFeesControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnFeesControllerDeleteItemApiv2:
-		return ic.dispatchFeesControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnFeesControllerGetItemApiv2:
-		return ic.dispatchFeesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnFeesControllerGetItemsApiv2:
-		return ic.dispatchFeesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnFeesControllerUpdateItemApiv2:
-		return ic.dispatchFeesControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnFloorsControllerGetItemApiv2:
-		return ic.dispatchFloorsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnFloorsControllerGetItemsApiv2:
-		return ic.dispatchFloorsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnIntegrationsControllerGetItemApiv2:
-		return ic.dispatchIntegrationsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnLocationsControllerGetItemApiv2:
-		return ic.dispatchLocationsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnLocationsControllerGetItemsApiv2:
-		return ic.dispatchLocationsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerAddItemApiv2:
-		return ic.dispatchMembersControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerCountByApiv2:
-		return ic.dispatchMembersControllerCountByApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerDeleteItemApiv2:
-		return ic.dispatchMembersControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerGetItemApiv2:
-		return ic.dispatchMembersControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerGetItemsApiv2:
-		return ic.dispatchMembersControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerManagePortalAccessApiv2:
-		return ic.dispatchMembersControllerManagePortalAccessApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerUpdateCompanyApiv2:
-		return ic.dispatchMembersControllerUpdateCompanyApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerUpdateItemApiv2:
-		return ic.dispatchMembersControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnMembersControllerUpdateStatusApiv2:
-		return ic.dispatchMembersControllerUpdateStatusApiv2WithResponse(ctx, config, inputs)
-	case FnMembershipsControllerAddItemApiv2:
-		return ic.dispatchMembershipsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnMembershipsControllerCountApiv2:
-		return ic.dispatchMembershipsControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnMembershipsControllerDeleteItemApiv2:
-		return ic.dispatchMembershipsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnMembershipsControllerGetItemApiv2:
-		return ic.dispatchMembershipsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnMembershipsControllerGetItemsApiv2:
-		return ic.dispatchMembershipsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnMembershipsControllerUpdateItemApiv2:
-		return ic.dispatchMembershipsControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnOpportunitiesControllerAddItemApiv2:
-		return ic.dispatchOpportunitiesControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnOpportunitiesControllerCountApiv2:
-		return ic.dispatchOpportunitiesControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnOpportunitiesControllerDeleteItemApiv2:
-		return ic.dispatchOpportunitiesControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnOpportunitiesControllerGetItemApiv2:
-		return ic.dispatchOpportunitiesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnOpportunitiesControllerGetItemsApiv2:
-		return ic.dispatchOpportunitiesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnOpportunitiesControllerUpdateItemApiv2:
-		return ic.dispatchOpportunitiesControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnOpportunityStatusesControllerGetItemsApiv2:
-		return ic.dispatchOpportunityStatusesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnOrganizationsControllerGetItemApiv2:
-		return ic.dispatchOrganizationsControllerGetItemApiv2WithResponse(ctx, config, inputs)
+	case FnAmenitiesGetItem:
+		return ic.dispatchAmenitiesGetItemWithResponse(ctx, config, inputs)
+	case FnAmenitiesGetItems:
+		return ic.dispatchAmenitiesGetItemsWithResponse(ctx, config, inputs)
+	case FnAssignmentsAddItem:
+		return ic.dispatchAssignmentsAddItemWithResponse(ctx, config, inputs)
+	case FnAssignmentsDeleteItem:
+		return ic.dispatchAssignmentsDeleteItemWithResponse(ctx, config, inputs)
+	case FnAssignmentsGetItems:
+		return ic.dispatchAssignmentsGetItemsWithResponse(ctx, config, inputs)
+	case FnAuthImpersonateMember:
+		return ic.dispatchAuthImpersonateMemberWithResponse(ctx, config, inputs)
+	case FnAuthSignin:
+		return ic.dispatchAuthSigninWithResponse(ctx, config, inputs)
+	case FnAuthSignup:
+		return ic.dispatchAuthSignupWithResponse(ctx, config, inputs)
+	case FnAuthVerifyToken:
+		return ic.dispatchAuthVerifyTokenWithResponse(ctx, config, inputs)
+	case FnBenefitsCount:
+		return ic.dispatchBenefitsCountWithResponse(ctx, config, inputs)
+	case FnBenefitsGetItem:
+		return ic.dispatchBenefitsGetItemWithResponse(ctx, config, inputs)
+	case FnBenefitsGetItems:
+		return ic.dispatchBenefitsGetItemsWithResponse(ctx, config, inputs)
+	case FnBillingSettingsGetBillingSettings:
+		return ic.dispatchBillingSettingsGetBillingSettingsWithResponse(ctx, config, inputs)
+	case FnBookingsAddItem:
+		return ic.dispatchBookingsAddItemWithResponse(ctx, config, inputs)
+	case FnBookingsCancelBooking:
+		return ic.dispatchBookingsCancelBookingWithResponse(ctx, config, inputs)
+	case FnBookingsCount:
+		return ic.dispatchBookingsCountWithResponse(ctx, config, inputs)
+	case FnBookingsDeleteItem:
+		return ic.dispatchBookingsDeleteItemWithResponse(ctx, config, inputs)
+	case FnBookingsGetItem:
+		return ic.dispatchBookingsGetItemWithResponse(ctx, config, inputs)
+	case FnBookingsGetItems:
+		return ic.dispatchBookingsGetItemsWithResponse(ctx, config, inputs)
+	case FnBookingsGetOccurrences:
+		return ic.dispatchBookingsGetOccurrencesWithResponse(ctx, config, inputs)
+	case FnBookingsUpdateItem:
+		return ic.dispatchBookingsUpdateItemWithResponse(ctx, config, inputs)
+	case FnBookingsValidateBooking:
+		return ic.dispatchBookingsValidateBookingWithResponse(ctx, config, inputs)
+	case FnBusinessHoursGetItems:
+		return ic.dispatchBusinessHoursGetItemsWithResponse(ctx, config, inputs)
+	case FnChargesAddItem:
+		return ic.dispatchChargesAddItemWithResponse(ctx, config, inputs)
+	case FnChargesDeleteItem:
+		return ic.dispatchChargesDeleteItemWithResponse(ctx, config, inputs)
+	case FnChargesGetItems:
+		return ic.dispatchChargesGetItemsWithResponse(ctx, config, inputs)
+	case FnChargesUpdateItem:
+		return ic.dispatchChargesUpdateItemWithResponse(ctx, config, inputs)
+	case FnCheckinsCheckinMember:
+		return ic.dispatchCheckinsCheckinMemberWithResponse(ctx, config, inputs)
+	case FnCheckinsCheckout:
+		return ic.dispatchCheckinsCheckoutWithResponse(ctx, config, inputs)
+	case FnCheckinsGetItem:
+		return ic.dispatchCheckinsGetItemWithResponse(ctx, config, inputs)
+	case FnCheckinsGetItems:
+		return ic.dispatchCheckinsGetItemsWithResponse(ctx, config, inputs)
+	case FnCheckinsGetVisitorCheckins:
+		return ic.dispatchCheckinsGetVisitorCheckinsWithResponse(ctx, config, inputs)
+	case FnCheckoutCheckout:
+		return ic.dispatchCheckoutCheckoutWithResponse(ctx, config, inputs)
+	case FnCheckoutGetCheckoutSummary:
+		return ic.dispatchCheckoutGetCheckoutSummaryWithResponse(ctx, config, inputs)
+	case FnCoinsGetCoinStats:
+		return ic.dispatchCoinsGetCoinStatsWithResponse(ctx, config, inputs)
+	case FnCompaniesAddItem:
+		return ic.dispatchCompaniesAddItemWithResponse(ctx, config, inputs)
+	case FnCompaniesDeleteItem:
+		return ic.dispatchCompaniesDeleteItemWithResponse(ctx, config, inputs)
+	case FnCompaniesGetItem:
+		return ic.dispatchCompaniesGetItemWithResponse(ctx, config, inputs)
+	case FnCompaniesGetItems:
+		return ic.dispatchCompaniesGetItemsWithResponse(ctx, config, inputs)
+	case FnCompaniesUpdateItem:
+		return ic.dispatchCompaniesUpdateItemWithResponse(ctx, config, inputs)
+	case FnContractsAddItem:
+		return ic.dispatchContractsAddItemWithResponse(ctx, config, inputs)
+	case FnContractsCount:
+		return ic.dispatchContractsCountWithResponse(ctx, config, inputs)
+	case FnContractsDeleteItem:
+		return ic.dispatchContractsDeleteItemWithResponse(ctx, config, inputs)
+	case FnContractsGetItem:
+		return ic.dispatchContractsGetItemWithResponse(ctx, config, inputs)
+	case FnContractsGetItems:
+		return ic.dispatchContractsGetItemsWithResponse(ctx, config, inputs)
+	case FnContractsSignItem:
+		return ic.dispatchContractsSignItemWithResponse(ctx, config, inputs)
+	case FnContractsTerminateItem:
+		return ic.dispatchContractsTerminateItemWithResponse(ctx, config, inputs)
+	case FnContractsUpdateItem:
+		return ic.dispatchContractsUpdateItemWithResponse(ctx, config, inputs)
+	case FnCreditsAddItem:
+		return ic.dispatchCreditsAddItemWithResponse(ctx, config, inputs)
+	case FnCreditsDeleteItem:
+		return ic.dispatchCreditsDeleteItemWithResponse(ctx, config, inputs)
+	case FnCreditsGetItem:
+		return ic.dispatchCreditsGetItemWithResponse(ctx, config, inputs)
+	case FnCreditsGetItems:
+		return ic.dispatchCreditsGetItemsWithResponse(ctx, config, inputs)
+	case FnCreditsUpdateItem:
+		return ic.dispatchCreditsUpdateItemWithResponse(ctx, config, inputs)
+	case FnCustomPropertiesGetItems:
+		return ic.dispatchCustomPropertiesGetItemsWithResponse(ctx, config, inputs)
+	case FnEventsAddItem:
+		return ic.dispatchEventsAddItemWithResponse(ctx, config, inputs)
+	case FnEventsCount:
+		return ic.dispatchEventsCountWithResponse(ctx, config, inputs)
+	case FnEventsDeleteItem:
+		return ic.dispatchEventsDeleteItemWithResponse(ctx, config, inputs)
+	case FnEventsGetItem:
+		return ic.dispatchEventsGetItemWithResponse(ctx, config, inputs)
+	case FnEventsGetItems:
+		return ic.dispatchEventsGetItemsWithResponse(ctx, config, inputs)
+	case FnEventsUpdateItem:
+		return ic.dispatchEventsUpdateItemWithResponse(ctx, config, inputs)
+	case FnFeesAddItem:
+		return ic.dispatchFeesAddItemWithResponse(ctx, config, inputs)
+	case FnFeesCount:
+		return ic.dispatchFeesCountWithResponse(ctx, config, inputs)
+	case FnFeesDeleteItem:
+		return ic.dispatchFeesDeleteItemWithResponse(ctx, config, inputs)
+	case FnFeesGetItem:
+		return ic.dispatchFeesGetItemWithResponse(ctx, config, inputs)
+	case FnFeesGetItems:
+		return ic.dispatchFeesGetItemsWithResponse(ctx, config, inputs)
+	case FnFeesUpdateItem:
+		return ic.dispatchFeesUpdateItemWithResponse(ctx, config, inputs)
+	case FnFloorsGetItem:
+		return ic.dispatchFloorsGetItemWithResponse(ctx, config, inputs)
+	case FnFloorsGetItems:
+		return ic.dispatchFloorsGetItemsWithResponse(ctx, config, inputs)
+	case FnIntegrationsGetItem:
+		return ic.dispatchIntegrationsGetItemWithResponse(ctx, config, inputs)
+	case FnLocationsGetItem:
+		return ic.dispatchLocationsGetItemWithResponse(ctx, config, inputs)
+	case FnLocationsGetItems:
+		return ic.dispatchLocationsGetItemsWithResponse(ctx, config, inputs)
+	case FnMembersAddItem:
+		return ic.dispatchMembersAddItemWithResponse(ctx, config, inputs)
+	case FnMembersCountBy:
+		return ic.dispatchMembersCountByWithResponse(ctx, config, inputs)
+	case FnMembersDeleteItem:
+		return ic.dispatchMembersDeleteItemWithResponse(ctx, config, inputs)
+	case FnMembersGetItem:
+		return ic.dispatchMembersGetItemWithResponse(ctx, config, inputs)
+	case FnMembersGetItems:
+		return ic.dispatchMembersGetItemsWithResponse(ctx, config, inputs)
+	case FnMembersManagePortalAccess:
+		return ic.dispatchMembersManagePortalAccessWithResponse(ctx, config, inputs)
+	case FnMembersUpdateCompany:
+		return ic.dispatchMembersUpdateCompanyWithResponse(ctx, config, inputs)
+	case FnMembersUpdateItem:
+		return ic.dispatchMembersUpdateItemWithResponse(ctx, config, inputs)
+	case FnMembersUpdateStatus:
+		return ic.dispatchMembersUpdateStatusWithResponse(ctx, config, inputs)
+	case FnMembershipsAddItem:
+		return ic.dispatchMembershipsAddItemWithResponse(ctx, config, inputs)
+	case FnMembershipsCount:
+		return ic.dispatchMembershipsCountWithResponse(ctx, config, inputs)
+	case FnMembershipsDeleteItem:
+		return ic.dispatchMembershipsDeleteItemWithResponse(ctx, config, inputs)
+	case FnMembershipsGetItem:
+		return ic.dispatchMembershipsGetItemWithResponse(ctx, config, inputs)
+	case FnMembershipsGetItems:
+		return ic.dispatchMembershipsGetItemsWithResponse(ctx, config, inputs)
+	case FnMembershipsUpdateItem:
+		return ic.dispatchMembershipsUpdateItemWithResponse(ctx, config, inputs)
+	case FnOpportunitiesAddItem:
+		return ic.dispatchOpportunitiesAddItemWithResponse(ctx, config, inputs)
+	case FnOpportunitiesCount:
+		return ic.dispatchOpportunitiesCountWithResponse(ctx, config, inputs)
+	case FnOpportunitiesDeleteItem:
+		return ic.dispatchOpportunitiesDeleteItemWithResponse(ctx, config, inputs)
+	case FnOpportunitiesGetItem:
+		return ic.dispatchOpportunitiesGetItemWithResponse(ctx, config, inputs)
+	case FnOpportunitiesGetItems:
+		return ic.dispatchOpportunitiesGetItemsWithResponse(ctx, config, inputs)
+	case FnOpportunitiesUpdateItem:
+		return ic.dispatchOpportunitiesUpdateItemWithResponse(ctx, config, inputs)
+	case FnOpportunityStatusesGetItems:
+		return ic.dispatchOpportunityStatusesGetItemsWithResponse(ctx, config, inputs)
+	case FnOrganizationsGetItem:
+		return ic.dispatchOrganizationsGetItemWithResponse(ctx, config, inputs)
 	case FnPOSTGenerateToken:
 		return ic.dispatchPOSTGenerateTokenWithFormdataBodyWithResponse(ctx, config, inputs)
-	case FnPassesControllerAddItemApiv2:
-		return ic.dispatchPassesControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnPassesControllerDeleteItemApiv2:
-		return ic.dispatchPassesControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnPassesControllerGetItemApiv2:
-		return ic.dispatchPassesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnPassesControllerGetItemsApiv2:
-		return ic.dispatchPassesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnPassesControllerUpdateItemApiv2:
-		return ic.dispatchPassesControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnPasswordControllerChangePasswordApiv2:
-		return ic.dispatchPasswordControllerChangePasswordApiv2WithResponse(ctx, config, inputs)
-	case FnPasswordControllerResetPasswordApiv2:
-		return ic.dispatchPasswordControllerResetPasswordApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentDetailsControllerAddItemApiv2:
-		return ic.dispatchPaymentDetailsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentDetailsControllerDeleteItemApiv2:
-		return ic.dispatchPaymentDetailsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentDetailsControllerGetItemsApiv2:
-		return ic.dispatchPaymentDetailsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentDetailsControllerRegisterItemApiv2:
-		return ic.dispatchPaymentDetailsControllerRegisterItemApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentGatewaysControllerAuthorizeApiv2:
-		return ic.dispatchPaymentGatewaysControllerAuthorizeApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerAddCreditAllocationApiv2:
-		return ic.dispatchPaymentsControllerAddCreditAllocationApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerAddOverpaymentApiv2:
-		return ic.dispatchPaymentsControllerAddOverpaymentApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerCountApiv2:
-		return ic.dispatchPaymentsControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerGetItemApiv2:
-		return ic.dispatchPaymentsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerGetItemsApiv2:
-		return ic.dispatchPaymentsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerGetPaymentDocumentsApiv2:
-		return ic.dispatchPaymentsControllerGetPaymentDocumentsApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerGetPaymentMethodsApiv2:
-		return ic.dispatchPaymentsControllerGetPaymentMethodsApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerUpdateAllocationAccountingApiv2:
-		return ic.dispatchPaymentsControllerUpdateAllocationAccountingApiv2WithResponse(ctx, config, inputs)
-	case FnPaymentsControllerUpdateItemApiv2:
-		return ic.dispatchPaymentsControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnPlansControllerCountApiv2:
-		return ic.dispatchPlansControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnPlansControllerGetItemApiv2:
-		return ic.dispatchPlansControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnPlansControllerGetItemsApiv2:
-		return ic.dispatchPlansControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnPostsControllerAddItemApiv2:
-		return ic.dispatchPostsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnPostsControllerDeleteItemApiv2:
-		return ic.dispatchPostsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnPostsControllerGetItemApiv2:
-		return ic.dispatchPostsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnPostsControllerGetItemsApiv2:
-		return ic.dispatchPostsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnReceptionFlowsControllerGetItemsApiv2:
-		return ic.dispatchReceptionFlowsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnResourceRatesControllerCountApiv2:
-		return ic.dispatchResourceRatesControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnResourceRatesControllerGetCancellationPolicyApiv2:
-		return ic.dispatchResourceRatesControllerGetCancellationPolicyApiv2WithResponse(ctx, config, inputs)
-	case FnResourceRatesControllerGetItemApiv2:
-		return ic.dispatchResourceRatesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnResourceRatesControllerGetItemsApiv2:
-		return ic.dispatchResourceRatesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnResourceTypesControllerGetItemsApiv2:
-		return ic.dispatchResourceTypesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnResourcesControllerCountApiv2:
-		return ic.dispatchResourcesControllerCountApiv2WithResponse(ctx, config, inputs)
-	case FnResourcesControllerGetItemApiv2:
-		return ic.dispatchResourcesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnResourcesControllerGetItemsApiv2:
-		return ic.dispatchResourcesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnResourcesControllerGetResourceStatusApiv2:
-		return ic.dispatchResourcesControllerGetResourceStatusApiv2WithResponse(ctx, config, inputs)
-	case FnRevenueAccountsControllerGetItemApiv2:
-		return ic.dispatchRevenueAccountsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnRevenueAccountsControllerGetItemsApiv2:
-		return ic.dispatchRevenueAccountsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnSecondaryCurrenciesControllerGetItemApiv2:
-		return ic.dispatchSecondaryCurrenciesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnSecondaryCurrenciesControllerGetItemsApiv2:
-		return ic.dispatchSecondaryCurrenciesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnSecondaryCurrenciesControllerUpdateItemApiv2:
-		return ic.dispatchSecondaryCurrenciesControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnTaxRatesControllerGetItemApiv2:
-		return ic.dispatchTaxRatesControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnTaxRatesControllerGetItemsApiv2:
-		return ic.dispatchTaxRatesControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnTicketCommentsControllerAddCommentApiv2:
-		return ic.dispatchTicketCommentsControllerAddCommentApiv2WithResponse(ctx, config, inputs)
-	case FnTicketCommentsControllerGetItemsApiv2:
-		return ic.dispatchTicketCommentsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnTicketOptionsControllerGetItemsApiv2:
-		return ic.dispatchTicketOptionsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnTicketsControllerAddItemApiv2:
-		return ic.dispatchTicketsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnTicketsControllerCountByApiv2:
-		return ic.dispatchTicketsControllerCountByApiv2WithResponse(ctx, config, inputs)
-	case FnTicketsControllerGetItemApiv2:
-		return ic.dispatchTicketsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnTicketsControllerGetItemsApiv2:
-		return ic.dispatchTicketsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnTicketsControllerUpdateItemApiv2:
-		return ic.dispatchTicketsControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
-	case FnVisitorsControllerAddItemApiv2:
-		return ic.dispatchVisitorsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnVisitorsControllerDeleteItemApiv2:
-		return ic.dispatchVisitorsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnVisitorsControllerGetItemApiv2:
-		return ic.dispatchVisitorsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnVisitorsControllerGetItemsApiv2:
-		return ic.dispatchVisitorsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnVisitsControllerAddItemApiv2:
-		return ic.dispatchVisitsControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnVisitsControllerDeleteItemApiv2:
-		return ic.dispatchVisitsControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnVisitsControllerGetItemApiv2:
-		return ic.dispatchVisitsControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnVisitsControllerGetItemsApiv2:
-		return ic.dispatchVisitsControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnWebhooksControllerAddItemApiv2:
-		return ic.dispatchWebhooksControllerAddItemApiv2WithResponse(ctx, config, inputs)
-	case FnWebhooksControllerDeleteItemApiv2:
-		return ic.dispatchWebhooksControllerDeleteItemApiv2WithResponse(ctx, config, inputs)
-	case FnWebhooksControllerGetItemApiv2:
-		return ic.dispatchWebhooksControllerGetItemApiv2WithResponse(ctx, config, inputs)
-	case FnWebhooksControllerGetItemsApiv2:
-		return ic.dispatchWebhooksControllerGetItemsApiv2WithResponse(ctx, config, inputs)
-	case FnWebhooksControllerUpdateItemApiv2:
-		return ic.dispatchWebhooksControllerUpdateItemApiv2WithResponse(ctx, config, inputs)
+	case FnPassesAddItem:
+		return ic.dispatchPassesAddItemWithResponse(ctx, config, inputs)
+	case FnPassesDeleteItem:
+		return ic.dispatchPassesDeleteItemWithResponse(ctx, config, inputs)
+	case FnPassesGetItem:
+		return ic.dispatchPassesGetItemWithResponse(ctx, config, inputs)
+	case FnPassesGetItems:
+		return ic.dispatchPassesGetItemsWithResponse(ctx, config, inputs)
+	case FnPassesUpdateItem:
+		return ic.dispatchPassesUpdateItemWithResponse(ctx, config, inputs)
+	case FnPasswordChangePassword:
+		return ic.dispatchPasswordChangePasswordWithResponse(ctx, config, inputs)
+	case FnPasswordResetPassword:
+		return ic.dispatchPasswordResetPasswordWithResponse(ctx, config, inputs)
+	case FnPaymentDetailsAddItem:
+		return ic.dispatchPaymentDetailsAddItemWithResponse(ctx, config, inputs)
+	case FnPaymentDetailsDeleteItem:
+		return ic.dispatchPaymentDetailsDeleteItemWithResponse(ctx, config, inputs)
+	case FnPaymentDetailsGetItems:
+		return ic.dispatchPaymentDetailsGetItemsWithResponse(ctx, config, inputs)
+	case FnPaymentDetailsRegisterItem:
+		return ic.dispatchPaymentDetailsRegisterItemWithResponse(ctx, config, inputs)
+	case FnPaymentGatewaysAuthorize:
+		return ic.dispatchPaymentGatewaysAuthorizeWithResponse(ctx, config, inputs)
+	case FnPaymentsAddCreditAllocation:
+		return ic.dispatchPaymentsAddCreditAllocationWithResponse(ctx, config, inputs)
+	case FnPaymentsAddOverpayment:
+		return ic.dispatchPaymentsAddOverpaymentWithResponse(ctx, config, inputs)
+	case FnPaymentsCount:
+		return ic.dispatchPaymentsCountWithResponse(ctx, config, inputs)
+	case FnPaymentsGetItem:
+		return ic.dispatchPaymentsGetItemWithResponse(ctx, config, inputs)
+	case FnPaymentsGetItems:
+		return ic.dispatchPaymentsGetItemsWithResponse(ctx, config, inputs)
+	case FnPaymentsGetPaymentDocuments:
+		return ic.dispatchPaymentsGetPaymentDocumentsWithResponse(ctx, config, inputs)
+	case FnPaymentsGetPaymentMethods:
+		return ic.dispatchPaymentsGetPaymentMethodsWithResponse(ctx, config, inputs)
+	case FnPaymentsUpdateAllocationAccounting:
+		return ic.dispatchPaymentsUpdateAllocationAccountingWithResponse(ctx, config, inputs)
+	case FnPaymentsUpdateItem:
+		return ic.dispatchPaymentsUpdateItemWithResponse(ctx, config, inputs)
+	case FnPlansCount:
+		return ic.dispatchPlansCountWithResponse(ctx, config, inputs)
+	case FnPlansGetItem:
+		return ic.dispatchPlansGetItemWithResponse(ctx, config, inputs)
+	case FnPlansGetItems:
+		return ic.dispatchPlansGetItemsWithResponse(ctx, config, inputs)
+	case FnPostsAddItem:
+		return ic.dispatchPostsAddItemWithResponse(ctx, config, inputs)
+	case FnPostsDeleteItem:
+		return ic.dispatchPostsDeleteItemWithResponse(ctx, config, inputs)
+	case FnPostsGetItem:
+		return ic.dispatchPostsGetItemWithResponse(ctx, config, inputs)
+	case FnPostsGetItems:
+		return ic.dispatchPostsGetItemsWithResponse(ctx, config, inputs)
+	case FnReceptionFlowsGetItems:
+		return ic.dispatchReceptionFlowsGetItemsWithResponse(ctx, config, inputs)
+	case FnResourceRatesCount:
+		return ic.dispatchResourceRatesCountWithResponse(ctx, config, inputs)
+	case FnResourceRatesGetCancellationPolicy:
+		return ic.dispatchResourceRatesGetCancellationPolicyWithResponse(ctx, config, inputs)
+	case FnResourceRatesGetItem:
+		return ic.dispatchResourceRatesGetItemWithResponse(ctx, config, inputs)
+	case FnResourceRatesGetItems:
+		return ic.dispatchResourceRatesGetItemsWithResponse(ctx, config, inputs)
+	case FnResourceTypesGetItems:
+		return ic.dispatchResourceTypesGetItemsWithResponse(ctx, config, inputs)
+	case FnResourcesCount:
+		return ic.dispatchResourcesCountWithResponse(ctx, config, inputs)
+	case FnResourcesGetItem:
+		return ic.dispatchResourcesGetItemWithResponse(ctx, config, inputs)
+	case FnResourcesGetItems:
+		return ic.dispatchResourcesGetItemsWithResponse(ctx, config, inputs)
+	case FnResourcesGetResourceStatus:
+		return ic.dispatchResourcesGetResourceStatusWithResponse(ctx, config, inputs)
+	case FnRevenueAccountsGetItem:
+		return ic.dispatchRevenueAccountsGetItemWithResponse(ctx, config, inputs)
+	case FnRevenueAccountsGetItems:
+		return ic.dispatchRevenueAccountsGetItemsWithResponse(ctx, config, inputs)
+	case FnSecondaryCurrenciesGetItem:
+		return ic.dispatchSecondaryCurrenciesGetItemWithResponse(ctx, config, inputs)
+	case FnSecondaryCurrenciesGetItems:
+		return ic.dispatchSecondaryCurrenciesGetItemsWithResponse(ctx, config, inputs)
+	case FnSecondaryCurrenciesUpdateItem:
+		return ic.dispatchSecondaryCurrenciesUpdateItemWithResponse(ctx, config, inputs)
+	case FnTaxRatesGetItem:
+		return ic.dispatchTaxRatesGetItemWithResponse(ctx, config, inputs)
+	case FnTaxRatesGetItems:
+		return ic.dispatchTaxRatesGetItemsWithResponse(ctx, config, inputs)
+	case FnTicketCommentsAddComment:
+		return ic.dispatchTicketCommentsAddCommentWithResponse(ctx, config, inputs)
+	case FnTicketCommentsGetItems:
+		return ic.dispatchTicketCommentsGetItemsWithResponse(ctx, config, inputs)
+	case FnTicketOptionsGetItems:
+		return ic.dispatchTicketOptionsGetItemsWithResponse(ctx, config, inputs)
+	case FnTicketsAddItem:
+		return ic.dispatchTicketsAddItemWithResponse(ctx, config, inputs)
+	case FnTicketsCountBy:
+		return ic.dispatchTicketsCountByWithResponse(ctx, config, inputs)
+	case FnTicketsGetItem:
+		return ic.dispatchTicketsGetItemWithResponse(ctx, config, inputs)
+	case FnTicketsGetItems:
+		return ic.dispatchTicketsGetItemsWithResponse(ctx, config, inputs)
+	case FnTicketsUpdateItem:
+		return ic.dispatchTicketsUpdateItemWithResponse(ctx, config, inputs)
+	case FnVisitorsAddItem:
+		return ic.dispatchVisitorsAddItemWithResponse(ctx, config, inputs)
+	case FnVisitorsDeleteItem:
+		return ic.dispatchVisitorsDeleteItemWithResponse(ctx, config, inputs)
+	case FnVisitorsGetItem:
+		return ic.dispatchVisitorsGetItemWithResponse(ctx, config, inputs)
+	case FnVisitorsGetItems:
+		return ic.dispatchVisitorsGetItemsWithResponse(ctx, config, inputs)
+	case FnVisitsAddItem:
+		return ic.dispatchVisitsAddItemWithResponse(ctx, config, inputs)
+	case FnVisitsDeleteItem:
+		return ic.dispatchVisitsDeleteItemWithResponse(ctx, config, inputs)
+	case FnVisitsGetItem:
+		return ic.dispatchVisitsGetItemWithResponse(ctx, config, inputs)
+	case FnVisitsGetItems:
+		return ic.dispatchVisitsGetItemsWithResponse(ctx, config, inputs)
+	case FnWebhooksAddItem:
+		return ic.dispatchWebhooksAddItemWithResponse(ctx, config, inputs)
+	case FnWebhooksDeleteItem:
+		return ic.dispatchWebhooksDeleteItemWithResponse(ctx, config, inputs)
+	case FnWebhooksGetItem:
+		return ic.dispatchWebhooksGetItemWithResponse(ctx, config, inputs)
+	case FnWebhooksGetItems:
+		return ic.dispatchWebhooksGetItemsWithResponse(ctx, config, inputs)
+	case FnWebhooksUpdateItem:
+		return ic.dispatchWebhooksUpdateItemWithResponse(ctx, config, inputs)
 	default:
 		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}
