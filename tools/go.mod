@@ -4,10 +4,17 @@ go 1.27.1
 
 require (
 	github.com/vektah/gqlparser/v2 v2.5.63
+	github.com/yardrail/connectors/canva/canva v0.0.0-20261112070108-5b4d3ff11428
 	github.com/yardrail/connectors/egnyte/egnyte v0.0.0-20261109202406-166a57d28704
+	github.com/yardrail/connectors/eventbrite/eventbrite v0.0.0-20261112070108-5b4d3ff11428
+	github.com/yardrail/connectors/hubspot/crm-contacts v0.0.0-20261112070108-5b4d3ff11428
+	github.com/yardrail/connectors/mailchimp/marketing v0.0.0-20261112070108-5b4d3ff11428
+	github.com/yardrail/connectors/microsoft/outlook v0.0.0-20261112070108-5b4d3ff11428
 	github.com/yardrail/connectors/notion/notion v0.0.0-20261109202406-166a57d28704
-	github.com/yardrail/connectors/officernd/officernd v0.0.0-20261112051002-951478bbec2d
+	github.com/yardrail/connectors/officernd/officernd v0.0.0-20261112070108-5b4d3ff11428
+	github.com/yardrail/connectors/quickbooks/account v0.0.0-20261112070108-5b4d3ff11428
 	github.com/yardrail/connectors/slack/slack v0.0.0-20261109202406-166a57d28704
+	github.com/yardrail/connectors/stripe/stripe v0.0.0-20261112070108-5b4d3ff11428
 	golang.org/x/tools v0.52.0
 	google.golang.org/api v0.312.0
 	gopkg.in/yaml.v3 v3.0.1

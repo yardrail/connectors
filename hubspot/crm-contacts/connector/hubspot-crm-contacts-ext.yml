@@ -49,6 +49,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Retrieve contacts"
     fields:
       - name: class
         type: "#Getcrmv3objectscontactsGetPage_class"
@@ -83,6 +84,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Create a contact"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsCreate_class"
@@ -100,6 +102,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Archive a batch of contacts"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatcharchiveArchive_class"
@@ -117,6 +120,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Create a batch of contacts"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatchcreateCreate_class"
@@ -134,6 +138,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Retrieve a batch of contacts"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatchreadRead_class"
@@ -151,6 +156,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Update a batch of contacts"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatchupdateUpdate_class"
@@ -168,6 +174,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Create or update a batch of contacts"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsbatchupsertUpsert_class"
@@ -185,6 +192,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Permanently delete a contact (GDPR-compliant)"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsgdprDeletePurge_class"
@@ -202,6 +210,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Merge two contacts"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactsmergeMerge_class"
@@ -219,6 +228,7 @@ $graph:
     inVocab: false
     extends: cwl:Operation
     documentRoot: true
+    doc: "Search for contacts"
     fields:
       - name: class
         type: "#Postcrmv3objectscontactssearchDoSearch_class"
