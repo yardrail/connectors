@@ -2,9 +2,9 @@ version: "3"
 
 tasks:
   spec:
-    desc: "Egnyte API spec (committed, manually managed)"
+    desc: "Egnyte API spec (committed, with jq fixup to add missing tags)"
     cmds:
-      - echo "spec is committed — update manually"
+      - jq -f spec/fixup.jq spec/openapi.json > spec/openapi.fixed.json
 
   client:
     desc: "Generate Egnyte Go client from OpenAPI spec"

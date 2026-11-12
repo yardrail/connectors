@@ -72,6 +72,9 @@ const (
 	FnGetAssistantStatus                      Function = "get-assistant-status"
 	FnGetBookmark                             Function = "get-bookmark"
 	FnGetComment                              Function = "get-comment"
+	FnGetEffectivePermissionsForUser          Function = "get-effective-permissions-for-user"
+	FnGetFolderPermissionsV1                  Function = "get-folder-permissions-v1"
+	FnGetFolderPermissionsV2                  Function = "get-folder-permissions-v2"
 	FnGetMspDomain                            Function = "get-msp-domain"
 	FnGetMspPowerUsersQuote                   Function = "get-msp-power-users-quote"
 	FnGetMspTenant                            Function = "get-msp-tenant"
@@ -160,6 +163,7 @@ const (
 	FnPortalProdGetNamespaceV1                Function = "portal-prod-get-namespace-v1"
 	FnPortalProdGetNamespacesV1               Function = "portal-prod-get-namespaces-v1"
 	FnPortalProdGetProjectCustomFieldsV1      Function = "portal-prod-get-project-custom-fields-v1"
+	FnPortalProdPatchFolderOptionsV1          Function = "portal-prod-patch-folder-options-v1"
 	FnPortalProdPatchGroupsByIdV2             Function = "portal-prod-patch-groups-by-id-v2"
 	FnPortalProdPatchMetadataKeyDataV1        Function = "portal-prod-patch-metadata-key-data-v1"
 	FnPortalProdPatchMetadataKeyV1            Function = "portal-prod-patch-metadata-key-v1"
@@ -168,6 +172,9 @@ const (
 	FnPortalProdPatchProjectCustomFieldDataV1 Function = "portal-prod-patch-project-custom-field-data-v1"
 	FnPortalProdPatchProjectCustomFieldV1     Function = "portal-prod-patch-project-custom-field-v1"
 	FnPortalProdPostFsByIdV1                  Function = "portal-prod-post-fs-by-id-v1"
+	FnPortalProdPostFsContentByPathV1         Function = "portal-prod-post-fs-content-by-path-v1"
+	FnPortalProdPostFsContentChunkedByIdV1    Function = "portal-prod-post-fs-content-chunked-by-id-v1"
+	FnPortalProdPostFsContentChunkedByPathV1  Function = "portal-prod-post-fs-content-chunked-by-path-v1"
 	FnPortalProdPostFsV1                      Function = "portal-prod-post-fs-v1"
 	FnPortalProdPostFsV2                      Function = "portal-prod-post-fs-v2"
 	FnPortalProdPostGroupsV2                  Function = "portal-prod-post-groups-v2"
@@ -189,6 +196,8 @@ const (
 	FnRevokeToken                             Function = "revoke-token"
 	FnSearchV1Get                             Function = "search-v1-get"
 	FnSearchV2Post                            Function = "search-v2-post"
+	FnSetFolderPermissionsV1                  Function = "set-folder-permissions-v1"
+	FnSetFolderPermissionsV2                  Function = "set-folder-permissions-v2"
 	FnSetWebhookStatus                        Function = "set-webhook-status"
 	FnStreamAuditEventsGet                    Function = "stream-audit-events-get"
 	FnStreamAuditEventsPost                   Function = "stream-audit-events-post"
@@ -305,6 +314,12 @@ func ParseFunction(s string) (Function, error) {
 		return FnGetBookmark, nil
 	case FnGetComment:
 		return FnGetComment, nil
+	case FnGetEffectivePermissionsForUser:
+		return FnGetEffectivePermissionsForUser, nil
+	case FnGetFolderPermissionsV1:
+		return FnGetFolderPermissionsV1, nil
+	case FnGetFolderPermissionsV2:
+		return FnGetFolderPermissionsV2, nil
 	case FnGetMspDomain:
 		return FnGetMspDomain, nil
 	case FnGetMspPowerUsersQuote:
@@ -481,6 +496,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnPortalProdGetNamespacesV1, nil
 	case FnPortalProdGetProjectCustomFieldsV1:
 		return FnPortalProdGetProjectCustomFieldsV1, nil
+	case FnPortalProdPatchFolderOptionsV1:
+		return FnPortalProdPatchFolderOptionsV1, nil
 	case FnPortalProdPatchGroupsByIdV2:
 		return FnPortalProdPatchGroupsByIdV2, nil
 	case FnPortalProdPatchMetadataKeyDataV1:
@@ -497,6 +514,12 @@ func ParseFunction(s string) (Function, error) {
 		return FnPortalProdPatchProjectCustomFieldV1, nil
 	case FnPortalProdPostFsByIdV1:
 		return FnPortalProdPostFsByIdV1, nil
+	case FnPortalProdPostFsContentByPathV1:
+		return FnPortalProdPostFsContentByPathV1, nil
+	case FnPortalProdPostFsContentChunkedByIdV1:
+		return FnPortalProdPostFsContentChunkedByIdV1, nil
+	case FnPortalProdPostFsContentChunkedByPathV1:
+		return FnPortalProdPostFsContentChunkedByPathV1, nil
 	case FnPortalProdPostFsV1:
 		return FnPortalProdPostFsV1, nil
 	case FnPortalProdPostFsV2:
@@ -539,6 +562,10 @@ func ParseFunction(s string) (Function, error) {
 		return FnSearchV1Get, nil
 	case FnSearchV2Post:
 		return FnSearchV2Post, nil
+	case FnSetFolderPermissionsV1:
+		return FnSetFolderPermissionsV1, nil
+	case FnSetFolderPermissionsV2:
+		return FnSetFolderPermissionsV2, nil
 	case FnSetWebhookStatus:
 		return FnSetWebhookStatus, nil
 	case FnStreamAuditEventsGet:
@@ -669,6 +696,12 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchGetBookmarkWithResponse(ctx, config, inputs)
 	case FnGetComment:
 		return ic.dispatchGetCommentWithResponse(ctx, config, inputs)
+	case FnGetEffectivePermissionsForUser:
+		return ic.dispatchGetEffectivePermissionsForUserWithResponse(ctx, config, inputs)
+	case FnGetFolderPermissionsV1:
+		return ic.dispatchGetFolderPermissionsV1WithResponse(ctx, config, inputs)
+	case FnGetFolderPermissionsV2:
+		return ic.dispatchGetFolderPermissionsV2WithResponse(ctx, config, inputs)
 	case FnGetMspDomain:
 		return ic.dispatchGetMspDomainWithResponse(ctx, config, inputs)
 	case FnGetMspPowerUsersQuote:
@@ -845,6 +878,8 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchPortalProdGetNamespacesV1WithResponse(ctx, config, inputs)
 	case FnPortalProdGetProjectCustomFieldsV1:
 		return ic.dispatchPortalProdGetProjectCustomFieldsV1WithResponse(ctx, config, inputs)
+	case FnPortalProdPatchFolderOptionsV1:
+		return ic.dispatchPortalProdPatchFolderOptionsV1WithResponse(ctx, config, inputs)
 	case FnPortalProdPatchGroupsByIdV2:
 		return ic.dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx, config, inputs)
 	case FnPortalProdPatchMetadataKeyDataV1:
@@ -861,6 +896,12 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchPortalProdPatchProjectCustomFieldV1WithResponse(ctx, config, inputs)
 	case FnPortalProdPostFsByIdV1:
 		return ic.dispatchPortalProdPostFsByIdV1WithResponse(ctx, config, inputs)
+	case FnPortalProdPostFsContentByPathV1:
+		return ic.dispatchPortalProdPostFsContentByPathV1WithBodyWithResponse(ctx, config, inputs)
+	case FnPortalProdPostFsContentChunkedByIdV1:
+		return ic.dispatchPortalProdPostFsContentChunkedByIdV1WithBodyWithResponse(ctx, config, inputs)
+	case FnPortalProdPostFsContentChunkedByPathV1:
+		return ic.dispatchPortalProdPostFsContentChunkedByPathV1WithBodyWithResponse(ctx, config, inputs)
 	case FnPortalProdPostFsV1:
 		return ic.dispatchPortalProdPostFsV1WithResponse(ctx, config, inputs)
 	case FnPortalProdPostFsV2:
@@ -903,6 +944,10 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.dispatchSearchV1GetWithResponse(ctx, config, inputs)
 	case FnSearchV2Post:
 		return ic.dispatchSearchV2PostWithResponse(ctx, config, inputs)
+	case FnSetFolderPermissionsV1:
+		return ic.dispatchSetFolderPermissionsV1WithResponse(ctx, config, inputs)
+	case FnSetFolderPermissionsV2:
+		return ic.dispatchSetFolderPermissionsV2WithResponse(ctx, config, inputs)
 	case FnSetWebhookStatus:
 		return ic.dispatchSetWebhookStatusWithResponse(ctx, config, inputs)
 	case FnStreamAuditEventsGet:

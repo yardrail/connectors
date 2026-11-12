@@ -4,7 +4,9 @@
 package connector
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -21,6 +23,8 @@ var (
 	errInterfaceNotConfigured = errors.New("egnyte: interface not configured")
 	errUnknownFunction        = errors.New("egnyte: unknown function")
 )
+
+const maxStreamBodySize = 50 << 20 // 50 MiB
 
 // Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
@@ -1304,6 +1308,92 @@ func (ic *InterfaceClient) dispatchGetCommentWithResponse(ctx context.Context, _
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("egnyte.get-comment: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchGetEffectivePermissionsForUserWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Username string `json:"username"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-effective-permissions-for-user: %w", err)
+	}
+	var params client.GetEffectivePermissionsForUserParams
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("egnyte.get-effective-permissions-for-user: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.GetEffectivePermissionsForUserWithResponse(ctx, pathArgs.Username, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.get-effective-permissions-for-user: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.get-effective-permissions-for-user: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchGetFolderPermissionsV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Path string `json:"path"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-folder-permissions-v1: %w", err)
+	}
+	var params client.GetFolderPermissionsV1Params
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("egnyte.get-folder-permissions-v1: params: %w", paramsErr)
+	}
+
+	resp, callErr := ic.cl.GetFolderPermissionsV1WithResponse(ctx, pathArgs.Path, &params)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.get-folder-permissions-v1: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.get-folder-permissions-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchGetFolderPermissionsV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Path string `json:"path"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.get-folder-permissions-v2: %w", err)
+	}
+	resp, callErr := ic.cl.GetFolderPermissionsV2WithResponse(ctx, pathArgs.Path)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.get-folder-permissions-v2: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.get-folder-permissions-v2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -3454,6 +3544,37 @@ func (ic *InterfaceClient) dispatchPortalProdGetProjectCustomFieldsV1WithRespons
 	return json.RawMessage(resp.Body), nil
 }
 
+func (ic *InterfaceClient) dispatchPortalProdPatchFolderOptionsV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Path string `json:"path"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-folder-options-v1: %w", err)
+	}
+	var body client.PortalProdPatchFolderOptionsV1JSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-folder-options-v1: %w", bodyErr)
+	}
+
+	resp, callErr := ic.cl.PortalProdPatchFolderOptionsV1WithResponse(ctx, pathArgs.Path, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-folder-options-v1: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.portal-prod-patch-folder-options-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
 func (ic *InterfaceClient) dispatchPortalProdPatchGroupsByIdV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var pathArgs struct {
 		GroupId string `json:"groupId"`
@@ -3709,6 +3830,164 @@ func (ic *InterfaceClient) dispatchPortalProdPostFsByIdV1WithResponse(ctx contex
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-by-id-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchPortalProdPostFsContentByPathV1WithBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Path string `json:"path"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-by-path-v1: %w", err)
+	}
+	var streamInput struct {
+		Data        string `json:"data"`
+		ContentType string `json:"content_type"`
+	}
+
+	if err := json.Unmarshal(inputs, &streamInput); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-by-path-v1: stream input: %w", err)
+	}
+
+	bodyBytes, decErr := base64.StdEncoding.DecodeString(streamInput.Data)
+	if decErr != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-by-path-v1: decoding data: %w", decErr)
+	}
+
+	if len(bodyBytes) > maxStreamBodySize {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-by-path-v1: data exceeds %d byte limit", maxStreamBodySize)
+	}
+
+	bodyReader := bytes.NewReader(bodyBytes)
+	contentType := streamInput.ContentType
+	if contentType == "" {
+		contentType = "application/octet-stream"
+	}
+
+	resp, callErr := ic.cl.PortalProdPostFsContentByPathV1WithBodyWithResponse(ctx, pathArgs.Path, contentType, bodyReader)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-by-path-v1: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-by-path-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchPortalProdPostFsContentChunkedByIdV1WithBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Id string `json:"id"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-id-v1: %w", err)
+	}
+	var params client.PortalProdPostFsContentChunkedByIdV1Params
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-id-v1: params: %w", paramsErr)
+	}
+
+	var streamInput struct {
+		Data        string `json:"data"`
+		ContentType string `json:"content_type"`
+	}
+
+	if err := json.Unmarshal(inputs, &streamInput); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-id-v1: stream input: %w", err)
+	}
+
+	bodyBytes, decErr := base64.StdEncoding.DecodeString(streamInput.Data)
+	if decErr != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-id-v1: decoding data: %w", decErr)
+	}
+
+	if len(bodyBytes) > maxStreamBodySize {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-id-v1: data exceeds %d byte limit", maxStreamBodySize)
+	}
+
+	bodyReader := bytes.NewReader(bodyBytes)
+	contentType := streamInput.ContentType
+	if contentType == "" {
+		contentType = "application/octet-stream"
+	}
+
+	resp, callErr := ic.cl.PortalProdPostFsContentChunkedByIdV1WithBodyWithResponse(ctx, pathArgs.Id, &params, contentType, bodyReader)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-id-v1: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-id-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchPortalProdPostFsContentChunkedByPathV1WithBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Path string `json:"path"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-path-v1: %w", err)
+	}
+	var params client.PortalProdPostFsContentChunkedByPathV1Params
+
+	paramsErr := json.Unmarshal(inputs, &params)
+	if paramsErr != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-path-v1: params: %w", paramsErr)
+	}
+
+	var streamInput struct {
+		Data        string `json:"data"`
+		ContentType string `json:"content_type"`
+	}
+
+	if err := json.Unmarshal(inputs, &streamInput); err != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-path-v1: stream input: %w", err)
+	}
+
+	bodyBytes, decErr := base64.StdEncoding.DecodeString(streamInput.Data)
+	if decErr != nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-path-v1: decoding data: %w", decErr)
+	}
+
+	if len(bodyBytes) > maxStreamBodySize {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-path-v1: data exceeds %d byte limit", maxStreamBodySize)
+	}
+
+	bodyReader := bytes.NewReader(bodyBytes)
+	contentType := streamInput.ContentType
+	if contentType == "" {
+		contentType = "application/octet-stream"
+	}
+
+	resp, callErr := ic.cl.PortalProdPostFsContentChunkedByPathV1WithBodyWithResponse(ctx, pathArgs.Path, &params, contentType, bodyReader)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-path-v1: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.portal-prod-post-fs-content-chunked-by-path-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil
@@ -4286,6 +4565,68 @@ func (ic *InterfaceClient) dispatchSearchV2PostWithResponse(ctx context.Context,
 
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("egnyte.search-v2-post: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchSetFolderPermissionsV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Path string `json:"path"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.set-folder-permissions-v1: %w", err)
+	}
+	var body client.SetFolderPermissionsV1JSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("egnyte.set-folder-permissions-v1: %w", bodyErr)
+	}
+
+	resp, callErr := ic.cl.SetFolderPermissionsV1WithResponse(ctx, pathArgs.Path, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.set-folder-permissions-v1: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.set-folder-permissions-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
+	}
+
+	return json.RawMessage(resp.Body), nil
+}
+
+func (ic *InterfaceClient) dispatchSetFolderPermissionsV2WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
+	var pathArgs struct {
+		Path string `json:"path"`
+	}
+
+	if err := json.Unmarshal(inputs, &pathArgs); err != nil {
+		return nil, fmt.Errorf("egnyte.set-folder-permissions-v2: %w", err)
+	}
+	var body client.SetFolderPermissionsV2JSONRequestBody
+
+	bodyErr := json.Unmarshal(inputs, &body)
+	if bodyErr != nil {
+		return nil, fmt.Errorf("egnyte.set-folder-permissions-v2: %w", bodyErr)
+	}
+
+	resp, callErr := ic.cl.SetFolderPermissionsV2WithResponse(ctx, pathArgs.Path, body)
+	if callErr != nil {
+		return nil, callErr
+	}
+
+	if resp == nil {
+		return nil, fmt.Errorf("egnyte.set-folder-permissions-v2: nil response")
+	}
+
+	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf("egnyte.set-folder-permissions-v2: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
 	return json.RawMessage(resp.Body), nil

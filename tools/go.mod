@@ -4,6 +4,7 @@ go 1.27.1
 
 require (
 	github.com/vektah/gqlparser/v2 v2.5.63
+	github.com/yardrail/connectors/egnyte/egnyte v0.0.0-20261109202406-166a57d28704
 	github.com/yardrail/connectors/notion/notion v0.0.0-20261109202406-166a57d28704
 	github.com/yardrail/connectors/slack/slack v0.0.0-20261109202406-166a57d28704
 	golang.org/x/tools v0.52.0
