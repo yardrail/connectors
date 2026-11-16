@@ -149,3 +149,21 @@ $graph:
         jsonldPredicate:
           _id: "@type"
           _type: "@vocab"
+
+  - name: MoveItemToGroup_class
+    type: enum
+    inVocab: false
+    symbols: ["monday:MoveItemToGroup"]
+
+  - name: MoveItemToGroup
+    type: record
+    inVocab: false
+    extends: cwl:Operation
+    documentRoot: true
+    doc: "Moves an item to another group on the same board."
+    fields:
+      - name: class
+        type: "#MoveItemToGroup_class"
+        jsonldPredicate:
+          _id: "@type"
+          _type: "@vocab"

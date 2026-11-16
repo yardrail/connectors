@@ -28,6 +28,7 @@ const (
 	FnListBoardItems             Function = "list-board-items"
 	FnListItemsByColumnValues    Function = "list-items-by-column-values"
 	FnListUsers                  Function = "list-users"
+	FnMoveItemToGroup            Function = "move-item-to-group"
 )
 
 // ParseFunction validates a function name and returns the typed Function value.
@@ -49,6 +50,8 @@ func ParseFunction(s string) (Function, error) {
 		return FnListItemsByColumnValues, nil
 	case FnListUsers:
 		return FnListUsers, nil
+	case FnMoveItemToGroup:
+		return FnMoveItemToGroup, nil
 	default:
 		return "", fmt.Errorf("%w: %q", errUnknownFunction, s)
 	}
@@ -73,6 +76,8 @@ func (ic *InterfaceClient) Dispatch(ctx context.Context, fn Function, config map
 		return ic.ep.call(ctx, string(fn), queryListItemsByColumnValues, inputs)
 	case FnListUsers:
 		return ic.ep.call(ctx, string(fn), queryListUsers, inputs)
+	case FnMoveItemToGroup:
+		return ic.ep.call(ctx, string(fn), queryMoveItemToGroup, inputs)
 	default:
 		return nil, fmt.Errorf("%w: %q", errUnknownFunction, string(fn))
 	}

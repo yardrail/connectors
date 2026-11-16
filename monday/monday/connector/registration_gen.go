@@ -10,7 +10,7 @@ func Register() connector.Registration {
 		Definition: connector.Definition{
 			ID:          "monday",
 			Name:        "monday.com",
-			Description: "List, find, create, read and update items, list board columns, post updates and list users on monday.com boards.",
+			Description: "List, find, create, read, update and move items, list board columns, post updates and list users on monday.com boards.",
 			Interfaces: []connector.Interface{
 				{
 					ID:           "api",
@@ -139,6 +139,19 @@ func Register() connector.Registration {
 					{Name: "id", Type: "string", Required: false, Description: ""},
 					{Name: "name", Type: "string", Required: false, Description: ""},
 					{Name: "email", Type: "string", Required: false, Description: ""},
+				},
+			}},
+			{ClassIRI: "https://yardrail.com/cwl/monday#MoveItemToGroup", Info: connector.CWLClassInfo{
+				ConnectorID: "monday",
+				Function:    "move-item-to-group",
+				ClassName:   "MoveItemToGroup",
+				Description: "Moves an item to another group on the same board.",
+				Inputs: []connector.CWLFieldInfo{
+					{Name: "itemId", Type: "string", Required: true, Description: ""},
+					{Name: "groupId", Type: "string", Required: true, Description: ""},
+				},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "id", Type: "string", Required: false, Description: ""},
 				},
 			}},
 		},

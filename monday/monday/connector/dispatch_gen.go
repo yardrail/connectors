@@ -166,6 +166,13 @@ const queryListUsers = `query ListUsers {
 }
 `
 
+const queryMoveItemToGroup = `mutation MoveItemToGroup($itemId: ID!, $groupId: String!) {
+  move_item_to_group(item_id: $itemId, group_id: $groupId) {
+    id
+  }
+}
+`
+
 type graphqlRequest struct {
 	Query     string          `json:"query"`
 	Variables json.RawMessage `json:"variables,omitempty"`
