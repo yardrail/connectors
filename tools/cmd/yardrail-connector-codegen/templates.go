@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"go/format"
+	"slices"
 	"strings"
 	"text/template"
 
@@ -69,9 +70,14 @@ func mergeSecuritySchemes(spec, manifest map[string]SecurityScheme) map[string]S
 	return merged
 }
 
+// platformCredKeys are the stored credential keys the platform writes: token
+// and bot_token for pasted secrets, access_token for OAuth.
+var platformCredKeys = map[string]bool{"token": true, "bot_token": true, "access_token": true}
+
 // deriveAuthStrategy maps each callable interface's security_scheme to concrete
 // auth wiring based on the merged security schemes. A security_scheme that is
-// set but not in schemes is an error.
+// set but not in schemes is an error, as is a credential mapping the platform
+// cannot satisfy or a static Authorization header.
 func deriveAuthStrategy(manifest *Manifest, schemes map[string]SecurityScheme) (map[string]authStrategy, error) {
 	strategies := make(map[string]authStrategy)
 
@@ -85,24 +91,43 @@ func deriveAuthStrategy(manifest *Manifest, schemes map[string]SecurityScheme) (
 			return nil, fmt.Errorf("interface %q: %w: %q", iface.ID, errUnresolvedSecurityScheme, iface.SecurityScheme)
 		}
 
-		credKey := mapCredField(iface.CredMapping, "access_token", "access_token")
+		for h := range iface.Headers {
+			if strings.EqualFold(h, "Authorization") {
+				return nil, fmt.Errorf("interface %q: %w", iface.ID, errStaticAuthHeader)
+			}
+		}
+
+		var targets []string
 
 		switch {
 		case scheme.Type == "apiKey":
-			credKey = mapCredField(iface.CredMapping, scheme.Name, scheme.Name)
+			targets = []string{scheme.Name}
 		case scheme.Type == "http" && scheme.Scheme == "basic":
-			credKey = "username"
+			targets = []string{"username", "password"}
+		default:
+			targets = []string{"access_token"}
 		}
 
-		usernameField := mapCredField(iface.CredMapping, "username", "username")
-		passwordField := mapCredField(iface.CredMapping, "password", "password")
-
-		strategies[iface.ID] = authStrategy{
-			SecurityScheme: scheme,
-			CredKey:        credKey,
-			UsernameField:  usernameField,
-			PasswordField:  passwordField,
+		for target := range iface.CredMapping {
+			if !slices.Contains(targets, target) {
+				return nil, fmt.Errorf("interface %q: %w: %q (want one of %q)", iface.ID, errInvalidCredTarget, target, targets)
+			}
 		}
+
+		sources := make([]string, len(targets))
+		for i, target := range targets {
+			sources[i] = mapCredField(iface.CredMapping, target, target)
+			if !platformCredKeys[sources[i]] {
+				return nil, fmt.Errorf("interface %q: %w: %q", iface.ID, errUnstoredCredKey, sources[i])
+			}
+		}
+
+		strat := authStrategy{SecurityScheme: scheme, CredKey: sources[0]}
+		if len(sources) == 2 {
+			strat.UsernameField, strat.PasswordField = sources[0], sources[1]
+		}
+
+		strategies[iface.ID] = strat
 	}
 
 	return strategies, nil

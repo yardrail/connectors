@@ -21,6 +21,8 @@ interfaces:
     auth_method: api_key
     auth_scope: user
     security_scheme: private_apps
+    cred_mapping:
+      private-app: token
     capabilities: [contact.read, contact.create, contact.update, contact.delete, contact.search]
     source:
       openapi: spec/openapi.json

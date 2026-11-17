@@ -17,6 +17,9 @@ var (
 	errInvalidScalarType        = errors.New("source.scalars type must be string, integer, number, boolean, object or array")
 	errDescriptionsNotGraphQL   = errors.New("source.descriptions is only valid on a graphql interface")
 	errMissingGoogleSDKSource   = errors.New("google_sdk interface requires source.google_sdk")
+	errStaticAuthHeader         = errors.New("static headers must not set Authorization")
+	errInvalidCredTarget        = errors.New("cred_mapping key is not a credential field of the security scheme")
+	errUnstoredCredKey          = errors.New("credential source key is not one the platform stores (token, bot_token, access_token)")
 )
 
 // Manifest is the top-level connector manifest structure.
