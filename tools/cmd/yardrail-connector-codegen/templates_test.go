@@ -3,6 +3,8 @@ package main
 import (
 	"errors"
 	"testing"
+
+	"github.com/yardrail/connectors/tools/googleintrospect"
 )
 
 func TestConfigParamFunc(t *testing.T) {
@@ -74,5 +76,21 @@ func TestDeriveAuthStrategyValidation(t *testing.T) {
 				t.Errorf("deriveAuthStrategy error = %v, want %v", err, tt.wantErr)
 			}
 		})
+	}
+}
+
+func TestHasGoogleSDKMediaSupport(t *testing.T) {
+	t.Parallel()
+
+	fn := tmplFuncs["hasGoogleSDKMediaSupport"].(func([]googleSDKToolDef) bool)
+
+	if fn(nil) {
+		t.Error("nil tools should return false")
+	}
+	if fn([]googleSDKToolDef{{ToolDef: googleintrospect.ToolDef{Name: "x"}}}) {
+		t.Error("tool without media should return false")
+	}
+	if !fn([]googleSDKToolDef{{ToolDef: googleintrospect.ToolDef{Name: "x", SupportsMedia: true}}}) {
+		t.Error("tool with media should return true")
 	}
 }

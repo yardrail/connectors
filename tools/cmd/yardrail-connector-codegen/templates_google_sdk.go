@@ -103,7 +103,7 @@ func (ic *InterfaceClient) dispatch{{.ServiceName}}{{.MethodName}}(ctx context.C
 {{- end}}
 
 	call := ic.svc.{{.ServicePath}}.{{.MethodName}}({{googleSDKRequiredArgs .Params}})
-{{- if hasOptionalParams .Params}}
+{{- if or (hasOptionalParams .Params) .SupportsMedia}}
 
 	optFields := inputMap(inputs)
 {{- range .Params}}{{if not .Required}}
@@ -129,6 +129,35 @@ func (ic *InterfaceClient) dispatch{{.ServiceName}}{{.MethodName}}(ctx context.C
 	}
 {{- end}}
 {{- end}}{{end}}
+{{- if .SupportsMedia}}
+
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string ` + "`" + `json:"path"` + "`" + `
+			MimeType string ` + "`" + `json:"mimeType"` + "`" + `
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("{{$.ConnectorID}}.{{.Name}}: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("{{$.ConnectorID}}.{{.Name}}: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("{{$.ConnectorID}}.{{.Name}}: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("{{$.ConnectorID}}.{{.Name}}: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
+	}
+{{- end}}
 {{- end}}
 
 {{if .HasReturn}}	result, err := call.Context(ctx).Do()
@@ -228,11 +257,18 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+{{- if hasGoogleSDKMediaSupport .GoogleSDKToolDefs}}
+	"os"
+{{- end}}
 
 	"github.com/yardrail/connectors/connector"
 {{- if hasGoogleSDKStructParams .GoogleSDKToolDefs}}
 
 	target "{{.GoogleSDKPkgPath}}"
+{{- end}}
+{{- if hasGoogleSDKMediaSupport .GoogleSDKToolDefs}}
+
+	"google.golang.org/api/googleapi"
 {{- end}}
 )
 
@@ -240,5 +276,9 @@ var (
 	errInterfaceNotConfigured = errors.New("{{.ConnectorID}}: interface not configured")
 	errUnknownFunction        = errors.New("{{.ConnectorID}}: unknown function")
 )
+{{- if hasGoogleSDKMediaSupport .GoogleSDKToolDefs}}
+
+const maxMediaSize = 50 << 20 // 50 MiB
+{{- end}}
 
 ` + resolveTemplate + googleSDKMethodsTemplate + googleSDKInputHelpersTemplate

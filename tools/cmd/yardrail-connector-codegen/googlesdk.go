@@ -64,6 +64,15 @@ func googleSDKToolToOp(tool googleintrospect.ToolDef) *OperationInfo {
 		})
 	}
 
+	if tool.SupportsMedia {
+		inputs = append(inputs, FieldInfo{
+			Name:     "media",
+			Type:     "File",
+			Required: false,
+			Doc:      "File to upload",
+		})
+	}
+
 	return &OperationInfo{
 		OperationID: tool.Name,
 		Description: tool.Desc,

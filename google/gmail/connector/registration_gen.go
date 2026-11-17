@@ -34,6 +34,7 @@ func Register() connector.Registration {
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "userId", Type: "string", Required: true, Description: "The user's email address. The special value `me` can be used to"},
 					{Name: "draft", Type: "object", Required: true, Description: "JSON object (*google.golang.org/api/gmail/v1.Draft)"},
+					{Name: "media", Type: "File", Required: false, Description: "File to upload"},
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
@@ -82,6 +83,7 @@ func Register() connector.Registration {
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "userId", Type: "string", Required: true, Description: "The user's email address. The special value `me` can be used to"},
 					{Name: "draft", Type: "object", Required: true, Description: "JSON object (*google.golang.org/api/gmail/v1.Draft)"},
+					{Name: "media", Type: "File", Required: false, Description: "File to upload"},
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
@@ -94,6 +96,7 @@ func Register() connector.Registration {
 					{Name: "userId", Type: "string", Required: true, Description: "The user's email address. The special value `me` can be used to"},
 					{Name: "id", Type: "string", Required: true, Description: "The ID of the draft to update."},
 					{Name: "draft", Type: "object", Required: true, Description: "JSON object (*google.golang.org/api/gmail/v1.Draft)"},
+					{Name: "media", Type: "File", Required: false, Description: "File to upload"},
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
@@ -249,6 +252,7 @@ func Register() connector.Registration {
 					{Name: "internalDateSource", Type: "string", Required: false, Description: "Source for Gmail's internal date of the message.  Possible values:  \"receivedTime\" - Internal message date set to current time when received  by Gmail.  \"dateHeader\" (default) - Internal message time based on 'Date' header in  email, when valid."},
 					{Name: "neverMarkSpam", Type: "boolean", Required: false, Description: "Ignore the Gmail spam classifier decision and never mark this email as SPAM in the mailbox."},
 					{Name: "processForCalendar", Type: "boolean", Required: false, Description: "Process calendar invites in the email and add any extracted meetings to the Google Calendar for this user."},
+					{Name: "media", Type: "File", Required: false, Description: "File to upload"},
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
@@ -262,6 +266,7 @@ func Register() connector.Registration {
 					{Name: "message", Type: "object", Required: true, Description: "JSON object (*google.golang.org/api/gmail/v1.Message)"},
 					{Name: "deleted", Type: "boolean", Required: false, Description: "Mark the email as permanently deleted (not TRASH) and only visible in Google Vault to a Vault administrator. Only used for Google Workspace accounts."},
 					{Name: "internalDateSource", Type: "string", Required: false, Description: "Source for Gmail's internal date of the message.  Possible values:  \"receivedTime\" (default) - Internal message date set to current time when  received by Gmail.  \"dateHeader\" - Internal message time based on 'Date' header in email, when  valid."},
+					{Name: "media", Type: "File", Required: false, Description: "File to upload"},
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},
@@ -300,6 +305,7 @@ func Register() connector.Registration {
 				Inputs: []connector.CWLFieldInfo{
 					{Name: "userId", Type: "string", Required: true, Description: "The user's email address. The special value `me` can be used to"},
 					{Name: "message", Type: "object", Required: true, Description: "JSON object (*google.golang.org/api/gmail/v1.Message)"},
+					{Name: "media", Type: "File", Required: false, Description: "File to upload"},
 				},
 				Outputs: []connector.CWLFieldInfo{},
 			}},

@@ -480,6 +480,15 @@ var tmplFuncs = template.FuncMap{
 
 		return false
 	},
+	"hasGoogleSDKMediaSupport": func(tools []googleSDKToolDef) bool {
+		for _, t := range tools {
+			if t.SupportsMedia {
+				return true
+			}
+		}
+
+		return false
+	},
 	"configFieldTypeConst": func(s string) string {
 		switch s {
 		case "string":
