@@ -9,16 +9,21 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/yardrail/connectors/connector"
 
 	target "google.golang.org/api/gmail/v1"
+
+	"google.golang.org/api/googleapi"
 )
 
 var (
 	errInterfaceNotConfigured = errors.New("google-gmail: interface not configured")
 	errUnknownFunction        = errors.New("google-gmail: unknown function")
 )
+
+const maxMediaSize = 50 << 20 // 50 MiB
 
 // Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
@@ -52,6 +57,35 @@ func (ic *InterfaceClient) dispatchUsersDraftsServiceCreate(ctx context.Context,
 	}
 
 	call := ic.svc.Users.Drafts.Create(args.UserId, &args.Draft)
+
+	optFields := inputMap(inputs)
+
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_create: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_create: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_create: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("google-gmail.users-drafts_create: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
+	}
 
 	result, err := call.Context(ctx).Do()
 	if err != nil {
@@ -148,6 +182,35 @@ func (ic *InterfaceClient) dispatchUsersDraftsServiceSend(ctx context.Context, _
 
 	call := ic.svc.Users.Drafts.Send(args.UserId, &args.Draft)
 
+	optFields := inputMap(inputs)
+
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_send: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_send: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_send: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("google-gmail.users-drafts_send: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
+	}
+
 	result, err := call.Context(ctx).Do()
 	if err != nil {
 		return nil, err
@@ -168,6 +231,35 @@ func (ic *InterfaceClient) dispatchUsersDraftsServiceUpdate(ctx context.Context,
 	}
 
 	call := ic.svc.Users.Drafts.Update(args.UserId, args.Id, &args.Draft)
+
+	optFields := inputMap(inputs)
+
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_update: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_update: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-drafts_update: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("google-gmail.users-drafts_update: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
+	}
 
 	result, err := call.Context(ctx).Do()
 	if err != nil {
@@ -457,6 +549,33 @@ func (ic *InterfaceClient) dispatchUsersMessagesServiceImport(ctx context.Contex
 		call = call.ProcessForCalendar(v)
 	}
 
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_import: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_import: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_import: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("google-gmail.users-messages_import: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
+	}
+
 	result, err := call.Context(ctx).Do()
 	if err != nil {
 		return nil, err
@@ -483,6 +602,33 @@ func (ic *InterfaceClient) dispatchUsersMessagesServiceInsert(ctx context.Contex
 	}
 	if v, ok := inputString(optFields, "internalDateSource"); ok {
 		call = call.InternalDateSource(v)
+	}
+
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_insert: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_insert: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_insert: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("google-gmail.users-messages_insert: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
 	}
 
 	result, err := call.Context(ctx).Do()
@@ -561,6 +707,35 @@ func (ic *InterfaceClient) dispatchUsersMessagesServiceSend(ctx context.Context,
 	}
 
 	call := ic.svc.Users.Messages.Send(args.UserId, &args.Message)
+
+	optFields := inputMap(inputs)
+
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_send: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_send: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("google-gmail.users-messages_send: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("google-gmail.users-messages_send: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
+	}
 
 	result, err := call.Context(ctx).Do()
 	if err != nil {
