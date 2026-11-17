@@ -1010,7 +1010,7 @@ func BuildCredentials(interfaceID string, stored map[string]string) (connector.C
 
 		return connector.BearerCredentials{Token: secret}, nil
 	case "user-token":
-		secret, err := storedCredential(stored, interfaceID, "access_token")
+		secret, err := storedCredential(stored, interfaceID, "bot_token")
 		if err != nil {
 			return nil, err
 		}

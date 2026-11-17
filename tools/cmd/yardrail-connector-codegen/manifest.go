@@ -20,6 +20,7 @@ var (
 	errStaticAuthHeader         = errors.New("static headers must not set Authorization")
 	errInvalidCredTarget        = errors.New("cred_mapping key is not a credential field of the security scheme")
 	errUnstoredCredKey          = errors.New("credential source key is not one the platform stores (token, bot_token, access_token)")
+	errPastedSecretKey          = errors.New("api_key interface does not read the key its pasted secret is stored under")
 )
 
 // Manifest is the top-level connector manifest structure.

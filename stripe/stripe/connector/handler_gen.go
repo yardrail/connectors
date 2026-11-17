@@ -3174,7 +3174,7 @@ func authEditorSecretKey(creds connector.Credentials) (func(context.Context, *ht
 func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
 	switch interfaceID {
 	case "secret-key":
-		secret, err := storedCredential(stored, interfaceID, "access_token")
+		secret, err := storedCredential(stored, interfaceID, "token")
 		if err != nil {
 			return nil, err
 		}

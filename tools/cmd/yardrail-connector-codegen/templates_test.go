@@ -57,6 +57,7 @@ func TestDeriveAuthStrategyValidation(t *testing.T) {
 		{"static Authorization header", bearer, map[string]string{"access_token": "token"}, map[string]string{"Authorization": "x"}, errStaticAuthHeader},
 		{"monday apiKey Authorization", apiKey("Authorization"), map[string]string{"Authorization": "token"}, map[string]string{"API-Version": "2026-07"}, nil},
 		{"mailchimp basic", basic, map[string]string{"username": "token", "password": "token"}, nil, nil},
+		{"api_key bearer reads access_token", bearer, nil, nil, errPastedSecretKey},
 	}
 
 	for _, tt := range tests {

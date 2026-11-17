@@ -171,6 +171,11 @@ func deriveAuthStrategy(manifest *Manifest, schemes map[string]SecurityScheme) (
 			if !platformCredKeys[sources[i]] {
 				return nil, fmt.Errorf("interface %q: %w: %q", iface.ID, errUnstoredCredKey, sources[i])
 			}
+
+			if iface.AuthMethod == "api_key" && sources[i] != secretKey(manifest.Connector.ID) {
+				return nil, fmt.Errorf("interface %q: %w: reads %q, setup stores %q",
+					iface.ID, errPastedSecretKey, sources[i], secretKey(manifest.Connector.ID))
+			}
 		}
 
 		strat := authStrategy{SecurityScheme: scheme, CredKey: sources[0]}
