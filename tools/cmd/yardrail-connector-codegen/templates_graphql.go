@@ -68,15 +68,22 @@ func (c *Connector) Client() *InterfaceClient {
 
 // NewConnector constructs a Connector for the given GraphQL interface.
 func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
-	var defaultURL string
-	var authFn func(context.Context, *http.Request) error
+	var (
+		defaultURL string
+		authFn     func(context.Context, *http.Request) error
+		err        error
+	)
 
 	switch interfaceID {
 {{range .GraphQLIfaces}}	case "{{.ID}}":
 		defaultURL = "{{.Source.Endpoint}}"
-		authFn = authEditor{{goIdent .ID}}(creds)
+		authFn, err = authEditor{{goIdent .ID}}(creds)
 {{end}}	default:
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	ep := &endpoint{
@@ -250,7 +257,11 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 	switch interfaceID {
 {{range .RESTIfaces}}	case "{{.ID}}":
 		baseURL := resolveBaseURL(config)
-		authFn := authEditor{{goIdent .ID}}(creds)
+
+		authFn, err := authEditor{{goIdent .ID}}(creds)
+		if err != nil {
+			return nil, err
+		}
 
 		opts := []{{clientPkgName $.ClientPkgPath}}.ClientOption{ {{clientPkgName $.ClientPkgPath}}.WithRequestEditorFn(authFn)}
 		if httpClient != nil {
@@ -264,9 +275,14 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 
 		return &Connector{client: &InterfaceClient{cl: cl}}, nil
 {{end}}{{range .GraphQLIfaces}}	case "{{.ID}}":
+		authFn, err := authEditor{{goIdent .ID}}(creds)
+		if err != nil {
+			return nil, err
+		}
+
 		ep := &endpoint{
 			url:        resolveEndpoint(config, "{{.Source.Endpoint}}"),
-			auth:       authEditor{{goIdent .ID}}(creds),
+			auth:       authFn,
 			httpClient: httpClient,
 		}
 

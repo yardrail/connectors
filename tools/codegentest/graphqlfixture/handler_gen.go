@@ -60,15 +60,22 @@ func (c *Connector) Client() *InterfaceClient {
 
 // NewConnector constructs a Connector for the given GraphQL interface.
 func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
-	var defaultURL string
-	var authFn func(context.Context, *http.Request) error
+	var (
+		defaultURL string
+		authFn     func(context.Context, *http.Request) error
+		err        error
+	)
 
 	switch interfaceID {
 	case "api":
 		defaultURL = "https://fixture.invalid/graphql"
-		authFn = authEditorApi(creds)
+		authFn, err = authEditorApi(creds)
 	default:
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	ep := &endpoint{
@@ -97,16 +104,22 @@ func resolveEndpoint(config map[string]string, defaultURL string) string {
 	return defaultURL
 }
 
-func authEditorApi(creds connector.Credentials) func(context.Context, *http.Request) error {
-	ac := creds.(connector.APIKeyCredentials)
+func authEditorApi(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	ac, ok := creds.(connector.APIKeyCredentials)
+	if !ok {
+		return nil, fmt.Errorf("graphqlfixture: interface %q: %w: got %T, want connector.APIKeyCredentials", "api", connector.ErrCredentialType, creds)
+	}
+
+	if ac.Key == "" {
+		return nil, fmt.Errorf("graphqlfixture: interface %q: %w: empty key", "api", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if ac.Key != "" {
-			req.Header.Set("Authorization", ac.Key)
-		}
+		req.Header.Set("Authorization", ac.Key)
 		req.Header.Set("API-Version", "2026-01")
 
 		return nil
-	}
+	}, nil
 }
 
 // BuildCredentials builds the Credentials the named interface authenticates

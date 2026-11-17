@@ -924,14 +924,22 @@ func (c *Connector) Client() *InterfaceClient {
 func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
 	baseURL := resolveBaseURL(config)
 
-	var authFn func(context.Context, *http.Request) error
+	var (
+		authFn func(context.Context, *http.Request) error
+		err    error
+	)
+
 	switch interfaceID {
 	case "bot-api":
-		authFn = authEditorBotApi(creds)
+		authFn, err = authEditorBotApi(creds)
 	case "user-token":
-		authFn = authEditorUserToken(creds)
+		authFn, err = authEditorUserToken(creds)
 	default:
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
@@ -955,26 +963,38 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://slack.com/api"
 }
 
-func authEditorBotApi(creds connector.Credentials) func(context.Context, *http.Request) error {
-	bc := creds.(connector.BearerCredentials)
+func authEditorBotApi(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("slack: interface %q: %w: got %T, want connector.BearerCredentials", "bot-api", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("slack: interface %q: %w: empty token", "bot-api", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if bc.Token != "" {
-			req.Header.Set("Authorization", "Bearer "+bc.Token)
-		}
+		req.Header.Set("Authorization", "Bearer "+bc.Token)
 
 		return nil
-	}
+	}, nil
 }
 
-func authEditorUserToken(creds connector.Credentials) func(context.Context, *http.Request) error {
-	bc := creds.(connector.BearerCredentials)
+func authEditorUserToken(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("slack: interface %q: %w: got %T, want connector.BearerCredentials", "user-token", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("slack: interface %q: %w: empty token", "user-token", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if bc.Token != "" {
-			req.Header.Set("Authorization", "Bearer "+bc.Token)
-		}
+		req.Header.Set("Authorization", "Bearer "+bc.Token)
 
 		return nil
-	}
+	}, nil
 }
 
 // BuildCredentials builds the Credentials the named interface authenticates

@@ -528,12 +528,20 @@ func (c *Connector) Client() *InterfaceClient {
 func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
 	baseURL := resolveBaseURL(config)
 
-	var authFn func(context.Context, *http.Request) error
+	var (
+		authFn func(context.Context, *http.Request) error
+		err    error
+	)
+
 	switch interfaceID {
 {{range .RESTIfaces}}	case "{{.ID}}":
-		authFn = authEditor{{goIdent .ID}}(creds)
+		authFn, err = authEditor{{goIdent .ID}}(creds)
 {{end}}	default:
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	opts := []{{clientPkgName .ClientPkgPath}}.ClientOption{ {{clientPkgName .ClientPkgPath}}.WithRequestEditorFn(authFn)}
@@ -562,38 +570,56 @@ func resolveBaseURL(config map[string]string) string {
 // authEditorsTemplate renders one request editor per callable interface that
 // applies its auth scheme and static headers. Every handler template uses it.
 const authEditorsTemplate = `{{range .CallableIfaces}}{{$strat := strategyFor $.AuthStrategy .ID}}
-func authEditor{{goIdent .ID}}(creds connector.Credentials) func(context.Context, *http.Request) error {
+func authEditor{{goIdent .ID}}(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
 {{- if eq (authSchemeType $strat) "bearer"}}
-	bc := creds.(connector.BearerCredentials)
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: got %T, want connector.BearerCredentials", "{{.ID}}", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: empty token", "{{.ID}}", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if bc.Token != "" {
-			req.Header.Set("Authorization", "Bearer "+bc.Token)
-		}
+		req.Header.Set("Authorization", "Bearer "+bc.Token)
 {{- else if eq (authSchemeType $strat) "basic"}}
-	bc := creds.(connector.BasicCredentials)
+	bc, ok := creds.(connector.BasicCredentials)
+	if !ok {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: got %T, want connector.BasicCredentials", "{{.ID}}", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Username == "" {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: empty username", "{{.ID}}", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
 		req.SetBasicAuth(bc.Username, bc.Password)
-{{- else if eq (authSchemeType $strat) "apikey_header"}}
-	ac := creds.(connector.APIKeyCredentials)
+{{- else}}
+	ac, ok := creds.(connector.APIKeyCredentials)
+	if !ok {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: got %T, want connector.APIKeyCredentials", "{{.ID}}", connector.ErrCredentialType, creds)
+	}
+
+	if ac.Key == "" {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: empty key", "{{.ID}}", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if ac.Key != "" {
-			req.Header.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
-		}
-{{- else if eq (authSchemeType $strat) "apikey_query"}}
-	ac := creds.(connector.APIKeyCredentials)
-	return func(_ context.Context, req *http.Request) error {
-		if ac.Key != "" {
-			q := req.URL.Query()
-			q.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
-			req.URL.RawQuery = q.Encode()
-		}
+{{- if eq (authSchemeType $strat) "apikey_header"}}
+		req.Header.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
+{{- else}}
+		q := req.URL.Query()
+		q.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
+		req.URL.RawQuery = q.Encode()
+{{- end}}
 {{- end}}
 {{- range $k, $v := .Headers}}
 		req.Header.Set("{{$k}}", "{{$v}}")
 {{- end}}
 
 		return nil
-	}
+	}, nil
 }
 {{end}}
 
