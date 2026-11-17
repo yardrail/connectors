@@ -19,6 +19,7 @@ func Register() connector.Registration {
 					AuthMethod:   connector.AuthMethodOAuth2User,
 					DependsOn:    nil,
 					ConfigFields: nil,
+					SecretKey:    "bot_token",
 				},
 				{
 					ID:           "user-token",
@@ -27,6 +28,7 @@ func Register() connector.Registration {
 					AuthMethod:   connector.AuthMethodAPIKey,
 					DependsOn:    nil,
 					ConfigFields: nil,
+					SecretKey:    "bot_token",
 				},
 				{
 					ID:           "events",
@@ -38,7 +40,8 @@ func Register() connector.Registration {
 				},
 			},
 		},
-		Resolve: Resolve,
+		Resolve:          Resolve,
+		BuildCredentials: BuildCredentials,
 		CWLClasses: []connector.CWLClassEntry{
 			{ClassIRI: "https://yardrail.com/cwl/slack#AdminAppsApprove", Info: connector.CWLClassInfo{
 				ConnectorID: "slack",

@@ -77,7 +77,8 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 
 	return &Connector{client: &InterfaceClient{svc: svc}}, nil
 }
-`
+
+` + buildCredentialsTemplate
 
 // googleSDKMethodsTemplate renders one dispatch method per Google SDK tool.
 const googleSDKMethodsTemplate = `{{range .GoogleSDKToolDefs}}

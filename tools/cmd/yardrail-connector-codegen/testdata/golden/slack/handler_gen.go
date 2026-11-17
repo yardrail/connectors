@@ -976,3 +976,39 @@ func authEditorUserToken(creds connector.Credentials) func(context.Context, *htt
 		return nil
 	}
 }
+
+// BuildCredentials builds the Credentials the named interface authenticates
+// with from the platform's stored credential keys. It returns nil credentials
+// for interfaces that need none.
+func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
+	switch interfaceID {
+	case "bot-api":
+		secret, err := storedCredential(stored, interfaceID, "access_token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BearerCredentials{Token: secret}, nil
+	case "user-token":
+		secret, err := storedCredential(stored, interfaceID, "access_token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BearerCredentials{Token: secret}, nil
+	case "events":
+		return nil, nil
+	default:
+		return nil, fmt.Errorf("slack: %w: %q", connector.ErrUnknownInterface, interfaceID)
+	}
+}
+
+// storedCredential returns the stored value under key, or an error naming the
+// key when it is missing or empty.
+func storedCredential(stored map[string]string, interfaceID, key string) (string, error) {
+	if v := stored[key]; v != "" {
+		return v, nil
+	}
+
+	return "", fmt.Errorf("slack: interface %q: %w %q", interfaceID, connector.ErrMissingCredential, key)
+}

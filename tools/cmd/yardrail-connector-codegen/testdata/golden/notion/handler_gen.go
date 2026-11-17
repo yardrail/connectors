@@ -214,3 +214,30 @@ func authEditorIntegration(creds connector.Credentials) func(context.Context, *h
 		return nil
 	}
 }
+
+// BuildCredentials builds the Credentials the named interface authenticates
+// with from the platform's stored credential keys. It returns nil credentials
+// for interfaces that need none.
+func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
+	switch interfaceID {
+	case "integration":
+		secret, err := storedCredential(stored, interfaceID, "token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BearerCredentials{Token: secret}, nil
+	default:
+		return nil, fmt.Errorf("notion: %w: %q", connector.ErrUnknownInterface, interfaceID)
+	}
+}
+
+// storedCredential returns the stored value under key, or an error naming the
+// key when it is missing or empty.
+func storedCredential(stored map[string]string, interfaceID, key string) (string, error) {
+	if v := stored[key]; v != "" {
+		return v, nil
+	}
+
+	return "", fmt.Errorf("notion: interface %q: %w %q", interfaceID, connector.ErrMissingCredential, key)
+}
