@@ -61,4 +61,6 @@ type Interface struct {
 	AuthMethod   AuthMethod
 	DependsOn    []string
 	ConfigFields []ConfigField
+	// SecretKey is the stored credential key a pasted secret goes under.
+	SecretKey string
 }

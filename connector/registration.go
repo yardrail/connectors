@@ -7,4 +7,12 @@ type Registration struct {
 	Definition Definition
 	Resolve    Resolver
 	CWLClasses []CWLClassEntry
+	// BuildCredentials turns the platform's stored credential keys into
+	// the Credentials type the named interface authenticates with.
+	BuildCredentials CredentialBuilder
 }
+
+// CredentialBuilder builds the Credentials for one interface from the
+// key/value pairs the platform stores for an integration. It returns nil
+// credentials for interfaces that need none.
+type CredentialBuilder func(interfaceID string, stored map[string]string) (Credentials, error)
