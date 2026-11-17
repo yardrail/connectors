@@ -41,8 +41,8 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.12.1 h1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWDWE=
 github.com/stretchr/testify v1.12.1/go.mod h1:MDEgiDPPsNp5cuIrHPPCyornHKgEVbtFUmoNlxoYthg=
-github.com/yardrail/connectors/connector v0.0.0-20261109202406-166a57d28704 h1:g/+xyP0hb6vifqhpKA5o3qNCPoGNtI4IiAD28+gfe9Q=
-github.com/yardrail/connectors/connector v0.0.0-20261109202406-166a57d28704/go.mod h1:7dOzAWxDvllWiY0z11QIF73LdcY62dvAsrrokyLFjqc=
+github.com/yardrail/connectors/connector v0.0.0-20261117073740-840d32b8ed12 h1:TUGUd/Rn4TQsTxDWeadUwyZ1wmoYOih2lG6hTTgFryQ=
+github.com/yardrail/connectors/connector v0.0.0-20261117073740-840d32b8ed12/go.mod h1:7dOzAWxDvllWiY0z11QIF73LdcY62dvAsrrokyLFjqc=
 github.com/yardrail/connectors/notion/notion v0.0.0-20261014165119-58c9b9536778 h1:HEykdZOgCTYjJFpVBH6w2A9C/nKfEISojcJZFjwqdsE=
 github.com/yardrail/connectors/notion/notion v0.0.0-20261014165119-58c9b9536778/go.mod h1:oYGDxmg/1Tn9zCDA4ZXXHRP4GhTf+l7+Nu0pNQLyiDY=
 go.opentelemetry.io/auto/sdk v1.2.1 h1:jXsnJ4Lmnqd11kwkBV2LgLoFMZKizbCi5fNZ/ipaZ64=

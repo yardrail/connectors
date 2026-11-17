@@ -3,7 +3,7 @@ module github.com/yardrail/connectors/google/sheets
 go 1.27.1
 
 require (
-	github.com/yardrail/connectors/connector v0.0.0-20261109212523-5b713c726f1b
+	github.com/yardrail/connectors/connector v0.0.0-20261117073740-840d32b8ed12
 	golang.org/x/oauth2 v0.38.0
 	google.golang.org/api v0.312.0
 )
