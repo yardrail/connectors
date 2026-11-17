@@ -72,6 +72,10 @@ interfaces:
 			ifaceManifest := *m
 			ifaceManifest.Interfaces = []ManifestInterface{m.Interfaces[0]}
 			ifaceManifest.Interfaces[0].SecurityScheme = tt.scheme
+			if tt.wantCredKey == "access_token" {
+				ifaceManifest.Interfaces[0].AuthMethod = "oauth2_user"
+				ifaceManifest.Interfaces[0].CredMapping = nil
+			}
 
 			strategies, err := deriveAuthStrategy(&ifaceManifest, mergeSecuritySchemes(tt.spec, m.SecuritySchemes))
 			if err != nil {

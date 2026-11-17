@@ -21,6 +21,8 @@ interfaces:
     auth_method: api_key
     auth_scope: user
     security_scheme: slackAuth
+    cred_mapping:
+      access_token: bot_token
     capabilities: [message.send, message.read, channel.list]
     source:
       openapi: spec/openapi.json

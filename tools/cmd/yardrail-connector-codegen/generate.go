@@ -58,6 +58,8 @@ func run(cfg runConfig) error {
 		return err
 	}
 
+	ctx.CredBuilds = credentialBuilds(manifest, ctx.AuthStrategy)
+
 	if err := writeOutputs(cfg, ctx, tmpls); err != nil {
 		return err
 	}

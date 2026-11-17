@@ -54,7 +54,15 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	bc := creds.(connector.BearerCredentials)
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("{{.ConnectorID}}: interface %q: %w: got %T, want connector.BearerCredentials", interfaceID, connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("{{.ConnectorID}}: interface %q: %w: empty token", interfaceID, connector.ErrMissingCredential)
+	}
+
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: bc.Token})
 
 	var opts []option.ClientOption
@@ -77,7 +85,8 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 
 	return &Connector{client: &InterfaceClient{svc: svc}}, nil
 }
-`
+
+` + buildCredentialsTemplate
 
 // googleSDKMethodsTemplate renders one dispatch method per Google SDK tool.
 const googleSDKMethodsTemplate = `{{range .GoogleSDKToolDefs}}

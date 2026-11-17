@@ -119,14 +119,22 @@ func (c *Connector) Client() *InterfaceClient {
 func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
 	baseURL := resolveBaseURL(config)
 
-	var authFn func(context.Context, *http.Request) error
+	var (
+		authFn func(context.Context, *http.Request) error
+		err    error
+	)
+
 	switch interfaceID {
 	case "oauth":
-		authFn = authEditorOauth(creds)
+		authFn, err = authEditorOauth(creds)
 	case "private-app":
-		authFn = authEditorPrivateApp(creds)
+		authFn, err = authEditorPrivateApp(creds)
 	default:
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
@@ -150,24 +158,70 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://api.hubapi.com"
 }
 
-func authEditorOauth(creds connector.Credentials) func(context.Context, *http.Request) error {
-	bc := creds.(connector.BearerCredentials)
+func authEditorOauth(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("hubspot-crm-contacts: interface %q: %w: got %T, want connector.BearerCredentials", "oauth", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("hubspot-crm-contacts: interface %q: %w: empty token", "oauth", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if bc.Token != "" {
-			req.Header.Set("Authorization", "Bearer "+bc.Token)
-		}
+		req.Header.Set("Authorization", "Bearer "+bc.Token)
 
 		return nil
+	}, nil
+}
+
+func authEditorPrivateApp(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	ac, ok := creds.(connector.APIKeyCredentials)
+	if !ok {
+		return nil, fmt.Errorf("hubspot-crm-contacts: interface %q: %w: got %T, want connector.APIKeyCredentials", "private-app", connector.ErrCredentialType, creds)
+	}
+
+	if ac.Key == "" {
+		return nil, fmt.Errorf("hubspot-crm-contacts: interface %q: %w: empty key", "private-app", connector.ErrMissingCredential)
+	}
+
+	return func(_ context.Context, req *http.Request) error {
+		req.Header.Set("private-app", ac.Key)
+
+		return nil
+	}, nil
+}
+
+// BuildCredentials builds the Credentials the named interface authenticates
+// with from the platform's stored credential keys. It returns nil credentials
+// for interfaces that need none.
+func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
+	switch interfaceID {
+	case "oauth":
+		secret, err := storedCredential(stored, interfaceID, "access_token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BearerCredentials{Token: secret}, nil
+	case "private-app":
+		secret, err := storedCredential(stored, interfaceID, "token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.APIKeyCredentials{Key: secret}, nil
+	default:
+		return nil, fmt.Errorf("hubspot-crm-contacts: %w: %q", connector.ErrUnknownInterface, interfaceID)
 	}
 }
 
-func authEditorPrivateApp(creds connector.Credentials) func(context.Context, *http.Request) error {
-	ac := creds.(connector.APIKeyCredentials)
-	return func(_ context.Context, req *http.Request) error {
-		if ac.Key != "" {
-			req.Header.Set("private-app", ac.Key)
-		}
-
-		return nil
+// storedCredential returns the stored value under key, or an error naming the
+// key when it is missing or empty.
+func storedCredential(stored map[string]string, interfaceID, key string) (string, error) {
+	if v := stored[key]; v != "" {
+		return v, nil
 	}
+
+	return "", fmt.Errorf("hubspot-crm-contacts: interface %q: %w %q", interfaceID, connector.ErrMissingCredential, key)
 }

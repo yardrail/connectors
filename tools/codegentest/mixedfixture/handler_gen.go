@@ -134,7 +134,11 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 	switch interfaceID {
 	case "rest":
 		baseURL := resolveBaseURL(config)
-		authFn := authEditorRest(creds)
+
+		authFn, err := authEditorRest(creds)
+		if err != nil {
+			return nil, err
+		}
 
 		opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
 		if httpClient != nil {
@@ -148,9 +152,14 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 
 		return &Connector{client: &InterfaceClient{cl: cl}}, nil
 	case "gql":
+		authFn, err := authEditorGql(creds)
+		if err != nil {
+			return nil, err
+		}
+
 		ep := &endpoint{
 			url:        resolveEndpoint(config, "https://mixed.invalid/graphql"),
-			auth:       authEditorGql(creds),
+			auth:       authFn,
 			httpClient: httpClient,
 		}
 
@@ -185,25 +194,71 @@ func resolveEndpoint(config map[string]string, defaultURL string) string {
 	return defaultURL
 }
 
-func authEditorRest(creds connector.Credentials) func(context.Context, *http.Request) error {
-	bc := creds.(connector.BearerCredentials)
+func authEditorRest(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("mixedfixture: interface %q: %w: got %T, want connector.BearerCredentials", "rest", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("mixedfixture: interface %q: %w: empty token", "rest", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if bc.Token != "" {
-			req.Header.Set("Authorization", "Bearer "+bc.Token)
-		}
+		req.Header.Set("Authorization", "Bearer "+bc.Token)
 		req.Header.Set("Notion-Version", "2022-06-28")
 
 		return nil
+	}, nil
+}
+
+func authEditorGql(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	ac, ok := creds.(connector.APIKeyCredentials)
+	if !ok {
+		return nil, fmt.Errorf("mixedfixture: interface %q: %w: got %T, want connector.APIKeyCredentials", "gql", connector.ErrCredentialType, creds)
+	}
+
+	if ac.Key == "" {
+		return nil, fmt.Errorf("mixedfixture: interface %q: %w: empty key", "gql", connector.ErrMissingCredential)
+	}
+
+	return func(_ context.Context, req *http.Request) error {
+		req.Header.Set("Authorization", ac.Key)
+
+		return nil
+	}, nil
+}
+
+// BuildCredentials builds the Credentials the named interface authenticates
+// with from the platform's stored credential keys. It returns nil credentials
+// for interfaces that need none.
+func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
+	switch interfaceID {
+	case "rest":
+		secret, err := storedCredential(stored, interfaceID, "token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BearerCredentials{Token: secret}, nil
+	case "gql":
+		secret, err := storedCredential(stored, interfaceID, "token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.APIKeyCredentials{Key: secret}, nil
+	default:
+		return nil, fmt.Errorf("mixedfixture: %w: %q", connector.ErrUnknownInterface, interfaceID)
 	}
 }
 
-func authEditorGql(creds connector.Credentials) func(context.Context, *http.Request) error {
-	ac := creds.(connector.APIKeyCredentials)
-	return func(_ context.Context, req *http.Request) error {
-		if ac.Key != "" {
-			req.Header.Set("Authorization", ac.Key)
-		}
-
-		return nil
+// storedCredential returns the stored value under key, or an error naming the
+// key when it is missing or empty.
+func storedCredential(stored map[string]string, interfaceID, key string) (string, error) {
+	if v := stored[key]; v != "" {
+		return v, nil
 	}
+
+	return "", fmt.Errorf("mixedfixture: interface %q: %w %q", interfaceID, connector.ErrMissingCredential, key)
 }

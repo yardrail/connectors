@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"go/format"
+	"slices"
 	"strings"
 	"text/template"
 
@@ -35,6 +36,57 @@ type genContext struct {
 	BaseURL           string
 	AuthStrategy     map[string]authStrategy
 	ConfigParams     map[string]string
+	// CredBuilds is how each interface's Credentials are built from the
+	// platform's stored credential keys, in manifest order.
+	CredBuilds []credBuild
+}
+
+// credBuild is how BuildCredentials builds one interface's Credentials.
+// Kind is "none", "bearer", "basic" or "apikey". Keys are the stored keys read:
+// one for bearer and apikey, username then password for basic.
+type credBuild struct {
+	InterfaceID string
+	Kind        string
+	Keys        []string
+}
+
+// credentialBuilds derives each interface's credential build from its auth
+// strategy. Interfaces with auth method none or webhook protocol build nothing;
+// an interface without a security scheme is bearer from access_token.
+func credentialBuilds(manifest *Manifest, strategies map[string]authStrategy) []credBuild {
+	builds := make([]credBuild, 0, len(manifest.Interfaces))
+
+	for _, iface := range manifest.Interfaces {
+		b := credBuild{InterfaceID: iface.ID}
+
+		strat, ok := strategies[iface.ID]
+
+		switch {
+		case iface.AuthMethod == "none" || iface.Protocol == "webhook":
+			b.Kind = "none"
+		case !ok:
+			b.Kind, b.Keys = "bearer", []string{"access_token"}
+		case authSchemeType(strat) == "basic":
+			b.Kind, b.Keys = "basic", []string{strat.UsernameField, strat.PasswordField}
+		case strings.HasPrefix(authSchemeType(strat), "apikey"):
+			b.Kind, b.Keys = "apikey", []string{strat.CredKey}
+		default:
+			b.Kind, b.Keys = "bearer", []string{strat.CredKey}
+		}
+
+		builds = append(builds, b)
+	}
+
+	return builds
+}
+
+// secretKey is the stored credential key a pasted secret goes under.
+func secretKey(connectorID string) string {
+	if connectorID == "slack" {
+		return "bot_token"
+	}
+
+	return "token"
 }
 
 // connectorFunction is one callable connector function, independent of the
@@ -69,9 +121,14 @@ func mergeSecuritySchemes(spec, manifest map[string]SecurityScheme) map[string]S
 	return merged
 }
 
+// platformCredKeys are the stored credential keys the platform writes: token
+// and bot_token for pasted secrets, access_token for OAuth.
+var platformCredKeys = map[string]bool{"token": true, "bot_token": true, "access_token": true}
+
 // deriveAuthStrategy maps each callable interface's security_scheme to concrete
 // auth wiring based on the merged security schemes. A security_scheme that is
-// set but not in schemes is an error.
+// set but not in schemes is an error, as is a credential mapping the platform
+// cannot satisfy or a static Authorization header.
 func deriveAuthStrategy(manifest *Manifest, schemes map[string]SecurityScheme) (map[string]authStrategy, error) {
 	strategies := make(map[string]authStrategy)
 
@@ -85,24 +142,48 @@ func deriveAuthStrategy(manifest *Manifest, schemes map[string]SecurityScheme) (
 			return nil, fmt.Errorf("interface %q: %w: %q", iface.ID, errUnresolvedSecurityScheme, iface.SecurityScheme)
 		}
 
-		credKey := mapCredField(iface.CredMapping, "access_token", "access_token")
+		for h := range iface.Headers {
+			if strings.EqualFold(h, "Authorization") {
+				return nil, fmt.Errorf("interface %q: %w", iface.ID, errStaticAuthHeader)
+			}
+		}
+
+		var targets []string
 
 		switch {
 		case scheme.Type == "apiKey":
-			credKey = mapCredField(iface.CredMapping, scheme.Name, scheme.Name)
+			targets = []string{scheme.Name}
 		case scheme.Type == "http" && scheme.Scheme == "basic":
-			credKey = "username"
+			targets = []string{"username", "password"}
+		default:
+			targets = []string{"access_token"}
 		}
 
-		usernameField := mapCredField(iface.CredMapping, "username", "username")
-		passwordField := mapCredField(iface.CredMapping, "password", "password")
-
-		strategies[iface.ID] = authStrategy{
-			SecurityScheme: scheme,
-			CredKey:        credKey,
-			UsernameField:  usernameField,
-			PasswordField:  passwordField,
+		for target := range iface.CredMapping {
+			if !slices.Contains(targets, target) {
+				return nil, fmt.Errorf("interface %q: %w: %q (want one of %q)", iface.ID, errInvalidCredTarget, target, targets)
+			}
 		}
+
+		sources := make([]string, len(targets))
+		for i, target := range targets {
+			sources[i] = mapCredField(iface.CredMapping, target, target)
+			if !platformCredKeys[sources[i]] {
+				return nil, fmt.Errorf("interface %q: %w: %q", iface.ID, errUnstoredCredKey, sources[i])
+			}
+
+			if iface.AuthMethod == "api_key" && sources[i] != secretKey(manifest.Connector.ID) {
+				return nil, fmt.Errorf("interface %q: %w: reads %q, setup stores %q",
+					iface.ID, errPastedSecretKey, sources[i], secretKey(manifest.Connector.ID))
+			}
+		}
+
+		strat := authStrategy{SecurityScheme: scheme, CredKey: sources[0]}
+		if len(sources) == 2 {
+			strat.UsernameField, strat.PasswordField = sources[0], sources[1]
+		}
+
+		strategies[iface.ID] = strat
 	}
 
 	return strategies, nil
@@ -278,6 +359,16 @@ var tmplFuncs = template.FuncMap{
 
 		return false
 	},
+	"secretKey": secretKey,
+	"needsStoredCredential": func(builds []credBuild) bool {
+		for _, b := range builds {
+			if b.Kind != "none" {
+				return true
+			}
+		}
+
+		return false
+	},
 	"strategyFor": func(strategies map[string]authStrategy, id string) authStrategy {
 		return strategies[id]
 	},
@@ -442,12 +533,20 @@ func (c *Connector) Client() *InterfaceClient {
 func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
 	baseURL := resolveBaseURL(config)
 
-	var authFn func(context.Context, *http.Request) error
+	var (
+		authFn func(context.Context, *http.Request) error
+		err    error
+	)
+
 	switch interfaceID {
 {{range .RESTIfaces}}	case "{{.ID}}":
-		authFn = authEditor{{goIdent .ID}}(creds)
+		authFn, err = authEditor{{goIdent .ID}}(creds)
 {{end}}	default:
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	opts := []{{clientPkgName .ClientPkgPath}}.ClientOption{ {{clientPkgName .ClientPkgPath}}.WithRequestEditorFn(authFn)}
@@ -476,41 +575,113 @@ func resolveBaseURL(config map[string]string) string {
 // authEditorsTemplate renders one request editor per callable interface that
 // applies its auth scheme and static headers. Every handler template uses it.
 const authEditorsTemplate = `{{range .CallableIfaces}}{{$strat := strategyFor $.AuthStrategy .ID}}
-func authEditor{{goIdent .ID}}(creds connector.Credentials) func(context.Context, *http.Request) error {
+func authEditor{{goIdent .ID}}(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
 {{- if eq (authSchemeType $strat) "bearer"}}
-	bc := creds.(connector.BearerCredentials)
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: got %T, want connector.BearerCredentials", "{{.ID}}", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: empty token", "{{.ID}}", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if bc.Token != "" {
-			req.Header.Set("Authorization", "Bearer "+bc.Token)
-		}
+		req.Header.Set("Authorization", "Bearer "+bc.Token)
 {{- else if eq (authSchemeType $strat) "basic"}}
-	bc := creds.(connector.BasicCredentials)
+	bc, ok := creds.(connector.BasicCredentials)
+	if !ok {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: got %T, want connector.BasicCredentials", "{{.ID}}", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Username == "" {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: empty username", "{{.ID}}", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
 		req.SetBasicAuth(bc.Username, bc.Password)
-{{- else if eq (authSchemeType $strat) "apikey_header"}}
-	ac := creds.(connector.APIKeyCredentials)
+{{- else}}
+	ac, ok := creds.(connector.APIKeyCredentials)
+	if !ok {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: got %T, want connector.APIKeyCredentials", "{{.ID}}", connector.ErrCredentialType, creds)
+	}
+
+	if ac.Key == "" {
+		return nil, fmt.Errorf("{{$.ConnectorID}}: interface %q: %w: empty key", "{{.ID}}", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if ac.Key != "" {
-			req.Header.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
-		}
-{{- else if eq (authSchemeType $strat) "apikey_query"}}
-	ac := creds.(connector.APIKeyCredentials)
-	return func(_ context.Context, req *http.Request) error {
-		if ac.Key != "" {
-			q := req.URL.Query()
-			q.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
-			req.URL.RawQuery = q.Encode()
-		}
+{{- if eq (authSchemeType $strat) "apikey_header"}}
+		req.Header.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
+{{- else}}
+		q := req.URL.Query()
+		q.Set("{{$strat.SecurityScheme.Name}}", ac.Key)
+		req.URL.RawQuery = q.Encode()
+{{- end}}
 {{- end}}
 {{- range $k, $v := .Headers}}
 		req.Header.Set("{{$k}}", "{{$v}}")
 {{- end}}
 
 		return nil
-	}
+	}, nil
 }
 {{end}}
 
+` + buildCredentialsTemplate
+
+// buildCredentialsTemplate renders BuildCredentials, which turns the
+// platform's stored credential keys into each interface's Credentials.
+// Every handler template uses it.
+const buildCredentialsTemplate = `// BuildCredentials builds the Credentials the named interface authenticates
+// with from the platform's stored credential keys. It returns nil credentials
+// for interfaces that need none.
+func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
+	switch interfaceID {
+{{- range .CredBuilds}}
+	case "{{.InterfaceID}}":
+{{- if eq .Kind "none"}}
+		return nil, nil
+{{- else if eq .Kind "basic"}}
+		username, err := storedCredential(stored, interfaceID, "{{index .Keys 0}}")
+		if err != nil {
+			return nil, err
+		}
+
+		password, err := storedCredential(stored, interfaceID, "{{index .Keys 1}}")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BasicCredentials{Username: username, Password: password}, nil
+{{- else}}
+		secret, err := storedCredential(stored, interfaceID, "{{index .Keys 0}}")
+		if err != nil {
+			return nil, err
+		}
+{{if eq .Kind "apikey"}}
+		return connector.APIKeyCredentials{Key: secret}, nil
+{{- else}}
+		return connector.BearerCredentials{Token: secret}, nil
+{{- end}}
+{{- end}}
+{{- end}}
+	default:
+		return nil, fmt.Errorf("{{.ConnectorID}}: %w: %q", connector.ErrUnknownInterface, interfaceID)
+	}
+}
+{{- if needsStoredCredential .CredBuilds}}
+
+// storedCredential returns the stored value under key, or an error naming the
+// key when it is missing or empty.
+func storedCredential(stored map[string]string, interfaceID, key string) (string, error) {
+	if v := stored[key]; v != "" {
+		return v, nil
+	}
+
+	return "", fmt.Errorf("{{.ConnectorID}}: interface %q: %w %q", interfaceID, connector.ErrMissingCredential, key)
+}
+{{- end}}
 `
 
 const dispatchTemplate = `// Code generated by yardrail-connector-codegen. DO NOT EDIT.
@@ -748,10 +919,14 @@ func Register() connector.Registration {
 							Required:    {{.Required}},
 						},
 {{end}}					}{{else}}nil{{end}},
+{{- if .IsCallable}}
+					SecretKey:    "{{secretKey $.ConnectorID}}",
+{{- end}}
 				},
 {{end}}			},
 		},
-		Resolve: Resolve,
+		Resolve:          Resolve,
+		BuildCredentials: BuildCredentials,
 		CWLClasses: []connector.CWLClassEntry{
 {{- range .Functions}}
 			{ClassIRI: "https://yardrail.com/cwl/{{$.ConnectorID}}#{{.ClassName}}", Info: connector.CWLClassInfo{

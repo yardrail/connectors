@@ -34,10 +34,12 @@ func Register() connector.Registration {
 							Required:    false,
 						},
 					},
+					SecretKey: "token",
 				},
 			},
 		},
-		Resolve: Resolve,
+		Resolve:          Resolve,
+		BuildCredentials: BuildCredentials,
 		CWLClasses: []connector.CWLClassEntry{
 			{ClassIRI: "https://yardrail.com/cwl/quickbooks-account#CreateAccount", Info: connector.CWLClassInfo{
 				ConnectorID: "quickbooks-account",

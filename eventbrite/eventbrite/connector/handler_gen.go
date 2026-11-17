@@ -564,14 +564,22 @@ func (c *Connector) Client() *InterfaceClient {
 func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
 	baseURL := resolveBaseURL(config)
 
-	var authFn func(context.Context, *http.Request) error
+	var (
+		authFn func(context.Context, *http.Request) error
+		err    error
+	)
+
 	switch interfaceID {
 	case "oauth":
-		authFn = authEditorOauth(creds)
+		authFn, err = authEditorOauth(creds)
 	case "private-token":
-		authFn = authEditorPrivateToken(creds)
+		authFn, err = authEditorPrivateToken(creds)
 	default:
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
@@ -595,24 +603,70 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://www.eventbriteapi.com/v3"
 }
 
-func authEditorOauth(creds connector.Credentials) func(context.Context, *http.Request) error {
-	bc := creds.(connector.BearerCredentials)
+func authEditorOauth(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("eventbrite: interface %q: %w: got %T, want connector.BearerCredentials", "oauth", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("eventbrite: interface %q: %w: empty token", "oauth", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
-		if bc.Token != "" {
-			req.Header.Set("Authorization", "Bearer "+bc.Token)
-		}
+		req.Header.Set("Authorization", "Bearer "+bc.Token)
 
 		return nil
+	}, nil
+}
+
+func authEditorPrivateToken(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("eventbrite: interface %q: %w: got %T, want connector.BearerCredentials", "private-token", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("eventbrite: interface %q: %w: empty token", "private-token", connector.ErrMissingCredential)
+	}
+
+	return func(_ context.Context, req *http.Request) error {
+		req.Header.Set("Authorization", "Bearer "+bc.Token)
+
+		return nil
+	}, nil
+}
+
+// BuildCredentials builds the Credentials the named interface authenticates
+// with from the platform's stored credential keys. It returns nil credentials
+// for interfaces that need none.
+func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
+	switch interfaceID {
+	case "oauth":
+		secret, err := storedCredential(stored, interfaceID, "access_token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BearerCredentials{Token: secret}, nil
+	case "private-token":
+		secret, err := storedCredential(stored, interfaceID, "token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BearerCredentials{Token: secret}, nil
+	default:
+		return nil, fmt.Errorf("eventbrite: %w: %q", connector.ErrUnknownInterface, interfaceID)
 	}
 }
 
-func authEditorPrivateToken(creds connector.Credentials) func(context.Context, *http.Request) error {
-	bc := creds.(connector.BearerCredentials)
-	return func(_ context.Context, req *http.Request) error {
-		if bc.Token != "" {
-			req.Header.Set("Authorization", "Bearer "+bc.Token)
-		}
-
-		return nil
+// storedCredential returns the stored value under key, or an error naming the
+// key when it is missing or empty.
+func storedCredential(stored map[string]string, interfaceID, key string) (string, error) {
+	if v := stored[key]; v != "" {
+		return v, nil
 	}
+
+	return "", fmt.Errorf("eventbrite: interface %q: %w %q", interfaceID, connector.ErrMissingCredential, key)
 }

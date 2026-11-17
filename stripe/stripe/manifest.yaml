@@ -10,6 +10,8 @@ interfaces:
     auth_method: api_key
     auth_scope: org
     security_scheme: bearerAuth
+    cred_mapping:
+      access_token: token
     capabilities: [payment.read, payment.create, customer.read, customer.create, subscription.read, subscription.create]
     source:
       openapi: spec/openapi.json
