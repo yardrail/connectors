@@ -9,16 +9,21 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/yardrail/connectors/connector"
 
 	target "google.golang.org/api/drive/v3"
+
+	"google.golang.org/api/googleapi"
 )
 
 var (
 	errInterfaceNotConfigured = errors.New("google-drive: interface not configured")
 	errUnknownFunction        = errors.New("google-drive: unknown function")
 )
+
+const maxMediaSize = 50 << 20 // 50 MiB
 
 // Resolve creates a ready-to-call dispatch function for the given interface.
 func Resolve(
@@ -861,6 +866,33 @@ func (ic *InterfaceClient) dispatchFilesServiceCreate(ctx context.Context, _ map
 		call = call.UseContentAsIndexableText(v)
 	}
 
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("google-drive.files_create: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("google-drive.files_create: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("google-drive.files_create: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("google-drive.files_create: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
+	}
+
 	result, err := call.Context(ctx).Do()
 	if err != nil {
 		return nil, err
@@ -1188,6 +1220,33 @@ func (ic *InterfaceClient) dispatchFilesServiceUpdate(ctx context.Context, _ map
 	}
 	if v, ok := inputBool(optFields, "useContentAsIndexableText"); ok {
 		call = call.UseContentAsIndexableText(v)
+	}
+
+	if mediaRaw, ok := optFields["media"]; ok {
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(mediaRaw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("google-drive.files_update: media: %w", err)
+		}
+		mediaFile, err := os.Open(mediaInput.Path)
+		if err != nil {
+			return nil, fmt.Errorf("google-drive.files_update: opening media: %w", err)
+		}
+		defer mediaFile.Close()
+		fi, err := mediaFile.Stat()
+		if err != nil {
+			return nil, fmt.Errorf("google-drive.files_update: stat media: %w", err)
+		}
+		if fi.Size() > maxMediaSize {
+			return nil, fmt.Errorf("google-drive.files_update: media exceeds %d byte limit", maxMediaSize)
+		}
+		var mediaOpts []googleapi.MediaOption
+		if mediaInput.MimeType != "" {
+			mediaOpts = append(mediaOpts, googleapi.ContentType(mediaInput.MimeType))
+		}
+		call = call.Media(mediaFile, mediaOpts...)
 	}
 
 	result, err := call.Context(ctx).Do()

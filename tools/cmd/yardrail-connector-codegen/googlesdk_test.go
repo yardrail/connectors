@@ -57,3 +57,45 @@ func TestGoogleSDKToolToOp(t *testing.T) {
 		t.Errorf("Inputs[3].Type = %q, want integer", op.Inputs[3].Type)
 	}
 }
+
+func TestGoogleSDKToolToOpMedia(t *testing.T) {
+	t.Parallel()
+
+	tool := googleintrospect.ToolDef{
+		Name:          "files-create",
+		Desc:          "Creates a file.",
+		SupportsMedia: true,
+		Params: []googleintrospect.ToolParam{
+			{JSONName: "file", GoType: "object", IsStruct: true, Required: true, Desc: "File metadata"},
+		},
+	}
+
+	op := googleSDKToolToOp(tool)
+
+	if len(op.Inputs) != 2 {
+		t.Fatalf("len(Inputs) = %d, want 2", len(op.Inputs))
+	}
+	media := op.Inputs[1]
+	if media.Name != "media" || media.Type != "File" || media.Required {
+		t.Errorf("media input = %+v", media)
+	}
+}
+
+func TestGoogleSDKToolToOpNoMedia(t *testing.T) {
+	t.Parallel()
+
+	tool := googleintrospect.ToolDef{
+		Name:          "tasklists-delete",
+		Desc:          "Deletes a task list.",
+		SupportsMedia: false,
+		Params: []googleintrospect.ToolParam{
+			{JSONName: "tasklistid", GoType: "string", Required: true, Desc: "Task list ID."},
+		},
+	}
+
+	op := googleSDKToolToOp(tool)
+
+	if len(op.Inputs) != 1 {
+		t.Fatalf("len(Inputs) = %d, want 1", len(op.Inputs))
+	}
+}

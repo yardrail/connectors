@@ -43,14 +43,15 @@ type ToolParam struct {
 
 // ToolDef describes a generated tool derived from a Google API method.
 type ToolDef struct {
-	Name        string
-	ServiceName string
-	ServicePath string // dot-separated access path from root Service (e.g. "Projects.Locations")
-	MethodName  string
-	Desc        string
-	Params      []ToolParam
-	ReturnType  string
-	HasReturn   bool
+	Name          string
+	ServiceName   string
+	ServicePath   string // dot-separated access path from root Service (e.g. "Projects.Locations")
+	MethodName    string
+	Desc          string
+	Params        []ToolParam
+	ReturnType    string
+	HasReturn     bool
+	SupportsMedia bool
 }
 
 // AnalyzeResult wraps the result of Analyze.
@@ -449,6 +450,19 @@ func ExtractTool(serviceName, svcPath, methodName string, sig *types.Signature, 
 		})
 	}
 
+	supportsMedia := false
+	for j := 0; j < callMethods.Len(); j++ {
+		m := callMethods.At(j)
+		if m.Obj().Name() == "Media" {
+			sig := m.Obj().Type().(*types.Signature)
+			if sig.Params().Len() >= 1 &&
+				strings.Contains(sig.Params().At(0).Type().String(), "io.Reader") {
+				supportsMedia = true
+			}
+			break
+		}
+	}
+
 	returnTypeName := ""
 	hasReturn := false
 	for j := 0; j < callMethods.Len(); j++ {
@@ -467,14 +481,15 @@ func ExtractTool(serviceName, svcPath, methodName string, sig *types.Signature, 
 	}
 
 	return &ToolDef{
-		Name:        toolName,
-		ServiceName: serviceName,
-		ServicePath: svcPath,
-		MethodName:  methodName,
-		Desc:        desc,
-		Params:      params,
-		ReturnType:  returnTypeName,
-		HasReturn:   hasReturn,
+		Name:          toolName,
+		ServiceName:   serviceName,
+		ServicePath:   svcPath,
+		MethodName:    methodName,
+		Desc:          desc,
+		Params:        params,
+		ReturnType:    returnTypeName,
+		HasReturn:     hasReturn,
+		SupportsMedia: supportsMedia,
 	}
 }
 
