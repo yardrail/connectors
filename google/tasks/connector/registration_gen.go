@@ -19,10 +19,12 @@ func Register() connector.Registration {
 					AuthMethod:   connector.AuthMethodOAuth2User,
 					DependsOn:    nil,
 					ConfigFields: nil,
+					SecretKey:    "token",
 				},
 			},
 		},
-		Resolve: Resolve,
+		Resolve:          Resolve,
+		BuildCredentials: BuildCredentials,
 		CWLClasses: []connector.CWLClassEntry{
 			{ClassIRI: "https://yardrail.com/cwl/google-tasks#TasklistsDelete", Info: connector.CWLClassInfo{
 				ConnectorID: "google-tasks",

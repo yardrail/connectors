@@ -1544,12 +1544,20 @@ func (c *Connector) Client() *InterfaceClient {
 func NewConnector(interfaceID string, creds connector.Credentials, config map[string]string, httpClient *http.Client) (*Connector, error) {
 	baseURL := resolveBaseURL(config)
 
-	var authFn func(context.Context, *http.Request) error
+	var (
+		authFn func(context.Context, *http.Request) error
+		err    error
+	)
+
 	switch interfaceID {
 	case "api-key":
-		authFn = authEditorApiKey(creds)
+		authFn, err = authEditorApiKey(creds)
 	default:
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	opts := []client.ClientOption{client.WithRequestEditorFn(authFn)}
@@ -1573,11 +1581,51 @@ func resolveBaseURL(config map[string]string) string {
 	return "https://server.api.mailchimp.com/3.0"
 }
 
-func authEditorApiKey(creds connector.Credentials) func(context.Context, *http.Request) error {
-	bc := creds.(connector.BasicCredentials)
+func authEditorApiKey(creds connector.Credentials) (func(context.Context, *http.Request) error, error) {
+	bc, ok := creds.(connector.BasicCredentials)
+	if !ok {
+		return nil, fmt.Errorf("mailchimp: interface %q: %w: got %T, want connector.BasicCredentials", "api-key", connector.ErrCredentialType, creds)
+	}
+
+	if bc.Username == "" {
+		return nil, fmt.Errorf("mailchimp: interface %q: %w: empty username", "api-key", connector.ErrMissingCredential)
+	}
+
 	return func(_ context.Context, req *http.Request) error {
 		req.SetBasicAuth(bc.Username, bc.Password)
 
 		return nil
+	}, nil
+}
+
+// BuildCredentials builds the Credentials the named interface authenticates
+// with from the platform's stored credential keys. It returns nil credentials
+// for interfaces that need none.
+func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
+	switch interfaceID {
+	case "api-key":
+		username, err := storedCredential(stored, interfaceID, "token")
+		if err != nil {
+			return nil, err
+		}
+
+		password, err := storedCredential(stored, interfaceID, "token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BasicCredentials{Username: username, Password: password}, nil
+	default:
+		return nil, fmt.Errorf("mailchimp: %w: %q", connector.ErrUnknownInterface, interfaceID)
 	}
+}
+
+// storedCredential returns the stored value under key, or an error naming the
+// key when it is missing or empty.
+func storedCredential(stored map[string]string, interfaceID, key string) (string, error) {
+	if v := stored[key]; v != "" {
+		return v, nil
+	}
+
+	return "", fmt.Errorf("mailchimp: interface %q: %w %q", interfaceID, connector.ErrMissingCredential, key)
 }

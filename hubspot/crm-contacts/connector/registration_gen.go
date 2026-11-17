@@ -19,6 +19,7 @@ func Register() connector.Registration {
 					AuthMethod:   connector.AuthMethodOAuth2User,
 					DependsOn:    nil,
 					ConfigFields: nil,
+					SecretKey:    "token",
 				},
 				{
 					ID:           "private-app",
@@ -27,10 +28,12 @@ func Register() connector.Registration {
 					AuthMethod:   connector.AuthMethodAPIKey,
 					DependsOn:    nil,
 					ConfigFields: nil,
+					SecretKey:    "token",
 				},
 			},
 		},
-		Resolve: Resolve,
+		Resolve:          Resolve,
+		BuildCredentials: BuildCredentials,
 		CWLClasses: []connector.CWLClassEntry{
 			{ClassIRI: "https://yardrail.com/cwl/hubspot-crm-contacts#Deletecrmv3objectscontactsContactIdArchive", Info: connector.CWLClassInfo{
 				ConnectorID: "hubspot-crm-contacts",

@@ -19,10 +19,12 @@ func Register() connector.Registration {
 					AuthMethod:   connector.AuthMethodAPIKey,
 					DependsOn:    nil,
 					ConfigFields: nil,
+					SecretKey:    "token",
 				},
 			},
 		},
-		Resolve: Resolve,
+		Resolve:          Resolve,
+		BuildCredentials: BuildCredentials,
 		CWLClasses: []connector.CWLClassEntry{
 			{ClassIRI: "https://yardrail.com/cwl/stripe#DeleteAccountsAccount", Info: connector.CWLClassInfo{
 				ConnectorID: "stripe",

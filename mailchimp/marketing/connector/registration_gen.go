@@ -27,10 +27,12 @@ func Register() connector.Registration {
 							Required:    true,
 						},
 					},
+					SecretKey: "token",
 				},
 			},
 		},
-		Resolve: Resolve,
+		Resolve:          Resolve,
+		BuildCredentials: BuildCredentials,
 		CWLClasses: []connector.CWLClassEntry{
 			{ClassIRI: "https://yardrail.com/cwl/mailchimp#ArchiveAutomations", Info: connector.CWLClassInfo{
 				ConnectorID: "mailchimp",

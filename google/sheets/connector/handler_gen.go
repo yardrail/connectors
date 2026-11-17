@@ -145,7 +145,15 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 		return nil, fmt.Errorf("%w: %q", errInterfaceNotConfigured, interfaceID)
 	}
 
-	bc := creds.(connector.BearerCredentials)
+	bc, ok := creds.(connector.BearerCredentials)
+	if !ok {
+		return nil, fmt.Errorf("google-sheets: interface %q: %w: got %T, want connector.BearerCredentials", interfaceID, connector.ErrCredentialType, creds)
+	}
+
+	if bc.Token == "" {
+		return nil, fmt.Errorf("google-sheets: interface %q: %w: empty token", interfaceID, connector.ErrMissingCredential)
+	}
+
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: bc.Token})
 
 	var opts []option.ClientOption
@@ -167,4 +175,31 @@ func NewConnector(interfaceID string, creds connector.Credentials, config map[st
 	}
 
 	return &Connector{client: &InterfaceClient{svc: svc}}, nil
+}
+
+// BuildCredentials builds the Credentials the named interface authenticates
+// with from the platform's stored credential keys. It returns nil credentials
+// for interfaces that need none.
+func BuildCredentials(interfaceID string, stored map[string]string) (connector.Credentials, error) {
+	switch interfaceID {
+	case "oauth":
+		secret, err := storedCredential(stored, interfaceID, "access_token")
+		if err != nil {
+			return nil, err
+		}
+
+		return connector.BearerCredentials{Token: secret}, nil
+	default:
+		return nil, fmt.Errorf("google-sheets: %w: %q", connector.ErrUnknownInterface, interfaceID)
+	}
+}
+
+// storedCredential returns the stored value under key, or an error naming the
+// key when it is missing or empty.
+func storedCredential(stored map[string]string, interfaceID, key string) (string, error) {
+	if v := stored[key]; v != "" {
+		return v, nil
+	}
+
+	return "", fmt.Errorf("google-sheets: interface %q: %w %q", interfaceID, connector.ErrMissingCredential, key)
 }
