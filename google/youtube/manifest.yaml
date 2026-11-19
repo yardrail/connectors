@@ -1,0 +1,14 @@
+connector:
+  id: google-youtube
+  name: YouTube
+  description: Read channels, playlists and videos from the YouTube Data API.
+
+interfaces:
+  - id: oauth
+    name: YouTube OAuth
+    protocol: google_sdk
+    auth_method: oauth2_user
+    auth_scope: user
+    capabilities: [video.read]
+    source:
+      google_sdk: google.golang.org/api/youtube/v3
