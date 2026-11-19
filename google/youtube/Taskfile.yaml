@@ -1,0 +1,50 @@
+version: "3"
+
+tasks:
+  spec:
+    desc: "No spec — introspects Google SDK package directly"
+    cmds:
+      - echo "google_sdk protocol — no external spec"
+
+  client:
+    desc: "No client generation — uses Google SDK directly"
+    cmds:
+      - echo "google_sdk protocol — SDK is the client"
+
+  connector:
+    desc: "Generate connector code"
+    dir: "{{.ROOT_DIR}}/tools"
+    cmds:
+      - >-
+        mise exec -- go run ./cmd/yardrail-connector-codegen
+        -manifest {{.TASKFILE_DIR}}/manifest.yaml
+        -out {{.TASKFILE_DIR}}/connector/
+        -pkgname connector
+      - cd {{.TASKFILE_DIR}} && mise exec -- go mod tidy -e
+
+  mcp:
+    desc: "Generate MCP tools"
+    cmds:
+      - mise exec -- go generate ./mcp/...
+
+  build:
+    desc: "Build"
+    cmds:
+      - mise exec -- go build ./...
+
+  test:
+    desc: "Run tests"
+    cmds:
+      - mise exec -- go test ./...
+
+  vet:
+    desc: "Run go vet"
+    cmds:
+      - mise exec -- go vet ./...
+
+  lint:
+    desc: "Run all checks"
+    cmds:
+      - task: vet
+      - task: build
+      - task: test

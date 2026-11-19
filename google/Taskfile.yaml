@@ -7,6 +7,9 @@ includes:
   calendar:
     taskfile: calendar/Taskfile.yaml
     dir: calendar
+  youtube:
+    taskfile: youtube/Taskfile.yaml
+    dir: youtube
   gmail:
     taskfile: gmail/Taskfile.yaml
     dir: gmail
@@ -22,6 +25,7 @@ tasks:
     cmds:
       - task: tasks:spec
       - task: calendar:spec
+      - task: youtube:spec
       - task: gmail:spec
       - task: sheets:spec
       - task: drive:spec
@@ -29,6 +33,7 @@ tasks:
     cmds:
       - task: tasks:client
       - task: calendar:client
+      - task: youtube:client
       - task: gmail:client
       - task: sheets:client
       - task: drive:client
@@ -36,6 +41,7 @@ tasks:
     cmds:
       - task: tasks:connector
       - task: calendar:connector
+      - task: youtube:connector
       - task: gmail:connector
       - task: sheets:connector
       - task: drive:connector
@@ -43,6 +49,7 @@ tasks:
     cmds:
       - task: tasks:build
       - task: calendar:build
+      - task: youtube:build
       - task: gmail:build
       - task: sheets:build
       - task: drive:build
@@ -50,6 +57,7 @@ tasks:
     cmds:
       - task: tasks:test
       - task: calendar:test
+      - task: youtube:test
       - task: gmail:test
       - task: sheets:test
       - task: drive:test
@@ -57,6 +65,7 @@ tasks:
     cmds:
       - task: tasks:vet
       - task: calendar:vet
+      - task: youtube:vet
       - task: gmail:vet
       - task: sheets:vet
       - task: drive:vet
@@ -64,6 +73,7 @@ tasks:
     cmds:
       - task: tasks:lint
       - task: calendar:lint
+      - task: youtube:lint
       - task: gmail:lint
       - task: sheets:lint
       - task: drive:lint
