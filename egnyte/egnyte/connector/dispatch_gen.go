@@ -3191,7 +3191,12 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsContentByIdV1WithResponse(ctx 
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-id-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
-	return json.RawMessage(resp.Body), nil
+	var respContentType string
+	if resp.HTTPResponse != nil {
+		respContentType = resp.HTTPResponse.Header.Get("Content-Type")
+	}
+
+	return connector.BinaryResult{Data: resp.Body, ContentType: respContentType}, nil
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsContentByPathV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
@@ -3222,7 +3227,12 @@ func (ic *InterfaceClient) dispatchPortalProdGetFsContentByPathV1WithResponse(ct
 		return nil, fmt.Errorf("egnyte.portal-prod-get-fs-content-by-path-v1: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
-	return json.RawMessage(resp.Body), nil
+	var respContentType string
+	if resp.HTTPResponse != nil {
+		respContentType = resp.HTTPResponse.Header.Get("Content-Type")
+	}
+
+	return connector.BinaryResult{Data: resp.Body, ContentType: respContentType}, nil
 }
 
 func (ic *InterfaceClient) dispatchPortalProdGetFsFolderStatsV1WithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {

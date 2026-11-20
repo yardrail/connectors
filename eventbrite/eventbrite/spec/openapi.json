@@ -25229,6 +25229,15 @@
               "type": "integer"
             },
             "description": "Number of records to display on each page of the list."
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated related objects to include on each Event, e.g. venue,ticket_availability."
           }
         ],
         "responses": {

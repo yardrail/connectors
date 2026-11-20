@@ -8013,6 +8013,9 @@ type ListEventsByOrganizationParams struct {
 
 	// PageSize Number of records to display on each page of the list.
 	PageSize *int `form:"page_size,omitempty" json:"page_size,omitempty"`
+
+	// Expand Comma-separated related objects to include on each Event, e.g. venue,ticket_availability.
+	Expand *string `form:"expand,omitempty" json:"expand,omitempty"`
 }
 
 // ListEventsByOrganizationParamsOrderBy defines parameters for ListEventsByOrganization.
@@ -16780,6 +16783,18 @@ func NewListEventsByOrganizationRequest(server string, organizationId string, pa
 		if params.PageSize != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page_size", *params.PageSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Expand != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "expand", *params.Expand, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

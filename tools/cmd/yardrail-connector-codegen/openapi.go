@@ -14,12 +14,18 @@ type OperationInfo struct {
 	Description string
 	Inputs      []FieldInfo
 	Outputs     []FieldInfo
+	// BinaryResponse is true when the 200 response is a binary body
+	// (type: string, format: binary). Its only output is file: File.
+	BinaryResponse bool
+	// FileFields are the request body properties typed string, format byte.
+	// Each takes a File input whose contents fill the field.
+	FileFields []string
 }
 
 // FieldInfo describes one property in a request or response schema.
 type FieldInfo struct {
 	Name     string
-	Type     string // "string", "integer", "number", "boolean", "array", "object"
+	Type     string // "string", "integer", "number", "boolean", "array", "object", "File"
 	Required bool
 	Doc      string
 }
@@ -55,7 +61,13 @@ func parseOperations(specPath string) (map[string]*OperationInfo, error) {
 			}
 
 			info.Inputs = collectInputs(op, resolver)
+			info.FileFields = fileFieldNames(info.Inputs)
 			info.Outputs = collectOutputs(op, resolver)
+
+			if isBinaryResponse(op, resolver) {
+				info.BinaryResponse = true
+				info.Outputs = []FieldInfo{{Name: "file", Type: "File", Required: true, Doc: "Downloaded file"}}
+			}
 
 			if isBinaryRequestBody(op) {
 				info.Inputs = append(info.Inputs,
@@ -112,6 +124,9 @@ func collectInputs(op rawOperation, resolver *refResolver) []FieldInfo {
 			}
 			prop := reqSchema.Properties[name]
 			typ := resolveType(prop, resolver)
+			if isByteSchema(prop, resolver) {
+				typ = "File"
+			}
 			inputs = append(inputs, FieldInfo{
 				Name:     name,
 				Type:     typ,
@@ -326,6 +341,44 @@ type rawSchema struct {
 	Properties  map[string]rawSchema `json:"properties"`
 	Required    []string             `json:"required"`
 	Items       *rawSchema           `json:"items"`
+	Format      string               `json:"format"`
+}
+
+// isByteSchema reports whether s is a base64 string (type string, format byte).
+func isByteSchema(s rawSchema, resolver *refResolver) bool {
+	resolved := resolver.resolve(&s)
+
+	return resolved.Type == "string" && resolved.Format == "byte"
+}
+
+// fileFieldNames returns the names of the inputs typed File.
+func fileFieldNames(inputs []FieldInfo) []string {
+	var names []string
+	for _, f := range inputs {
+		if f.Type == "File" {
+			names = append(names, f.Name)
+		}
+	}
+
+	return names
+}
+
+// isBinaryResponse reports whether the operation's 200 response content has a
+// schema of type string, format binary.
+func isBinaryResponse(op rawOperation, resolver *refResolver) bool {
+	resp, ok := op.Responses["200"]
+	if !ok {
+		return false
+	}
+
+	for _, mt := range resp.Content {
+		s := resolver.resolve(&mt.Schema)
+		if s.Type == "string" && s.Format == "binary" {
+			return true
+		}
+	}
+
+	return false
 }
 
 func isBinaryRequestBody(op rawOperation) bool {

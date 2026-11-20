@@ -1159,7 +1159,12 @@ func (ic *InterfaceClient) dispatchGetEstimatePDFWithResponse(ctx context.Contex
 		return nil, fmt.Errorf("quickbooks-account.get-estimate-p-d-f: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
-	return json.RawMessage(resp.Body), nil
+	var respContentType string
+	if resp.HTTPResponse != nil {
+		respContentType = resp.HTTPResponse.Header.Get("Content-Type")
+	}
+
+	return connector.BinaryResult{Data: resp.Body, ContentType: respContentType}, nil
 }
 
 func (ic *InterfaceClient) dispatchGetInvoicePDFWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
@@ -1191,7 +1196,12 @@ func (ic *InterfaceClient) dispatchGetInvoicePDFWithResponse(ctx context.Context
 		return nil, fmt.Errorf("quickbooks-account.get-invoice-p-d-f: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
-	return json.RawMessage(resp.Body), nil
+	var respContentType string
+	if resp.HTTPResponse != nil {
+		respContentType = resp.HTTPResponse.Header.Get("Content-Type")
+	}
+
+	return connector.BinaryResult{Data: resp.Body, ContentType: respContentType}, nil
 }
 
 func (ic *InterfaceClient) dispatchGetSalesReceiptPDFWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {
@@ -1223,7 +1233,12 @@ func (ic *InterfaceClient) dispatchGetSalesReceiptPDFWithResponse(ctx context.Co
 		return nil, fmt.Errorf("quickbooks-account.get-sales-receipt-p-d-f: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
-	return json.RawMessage(resp.Body), nil
+	var respContentType string
+	if resp.HTTPResponse != nil {
+		respContentType = resp.HTTPResponse.Header.Get("Content-Type")
+	}
+
+	return connector.BinaryResult{Data: resp.Body, ContentType: respContentType}, nil
 }
 
 func (ic *InterfaceClient) dispatchQueryAccountWithResponse(ctx context.Context, config map[string]string, inputs json.RawMessage) (any, error) {

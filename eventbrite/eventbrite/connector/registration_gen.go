@@ -739,6 +739,7 @@ func Register() connector.Registration {
 					{Name: "status", Type: "string", Required: false, Description: "Filter Organization's Events by status. Specify multiple status values as a comma delimited string."},
 					{Name: "order_by", Type: "string", Required: false, Description: "Sort order for the list of Events."},
 					{Name: "page_size", Type: "integer", Required: false, Description: "Number of records to display on each page of the list."},
+					{Name: "expand", Type: "string", Required: false, Description: "Comma-separated related objects to include on each Event, e.g. venue,ticket_availability."},
 				},
 				Outputs: []connector.CWLFieldInfo{
 					{Name: "events", Type: "array", Required: false, Description: ""},

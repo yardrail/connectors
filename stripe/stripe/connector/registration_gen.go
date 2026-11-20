@@ -5385,7 +5385,9 @@ func Register() connector.Registration {
 					{Name: "expand", Type: "array", Required: false, Description: "Specifies which fields in the response should be expanded."},
 					{Name: "quote", Type: "string", Required: true, Description: ""},
 				},
-				Outputs: []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "File", Required: true, Description: "Downloaded file"},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/stripe#GetRadarEarlyFraudWarnings", Info: connector.CWLClassInfo{
 				ConnectorID: "stripe",

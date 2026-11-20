@@ -5411,7 +5411,7 @@ func Register() connector.Registration {
 				ClassName:   "PostFileManagerFiles",
 				Description: "Add file",
 				Inputs: []connector.CWLFieldInfo{
-					{Name: "file_data", Type: "string", Required: true, Description: "The base64-encoded contents of the file."},
+					{Name: "file_data", Type: "File", Required: true, Description: "The base64-encoded contents of the file."},
 					{Name: "folder_id", Type: "integer", Required: false, Description: "The id of the folder."},
 					{Name: "name", Type: "string", Required: true, Description: "The name of the file."},
 				},

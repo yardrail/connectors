@@ -327,6 +327,9 @@ import (
 	"io"
 	"net/http"
 	"strings"
+{{- if hasFileFields .Spec}}
+	"os"
+{{- end}}
 {{- if needsUUID .Methods}}
 
 	"github.com/google/uuid"
@@ -343,4 +346,4 @@ var (
 	errGraphQL                = errors.New("{{.ConnectorID}}: graphql errors")
 )
 
-` + resolveTemplate + graphqlQueryConstsTemplate + openAPIMethodsTemplate + graphqlCallTemplate
+` + resolveTemplate + graphqlQueryConstsTemplate + openAPIMethodsTemplate + fileFieldsTemplate + graphqlCallTemplate
