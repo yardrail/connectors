@@ -407,6 +407,15 @@ var tmplFuncs = template.FuncMap{
 
 		return op.Inputs
 	},
+	"isBinaryResponse": func(spec *SpecInfo, methodName string) bool {
+		if spec == nil {
+			return false
+		}
+
+		op := spec.Operations[normalizeMethodToOpKey(methodName)]
+
+		return op != nil && op.BinaryResponse
+	},
 	"opOutputs": func(op *OperationInfo) []FieldInfo {
 		if op == nil {
 			return nil
@@ -838,8 +847,16 @@ func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if use
 	if resp.HTTPResponse != nil && resp.HTTPResponse.StatusCode >= 400 {
 		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
+{{if isBinaryResponse $.Spec $m.Name}}
+	var respContentType string
+	if resp.HTTPResponse != nil {
+		respContentType = resp.HTTPResponse.Header.Get("Content-Type")
+	}
 
+	return connector.BinaryResult{Data: resp.Body, ContentType: respContentType}, nil
+{{- else}}
 	return json.RawMessage(resp.Body), nil
+{{- end}}
 }
 {{end}}
 `

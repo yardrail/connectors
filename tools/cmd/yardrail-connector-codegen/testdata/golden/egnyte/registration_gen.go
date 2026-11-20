@@ -1931,7 +1931,9 @@ func Register() connector.Registration {
 					{Name: "id", Type: "string", Required: true, Description: "The unique file system ID (`group_id`) of the file to download."},
 					{Name: "entry_id", Type: "string", Required: false, Description: "Optional file version identifier. When provided, the specified revision of the file will be returned instead of the latest."},
 				},
-				Outputs: []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "File", Required: true, Description: "Downloaded file"},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/egnyte#PortalProdGetFsContentByPathV1", Info: connector.CWLClassInfo{
 				ConnectorID: "egnyte",
@@ -1942,7 +1944,9 @@ func Register() connector.Registration {
 					{Name: "path", Type: "string", Required: true, Description: "Full path to the file to download (e.g. `/Shared/Documents/report.pdf`). Slashes must be URL-encoded."},
 					{Name: "entry_id", Type: "string", Required: false, Description: "Optional file version identifier. When provided, the specified revision of the file will be returned instead of the latest."},
 				},
-				Outputs: []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "File", Required: true, Description: "Downloaded file"},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/egnyte#PortalProdGetFsFolderStatsV1", Info: connector.CWLClassInfo{
 				ConnectorID: "egnyte",

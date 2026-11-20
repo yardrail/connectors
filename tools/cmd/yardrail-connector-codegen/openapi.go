@@ -14,12 +14,15 @@ type OperationInfo struct {
 	Description string
 	Inputs      []FieldInfo
 	Outputs     []FieldInfo
+	// BinaryResponse is true when the 200 response is a binary body
+	// (type: string, format: binary). Its only output is file: File.
+	BinaryResponse bool
 }
 
 // FieldInfo describes one property in a request or response schema.
 type FieldInfo struct {
 	Name     string
-	Type     string // "string", "integer", "number", "boolean", "array", "object"
+	Type     string // "string", "integer", "number", "boolean", "array", "object", "File"
 	Required bool
 	Doc      string
 }
@@ -56,6 +59,11 @@ func parseOperations(specPath string) (map[string]*OperationInfo, error) {
 
 			info.Inputs = collectInputs(op, resolver)
 			info.Outputs = collectOutputs(op, resolver)
+
+			if isBinaryResponse(op, resolver) {
+				info.BinaryResponse = true
+				info.Outputs = []FieldInfo{{Name: "file", Type: "File", Required: true, Doc: "Downloaded file"}}
+			}
 
 			if isBinaryRequestBody(op) {
 				info.Inputs = append(info.Inputs,
@@ -326,6 +334,25 @@ type rawSchema struct {
 	Properties  map[string]rawSchema `json:"properties"`
 	Required    []string             `json:"required"`
 	Items       *rawSchema           `json:"items"`
+	Format      string               `json:"format"`
+}
+
+// isBinaryResponse reports whether the operation's 200 response content has a
+// schema of type string, format binary.
+func isBinaryResponse(op rawOperation, resolver *refResolver) bool {
+	resp, ok := op.Responses["200"]
+	if !ok {
+		return false
+	}
+
+	for _, mt := range resp.Content {
+		s := resolver.resolve(&mt.Schema)
+		if s.Type == "string" && s.Format == "binary" {
+			return true
+		}
+	}
+
+	return false
 }
 
 func isBinaryRequestBody(op rawOperation) bool {

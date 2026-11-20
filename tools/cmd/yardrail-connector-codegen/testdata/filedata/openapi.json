@@ -1,0 +1,21 @@
+{
+  "openapi": "3.0.0",
+  "info": {"title": "File data fixture", "version": "1.0.0"},
+  "paths": {
+    "/files/{id}/content": {
+      "get": {
+        "operationId": "getFileContent",
+        "summary": "Download a file",
+        "parameters": [
+          {"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "File content",
+            "content": {"application/octet-stream": {"schema": {"type": "string", "format": "binary"}}}
+          }
+        }
+      }
+    }
+  }
+}
