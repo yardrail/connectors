@@ -125,6 +125,8 @@ def fix_openapi3(path):
              "description": "Sort order for the list of Events."},
             {"name": "page_size", "in": "query", "required": False, "schema": {"type": "integer"},
              "description": "Number of records to display on each page of the list."},
+            {"name": "expand", "in": "query", "required": False, "schema": {"type": "string"},
+             "description": "Comma-separated related objects to include on each Event, e.g. venue,ticket_availability."},
         ],
     }
     for (url, method), extra in extra_query_params.items():
