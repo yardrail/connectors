@@ -660,7 +660,9 @@ func Register() connector.Registration {
 					{Name: "minorversion", Type: "integer", Required: false, Description: "Minor version of the QBO API."},
 					{Name: "id", Type: "string", Required: true, Description: "The Estimate entity ID."},
 				},
-				Outputs: []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "File", Required: true, Description: "Downloaded file"},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/quickbooks-account#GetInvoicePDF", Info: connector.CWLClassInfo{
 				ConnectorID: "quickbooks-account",
@@ -672,7 +674,9 @@ func Register() connector.Registration {
 					{Name: "minorversion", Type: "integer", Required: false, Description: "Minor version of the QBO API."},
 					{Name: "id", Type: "string", Required: true, Description: "The Invoice entity ID."},
 				},
-				Outputs: []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "File", Required: true, Description: "Downloaded file"},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/quickbooks-account#GetSalesReceiptPDF", Info: connector.CWLClassInfo{
 				ConnectorID: "quickbooks-account",
@@ -684,7 +688,9 @@ func Register() connector.Registration {
 					{Name: "minorversion", Type: "integer", Required: false, Description: "Minor version of the QBO API."},
 					{Name: "id", Type: "string", Required: true, Description: "The SalesReceipt entity ID."},
 				},
-				Outputs: []connector.CWLFieldInfo{},
+				Outputs: []connector.CWLFieldInfo{
+					{Name: "file", Type: "File", Required: true, Description: "Downloaded file"},
+				},
 			}},
 			{ClassIRI: "https://yardrail.com/cwl/quickbooks-account#QueryAccount", Info: connector.CWLClassInfo{
 				ConnectorID: "quickbooks-account",

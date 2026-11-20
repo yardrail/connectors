@@ -7575,7 +7575,12 @@ func (ic *InterfaceClient) dispatchGetQuotesQuotePdfWithFormdataBodyWithResponse
 		return nil, fmt.Errorf("stripe.get-quotes-quote-pdf: HTTP %d: %s", resp.HTTPResponse.StatusCode, string(resp.Body))
 	}
 
-	return json.RawMessage(resp.Body), nil
+	var respContentType string
+	if resp.HTTPResponse != nil {
+		respContentType = resp.HTTPResponse.Header.Get("Content-Type")
+	}
+
+	return connector.BinaryResult{Data: resp.Body, ContentType: respContentType}, nil
 }
 
 func (ic *InterfaceClient) dispatchGetRadarEarlyFraudWarningsWithFormdataBodyWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
