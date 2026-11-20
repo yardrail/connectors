@@ -8,7 +8,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
 
 	"github.com/yardrail/connectors/connector"
 
@@ -7457,7 +7459,12 @@ func (ic *InterfaceClient) dispatchPostEcommerceStoresIdPromorulesWithResponse(c
 func (ic *InterfaceClient) dispatchPostFileManagerFilesWithResponse(ctx context.Context, _ map[string]string, inputs json.RawMessage) (any, error) {
 	var body client.PostFileManagerFilesJSONRequestBody
 
-	bodyErr := json.Unmarshal(inputs, &body)
+	bodyInputs, fileErr := inlineFileFields("mailchimp.post-file-manager-files", inputs, "file_data")
+	if fileErr != nil {
+		return nil, fileErr
+	}
+
+	bodyErr := json.Unmarshal(bodyInputs, &body)
 	if bodyErr != nil {
 		return nil, fmt.Errorf("mailchimp.post-file-manager-files: %w", bodyErr)
 	}
@@ -8632,4 +8639,71 @@ func (ic *InterfaceClient) dispatchVerifyDomainWithResponse(ctx context.Context,
 	}
 
 	return json.RawMessage(resp.Body), nil
+}
+
+const maxMediaSize = 50 << 20 // 50 MiB
+
+// inlineFileFields returns inputs with each named File input ({path, mimeType})
+// replaced by the file's contents, so the body field unmarshals to the bytes.
+func inlineFileFields(op string, inputs json.RawMessage, names ...string) (json.RawMessage, error) {
+	fields := make(map[string]json.RawMessage)
+	if err := json.Unmarshal(inputs, &fields); err != nil {
+		return nil, fmt.Errorf("%s: %w", op, err)
+	}
+
+	for _, name := range names {
+		raw, ok := fields[name]
+		if !ok {
+			continue
+		}
+
+		delete(fields, name)
+
+		var mediaInput struct {
+			Path     string `json:"path"`
+			MimeType string `json:"mimeType"`
+		}
+		if err := json.Unmarshal(raw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("%s: %s: %w", op, name, err)
+		}
+
+		data, err := readMedia(op, mediaInput.Path)
+		if err != nil {
+			return nil, err
+		}
+
+		encoded, err := json.Marshal(data)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %s: %w", op, name, err)
+		}
+
+		fields[name] = encoded
+	}
+
+	return json.Marshal(fields)
+}
+
+// readMedia reads the file at path whole, rejecting files over maxMediaSize.
+func readMedia(op, path string) ([]byte, error) {
+	mediaFile, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("%s: opening media: %w", op, err)
+	}
+	defer mediaFile.Close()
+
+	fi, err := mediaFile.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("%s: stat media: %w", op, err)
+	}
+
+	if fi.Size() > maxMediaSize {
+		return nil, fmt.Errorf("%s: media exceeds %d byte limit", op, maxMediaSize)
+	}
+
+	data, err := io.ReadAll(mediaFile)
+	if err != nil {
+		return nil, fmt.Errorf("%s: reading media: %w", op, err)
+	}
+
+	return data, nil
 }

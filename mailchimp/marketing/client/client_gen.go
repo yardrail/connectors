@@ -189146,7 +189146,7 @@ type GetFileManagerFiles200ApplicationProblemPlusJSONResponseBodyFilesType strin
 // PostFileManagerFilesJSONBody defines parameters for PostFileManagerFiles.
 type PostFileManagerFilesJSONBody struct {
 	// FileData The base64-encoded contents of the file.
-	FileData string `json:"file_data"`
+	FileData []byte `json:"file_data"`
 
 	// FolderId The id of the folder.
 	FolderId *int `json:"folder_id,omitempty"`

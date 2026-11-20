@@ -2,9 +2,9 @@ version: "3"
 
 tasks:
   spec:
-    desc: "Mailchimp Marketing spec (committed, manually managed)"
+    desc: "Mailchimp Marketing spec (committed, with jq fixup to mark base64 fields)"
     cmds:
-      - echo "spec is committed — update manually"
+      - jq -f spec/fixup.jq spec/openapi.json > spec/openapi.fixed.json
 
   client:
     desc: "Generate Mailchimp Marketing Go client"
