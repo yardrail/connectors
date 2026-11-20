@@ -407,6 +407,30 @@ var tmplFuncs = template.FuncMap{
 
 		return op.Inputs
 	},
+	"fileFields": func(spec *SpecInfo, methodName string) []string {
+		if spec == nil {
+			return nil
+		}
+
+		if op := spec.Operations[normalizeMethodToOpKey(methodName)]; op != nil {
+			return op.FileFields
+		}
+
+		return nil
+	},
+	"hasFileFields": func(spec *SpecInfo) bool {
+		if spec == nil {
+			return false
+		}
+
+		for _, op := range spec.Operations {
+			if len(op.FileFields) > 0 {
+				return true
+			}
+		}
+
+		return false
+	},
 	"isBinaryResponse": func(spec *SpecInfo, methodName string) bool {
 		if spec == nil {
 			return false
@@ -718,7 +742,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+{{- if hasFileFields .Spec}}
+	"io"
+{{- end}}
 	"net/http"
+{{- if hasFileFields .Spec}}
+	"os"
+{{- end}}
 {{- if needsUUID .Methods}}
 
 	"github.com/google/uuid"
@@ -738,7 +768,7 @@ var (
 const maxStreamBodySize = 50 << 20 // 50 MiB
 {{- end}}
 
-` + resolveTemplate + openAPIMethodsTemplate
+` + resolveTemplate + openAPIMethodsTemplate + fileFieldsTemplate
 
 // openAPIAccessorsBaseURLTemplate renders only resolveBaseURL (used by mixed
 // template which defines its own Client accessor).
@@ -796,8 +826,19 @@ func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if use
 {{- end}}
 {{- if $hasBody}}
 	var body {{clientPkgName $.ClientPkgPath}}.{{$bodyType}}
+{{- $fileFields := fileFields $.Spec $m.Name}}
+{{- if $fileFields}}
+
+	bodyInputs, fileErr := inlineFileFields("{{$.ConnectorID}}.{{$m.Name}}", inputs{{range $fileFields}}, "{{.}}"{{end}})
+	if fileErr != nil {
+		return nil, fileErr
+	}
+
+	bodyErr := json.Unmarshal(bodyInputs, &body)
+{{- else}}
 
 	bodyErr := json.Unmarshal(inputs, &body)
+{{- end}}
 	if bodyErr != nil {
 		return nil, fmt.Errorf("{{$.ConnectorID}}.{{$m.Name}}: %w", bodyErr)
 	}
@@ -860,6 +901,78 @@ func (ic *InterfaceClient) dispatch{{.MethodName}}(ctx context.Context, {{if use
 }
 {{end}}
 `
+
+// fileFieldsTemplate renders inlineFileFields when an operation has a request
+// body field typed string, format byte. The field's File input is read whole
+// (base64 inside JSON cannot stream) and its bytes fill the field.
+const fileFieldsTemplate = `{{if hasFileFields .Spec}}
+const maxMediaSize = 50 << 20 // 50 MiB
+
+// inlineFileFields returns inputs with each named File input ({path, mimeType})
+// replaced by the file's contents, so the body field unmarshals to the bytes.
+func inlineFileFields(op string, inputs json.RawMessage, names ...string) (json.RawMessage, error) {
+	fields := make(map[string]json.RawMessage)
+	if err := json.Unmarshal(inputs, &fields); err != nil {
+		return nil, fmt.Errorf("%s: %w", op, err)
+	}
+
+	for _, name := range names {
+		raw, ok := fields[name]
+		if !ok {
+			continue
+		}
+
+		delete(fields, name)
+
+		var mediaInput struct {
+			Path     string ` + "`" + `json:"path"` + "`" + `
+			MimeType string ` + "`" + `json:"mimeType"` + "`" + `
+		}
+		if err := json.Unmarshal(raw, &mediaInput); err != nil {
+			return nil, fmt.Errorf("%s: %s: %w", op, name, err)
+		}
+
+		data, err := readMedia(op, mediaInput.Path)
+		if err != nil {
+			return nil, err
+		}
+
+		encoded, err := json.Marshal(data)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %s: %w", op, name, err)
+		}
+
+		fields[name] = encoded
+	}
+
+	return json.Marshal(fields)
+}
+
+// readMedia reads the file at path whole, rejecting files over maxMediaSize.
+func readMedia(op, path string) ([]byte, error) {
+	mediaFile, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("%s: opening media: %w", op, err)
+	}
+	defer mediaFile.Close()
+
+	fi, err := mediaFile.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("%s: stat media: %w", op, err)
+	}
+
+	if fi.Size() > maxMediaSize {
+		return nil, fmt.Errorf("%s: media exceeds %d byte limit", op, maxMediaSize)
+	}
+
+	data, err := io.ReadAll(mediaFile)
+	if err != nil {
+		return nil, fmt.Errorf("%s: reading media: %w", op, err)
+	}
+
+	return data, nil
+}
+{{end}}`
 
 // functionEnumTemplate renders the Function type, constants, and ParseFunction.
 const functionEnumTemplate = `// Function identifies a callable operation on this connector.

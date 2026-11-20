@@ -62,3 +62,31 @@ func TestBinaryResponse(t *testing.T) {
 		t.Errorf("registration output is not file: File:\n%s", registration)
 	}
 }
+
+func TestByteFieldFileInput(t *testing.T) {
+	t.Parallel()
+
+	dispatch, registration := renderFileDataFixture(t, introspect.MethodInfo{
+		Name:       "upload-file",
+		MethodName: "UploadFileWithResponse",
+		Params: []introspect.MethodParam{{
+			Name: "body", JSONName: "body", FullType: "target.UploadFileJSONRequestBody", IsStruct: true, Required: true,
+		}},
+		CallArgs: []introspect.CallArg{{Expr: "body"}},
+	})
+
+	if !strings.Contains(registration, `{Name: "file_data", Type: "File"`) {
+		t.Errorf("registration input file_data is not File:\n%s", registration)
+	}
+
+	for _, want := range []string{
+		`inlineFileFields("filedata.upload-file", inputs, "file_data")`,
+		"json.Unmarshal(bodyInputs, &body)",
+		"`json:\"path\"`",
+		"os.Open(path)",
+	} {
+		if !strings.Contains(dispatch, want) {
+			t.Errorf("dispatch does not contain %s:\n%s", want, dispatch)
+		}
+	}
+}

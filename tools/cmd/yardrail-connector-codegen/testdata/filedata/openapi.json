@@ -1,18 +1,81 @@
 {
   "openapi": "3.0.0",
-  "info": {"title": "File data fixture", "version": "1.0.0"},
+  "info": {
+    "title": "File data fixture",
+    "version": "1.0.0"
+  },
   "paths": {
     "/files/{id}/content": {
       "get": {
         "operationId": "getFileContent",
         "summary": "Download a file",
         "parameters": [
-          {"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "File content",
-            "content": {"application/octet-stream": {"schema": {"type": "string", "format": "binary"}}}
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/files": {
+      "post": {
+        "operationId": "uploadFile",
+        "summary": "Upload a file",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "file_data"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "file_data": {
+                    "type": "string",
+                    "format": "byte",
+                    "description": "The file contents"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Uploaded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
