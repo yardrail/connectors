@@ -23,7 +23,7 @@ func Register() connector.Registration {
 							Name:        "domain",
 							Type:        connector.ConfigFieldTypeString,
 							Label:       "Egnyte domain",
-							Description: "The part before .egnyte.com in your Egnyte web address, for example urbanwork.",
+							Description: "The part before .egnyte.com in your Egnyte web address, for example acme.",
 							Required:    true,
 						},
 					},
