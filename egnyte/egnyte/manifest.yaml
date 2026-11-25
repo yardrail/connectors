@@ -14,7 +14,7 @@ interfaces:
       - name: domain
         type: string
         label: Egnyte domain
-        description: "The part before .egnyte.com in your Egnyte web address, for example urbanwork."
+        description: "The part before .egnyte.com in your Egnyte web address, for example acme."
         required: true
     capabilities: [file.read, file.write, folder.read, folder.write, permission.read, permission.write]
     source:
