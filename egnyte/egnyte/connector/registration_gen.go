@@ -13,13 +13,21 @@ func Register() connector.Registration {
 			Description: "Manage files, folders, and permissions in Egnyte.",
 			Interfaces: []connector.Interface{
 				{
-					ID:           "token",
-					Name:         "Access Token",
-					Protocol:     connector.ProtocolREST,
-					AuthMethod:   connector.AuthMethodOAuth2User,
-					DependsOn:    nil,
-					ConfigFields: nil,
-					SecretKey:    "token",
+					ID:         "token",
+					Name:       "Access Token",
+					Protocol:   connector.ProtocolREST,
+					AuthMethod: connector.AuthMethodOAuth2User,
+					DependsOn:  nil,
+					ConfigFields: []connector.ConfigField{
+						{
+							Name:        "domain",
+							Type:        connector.ConfigFieldTypeString,
+							Label:       "Egnyte domain",
+							Description: "The part before .egnyte.com in your Egnyte web address, for example urbanwork.",
+							Required:    true,
+						},
+					},
+					SecretKey: "token",
 				},
 			},
 		},
